@@ -22,9 +22,14 @@ export class UIBitCarousel extends LitElement {
   @state() canPrev = false;
   @state() canNext = true;
 
-  private autoPlayTimer?: NodeJS.Timeout;
+  private autoPlayTimer?: number;
   private resizeObserver?: ResizeObserver;
   private intersectionObserver?: IntersectionObserver;
+  private isProgrammaticScroll = false;
+  private programmaticScrollTimeout?: number;
+
+  private handleScroll = () => this.onScroll();
+  private handleInteraction = () => this.onInteraction();
 
   constructor(config?: CarouselConfig) {
     super();
@@ -47,12 +52,16 @@ export class UIBitCarousel extends LitElement {
   updated(changedProperties: Map<string, unknown>) {
     if (
       changedProperties.has('itemsPerView') ||
-      changedProperties.has('gap')
+      changedProperties.has('gap') ||
+      changedProperties.has('duration')
     ) {
       this.updateCSSVariables();
     }
 
-    if (changedProperties.has('autoPlay')) {
+    if (
+      changedProperties.has('autoPlay') ||
+      changedProperties.has('autoPlayInterval')
+    ) {
       if (this.autoPlay) {
         this.setupAutoPlay();
       } else {
@@ -64,12 +73,23 @@ export class UIBitCarousel extends LitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.stopAutoPlay();
+    if (this.programmaticScrollTimeout) {
+      clearTimeout(this.programmaticScrollTimeout);
+    }
     this.resizeObserver?.disconnect();
     this.intersectionObserver?.disconnect();
+    if (this.content) {
+      this.content.removeEventListener('scroll', this.handleScroll);
+      this.content.removeEventListener('touchstart', this.handleInteraction);
+      this.content.removeEventListener('mousedown', this.handleInteraction);
+    }
   }
 
   private setupCarousel() {
     if (!this.content) return;
+
+    this.intersectionObserver?.disconnect();
+    this.resizeObserver?.disconnect();
 
     const items = this.getSlides();
     this.totalSlides = items.length;
@@ -77,14 +97,16 @@ export class UIBitCarousel extends LitElement {
     this.updateCSSVariables();
     this.updateNavigationState();
     this.setupIntersectionObserver();
+    this.setupResizeObserver();
 
-    this.content.addEventListener('scroll', () => this.onScroll());
-    this.content.addEventListener('touchstart', () => this.onInteraction());
-    this.content.addEventListener('mousedown', () => this.onInteraction());
-  }
+    // Prevent duplicate event listeners by removing first
+    this.content.removeEventListener('scroll', this.handleScroll);
+    this.content.removeEventListener('touchstart', this.handleInteraction);
+    this.content.removeEventListener('mousedown', this.handleInteraction);
 
-  private setupCSSVariables() {
-    this.updateCSSVariables();
+    this.content.addEventListener('scroll', this.handleScroll);
+    this.content.addEventListener('touchstart', this.handleInteraction);
+    this.content.addEventListener('mousedown', this.handleInteraction);
   }
 
   private updateCSSVariables() {
@@ -98,15 +120,18 @@ export class UIBitCarousel extends LitElement {
 
   private setupIntersectionObserver() {
     const items = this.getSlides();
+    if (items.length === 0) return;
 
     this.intersectionObserver = new IntersectionObserver(
       (entries) => {
+        if (this.isProgrammaticScroll) return;
+
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const index = items.indexOf(entry.target as HTMLElement);
             if (index !== -1 && index !== this.currentIndex) {
               this.currentIndex = index;
-              this.updateIndicators();
+              this.updateNavigationState();
               this.emitSlideChange();
             }
           }
@@ -119,6 +144,14 @@ export class UIBitCarousel extends LitElement {
     );
 
     items.forEach((item) => this.intersectionObserver?.observe(item));
+  }
+
+  private setupResizeObserver() {
+    if (!this.content) return;
+    this.resizeObserver = new ResizeObserver(() => {
+      this.updateCSSVariables();
+    });
+    this.resizeObserver.observe(this.content);
   }
 
   private setupKeyboardNavigation() {
@@ -134,9 +167,10 @@ export class UIBitCarousel extends LitElement {
   }
 
   private setupAutoPlay() {
+    this.stopAutoPlay();
     if (!this.autoPlay || !this.content) return;
 
-    this.autoPlayTimer = setInterval(() => {
+    this.autoPlayTimer = window.setInterval(() => {
       if (this.currentIndex < this.totalSlides - 1) {
         this.next();
       } else if (this.loop) {
@@ -160,6 +194,21 @@ export class UIBitCarousel extends LitElement {
   }
 
   private onScroll() {
+    if (this.isProgrammaticScroll) return;
+    
+    // Fallback if IntersectionObserver is delayed
+    const items = this.getSlides();
+    if (this.content && items.length > 0) {
+      const scrollLeft = this.content.scrollLeft;
+      const width = this.content.clientWidth;
+      const newIndex = Math.round(scrollLeft / (width / this.itemsPerView));
+      if (newIndex >= 0 && newIndex < items.length && newIndex !== this.currentIndex) {
+        this.currentIndex = newIndex;
+        this.updateNavigationState();
+        this.emitSlideChange();
+      }
+    }
+    
     this.updateNavigationState();
   }
 
@@ -173,17 +222,6 @@ export class UIBitCarousel extends LitElement {
   private updateNavigationState() {
     this.canPrev = this.currentIndex > 0;
     this.canNext = this.currentIndex < this.totalSlides - 1 || this.loop;
-  }
-
-  private updateIndicators() {
-    const indicators = this.renderRoot.querySelectorAll('.carousel-indicator');
-    indicators.forEach((indicator, index) => {
-      if (index === this.currentIndex) {
-        indicator.classList.add('active');
-      } else {
-        indicator.classList.remove('active');
-      }
-    });
   }
 
   prev() {
@@ -215,6 +253,11 @@ export class UIBitCarousel extends LitElement {
     const item = items[index];
 
     if (item) {
+      this.isProgrammaticScroll = true;
+      if (this.programmaticScrollTimeout) {
+        clearTimeout(this.programmaticScrollTimeout);
+      }
+
       item.scrollIntoView({
         behavior: 'smooth',
         block: 'nearest',
@@ -223,8 +266,23 @@ export class UIBitCarousel extends LitElement {
 
       this.currentIndex = index;
       this.updateNavigationState();
-      this.updateIndicators();
       this.emitSlideChange();
+
+      const onScrollEnd = () => {
+        this.isProgrammaticScroll = false;
+        this.content?.removeEventListener('scrollend', onScrollEnd);
+      };
+
+      if ('onscrollend' in window) {
+        this.content.addEventListener('scrollend', onScrollEnd);
+      }
+
+      this.programmaticScrollTimeout = window.setTimeout(() => {
+        this.isProgrammaticScroll = false;
+        if (this.content && 'onscrollend' in window) {
+          this.content.removeEventListener('scrollend', onScrollEnd);
+        }
+      }, this.duration + 100);
     }
   }
 
@@ -241,9 +299,11 @@ export class UIBitCarousel extends LitElement {
     );
   }
 
-  render() {
-    const items = this.getSlides();
+  private handleSlotChange() {
+    this.setupCarousel();
+  }
 
+  render() {
     return html`
       <div class="carousel">
         <div class="carousel-viewport" role="region" aria-label="Carousel">
@@ -252,7 +312,7 @@ export class UIBitCarousel extends LitElement {
             role="listbox"
             aria-label="Carousel items"
           >
-            <slot name="item"></slot>
+            <slot name="item" @slotchange=${this.handleSlotChange}></slot>
           </div>
         </div>
 

@@ -1,19 +1,36 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-@layer base {
-  html {
-    @apply scroll-smooth;
-  }
-
-  body {
-    @apply bg-gray-50 text-gray-900;
-  }
+html {
+  scroll-behavior: smooth;
+  font-feature-settings: 'rlig' 1, 'calt' 1;
 }
 
-@layer components {
-  .prose-code {
-    @apply bg-gray-100 rounded px-2 py-1 text-sm font-mono;
-  }
+body {
+  background-color: white;
+  color: #111827;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.prose-code {
+  background-color: #f3f4f6;
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.875rem;
+  font-family: monospace;
+  color: #374151;
+}
+
+.code-block {
+  background-color: #0f172a;
+  color: #f1f5f9;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  font-family: monospace;
 }

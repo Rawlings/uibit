@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 
 @customElement('uibit-scroll-progress')
 export class ScrollProgress extends LitElement {
@@ -27,30 +27,99 @@ export class ScrollProgress extends LitElement {
 
   @property({ type: Number }) height = 4;
   @property({ type: String }) color = '#3b82f6';
+  @property({ type: String }) target?: string; // CSS selector of custom scrollable element
+
+  @state() private progressPercent = 0;
+
+  private activeScrollTarget: HTMLElement | Window | null = null;
+  private handleScroll = () => this.updateProgress();
 
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('scroll', () => this.updateProgress());
+    this.attachScrollListener();
+    this.updateProgress();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('scroll', () => this.updateProgress());
+    this.detachScrollListener();
   }
 
-  private updateProgress() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  updated(changedProperties: Map<string, unknown>) {
+    if (changedProperties.has('target')) {
+      this.attachScrollListener();
+      this.updateProgress();
+    }
 
-    const progressBar = this.shadowRoot?.querySelector('.progress') as HTMLElement;
-    if (progressBar) {
-      progressBar.style.width = progress + '%';
+    if (changedProperties.has('height') || changedProperties.has('color')) {
+      this.updateStyles();
     }
   }
 
+  private updateStyles() {
+    this.style.setProperty('--progress-height', `${this.height}px`);
+    this.style.setProperty('--progress-color', this.color);
+    
+    if (this.target) {
+      this.style.position = 'absolute';
+    } else {
+      this.style.position = 'fixed';
+    }
+  }
+
+  private getTargetElement(): HTMLElement | Window {
+    if (typeof window === 'undefined') return window;
+    if (this.target) {
+      const el = document.querySelector(this.target);
+      if (el) return el as HTMLElement;
+    }
+    return window;
+  }
+
+  private attachScrollListener() {
+    this.detachScrollListener();
+    const targetEl = this.getTargetElement();
+    this.activeScrollTarget = targetEl;
+    targetEl.addEventListener('scroll', this.handleScroll);
+  }
+
+  private detachScrollListener() {
+    if (this.activeScrollTarget) {
+      this.activeScrollTarget.removeEventListener('scroll', this.handleScroll);
+      this.activeScrollTarget = null;
+    }
+  }
+
+  private updateProgress() {
+    let scrollTop = 0;
+    let docHeight = 0;
+
+    if (this.activeScrollTarget === window || !this.activeScrollTarget) {
+      if (typeof window !== 'undefined') {
+        scrollTop = window.scrollY;
+        docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      }
+    } else {
+      const el = this.activeScrollTarget as HTMLElement;
+      scrollTop = el.scrollTop;
+      docHeight = el.scrollHeight - el.clientHeight;
+    }
+
+    this.progressPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  }
+
   render() {
-    return html`<div class="progress"></div>`;
+    return html`
+      <div 
+        class="progress" 
+        style="width: ${this.progressPercent}%"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="${Math.round(this.progressPercent)}"
+        aria-label="Scroll progress indicator"
+      ></div>
+    `;
   }
 }
 

@@ -1,109 +1,146 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function CountdownDocs() {
   useEffect(() => {
     import('@uibit/countdown');
   }, []);
 
-  // Set target to 1 hour from now for demo
-  const targetTime = new Date(Date.now() + 3600000).toISOString();
+  const targetTime = new Date(Date.now() + 3600 * 1000 * 2.5).toISOString(); // 2.5 hours from now
 
   return (
     <div className="bg-white">
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Countdown Component</h1>
-        <p className="text-lg text-gray-600 mb-6">
-          Display countdown timers to a target date or duration with customizable formatting.
+      {/* Breadcrumb */}
+      <div className="max-w-6xl mx-auto px-4 py-4 border-b border-gray-200">
+        <p className="text-sm text-gray-600 flex items-center gap-2">
+          <Link to="/" className="hover:text-gray-900 transition-colors">
+            Home
+          </Link>
+          <span className="text-gray-400">/</span>
+          <span className="text-gray-900 font-medium">Countdown</span>
         </p>
-
-        <section className="mb-12 border-b pb-12">
-          <h2 className="text-2xl font-bold mb-6">Live Demo</h2>
-          <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
-            <p className="text-sm text-gray-600 mb-4">Counting down to 1 hour from now...</p>
-            <uibit-countdown target={targetTime} auto-start={true}></uibit-countdown>
-          </div>
-        </section>
-
-        <section className="mb-12 border-b pb-12">
-          <h2 className="text-2xl font-bold mb-6">Installation</h2>
-          <code className="block bg-gray-100 p-4 rounded font-mono text-sm">
-            pnpm add @uibit/countdown
-          </code>
-        </section>
-
-        <section className="mb-12 border-b pb-12">
-          <h2 className="text-2xl font-bold mb-6">Quick Start</h2>
-          <pre className="bg-gray-900 text-gray-100 p-4 rounded font-mono text-sm overflow-x-auto">
-{`import '@uibit/countdown';
-
-function SaleCountdown() {
-  return (
-    <uibit-countdown
-      target="2025-12-25T00:00:00"
-      auto-start
-    ></uibit-countdown>
-  );
-}`}
-          </pre>
-        </section>
-
-        <section className="mb-12 border-b pb-12">
-          <h2 className="text-2xl font-bold mb-6">API Reference</h2>
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Properties</h3>
-              <div className="space-y-4">
-                <div className="border rounded p-4">
-                  <code className="font-mono text-primary-600">target</code>
-                  <p className="text-gray-600 text-sm mt-2">ISO date string for countdown target</p>
-                </div>
-                <div className="border rounded p-4">
-                  <code className="font-mono text-primary-600">duration</code>
-                  <p className="text-gray-600 text-sm mt-2">Milliseconds to count down (alternative to target)</p>
-                </div>
-                <div className="border rounded p-4">
-                  <code className="font-mono text-primary-600">auto-start</code>
-                  <p className="text-gray-600 text-sm mt-2">Start counting on mount (default: true)</p>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Methods</h3>
-              <div className="space-y-2 text-sm">
-                <div>• <code className="font-mono">start()</code> - Begin counting</div>
-                <div>• <code className="font-mono">stop()</code> - Pause counting</div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Events</h3>
-              <div className="space-y-4">
-                <div className="border rounded p-4">
-                  <code className="font-mono text-primary-600">countdown-tick</code>
-                  <p className="text-gray-600 text-sm mt-2">Fired every second with time details</p>
-                </div>
-                <div className="border rounded p-4">
-                  <code className="font-mono text-primary-600">countdown-complete</code>
-                  <p className="text-gray-600 text-sm mt-2">Fired when countdown reaches zero</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-2xl font-bold mb-6">Features</h2>
-          <ul className="space-y-3">
-            {['Target date or fixed duration', 'Customizable format', 'Event dispatch', 'Auto-start capability', 'Pause/resume control', 'Accessible with live regions'].map((f, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <span className="text-primary-600 font-bold mt-0.5">✓</span>
-                <span className="text-gray-700">{f}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
       </div>
+
+      {/* Header */}
+      <section className="max-w-6xl mx-auto px-4 py-12 sm:py-16">
+        <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4 tracking-tight">
+          Countdown
+        </h1>
+        <p className="text-base text-gray-600 mb-6 leading-relaxed max-w-3xl">
+          Highly customizable countdown timer. Supports target date markers or set durations, reactive timers, and custom format templates.
+        </p>
+        <code className="inline-block bg-gray-100 px-3 py-2 rounded text-sm font-mono text-gray-700">
+          pnpm add @uibit/countdown
+        </code>
+      </section>
+
+      {/* Live Demo */}
+      <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">Demo</h2>
+        <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
+          <p className="text-sm text-gray-600 mb-4">Counting down to 2 hours and 30 minutes from now:</p>
+          <div className="max-w-md bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+            <uibit-countdown target={targetTime} autoStart={true} format="HH:MM:SS"></uibit-countdown>
+          </div>
+        </div>
+      </section>
+
+      {/* API Reference */}
+      <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
+        <h2 className="text-xl font-semibold text-gray-900 mb-8">API</h2>
+        <div className="space-y-8">
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Properties</h3>
+            <div className="space-y-3">
+              {[
+                { name: 'target', desc: 'ISO date string representing the countdown destination' },
+                { name: 'duration', desc: 'Alternative millisecond offset value from start invocation' },
+                { name: 'autoStart', desc: 'Toggles timer connection on component mounting (default: true)' },
+                { name: 'format', desc: 'Desired display segments: supports "DD:HH:MM:SS", "HH:MM:SS", "MM:SS", or "SS" (default: "HH:MM:SS")' },
+              ].map((prop) => (
+                <div key={prop.name} className="border border-gray-200 rounded p-4">
+                  <code className="font-mono text-sm text-gray-900">{prop.name}</code>
+                  <p className="text-gray-600 text-sm mt-2">{prop.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Methods</h3>
+            <div className="space-y-3">
+              {[
+                { name: 'start()', desc: 'Resets resolved times and connects the 1-second interval loop' },
+                { name: 'stop()', desc: 'Clears the interval loop and pauses calculations' },
+              ].map((method) => (
+                <div key={method.name} className="border border-gray-200 rounded p-4">
+                  <code className="font-mono text-sm text-gray-900">{method.name}</code>
+                  <p className="text-gray-600 text-sm mt-2">{method.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Events</h3>
+            <div className="space-y-3">
+              {[
+                { name: 'countdown-tick', desc: 'Fires every second with the latest time details in event.detail' },
+                { name: 'countdown-complete', desc: 'Fires once the timer remaining values reach 0' },
+              ].map((event) => (
+                <div key={event.name} className="border border-gray-200 rounded p-4">
+                  <code className="font-mono text-sm text-gray-900">{event.name}</code>
+                  <p className="text-gray-600 text-sm mt-2">{event.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Usage Examples */}
+      <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
+        <h2 className="text-xl font-semibold text-gray-900 mb-8">Usage</h2>
+
+        <div className="space-y-8">
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">HTML Integration</h3>
+            <pre className="code-block"><code>{`<uibit-countdown target="2026-12-31T23:59:59" format="DD:HH:MM:SS"></uibit-countdown>`}</code></pre>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">React Integration</h3>
+            <pre className="code-block"><code>{`import '@uibit/countdown';
+
+function SaleTimer() {
+  const threeHours = 3 * 3600 * 1000;
+
+  return (
+    <uibit-countdown duration={threeHours} format="HH:MM:SS" />
+  );
+}`}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="max-w-6xl mx-auto px-4 py-12">
+        <h2 className="text-xl font-semibold text-gray-900 mb-6">Features</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {[
+            'Calculates offset once to prevent interval time drifting',
+            'Internal count variables hidden from public API attributes',
+            'Full support for customizable segment formatting (DD, HH, MM, SS)',
+            'Polite ARIA live landmark alerts for screen readers',
+            'Dynamic update hooks restart automatically when target date changes'
+          ].map((feature, i) => (
+            <div key={i} className="flex items-start gap-3">
+              <span className="text-gray-900 font-semibold mt-0.5">—</span>
+              <span className="text-gray-700 text-sm">{feature}</span>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

@@ -1,41 +1,257 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
+import styles from './360-viewer.css?inline';
 
 @customElement('uibit-360-viewer')
 export class Viewer360 extends LitElement {
-  static styles = css`
-    :host {
-      display: block;
-      width: 100%;
-    }
-
-    .viewer {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      background: #f5f5f5;
-      border-radius: 8px;
-    }
-
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-  `;
+  static styles = css`${styles}`;
 
   @property({ type: Array }) images: string[] = [];
   @property({ type: Boolean }) autoRotate = false;
-  @property({ type: Number }) rotationSpeed = 100;
+  @property({ type: Number }) rotationSpeed = 150; // ms per frame
+  @property({ type: Number }) dragSensitivity = 15; // px of horizontal drag to trigger index change
+  @property({ type: Boolean }) showControls = true;
+  @property({ type: Boolean }) showProgressBar = true;
 
-  private currentIndex = 0;
+  @state() private currentIndex = 0;
+  @state() private isDragging = false;
+
+  private autoRotateTimer?: number;
+  private resumeTimer?: number;
+  private startX = 0;
+  private startImageIndex = 0;
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.startAutoRotate();
+    this.preloadAllImages();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.stopAutoRotate();
+    this.clearResumeTimer();
+  }
+
+  updated(changedProperties: Map<string, unknown>) {
+    if (changedProperties.has('autoRotate') || changedProperties.has('rotationSpeed')) {
+      if (this.autoRotate) {
+        this.startAutoRotate();
+      } else {
+        this.stopAutoRotate();
+      }
+    }
+    if (changedProperties.has('images')) {
+      this.currentIndex = 0;
+      this.preloadAllImages();
+      if (this.autoRotate) {
+        this.startAutoRotate();
+      }
+    }
+  }
+
+  private startAutoRotate() {
+    this.stopAutoRotate();
+    if (!this.autoRotate || this.images.length === 0) return;
+    this.autoRotateTimer = window.setInterval(() => {
+      this.next();
+    }, this.rotationSpeed);
+  }
+
+  private stopAutoRotate() {
+    if (this.autoRotateTimer) {
+      clearInterval(this.autoRotateTimer);
+      this.autoRotateTimer = undefined;
+    }
+  }
+
+  private scheduleAutoRotateResume() {
+    if (!this.autoRotate) return;
+    this.clearResumeTimer();
+    this.resumeTimer = window.setTimeout(() => {
+      this.startAutoRotate();
+    }, 2000);
+  }
+
+  private clearResumeTimer() {
+    if (this.resumeTimer) {
+      clearTimeout(this.resumeTimer);
+      this.resumeTimer = undefined;
+    }
+  }
+
+  private preloadAdjacentImages() {
+    if (!this.images || this.images.length === 0) return;
+    const nextIndex = (this.currentIndex + 1) % this.images.length;
+    const prevIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    
+    [nextIndex, prevIndex].forEach((idx) => {
+      const img = new Image();
+      img.src = this.images[idx];
+    });
+  }
+
+  private preloadAllImages() {
+    if (!this.images) return;
+    this.images.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }
+
+  next() {
+    if (this.images.length === 0) return;
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
+    this.preloadAdjacentImages();
+    this.emitChange();
+  }
+
+  prev() {
+    if (this.images.length === 0) return;
+    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    this.preloadAdjacentImages();
+    this.emitChange();
+  }
+
+  private emitChange() {
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: {
+          index: this.currentIndex,
+          image: this.images[this.currentIndex]
+        },
+        bubbles: true,
+        composed: true
+      })
+    );
+  }
+
+  private handlePointerDown(e: PointerEvent) {
+    if (this.images.length === 0) return;
+    this.isDragging = true;
+    this.startX = e.clientX;
+    this.startImageIndex = this.currentIndex;
+    this.stopAutoRotate();
+    this.clearResumeTimer();
+    
+    const viewer = e.currentTarget as HTMLElement;
+    viewer.setPointerCapture(e.pointerId);
+  }
+
+  private handlePointerMove(e: PointerEvent) {
+    if (!this.isDragging || this.images.length === 0) return;
+    const deltaX = e.clientX - this.startX;
+    const step = this.dragSensitivity;
+    const offset = Math.round(deltaX / step);
+    let newIndex = (this.startImageIndex - offset) % this.images.length;
+    if (newIndex < 0) {
+      newIndex += this.images.length;
+    }
+    if (newIndex !== this.currentIndex) {
+      this.currentIndex = newIndex;
+      this.preloadAdjacentImages();
+    }
+  }
+
+  private handlePointerUp(e: PointerEvent) {
+    if (!this.isDragging) return;
+    this.isDragging = false;
+    try {
+      const viewer = e.currentTarget as HTMLElement;
+      viewer.releasePointerCapture(e.pointerId);
+    } catch (err) {
+      // Ignore pointer capture release exceptions if target unmounted
+    }
+    this.scheduleAutoRotateResume();
+  }
+
+  private handleKeyDown(e: KeyboardEvent) {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      this.stopAutoRotate();
+      this.clearResumeTimer();
+      this.next();
+      this.scheduleAutoRotateResume();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      this.stopAutoRotate();
+      this.clearResumeTimer();
+      this.prev();
+      this.scheduleAutoRotateResume();
+    }
+  }
 
   render() {
     const image = this.images[this.currentIndex];
+    const progressPercent = this.images.length > 0 
+      ? ((this.currentIndex + 1) / this.images.length) * 100 
+      : 0;
 
     return html`
-      <div class="viewer">
-        ${image ? html`<img src="${image}" alt="360 view" />` : html`<p>No images provided</p>`}
+      <div 
+        class="viewer ${this.isDragging ? 'dragging' : ''}"
+        tabindex="0"
+        role="region"
+        aria-label="360 degree product view. Use drag, arrow keys, or buttons to rotate."
+        @pointerdown=${this.handlePointerDown}
+        @pointermove=${this.handlePointerMove}
+        @pointerup=${this.handlePointerUp}
+        @pointercancel=${this.handlePointerUp}
+        @keydown=${this.handleKeyDown}
+      >
+        ${image 
+          ? html`
+              <img 
+                src="${image}" 
+                alt="360 view frame ${this.currentIndex + 1} of ${this.images.length}" 
+              />
+            ` 
+          : html`<p style="padding: 24px; text-align: center; color: var(--viewer-button-color);">No images provided</p>`
+        }
+
+        ${this.images.length > 0 && !this.isDragging ? html`
+          <div class="drag-hint">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+              <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"/>
+            </svg>
+            Drag to rotate
+          </div>
+        ` : ''}
+
+        ${this.showControls && this.images.length > 0 ? html`
+          <button 
+            class="nav-button nav-button-prev" 
+            aria-label="Rotate left"
+            @click=${(e: Event) => {
+              e.stopPropagation();
+              this.stopAutoRotate();
+              this.clearResumeTimer();
+              this.prev();
+              this.scheduleAutoRotateResume();
+            }}
+          >
+            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+          </button>
+          <button 
+            class="nav-button nav-button-next" 
+            aria-label="Rotate right"
+            @click=${(e: Event) => {
+              e.stopPropagation();
+              this.stopAutoRotate();
+              this.clearResumeTimer();
+              this.next();
+              this.scheduleAutoRotateResume();
+            }}
+          >
+            <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+          </button>
+        ` : ''}
+
+        ${this.showProgressBar && this.images.length > 0 ? html`
+          <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="${this.images.length}" aria-valuenow="${this.currentIndex + 1}">
+            <div class="progress-bar" style="width: ${progressPercent}%"></div>
+          </div>
+        ` : ''}
       </div>
     `;
   }

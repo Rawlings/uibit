@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 
 @customElement('uibit-countdown')
 export class Countdown extends LitElement {
@@ -36,20 +36,28 @@ export class Countdown extends LitElement {
       text-transform: uppercase;
       opacity: 0.7;
     }
+
+    .separator {
+      font-size: 2.5rem;
+      align-self: flex-start;
+      margin-top: -8px;
+      opacity: 0.5;
+    }
   `;
 
   @property({ type: String }) target?: string;
-  @property({ type: Number }) duration?: number;
+  @property({ type: Number }) duration?: number; // duration in milliseconds
   @property({ type: Boolean }) autoStart = true;
   @property({ type: String }) format = 'HH:MM:SS';
 
-  @property({ type: Number }) remaining = 0;
-  @property({ type: Number }) days = 0;
-  @property({ type: Number }) hours = 0;
-  @property({ type: Number }) minutes = 0;
-  @property({ type: Number }) seconds = 0;
+  @state() private remaining = 0;
+  @state() private days = 0;
+  @state() private hours = 0;
+  @state() private minutes = 0;
+  @state() private seconds = 0;
 
-  private timer?: NodeJS.Timeout;
+  private timer?: number;
+  private resolvedTargetTime = 0;
 
   connectedCallback() {
     super.connectedCallback();
@@ -63,21 +71,41 @@ export class Countdown extends LitElement {
     this.stop();
   }
 
+  updated(changedProperties: Map<string, unknown>) {
+    if (
+      changedProperties.has('target') ||
+      changedProperties.has('duration') ||
+      changedProperties.has('autoStart')
+    ) {
+      if (this.autoStart) {
+        this.start();
+      } else {
+        this.stop();
+      }
+    }
+  }
+
   start() {
-    this.timer = setInterval(() => this.tick(), 1000);
+    this.stop();
+    const now = Date.now();
+    this.resolvedTargetTime = this.target 
+      ? new Date(this.target).getTime() 
+      : now + (this.duration || 0);
+
     this.tick();
+    this.timer = window.setInterval(() => this.tick(), 1000);
   }
 
   stop() {
     if (this.timer) {
       clearInterval(this.timer);
+      this.timer = undefined;
     }
   }
 
   private tick() {
     const now = Date.now();
-    const targetTime = this.target ? new Date(this.target).getTime() : now + (this.duration || 0);
-    this.remaining = Math.max(0, targetTime - now);
+    this.remaining = Math.max(0, this.resolvedTargetTime - now);
 
     this.days = Math.floor(this.remaining / (1000 * 60 * 60 * 24));
     this.hours = Math.floor((this.remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -98,7 +126,7 @@ export class Countdown extends LitElement {
       })
     );
 
-    if (this.remaining === 0) {
+    if (this.remaining <= 0) {
       this.stop();
       this.dispatchEvent(
         new CustomEvent('countdown-complete', { bubbles: true, composed: true })
@@ -106,25 +134,71 @@ export class Countdown extends LitElement {
     }
   }
 
+  private getFormattedUnits() {
+    const fmt = (this.format || 'HH:MM:SS').toUpperCase();
+    
+    let displayDays = 0;
+    let displayHours = 0;
+    let displayMinutes = 0;
+    let displaySeconds = 0;
+
+    const totalSeconds = Math.floor(this.remaining / 1000);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const totalHours = Math.floor(totalMinutes / 60);
+
+    if (fmt.includes('DD') || fmt.includes('DAY')) {
+      displayDays = this.days;
+      displayHours = this.hours;
+      displayMinutes = this.minutes;
+      displaySeconds = this.seconds;
+    } else if (fmt.includes('HH')) {
+      displayHours = totalHours;
+      displayMinutes = this.minutes;
+      displaySeconds = this.seconds;
+    } else if (fmt.includes('MM')) {
+      displayMinutes = totalMinutes;
+      displaySeconds = this.seconds;
+    } else {
+      displaySeconds = totalSeconds;
+    }
+
+    const units = [];
+    if (fmt.includes('DD') || fmt.includes('DAY')) {
+      units.push({ value: String(displayDays).padStart(2, '0'), label: 'Days' });
+    }
+    if (fmt.includes('HH') || fmt.includes('HOUR')) {
+      units.push({ value: String(displayHours).padStart(2, '0'), label: 'Hours' });
+    }
+    if (fmt.includes('MM') || fmt.includes('MIN')) {
+      units.push({ value: String(displayMinutes).padStart(2, '0'), label: 'Minutes' });
+    }
+    if (fmt.includes('SS') || fmt.includes('SEC')) {
+      units.push({ value: String(displaySeconds).padStart(2, '0'), label: 'Seconds' });
+    }
+    
+    // If format matches nothing standard, default to HH:MM:SS
+    if (units.length === 0) {
+      units.push({ value: String(totalHours).padStart(2, '0'), label: 'Hours' });
+      units.push({ value: String(this.minutes).padStart(2, '0'), label: 'Minutes' });
+      units.push({ value: String(this.seconds).padStart(2, '0'), label: 'Seconds' });
+    }
+
+    return units;
+  }
+
   render() {
+    const units = this.getFormattedUnits();
     return html`
-      <div class="countdown">
-        <div class="unit">
-          <div class="value">${String(this.days).padStart(2, '0')}</div>
-          <div class="label">Days</div>
-        </div>
-        <div class="unit">
-          <div class="value">${String(this.hours).padStart(2, '0')}</div>
-          <div class="label">Hours</div>
-        </div>
-        <div class="unit">
-          <div class="value">${String(this.minutes).padStart(2, '0')}</div>
-          <div class="label">Minutes</div>
-        </div>
-        <div class="unit">
-          <div class="value">${String(this.seconds).padStart(2, '0')}</div>
-          <div class="label">Seconds</div>
-        </div>
+      <div class="countdown" role="timer" aria-live="polite" aria-label="Countdown timer">
+        ${units.map(
+          (unit, index) => html`
+            ${index > 0 ? html`<div class="separator">:</div>` : ''}
+            <div class="unit">
+              <div class="value">${unit.value}</div>
+              <div class="label">${unit.label}</div>
+            </div>
+          `
+        )}
       </div>
     `;
   }
