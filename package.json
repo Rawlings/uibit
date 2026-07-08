@@ -9,7 +9,6 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "install": "pnpm install",
     "dev": "pnpm -r run dev",
     "build": "pnpm -r run build",
     "build:carousel": "pnpm -F @uibit/carousel run build",
