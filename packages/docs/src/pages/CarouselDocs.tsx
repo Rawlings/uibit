@@ -120,8 +120,8 @@ function CarouselDocs() {
   auto-play
   auto-play-interval="3000"
   loop>
-  <img slot="item" src="image-1.jpg" alt="Slide 1" />
-  <img slot="item" src="image-2.jpg" alt="Slide 2" />
+  <img slot="item" src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow" />
+  <img slot="item" src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline" />
 </uibit-carousel>`}</code></pre>
           </div>
 

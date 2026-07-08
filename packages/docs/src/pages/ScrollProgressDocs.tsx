@@ -49,20 +49,25 @@ function ScrollProgressDocs() {
                 '--uibit-scroll-progress-color': '#000000',
                 '--uibit-scroll-progress-height': '4px',
               } as React.CSSProperties}
-              className="sticky top-0 z-10 block"
+              class="sticky top-0 z-10 block"
             ></uibit-scroll-progress>
             
             <div className="p-6 space-y-4">
-              <h3 className="text-base font-semibold text-gray-900">Custom Container Scroll Demo</h3>
-              <p className="text-sm text-gray-600">
-                This is a scrollable container. Notice the black progress bar sticky at the top of this box.
+              <img src="https://picsum.photos/seed/nordic/720/300" alt="Nordic landscape" className="w-full rounded-lg object-cover" style={{ height: '160px' }} />
+              <h3 className="text-base font-semibold text-gray-900">Designing for the Long Read</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Reading progress indicators reduce uncertainty for long-form content — users know how far they've come and how much remains. A well-placed progress bar can meaningfully reduce drop-off rates on editorial pages and documentation.
               </p>
-              {Array.from({ length: 8 }).map((_, i) => (
-                <p key={i} className="text-sm text-gray-600">
-                  Paragraph {i + 1}: Scrolling down this card updates the scroll progress bar relative to this card's height rather than the full viewport window. This highlights the custom target-selector option of the component.
-                </p>
-              ))}
-              <p className="text-sm font-semibold text-gray-800">You reached the bottom! Progress is now 100%.</p>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                The key is restraint: the bar should be visible without demanding attention. A 3–4px height, neutral color, and fixed position at the top of the container or viewport tends to work across most layouts.
+              </p>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                When targeting a scrollable container rather than the full window, the component tracks scroll position relative to that element's scrollable height — useful for sidebars, modals, or card-based reading views.
+              </p>
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Pair it with a sticky table of contents or section anchors for a complete reading experience that respects users' time and orientation.
+              </p>
+              <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest pt-2">— End of article</p>
             </div>
           </div>
         </div>

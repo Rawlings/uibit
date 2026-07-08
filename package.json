@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "pnpm -r run dev",
-    "build": "pnpm -r run build",
+    "build": "pnpm -r --filter '!@uibit/docs' run build && pnpm -F docs run build",
     "build:carousel": "pnpm -F carousel run build",
     "build:360-viewer": "pnpm -F 360-viewer run build",
     "build:scroll-progress": "pnpm -F scroll-progress run build",

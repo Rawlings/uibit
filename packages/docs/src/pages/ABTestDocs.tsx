@@ -62,19 +62,33 @@ function ABTestDocs() {
               ref={abTestRef}
               storage-key="demo-ab-test-docs"
             >
-              <div slot="variant-a" className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Variant A (Blue Button)</h3>
-                <p className="text-gray-600 text-sm mb-4">This design uses a solid blue button layout.</p>
-                <button className="bg-blue-600 text-white px-4 py-2 rounded text-sm font-semibold hover:bg-blue-700 transition">
-                  Get Started
-                </button>
+              <div slot="variant-a" className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+                <img src="https://picsum.photos/seed/product-a/480/220" alt="Minimal desk setup" className="w-full object-cover" style={{ height: '160px' }} />
+                <div className="p-5">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">New Arrival</p>
+                  <h3 className="text-base font-semibold text-gray-900 mb-2">Arc Desk Lamp</h3>
+                  <p className="text-gray-500 text-sm mb-4">Warm-toned ambient light with touch dimming. Ships in 2 days.</p>
+                  <button className="w-full bg-gray-900 text-white px-4 py-2 rounded text-sm font-semibold hover:bg-gray-700 transition">
+                    Add to Cart — $89
+                  </button>
+                </div>
               </div>
-              <div slot="variant-b" className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Variant B (Green Button)</h3>
-                <p className="text-gray-600 text-sm mb-4">This design uses a solid green button layout.</p>
-                <button className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold hover:bg-green-700 transition">
-                  Sign Up Free
-                </button>
+              <div slot="variant-b" className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+                <div className="relative">
+                  <img src="https://picsum.photos/seed/product-b/480/220" alt="Minimal desk setup" className="w-full object-cover" style={{ height: '160px' }} />
+                  <span className="absolute top-3 left-3 bg-white text-gray-900 text-xs font-bold px-2 py-1 rounded">SALE 20% OFF</span>
+                </div>
+                <div className="p-5">
+                  <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1">Best Seller</p>
+                  <h3 className="text-base font-semibold text-gray-900 mb-2">Arc Desk Lamp</h3>
+                  <p className="text-gray-500 text-sm mb-4">
+                    <span className="line-through text-gray-400 mr-1">$89</span>
+                    <span className="text-gray-900 font-semibold">$71</span> — Limited stock.
+                  </p>
+                  <button className="w-full border border-gray-900 text-gray-900 px-4 py-2 rounded text-sm font-semibold hover:bg-gray-900 hover:text-white transition">
+                    Claim Offer
+                  </button>
+                </div>
               </div>
             </uibit-ab-test>
           </div>
