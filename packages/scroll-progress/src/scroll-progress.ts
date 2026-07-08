@@ -8,13 +8,10 @@ export class ScrollProgress extends LitElement {
       --progress-height: 4px;
       --progress-color: #3b82f6;
       --progress-bg: transparent;
-      position: fixed;
-      top: 0;
-      left: 0;
+      display: block;
       width: 100%;
       height: var(--progress-height);
       background: var(--progress-bg);
-      z-index: 9999;
     }
 
     .progress {
@@ -59,12 +56,6 @@ export class ScrollProgress extends LitElement {
   private updateStyles() {
     this.style.setProperty('--progress-height', `${this.height}px`);
     this.style.setProperty('--progress-color', this.color);
-    
-    if (this.target) {
-      this.style.position = 'absolute';
-    } else {
-      this.style.position = 'fixed';
-    }
   }
 
   private getTargetElement(): HTMLElement | Window {

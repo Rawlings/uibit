@@ -44,12 +44,17 @@ function ScrollProgressDocs() {
             style={{ scrollbarWidth: 'thin' }}
           >
             {/* Scroll Progress Component anchored inside this container */}
-            <uibit-scroll-progress target="#demo-scroll-box" color="#10b981" height={4}></uibit-scroll-progress>
+            <uibit-scroll-progress 
+              target="#demo-scroll-box" 
+              color="#000000" 
+              height={4}
+              class="sticky top-0 z-10 block"
+            ></uibit-scroll-progress>
             
             <div className="p-6 space-y-4">
               <h3 className="text-base font-semibold text-gray-900">Custom Container Scroll Demo</h3>
               <p className="text-sm text-gray-600">
-                This is a scrollable container. Notice the green progress bar at the top of this box.
+                This is a scrollable container. Notice the black progress bar sticky at the top of this box.
               </p>
               {Array.from({ length: 8 }).map((_, i) => (
                 <p key={i} className="text-sm text-gray-600">
