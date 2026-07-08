@@ -90,7 +90,7 @@ export class ABTest extends LitElement {
       if (random <= 0) return variant;
     }
 
-    return variants[0][0];
+    return variants[0]![0];
   }
 
   private emitVariantRendered() {
