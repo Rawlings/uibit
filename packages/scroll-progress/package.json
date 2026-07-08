@@ -26,6 +26,9 @@
     "url": "https://github.com/yourusername/uibit.git",
     "directory": "packages/scroll-progress"
   },
+  "dependencies": {
+    "@uibit/core": "workspace:*"
+  },
   "devDependencies": {
     "@types/node": "^20.10.5",
     "lit": "^3.1.1",

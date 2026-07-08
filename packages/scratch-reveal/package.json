@@ -40,6 +40,9 @@
     "url": "https://github.com/yourusername/uibit.git",
     "directory": "packages/scratch-reveal"
   },
+  "dependencies": {
+    "@uibit/core": "workspace:*"
+  },
   "devDependencies": {
     "@types/node": "^20.10.5",
     "lit": "^3.1.1",

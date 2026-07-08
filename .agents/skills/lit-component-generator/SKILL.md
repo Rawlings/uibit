@@ -31,10 +31,9 @@ This skill scaffolds:
 | `hasSlots` | boolean | | Include slot support (default: true) |
 | `hasEvents` | boolean | | Include custom events (default: true) |
 | `accessible` | boolean | | Include ARIA attributes (default: true) |
-
 ## Usage Examples
 
-### Basic Button Component
+### Basic Button Component via Claude CLI
 ```bash
 claude --skill lit-component-generator --args '{
   "componentName": "MyButton",
@@ -116,9 +115,20 @@ packages/<kebab-case>/
 - Accessibility notes
 
 ### Build Configuration
-- TypeScript configuration
-- Vite configuration for dev/build
-- Package exports in package.json
+- TypeScript configuration (`tsconfig.json`): Must be kept minimal, extending `../../tsconfig.base.json` to prevent duplicated settings, specifying output directory:
+  ```json
+  {
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+      "outDir": "./dist"
+    },
+    "include": ["src"],
+    "references": [{ "path": "./tsconfig.node.json" }]
+  }
+  ```
+- Node TS configuration (`tsconfig.node.json`): Configures TypeScript settings for compilation of `vite.config.ts`.
+- Vite configuration (`vite.config.ts`): Packages must use library mode with Rollup configuration to bundle UMD and ES outputs cleanly.
+- Package exports: Package `package.json` must export UMD/ES entrypoints, types, and CSS.
 - Web component manifest (if applicable)
 
 ## After Generation

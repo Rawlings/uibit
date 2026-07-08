@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement } from '@uibit/core';
+import { property, state } from 'lit/decorators.js';
 
 @customElement('uibit-360-viewer')
 export class Viewer360 extends LitElement {

@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement } from '@uibit/core';
+import { property, query, state } from 'lit/decorators.js';
 import type { CarouselConfig } from './types';
 
 @customElement('uibit-carousel')
