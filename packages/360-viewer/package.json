@@ -4,21 +4,35 @@
   "description": "A web component for displaying 360-degree product views with image rotation and touch support",
   "type": "module",
   "main": "./dist/360-viewer.js",
-  "types": "./dist/360-viewer.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/360-viewer.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/360-viewer.js"
     },
-    "./360-viewer.css": "./dist/360-viewer.css"
+    "./360-viewer.css": "./dist/360-viewer.css",
+    "./custom-elements.json": "./custom-elements.json"
   },
-  "files": ["dist", "package.json", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "custom-elements.json"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "npm run analyze && vite build && tsc --emitDeclarationOnly",
+    "preview": "vite preview",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
-  "keywords": ["360-viewer", "product-view", "web-component", "lit", "interactive"],
+  "keywords": [
+    "360-viewer",
+    "product-view",
+    "web-component",
+    "lit",
+    "interactive"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
@@ -37,5 +51,6 @@
   },
   "peerDependencies": {
     "lit": "^3.0.0"
-  }
+  },
+  "customElements": "custom-elements.json"
 }

@@ -1,0 +1,379 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/hotspot.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Interactive hotspot annotations for images. Display contextual tooltip\ncards on click or hover with custom content overlays and animations.",
+          "name": "Hotspot",
+          "cssProperties": [
+            {
+              "description": "Width and height of the trigger button",
+              "name": "--uibit-hotspot-trigger-size",
+              "default": "32px"
+            },
+            {
+              "description": "Background color of the trigger button",
+              "name": "--uibit-hotspot-trigger-bg",
+              "default": "rgba(0,0,0,0.6)"
+            },
+            {
+              "description": "Background color of the trigger on hover/active",
+              "name": "--uibit-hotspot-trigger-bg-hover",
+              "default": "rgba(0,0,0,0.85)"
+            },
+            {
+              "description": "Border of the trigger button",
+              "name": "--uibit-hotspot-trigger-border",
+              "default": "2px solid #ffffff"
+            },
+            {
+              "description": "Icon color inside the trigger button",
+              "name": "--uibit-hotspot-trigger-color",
+              "default": "white"
+            },
+            {
+              "description": "Box shadow used as focus outline on the trigger",
+              "name": "--uibit-hotspot-focus-outline",
+              "default": "0 0 0 3px #000000"
+            },
+            {
+              "description": "Color for the focus outline on the close button",
+              "name": "--uibit-hotspot-focus-outline-color",
+              "default": "#000000"
+            },
+            {
+              "description": "Background of the popover card",
+              "name": "--uibit-hotspot-popover-bg",
+              "default": "rgba(255,255,255,0.95)"
+            },
+            {
+              "description": "Primary text color inside the popover",
+              "name": "--uibit-hotspot-popover-color",
+              "default": "#111827"
+            },
+            {
+              "description": "Secondary content text color inside the popover",
+              "name": "--uibit-hotspot-popover-content-color",
+              "default": "#4b5563"
+            },
+            {
+              "description": "Border radius of the popover card",
+              "name": "--uibit-hotspot-popover-border-radius",
+              "default": "12px"
+            },
+            {
+              "description": "Box shadow of the popover card",
+              "name": "--uibit-hotspot-popover-shadow",
+              "default": "..."
+            },
+            {
+              "description": "Border of the popover card",
+              "name": "--uibit-hotspot-popover-border",
+              "default": "1px solid rgba(0,0,0,0.1)"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The root container wrapping image and all hotspots",
+              "name": "container"
+            },
+            {
+              "description": "The positioning wrapper for each hotspot",
+              "name": "wrapper"
+            },
+            {
+              "description": "The circular trigger button",
+              "name": "trigger"
+            },
+            {
+              "description": "Added to the trigger when the popover is open",
+              "name": "trigger-active"
+            },
+            {
+              "description": "The popover card",
+              "name": "popover"
+            },
+            {
+              "description": "The content area inside the popover",
+              "name": "popover-content"
+            },
+            {
+              "description": "The close button inside the popover",
+              "name": "popover-close"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Default slot for the background image or content",
+              "name": ""
+            },
+            {
+              "description": "Custom content for the popover of a specific hotspot (by id)",
+              "name": "popover-{id}"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "hotspots",
+              "type": {
+                "text": "any[]"
+              },
+              "default": "[]",
+              "description": "Array of hotspot items. Each item requires `id`, `x` (%), `y` (%), `label`, and optionally `title` and `content`.",
+              "attribute": "hotspots"
+            },
+            {
+              "kind": "field",
+              "name": "interactive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "When `false`, hotspots are rendered but not clickable or hoverable.",
+              "attribute": "interactive"
+            },
+            {
+              "kind": "field",
+              "name": "trigger",
+              "type": {
+                "text": "'click' | 'hover'"
+              },
+              "default": "'click'",
+              "description": "Interaction mode for showing the popover.",
+              "attribute": "trigger"
+            },
+            {
+              "kind": "field",
+              "name": "activeHotspotId",
+              "type": {
+                "text": "string | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "hoverTimeout",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleDocumentKeyDown",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleDocumentClick",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleTriggerClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "spot",
+                  "type": {
+                    "text": "any"
+                  }
+                },
+                {
+                  "name": "spotId",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleTriggerMouseEnter",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "spotId",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleTriggerMouseLeave",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handlePopoverMouseEnter",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handlePopoverMouseLeave",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "scheduleClose",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "clearHoverTimeout",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "closePopover",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "onHotspotClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "spot",
+                  "type": {
+                    "text": "any"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "hotspot-click",
+              "type": {
+                "text": "HotspotItem"
+              },
+              "description": "Fired when a hotspot trigger is activated"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "hotspots",
+              "type": {
+                "text": "any[]"
+              },
+              "default": "[]",
+              "description": "Array of hotspot items. Each item requires `id`, `x` (%), `y` (%), `label`, and optionally `title` and `content`.",
+              "fieldName": "hotspots"
+            },
+            {
+              "name": "interactive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "When `false`, hotspots are rendered but not clickable or hoverable.",
+              "fieldName": "interactive"
+            },
+            {
+              "name": "trigger",
+              "type": {
+                "text": "'click' | 'hover'"
+              },
+              "default": "'click'",
+              "description": "Interaction mode for showing the popover.",
+              "fieldName": "trigger"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-hotspot",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Hotspot",
+          "declaration": {
+            "name": "Hotspot",
+            "module": "src/hotspot.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-hotspot",
+          "declaration": {
+            "name": "Hotspot",
+            "module": "src/hotspot.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "Hotspot",
+            "module": "src/hotspot.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./hotspot"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Hotspot",
+          "declaration": {
+            "name": "Hotspot",
+            "module": "./hotspot"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "HotspotConfig",
+          "declaration": {
+            "name": "HotspotConfig",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "HotspotType",
+          "declaration": {
+            "name": "Hotspot",
+            "module": "./types"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

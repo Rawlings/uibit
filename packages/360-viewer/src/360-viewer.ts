@@ -2,6 +2,21 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 
+/**
+ * 360° product viewer driven by an array of sequential images.
+ * Supports drag, touch, auto-rotation, and keyboard controls.
+ *
+ * @fires {{ index: number, total: number }} change - Fired each time the displayed frame changes
+ *
+ * @cssprop [--uibit-360-viewer-bg=#f5f5f5] - Background color of the viewer container
+ * @cssprop [--uibit-360-viewer-border=#e5e7eb] - Border color of the viewer container
+ * @cssprop [--uibit-360-viewer-button-bg=rgba(255,255,255,0.7)] - Background of control buttons
+ * @cssprop [--uibit-360-viewer-button-bg-hover=rgba(255,255,255,0.9)] - Hover background of control buttons
+ * @cssprop [--uibit-360-viewer-button-color=#374151] - Icon/text color of control buttons
+ * @cssprop [--uibit-360-viewer-focus-color=#000000] - Focus outline color for interactive elements
+ * @cssprop [--uibit-360-viewer-progress-track-bg=rgba(0,0,0,0.1)] - Background of the progress bar track
+ * @cssprop [--uibit-360-viewer-hint-bg=rgba(17,24,39,0.7)] - Background of the drag hint overlay
+ */
 @customElement('uibit-360-viewer')
 export class Viewer360 extends LitElement {
   static styles = css`
@@ -147,11 +162,17 @@ export class Viewer360 extends LitElement {
     }
   `;
 
+  /** Ordered array of image URLs representing each frame of the 360° rotation. */
   @property({ type: Array }) images: string[] = [];
+  /** Automatically rotate through frames when no user interaction is occurring. */
   @property({ type: Boolean }) autoRotate = false;
-  @property({ type: Number }) rotationSpeed = 150; // ms per frame
-  @property({ type: Number }) dragSensitivity = 15; // px of horizontal drag to trigger index change
+  /** Milliseconds between frames during auto-rotation. Lower values spin faster. */
+  @property({ type: Number }) rotationSpeed = 150;
+  /** Horizontal pixel distance a drag must travel before advancing one frame. */
+  @property({ type: Number }) dragSensitivity = 15;
+  /** Show the play/pause and directional control buttons. */
   @property({ type: Boolean }) showControls = true;
+  /** Show the frame progress bar at the bottom of the viewer. */
   @property({ type: Boolean }) showProgressBar = true;
 
   @state() private currentIndex = 0;
@@ -228,7 +249,7 @@ export class Viewer360 extends LitElement {
     
     [nextIndex, prevIndex].forEach((idx) => {
       const img = new Image();
-      img.src = this.images[idx];
+      img.src = this.images[idx]!;
     });
   }
 
@@ -405,6 +426,11 @@ export class Viewer360 extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'uibit-360-viewer': Viewer360;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-360-viewer': any;
+    }
   }
 }
 

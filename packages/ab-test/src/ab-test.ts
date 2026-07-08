@@ -2,9 +2,20 @@ import { LitElement, html } from 'lit';
 import { customElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 
+/**
+ * Client-side A/B testing component. Randomly assigns a variant on first visit
+ * and persists the assignment in `localStorage`. Variant can be overridden via
+ * URL query parameter.
+ *
+ * @fires {{ variant: string, isNewUser: boolean }} variant-rendered - Fired after a variant is selected and rendered
+ *
+ * @slot variant-{key} - Content to render for the named variant (e.g. `slot="variant-a"`)
+ */
 @customElement('uibit-ab-test')
 export class ABTest extends LitElement {
+  /** `localStorage` key used to persist the assigned variant across sessions. */
   @property({ type: String }) storageKey = 'uibit-ab-test-variant';
+  /** Map of variant names to their relative traffic weights (e.g. `{ a: 70, b: 30 }`). */
   @property({ type: Object }) variantDistribution: Record<string, number> = { 'a': 50, 'b': 50 };
 
   @state() private selectedVariant: string | null = null;
@@ -104,6 +115,11 @@ export class ABTest extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'uibit-ab-test': ABTest;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-ab-test': any;
+    }
   }
 }
 

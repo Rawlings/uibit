@@ -1,0 +1,331 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/countdown.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Countdown timer to a target date/time or a fixed duration. Supports\nconfigurable display formats and fires events on each tick and on completion.",
+          "name": "Countdown",
+          "cssProperties": [
+            {
+              "description": "Font family for the entire countdown",
+              "name": "--uibit-countdown-font-family",
+              "default": "monospace"
+            },
+            {
+              "description": "Base font size",
+              "name": "--uibit-countdown-font-size",
+              "default": "1.5rem"
+            },
+            {
+              "description": "Font weight",
+              "name": "--uibit-countdown-font-weight",
+              "default": "bold"
+            },
+            {
+              "description": "Text color for values",
+              "name": "--uibit-countdown-color",
+              "default": "#000000"
+            },
+            {
+              "description": "Gap between time units",
+              "name": "--uibit-countdown-gap",
+              "default": "1rem"
+            },
+            {
+              "description": "Gap between the value and label within a unit",
+              "name": "--uibit-countdown-unit-gap",
+              "default": "0.5rem"
+            },
+            {
+              "description": "Font size for the numeric value",
+              "name": "--uibit-countdown-value-font-size",
+              "default": "2.5rem"
+            },
+            {
+              "description": "Min width of each value block",
+              "name": "--uibit-countdown-value-min-width",
+              "default": "80px"
+            },
+            {
+              "description": "Font size for unit labels (Days, Hours…)",
+              "name": "--uibit-countdown-label-font-size",
+              "default": "0.8rem"
+            },
+            {
+              "description": "Color for unit labels",
+              "name": "--uibit-countdown-label-color",
+              "default": "#4b5563"
+            },
+            {
+              "description": "Font size of the colon separator",
+              "name": "--uibit-countdown-separator-font-size",
+              "default": "2.5rem"
+            },
+            {
+              "description": "Color of the colon separator",
+              "name": "--uibit-countdown-separator-color",
+              "default": "#000000"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "target",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "ISO 8601 date/time string for the countdown target (e.g. `\"2025-12-31T00:00:00\"`). Takes precedence over `duration`.",
+              "attribute": "target"
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Fixed countdown duration in milliseconds. Used when `target` is not set.",
+              "attribute": "duration"
+            },
+            {
+              "kind": "field",
+              "name": "autoStart",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Automatically start the countdown on connect.",
+              "attribute": "autoStart"
+            },
+            {
+              "kind": "field",
+              "name": "format",
+              "type": {
+                "text": "string"
+              },
+              "default": "'HH:MM:SS'",
+              "description": "Display format. Tokens: `DD` days, `HH` hours, `MM` minutes, `SS` seconds.",
+              "attribute": "format"
+            },
+            {
+              "kind": "field",
+              "name": "remaining",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "days",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "hours",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "minutes",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "seconds",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "timer",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "resolvedTargetTime",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "method",
+              "name": "start"
+            },
+            {
+              "kind": "method",
+              "name": "stop"
+            },
+            {
+              "kind": "method",
+              "name": "tick",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "getFormattedUnits",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "countdown-tick",
+              "type": {
+                "text": "{ days: number, hours: number, minutes: number, seconds: number, remaining: number }"
+              },
+              "description": "Fired every second while the countdown is running"
+            },
+            {
+              "name": "countdown-complete",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "description": "countdown-complete - Fired when the countdown reaches zero",
+              "name": "void"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "target",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "ISO 8601 date/time string for the countdown target (e.g. `\"2025-12-31T00:00:00\"`). Takes precedence over `duration`.",
+              "fieldName": "target"
+            },
+            {
+              "name": "duration",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Fixed countdown duration in milliseconds. Used when `target` is not set.",
+              "fieldName": "duration"
+            },
+            {
+              "name": "autoStart",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Automatically start the countdown on connect.",
+              "fieldName": "autoStart"
+            },
+            {
+              "name": "format",
+              "type": {
+                "text": "string"
+              },
+              "default": "'HH:MM:SS'",
+              "description": "Display format. Tokens: `DD` days, `HH` hours, `MM` minutes, `SS` seconds.",
+              "fieldName": "format"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-countdown",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Countdown",
+          "declaration": {
+            "name": "Countdown",
+            "module": "src/countdown.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-countdown",
+          "declaration": {
+            "name": "Countdown",
+            "module": "src/countdown.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "Countdown",
+            "module": "src/countdown.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./countdown"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Countdown",
+          "declaration": {
+            "name": "Countdown",
+            "module": "./countdown"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CountdownConfig",
+          "declaration": {
+            "name": "CountdownConfig",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CountdownTickEvent",
+          "declaration": {
+            "name": "CountdownTickEvent",
+            "module": "./types"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

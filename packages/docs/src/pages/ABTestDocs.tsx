@@ -85,38 +85,7 @@ function ABTestDocs() {
 
       {/* API Reference */}
       <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900 mb-8">API</h2>
-        <div className="space-y-8">
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Properties</h3>
-            <div className="space-y-3">
-              {[
-                { name: 'storageKey', desc: 'localStorage key for persistence (default: "uibit-ab-test-variant")' },
-                { name: 'variantDistribution', desc: 'Object mapping variants to percentage weights (default: {a: 50, b: 50})' },
-              ].map((prop) => (
-                <div key={prop.name} className="border border-gray-200 rounded p-4">
-                  <code className="font-mono text-sm text-gray-900">{prop.name}</code>
-                  <p className="text-gray-600 text-sm mt-2">{prop.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Events</h3>
-            <div className="border border-gray-200 rounded p-4">
-              <code className="font-mono text-sm text-gray-900">variant-rendered</code>
-              <p className="text-gray-600 text-sm mt-2">Fired when the variant is assigned and resolved.</p>
-              <p className="text-xs text-gray-500 mt-2 font-mono">
-                Detail: <code className="bg-gray-100 px-2 py-1">{'{ variant: string, isNewUser: boolean }'}</code>
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Usage Examples */}
-      <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
+      <ApiDocs manifest={manifest as any} tagName="uibit-ab-test" />
         <h2 className="text-xl font-semibold text-gray-900 mb-8">Usage</h2>
 
         <div className="space-y-8">
@@ -132,6 +101,8 @@ function ABTestDocs() {
             <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">React Implementation</h3>
             <pre className="code-block"><code>{`import { useEffect, useRef } from 'react';
 import '@uibit/ab-test';
+import { ApiDocs } from '../components/ApiDocs';
+import manifest from '@uibit/ab-test/custom-elements.json';
 
 function BannerTest() {
   const abRef = useRef(null);

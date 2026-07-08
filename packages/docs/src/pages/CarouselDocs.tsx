@@ -1,6 +1,8 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '@uibit/carousel';
+import { ApiDocs } from '../components/ApiDocs';
+import manifest from '@uibit/carousel/custom-elements.json';
 
 function CarouselDocs() {
   const carouselRef = useRef<any>(null);
@@ -69,74 +71,7 @@ function CarouselDocs() {
         </div>
       </section>
 
-      {/* API Reference */}
-      <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900 mb-8">API</h2>
-
-        {/* Properties */}
-        <div className="mb-12">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Properties</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Property</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Type</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Default</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { prop: 'autoPlay', type: 'boolean', default: 'false', desc: 'Enable automatic slide cycling' },
-                  { prop: 'autoPlayInterval', type: 'number', default: '5000', desc: 'Interval in milliseconds' },
-                  { prop: 'loop', type: 'boolean', default: 'true', desc: 'Allow cycling through slides in a loop' },
-                  { prop: 'itemsPerView', type: 'number', default: '1', desc: 'Number of items visible at once' },
-                  { prop: 'gap', type: 'number', default: '16', desc: 'Gap between items in pixels' },
-                  { prop: 'duration', type: 'number', default: '300', desc: 'Scroll animation duration in milliseconds' },
-                ].map((row, i) => (
-                  <tr key={i} className="border-b border-gray-100">
-                    <td className="px-4 py-3 font-mono text-gray-900">{row.prop}</td>
-                    <td className="px-4 py-3 font-mono text-gray-600">{row.type}</td>
-                    <td className="px-4 py-3 font-mono text-gray-600">{row.default}</td>
-                    <td className="px-4 py-3 text-gray-600">{row.desc}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Methods */}
-        <div className="mb-12">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Methods</h3>
-          <div className="space-y-3">
-            {[
-              { name: 'prev()', desc: 'Navigate to previous slide' },
-              { name: 'next()', desc: 'Navigate to next slide' },
-              { name: 'goToSlide(index: number)', desc: 'Navigate to specific slide' },
-            ].map((method, i) => (
-              <div key={i} className="border border-gray-200 rounded p-4">
-                <code className="font-mono text-sm text-gray-900">{method.name}</code>
-                <p className="text-gray-600 text-sm mt-2">{method.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Events */}
-        <div>
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Events</h3>
-          <div className="border border-gray-200 rounded p-4">
-            <code className="font-mono text-sm text-gray-900">slide-change</code>
-            <p className="text-gray-600 text-sm mt-2">Fires when active slide changes</p>
-            <p className="text-xs text-gray-500 mt-2 font-mono">
-              Detail: <code className="bg-gray-100 px-2 py-1">{'{ index: number, totalSlides: number }'}</code>
-            </p>
-          </div>
-        </div>
-      </section>
-
+      <ApiDocs manifest={manifest as any} tagName="uibit-carousel" />
       {/* Usage Examples */}
       <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
         <h2 className="text-xl font-semibold text-gray-900 mb-8">Usage</h2>

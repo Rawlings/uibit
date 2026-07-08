@@ -1,0 +1,440 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/consent-guard.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Gate third-party iframes or scripts behind a consent prompt. Shows a\nplaceholder with an accept/decline action until the user grants consent.",
+          "name": "ConsentGuard",
+          "cssProperties": [
+            {
+              "description": "Accent color used for the accept button background",
+              "name": "--uibit-consent-guard-primary-color",
+              "default": "#000000"
+            },
+            {
+              "description": "Hover background of the accept button",
+              "name": "--uibit-consent-guard-primary-hover-bg",
+              "default": "#333333"
+            },
+            {
+              "description": "Primary text color",
+              "name": "--uibit-consent-guard-text-color",
+              "default": "#1f2937"
+            },
+            {
+              "description": "Muted/secondary text color",
+              "name": "--uibit-consent-guard-muted-color",
+              "default": "#6b7280"
+            },
+            {
+              "description": "Border color of the placeholder and buttons",
+              "name": "--uibit-consent-guard-border-color",
+              "default": "#d1d5db"
+            },
+            {
+              "description": "Background of the placeholder area",
+              "name": "--uibit-consent-guard-bg",
+              "default": "linear-gradient(...)"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The pre-consent placeholder container",
+              "name": "placeholder"
+            },
+            {
+              "description": "The image/icon area inside the placeholder",
+              "name": "placeholder-image"
+            },
+            {
+              "description": "The text content area inside the placeholder",
+              "name": "placeholder-content"
+            },
+            {
+              "description": "The heading inside the placeholder",
+              "name": "placeholder-title"
+            },
+            {
+              "description": "The description inside the placeholder",
+              "name": "placeholder-description"
+            },
+            {
+              "description": "The action button container",
+              "name": "consent-actions"
+            },
+            {
+              "description": "The accept button",
+              "name": "accept-button"
+            },
+            {
+              "description": "The decline button",
+              "name": "decline-button"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Overrides the placeholder heading text",
+              "name": "title"
+            },
+            {
+              "description": "Overrides the placeholder description text",
+              "name": "description"
+            },
+            {
+              "description": "Replaces the entire accept/decline action area",
+              "name": "actions"
+            },
+            {
+              "description": "Overrides the label text on the accept button",
+              "name": "accept-label"
+            },
+            {
+              "description": "Overrides the label text on the decline button",
+              "name": "decline-label"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Third-party Content'",
+              "description": "Heading text shown in the placeholder before consent is given.",
+              "attribute": "title"
+            },
+            {
+              "kind": "field",
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "'This content requires your consent to load. Click \"Accept\" to proceed.'",
+              "description": "Description text shown in the placeholder before consent is given.",
+              "attribute": "description"
+            },
+            {
+              "kind": "field",
+              "name": "placeholderImage",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "URL of an image to display as the placeholder background before consent.",
+              "attribute": "placeholderImage"
+            },
+            {
+              "kind": "field",
+              "name": "src",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "URL of the iframe or script to load after consent is granted.",
+              "attribute": "src"
+            },
+            {
+              "kind": "field",
+              "name": "contentType",
+              "type": {
+                "text": "'iframe' | 'script'"
+              },
+              "default": "'iframe'",
+              "description": "Whether to load an `iframe` or inject a `script` tag after consent.",
+              "attribute": "contentType"
+            },
+            {
+              "kind": "field",
+              "name": "autoHeight",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Automatically set the iframe height to match its content.",
+              "attribute": "autoHeight"
+            },
+            {
+              "kind": "field",
+              "name": "height",
+              "type": {
+                "text": "number | string"
+              },
+              "default": "400",
+              "description": "Explicit height (px or CSS string) when `autoHeight` is `false`.",
+              "attribute": "height"
+            },
+            {
+              "kind": "field",
+              "name": "acceptLabel",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Accept Cookies'",
+              "description": "Label for the accept/consent button.",
+              "attribute": "acceptLabel"
+            },
+            {
+              "kind": "field",
+              "name": "declineLabel",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Decline'",
+              "description": "Label for the decline button.",
+              "attribute": "declineLabel"
+            },
+            {
+              "kind": "field",
+              "name": "isConsentGiven",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "scriptLoaded",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "scriptElement",
+              "type": {
+                "text": "HTMLScriptElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "iframeElement",
+              "type": {
+                "text": "HTMLIFrameElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "checkConsentFromStorage",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleAccept",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleDecline",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "loadContent",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "loadIframe",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "loadScript",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "renderPlaceholder",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "consent-accepted",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "consent-declined",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "description": "consent-declined - Fired when the user clicks the decline button",
+              "name": "void"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "title",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Third-party Content'",
+              "description": "Heading text shown in the placeholder before consent is given.",
+              "fieldName": "title"
+            },
+            {
+              "name": "description",
+              "type": {
+                "text": "string"
+              },
+              "default": "'This content requires your consent to load. Click \"Accept\" to proceed.'",
+              "description": "Description text shown in the placeholder before consent is given.",
+              "fieldName": "description"
+            },
+            {
+              "name": "placeholderImage",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "URL of an image to display as the placeholder background before consent.",
+              "fieldName": "placeholderImage"
+            },
+            {
+              "name": "src",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "URL of the iframe or script to load after consent is granted.",
+              "fieldName": "src"
+            },
+            {
+              "name": "contentType",
+              "type": {
+                "text": "'iframe' | 'script'"
+              },
+              "default": "'iframe'",
+              "description": "Whether to load an `iframe` or inject a `script` tag after consent.",
+              "fieldName": "contentType"
+            },
+            {
+              "name": "autoHeight",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Automatically set the iframe height to match its content.",
+              "fieldName": "autoHeight"
+            },
+            {
+              "name": "height",
+              "type": {
+                "text": "number | string"
+              },
+              "default": "400",
+              "description": "Explicit height (px or CSS string) when `autoHeight` is `false`.",
+              "fieldName": "height"
+            },
+            {
+              "name": "acceptLabel",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Accept Cookies'",
+              "description": "Label for the accept/consent button.",
+              "fieldName": "acceptLabel"
+            },
+            {
+              "name": "declineLabel",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Decline'",
+              "description": "Label for the decline button.",
+              "fieldName": "declineLabel"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-consent-guard",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ConsentGuard",
+          "declaration": {
+            "name": "ConsentGuard",
+            "module": "src/consent-guard.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-consent-guard",
+          "declaration": {
+            "name": "ConsentGuard",
+            "module": "src/consent-guard.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "ConsentGuard",
+            "module": "src/consent-guard.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./consent-guard"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ConsentGuard",
+          "declaration": {
+            "name": "ConsentGuard",
+            "module": "./consent-guard"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ConsentGuardConfig",
+          "declaration": {
+            "name": "ConsentGuardConfig",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ConsentGuardType",
+          "declaration": {
+            "name": "ConsentGuard",
+            "module": "./types"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

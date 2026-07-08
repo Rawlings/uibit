@@ -3,6 +3,36 @@ import { customElement } from '@uibit/core';
 import { property, query, state } from 'lit/decorators.js';
 import type { CarouselConfig } from './types';
 
+/**
+ * Accessible, scroll-driven carousel with keyboard navigation, auto-play,
+ * and configurable items-per-view via CSS custom properties.
+ *
+ * @fires {{ index: number, totalSlides: number }} slide-change - Fired when the active slide changes
+ *
+ * @slot item - One or more slide elements (add `slot="item"` to each child)
+ *
+ * @cssprop [--uibit-carousel-gap=16px] - Gap between slides
+ * @cssprop [--uibit-carousel-duration=300ms] - Scroll animation duration
+ * @cssprop [--uibit-carousel-items-per-view=1] - Number of slides visible at once
+ * @cssprop [--uibit-carousel-border-color=#e5e7eb] - Border color of the viewport
+ * @cssprop [--uibit-carousel-button-bg=#f3f4f6] - Background of prev/next buttons
+ * @cssprop [--uibit-carousel-button-bg-hover=#e5e7eb] - Hover background of prev/next buttons
+ * @cssprop [--uibit-carousel-indicator-bg=#e5e7eb] - Background of inactive indicator dots
+ * @cssprop [--uibit-carousel-indicator-active-bg=#000000] - Background of the active indicator dot
+ * @cssprop [--uibit-carousel-focus-outline-color=#000000] - Color of the focus outline on buttons
+ *
+ * @csspart carousel - The root carousel container
+ * @csspart viewport - The overflow-hidden viewport
+ * @csspart content - The scrollable slides row
+ * @csspart controls - The control bar below the viewport
+ * @csspart buttons - The prev/next button group
+ * @csspart button - Each navigation button
+ * @csspart button-prev - The previous slide button
+ * @csspart button-next - The next slide button
+ * @csspart indicators - The indicator dot group
+ * @csspart indicator - Each indicator dot
+ * @csspart indicator-active - Added to the active indicator dot
+ */
 @customElement('uibit-carousel')
 export class UIBitCarousel extends LitElement {
   static styles = css`
@@ -162,8 +192,11 @@ export class UIBitCarousel extends LitElement {
     }
   `;
 
+  /** Automatically advance slides on a timer. */
   @property({ type: Boolean }) autoPlay = false;
+  /** Milliseconds between auto-play advances. */
   @property({ type: Number }) autoPlayInterval = 5000;
+  /** When `true`, the carousel wraps from the last slide back to the first. */
   @property({ type: Boolean }) loop = true;
 
   get itemsPerView(): number {
@@ -524,6 +557,11 @@ export class UIBitCarousel extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'uibit-carousel': UIBitCarousel;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-carousel': any;
+    }
   }
 }
 

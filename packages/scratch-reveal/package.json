@@ -4,24 +4,27 @@
   "description": "A gamified scratch-off panel web component that reveals hidden content by scratching away an opaque layer",
   "type": "module",
   "main": "./dist/scratch-reveal.js",
-  "types": "./dist/scratch-reveal.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/scratch-reveal.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/scratch-reveal.js"
     },
-    "./scratch-reveal.css": "./dist/scratch-reveal.css"
+    "./scratch-reveal.css": "./dist/scratch-reveal.css",
+    "./custom-elements.json": "./custom-elements.json"
   },
   "files": [
     "dist",
     "package.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "custom-elements.json"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "npm run analyze && vite build && tsc --emitDeclarationOnly",
+    "preview": "vite preview",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
   "keywords": [
     "scratch-reveal",
@@ -51,5 +54,6 @@
   },
   "peerDependencies": {
     "lit": "^3.0.0"
-  }
+  },
+  "customElements": "custom-elements.json"
 }

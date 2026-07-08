@@ -4,24 +4,27 @@
   "description": "A native, accessible carousel web component with CSS scroll-snap and scroll-driven animations",
   "type": "module",
   "main": "./dist/carousel.js",
-  "types": "./dist/carousel.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/carousel.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/carousel.js"
     },
-    "./carousel.css": "./dist/carousel.css"
+    "./carousel.css": "./dist/carousel.css",
+    "./custom-elements.json": "./custom-elements.json"
   },
   "files": [
     "dist",
     "package.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "custom-elements.json"
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "npm run analyze && vite build && tsc --emitDeclarationOnly",
+    "preview": "vite preview",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
   "keywords": [
     "carousel",
@@ -49,5 +52,6 @@
   },
   "peerDependencies": {
     "lit": "^3.0.0"
-  }
+  },
+  "customElements": "custom-elements.json"
 }

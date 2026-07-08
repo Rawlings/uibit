@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import '@uibit/hotspot';
+import { ApiDocs } from '../components/ApiDocs';
+import manifest from '@uibit/hotspot/custom-elements.json';
 
 function HotspotDocs() {
 
@@ -73,66 +75,7 @@ function HotspotDocs() {
         </div>
       </section>
 
-      {/* API Reference */}
-      <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900 mb-8">API</h2>
-        <div className="mb-12">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Properties</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Property</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Type</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Default</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { prop: 'hotspots', type: 'HotspotItem[]', default: '[]', desc: 'Array of hotspots with id, x, y, label, title, content' },
-                  { prop: 'interactive', type: 'boolean', default: 'true', desc: 'Enables interactive pulse highlights and popover activations' },
-                  { prop: 'trigger', type: '"click" | "hover"', default: '"click"', desc: 'Action trigger to show tooltips: on click or mouse hover' },
-                ].map((row, i) => (
-                  <tr key={i} className="border-b border-gray-100">
-                    <td className="px-4 py-3 font-mono text-gray-900">{row.prop}</td>
-                    <td className="px-4 py-3 font-mono text-gray-600">{row.type}</td>
-                    <td className="px-4 py-3 font-mono text-gray-600">{row.default}</td>
-                    <td className="px-4 py-3 text-gray-600">{row.desc}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Slots</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Slot Name</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { name: '[default]', desc: 'The main background image or video to overlay hotspots on' },
-                  { name: 'popover-[id]', desc: 'Custom HTML markup popover content card for a specific hotspot (e.g. popover-1)' },
-                ].map((row, i) => (
-                  <tr key={i} className="border-b border-gray-100">
-                    <td className="px-4 py-3 font-mono text-gray-900">
-                      <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono">{row.name}</code>
-                    </td>
-                    <td className="px-4 py-3 text-gray-600">{row.desc}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+      <ApiDocs manifest={manifest as any} tagName="uibit-hotspot" />
 
       {/* Usage Examples */}
       <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">

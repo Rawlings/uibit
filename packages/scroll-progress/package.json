@@ -4,21 +4,35 @@
   "description": "A web component that visualizes scroll progress on the page",
   "type": "module",
   "main": "./dist/scroll-progress.js",
-  "types": "./dist/scroll-progress.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/scroll-progress.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/scroll-progress.js"
     },
-    "./scroll-progress.css": "./dist/scroll-progress.css"
+    "./scroll-progress.css": "./dist/scroll-progress.css",
+    "./custom-elements.json": "./custom-elements.json"
   },
-  "files": ["dist", "package.json", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "custom-elements.json"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "npm run analyze && vite build && tsc --emitDeclarationOnly",
+    "preview": "vite preview",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
-  "keywords": ["scroll-progress", "progress-bar", "web-component", "lit", "scroll"],
+  "keywords": [
+    "scroll-progress",
+    "progress-bar",
+    "web-component",
+    "lit",
+    "scroll"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
@@ -37,5 +51,6 @@
   },
   "peerDependencies": {
     "lit": "^3.0.0"
-  }
+  },
+  "customElements": "custom-elements.json"
 }

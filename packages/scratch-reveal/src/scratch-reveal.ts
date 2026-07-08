@@ -2,6 +2,28 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 
+/**
+ * Canvas-based scratch card that reveals slotted content as the user
+ * scratches over a configurable overlay layer.
+ *
+ * @fires {{ percentage: number }} scratch-progress - Fired as the user scratches; `detail.percentage` is 0–100
+ * @fires void scratch-reveal - Fired once when the revealed area crosses `revealPercentage`
+ *
+ * @slot - The content revealed beneath the scratch overlay
+ *
+ * @cssprop --uibit-scratch-reveal-width - Width of the scratch card (defaults to 100%)
+ * @cssprop --uibit-scratch-reveal-height - Height of the scratch card (defaults to 200px)
+ * @cssprop [--uibit-scratch-reveal-border-radius=8px] - Border radius of the card
+ * @cssprop [--uibit-scratch-reveal-background=#f0f0f0] - Background color of the revealed content area
+ * @cssprop [--uibit-scratch-reveal-padding=1rem] - Padding of the revealed content area
+ * @cssprop [--uibit-scratch-reveal-font-size=1rem] - Font size of the revealed content
+ * @cssprop [--uibit-scratch-reveal-font-weight=bold] - Font weight of the revealed content
+ * @cssprop [--uibit-scratch-reveal-color=#000000] - Text color of the revealed content
+ * @cssprop --uibit-scratch-reveal-cursor - Cursor style during scratching
+ * @cssprop [--uibit-scratch-reveal-instructions-color=rgba(0,0,0,0.6)] - Color of the scratch instruction hint
+ * @cssprop [--uibit-scratch-reveal-instructions-font-size=0.875rem] - Font size of the scratch instruction hint
+ * @cssprop [--uibit-scratch-reveal-overlay-color=#c0c0c0] - Fill color of the scratchable overlay
+ */
 @customElement('uibit-scratch-reveal')
 export class ScratchReveal extends LitElement {
   static styles = css`
@@ -66,6 +88,7 @@ export class ScratchReveal extends LitElement {
     }
   `;
 
+  /** Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires. */
   @property({ type: Number }) revealPercentage = 0;
 
   get brushSize(): number {
@@ -78,7 +101,7 @@ export class ScratchReveal extends LitElement {
   @state() private showInstructions = true;
 
   private canvas?: HTMLCanvasElement;
-  private ctx?: CanvasRenderingContext2D;
+  private ctx?: CanvasRenderingContext2D | null;
   private isDrawing = false;
 
   connectedCallback() {
@@ -124,13 +147,30 @@ export class ScratchReveal extends LitElement {
     this.canvas.addEventListener('mouseup', () => this.stopScratching());
     this.canvas.addEventListener('mouseleave', () => this.stopScratching());
 
-    this.canvas.addEventListener('touchstart', (e) => this.startScratching(e as any));
-    this.canvas.addEventListener('touchmove', (e) => this.scratch(e as any));
+    this.canvas.addEventListener('touchstart', (e) => {
+      this.isDrawing = true;
+      this.showInstructions = false;
+      const touch = e.touches[0];
+      if (touch) {
+        this.scratch(touch);
+      }
+    }, { passive: true });
+
+    this.canvas.addEventListener('touchmove', (e) => {
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+      const touch = e.touches[0];
+      if (touch) {
+        this.scratch(touch);
+      }
+    }, { passive: false });
+
     this.canvas.addEventListener('touchend', () => this.stopScratching());
     this.canvas.addEventListener('touchcancel', () => this.stopScratching());
   }
 
-  private startScratching(e: MouseEvent | Touch) {
+  private startScratching(e: MouseEvent) {
     this.isDrawing = true;
     this.showInstructions = false;
     this.scratch(e);
@@ -140,10 +180,8 @@ export class ScratchReveal extends LitElement {
     this.isDrawing = false;
   }
 
-  private scratch(e: MouseEvent | { clientX: number; clientY: number }) {
+  private scratch(e: MouseEvent | Touch) {
     if (!this.isDrawing || !this.ctx || !this.canvas) return;
-
-    e.preventDefault?.();
 
     const rect = this.canvas.getBoundingClientRect();
     const x = (e.clientX - rect.left) * window.devicePixelRatio;
@@ -232,6 +270,11 @@ export class ScratchReveal extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'uibit-scratch-reveal': ScratchReveal;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-scratch-reveal': any;
+    }
   }
 }
 

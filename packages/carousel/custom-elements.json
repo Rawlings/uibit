@@ -1,0 +1,474 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/carousel.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Accessible, scroll-driven carousel with keyboard navigation, auto-play,\nand configurable items-per-view via CSS custom properties.",
+          "name": "UIBitCarousel",
+          "cssProperties": [
+            {
+              "description": "Gap between slides",
+              "name": "--uibit-carousel-gap",
+              "default": "16px"
+            },
+            {
+              "description": "Scroll animation duration",
+              "name": "--uibit-carousel-duration",
+              "default": "300ms"
+            },
+            {
+              "description": "Number of slides visible at once",
+              "name": "--uibit-carousel-items-per-view",
+              "default": "1"
+            },
+            {
+              "description": "Border color of the viewport",
+              "name": "--uibit-carousel-border-color",
+              "default": "#e5e7eb"
+            },
+            {
+              "description": "Background of prev/next buttons",
+              "name": "--uibit-carousel-button-bg",
+              "default": "#f3f4f6"
+            },
+            {
+              "description": "Hover background of prev/next buttons",
+              "name": "--uibit-carousel-button-bg-hover",
+              "default": "#e5e7eb"
+            },
+            {
+              "description": "Background of inactive indicator dots",
+              "name": "--uibit-carousel-indicator-bg",
+              "default": "#e5e7eb"
+            },
+            {
+              "description": "Background of the active indicator dot",
+              "name": "--uibit-carousel-indicator-active-bg",
+              "default": "#000000"
+            },
+            {
+              "description": "Color of the focus outline on buttons",
+              "name": "--uibit-carousel-focus-outline-color",
+              "default": "#000000"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The root carousel container",
+              "name": "carousel"
+            },
+            {
+              "description": "The overflow-hidden viewport",
+              "name": "viewport"
+            },
+            {
+              "description": "The scrollable slides row",
+              "name": "content"
+            },
+            {
+              "description": "The control bar below the viewport",
+              "name": "controls"
+            },
+            {
+              "description": "The prev/next button group",
+              "name": "buttons"
+            },
+            {
+              "description": "Each navigation button",
+              "name": "button"
+            },
+            {
+              "description": "The previous slide button",
+              "name": "button-prev"
+            },
+            {
+              "description": "The next slide button",
+              "name": "button-next"
+            },
+            {
+              "description": "The indicator dot group",
+              "name": "indicators"
+            },
+            {
+              "description": "Each indicator dot",
+              "name": "indicator"
+            },
+            {
+              "description": "Added to the active indicator dot",
+              "name": "indicator-active"
+            }
+          ],
+          "slots": [
+            {
+              "description": "One or more slide elements (add `slot=\"item\"` to each child)",
+              "name": "item"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "autoPlay",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Automatically advance slides on a timer.",
+              "attribute": "autoPlay"
+            },
+            {
+              "kind": "field",
+              "name": "autoPlayInterval",
+              "type": {
+                "text": "number"
+              },
+              "default": "5000",
+              "description": "Milliseconds between auto-play advances.",
+              "attribute": "autoPlayInterval"
+            },
+            {
+              "kind": "field",
+              "name": "loop",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "When `true`, the carousel wraps from the last slide back to the first.",
+              "attribute": "loop"
+            },
+            {
+              "kind": "field",
+              "name": "itemsPerView",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "gap",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "content",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "viewport",
+              "type": {
+                "text": "HTMLElement | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "currentIndex",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "totalSlides",
+              "type": {
+                "text": "number"
+              },
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "canPrev",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "canNext",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "autoPlayTimer",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "resizeObserver",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "intersectionObserver",
+              "type": {
+                "text": "IntersectionObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "isProgrammaticScroll",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "programmaticScrollTimeout",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleScroll",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "handleInteraction",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setupCarousel",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setupIntersectionObserver",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setupResizeObserver",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setupKeyboardNavigation",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setupAutoPlay",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "stopAutoPlay",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "onInteraction",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "onScroll",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "getSlides",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLElement[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "updateNavigationState",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "prev"
+            },
+            {
+              "kind": "method",
+              "name": "next"
+            },
+            {
+              "kind": "method",
+              "name": "goToSlide",
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "scrollToSlide",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "emitSlideChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handleSlotChange",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "slide-change",
+              "type": {
+                "text": "{ index: number, totalSlides: number }"
+              },
+              "description": "Fired when the active slide changes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "autoPlay",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Automatically advance slides on a timer.",
+              "fieldName": "autoPlay"
+            },
+            {
+              "name": "autoPlayInterval",
+              "type": {
+                "text": "number"
+              },
+              "default": "5000",
+              "description": "Milliseconds between auto-play advances.",
+              "fieldName": "autoPlayInterval"
+            },
+            {
+              "name": "loop",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "When `true`, the carousel wraps from the last slide back to the first.",
+              "fieldName": "loop"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-carousel",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "UIBitCarousel",
+          "declaration": {
+            "name": "UIBitCarousel",
+            "module": "src/carousel.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-carousel",
+          "declaration": {
+            "name": "UIBitCarousel",
+            "module": "src/carousel.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UIBitCarousel",
+            "module": "src/carousel.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "UIBitCarousel",
+            "module": "./carousel"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "CarouselConfig",
+          "declaration": {
+            "name": "CarouselConfig",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SlideChangeEvent",
+          "declaration": {
+            "name": "SlideChangeEvent",
+            "module": "./types"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

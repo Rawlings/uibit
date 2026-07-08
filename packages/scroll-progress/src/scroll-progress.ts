@@ -2,6 +2,14 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 
+/**
+ * Thin progress bar that tracks scroll position — either the page or a
+ * custom scrollable element — and fills as the user scrolls down.
+ *
+ * @cssprop [--uibit-scroll-progress-height=4px] - Height of the progress bar
+ * @cssprop [--uibit-scroll-progress-bg=transparent] - Background (track) color
+ * @cssprop [--uibit-scroll-progress-color=#000000] - Fill color of the progress indicator
+ */
 @customElement('uibit-scroll-progress')
 export class ScrollProgress extends LitElement {
   static styles = css`
@@ -20,7 +28,8 @@ export class ScrollProgress extends LitElement {
     }
   `;
 
-  @property({ type: String }) target?: string; // CSS selector of custom scrollable element
+  /** CSS selector of a custom scrollable container to track. Defaults to the page (`window`). */
+  @property({ type: String }) target?: string;
 
   @state() private progressPercent = 0;
 
@@ -105,6 +114,11 @@ export class ScrollProgress extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'uibit-scroll-progress': ScrollProgress;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-scroll-progress': any;
+    }
   }
 }
 

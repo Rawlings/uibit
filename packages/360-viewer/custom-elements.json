@@ -1,0 +1,410 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/360-viewer.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "360° product viewer driven by an array of sequential images.\nSupports drag, touch, auto-rotation, and keyboard controls.",
+          "name": "Viewer360",
+          "cssProperties": [
+            {
+              "description": "Background color of the viewer container",
+              "name": "--uibit-360-viewer-bg",
+              "default": "#f5f5f5"
+            },
+            {
+              "description": "Border color of the viewer container",
+              "name": "--uibit-360-viewer-border",
+              "default": "#e5e7eb"
+            },
+            {
+              "description": "Background of control buttons",
+              "name": "--uibit-360-viewer-button-bg",
+              "default": "rgba(255,255,255,0.7)"
+            },
+            {
+              "description": "Hover background of control buttons",
+              "name": "--uibit-360-viewer-button-bg-hover",
+              "default": "rgba(255,255,255,0.9)"
+            },
+            {
+              "description": "Icon/text color of control buttons",
+              "name": "--uibit-360-viewer-button-color",
+              "default": "#374151"
+            },
+            {
+              "description": "Focus outline color for interactive elements",
+              "name": "--uibit-360-viewer-focus-color",
+              "default": "#000000"
+            },
+            {
+              "description": "Background of the progress bar track",
+              "name": "--uibit-360-viewer-progress-track-bg",
+              "default": "rgba(0,0,0,0.1)"
+            },
+            {
+              "description": "Background of the drag hint overlay",
+              "name": "--uibit-360-viewer-hint-bg",
+              "default": "rgba(17,24,39,0.7)"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "images",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "description": "Ordered array of image URLs representing each frame of the 360° rotation.",
+              "attribute": "images"
+            },
+            {
+              "kind": "field",
+              "name": "autoRotate",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Automatically rotate through frames when no user interaction is occurring.",
+              "attribute": "autoRotate"
+            },
+            {
+              "kind": "field",
+              "name": "rotationSpeed",
+              "type": {
+                "text": "number"
+              },
+              "default": "150",
+              "description": "Milliseconds between frames during auto-rotation. Lower values spin faster.",
+              "attribute": "rotationSpeed"
+            },
+            {
+              "kind": "field",
+              "name": "dragSensitivity",
+              "type": {
+                "text": "number"
+              },
+              "default": "15",
+              "description": "Horizontal pixel distance a drag must travel before advancing one frame.",
+              "attribute": "dragSensitivity"
+            },
+            {
+              "kind": "field",
+              "name": "showControls",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Show the play/pause and directional control buttons.",
+              "attribute": "showControls"
+            },
+            {
+              "kind": "field",
+              "name": "showProgressBar",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Show the frame progress bar at the bottom of the viewer.",
+              "attribute": "showProgressBar"
+            },
+            {
+              "kind": "field",
+              "name": "currentIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "isDragging",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "autoRotateTimer",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "resumeTimer",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "startX",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "startImageIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "method",
+              "name": "startAutoRotate",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "stopAutoRotate",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "scheduleAutoRotateResume",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "clearResumeTimer",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "preloadAdjacentImages",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "preloadAllImages",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "next"
+            },
+            {
+              "kind": "method",
+              "name": "prev"
+            },
+            {
+              "kind": "method",
+              "name": "emitChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "handlePointerDown",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handlePointerMove",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handlePointerUp",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "PointerEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "handleKeyDown",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "KeyboardEvent"
+                  }
+                }
+              ]
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "{ index: number, total: number }"
+              },
+              "description": "Fired each time the displayed frame changes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "images",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "description": "Ordered array of image URLs representing each frame of the 360° rotation.",
+              "fieldName": "images"
+            },
+            {
+              "name": "autoRotate",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Automatically rotate through frames when no user interaction is occurring.",
+              "fieldName": "autoRotate"
+            },
+            {
+              "name": "rotationSpeed",
+              "type": {
+                "text": "number"
+              },
+              "default": "150",
+              "description": "Milliseconds between frames during auto-rotation. Lower values spin faster.",
+              "fieldName": "rotationSpeed"
+            },
+            {
+              "name": "dragSensitivity",
+              "type": {
+                "text": "number"
+              },
+              "default": "15",
+              "description": "Horizontal pixel distance a drag must travel before advancing one frame.",
+              "fieldName": "dragSensitivity"
+            },
+            {
+              "name": "showControls",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Show the play/pause and directional control buttons.",
+              "fieldName": "showControls"
+            },
+            {
+              "name": "showProgressBar",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Show the frame progress bar at the bottom of the viewer.",
+              "fieldName": "showProgressBar"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-360-viewer",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Viewer360",
+          "declaration": {
+            "name": "Viewer360",
+            "module": "src/360-viewer.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-360-viewer",
+          "declaration": {
+            "name": "Viewer360",
+            "module": "src/360-viewer.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "Viewer360",
+            "module": "src/360-viewer.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./360-viewer"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Viewer360",
+          "declaration": {
+            "name": "Viewer360",
+            "module": "./360-viewer"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Viewer360Config",
+          "declaration": {
+            "name": "Viewer360Config",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "Hotspot360",
+          "declaration": {
+            "name": "Hotspot360",
+            "module": "./types"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

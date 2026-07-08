@@ -4,21 +4,37 @@
   "description": "Asset-level consent wrapper for privacy-invasive third-party scripts and iframes",
   "type": "module",
   "main": "./dist/consent-guard.js",
-  "types": "./dist/consent-guard.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/consent-guard.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/consent-guard.js"
     },
-    "./consent-guard.css": "./dist/consent-guard.css"
+    "./consent-guard.css": "./dist/consent-guard.css",
+    "./custom-elements.json": "./custom-elements.json"
   },
-  "files": ["dist", "package.json", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "custom-elements.json"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "npm run analyze && vite build && tsc --emitDeclarationOnly",
+    "preview": "vite preview",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
-  "keywords": ["consent", "privacy", "gdpr", "cookie", "iframe", "web-component", "lit"],
+  "keywords": [
+    "consent",
+    "privacy",
+    "gdpr",
+    "cookie",
+    "iframe",
+    "web-component",
+    "lit"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
@@ -37,5 +53,6 @@
   },
   "peerDependencies": {
     "lit": "^3.0.0"
-  }
+  },
+  "customElements": "custom-elements.json"
 }

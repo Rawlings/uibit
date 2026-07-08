@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import '@uibit/countdown';
+import { ApiDocs } from '../components/ApiDocs';
+import manifest from '@uibit/countdown/custom-elements.json';
 
 function CountdownDocs() {
 
@@ -42,59 +44,7 @@ function CountdownDocs() {
         </div>
       </section>
 
-      {/* API Reference */}
-      <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900 mb-8">API</h2>
-        <div className="space-y-8">
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Properties</h3>
-            <div className="space-y-3">
-              {[
-                { name: 'target', desc: 'ISO date string representing the countdown destination' },
-                { name: 'duration', desc: 'Alternative millisecond offset value from start invocation' },
-                { name: 'autoStart', desc: 'Toggles timer connection on component mounting (default: true)' },
-                { name: 'format', desc: 'Desired display segments: supports "DD:HH:MM:SS", "HH:MM:SS", "MM:SS", or "SS" (default: "HH:MM:SS")' },
-              ].map((prop) => (
-                <div key={prop.name} className="border border-gray-200 rounded p-4">
-                  <code className="font-mono text-sm text-gray-900">{prop.name}</code>
-                  <p className="text-gray-600 text-sm mt-2">{prop.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Methods</h3>
-            <div className="space-y-3">
-              {[
-                { name: 'start()', desc: 'Resets resolved times and connects the 1-second interval loop' },
-                { name: 'stop()', desc: 'Clears the interval loop and pauses calculations' },
-              ].map((method) => (
-                <div key={method.name} className="border border-gray-200 rounded p-4">
-                  <code className="font-mono text-sm text-gray-900">{method.name}</code>
-                  <p className="text-gray-600 text-sm mt-2">{method.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Events</h3>
-            <div className="space-y-3">
-              {[
-                { name: 'countdown-tick', desc: 'Fires every second with the latest time details in event.detail' },
-                { name: 'countdown-complete', desc: 'Fires once the timer remaining values reach 0' },
-              ].map((event) => (
-                <div key={event.name} className="border border-gray-200 rounded p-4">
-                  <code className="font-mono text-sm text-gray-900">{event.name}</code>
-                  <p className="text-gray-600 text-sm mt-2">{event.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <ApiDocs manifest={manifest as any} tagName="uibit-countdown" />
       {/* Usage Examples */}
       <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
         <h2 className="text-xl font-semibold text-gray-900 mb-8">Usage</h2>

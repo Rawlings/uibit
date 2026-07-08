@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import '@uibit/scroll-progress';
+import { ApiDocs } from '../components/ApiDocs';
+import manifest from '@uibit/scroll-progress/custom-elements.json';
 
 function ScrollProgressDocs() {
 
@@ -66,93 +68,7 @@ function ScrollProgressDocs() {
         </div>
       </section>
 
-      {/* API Reference */}
-      <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
-        <h2 className="text-xl font-semibold text-gray-900 mb-8">API</h2>
-        
-        <div className="mb-12">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Properties</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Property</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Type</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Default</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { prop: 'target', type: 'string', default: 'undefined', desc: 'CSS selector of the scroll container to observe. Defaults to window scrolling' },
-                ].map((row, i) => (
-                  <tr key={i} className="border-b border-gray-100">
-                    <td className="px-4 py-3 font-mono text-gray-900">{row.prop}</td>
-                    <td className="px-4 py-3 font-mono text-gray-600">{row.type}</td>
-                    <td className="px-4 py-3 font-mono text-gray-600">{row.default}</td>
-                    <td className="px-4 py-3 text-gray-600">{row.desc}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className="mb-12">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">CSS Custom Properties</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Variable</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Type</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Default</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { prop: '--uibit-scroll-progress-color', type: 'color', default: '#000000', desc: 'Fill color of the progress bar' },
-                  { prop: '--uibit-scroll-progress-height', type: 'length', default: '4px', desc: 'Thickness of the progress bar' },
-                  { prop: '--uibit-scroll-progress-bg', type: 'color', default: 'transparent', desc: 'Background color of the tracking bar' },
-                ].map((row, i) => (
-                  <tr key={i} className="border-b border-gray-100">
-                    <td className="px-4 py-3 font-mono text-gray-900">{row.prop}</td>
-                    <td className="px-4 py-3 font-mono text-gray-600">{row.type}</td>
-                    <td className="px-4 py-3 font-mono text-gray-600">{row.default}</td>
-                    <td className="px-4 py-3 text-gray-600">{row.desc}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className="mb-12">
-          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">CSS Shadow Parts</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Part</th>
-                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { part: 'progress', desc: 'The active progress bar element' },
-                ].map((row, i) => (
-                  <tr key={i} className="border-b border-gray-100">
-                    <td className="px-4 py-3 font-mono text-gray-900">::part({row.part})</td>
-                    <td className="px-4 py-3 text-gray-600">{row.desc}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
+      <ApiDocs manifest={manifest as any} tagName="uibit-scroll-progress" />
       {/* Usage Examples */}
       <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
         <h2 className="text-xl font-semibold text-gray-900 mb-8">Usage</h2>

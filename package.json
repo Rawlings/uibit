@@ -20,7 +20,8 @@
     "build:countdown": "pnpm -F countdown run build",
     "build:scratch-reveal": "pnpm -F scratch-reveal run build",
     "build:docs": "pnpm -F docs run build",
-    "preview": "pnpm -F docs run preview"
+    "preview": "pnpm -F docs run preview",
+    "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",

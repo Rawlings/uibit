@@ -2,6 +2,35 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 
+/**
+ * Gate third-party iframes or scripts behind a consent prompt. Shows a
+ * placeholder with an accept/decline action until the user grants consent.
+ *
+ * @fires void consent-accepted - Fired when the user clicks the accept button
+ * @fires void consent-declined - Fired when the user clicks the decline button
+ *
+ * @slot title - Overrides the placeholder heading text
+ * @slot description - Overrides the placeholder description text
+ * @slot actions - Replaces the entire accept/decline action area
+ * @slot accept-label - Overrides the label text on the accept button
+ * @slot decline-label - Overrides the label text on the decline button
+ *
+ * @cssprop [--uibit-consent-guard-primary-color=#000000] - Accent color used for the accept button background
+ * @cssprop [--uibit-consent-guard-primary-hover-bg=#333333] - Hover background of the accept button
+ * @cssprop [--uibit-consent-guard-text-color=#1f2937] - Primary text color
+ * @cssprop [--uibit-consent-guard-muted-color=#6b7280] - Muted/secondary text color
+ * @cssprop [--uibit-consent-guard-border-color=#d1d5db] - Border color of the placeholder and buttons
+ * @cssprop [--uibit-consent-guard-bg=linear-gradient(...)] - Background of the placeholder area
+ *
+ * @csspart placeholder - The pre-consent placeholder container
+ * @csspart placeholder-image - The image/icon area inside the placeholder
+ * @csspart placeholder-content - The text content area inside the placeholder
+ * @csspart placeholder-title - The heading inside the placeholder
+ * @csspart placeholder-description - The description inside the placeholder
+ * @csspart consent-actions - The action button container
+ * @csspart accept-button - The accept button
+ * @csspart decline-button - The decline button
+ */
 @customElement('uibit-consent-guard')
 export class ConsentGuard extends LitElement {
   static styles = css`
@@ -178,14 +207,23 @@ export class ConsentGuard extends LitElement {
     }
   `;
 
+  /** Heading text shown in the placeholder before consent is given. */
   @property({ type: String }) title = 'Third-party Content';
+  /** Description text shown in the placeholder before consent is given. */
   @property({ type: String }) description = 'This content requires your consent to load. Click "Accept" to proceed.';
+  /** URL of an image to display as the placeholder background before consent. */
   @property({ type: String }) placeholderImage?: string;
+  /** URL of the iframe or script to load after consent is granted. */
   @property({ type: String }) src?: string;
+  /** Whether to load an `iframe` or inject a `script` tag after consent. */
   @property({ type: String }) contentType: 'iframe' | 'script' = 'iframe';
+  /** Automatically set the iframe height to match its content. */
   @property({ type: Boolean }) autoHeight = true;
+  /** Explicit height (px or CSS string) when `autoHeight` is `false`. */
   @property({ type: Number }) height: number | string = 400;
+  /** Label for the accept/consent button. */
   @property({ type: String }) acceptLabel = 'Accept Cookies';
+  /** Label for the decline button. */
   @property({ type: String }) declineLabel = 'Decline';
 
   @state() private isConsentGiven = false;
@@ -324,6 +362,11 @@ export class ConsentGuard extends LitElement {
 declare global {
   interface HTMLElementTagNameMap {
     'uibit-consent-guard': ConsentGuard;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-consent-guard': any;
+    }
   }
 }
 

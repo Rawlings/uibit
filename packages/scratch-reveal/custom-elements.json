@@ -1,0 +1,291 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ScratchReveal",
+          "declaration": {
+            "name": "ScratchReveal",
+            "module": "./scratch-reveal"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/types"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/scratch-reveal.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Canvas-based scratch card that reveals slotted content as the user\nscratches over a configurable overlay layer.",
+          "name": "ScratchReveal",
+          "cssProperties": [
+            {
+              "description": "Width of the scratch card (defaults to 100%)",
+              "name": "--uibit-scratch-reveal-width"
+            },
+            {
+              "description": "Height of the scratch card (defaults to 200px)",
+              "name": "--uibit-scratch-reveal-height"
+            },
+            {
+              "description": "Border radius of the card",
+              "name": "--uibit-scratch-reveal-border-radius",
+              "default": "8px"
+            },
+            {
+              "description": "Background color of the revealed content area",
+              "name": "--uibit-scratch-reveal-background",
+              "default": "#f0f0f0"
+            },
+            {
+              "description": "Padding of the revealed content area",
+              "name": "--uibit-scratch-reveal-padding",
+              "default": "1rem"
+            },
+            {
+              "description": "Font size of the revealed content",
+              "name": "--uibit-scratch-reveal-font-size",
+              "default": "1rem"
+            },
+            {
+              "description": "Font weight of the revealed content",
+              "name": "--uibit-scratch-reveal-font-weight",
+              "default": "bold"
+            },
+            {
+              "description": "Text color of the revealed content",
+              "name": "--uibit-scratch-reveal-color",
+              "default": "#000000"
+            },
+            {
+              "description": "Cursor style during scratching",
+              "name": "--uibit-scratch-reveal-cursor"
+            },
+            {
+              "description": "Color of the scratch instruction hint",
+              "name": "--uibit-scratch-reveal-instructions-color",
+              "default": "rgba(0,0,0,0.6)"
+            },
+            {
+              "description": "Font size of the scratch instruction hint",
+              "name": "--uibit-scratch-reveal-instructions-font-size",
+              "default": "0.875rem"
+            },
+            {
+              "description": "Fill color of the scratchable overlay",
+              "name": "--uibit-scratch-reveal-overlay-color",
+              "default": "#c0c0c0"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The content revealed beneath the scratch overlay",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "revealPercentage",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires.",
+              "attribute": "revealPercentage"
+            },
+            {
+              "kind": "field",
+              "name": "brushSize",
+              "type": {
+                "text": "number"
+              },
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "isRevealed",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "showInstructions",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "canvas",
+              "type": {
+                "text": "HTMLCanvasElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "ctx",
+              "type": {
+                "text": "CanvasRenderingContext2D | null | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "isDrawing",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "setupCanvas",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "drawOverlay",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "attachEventListeners",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "startScratching",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "MouseEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "stopScratching",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "scratch",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "MouseEvent | Touch"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "calculateRevealPercentage",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "reset"
+            }
+          ],
+          "events": [
+            {
+              "name": "scratch-reveal",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "scratch-progress",
+              "type": {
+                "text": "{ percentage: number }"
+              },
+              "description": "Fired as the user scratches; `detail.percentage` is 0–100"
+            },
+            {
+              "description": "scratch-reveal - Fired once when the revealed area crosses `revealPercentage`",
+              "name": "void"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "revealPercentage",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires.",
+              "fieldName": "revealPercentage"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-scratch-reveal",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ScratchReveal",
+          "declaration": {
+            "name": "ScratchReveal",
+            "module": "src/scratch-reveal.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-scratch-reveal",
+          "declaration": {
+            "name": "ScratchReveal",
+            "module": "src/scratch-reveal.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "ScratchReveal",
+            "module": "src/scratch-reveal.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

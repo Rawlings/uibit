@@ -4,20 +4,34 @@
   "description": "A web component wrapper for A/B testing with automatic variant distribution and localStorage persistence",
   "type": "module",
   "main": "./dist/ab-test.js",
-  "types": "./dist/ab-test.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/ab-test.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/ab-test.js"
-    }
+    },
+    "./custom-elements.json": "./custom-elements.json"
   },
-  "files": ["dist", "package.json", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "custom-elements.json"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "npm run analyze && vite build && tsc --emitDeclarationOnly",
+    "preview": "vite preview",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
-  "keywords": ["ab-test", "testing", "variant", "web-component", "lit"],
+  "keywords": [
+    "ab-test",
+    "testing",
+    "variant",
+    "web-component",
+    "lit"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
@@ -36,5 +50,6 @@
   },
   "peerDependencies": {
     "lit": "^3.0.0"
-  }
+  },
+  "customElements": "custom-elements.json"
 }
