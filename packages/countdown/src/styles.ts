@@ -3,7 +3,7 @@ import { css } from 'lit';
 export const styles = css`
   :host {
     display: block;
-    font-family: var(--uibit-countdown-font-family, ui-monospace, 'SF Mono', Menlo, monospace);
+    font-family: var(--uibit-countdown-font-family, inherit);
     font-size: var(--uibit-countdown-font-size, 1rem);
     font-weight: var(--uibit-countdown-font-weight, 600);
     color: var(--uibit-countdown-color, #111827);
@@ -29,6 +29,7 @@ export const styles = css`
     min-width: var(--uibit-countdown-value-min-width, 4rem);
     line-height: 1;
     letter-spacing: -0.025em;
+    font-variant-numeric: tabular-nums;
   }
 
   .label {
@@ -36,7 +37,6 @@ export const styles = css`
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--uibit-countdown-label-color, #6b7280);
-    font-family: Inter, system-ui, -apple-system, sans-serif;
     font-weight: 500;
   }
 

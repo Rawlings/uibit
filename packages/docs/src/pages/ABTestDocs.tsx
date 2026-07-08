@@ -4,22 +4,28 @@ import '@uibit/ab-test';
 import { ApiDocs } from '../components/ApiDocs';
 import manifest from '@uibit/ab-test/custom-elements.json';
 
+const AB_STORAGE_KEY = 'demo-ab-test-docs';
+
 function ABTestDocs() {
   const [selectedVariant, setSelectedVariant] = useState<string>('');
-  const abTestRef = useRef<any>(null);
+  const [mountKey, setMountKey] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Listen on the stable container so we don't miss events fired before React's
+  // useEffect can re-attach to a remounted web component.
   useEffect(() => {
-    const element = abTestRef.current;
-    if (element) {
-      const handleVariant = (e: any) => {
-        setSelectedVariant(e.detail.variant);
-      };
-      element.addEventListener('variant-rendered', handleVariant);
-      return () => {
-        element.removeEventListener('variant-rendered', handleVariant);
-      };
-    }
+    const container = containerRef.current;
+    if (!container) return;
+    const handle = (e: any) => setSelectedVariant(e.detail.variant);
+    container.addEventListener('variant-rendered', handle);
+    return () => container.removeEventListener('variant-rendered', handle);
   }, []);
+
+  const forceVariant = (v: string) => {
+    try { localStorage.setItem(AB_STORAGE_KEY, v); } catch (_) {}
+    setSelectedVariant(v);
+    setMountKey(k => k + 1);
+  };
 
   return (
     <div className="bg-white">
@@ -51,16 +57,26 @@ function ABTestDocs() {
       <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
         <h2 className="text-xl font-semibold text-gray-900 mb-6">Demo</h2>
         <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
-          {selectedVariant && (
-            <div className="mb-4 p-3 bg-white border border-gray-200 rounded text-sm max-w-md shadow-sm">
-              Assigned Variant State: <span className="font-mono font-bold text-blue-600">{selectedVariant.toUpperCase()}</span>
-            </div>
-          )}
-          
-          <div className="max-w-md">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-sm text-gray-600">Force variant:</span>
+            <button
+              onClick={() => forceVariant('a')}
+              className={`px-3 py-1.5 rounded text-sm font-medium border transition-colors ${selectedVariant === 'a' ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-700 border-gray-300 hover:border-gray-500'}`}
+            >
+              Variant A
+            </button>
+            <button
+              onClick={() => forceVariant('b')}
+              className={`px-3 py-1.5 rounded text-sm font-medium border transition-colors ${selectedVariant === 'b' ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-700 border-gray-300 hover:border-gray-500'}`}
+            >
+              Variant B
+            </button>
+          </div>
+
+          <div className="max-w-md" ref={containerRef}>
             <uibit-ab-test
-              ref={abTestRef}
-              storage-key="demo-ab-test-docs"
+              key={mountKey}
+              storage-key={AB_STORAGE_KEY}
             >
               <div slot="variant-a" className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
                 <img src="https://picsum.photos/seed/product-a/480/220" alt="Minimal desk setup" className="w-full object-cover" style={{ height: '160px' }} />
@@ -93,9 +109,6 @@ function ABTestDocs() {
             </uibit-ab-test>
           </div>
           
-          <p className="text-xs text-gray-500 mt-4 leading-relaxed max-w-md">
-            Tip: Clear your local storage or add <code className="bg-gray-100 px-1 font-mono">?variant=b</code> to the URL query parameters to force select and test a specific variant layout!
-          </p>
         </div>
       </section>
 

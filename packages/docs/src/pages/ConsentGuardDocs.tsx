@@ -101,7 +101,7 @@ function ConsentGuardDocs() {
                 description="Enable analytics to help us understand how you use our service."
                 src="https://cdn.example.com/analytics.js"
                 content-type="script"
-                placeholder-image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=200&fit=crop"
+                placeholder-image="https://picsum.photos/seed/analytics/600/200"
                 accept-label="Accept & Load"
                 decline-label="Decline"
               ></uibit-consent-guard>

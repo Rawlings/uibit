@@ -36,5 +36,8 @@
   },
   "peerDependencies": {
     "lit": "^3.0.0"
+  },
+  "dependencies": {
+    "lucide": "^1.23.0"
   }
 }
