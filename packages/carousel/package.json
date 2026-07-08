@@ -22,6 +22,7 @@
   ],
   "scripts": {
     "build": "npm run analyze && tsc",
+    "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
     "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
   "keywords": [
