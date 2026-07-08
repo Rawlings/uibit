@@ -4,10 +4,10 @@
   "description": "Core utilities and decorators for UIBit web components",
   "type": "module",
   "main": "./dist/core.js",
-  "types": "./dist/core.d.ts",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/core.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/core.js"
     }
   },
@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && tsc --emitDeclarationOnly",
     "preview": "vite preview"
   },
   "keywords": [

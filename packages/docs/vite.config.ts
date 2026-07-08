@@ -19,7 +19,8 @@ export default defineConfig({
         '@uibit/hotspot',
         '@uibit/consent-guard',
         '@uibit/ab-test',
-        '@uibit/countdown'
+        '@uibit/countdown',
+        '@uibit/scratch-reveal'
       ]
     }
   }
