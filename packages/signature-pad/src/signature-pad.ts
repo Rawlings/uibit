@@ -341,16 +341,16 @@ export class SignaturePad extends LitElement {
       <div part="container" class="container" role="img" aria-label="Signature pad">
         <canvas part="canvas"></canvas>
         ${this.isEmpty
-          ? html`<div part="hint" class="hint">${this.hint}</div>`
-          : ''}
+        ? html`<div part="hint" class="hint">${this.hint}</div>`
+        : ''}
         ${!this.hideClear
-          ? html`<button
+        ? html`<button
               part="clear-button"
               class="clear-button"
               ?disabled=${this.isEmpty}
               @click=${() => this.clear()}
             >${this.clearLabel}</button>`
-          : ''}
+        : ''}
       </div>
     `;
   }

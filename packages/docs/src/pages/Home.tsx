@@ -49,6 +49,12 @@ const COMPONENTS = [
     description: 'A gamified, interactive scratch-off panel that reveals hidden content with smooth canvas drawing and touch gestures.',
     install: '@uibit/scratch-reveal',
   },
+  {
+    id: 'signature-pad',
+    name: 'Signature Pad',
+    description: 'Canvas drawing area for capturing freehand signatures using touch or mouse gestures, rendered as smooth bezier-curved vector lines with simulated pen pressure.',
+    install: '@uibit/signature-pad',
+  },
 ];
 
 function Home() {

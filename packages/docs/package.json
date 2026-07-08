@@ -18,6 +18,7 @@
     "@uibit/countdown": "workspace:*",
     "@uibit/hotspot": "workspace:*",
     "@uibit/scratch-reveal": "workspace:*",
+    "@uibit/signature-pad": "workspace:*",
     "@uibit/scroll-progress": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

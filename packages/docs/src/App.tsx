@@ -8,6 +8,7 @@ import ConsentGuardDocs from './pages/ConsentGuardDocs';
 import ABTestDocs from './pages/ABTestDocs';
 import CountdownDocs from './pages/CountdownDocs';
 import ScratchRevealDocs from './pages/ScratchRevealDocs';
+import SignaturePadDocs from './pages/SignaturePadDocs';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/ab-test" element={<ABTestDocs />} />
           <Route path="/countdown" element={<CountdownDocs />} />
           <Route path="/scratch-reveal" element={<ScratchRevealDocs />} />
+          <Route path="/signature-pad" element={<SignaturePadDocs />} />
         </Routes>
       </main>
 
