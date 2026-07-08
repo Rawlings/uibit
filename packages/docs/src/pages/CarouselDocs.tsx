@@ -1,12 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import '@uibit/carousel';
 
 function CarouselDocs() {
   const carouselRef = useRef<any>(null);
-
-  useEffect(() => {
-    import('@uibit/carousel');
-  }, []);
 
   return (
     <div className="bg-white">

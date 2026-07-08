@@ -1,13 +1,12 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import '@uibit/ab-test';
 
 function ABTestDocs() {
   const [selectedVariant, setSelectedVariant] = useState<string>('');
   const abTestRef = useRef<any>(null);
 
   useEffect(() => {
-    import('@uibit/ab-test');
-
     const element = abTestRef.current;
     if (element) {
       const handleVariant = (e: any) => {

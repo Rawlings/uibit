@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '@uibit/scroll-progress';
 
 function ScrollProgressDocs() {
-  useEffect(() => {
-    import('@uibit/scroll-progress');
-  }, []);
 
   return (
     <div className="bg-white">

@@ -1,12 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import '@uibit/scratch-reveal';
 
 function ScratchRevealDocs() {
   const elementRef = useRef<any>(null);
-
-  useEffect(() => {
-    import('@uibit/scratch-reveal');
-  }, []);
 
   const handleReset = () => {
     if (elementRef.current) {

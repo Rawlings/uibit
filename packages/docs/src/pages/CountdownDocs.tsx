@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '@uibit/countdown';
 
 function CountdownDocs() {
-  useEffect(() => {
-    import('@uibit/countdown');
-  }, []);
 
   const targetTime = new Date(Date.now() + 3600 * 1000 * 2.5).toISOString(); // 2.5 hours from now
 

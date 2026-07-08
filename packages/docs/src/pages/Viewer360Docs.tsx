@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '@uibit/360-viewer';
 
 function Viewer360Docs() {
-  useEffect(() => {
-    import('@uibit/360-viewer');
-  }, []);
 
   const demoImages = [
     'https://placehold.co/600x400/3b82f6/white?text=Frame+1+ (Drag+ Me)',

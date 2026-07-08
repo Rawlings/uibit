@@ -1,10 +1,7 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '@uibit/hotspot';
 
 function HotspotDocs() {
-  useEffect(() => {
-    import('@uibit/hotspot');
-  }, []);
 
   const hotspots = [
     { 

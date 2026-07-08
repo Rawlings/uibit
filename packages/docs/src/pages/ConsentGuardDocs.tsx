@@ -1,13 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import '@uibit/consent-guard';
 
 function ConsentGuardDocs() {
   const guardRef1 = useRef<any>(null);
   const guardRef2 = useRef<any>(null);
 
   useEffect(() => {
-    import('@uibit/consent-guard');
-
     const handleAccepted = (e: any) => {
       console.log('Consent accepted for:', e.detail.title);
     };
