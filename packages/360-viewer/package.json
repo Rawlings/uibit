@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "description": "A web component for displaying 360-degree product views with image rotation and touch support",
   "type": "module",
-  "main": "./dist/360-viewer.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/360-viewer.js"
+      "import": "./dist/index.js"
     },
     "./360-viewer.css": "./dist/360-viewer.css",
     "./custom-elements.json": "./custom-elements.json"
@@ -22,8 +22,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "npm run analyze && vite build && tsc --emitDeclarationOnly",
-    "preview": "vite preview",
+    "build": "npm run analyze && tsc",
     "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
   "keywords": [
@@ -44,10 +43,10 @@
     "@uibit/core": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.10.5",
-    "lit": "^3.1.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.7"
+    "@types/node": "^20.19.43",
+    "lit": "^3.3.3",
+    "typescript": "7.0.2",
+    "vite": "^5.4.21"
   },
   "peerDependencies": {
     "lit": "^3.0.0"

@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "description": "A canvas-based signature pad web component that captures touch and mouse gestures as smooth bezier-curved vector lines",
   "type": "module",
-  "main": "./dist/signature-pad.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/signature-pad.js"
+      "import": "./dist/index.js"
     },
     "./custom-elements.json": "./custom-elements.json"
   },
@@ -20,9 +20,7 @@
     "custom-elements.json"
   ],
   "scripts": {
-    "dev": "vite",
-    "build": "npm run analyze && vite build && tsc --emitDeclarationOnly",
-    "preview": "vite preview",
+    "build": "npm run analyze && tsc",
     "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
   "keywords": [
@@ -46,10 +44,8 @@
     "@uibit/core": "workspace:*"
   },
   "devDependencies": {
-    "@types/node": "^20.10.5",
     "lit": "^3.1.1",
-    "typescript": "^5.3.3",
-    "vite": "^5.0.7"
+    "typescript": "7.0.2"
   },
   "peerDependencies": {
     "lit": "^3.0.0"
