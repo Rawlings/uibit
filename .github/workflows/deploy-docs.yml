@@ -50,6 +50,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Build packages
+        run: pnpm -r --filter '!@uibit/docs' run build
+
       - name: Build documentation
         run: pnpm build:docs
 
