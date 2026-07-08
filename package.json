@@ -1,0 +1,36 @@
+{
+  "name": "uibit",
+  "version": "0.1.0",
+  "description": "A collection of accessible, production-ready UI web components",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "pnpm": ">=8.0.0",
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "install": "pnpm install",
+    "dev": "pnpm -r run dev",
+    "build": "pnpm -r run build",
+    "build:carousel": "pnpm -F @uibit/carousel run build",
+    "build:docs": "pnpm -F @uibit/docs run build",
+    "preview": "pnpm -F @uibit/docs run preview"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
+  },
+  "keywords": [
+    "ui",
+    "components",
+    "web-components",
+    "lit",
+    "accessible"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git"
+  }
+}

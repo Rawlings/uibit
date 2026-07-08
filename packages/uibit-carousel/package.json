@@ -1,0 +1,50 @@
+{
+  "name": "@uibit/carousel",
+  "version": "0.1.0",
+  "description": "A native, accessible carousel web component with CSS scroll-snap and scroll-driven animations",
+  "type": "module",
+  "main": "./dist/carousel.js",
+  "types": "./dist/carousel.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/carousel.d.ts",
+      "import": "./dist/carousel.js"
+    },
+    "./carousel.css": "./dist/carousel.css"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "carousel",
+    "web-component",
+    "lit",
+    "scroll-snap",
+    "accessible",
+    "a11y"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/uibit-carousel"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "lit": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  }
+}
