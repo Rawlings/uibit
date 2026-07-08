@@ -1,5 +1,5 @@
 import { LitElement, html, css } from 'lit';
-import { customElement } from '@uibit/core';
+import { customElement, getIcon } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import type { SignaturePoint, SignatureStroke } from './types.js';
 
@@ -11,15 +11,18 @@ import type { SignaturePoint, SignatureStroke } from './types.js';
  * @fires {{ isEmpty: boolean; dataUrl: string }} signature-change - Fired after each stroke ends
  * @fires {{ previouslyEmpty: boolean }} signature-clear - Fired when the canvas is cleared
  *
+ * @slot hint - Placeholder text shown when the pad is empty. Defaults to "Sign here".
+ * @slot clear-label - Label text inside the clear button. Defaults to "Clear".
+ *
  * @cssprop [--uibit-signature-pad-width=100%] - Width of the signature area
- * @cssprop [--uibit-signature-pad-height=200px] - Height of the signature area
+ * @cssprop [--uibit-signature-pad-height=12.5rem] - Height of the signature area
  * @cssprop [--uibit-signature-pad-background=#ffffff] - Canvas background color
- * @cssprop [--uibit-signature-pad-border=1px solid #d1d5db] - Border around the canvas
- * @cssprop [--uibit-signature-pad-border-radius=8px] - Border radius
+ * @cssprop [--uibit-signature-pad-border=0.0625rem solid #e5e7eb] - Border around the canvas
+ * @cssprop [--uibit-signature-pad-border-radius=0.5rem] - Border radius
  * @cssprop [--uibit-signature-pad-stroke-color=#111111] - Ink/stroke color
- * @cssprop [--uibit-signature-pad-stroke-width=2px] - Base stroke width (varies with velocity)
- * @cssprop [--uibit-signature-pad-hint-color=rgba(0,0,0,0.25)] - Color of the sign-here hint text
- * @cssprop [--uibit-signature-pad-hint-font-size=0.875rem] - Font size of the hint text
+ * @cssprop [--uibit-signature-pad-stroke-width=0.125rem] - Base stroke width (varies with velocity)
+ * @cssprop [--uibit-signature-pad-hint-color=rgba(0,0,0,0.22)] - Color of the sign-here hint text
+ * @cssprop [--uibit-signature-pad-hint-font-size=0.8125rem] - Font size of the hint text
  * @cssprop [--uibit-signature-pad-cursor=crosshair] - Cursor style over the canvas
  *
  * @csspart container - The outermost wrapper element
@@ -33,14 +36,14 @@ export class SignaturePad extends LitElement {
     :host {
       display: block;
       --uibit-signature-pad-width: 100%;
-      --uibit-signature-pad-height: 200px;
+      --uibit-signature-pad-height: 12.5rem;
       --uibit-signature-pad-background: #ffffff;
-      --uibit-signature-pad-border: 1px solid #d1d5db;
-      --uibit-signature-pad-border-radius: 8px;
+      --uibit-signature-pad-border: 0.0625rem solid #e5e7eb;
+      --uibit-signature-pad-border-radius: 0.5rem;
       --uibit-signature-pad-stroke-color: #111111;
-      --uibit-signature-pad-stroke-width: 2px;
-      --uibit-signature-pad-hint-color: rgba(0, 0, 0, 0.25);
-      --uibit-signature-pad-hint-font-size: 0.875rem;
+      --uibit-signature-pad-stroke-width: 0.125rem;
+      --uibit-signature-pad-hint-color: rgba(0, 0, 0, 0.22);
+      --uibit-signature-pad-hint-font-size: 0.8125rem;
       --uibit-signature-pad-cursor: crosshair;
     }
 
@@ -66,7 +69,7 @@ export class SignaturePad extends LitElement {
 
     .hint {
       position: absolute;
-      bottom: 12px;
+      bottom: 0.75rem;
       left: 50%;
       transform: translateX(-50%);
       color: var(--uibit-signature-pad-hint-color);
@@ -76,39 +79,42 @@ export class SignaturePad extends LitElement {
       white-space: nowrap;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 0.375rem;
     }
 
     .hint::before {
       content: '';
       display: block;
-      width: 32px;
-      height: 1px;
+      width: 2rem;
+      height: 0.0625rem;
       background: currentColor;
     }
 
     .hint::after {
       content: '';
       display: block;
-      width: 32px;
-      height: 1px;
+      width: 2rem;
+      height: 0.0625rem;
       background: currentColor;
     }
 
     .clear-button {
       position: absolute;
-      top: 8px;
-      right: 8px;
-      padding: 4px 10px;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.25rem 0.625rem;
       font-size: 0.75rem;
       font-family: inherit;
       background: transparent;
-      border: 1px solid currentColor;
-      border-radius: 4px;
+      border: 0.0625rem solid currentColor;
+      border-radius: 0.25rem;
       color: var(--uibit-signature-pad-hint-color);
       cursor: pointer;
       line-height: 1.5;
-      transition: color 120ms ease, border-color 120ms ease;
+      transition: color 150ms ease, border-color 150ms ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
     }
 
     .clear-button:hover {
@@ -117,16 +123,12 @@ export class SignaturePad extends LitElement {
     }
 
     .clear-button:focus-visible {
-      outline: 2px solid var(--uibit-signature-pad-stroke-color);
-      outline-offset: 2px;
+      outline: 0.125rem solid var(--uibit-signature-pad-stroke-color);
+      outline-offset: 0.125rem;
     }
   `;
 
-  /** Placeholder text shown when the pad is empty. */
-  @property({ type: String }) hint = 'Sign here';
-  /** Label for the clear button. */
-  @property({ type: String }) clearLabel = 'Clear';
-  /** Whether to show the clear button. */
+  /** Whether to hide the clear button. */
   @property({ type: Boolean }) hideClear = false;
 
   @state() private isEmpty = true;
@@ -341,7 +343,7 @@ export class SignaturePad extends LitElement {
       <div part="container" class="container" role="img" aria-label="Signature pad">
         <canvas part="canvas"></canvas>
         ${this.isEmpty
-        ? html`<div part="hint" class="hint">${this.hint}</div>`
+        ? html`<div part="hint" class="hint"><slot name="hint">Sign here</slot></div>`
         : ''}
         ${!this.hideClear
         ? html`<button
@@ -349,7 +351,7 @@ export class SignaturePad extends LitElement {
               class="clear-button"
               ?disabled=${this.isEmpty}
               @click=${() => this.clear()}
-            >${this.clearLabel}</button>`
+            >${getIcon('rotate-ccw', 14)}<slot name="clear-label">Clear</slot></button>`
         : ''}
       </div>
     `;

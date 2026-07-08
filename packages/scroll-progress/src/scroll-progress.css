@@ -1,6 +1,8 @@
+/* Stale — the Lit component uses styles.ts. Values here kept in sync for reference. */
+
 :host {
-  --progress-height: 4px;
-  --progress-color: #3b82f6;
+  --progress-height: 0.1875rem;
+  --progress-color: #000000;
   --progress-bg: transparent;
   position: fixed;
   top: 0;

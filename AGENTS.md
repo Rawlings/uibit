@@ -143,12 +143,15 @@ When using these skills:
 
 ## Styling and Theming Guidelines
 
-To maintain a cohesive visual system and clean API boundaries across all components, adhere to the following rules:
+The full design system is defined in [DESIGN.md](./DESIGN.md). All component styles must conform to it. Key rules:
 
-1. **Avoid Style Properties**: Do not expose visual layout/styling configuration via public reactive properties (`@property()`). Use CSS variables and Shadow Parts instead.
-2. **Prefixed CSS Variables**: All CSS variables exposed by a component must be prefixed with `--uibit-[component-name]-[variable-name]`.
-3. **CSS Shadow Parts**: Ensure sub-elements within templates are decorated with `part="..."` attributes to allow external styling using `::part()`.
-4. **Scandinavian Aesthetics**: All default component styles must conform to a clean, minimal Scandinavian greyscale palette (blacks, whites, light/mid/dark greys, monochrome borders, clean spacing). Do not use vibrant colors (like generic blues/greens) for default values or focus outlines.
+1. **rem only.** Never use `px` in component styles. All sizes, spacing, radii, and shadow values must be in `rem`. Exception: bare `0` needs no unit.
+2. **Grayscale palette.** Use only the color tokens defined in DESIGN.md. No blues, greens, or chromatic colors in defaults. Focus rings are black.
+3. **Spacing and radius from scale.** Use values from the spacing and border-radius scales in DESIGN.md. No one-off values.
+4. **Standalone components.** Each component defines its own CSS custom property defaults in `:host {}`. No dependency on external or global CSS variables.
+5. **Avoid Style Properties**: Do not expose visual layout/styling configuration via public reactive properties (`@property()`). Use CSS variables and Shadow Parts instead.
+6. **Prefixed CSS Variables**: All CSS variables exposed by a component must be prefixed with `--uibit-[component-name]-[variable-name]`.
+7. **CSS Shadow Parts**: Ensure sub-elements within templates are decorated with `part="..."` attributes to allow external styling using `::part()`.
 
 ## Composability Guidelines
 

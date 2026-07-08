@@ -4,7 +4,7 @@ export const styles = css`
   :host {
     display: block;
     width: 100%;
-    height: var(--uibit-scroll-progress-height, 4px);
+    height: var(--uibit-scroll-progress-height, 0.1875rem);
     background: var(--uibit-scroll-progress-bg, transparent);
   }
 

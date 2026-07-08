@@ -16,11 +16,11 @@ import { property, state } from 'lit/decorators.js';
  * @slot decline-label - Overrides the label text on the decline button
  *
  * @cssprop [--uibit-consent-guard-primary-color=#000000] - Accent color used for the accept button background
- * @cssprop [--uibit-consent-guard-primary-hover-bg=#333333] - Hover background of the accept button
- * @cssprop [--uibit-consent-guard-text-color=#1f2937] - Primary text color
+ * @cssprop [--uibit-consent-guard-primary-hover-bg=#1f2937] - Hover background of the accept button
+ * @cssprop [--uibit-consent-guard-text-color=#111827] - Primary text color
  * @cssprop [--uibit-consent-guard-muted-color=#6b7280] - Muted/secondary text color
- * @cssprop [--uibit-consent-guard-border-color=#d1d5db] - Border color of the placeholder and buttons
- * @cssprop [--uibit-consent-guard-bg=linear-gradient(...)] - Background of the placeholder area
+ * @cssprop [--uibit-consent-guard-border-color=#e5e7eb] - Border color of the placeholder and buttons
+ * @cssprop [--uibit-consent-guard-bg=#f9fafb] - Background of the placeholder area
  *
  * @csspart placeholder - The pre-consent placeholder container
  * @csspart placeholder-image - The image/icon area inside the placeholder
@@ -38,11 +38,11 @@ export class ConsentGuard extends LitElement {
       display: block;
       width: 100%;
       --uibit-consent-guard-primary-color: #000000;
-      --uibit-consent-guard-primary-hover-bg: #333333;
-      --uibit-consent-guard-text-color: #1f2937;
+      --uibit-consent-guard-primary-hover-bg: #1f2937;
+      --uibit-consent-guard-text-color: #111827;
       --uibit-consent-guard-muted-color: #6b7280;
-      --uibit-consent-guard-border-color: #d1d5db;
-      --uibit-consent-guard-bg: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+      --uibit-consent-guard-border-color: #e5e7eb;
+      --uibit-consent-guard-bg: #f9fafb;
     }
 
     .consent-guard-container {
@@ -55,34 +55,34 @@ export class ConsentGuard extends LitElement {
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      gap: 16px;
-      min-height: 300px;
+      gap: 1rem;
+      min-height: 18.75rem;
       background: var(--uibit-consent-guard-bg);
-      border: 1px solid var(--uibit-consent-guard-border-color);
-      border-radius: 8px;
-      padding: 32px 24px;
+      border: 0.0625rem solid var(--uibit-consent-guard-border-color);
+      border-radius: 0.5rem;
+      padding: 2rem 1.5rem;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
 
     .placeholder-image {
-      width: 80px;
-      height: 80px;
-      border-radius: 12px;
-      background: white;
+      width: 5rem;
+      height: 5rem;
+      border-radius: 0.75rem;
+      background: #ffffff;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.06);
       position: relative;
       z-index: 1;
-      border: 1px solid var(--uibit-consent-guard-border-color);
+      border: 0.0625rem solid var(--uibit-consent-guard-border-color);
     }
 
     .placeholder-icon {
-      width: 40px;
-      height: 40px;
+      width: 2.5rem;
+      height: 2.5rem;
       fill: var(--uibit-consent-guard-muted-color);
     }
 
@@ -92,56 +92,57 @@ export class ConsentGuard extends LitElement {
     }
 
     .placeholder-title {
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 600;
+      letter-spacing: -0.01em;
       color: var(--uibit-consent-guard-text-color);
       margin: 0;
-      margin-bottom: 8px;
+      margin-bottom: 0.5rem;
     }
 
     .placeholder-description {
-      font-size: 14px;
+      font-size: 0.875rem;
       color: var(--uibit-consent-guard-muted-color);
       margin: 0;
-      max-width: 320px;
-      line-height: 1.5;
+      max-width: 20rem;
+      line-height: 1.6;
     }
 
     .consent-action {
       display: flex;
-      gap: 12px;
+      gap: 0.75rem;
       justify-content: center;
       flex-wrap: wrap;
       position: relative;
       z-index: 1;
-      margin-top: 16px;
+      margin-top: 1rem;
     }
 
     .consent-button {
-      padding: 10px 20px;
+      padding: 0.625rem 1.25rem;
       border: none;
-      border-radius: 6px;
-      font-size: 14px;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
       font-weight: 500;
       cursor: pointer;
-      transition: all 150ms ease;
+      transition: background-color 150ms ease, box-shadow 150ms ease, transform 150ms ease;
       outline: none;
     }
 
     .consent-button:focus-visible {
-      outline: 2px solid var(--uibit-consent-guard-primary-color);
-      outline-offset: 2px;
+      outline: 0.125rem solid var(--uibit-consent-guard-primary-color);
+      outline-offset: 0.125rem;
     }
 
     .accept-button {
       background: var(--uibit-consent-guard-primary-color);
-      color: white;
+      color: #ffffff;
     }
 
     .accept-button:hover {
       background: var(--uibit-consent-guard-primary-hover-bg);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-0.0625rem);
+      box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
     }
 
     .accept-button:active {
@@ -149,13 +150,13 @@ export class ConsentGuard extends LitElement {
     }
 
     .decline-button {
-      background: white;
-      color: #4b5563;
-      border: 1px solid var(--uibit-consent-guard-border-color);
+      background: #ffffff;
+      color: #374151;
+      border: 0.0625rem solid var(--uibit-consent-guard-border-color);
     }
 
     .decline-button:hover {
-      background: #f9fafb;
+      background: #f3f4f6;
       border-color: #9ca3af;
     }
 
@@ -166,7 +167,7 @@ export class ConsentGuard extends LitElement {
     .iframe-wrapper {
       width: 100%;
       border: none;
-      border-radius: 8px;
+      border-radius: 0.5rem;
       overflow: hidden;
     }
   `;

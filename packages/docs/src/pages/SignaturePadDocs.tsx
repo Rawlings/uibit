@@ -106,6 +106,14 @@ function SignaturePadDocs() {
           </div>
 
           <div>
+            <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">Custom Labels (Slots)</h3>
+            <pre className="code-block"><code>{`<uibit-signature-pad>
+  <span slot="hint">Draw your signature below</span>
+  <span slot="clear-label">Start over</span>
+</uibit-signature-pad>`}</code></pre>
+          </div>
+
+          <div>
             <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">Custom Theming</h3>
             <pre className="code-block"><code>{`<uibit-signature-pad
   style="

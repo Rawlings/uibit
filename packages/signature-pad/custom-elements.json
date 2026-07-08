@@ -103,27 +103,17 @@
               "name": "clear-button"
             }
           ],
+          "slots": [
+            {
+              "description": "Placeholder text shown when the pad is empty. Defaults to \"Sign here\".",
+              "name": "hint"
+            },
+            {
+              "description": "Label text inside the clear button. Defaults to \"Clear\".",
+              "name": "clear-label"
+            }
+          ],
           "members": [
-            {
-              "kind": "field",
-              "name": "hint",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Sign here'",
-              "description": "Placeholder text shown when the pad is empty.",
-              "attribute": "hint"
-            },
-            {
-              "kind": "field",
-              "name": "clearLabel",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Clear'",
-              "description": "Label for the clear button.",
-              "attribute": "clearLabel"
-            },
             {
               "kind": "field",
               "name": "hideClear",
@@ -131,7 +121,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether to show the clear button.",
+              "description": "Whether to hide the clear button.",
               "attribute": "hideClear"
             },
             {
@@ -363,30 +353,12 @@
           ],
           "attributes": [
             {
-              "name": "hint",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Sign here'",
-              "description": "Placeholder text shown when the pad is empty.",
-              "fieldName": "hint"
-            },
-            {
-              "name": "clearLabel",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Clear'",
-              "description": "Label for the clear button.",
-              "fieldName": "clearLabel"
-            },
-            {
               "name": "hideClear",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Whether to show the clear button.",
+              "description": "Whether to hide the clear button.",
               "fieldName": "hideClear"
             }
           ],

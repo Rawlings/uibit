@@ -10,18 +10,18 @@ import { styles } from './styles';
  * @fires {{ days: number, hours: number, minutes: number, seconds: number, remaining: number }} countdown-tick - Fired every second while the countdown is running
  * @fires void countdown-complete - Fired when the countdown reaches zero
  *
- * @cssprop [--uibit-countdown-font-family=monospace] - Font family for the entire countdown
- * @cssprop [--uibit-countdown-font-size=1.5rem] - Base font size
- * @cssprop [--uibit-countdown-font-weight=bold] - Font weight
- * @cssprop [--uibit-countdown-color=#000000] - Text color for values
- * @cssprop [--uibit-countdown-gap=1rem] - Gap between time units
- * @cssprop [--uibit-countdown-unit-gap=0.5rem] - Gap between the value and label within a unit
- * @cssprop [--uibit-countdown-value-font-size=2.5rem] - Font size for the numeric value
- * @cssprop [--uibit-countdown-value-min-width=80px] - Min width of each value block
- * @cssprop [--uibit-countdown-label-font-size=0.8rem] - Font size for unit labels (Days, Hours…)
- * @cssprop [--uibit-countdown-label-color=#4b5563] - Color for unit labels
- * @cssprop [--uibit-countdown-separator-font-size=2.5rem] - Font size of the colon separator
- * @cssprop [--uibit-countdown-separator-color=#000000] - Color of the colon separator
+ * @cssprop [--uibit-countdown-font-family=ui-monospace,'SF Mono',Menlo,monospace] - Font family for the entire countdown
+ * @cssprop [--uibit-countdown-font-size=1rem] - Base font size
+ * @cssprop [--uibit-countdown-font-weight=600] - Font weight
+ * @cssprop [--uibit-countdown-color=#111827] - Text color for values
+ * @cssprop [--uibit-countdown-gap=1.5rem] - Gap between time units
+ * @cssprop [--uibit-countdown-unit-gap=0.375rem] - Gap between the value and label within a unit
+ * @cssprop [--uibit-countdown-value-font-size=2.25rem] - Font size for the numeric value
+ * @cssprop [--uibit-countdown-value-min-width=4rem] - Min width of each value block
+ * @cssprop [--uibit-countdown-label-font-size=0.6875rem] - Font size for unit labels (Days, Hours…)
+ * @cssprop [--uibit-countdown-label-color=#6b7280] - Color for unit labels
+ * @cssprop [--uibit-countdown-separator-font-size=2.25rem] - Font size of the colon separator
+ * @cssprop [--uibit-countdown-separator-color=#d1d5db] - Color of the colon separator
  */
 @customElement('uibit-countdown')
 export class Countdown extends LitElement {

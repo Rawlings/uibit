@@ -19,16 +19,16 @@ export const styles = css`
   }
 
   .hotspot-trigger {
-    width: var(--uibit-hotspot-trigger-size, 32px);
-    height: var(--uibit-hotspot-trigger-size, 32px);
-    background: var(--uibit-hotspot-trigger-bg, rgba(0, 0, 0, 0.6));
-    border: var(--uibit-hotspot-trigger-border, 2px solid #ffffff);
-    border-radius: 50%;
+    width: var(--uibit-hotspot-trigger-size, 2rem);
+    height: var(--uibit-hotspot-trigger-size, 2rem);
+    background: var(--uibit-hotspot-trigger-bg, rgba(0, 0, 0, 0.65));
+    border: var(--uibit-hotspot-trigger-border, 0.125rem solid #ffffff);
+    border-radius: 9999rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
     position: relative;
     transition: transform 150ms ease, background-color 150ms ease;
     outline: none;
@@ -40,17 +40,17 @@ export const styles = css`
     position: absolute;
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: 9999rem;
     background: inherit;
     animation: pulse 2s infinite;
     z-index: -1;
-    opacity: 0.6;
+    opacity: 0.5;
   }
 
   @keyframes pulse {
     0% {
       transform: scale(1);
-      opacity: 0.6;
+      opacity: 0.5;
     }
     100% {
       transform: scale(2.2);
@@ -60,61 +60,61 @@ export const styles = css`
 
   .hotspot-trigger:hover,
   .hotspot-trigger.active {
-    background: var(--uibit-hotspot-trigger-bg-hover, rgba(0, 0, 0, 0.85));
+    background: var(--uibit-hotspot-trigger-bg-hover, rgba(0, 0, 0, 0.9));
     transform: scale(1.1);
   }
 
   .hotspot-trigger:focus-visible {
-    box-shadow: var(--uibit-hotspot-focus-outline, 0 0 0 3px #000000), 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow:
+      0 0 0 0.125rem #000000,
+      0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
   }
 
-  .hotspot-trigger::after {
-    content: '+';
-    color: var(--uibit-hotspot-trigger-color, white);
-    font-size: 18px;
-    font-weight: bold;
-    line-height: 1;
-  }
-
-  .hotspot-trigger.active::after {
-    content: '×';
-    font-size: 20px;
+  .hotspot-trigger svg {
+    color: var(--uibit-hotspot-trigger-color, #ffffff);
+    pointer-events: none;
   }
 
   .hotspot-popover {
     position: absolute;
-    width: 240px;
-    background: var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.95));
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    width: 15rem;
+    background: var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.96));
+    backdrop-filter: blur(0.75rem);
+    -webkit-backdrop-filter: blur(0.75rem);
     color: var(--uibit-hotspot-popover-color, #111827);
-    padding: 14px 16px;
-    border-radius: var(--uibit-hotspot-popover-border-radius, 12px);
+    padding: 0.875rem 1rem;
+    border-radius: var(--uibit-hotspot-popover-border-radius, 0.75rem);
     box-shadow: var(
       --uibit-hotspot-popover-shadow,
-      0 10px 25px -5px rgba(0, 0, 0, 0.1),
-      0 8px 10px -6px rgba(0, 0, 0, 0.1)
+      0 0.625rem 1.5rem rgba(0, 0, 0, 0.1),
+      0 0.25rem 0.5rem rgba(0, 0, 0, 0.06)
     );
-    border: var(--uibit-hotspot-popover-border, 1px solid rgba(0, 0, 0, 0.1));
+    border: var(--uibit-hotspot-popover-border, 0.0625rem solid rgba(0, 0, 0, 0.08));
     z-index: 20;
     display: flex;
     flex-direction: column;
-    animation: fadeIn 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: fadeIn 200ms ease;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translate(-50%, 8px); }
-    to { opacity: 1; transform: translate(-50%, 0); }
+    from {
+      opacity: 0;
+      transform: translate(-50%, 0.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
   }
 
   .hotspot-popover.position-above {
-    bottom: 24px;
+    bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
   }
 
   .hotspot-popover.position-below {
-    top: 24px;
+    top: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
   }
@@ -129,56 +129,58 @@ export const styles = css`
 
   .hotspot-popover.position-above::after {
     top: 100%;
-    border-width: 6px 6px 0 6px;
-    border-color: var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.95)) transparent transparent transparent;
+    border-width: 0.375rem 0.375rem 0 0.375rem;
+    border-color: var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.96)) transparent transparent transparent;
   }
 
   .hotspot-popover.position-below::after {
     bottom: 100%;
-    border-width: 0 6px 6px 6px;
-    border-color: transparent transparent var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.95)) transparent;
+    border-width: 0 0.375rem 0.375rem 0.375rem;
+    border-color: transparent transparent var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.96)) transparent;
   }
 
   .popover-content h3 {
-    margin: 0 0 6px 0;
-    font-size: 15px;
+    margin: 0 0 0.375rem 0;
+    font-size: 0.9375rem;
     font-weight: 600;
+    letter-spacing: -0.01em;
     color: var(--uibit-hotspot-popover-color, #111827);
   }
 
   .popover-content p {
     margin: 0;
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 0.8125rem;
+    line-height: 1.625;
     color: var(--uibit-hotspot-popover-content-color, #4b5563);
   }
 
   .popover-close {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 0.5rem;
+    right: 0.5rem;
     background: transparent;
     border: none;
     color: #9ca3af;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     padding: 0;
     line-height: 1;
-    width: 18px;
-    height: 18px;
+    width: 1.25rem;
+    height: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: background-color 150ms, color 150ms;
+    border-radius: 9999rem;
+    transition: background-color 150ms ease, color 150ms ease;
   }
 
   .popover-close:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #f3f4f6;
     color: #111827;
   }
 
   .popover-close:focus-visible {
-    outline: 2px solid var(--uibit-hotspot-focus-outline-color, #000000);
+    outline: 0.125rem solid #000000;
+    outline-offset: 0.125rem;
   }
 `;

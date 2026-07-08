@@ -12,18 +12,17 @@ import { styles } from './styles';
  *
  * @slot - The content revealed beneath the scratch overlay
  *
- * @cssprop --uibit-scratch-reveal-width - Width of the scratch card (defaults to 100%)
- * @cssprop --uibit-scratch-reveal-height - Height of the scratch card (defaults to 200px)
- * @cssprop [--uibit-scratch-reveal-border-radius=8px] - Border radius of the card
- * @cssprop [--uibit-scratch-reveal-background=#f0f0f0] - Background color of the revealed content area
+ * @cssprop [--uibit-scratch-reveal-width=25rem] - Width of the scratch card
+ * @cssprop [--uibit-scratch-reveal-height=12.5rem] - Height of the scratch card
+ * @cssprop [--uibit-scratch-reveal-border-radius=0.5rem] - Border radius of the card
+ * @cssprop [--uibit-scratch-reveal-background=#f3f4f6] - Background color of the revealed content area
  * @cssprop [--uibit-scratch-reveal-padding=1rem] - Padding of the revealed content area
  * @cssprop [--uibit-scratch-reveal-font-size=1rem] - Font size of the revealed content
- * @cssprop [--uibit-scratch-reveal-font-weight=bold] - Font weight of the revealed content
- * @cssprop [--uibit-scratch-reveal-color=#000000] - Text color of the revealed content
- * @cssprop --uibit-scratch-reveal-cursor - Cursor style during scratching
- * @cssprop [--uibit-scratch-reveal-instructions-color=rgba(0,0,0,0.6)] - Color of the scratch instruction hint
+ * @cssprop [--uibit-scratch-reveal-font-weight=600] - Font weight of the revealed content
+ * @cssprop [--uibit-scratch-reveal-color=#111827] - Text color of the revealed content
+ * @cssprop [--uibit-scratch-reveal-overlay-color=#d1d5db] - Fill color of the scratchable overlay
+ * @cssprop [--uibit-scratch-reveal-instructions-color=rgba(0,0,0,0.4)] - Color of the scratch instruction hint
  * @cssprop [--uibit-scratch-reveal-instructions-font-size=0.875rem] - Font size of the scratch instruction hint
- * @cssprop [--uibit-scratch-reveal-overlay-color=#c0c0c0] - Fill color of the scratchable overlay
  */
 @customElement('uibit-scratch-reveal')
 export class ScratchReveal extends LitElement {

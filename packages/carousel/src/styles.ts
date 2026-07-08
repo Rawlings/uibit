@@ -2,15 +2,15 @@ import { css } from 'lit';
 
 export const styles = css`
   :host {
-    --uibit-carousel-gap: 16px;
+    --uibit-carousel-gap: 1rem;
     --uibit-carousel-duration: 300ms;
     --uibit-carousel-items-per-view: 1;
     --uibit-carousel-border-color: #e5e7eb;
-    --uibit-carousel-button-bg: #f3f4f6;
-    --uibit-carousel-button-bg-hover: #e5e7eb;
+    --uibit-carousel-button-bg: #f9fafb;
+    --uibit-carousel-button-bg-hover: #f3f4f6;
     --uibit-carousel-indicator-bg: #e5e7eb;
     --uibit-carousel-indicator-active-bg: #000000;
-    --uibit-carousel-focus-outline-color: #000000;
+    --uibit-carousel-focus-color: #000000;
     display: block;
     width: 100%;
   }
@@ -25,9 +25,9 @@ export const styles = css`
   .carousel-viewport {
     position: relative;
     overflow: hidden;
-    border: 1px solid var(--uibit-carousel-border-color);
+    border: 0.0625rem solid var(--uibit-carousel-border-color);
     border-radius: 0.5rem;
-    background-color: white;
+    background-color: #ffffff;
   }
 
   .carousel-content {
@@ -71,12 +71,16 @@ export const styles = css`
   .carousel-button {
     padding: 0.5rem 1rem;
     background-color: var(--uibit-carousel-button-bg);
-    border: 1px solid var(--uibit-carousel-border-color);
+    border: 0.0625rem solid var(--uibit-carousel-border-color);
     border-radius: 0.375rem;
     cursor: pointer;
     font-weight: 500;
+    font-size: 0.875rem;
     color: #111827;
     transition: background-color 150ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   .carousel-button:hover:not(:disabled) {
@@ -84,13 +88,13 @@ export const styles = css`
   }
 
   .carousel-button:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     cursor: not-allowed;
   }
 
   .carousel-button:focus-visible {
-    outline: 2px solid var(--uibit-carousel-focus-outline-color);
-    outline-offset: 2px;
+    outline: 0.125rem solid var(--uibit-carousel-focus-color);
+    outline-offset: 0.125rem;
   }
 
   .carousel-indicators {
@@ -100,14 +104,14 @@ export const styles = css`
   }
 
   .carousel-indicator {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 9999rem;
     background-color: var(--uibit-carousel-indicator-bg);
     cursor: pointer;
     border: none;
     padding: 0;
-    transition: background-color 150ms ease;
+    transition: background-color 150ms ease, transform 150ms ease;
   }
 
   .carousel-indicator:hover {
@@ -116,11 +120,12 @@ export const styles = css`
 
   .carousel-indicator.active {
     background-color: var(--uibit-carousel-indicator-active-bg);
+    transform: scale(1.25);
   }
 
   .carousel-indicator:focus-visible {
-    outline: 2px solid var(--uibit-carousel-focus-outline-color);
-    outline-offset: 2px;
+    outline: 0.125rem solid var(--uibit-carousel-focus-color);
+    outline-offset: 0.125rem;
   }
 
   @supports (animation-timeline: view()) {
@@ -137,7 +142,7 @@ export const styles = css`
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 40rem) {
     .carousel-controls {
       flex-wrap: wrap;
     }
@@ -148,7 +153,6 @@ export const styles = css`
 
     .carousel-button {
       padding: 0.375rem 0.75rem;
-      font-size: 0.875rem;
     }
   }
 `;

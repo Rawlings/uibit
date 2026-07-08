@@ -87,7 +87,15 @@ packages/<kebab-case>/
 ### Component Boilerplate
 - Lit class component with TypeScript
 - Reactive `@property` decorators (only for behavioral parameters and data; do not use properties for styling or setting text content)
-- Expose HTML `<slot>` components for rendering user-facing text, labels, or inner markup instead of properties
+- Expose HTML `<slot>` components for rendering user-facing text, labels, or inner markup instead of properties. **This is mandatory** — any visible string that a consumer might want to change (hint text, button labels, titles, descriptions) must be a slot, not a string property. Use the property value as the slot's fallback content:
+  ```typescript
+  // ✅ correct — slot with fallback
+  html`<div class="hint"><slot name="hint">Sign here</slot></div>`
+
+  // ❌ wrong — string property for visible text
+  @property({ type: String }) hint = 'Sign here';
+  html`<div class="hint">${this.hint}</div>`
+  ```
 - Lifecycle hooks (`connectedCallback`, `disconnectedCallback`)
 - Default styling setup following **Scandinavian Greyscale** aesthetic (monochrome colors, clear borders, transitions, no vibrant default colors)
 - Standardized CSS Custom Properties prefixed with `--uibit-[component-name]-[variable-name]`

@@ -1,5 +1,5 @@
 import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { customElement, getIcon } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -9,14 +9,14 @@ import { styles } from './styles';
  *
  * @fires {{ index: number, total: number }} change - Fired each time the displayed frame changes
  *
- * @cssprop [--uibit-360-viewer-bg=#f5f5f5] - Background color of the viewer container
+ * @cssprop [--uibit-360-viewer-bg=#f9fafb] - Background color of the viewer container
  * @cssprop [--uibit-360-viewer-border=#e5e7eb] - Border color of the viewer container
- * @cssprop [--uibit-360-viewer-button-bg=rgba(255,255,255,0.7)] - Background of control buttons
- * @cssprop [--uibit-360-viewer-button-bg-hover=rgba(255,255,255,0.9)] - Hover background of control buttons
+ * @cssprop [--uibit-360-viewer-button-bg=rgba(255,255,255,0.75)] - Background of control buttons
+ * @cssprop [--uibit-360-viewer-button-bg-hover=rgba(255,255,255,0.95)] - Hover background of control buttons
  * @cssprop [--uibit-360-viewer-button-color=#374151] - Icon/text color of control buttons
  * @cssprop [--uibit-360-viewer-focus-color=#000000] - Focus outline color for interactive elements
- * @cssprop [--uibit-360-viewer-progress-track-bg=rgba(0,0,0,0.1)] - Background of the progress bar track
- * @cssprop [--uibit-360-viewer-hint-bg=rgba(17,24,39,0.7)] - Background of the drag hint overlay
+ * @cssprop [--uibit-360-viewer-progress-track-bg=rgba(0,0,0,0.08)] - Background of the progress bar track
+ * @cssprop [--uibit-360-viewer-hint-bg=rgba(17,24,39,0.65)] - Background of the drag hint overlay
  */
 @customElement('uibit-360-viewer')
 export class Viewer360 extends LitElement {
@@ -235,17 +235,15 @@ export class Viewer360 extends LitElement {
 
         ${this.images.length > 0 && !this.isDragging ? html`
           <div part="drag-hint" class="drag-hint">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-              <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"/>
-            </svg>
+            ${getIcon('move', 16)}
             Drag to rotate
           </div>
         ` : ''}
 
         ${this.showControls && this.images.length > 0 ? html`
-          <button 
+          <button
             part="nav-button nav-button-prev"
-            class="nav-button nav-button-prev" 
+            class="nav-button nav-button-prev"
             aria-label="Rotate left"
             @click=${(e: Event) => {
               e.stopPropagation();
@@ -255,11 +253,11 @@ export class Viewer360 extends LitElement {
               this.scheduleAutoRotateResume();
             }}
           >
-            <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+            ${getIcon('chevron-left', 20)}
           </button>
-          <button 
+          <button
             part="nav-button nav-button-next"
-            class="nav-button nav-button-next" 
+            class="nav-button nav-button-next"
             aria-label="Rotate right"
             @click=${(e: Event) => {
               e.stopPropagation();
@@ -269,7 +267,7 @@ export class Viewer360 extends LitElement {
               this.scheduleAutoRotateResume();
             }}
           >
-            <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            ${getIcon('chevron-right', 20)}
           </button>
         ` : ''}
 

@@ -7,7 +7,7 @@ import { styles } from './styles';
  * Thin progress bar that tracks scroll position — either the page or a
  * custom scrollable element — and fills as the user scrolls down.
  *
- * @cssprop [--uibit-scroll-progress-height=4px] - Height of the progress bar
+ * @cssprop [--uibit-scroll-progress-height=0.1875rem] - Height of the progress bar
  * @cssprop [--uibit-scroll-progress-bg=transparent] - Background (track) color
  * @cssprop [--uibit-scroll-progress-color=#000000] - Fill color of the progress indicator
  */

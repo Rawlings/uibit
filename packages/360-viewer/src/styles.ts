@@ -2,14 +2,14 @@ import { css } from 'lit';
 
 export const styles = css`
   :host {
-    --uibit-360-viewer-bg: #f5f5f5;
+    --uibit-360-viewer-bg: #f9fafb;
     --uibit-360-viewer-border: #e5e7eb;
-    --uibit-360-viewer-button-bg: rgba(255, 255, 255, 0.7);
-    --uibit-360-viewer-button-bg-hover: rgba(255, 255, 255, 0.9);
+    --uibit-360-viewer-button-bg: rgba(255, 255, 255, 0.75);
+    --uibit-360-viewer-button-bg-hover: rgba(255, 255, 255, 0.95);
     --uibit-360-viewer-button-color: #374151;
     --uibit-360-viewer-focus-color: #000000;
-    --uibit-360-viewer-progress-track-bg: rgba(0, 0, 0, 0.1);
-    --uibit-360-viewer-hint-bg: rgba(17, 24, 39, 0.7);
+    --uibit-360-viewer-progress-track-bg: rgba(0, 0, 0, 0.08);
+    --uibit-360-viewer-hint-bg: rgba(17, 24, 39, 0.65);
     display: block;
     width: 100%;
   }
@@ -19,8 +19,8 @@ export const styles = css`
     width: 100%;
     overflow: hidden;
     background: var(--uibit-360-viewer-bg);
-    border: 1px solid var(--uibit-360-viewer-border);
-    border-radius: 8px;
+    border: 0.0625rem solid var(--uibit-360-viewer-border);
+    border-radius: 0.5rem;
     touch-action: none;
     user-select: none;
     -webkit-user-drag: none;
@@ -28,7 +28,7 @@ export const styles = css`
   }
 
   .viewer:focus-visible {
-    box-shadow: 0 0 0 3px var(--uibit-360-viewer-focus-color);
+    box-shadow: 0 0 0 0.125rem var(--uibit-360-viewer-focus-color);
   }
 
   img {
@@ -45,13 +45,13 @@ export const styles = css`
     top: 50%;
     transform: translateY(-50%);
     background: var(--uibit-360-viewer-button-bg);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
+    border: 0.0625rem solid rgba(255, 255, 255, 0.25);
     color: var(--uibit-360-viewer-button-color);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,7 +59,7 @@ export const styles = css`
     opacity: 0;
     transition: opacity 200ms ease, background-color 150ms ease, transform 150ms ease;
     z-index: 10;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1);
   }
 
   .viewer:hover .nav-button,
@@ -77,37 +77,37 @@ export const styles = css`
   }
 
   .nav-button-prev {
-    left: 12px;
+    left: 0.75rem;
   }
 
   .nav-button-next {
-    right: 12px;
+    right: 0.75rem;
   }
 
   .nav-button svg {
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     fill: currentColor;
   }
 
   .drag-hint {
     position: absolute;
-    bottom: 12px;
+    bottom: 0.75rem;
     left: 50%;
     transform: translateX(-50%);
     background: var(--uibit-360-viewer-hint-bg);
-    color: white;
-    padding: 6px 12px;
-    border-radius: 9999px;
+    color: #ffffff;
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999rem;
     font-size: 0.75rem;
     pointer-events: none;
-    opacity: 0.8;
+    opacity: 0.85;
     transition: opacity 300ms ease;
     display: flex;
     align-items: center;
-    gap: 6px;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    gap: 0.375rem;
+    backdrop-filter: blur(0.25rem);
+    -webkit-backdrop-filter: blur(0.25rem);
     z-index: 5;
   }
 
@@ -120,7 +120,7 @@ export const styles = css`
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: 0.1875rem;
     background: var(--uibit-360-viewer-progress-track-bg);
     z-index: 5;
   }
@@ -133,10 +133,10 @@ export const styles = css`
 
   .sr-only {
     position: absolute;
-    width: 1px;
-    height: 1px;
+    width: 0.0625rem;
+    height: 0.0625rem;
     padding: 0;
-    margin: -1px;
+    margin: -0.0625rem;
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
