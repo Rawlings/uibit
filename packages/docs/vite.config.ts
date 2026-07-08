@@ -6,6 +6,16 @@ export default defineConfig({
   plugins: [react()],
   build: {
     outDir: 'dist',
-    sourcemap: false
+    sourcemap: false,
+    rollupOptions: {
+      external: [
+        '@uibit/carousel',
+        '@uibit/360-viewer',
+        '@uibit/scroll-progress',
+        '@uibit/hotspot',
+        '@uibit/ab-test',
+        '@uibit/countdown'
+      ]
+    }
   }
 });

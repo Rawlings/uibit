@@ -1,15 +1,16 @@
 {
-  "name": "@uibit/ab-test",
+  "name": "@uibit/scroll-progress",
   "version": "0.1.0",
-  "description": "A web component wrapper for A/B testing with automatic variant distribution and localStorage persistence",
+  "description": "A web component that visualizes scroll progress on the page",
   "type": "module",
-  "main": "./dist/ab-test.js",
-  "types": "./dist/ab-test.d.ts",
+  "main": "./dist/scroll-progress.js",
+  "types": "./dist/scroll-progress.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/ab-test.d.ts",
-      "import": "./dist/ab-test.js"
-    }
+      "types": "./dist/scroll-progress.d.ts",
+      "import": "./dist/scroll-progress.js"
+    },
+    "./scroll-progress.css": "./dist/scroll-progress.css"
   },
   "files": ["dist", "package.json", "README.md", "LICENSE"],
   "scripts": {
@@ -17,13 +18,13 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "keywords": ["ab-test", "testing", "variant", "web-component", "lit"],
+  "keywords": ["scroll-progress", "progress-bar", "web-component", "lit", "scroll"],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/uibit.git",
-    "directory": "packages/uibit-ab-test"
+    "directory": "packages/scroll-progress"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",

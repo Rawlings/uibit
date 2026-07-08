@@ -49,7 +49,7 @@ pnpm build:docs
 
 ## Packages
 
-### [@uibit/carousel](./packages/uibit-carousel/README.md)
+### [@uibit/carousel](./packages/carousel/README.md)
 A native, accessible carousel component using CSS scroll-snap and scroll-driven animations.
 - Native CSS scroll-snap, scroll-driven animations, auto-play, touch support, keyboard navigation
 

@@ -11,6 +11,11 @@
   },
   "dependencies": {
     "@uibit/carousel": "workspace:*",
+    "@uibit/360-viewer": "workspace:*",
+    "@uibit/scroll-progress": "workspace:*",
+    "@uibit/hotspot": "workspace:*",
+    "@uibit/ab-test": "workspace:*",
+    "@uibit/countdown": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

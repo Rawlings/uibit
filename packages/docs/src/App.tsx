@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import Home from './pages/Home';
 import CarouselDocs from './pages/CarouselDocs';
+import Viewer360Docs from './pages/Viewer360Docs';
+import ScrollProgressDocs from './pages/ScrollProgressDocs';
+import HotspotDocs from './pages/HotspotDocs';
+import ABTestDocs from './pages/ABTestDocs';
+import CountdownDocs from './pages/CountdownDocs';
 
 type Page = 'home' | 'carousel' | 'viewer-360' | 'scroll-progress' | 'hotspot' | 'ab-test' | 'countdown';
 
@@ -48,28 +53,11 @@ function App() {
       <main className="flex-1">
         {currentPage === 'home' && <Home />}
         {currentPage === 'carousel' && <CarouselDocs />}
-        {currentPage !== 'home' && currentPage !== 'carousel' && (
-          <div className="max-w-6xl mx-auto px-4 py-12">
-            <h1 className="text-4xl font-bold mb-4">
-              {currentPage === 'viewer-360' && '360-Viewer Component'}
-              {currentPage === 'scroll-progress' && 'Scroll-Progress Component'}
-              {currentPage === 'hotspot' && 'Hotspot Component'}
-              {currentPage === 'ab-test' && 'A/B Test Component'}
-              {currentPage === 'countdown' && 'Countdown Component'}
-            </h1>
-            <p className="text-gray-600 mb-6">
-              Coming soon. Documentation and live demos for this component are being prepared.
-            </p>
-            <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
-              <p className="text-sm text-gray-700">
-                In the meantime, check the component's README in the repository:
-              </p>
-              <code className="block bg-white p-3 rounded mt-3 text-sm font-mono">
-                packages/uibit-{currentPage === 'viewer-360' ? '360-viewer' : currentPage === 'ab-test' ? 'ab-test' : currentPage}/README.md
-              </code>
-            </div>
-          </div>
-        )}
+        {currentPage === 'viewer-360' && <Viewer360Docs />}
+        {currentPage === 'scroll-progress' && <ScrollProgressDocs />}
+        {currentPage === 'hotspot' && <HotspotDocs />}
+        {currentPage === 'ab-test' && <ABTestDocs />}
+        {currentPage === 'countdown' && <CountdownDocs />}
       </main>
 
       {/* Footer */}

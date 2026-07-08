@@ -11,14 +11,14 @@
   "scripts": {
     "dev": "pnpm -r run dev",
     "build": "pnpm -r run build",
-    "build:carousel": "pnpm -F @uibit/carousel run build",
-    "build:360-viewer": "pnpm -F @uibit/360-viewer run build",
-    "build:scroll-progress": "pnpm -F @uibit/scroll-progress run build",
-    "build:hotspot": "pnpm -F @uibit/hotspot run build",
-    "build:ab-test": "pnpm -F @uibit/ab-test run build",
-    "build:countdown": "pnpm -F @uibit/countdown run build",
-    "build:docs": "pnpm -F @uibit/docs... build",
-    "preview": "pnpm -F @uibit/docs run preview"
+    "build:carousel": "pnpm -F carousel run build",
+    "build:360-viewer": "pnpm -F 360-viewer run build",
+    "build:scroll-progress": "pnpm -F scroll-progress run build",
+    "build:hotspot": "pnpm -F hotspot run build",
+    "build:ab-test": "pnpm -F ab-test run build",
+    "build:countdown": "pnpm -F countdown run build",
+    "build:docs": "pnpm -F docs run build",
+    "preview": "pnpm -F docs run preview"
   },
   "devDependencies": {
     "typescript": "^5.3.3",

@@ -1,16 +1,16 @@
 {
-  "name": "@uibit/scroll-progress",
+  "name": "@uibit/360-viewer",
   "version": "0.1.0",
-  "description": "A web component that visualizes scroll progress on the page",
+  "description": "A web component for displaying 360-degree product views with image rotation and touch support",
   "type": "module",
-  "main": "./dist/scroll-progress.js",
-  "types": "./dist/scroll-progress.d.ts",
+  "main": "./dist/360-viewer.js",
+  "types": "./dist/360-viewer.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/scroll-progress.d.ts",
-      "import": "./dist/scroll-progress.js"
+      "types": "./dist/360-viewer.d.ts",
+      "import": "./dist/360-viewer.js"
     },
-    "./scroll-progress.css": "./dist/scroll-progress.css"
+    "./360-viewer.css": "./dist/360-viewer.css"
   },
   "files": ["dist", "package.json", "README.md", "LICENSE"],
   "scripts": {
@@ -18,13 +18,13 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "keywords": ["scroll-progress", "progress-bar", "web-component", "lit", "scroll"],
+  "keywords": ["360-viewer", "product-view", "web-component", "lit", "interactive"],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/uibit.git",
-    "directory": "packages/uibit-scroll-progress"
+    "directory": "packages/360-viewer"
   },
   "devDependencies": {
     "@types/node": "^20.10.5",
