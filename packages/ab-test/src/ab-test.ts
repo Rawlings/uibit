@@ -112,15 +112,4 @@ export class ABTest extends LitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-ab-test': ABTest;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-ab-test': any;
-    }
-  }
-}
-
 export default ABTest;

@@ -12,3 +12,14 @@ export interface Viewer360Config {
   allowZoom?: boolean;
   zoomLevel?: number;
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uibit-360-viewer': import('./360-viewer').Viewer360;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-360-viewer': import('./360-viewer').Viewer360;
+    }
+  }
+}

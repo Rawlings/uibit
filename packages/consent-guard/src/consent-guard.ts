@@ -66,33 +66,6 @@ export class ConsentGuard extends LitElement {
       overflow: hidden;
     }
 
-    .placeholder::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
-      height: 200%;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 10px,
-        rgba(0, 0, 0, 0.03) 10px,
-        rgba(0, 0, 0, 0.03) 20px
-      );
-      animation: shimmer 3s infinite;
-      pointer-events: none;
-    }
-
-    @keyframes shimmer {
-      0% {
-        transform: translate(-50%, -50%) rotate(0deg);
-      }
-      100% {
-        transform: translate(-50%, -50%) rotate(360deg);
-      }
-    }
-
     .placeholder-image {
       width: 80px;
       height: 80px;
@@ -187,16 +160,7 @@ export class ConsentGuard extends LitElement {
     }
 
     .loaded-content {
-      animation: fadeIn 300ms ease-out;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      opacity: 1;
     }
 
     .iframe-wrapper {

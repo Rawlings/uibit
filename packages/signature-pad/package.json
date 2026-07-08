@@ -1,0 +1,58 @@
+{
+  "name": "@uibit/signature-pad",
+  "version": "0.1.0",
+  "description": "A canvas-based signature pad web component that captures touch and mouse gestures as smooth bezier-curved vector lines",
+  "type": "module",
+  "main": "./dist/signature-pad.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/signature-pad.js"
+    },
+    "./custom-elements.json": "./custom-elements.json"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "custom-elements.json"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run analyze && vite build && tsc --emitDeclarationOnly",
+    "preview": "vite preview",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
+  },
+  "keywords": [
+    "signature-pad",
+    "signature",
+    "web-component",
+    "lit",
+    "canvas",
+    "touch",
+    "accessible",
+    "a11y"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/signature-pad"
+  },
+  "dependencies": {
+    "@uibit/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "lit": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  },
+  "customElements": "custom-elements.json"
+}

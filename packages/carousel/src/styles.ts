@@ -1,0 +1,154 @@
+import { css } from 'lit';
+
+export const styles = css`
+  :host {
+    --uibit-carousel-gap: 16px;
+    --uibit-carousel-duration: 300ms;
+    --uibit-carousel-items-per-view: 1;
+    --uibit-carousel-border-color: #e5e7eb;
+    --uibit-carousel-button-bg: #f3f4f6;
+    --uibit-carousel-button-bg-hover: #e5e7eb;
+    --uibit-carousel-indicator-bg: #e5e7eb;
+    --uibit-carousel-indicator-active-bg: #000000;
+    --uibit-carousel-focus-outline-color: #000000;
+    display: block;
+    width: 100%;
+  }
+
+  .carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .carousel-viewport {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--uibit-carousel-border-color);
+    border-radius: 0.5rem;
+    background-color: white;
+  }
+
+  .carousel-content {
+    display: flex;
+    gap: var(--uibit-carousel-gap);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: 1rem;
+    width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .carousel-content::-webkit-scrollbar {
+    display: none;
+  }
+
+  ::slotted([slot='item']) {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    flex: 0 0 calc(
+      (100% - (var(--uibit-carousel-items-per-view) - 1) * var(--uibit-carousel-gap)) /
+        var(--uibit-carousel-items-per-view)
+    );
+    min-width: 0;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .carousel-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .carousel-button {
+    padding: 0.5rem 1rem;
+    background-color: var(--uibit-carousel-button-bg);
+    border: 1px solid var(--uibit-carousel-border-color);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #111827;
+    transition: background-color 150ms ease;
+  }
+
+  .carousel-button:hover:not(:disabled) {
+    background-color: var(--uibit-carousel-button-bg-hover);
+  }
+
+  .carousel-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .carousel-button:focus-visible {
+    outline: 2px solid var(--uibit-carousel-focus-outline-color);
+    outline-offset: 2px;
+  }
+
+  .carousel-indicators {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .carousel-indicator {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--uibit-carousel-indicator-bg);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    transition: background-color 150ms ease;
+  }
+
+  .carousel-indicator:hover {
+    background-color: var(--uibit-carousel-indicator-active-bg);
+  }
+
+  .carousel-indicator.active {
+    background-color: var(--uibit-carousel-indicator-active-bg);
+  }
+
+  .carousel-indicator:focus-visible {
+    outline: 2px solid var(--uibit-carousel-focus-outline-color);
+    outline-offset: 2px;
+  }
+
+  @supports (animation-timeline: view()) {
+    .carousel-indicator {
+      animation: indicator-glow linear;
+      animation-timeline: view();
+      animation-range: entry 0% cover 100%;
+    }
+
+    @keyframes indicator-glow {
+      to {
+        background-color: var(--uibit-carousel-indicator-active-bg);
+      }
+    }
+  }
+
+  @media (max-width: 640px) {
+    .carousel-controls {
+      flex-wrap: wrap;
+    }
+
+    .carousel-content {
+      padding: 0.75rem;
+    }
+
+    .carousel-button {
+      padding: 0.375rem 0.75rem;
+      font-size: 0.875rem;
+    }
+  }
+`;

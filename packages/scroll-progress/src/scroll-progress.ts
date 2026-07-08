@@ -1,6 +1,7 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
+import { styles } from './styles';
 
 /**
  * Thin progress bar that tracks scroll position — either the page or a
@@ -12,21 +13,7 @@ import { property, state } from 'lit/decorators.js';
  */
 @customElement('uibit-scroll-progress')
 export class ScrollProgress extends LitElement {
-  static styles = css`
-    :host {
-      display: block;
-      width: 100%;
-      height: var(--uibit-scroll-progress-height, 4px);
-      background: var(--uibit-scroll-progress-bg, transparent);
-    }
-
-    .progress {
-      height: 100%;
-      background: var(--uibit-scroll-progress-color, #000000);
-      width: 0%;
-      transition: width 150ms ease;
-    }
-  `;
+  static styles = styles;
 
   /** CSS selector of a custom scrollable container to track. Defaults to the page (`window`). */
   @property({ type: String }) target?: string;
@@ -108,17 +95,6 @@ export class ScrollProgress extends LitElement {
         aria-label="Scroll progress indicator"
       ></div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-scroll-progress': ScrollProgress;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-scroll-progress': any;
-    }
   }
 }
 

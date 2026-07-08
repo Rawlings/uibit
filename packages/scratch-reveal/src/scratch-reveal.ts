@@ -32,7 +32,7 @@ export class ScratchReveal extends LitElement {
       --uibit-scratch-reveal-width: 300px;
       --uibit-scratch-reveal-height: 200px;
       --uibit-scratch-reveal-overlay-color: #c0c0c0;
-      --uibit-scratch-reveal-cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="black" stroke-width="2"/><circle cx="16" cy="16" r="4" fill="black"/></svg>') 16 16, auto;
+      --uibit-scratch-reveal-cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="%23111" opacity="0.5"/><circle cx="16" cy="16" r="12" fill="none" stroke="white" stroke-width="2"/><circle cx="16" cy="16" r="4" fill="white"/></svg>') 16 16, crosshair;
       --uibit-scratch-reveal-brush-size: 40px;
     }
 

@@ -13,3 +13,14 @@ export interface SlideChangeEvent extends CustomEvent {
     totalSlides: number;
   };
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uibit-carousel': import('./carousel').UIBitCarousel;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-carousel': import('./carousel').UIBitCarousel;
+    }
+  }
+}

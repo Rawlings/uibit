@@ -1,6 +1,7 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
 import { customElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
+import { styles } from './styles';
 
 /**
  * Countdown timer to a target date/time or a fixed duration. Supports
@@ -24,50 +25,7 @@ import { property, state } from 'lit/decorators.js';
  */
 @customElement('uibit-countdown')
 export class Countdown extends LitElement {
-  static styles = css`
-    :host {
-      display: block;
-      font-family: var(--uibit-countdown-font-family, monospace);
-      font-size: var(--uibit-countdown-font-size, 1.5rem);
-      font-weight: var(--uibit-countdown-font-weight, bold);
-      color: var(--uibit-countdown-color, #000000);
-      text-align: center;
-    }
-
-    .countdown {
-      display: flex;
-      gap: var(--uibit-countdown-gap, 1rem);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: var(--uibit-countdown-unit-gap, 0.5rem);
-    }
-
-    .value {
-      font-size: var(--uibit-countdown-value-font-size, 2.5rem);
-      min-width: var(--uibit-countdown-value-min-width, 80px);
-    }
-
-    .label {
-      font-size: var(--uibit-countdown-label-font-size, 0.8rem);
-      text-transform: uppercase;
-      color: var(--uibit-countdown-label-color, #4b5563);
-      opacity: 0.8;
-    }
-
-    .separator {
-      font-size: var(--uibit-countdown-separator-font-size, 2.5rem);
-      align-self: flex-start;
-      margin-top: -8px;
-      color: var(--uibit-countdown-separator-color, #000000);
-      opacity: 0.5;
-    }
-  `;
+  static styles = styles;
 
   /** ISO 8601 date/time string for the countdown target (e.g. `"2025-12-31T00:00:00"`). Takes precedence over `duration`. */
   @property({ type: String }) target?: string;
@@ -229,17 +187,6 @@ export class Countdown extends LitElement {
         )}
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-countdown': Countdown;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-countdown': any;
-    }
   }
 }
 

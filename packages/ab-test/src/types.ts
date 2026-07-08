@@ -10,3 +10,14 @@ export interface VariantRenderedEvent extends CustomEvent {
     isNewUser: boolean;
   };
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uibit-ab-test': import('./ab-test').ABTest;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-ab-test': import('./ab-test').ABTest;
+    }
+  }
+}

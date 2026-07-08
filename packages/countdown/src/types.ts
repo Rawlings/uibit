@@ -15,3 +15,14 @@ export interface CountdownTickEvent extends CustomEvent {
     seconds: number;
   };
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uibit-countdown': import('./countdown').Countdown;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-countdown': import('./countdown').Countdown;
+    }
+  }
+}
