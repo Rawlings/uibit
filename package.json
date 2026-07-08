@@ -17,7 +17,7 @@
     "build:hotspot": "pnpm -F @uibit/hotspot run build",
     "build:ab-test": "pnpm -F @uibit/ab-test run build",
     "build:countdown": "pnpm -F @uibit/countdown run build",
-    "build:docs": "pnpm -F @uibit/docs run build",
+    "build:docs": "pnpm -F @uibit/docs... build",
     "preview": "pnpm -F @uibit/docs run preview"
   },
   "devDependencies": {
