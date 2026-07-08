@@ -11,17 +11,5 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    rollupOptions: {
-      external: [
-        '@uibit/carousel',
-        '@uibit/360-viewer',
-        '@uibit/scroll-progress',
-        '@uibit/hotspot',
-        '@uibit/consent-guard',
-        '@uibit/ab-test',
-        '@uibit/countdown',
-        '@uibit/scratch-reveal'
-      ]
-    }
   }
 });

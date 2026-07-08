@@ -118,15 +118,19 @@ packages/<kebab-case>/
 
 When documenting or generating usage examples of web components inside React/JSX:
 
-- Use **`class`** (not `className`) on custom elements — `className` is a React abstraction that only applies to React-controlled DOM elements. Web components are native HTML elements in the JSX output, so the standard HTML attribute name is correct:
+- Regular HTML elements (`<div>`, `<img>`, `<span>`, etc.) use **`className`** as normal in React/JSX.
+- Custom web component elements (`<uibit-*>`) use **`class`** — `className` is a React abstraction that only applies to React-controlled DOM elements and is silently ignored on custom elements:
   ```jsx
   // ✅ correct
-  <uibit-scroll-progress class="sticky top-0 z-10 block" />
+  <div className="wrapper">
+    <uibit-scroll-progress class="sticky top-0 z-10 block" />
+    <img className="w-full" src="..." />
+  </div>
 
-  // ❌ wrong — className is silently ignored on custom elements
+  // ❌ wrong — className silently ignored on the custom element
   <uibit-scroll-progress className="sticky top-0 z-10 block" />
   ```
-- Similarly, other DOM-mapped React aliases (`htmlFor` → `for`, `tabIndex` → `tabindex`, etc.) should use their **HTML attribute names** on custom elements, not their React prop aliases.
+- The same scoping applies to other React prop aliases: use HTML attribute names (`for`, `tabindex`) only on custom elements, and keep React aliases (`htmlFor`, `tabIndex`) on regular HTML elements.
 
 ### Build Configuration
 - TypeScript configuration (`tsconfig.json`): Must be kept minimal, extending `../../tsconfig.base.json` to prevent duplicated settings, specifying output directory:

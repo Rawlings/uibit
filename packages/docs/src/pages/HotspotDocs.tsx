@@ -65,9 +65,9 @@ function HotspotDocs() {
           <p className="text-sm text-gray-600 mb-4">Click the blinking pulse triggers below to open the annotation details:</p>
           <div className="max-w-2xl mx-auto bg-white rounded-lg border border-gray-200 p-2 overflow-hidden shadow-sm">
             <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="click">
-              <img 
-                src="https://placehold.co/800x450/f3f4f6/1f2937?text=Premium+Headphones+Showcase" 
-                alt="Product showcase"
+              <img
+                src="https://picsum.photos/seed/headphones/800/450"
+                alt="Premium over-ear headphones on a minimal surface"
                 className="w-full rounded-lg"
               />
             </uibit-hotspot>

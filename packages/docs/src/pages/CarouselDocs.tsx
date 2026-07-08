@@ -39,34 +39,60 @@ function CarouselDocs() {
         <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
           <style>{`
             uibit-carousel {
-              --carousel-items-per-view: 1;
-              --carousel-gap: 1rem;
+              --uibit-carousel-items-per-view: 1;
+              --uibit-carousel-gap: 1rem;
             }
 
             @media (min-width: 768px) {
               uibit-carousel {
-                --carousel-items-per-view: 2;
+                --uibit-carousel-items-per-view: 2;
               }
             }
 
             .carousel-slide {
+              position: relative;
               height: 280px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              font-size: 1rem;
-              font-weight: 500;
               border-radius: 0.5rem;
-              background-color: #e5e7eb;
-              color: #374151;
+              overflow: hidden;
+            }
+
+            .carousel-slide img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+            }
+
+            .carousel-slide-caption {
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              padding: 0.75rem 1rem;
+              background: linear-gradient(to top, rgba(0,0,0,0.55), transparent);
+              color: white;
+              font-size: 0.875rem;
+              font-weight: 500;
             }
           `}</style>
 
-          <uibit-carousel ref={carouselRef} autoPlay autoPlayInterval={5000} loop>
-            <div slot="item" className="carousel-slide">Slide 1</div>
-            <div slot="item" className="carousel-slide">Slide 2</div>
-            <div slot="item" className="carousel-slide">Slide 3</div>
-            <div slot="item" className="carousel-slide">Slide 4</div>
+          <uibit-carousel ref={carouselRef} loop>
+            <div slot="item" className="carousel-slide">
+              <img src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow at dawn" />
+              <span className="carousel-slide-caption">Alpine Meadow — Graubünden, Switzerland</span>
+            </div>
+            <div slot="item" className="carousel-slide">
+              <img src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline at sunset" />
+              <span className="carousel-slide-caption">Rugged Coastline — Algarve, Portugal</span>
+            </div>
+            <div slot="item" className="carousel-slide">
+              <img src="https://picsum.photos/seed/kyoto/900/560" alt="Temple path in autumn forest" />
+              <span className="carousel-slide-caption">Temple Path — Kyoto, Japan</span>
+            </div>
+            <div slot="item" className="carousel-slide">
+              <img src="https://picsum.photos/seed/dunes/900/560" alt="Sand dunes at golden hour" />
+              <span className="carousel-slide-caption">Sand Dunes — Merzouga, Morocco</span>
+            </div>
           </uibit-carousel>
         </div>
       </section>

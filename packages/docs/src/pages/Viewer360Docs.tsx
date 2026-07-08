@@ -6,12 +6,12 @@ import manifest from '@uibit/360-viewer/custom-elements.json';
 function Viewer360Docs() {
 
   const demoImages = [
-    'https://placehold.co/600x400/3b82f6/white?text=Frame+1+ (Drag+ Me)',
-    'https://placehold.co/600x400/10b981/white?text=Frame+2',
-    'https://placehold.co/600x400/f59e0b/white?text=Frame+3',
-    'https://placehold.co/600x400/ef4444/white?text=Frame+4+ (Keep+ Dragging)',
-    'https://placehold.co/600x400/8b5cf6/white?text=Frame+5',
-    'https://placehold.co/600x400/ec4899/white?text=Frame+6',
+    'https://picsum.photos/seed/sneaker1/600/400',
+    'https://picsum.photos/seed/sneaker2/600/400',
+    'https://picsum.photos/seed/sneaker3/600/400',
+    'https://picsum.photos/seed/sneaker4/600/400',
+    'https://picsum.photos/seed/sneaker5/600/400',
+    'https://picsum.photos/seed/sneaker6/600/400',
   ];
 
   return (
