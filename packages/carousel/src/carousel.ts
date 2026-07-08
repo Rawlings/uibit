@@ -6,14 +6,15 @@ import type { CarouselConfig } from './types';
 export class UIBitCarousel extends LitElement {
   static styles = css`
     :host {
-      --carousel-gap: 1rem;
-      --carousel-duration: 300ms;
-      --carousel-items-per-view: 1;
-      --carousel-border-color: #e5e7eb;
-      --carousel-button-bg: #f3f4f6;
-      --carousel-button-bg-hover: #e5e7eb;
-      --carousel-indicator-bg: #d1d5db;
-      --carousel-indicator-active-bg: #374151;
+      --uibit-carousel-gap: 16px;
+      --uibit-carousel-duration: 300ms;
+      --uibit-carousel-items-per-view: 1;
+      --uibit-carousel-border-color: #e5e7eb;
+      --uibit-carousel-button-bg: #f3f4f6;
+      --uibit-carousel-button-bg-hover: #e5e7eb;
+      --uibit-carousel-indicator-bg: #e5e7eb;
+      --uibit-carousel-indicator-active-bg: #000000;
+      --uibit-carousel-focus-outline-color: #000000;
       display: block;
       width: 100%;
     }
@@ -28,14 +29,14 @@ export class UIBitCarousel extends LitElement {
     .carousel-viewport {
       position: relative;
       overflow: hidden;
-      border: 1px solid var(--carousel-border-color);
+      border: 1px solid var(--uibit-carousel-border-color);
       border-radius: 0.5rem;
       background-color: white;
     }
 
     .carousel-content {
       display: flex;
-      gap: var(--carousel-gap);
+      gap: var(--uibit-carousel-gap);
       overflow-x: auto;
       scroll-behavior: smooth;
       scroll-snap-type: x mandatory;
@@ -55,8 +56,8 @@ export class UIBitCarousel extends LitElement {
       scroll-snap-align: start;
       scroll-snap-stop: always;
       flex: 0 0 calc(
-        (100% - (var(--carousel-items-per-view) - 1) * var(--carousel-gap)) /
-          var(--carousel-items-per-view)
+        (100% - (var(--uibit-carousel-items-per-view) - 1) * var(--uibit-carousel-gap)) /
+          var(--uibit-carousel-items-per-view)
       );
       min-width: 0;
     }
@@ -75,16 +76,17 @@ export class UIBitCarousel extends LitElement {
 
     .carousel-button {
       padding: 0.5rem 1rem;
-      background-color: var(--carousel-button-bg);
-      border: 1px solid var(--carousel-border-color);
+      background-color: var(--uibit-carousel-button-bg);
+      border: 1px solid var(--uibit-carousel-border-color);
       border-radius: 0.375rem;
       cursor: pointer;
       font-weight: 500;
+      color: #111827;
       transition: background-color 150ms ease;
     }
 
     .carousel-button:hover:not(:disabled) {
-      background-color: var(--carousel-button-bg-hover);
+      background-color: var(--uibit-carousel-button-bg-hover);
     }
 
     .carousel-button:disabled {
@@ -93,7 +95,7 @@ export class UIBitCarousel extends LitElement {
     }
 
     .carousel-button:focus-visible {
-      outline: 2px solid #3b82f6;
+      outline: 2px solid var(--uibit-carousel-focus-outline-color);
       outline-offset: 2px;
     }
 
@@ -107,7 +109,7 @@ export class UIBitCarousel extends LitElement {
       width: 0.5rem;
       height: 0.5rem;
       border-radius: 50%;
-      background-color: var(--carousel-indicator-bg);
+      background-color: var(--uibit-carousel-indicator-bg);
       cursor: pointer;
       border: none;
       padding: 0;
@@ -115,15 +117,15 @@ export class UIBitCarousel extends LitElement {
     }
 
     .carousel-indicator:hover {
-      background-color: var(--carousel-indicator-active-bg);
+      background-color: var(--uibit-carousel-indicator-active-bg);
     }
 
     .carousel-indicator.active {
-      background-color: var(--carousel-indicator-active-bg);
+      background-color: var(--uibit-carousel-indicator-active-bg);
     }
 
     .carousel-indicator:focus-visible {
-      outline: 2px solid #3b82f6;
+      outline: 2px solid var(--uibit-carousel-focus-outline-color);
       outline-offset: 2px;
     }
 
@@ -137,7 +139,7 @@ export class UIBitCarousel extends LitElement {
 
       @keyframes indicator-glow {
         to {
-          background-color: var(--carousel-indicator-active-bg);
+          background-color: var(--uibit-carousel-indicator-active-bg);
         }
       }
     }
@@ -162,9 +164,27 @@ export class UIBitCarousel extends LitElement {
   @property({ type: Boolean }) autoPlay = false;
   @property({ type: Number }) autoPlayInterval = 5000;
   @property({ type: Boolean }) loop = true;
-  @property({ type: Number }) itemsPerView = 1;
-  @property({ type: Number }) gap = 16;
-  @property({ type: Number }) duration = 300;
+
+  get itemsPerView(): number {
+    if (typeof window === 'undefined') return 1;
+    const val = getComputedStyle(this).getPropertyValue('--uibit-carousel-items-per-view').trim();
+    return val ? parseFloat(val) || 1 : 1;
+  }
+
+  get gap(): number {
+    if (typeof window === 'undefined') return 16;
+    const val = getComputedStyle(this).getPropertyValue('--uibit-carousel-gap').trim();
+    return val ? parseFloat(val) ?? 16 : 16;
+  }
+
+  get duration(): number {
+    if (typeof window === 'undefined') return 300;
+    const val = getComputedStyle(this).getPropertyValue('--uibit-carousel-duration').trim();
+    if (!val) return 300;
+    if (val.endsWith('ms')) return parseFloat(val) || 300;
+    if (val.endsWith('s')) return (parseFloat(val) * 1000) || 300;
+    return parseFloat(val) || 300;
+  }
 
   @query('.carousel-content') content?: HTMLElement;
   @query('.carousel-viewport') viewport?: HTMLElement;
@@ -189,9 +209,15 @@ export class UIBitCarousel extends LitElement {
       this.autoPlay = config.autoPlay ?? this.autoPlay;
       this.autoPlayInterval = config.autoPlayInterval ?? this.autoPlayInterval;
       this.loop = config.loop ?? this.loop;
-      this.itemsPerView = config.itemsPerView ?? this.itemsPerView;
-      this.gap = config.gap ?? this.gap;
-      this.duration = config.duration ?? this.duration;
+      if (config.itemsPerView !== undefined) {
+        this.style.setProperty('--uibit-carousel-items-per-view', String(config.itemsPerView));
+      }
+      if (config.gap !== undefined) {
+        this.style.setProperty('--uibit-carousel-gap', typeof config.gap === 'number' ? `${config.gap}px` : config.gap);
+      }
+      if (config.duration !== undefined) {
+        this.style.setProperty('--uibit-carousel-duration', typeof config.duration === 'number' ? `${config.duration}ms` : config.duration);
+      }
     }
   }
 
@@ -202,14 +228,6 @@ export class UIBitCarousel extends LitElement {
   }
 
   updated(changedProperties: Map<string, unknown>) {
-    if (
-      changedProperties.has('itemsPerView') ||
-      changedProperties.has('gap') ||
-      changedProperties.has('duration')
-    ) {
-      this.updateCSSVariables();
-    }
-
     if (
       changedProperties.has('autoPlay') ||
       changedProperties.has('autoPlayInterval')
@@ -246,7 +264,6 @@ export class UIBitCarousel extends LitElement {
     const items = this.getSlides();
     this.totalSlides = items.length;
 
-    this.updateCSSVariables();
     this.updateNavigationState();
     this.setupIntersectionObserver();
     this.setupResizeObserver();
@@ -259,15 +276,6 @@ export class UIBitCarousel extends LitElement {
     this.content.addEventListener('scroll', this.handleScroll);
     this.content.addEventListener('touchstart', this.handleInteraction);
     this.content.addEventListener('mousedown', this.handleInteraction);
-  }
-
-  private updateCSSVariables() {
-    this.style.setProperty(
-      '--carousel-items-per-view',
-      String(this.itemsPerView)
-    );
-    this.style.setProperty('--carousel-gap', `${this.gap}px`);
-    this.style.setProperty('--carousel-duration', `${this.duration}ms`);
   }
 
   private setupIntersectionObserver() {
@@ -301,7 +309,7 @@ export class UIBitCarousel extends LitElement {
   private setupResizeObserver() {
     if (!this.content) return;
     this.resizeObserver = new ResizeObserver(() => {
-      this.updateCSSVariables();
+      this.updateNavigationState();
     });
     this.resizeObserver.observe(this.content);
   }
@@ -457,9 +465,10 @@ export class UIBitCarousel extends LitElement {
 
   render() {
     return html`
-      <div class="carousel">
-        <div class="carousel-viewport" role="region" aria-label="Carousel">
+      <div part="carousel" class="carousel">
+        <div part="viewport" class="carousel-viewport" role="region" aria-label="Carousel">
           <div
+            part="content"
             class="carousel-content"
             role="listbox"
             aria-label="Carousel items"
@@ -468,9 +477,10 @@ export class UIBitCarousel extends LitElement {
           </div>
         </div>
 
-        <div class="carousel-controls">
-          <div class="carousel-buttons">
+        <div part="controls" class="carousel-controls">
+          <div part="buttons" class="carousel-buttons">
             <button
+              part="button button-prev"
               class="carousel-button"
               aria-label="Previous slide"
               ?disabled=${!this.canPrev}
@@ -479,6 +489,7 @@ export class UIBitCarousel extends LitElement {
               ← Prev
             </button>
             <button
+              part="button button-next"
               class="carousel-button"
               aria-label="Next slide"
               ?disabled=${!this.canNext}
@@ -488,10 +499,11 @@ export class UIBitCarousel extends LitElement {
             </button>
           </div>
 
-          <div class="carousel-indicators" role="tablist">
+          <div part="indicators" class="carousel-indicators" role="tablist">
             ${Array.from({ length: this.totalSlides }).map(
               (_, index) => html`
                 <button
+                  part="indicator ${index === this.currentIndex ? 'indicator-active' : ''}"
                   class="carousel-indicator ${index === this.currentIndex
                     ? 'active'
                     : ''}"

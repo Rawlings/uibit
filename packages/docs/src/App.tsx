@@ -4,8 +4,10 @@ import CarouselDocs from './pages/CarouselDocs';
 import Viewer360Docs from './pages/Viewer360Docs';
 import ScrollProgressDocs from './pages/ScrollProgressDocs';
 import HotspotDocs from './pages/HotspotDocs';
+import ConsentGuardDocs from './pages/ConsentGuardDocs';
 import ABTestDocs from './pages/ABTestDocs';
 import CountdownDocs from './pages/CountdownDocs';
+import ScratchRevealDocs from './pages/ScratchRevealDocs';
 
 function App() {
   return (
@@ -30,8 +32,10 @@ function App() {
           <Route path="/viewer-360" element={<Viewer360Docs />} />
           <Route path="/scroll-progress" element={<ScrollProgressDocs />} />
           <Route path="/hotspot" element={<HotspotDocs />} />
+          <Route path="/consent-guard" element={<ConsentGuardDocs />} />
           <Route path="/ab-test" element={<ABTestDocs />} />
           <Route path="/countdown" element={<CountdownDocs />} />
+          <Route path="/scratch-reveal" element={<ScratchRevealDocs />} />
         </Routes>
       </main>
 

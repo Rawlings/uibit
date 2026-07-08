@@ -17,6 +17,7 @@ export default defineConfig({
         '@uibit/360-viewer',
         '@uibit/scroll-progress',
         '@uibit/hotspot',
+        '@uibit/consent-guard',
         '@uibit/ab-test',
         '@uibit/countdown'
       ]

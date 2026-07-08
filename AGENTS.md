@@ -141,6 +141,22 @@ When using these skills:
 4. **Documentation:** Generate docs with `lit-docs-generator` during development, not as an afterthought
 5. **Performance:** Run `lit-build-optimizer` before release builds
 
+## Styling and Theming Guidelines
+
+To maintain a cohesive visual system and clean API boundaries across all components, adhere to the following rules:
+
+1. **Avoid Style Properties**: Do not expose visual layout/styling configuration via public reactive properties (`@property()`). Use CSS variables and Shadow Parts instead.
+2. **Prefixed CSS Variables**: All CSS variables exposed by a component must be prefixed with `--uibit-[component-name]-[variable-name]`.
+3. **CSS Shadow Parts**: Ensure sub-elements within templates are decorated with `part="..."` attributes to allow external styling using `::part()`.
+4. **Scandinavian Aesthetics**: All default component styles must conform to a clean, minimal Scandinavian greyscale palette (blacks, whites, light/mid/dark greys, monochrome borders, clean spacing). Do not use vibrant colors (like generic blues/greens) for default values or focus outlines.
+
+## Composability Guidelines
+
+To ensure components are robust and reusable, prioritize HTML slots over data/reactive properties for content:
+
+1. **Avoid Content Properties**: Do not use public properties (e.g. `content`, `label`, `title`) to pass text or markup into elements. Allow consumers to pass nested DOM elements inside standard or named `<slot>` elements.
+2. **Backward-Compatible Fallbacks**: When property-based APIs must be maintained for backward compatibility, wrap the property-based rendering inside slot tags (e.g. `<slot name="title">${this.title}</slot>`). This allows slots to gracefully override property defaults if provided.
+
 ## Integration with Development
 
 These skills integrate with the standard UIBit development workflow:

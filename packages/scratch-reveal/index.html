@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scratch Reveal Component</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    h1 {
+      color: white;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .demo-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+    }
+
+    .demo {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .demo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .demo h3 {
+      color: #333;
+      font-size: 1rem;
+    }
+
+    uibit-scratch-reveal {
+      --scratch-reveal-width: 300px;
+      --scratch-reveal-height: 150px;
+      --scratch-reveal-overlay-color: #c0c0c0;
+      --scratch-reveal-background: #fff;
+      --scratch-reveal-color: #333;
+      --scratch-reveal-font-size: 1.5rem;
+      --scratch-reveal-border-radius: 12px;
+    }
+
+    uibit-scratch-reveal.prize {
+      --scratch-reveal-font-size: 2rem;
+      --scratch-reveal-color: #d97706;
+    }
+
+    uibit-scratch-reveal.code {
+      --scratch-reveal-font-size: 1.2rem;
+      --scratch-reveal-color: #059669;
+      font-family: monospace;
+    }
+
+    .info {
+      font-size: 0.875rem;
+      color: #666;
+      text-align: center;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #667eea;
+      color: white;
+      cursor: pointer;
+      font-size: 0.875rem;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: #5568d3;
+    }
+
+    .status {
+      min-height: 1.5rem;
+      font-size: 0.875rem;
+      color: #666;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎮 Scratch Reveal Component Demo</h1>
+
+  <div class="demo-container">
+    <div class="demo">
+      <div class="demo-item">
+        <h3>Prize Reveal</h3>
+        <uibit-scratch-reveal id="prize" class="prize" content="🎁 $50!"></uibit-scratch-reveal>
+        <div class="status" id="status1"></div>
+        <div class="info">Scratch to reveal your prize</div>
+      </div>
+
+      <div class="demo-item">
+        <h3>Promo Code</h3>
+        <uibit-scratch-reveal id="promo" class="code" content="SAVE20"></uibit-scratch-reveal>
+        <div class="status" id="status2"></div>
+        <div class="info">Scratch to reveal your code</div>
+      </div>
+
+      <div class="demo-item">
+        <h3>Secret Message</h3>
+        <uibit-scratch-reveal id="message" content="You're awesome!"></uibit-scratch-reveal>
+        <div class="status" id="status3"></div>
+        <div class="button-group">
+          <button onclick="resetAll()">Reset All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { ScratchReveal } from './dist/scratch-reveal.js';
+
+    const prize = document.getElementById('prize');
+    const promo = document.getElementById('promo');
+    const message = document.getElementById('message');
+    const status1 = document.getElementById('status1');
+    const status2 = document.getElementById('status2');
+    const status3 = document.getElementById('status3');
+
+    prize.addEventListener('scratch-progress', (e) => {
+      status1.textContent = `Progress: ${Math.round(e.detail.revealPercentage)}%`;
+    });
+
+    prize.addEventListener('scratch-reveal', () => {
+      status1.textContent = '✨ Revealed!';
+    });
+
+    promo.addEventListener('scratch-progress', (e) => {
+      status2.textContent = `Progress: ${Math.round(e.detail.revealPercentage)}%`;
+    });
+
+    promo.addEventListener('scratch-reveal', () => {
+      status2.textContent = '✨ Code Revealed!';
+    });
+
+    message.addEventListener('scratch-progress', (e) => {
+      status3.textContent = `Progress: ${Math.round(e.detail.revealPercentage)}%`;
+    });
+
+    message.addEventListener('scratch-reveal', () => {
+      status3.textContent = '✨ Message Revealed!';
+    });
+
+    window.resetAll = () => {
+      prize.reset();
+      promo.reset();
+      message.reset();
+      status1.textContent = '';
+      status2.textContent = '';
+      status3.textContent = '';
+    };
+
+    console.log('Scratch Reveal component loaded!');
+  </script>
+</body>
+</html>

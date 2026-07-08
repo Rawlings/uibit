@@ -26,6 +26,12 @@ const COMPONENTS = [
     install: '@uibit/hotspot',
   },
   {
+    id: 'consent-guard',
+    name: 'Consent Guard',
+    description: 'Asset-level consent wrapper for privacy-invasive third-party scripts and iframes. Display a placeholder and load content only after user consent.',
+    install: '@uibit/consent-guard',
+  },
+  {
     id: 'ab-test',
     name: 'A/B Test',
     description: 'A/B testing utility component for framework-agnostic experimentation. Easy variant assignment and tracking.',
@@ -36,6 +42,12 @@ const COMPONENTS = [
     name: 'Countdown',
     description: 'Countdown timer component. Display time remaining until a specific date or event with custom formatting.',
     install: '@uibit/countdown',
+  },
+  {
+    id: 'scratch-reveal',
+    name: 'Scratch Reveal',
+    description: 'A gamified, interactive scratch-off panel that reveals hidden content with smooth canvas drawing and touch gestures.',
+    install: '@uibit/scratch-reveal',
   },
 ];
 

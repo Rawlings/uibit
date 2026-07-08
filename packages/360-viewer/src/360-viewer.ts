@@ -5,12 +5,14 @@ import { customElement, property, state } from 'lit/decorators.js';
 export class Viewer360 extends LitElement {
   static styles = css`
     :host {
-      --viewer-bg: #f5f5f5;
-      --viewer-border: #e5e7eb;
-      --viewer-button-bg: rgba(255, 255, 255, 0.7);
-      --viewer-button-bg-hover: rgba(255, 255, 255, 0.9);
-      --viewer-button-color: #374151;
-      --viewer-focus-color: #3b82f6;
+      --uibit-360-viewer-bg: #f5f5f5;
+      --uibit-360-viewer-border: #e5e7eb;
+      --uibit-360-viewer-button-bg: rgba(255, 255, 255, 0.7);
+      --uibit-360-viewer-button-bg-hover: rgba(255, 255, 255, 0.9);
+      --uibit-360-viewer-button-color: #374151;
+      --uibit-360-viewer-focus-color: #000000;
+      --uibit-360-viewer-progress-track-bg: rgba(0, 0, 0, 0.1);
+      --uibit-360-viewer-hint-bg: rgba(17, 24, 39, 0.7);
       display: block;
       width: 100%;
     }
@@ -19,8 +21,8 @@ export class Viewer360 extends LitElement {
       position: relative;
       width: 100%;
       overflow: hidden;
-      background: var(--viewer-bg);
-      border: 1px solid var(--viewer-border);
+      background: var(--uibit-360-viewer-bg);
+      border: 1px solid var(--uibit-360-viewer-border);
       border-radius: 8px;
       touch-action: none;
       user-select: none;
@@ -29,7 +31,7 @@ export class Viewer360 extends LitElement {
     }
 
     .viewer:focus-visible {
-      box-shadow: 0 0 0 3px var(--viewer-focus-color);
+      box-shadow: 0 0 0 3px var(--uibit-360-viewer-focus-color);
     }
 
     img {
@@ -45,11 +47,11 @@ export class Viewer360 extends LitElement {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: var(--viewer-button-bg);
+      background: var(--uibit-360-viewer-button-bg);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       border: 1px solid rgba(255, 255, 255, 0.3);
-      color: var(--viewer-button-color);
+      color: var(--uibit-360-viewer-button-color);
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -69,7 +71,7 @@ export class Viewer360 extends LitElement {
     }
 
     .nav-button:hover {
-      background: var(--viewer-button-bg-hover);
+      background: var(--uibit-360-viewer-button-bg-hover);
       transform: translateY(-50%) scale(1.05);
     }
 
@@ -96,7 +98,7 @@ export class Viewer360 extends LitElement {
       bottom: 12px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(17, 24, 39, 0.7);
+      background: var(--uibit-360-viewer-hint-bg);
       color: white;
       padding: 6px 12px;
       border-radius: 9999px;
@@ -122,13 +124,13 @@ export class Viewer360 extends LitElement {
       left: 0;
       width: 100%;
       height: 3px;
-      background: rgba(0, 0, 0, 0.1);
+      background: var(--uibit-360-viewer-progress-track-bg);
       z-index: 5;
     }
 
     .progress-bar {
       height: 100%;
-      background: var(--viewer-focus-color);
+      background: var(--uibit-360-viewer-focus-color);
       transition: width 100ms ease;
     }
 
@@ -327,6 +329,7 @@ export class Viewer360 extends LitElement {
 
     return html`
       <div 
+        part="viewer"
         class="viewer ${this.isDragging ? 'dragging' : ''}"
         tabindex="0"
         role="region"
@@ -340,15 +343,16 @@ export class Viewer360 extends LitElement {
         ${image 
           ? html`
               <img 
+                part="image"
                 src="${image}" 
                 alt="360 view frame ${this.currentIndex + 1} of ${this.images.length}" 
               />
             ` 
-          : html`<p style="padding: 24px; text-align: center; color: var(--viewer-button-color);">No images provided</p>`
+          : html`<p style="padding: 24px; text-align: center; color: var(--uibit-360-viewer-button-color);">No images provided</p>`
         }
 
         ${this.images.length > 0 && !this.isDragging ? html`
-          <div class="drag-hint">
+          <div part="drag-hint" class="drag-hint">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
               <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"/>
             </svg>
@@ -358,6 +362,7 @@ export class Viewer360 extends LitElement {
 
         ${this.showControls && this.images.length > 0 ? html`
           <button 
+            part="nav-button nav-button-prev"
             class="nav-button nav-button-prev" 
             aria-label="Rotate left"
             @click=${(e: Event) => {
@@ -371,6 +376,7 @@ export class Viewer360 extends LitElement {
             <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
           </button>
           <button 
+            part="nav-button nav-button-next"
             class="nav-button nav-button-next" 
             aria-label="Rotate right"
             @click=${(e: Event) => {
@@ -386,8 +392,8 @@ export class Viewer360 extends LitElement {
         ` : ''}
 
         ${this.showProgressBar && this.images.length > 0 ? html`
-          <div class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="${this.images.length}" aria-valuenow="${this.currentIndex + 1}">
-            <div class="progress-bar" style="width: ${progressPercent}%"></div>
+          <div part="progress-track" class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="${this.images.length}" aria-valuenow="${this.currentIndex + 1}">
+            <div part="progress-bar" class="progress-bar" style="width: ${progressPercent}%"></div>
           </div>
         ` : ''}
       </div>

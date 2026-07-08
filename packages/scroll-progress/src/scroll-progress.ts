@@ -5,25 +5,20 @@ import { customElement, property, state } from 'lit/decorators.js';
 export class ScrollProgress extends LitElement {
   static styles = css`
     :host {
-      --progress-height: 4px;
-      --progress-color: #3b82f6;
-      --progress-bg: transparent;
       display: block;
       width: 100%;
-      height: var(--progress-height);
-      background: var(--progress-bg);
+      height: var(--uibit-scroll-progress-height, 4px);
+      background: var(--uibit-scroll-progress-bg, transparent);
     }
 
     .progress {
       height: 100%;
-      background: var(--progress-color);
+      background: var(--uibit-scroll-progress-color, #000000);
       width: 0%;
       transition: width 150ms ease;
     }
   `;
 
-  @property({ type: Number }) height = 4;
-  @property({ type: String }) color = '#3b82f6';
   @property({ type: String }) target?: string; // CSS selector of custom scrollable element
 
   @state() private progressPercent = 0;
@@ -47,15 +42,6 @@ export class ScrollProgress extends LitElement {
       this.attachScrollListener();
       this.updateProgress();
     }
-
-    if (changedProperties.has('height') || changedProperties.has('color')) {
-      this.updateStyles();
-    }
-  }
-
-  private updateStyles() {
-    this.style.setProperty('--progress-height', `${this.height}px`);
-    this.style.setProperty('--progress-color', this.color);
   }
 
   private getTargetElement(): HTMLElement | Window {
@@ -102,6 +88,7 @@ export class ScrollProgress extends LitElement {
   render() {
     return html`
       <div 
+        part="progress"
         class="progress" 
         style="width: ${this.progressPercent}%"
         role="progressbar"

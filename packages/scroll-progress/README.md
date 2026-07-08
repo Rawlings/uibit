@@ -24,8 +24,8 @@ pnpm add @uibit/scroll-progress
 
 <style>
   uibit-scroll-progress {
-    --progress-color: #3b82f6;
-    --progress-height: 4px;
+    --uibit-scroll-progress-color: #000000;
+    --uibit-scroll-progress-height: 4px;
   }
 </style>
 ```
@@ -34,9 +34,17 @@ pnpm add @uibit/scroll-progress
 
 ### CSS Variables
 
-- `--progress-color`: Progress bar color
-- `--progress-height`: Height of the progress bar (default: 4px)
-- `--progress-bg`: Background color
+| Variable Name | Type | Default | Description |
+|---|---|---|---|
+| `--uibit-scroll-progress-color` | color | `#000000` | Progress bar color |
+| `--uibit-scroll-progress-height` | length | `4px` | Height of the progress bar |
+| `--uibit-scroll-progress-bg` | color | `transparent` | Background color of the container |
+
+### CSS Shadow Parts
+
+| Part Name | Description |
+|---|---|
+| `progress` | The active progress bar element |
 
 ### Events
 

@@ -15,8 +15,10 @@
     "build:360-viewer": "pnpm -F 360-viewer run build",
     "build:scroll-progress": "pnpm -F scroll-progress run build",
     "build:hotspot": "pnpm -F hotspot run build",
+    "build:consent-guard": "pnpm -F consent-guard run build",
     "build:ab-test": "pnpm -F ab-test run build",
     "build:countdown": "pnpm -F countdown run build",
+    "build:scratch-reveal": "pnpm -F scratch-reveal run build",
     "build:docs": "pnpm -F docs run build",
     "preview": "pnpm -F docs run preview"
   },

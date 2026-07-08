@@ -7,6 +7,13 @@
       "runtimeArgs": ["--filter", "@uibit/docs", "dev"],
       "port": 5173,
       "autoPort": true
+    },
+    {
+      "name": "scratch-reveal",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@uibit/scratch-reveal", "dev"],
+      "port": 5174,
+      "autoPort": true
     }
   ]
 }

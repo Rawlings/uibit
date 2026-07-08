@@ -1,0 +1,52 @@
+{
+  "name": "@uibit/scratch-reveal",
+  "version": "0.1.0",
+  "description": "A gamified scratch-off panel web component that reveals hidden content by scratching away an opaque layer",
+  "type": "module",
+  "main": "./dist/scratch-reveal.js",
+  "types": "./dist/scratch-reveal.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/scratch-reveal.d.ts",
+      "import": "./dist/scratch-reveal.js"
+    },
+    "./scratch-reveal.css": "./dist/scratch-reveal.css"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "scratch-reveal",
+    "web-component",
+    "lit",
+    "gamified",
+    "interactive",
+    "promo",
+    "accessible",
+    "a11y"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/scratch-reveal"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "lit": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  }
+}

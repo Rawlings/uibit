@@ -91,6 +91,46 @@ export class MyButton extends LitElement {
 }
 ```
 
+### Composability Refactoring (Properties to Slots)
+
+**Before (Passing content through property string):**
+```typescript
+export class InfoCard extends LitElement {
+  @property({ type: String }) title = '';
+  @property({ type: String }) description = '';
+
+  render() {
+    return html`
+      <div class="card">
+        <h3>${this.title}</h3>
+        <p>${this.description}</p>
+      </div>
+    `;
+  }
+}
+```
+
+**After (Standardized: Using slots for composability, with property fallbacks if needed):**
+```typescript
+export class InfoCard extends LitElement {
+  @property({ type: String }) title = '';
+  @property({ type: String }) description = '';
+
+  render() {
+    return html`
+      <div class="card">
+        <h3>
+          <slot name="title">${this.title}</slot>
+        </h3>
+        <p>
+          <slot name="description">${this.description}</slot>
+        </p>
+      </div>
+    `;
+  }
+}
+```
+
 ### Template Optimization
 
 **Before:**
@@ -182,46 +222,74 @@ willUpdate(changedProperties: PropertyValues) {
 
 ### Style Optimization
 
-**Before:**
+**Before (Exposes style properties, has arbitrary CSS variables, uses non-monochrome styling, missing parts):**
 ```typescript
-static styles = css`
-  :host {
-    display: inline-block;
+export class MyButton extends LitElement {
+  @property({ type: String }) color = '#007bff';
+  @property({ type: Number }) padding = 8;
+
+  static styles = css`
+    :host {
+      display: inline-block;
+    }
+    
+    button {
+      background: var(--button-color, #007bff);
+      border: none;
+      cursor: pointer;
+    }
+    
+    button:focus-visible { outline: 2px solid #007bff; }
+  `;
+
+  render() {
+    return html`
+      <button style="padding: ${this.padding}px">
+        <slot></slot>
+      </button>
+    `;
   }
-  
-  button {
-    padding: 8px 16px;
-    background: var(--button-bg, #007bff);
-    color: var(--button-text, #fff);
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover { opacity: 0.9; }
-  button:focus-visible { outline: 2px solid #0066cc; }
-`;
+}
 ```
 
-**After:**
+**After (Standardized: No styling properties, prefixed CSS variables, shadow parts, Scandinavian monochrome aesthetic):**
 ```typescript
-static styles = css`
-  :host { display: inline-block; }
-  
-  button {
-    padding: var(--button-padding, 8px 16px);
-    background: var(--button-bg, #007bff);
-    color: var(--button-text, #fff);
-    border: none;
-    cursor: pointer;
-    transition: opacity 150ms ease-in-out;
+export class MyButton extends LitElement {
+  // No style properties like 'color' or 'padding'
+
+  static styles = css`
+    :host { 
+      display: inline-block; 
+    }
+    
+    button {
+      padding: var(--uibit-my-button-padding, 8px 16px);
+      background: var(--uibit-my-button-bg, #000000);
+      color: var(--uibit-my-button-color, #ffffff);
+      border: 1px solid var(--uibit-my-button-border-color, #e5e7eb);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 150ms ease, opacity 150ms ease;
+    }
+    
+    button:hover { 
+      background: var(--uibit-my-button-bg-hover, #1f2937); 
+    }
+    
+    button:focus-visible { 
+      outline: 2px solid var(--uibit-my-button-focus-color, #000000);
+      outline-offset: 2px;
+    }
+  `;
+
+  render() {
+    return html`
+      <button part="button">
+        <slot></slot>
+      </button>
+    `;
   }
-  
-  button:hover { opacity: 0.9; }
-  button:focus-visible { 
-    outline: 2px solid;
-    outline-offset: 2px;
-  }
-`;
+}
 ```
 
 ## Refactoring Categories

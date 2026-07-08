@@ -57,8 +57,10 @@ function MyCarousel() {
     <uibit-carousel
       autoPlay={true}
       autoPlayInterval={5000}
-      itemsPerView={1}
-      gap={16}
+      style={{
+        '--uibit-carousel-items-per-view': '1',
+        '--uibit-carousel-gap': '16px'
+      } as React.CSSProperties}
     >
       <div slot="item"><img src="slide-1.jpg" alt="Slide 1" /></div>
       <div slot="item"><img src="slide-2.jpg" alt="Slide 2" /></div>
@@ -77,9 +79,6 @@ function MyCarousel() {
 | `autoPlay` | boolean | `false` | Enable automatic slide cycling |
 | `autoPlayInterval` | number | `5000` | Interval in milliseconds between auto-play slides |
 | `loop` | boolean | `true` | Allow cycling through slides in a loop |
-| `itemsPerView` | number | `1` | Number of items visible at once (responsive) |
-| `gap` | number | `16` | Gap between carousel items in pixels |
-| `duration` | number | `300` | Scroll animation duration in milliseconds |
 
 ### Methods
 
@@ -97,20 +96,35 @@ function MyCarousel() {
 
 ### CSS Variables
 
-Customize the carousel appearance with CSS variables:
+Customize the carousel layout and appearance with CSS variables:
 
-```css
-uibit-carousel {
-  --carousel-gap: 1rem;
-  --carousel-duration: 300ms;
-  --carousel-items-per-view: 1;
-  --carousel-border-color: #e5e7eb;
-  --carousel-button-bg: #f3f4f6;
-  --carousel-button-bg-hover: #e5e7eb;
-  --carousel-indicator-bg: #d1d5db;
-  --carousel-indicator-active-bg: #374151;
-}
-```
+| Variable Name | Type | Default | Description |
+|---|---|---|---|
+| `--uibit-carousel-gap` | length | `16px` | Gap between carousel items |
+| `--uibit-carousel-duration` | duration | `300ms` | Scroll/snap transition speed |
+| `--uibit-carousel-items-per-view` | number | `1` | Number of items visible at once |
+| `--uibit-carousel-border-color` | color | `#e5e7eb` | Border color around the viewport and buttons |
+| `--uibit-carousel-button-bg` | color | `#f3f4f6` | Default background color of control buttons |
+| `--uibit-carousel-button-bg-hover` | color | `#e5e7eb` | Background color of control buttons on hover |
+| `--uibit-carousel-indicator-bg` | color | `#e5e7eb` | Background color of inactive slide dots |
+| `--uibit-carousel-indicator-active-bg` | color | `#000000` | Background color of the active slide dot |
+| `--uibit-carousel-focus-outline-color` | color | `#000000` | Color of focus indicators on interactive parts |
+
+### CSS Shadow Parts
+
+| Part Name | Description |
+|---|---|
+| `carousel` | The main carousel grid/flex container |
+| `viewport` | The overflow-hidden wrapper enclosing items |
+| `content` | The scrollable element holding the items slot |
+| `controls` | The bar layout containing buttons and indicators |
+| `buttons` | The wrapper element for the navigation buttons |
+| `button` | Style applied to both navigation buttons |
+| `button-prev` | Applied specifically to the Prev button |
+| `button-next` | Applied specifically to the Next button |
+| `indicators` | The container element for dot indicators |
+| `indicator` | Applied to all indicator dot buttons |
+| `indicator-active` | Applied specifically to the active indicator dot button |
 
 ## Usage Examples
 
@@ -137,10 +151,10 @@ uibit-carousel {
 ### Multiple Items Per View
 
 ```html
-<uibit-carousel items-per-view="3" gap="20">
-  <div slot="item" style="flex: 0 0 calc((100% - 40px) / 3)">Item 1</div>
-  <div slot="item" style="flex: 0 0 calc((100% - 40px) / 3)">Item 2</div>
-  <div slot="item" style="flex: 0 0 calc((100% - 40px) / 3)">Item 3</div>
+<uibit-carousel style="--uibit-carousel-items-per-view: 3; --uibit-carousel-gap: 20px;">
+  <div slot="item">Item 1</div>
+  <div slot="item">Item 2</div>
+  <div slot="item">Item 3</div>
   <!-- More items... -->
 </uibit-carousel>
 ```
@@ -186,23 +200,23 @@ uibit-carousel {
 ```html
 <style>
   uibit-carousel {
-    --carousel-items-per-view: 1;
+    --uibit-carousel-items-per-view: 1;
   }
 
   @media (min-width: 640px) {
     uibit-carousel {
-      --carousel-items-per-view: 2;
+      --uibit-carousel-items-per-view: 2;
     }
   }
 
   @media (min-width: 1024px) {
     uibit-carousel {
-      --carousel-items-per-view: 4;
+      --uibit-carousel-items-per-view: 4;
     }
   }
 </style>
 
-<uibit-carousel gap="16">
+<uibit-carousel>
   <div slot="item">Item 1</div>
   <div slot="item">Item 2</div>
   <div slot="item">Item 3</div>

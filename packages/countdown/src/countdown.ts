@@ -6,15 +6,16 @@ export class Countdown extends LitElement {
   static styles = css`
     :host {
       display: block;
-      font-family: monospace;
-      font-size: 1.5rem;
-      font-weight: bold;
+      font-family: var(--uibit-countdown-font-family, monospace);
+      font-size: var(--uibit-countdown-font-size, 1.5rem);
+      font-weight: var(--uibit-countdown-font-weight, bold);
+      color: var(--uibit-countdown-color, #000000);
       text-align: center;
     }
 
     .countdown {
       display: flex;
-      gap: 1rem;
+      gap: var(--uibit-countdown-gap, 1rem);
       justify-content: center;
       align-items: center;
     }
@@ -23,24 +24,26 @@ export class Countdown extends LitElement {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
+      gap: var(--uibit-countdown-unit-gap, 0.5rem);
     }
 
     .value {
-      font-size: 2.5rem;
-      min-width: 80px;
+      font-size: var(--uibit-countdown-value-font-size, 2.5rem);
+      min-width: var(--uibit-countdown-value-min-width, 80px);
     }
 
     .label {
-      font-size: 0.8rem;
+      font-size: var(--uibit-countdown-label-font-size, 0.8rem);
       text-transform: uppercase;
-      opacity: 0.7;
+      color: var(--uibit-countdown-label-color, #4b5563);
+      opacity: 0.8;
     }
 
     .separator {
-      font-size: 2.5rem;
+      font-size: var(--uibit-countdown-separator-font-size, 2.5rem);
       align-self: flex-start;
       margin-top: -8px;
+      color: var(--uibit-countdown-separator-color, #000000);
       opacity: 0.5;
     }
   `;
@@ -189,13 +192,13 @@ export class Countdown extends LitElement {
   render() {
     const units = this.getFormattedUnits();
     return html`
-      <div class="countdown" role="timer" aria-live="polite" aria-label="Countdown timer">
+      <div part="countdown" class="countdown" role="timer" aria-live="polite" aria-label="Countdown timer">
         ${units.map(
           (unit, index) => html`
-            ${index > 0 ? html`<div class="separator">:</div>` : ''}
-            <div class="unit">
-              <div class="value">${unit.value}</div>
-              <div class="label">${unit.label}</div>
+            ${index > 0 ? html`<div part="separator" class="separator">:</div>` : ''}
+            <div part="unit" class="unit">
+              <div part="value" class="value">${unit.value}</div>
+              <div part="label" class="label">${unit.label}</div>
             </div>
           `
         )}

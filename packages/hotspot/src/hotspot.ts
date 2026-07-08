@@ -22,10 +22,10 @@ export class Hotspot extends LitElement {
     }
 
     .hotspot-trigger {
-      width: 32px;
-      height: 32px;
-      background: rgba(59, 130, 246, 0.6);
-      border: 2px solid #ffffff;
+      width: var(--uibit-hotspot-trigger-size, 32px);
+      height: var(--uibit-hotspot-trigger-size, 32px);
+      background: var(--uibit-hotspot-trigger-bg, rgba(0, 0, 0, 0.6));
+      border: var(--uibit-hotspot-trigger-border, 2px solid #ffffff);
       border-radius: 50%;
       cursor: pointer;
       display: flex;
@@ -63,17 +63,17 @@ export class Hotspot extends LitElement {
 
     .hotspot-trigger:hover,
     .hotspot-trigger.active {
-      background: rgba(59, 130, 246, 0.9);
+      background: var(--uibit-hotspot-trigger-bg-hover, rgba(0, 0, 0, 0.85));
       transform: scale(1.1);
     }
 
     .hotspot-trigger:focus-visible {
-      box-shadow: 0 0 0 3px #3b82f6, 0 4px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: var(--uibit-hotspot-focus-outline, 0 0 0 3px #000000), 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
     .hotspot-trigger::after {
       content: '+';
-      color: white;
+      color: var(--uibit-hotspot-trigger-color, white);
       font-size: 18px;
       font-weight: bold;
       line-height: 1;
@@ -87,14 +87,14 @@ export class Hotspot extends LitElement {
     .hotspot-popover {
       position: absolute;
       width: 240px;
-      background: rgba(255, 255, 255, 0.9);
+      background: var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.95));
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      color: #1f2937;
+      color: var(--uibit-hotspot-popover-color, #111827);
       padding: 14px 16px;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: var(--uibit-hotspot-popover-border-radius, 12px);
+      box-shadow: var(--uibit-hotspot-popover-shadow, 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1));
+      border: var(--uibit-hotspot-popover-border, 1px solid rgba(0, 0, 0, 0.1));
       z-index: 20;
       display: flex;
       flex-direction: column;
@@ -129,27 +129,27 @@ export class Hotspot extends LitElement {
     .hotspot-popover.position-above::after {
       top: 100%;
       border-width: 6px 6px 0 6px;
-      border-color: rgba(255, 255, 255, 0.9) transparent transparent transparent;
+      border-color: var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.95)) transparent transparent transparent;
     }
 
     .hotspot-popover.position-below::after {
       bottom: 100%;
       border-width: 0 6px 6px 6px;
-      border-color: transparent transparent rgba(255, 255, 255, 0.9) transparent;
+      border-color: transparent transparent var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.95)) transparent;
     }
 
     .popover-content h3 {
       margin: 0 0 6px 0;
       font-size: 15px;
       font-weight: 600;
-      color: #111827;
+      color: var(--uibit-hotspot-popover-color, #111827);
     }
 
     .popover-content p {
       margin: 0;
       font-size: 13px;
       line-height: 1.4;
-      color: #4b5563;
+      color: var(--uibit-hotspot-popover-content-color, #4b5563);
     }
 
     .popover-close {
@@ -174,11 +174,11 @@ export class Hotspot extends LitElement {
 
     .popover-close:hover {
       background-color: rgba(0, 0, 0, 0.05);
-      color: #4b5563;
+      color: #111827;
     }
 
     .popover-close:focus-visible {
-      outline: 2px solid #3b82f6;
+      outline: 2px solid var(--uibit-hotspot-focus-outline-color, #000000);
     }
   `;
 
@@ -285,7 +285,7 @@ export class Hotspot extends LitElement {
 
   render() {
     return html`
-      <div class="hotspot-container">
+      <div part="container" class="hotspot-container">
         <slot></slot>
         ${this.hotspots.map((spot, index) => {
           const spotId = spot.id || String(index);
@@ -293,8 +293,9 @@ export class Hotspot extends LitElement {
           const positionClass = spot.y < 30 ? 'position-below' : 'position-above';
 
           return html`
-            <div class="hotspot-wrapper" style="left: ${spot.x}%; top: ${spot.y}%">
+            <div part="wrapper" class="hotspot-wrapper" style="left: ${spot.x}%; top: ${spot.y}%">
               <button
+                part="trigger ${isOpened ? 'trigger-active' : ''}"
                 class="hotspot-trigger ${isOpened ? 'active' : ''}"
                 aria-label="${spot.label || spot.title || 'Hotspot'}"
                 aria-expanded="${isOpened}"
@@ -305,10 +306,11 @@ export class Hotspot extends LitElement {
                 @mouseleave=${() => this.handleTriggerMouseLeave()}
               ></button>
 
-              ${isOpened && (spot.title || spot.content)
+              ${isOpened
                 ? html`
                     <div
                       id="popover-${spotId}"
+                      part="popover"
                       class="hotspot-popover ${positionClass}"
                       role="dialog"
                       aria-modal="false"
@@ -316,11 +318,14 @@ export class Hotspot extends LitElement {
                       @mouseenter=${() => this.handlePopoverMouseEnter()}
                       @mouseleave=${() => this.handlePopoverMouseLeave()}
                     >
-                      <div class="popover-content">
-                        ${spot.title ? html`<h3>${spot.title}</h3>` : ''}
-                        ${spot.content ? html`<p>${spot.content}</p>` : ''}
+                      <div part="popover-content" class="popover-content">
+                        <slot name="popover-${spotId}">
+                          ${spot.title ? html`<h3>${spot.title}</h3>` : ''}
+                          ${spot.content ? html`<p>${spot.content}</p>` : ''}
+                        </slot>
                       </div>
                       <button
+                        part="popover-close"
                         class="popover-close"
                         aria-label="Close details"
                         @click=${(e: Event) => {

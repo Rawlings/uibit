@@ -1,0 +1,38 @@
+{
+  "name": "@uibit/consent-guard",
+  "version": "0.1.0",
+  "description": "Asset-level consent wrapper for privacy-invasive third-party scripts and iframes",
+  "type": "module",
+  "main": "./dist/consent-guard.js",
+  "types": "./dist/consent-guard.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/consent-guard.d.ts",
+      "import": "./dist/consent-guard.js"
+    },
+    "./consent-guard.css": "./dist/consent-guard.css"
+  },
+  "files": ["dist", "package.json", "README.md", "LICENSE"],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["consent", "privacy", "gdpr", "cookie", "iframe", "web-component", "lit"],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/consent-guard"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "lit": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  }
+}

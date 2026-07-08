@@ -209,10 +209,14 @@ MIT
 - Event data structure documented
 
 **CSS Variables Table:**
-- Custom property name
-- Type (color, length, number)
+- Custom property name (must be prefixed with `--uibit-[component-name]-[variable-name]`)
+- Type (color, length, number, etc.)
 - Default value
-- Use case
+- Description / Use case
+
+**CSS Shadow Parts Table:**
+- Part name (defined via the `part="..."` attribute)
+- Description / Exposed element context
 
 ### Code Examples
 

@@ -13,9 +13,11 @@
     "@uibit/360-viewer": "workspace:*",
     "@uibit/ab-test": "workspace:*",
     "@uibit/carousel": "workspace:*",
+    "@uibit/consent-guard": "workspace:*",
     "@uibit/countdown": "workspace:*",
     "@uibit/hotspot": "workspace:*",
     "@uibit/scroll-progress": "workspace:*",
+    "@uibit/scratch-reveal": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.18.1"

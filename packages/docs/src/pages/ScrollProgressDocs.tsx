@@ -46,9 +46,11 @@ function ScrollProgressDocs() {
             {/* Scroll Progress Component anchored inside this container */}
             <uibit-scroll-progress 
               target="#demo-scroll-box" 
-              color="#000000" 
-              height={4}
-              class="sticky top-0 z-10 block"
+              style={{
+                '--uibit-scroll-progress-color': '#000000',
+                '--uibit-scroll-progress-height': '4px',
+              } as React.CSSProperties}
+              className="sticky top-0 z-10 block"
             ></uibit-scroll-progress>
             
             <div className="p-6 space-y-4">
@@ -70,6 +72,7 @@ function ScrollProgressDocs() {
       {/* API Reference */}
       <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
         <h2 className="text-xl font-semibold text-gray-900 mb-8">API</h2>
+        
         <div className="mb-12">
           <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Properties</h3>
           <div className="overflow-x-auto">
@@ -84,14 +87,66 @@ function ScrollProgressDocs() {
               </thead>
               <tbody>
                 {[
-                  { prop: 'height', type: 'number', default: '4', desc: 'Height of the progress bar in pixels' },
-                  { prop: 'color', type: 'string', default: '"#3b82f6"', desc: 'Background color of the progress bar fill' },
                   { prop: 'target', type: 'string', default: 'undefined', desc: 'CSS selector of the scroll container to observe. Defaults to window scrolling' },
                 ].map((row, i) => (
                   <tr key={i} className="border-b border-gray-100">
                     <td className="px-4 py-3 font-mono text-gray-900">{row.prop}</td>
                     <td className="px-4 py-3 font-mono text-gray-600">{row.type}</td>
                     <td className="px-4 py-3 font-mono text-gray-600">{row.default}</td>
+                    <td className="px-4 py-3 text-gray-600">{row.desc}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mb-12">
+          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">CSS Custom Properties</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Variable</th>
+                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Type</th>
+                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Default</th>
+                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { prop: '--uibit-scroll-progress-color', type: 'color', default: '#000000', desc: 'Fill color of the progress bar' },
+                  { prop: '--uibit-scroll-progress-height', type: 'length', default: '4px', desc: 'Thickness of the progress bar' },
+                  { prop: '--uibit-scroll-progress-bg', type: 'color', default: 'transparent', desc: 'Background color of the tracking bar' },
+                ].map((row, i) => (
+                  <tr key={i} className="border-b border-gray-100">
+                    <td className="px-4 py-3 font-mono text-gray-900">{row.prop}</td>
+                    <td className="px-4 py-3 font-mono text-gray-600">{row.type}</td>
+                    <td className="px-4 py-3 font-mono text-gray-600">{row.default}</td>
+                    <td className="px-4 py-3 text-gray-600">{row.desc}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mb-12">
+          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">CSS Shadow Parts</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Part</th>
+                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { part: 'progress', desc: 'The active progress bar element' },
+                ].map((row, i) => (
+                  <tr key={i} className="border-b border-gray-100">
+                    <td className="px-4 py-3 font-mono text-gray-900">::part({row.part})</td>
                     <td className="px-4 py-3 text-gray-600">{row.desc}</td>
                   </tr>
                 ))}
@@ -108,14 +163,17 @@ function ScrollProgressDocs() {
         <div className="space-y-8">
           <div>
             <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">Basic Window Scrolling</h3>
-            <pre className="code-block"><code>{`<uibit-scroll-progress color="#ef4444" height="5"></uibit-scroll-progress>`}</code></pre>
+            <pre className="code-block"><code>{`<uibit-scroll-progress style="--uibit-scroll-progress-color: #000000; --uibit-scroll-progress-height: 5px;"></uibit-scroll-progress>`}</code></pre>
           </div>
 
           <div>
             <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">Custom Element Container Scrolling</h3>
             <pre className="code-block"><code>{`<!-- HTML container with overflow-y -->
 <div id="scrollable-block" style="height: 300px; overflow-y: scroll; position: relative;">
-  <uibit-scroll-progress target="#scrollable-block" color="#10b981"></uibit-scroll-progress>
+  <uibit-scroll-progress 
+    target="#scrollable-block" 
+    style="--uibit-scroll-progress-color: #000000;"
+  ></uibit-scroll-progress>
   <div style="height: 1000px;">
     Lots of scrollable content...
   </div>
@@ -134,7 +192,7 @@ function ScrollProgressDocs() {
             'Correctly handles component attachment/removal, preventing scroll listener leaks',
             'GPU-accelerated reactive layout renders',
             'Full progressbar ARIA semantics for screen readers',
-            'Supports dynamic color and height styling properties'
+            'Supports dynamic customization using CSS custom properties'
           ].map((feature, i) => (
             <div key={i} className="flex items-start gap-3">
               <span className="text-gray-900 font-semibold mt-0.5">—</span>

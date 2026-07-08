@@ -108,6 +108,33 @@ function HotspotDocs() {
             </table>
           </div>
         </div>
+
+        <div className="mt-8">
+          <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Slots</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-gray-200">
+                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Slot Name</th>
+                  <th className="text-left px-4 py-3 font-semibold text-gray-900">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { name: '[default]', desc: 'The main background image or video to overlay hotspots on' },
+                  { name: 'popover-[id]', desc: 'Custom HTML markup popover content card for a specific hotspot (e.g. popover-1)' },
+                ].map((row, i) => (
+                  <tr key={i} className="border-b border-gray-100">
+                    <td className="px-4 py-3 font-mono text-gray-900">
+                      <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono">{row.name}</code>
+                    </td>
+                    <td className="px-4 py-3 text-gray-600">{row.desc}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </section>
 
       {/* Usage Examples */}
@@ -116,15 +143,22 @@ function HotspotDocs() {
 
         <div className="space-y-8">
           <div>
-            <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">HTML Example</h3>
-            <pre className="code-block"><code>{`<uibit-hotspot id="product-demo" trigger="hover">
+            <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">HTML Example (with Composable Slots)</h3>
+            <pre className="code-block"><code>{`<uibit-hotspot id="product-demo">
   <img src="product.jpg" alt="Product Image" />
+  
+  <!-- Slotted popover content for hotspot with id="1" -->
+  <div slot="popover-1" class="p-2 text-center">
+    <h4 style="margin: 0; font-weight: bold;">Zoom Lens</h4>
+    <p style="margin: 4px 0 0 0; font-size: 0.8rem;">F/2.8 premium optic assembly.</p>
+    <a href="/shop" style="color: black; text-decoration: underline; font-size: 0.75rem;">Shop Now</a>
+  </div>
 </uibit-hotspot>
 
 <script>
   const widget = document.getElementById('product-demo');
   widget.hotspots = [
-    { id: '1', x: 45, y: 55, title: 'Zoom Lens', content: 'F/2.8 premium optic assembly.' }
+    { id: '1', x: 45, y: 55 }
   ];
 </script>`}</code></pre>
           </div>

@@ -87,9 +87,12 @@ packages/<kebab-case>/
 
 ### Component Boilerplate
 - Lit class component with TypeScript
-- Reactive `@property` decorators
+- Reactive `@property` decorators (only for behavioral parameters and data; do not use properties for styling or setting text content)
+- Expose HTML `<slot>` components for rendering user-facing text, labels, or inner markup instead of properties
 - Lifecycle hooks (`connectedCallback`, `disconnectedCallback`)
-- Default styling setup
+- Default styling setup following **Scandinavian Greyscale** aesthetic (monochrome colors, clear borders, transitions, no vibrant default colors)
+- Standardized CSS Custom Properties prefixed with `--uibit-[component-name]-[variable-name]`
+- Elements decorated with `part="..."` attributes to expose Shadow Parts
 - Element registration via `@customElement` decorator
 
 ### Accessibility
