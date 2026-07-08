@@ -114,6 +114,20 @@ packages/<kebab-case>/
 - Usage examples
 - Accessibility notes
 
+### React / JSX Usage
+
+When documenting or generating usage examples of web components inside React/JSX:
+
+- Use **`class`** (not `className`) on custom elements — `className` is a React abstraction that only applies to React-controlled DOM elements. Web components are native HTML elements in the JSX output, so the standard HTML attribute name is correct:
+  ```jsx
+  // ✅ correct
+  <uibit-scroll-progress class="sticky top-0 z-10 block" />
+
+  // ❌ wrong — className is silently ignored on custom elements
+  <uibit-scroll-progress className="sticky top-0 z-10 block" />
+  ```
+- Similarly, other DOM-mapped React aliases (`htmlFor` → `for`, `tabIndex` → `tabindex`, etc.) should use their **HTML attribute names** on custom elements, not their React prop aliases.
+
 ### Build Configuration
 - TypeScript configuration (`tsconfig.json`): Must be kept minimal, extending `../../tsconfig.base.json` to prevent duplicated settings, specifying output directory:
   ```json

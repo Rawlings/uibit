@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '@uibit/ab-test';
+import { ApiDocs } from '../components/ApiDocs';
+import manifest from '@uibit/ab-test/custom-elements.json';
 
 function ABTestDocs() {
   const [selectedVariant, setSelectedVariant] = useState<string>('');
@@ -101,8 +103,6 @@ function ABTestDocs() {
             <h3 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">React Implementation</h3>
             <pre className="code-block"><code>{`import { useEffect, useRef } from 'react';
 import '@uibit/ab-test';
-import { ApiDocs } from '../components/ApiDocs';
-import manifest from '@uibit/ab-test/custom-elements.json';
 
 function BannerTest() {
   const abRef = useRef(null);

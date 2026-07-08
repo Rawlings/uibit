@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '@uibit/consent-guard';
+import { ApiDocs } from '../components/ApiDocs';
+import manifest from '@uibit/consent-guard/custom-elements.json';
 
 function ConsentGuardDocs() {
   const guardRef1 = useRef<any>(null);
@@ -160,8 +162,6 @@ guard.addEventListener('consent-declined', (e) => {
             <pre className="code-block bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto">
               <code>{`import { useEffect, useRef } from 'react';
 import '@uibit/consent-guard';
-import { ApiDocs } from '../components/ApiDocs';
-import manifest from '@uibit/consent-guard/custom-elements.json';
 
 export function EmbeddedForm() {
   const guardRef = useRef(null);
