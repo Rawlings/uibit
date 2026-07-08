@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Home from './pages/Home';
 import CarouselDocs from './pages/CarouselDocs';
 
-type Page = 'home' | 'carousel';
+type Page = 'home' | 'carousel' | 'viewer-360' | 'scroll-progress' | 'hotspot' | 'ab-test' | 'countdown';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -19,27 +19,26 @@ function App() {
             >
               UIBit
             </button>
-            <nav className="flex gap-6">
-              <button
-                onClick={() => setCurrentPage('home')}
-                className={`py-2 px-4 rounded transition-colors ${
-                  currentPage === 'home'
-                    ? 'bg-white text-primary-700'
-                    : 'hover:bg-white/10'
-                }`}
-              >
-                Home
-              </button>
-              <button
-                onClick={() => setCurrentPage('carousel')}
-                className={`py-2 px-4 rounded transition-colors ${
-                  currentPage === 'carousel'
-                    ? 'bg-white text-primary-700'
-                    : 'hover:bg-white/10'
-                }`}
-              >
-                Carousel
-              </button>
+            <nav className="flex gap-2 flex-wrap">
+              {['home', 'carousel', 'viewer-360', 'scroll-progress', 'hotspot', 'ab-test', 'countdown'].map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page as Page)}
+                  className={`py-2 px-3 text-sm rounded transition-colors ${
+                    currentPage === page
+                      ? 'bg-white text-primary-700'
+                      : 'hover:bg-white/10'
+                  }`}
+                >
+                  {page === 'home' && 'Home'}
+                  {page === 'carousel' && 'Carousel'}
+                  {page === 'viewer-360' && '360-Viewer'}
+                  {page === 'scroll-progress' && 'Scroll Progress'}
+                  {page === 'hotspot' && 'Hotspot'}
+                  {page === 'ab-test' && 'A/B Test'}
+                  {page === 'countdown' && 'Countdown'}
+                </button>
+              ))}
             </nav>
           </div>
         </div>
@@ -49,6 +48,28 @@ function App() {
       <main className="flex-1">
         {currentPage === 'home' && <Home />}
         {currentPage === 'carousel' && <CarouselDocs />}
+        {currentPage !== 'home' && currentPage !== 'carousel' && (
+          <div className="max-w-6xl mx-auto px-4 py-12">
+            <h1 className="text-4xl font-bold mb-4">
+              {currentPage === 'viewer-360' && '360-Viewer Component'}
+              {currentPage === 'scroll-progress' && 'Scroll-Progress Component'}
+              {currentPage === 'hotspot' && 'Hotspot Component'}
+              {currentPage === 'ab-test' && 'A/B Test Component'}
+              {currentPage === 'countdown' && 'Countdown Component'}
+            </h1>
+            <p className="text-gray-600 mb-6">
+              Coming soon. Documentation and live demos for this component are being prepared.
+            </p>
+            <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
+              <p className="text-sm text-gray-700">
+                In the meantime, check the component's README in the repository:
+              </p>
+              <code className="block bg-white p-3 rounded mt-3 text-sm font-mono">
+                packages/uibit-{currentPage === 'viewer-360' ? '360-viewer' : currentPage === 'ab-test' ? 'ab-test' : currentPage}/README.md
+              </code>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer */}

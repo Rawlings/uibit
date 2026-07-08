@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.hotspot-container {
+  position: relative;
+  width: 100%;
+}
+
+.hotspot-trigger {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(59, 130, 246, 0.2);
+  border: 2px solid #3b82f6;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 150ms ease;
+}
+
+.hotspot-trigger:hover {
+  background: rgba(59, 130, 246, 0.3);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.hotspot-trigger:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}

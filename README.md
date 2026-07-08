@@ -51,18 +51,36 @@ pnpm build:docs
 
 ### [@uibit/carousel](./packages/uibit-carousel/README.md)
 A native, accessible carousel component using CSS scroll-snap and scroll-driven animations.
+- Native CSS scroll-snap, scroll-driven animations, auto-play, touch support, keyboard navigation
 
-**Features:**
-- Native CSS scroll-snap (no JavaScript scrolling)
-- Scroll-driven animations
-- Auto-play with configurable interval
-- Touch and keyboard support
-- Accessible with ARIA labels
-- Responsive
+### [@uibit/360-viewer](./packages/uibit-360-viewer/README.md)
+Display 360-degree product rotations with multiple images and touch support.
+- Image rotation, auto-play, zoom controls, touch/mouse interaction, responsive
 
-**Install:**
+### [@uibit/scroll-progress](./packages/uibit-scroll-progress/README.md)
+A progress bar showing how far the user has scrolled on the page.
+- Fixed positioning, smooth animations, customizable colors, performance optimized
+
+### [@uibit/hotspot](./packages/uibit-hotspot/README.md)
+Interactive hotspots on images that open popovers or links.
+- Custom positions, click handlers, popover content, touch support, accessible
+
+### [@uibit/ab-test](./packages/uibit-ab-test/README.md)
+A/B testing harness with automatic variant distribution and persistence.
+- localStorage persistence, weighted distribution, variant events, consistent UX
+
+### [@uibit/countdown](./packages/uibit-countdown/README.md)
+Countdown timer to a target date or duration with customizable formatting.
+- Configurable format, events, auto-start, timezone support, accessible
+
+**Install any component:**
 ```bash
 pnpm add @uibit/carousel
+pnpm add @uibit/360-viewer
+pnpm add @uibit/scroll-progress
+pnpm add @uibit/hotspot
+pnpm add @uibit/ab-test
+pnpm add @uibit/countdown
 ```
 
 ## Documentation

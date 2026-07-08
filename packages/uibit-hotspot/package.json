@@ -1,0 +1,38 @@
+{
+  "name": "@uibit/hotspot",
+  "version": "0.1.0",
+  "description": "A web component for creating interactive hotspots on images with popovers",
+  "type": "module",
+  "main": "./dist/hotspot.js",
+  "types": "./dist/hotspot.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/hotspot.d.ts",
+      "import": "./dist/hotspot.js"
+    },
+    "./hotspot.css": "./dist/hotspot.css"
+  },
+  "files": ["dist", "package.json", "README.md", "LICENSE"],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["hotspot", "interactive", "image-annotation", "web-component", "lit"],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/uibit-hotspot"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "lit": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  }
+}

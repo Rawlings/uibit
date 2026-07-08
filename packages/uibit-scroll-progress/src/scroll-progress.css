@@ -1,0 +1,19 @@
+:host {
+  --progress-height: 4px;
+  --progress-color: #3b82f6;
+  --progress-bg: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--progress-height);
+  background: var(--progress-bg);
+  z-index: 9999;
+}
+
+.progress {
+  height: 100%;
+  background: var(--progress-color);
+  width: 0%;
+  transition: width 150ms ease;
+}

@@ -1,0 +1,37 @@
+{
+  "name": "@uibit/ab-test",
+  "version": "0.1.0",
+  "description": "A web component wrapper for A/B testing with automatic variant distribution and localStorage persistence",
+  "type": "module",
+  "main": "./dist/ab-test.js",
+  "types": "./dist/ab-test.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/ab-test.d.ts",
+      "import": "./dist/ab-test.js"
+    }
+  },
+  "files": ["dist", "package.json", "README.md", "LICENSE"],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["ab-test", "testing", "variant", "web-component", "lit"],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/uibit-ab-test"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "lit": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  }
+}

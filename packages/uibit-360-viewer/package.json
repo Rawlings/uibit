@@ -1,0 +1,38 @@
+{
+  "name": "@uibit/360-viewer",
+  "version": "0.1.0",
+  "description": "A web component for displaying 360-degree product views with image rotation and touch support",
+  "type": "module",
+  "main": "./dist/360-viewer.js",
+  "types": "./dist/360-viewer.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/360-viewer.d.ts",
+      "import": "./dist/360-viewer.js"
+    },
+    "./360-viewer.css": "./dist/360-viewer.css"
+  },
+  "files": ["dist", "package.json", "README.md", "LICENSE"],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["360-viewer", "product-view", "web-component", "lit", "interactive"],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/uibit-360-viewer"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "lit": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  }
+}

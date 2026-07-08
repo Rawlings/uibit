@@ -1,0 +1,38 @@
+{
+  "name": "@uibit/scroll-progress",
+  "version": "0.1.0",
+  "description": "A web component that visualizes scroll progress on the page",
+  "type": "module",
+  "main": "./dist/scroll-progress.js",
+  "types": "./dist/scroll-progress.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/scroll-progress.d.ts",
+      "import": "./dist/scroll-progress.js"
+    },
+    "./scroll-progress.css": "./dist/scroll-progress.css"
+  },
+  "files": ["dist", "package.json", "README.md", "LICENSE"],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["scroll-progress", "progress-bar", "web-component", "lit", "scroll"],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/uibit-scroll-progress"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.5",
+    "lit": "^3.1.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  }
+}
