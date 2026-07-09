@@ -78,11 +78,11 @@
           ],
           "events": [
             {
-              "name": "variant-rendered",
               "type": {
                 "text": "{ variant: string, isNewUser: boolean }"
               },
-              "description": "Fired after a variant is selected and rendered"
+              "description": "Fired after a variant is selected and rendered",
+              "name": "variant-rendered"
             }
           ],
           "attributes": [
@@ -106,8 +106,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-ab-test",
           "customElement": true

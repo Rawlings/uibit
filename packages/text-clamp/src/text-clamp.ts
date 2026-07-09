@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { customElement, UIBitElement } from '@uibit/core';
-import { property, state } from 'lit/decorators.js';
+import { property, query, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
 /**
@@ -35,11 +35,9 @@ export class TextClamp extends UIBitElement {
   @state() private _expanded = false;
   @state() private _overflows = false;
 
-  private _ro?: ResizeObserver;
+  @query('.content') private _contentEl!: HTMLElement;
 
-  private get _contentEl(): HTMLElement | null {
-    return this.shadowRoot?.querySelector<HTMLElement>('.content') ?? null;
-  }
+  private _ro?: ResizeObserver;
 
   connectedCallback() {
     super.connectedCallback();
@@ -52,8 +50,7 @@ export class TextClamp extends UIBitElement {
   }
 
   firstUpdated() {
-    const el = this._contentEl;
-    if (el) this._ro?.observe(el);
+    if (this._contentEl) this._ro?.observe(this._contentEl);
   }
 
   updated(changed: Map<string, unknown>) {

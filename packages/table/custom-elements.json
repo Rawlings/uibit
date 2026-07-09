@@ -777,28 +777,28 @@
           ],
           "events": [
             {
-              "name": "search",
               "type": {
                 "text": "{ query: string }"
-              }
+              },
+              "name": "search"
             },
             {
-              "name": "sort",
               "type": {
                 "text": "{ sorts: SortEntry[] }"
-              }
+              },
+              "name": "sort"
             },
             {
-              "name": "row-select",
-              "type": {
-                "text": "{ indices: number[], rows: string[][] }"
-              }
-            },
-            {
-              "name": "page-change",
               "type": {
                 "text": "{ page: number }"
-              }
+              },
+              "name": "page-change"
+            },
+            {
+              "type": {
+                "text": "{ indices: number[], rows: string[][] }"
+              },
+              "name": "row-select"
             }
           ],
           "attributes": [
@@ -912,8 +912,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-table",
           "customElement": true

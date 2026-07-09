@@ -126,4 +126,56 @@ export const styles = css`
     width: 1px;
     background: var(--uibit-diff-viewer-border-color, #e5e7eb);
   }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(0.5rem * var(--uibit-spacing-factor, 1)) calc(1rem * var(--uibit-spacing-factor, 1));
+    background: var(--uibit-diff-viewer-header-bg);
+    border-bottom: 1px solid var(--uibit-diff-viewer-border-color);
+  }
+
+  .title {
+    font-size: calc(0.75rem * var(--uibit-font-scale-factor, 1));
+    font-weight: 600;
+    color: var(--uibit-diff-viewer-label-color, #6b7280);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .toggle-group {
+    display: inline-flex;
+    background: var(--uibit-color-gray-100, #f3f4f6);
+    padding: 0.125rem;
+    border-radius: var(--uibit-radius-md, 0.375rem);
+    border: 1px solid var(--uibit-diff-viewer-border-color);
+  }
+
+  .toggle-btn {
+    font-size: calc(0.75rem * var(--uibit-font-scale-factor, 1));
+    font-weight: 500;
+    padding: 0.125rem 0.5rem;
+    border: none;
+    background: transparent;
+    border-radius: var(--uibit-radius-sm, 0.25rem);
+    cursor: pointer;
+    color: var(--uibit-color-gray-600, #4b5563);
+    transition: background 150ms ease, color 150ms ease;
+  }
+
+  .toggle-btn:hover {
+    color: var(--uibit-color-gray-900, #111827);
+  }
+
+  .toggle-btn.active {
+    background: var(--uibit-color-white, #ffffff);
+    color: var(--uibit-color-black, #000000);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .toggle-btn:focus-visible {
+    outline: 2px solid var(--uibit-diff-viewer-focus-color, #000000);
+    outline-offset: 1px;
+  }
 `;

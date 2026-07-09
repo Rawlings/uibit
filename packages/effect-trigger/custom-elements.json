@@ -1,0 +1,401 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/effect-trigger.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "EffectTrigger",
+          "members": [
+            {
+              "kind": "field",
+              "name": "_customBehaviors",
+              "type": {
+                "text": "Map<string, BehaviorFn>"
+              },
+              "privacy": "private",
+              "static": true,
+              "default": "new Map()",
+              "description": "Registry of custom behaviors"
+            },
+            {
+              "kind": "method",
+              "name": "registerBehavior",
+              "static": true,
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "fn",
+                  "type": {
+                    "text": "BehaviorFn"
+                  }
+                }
+              ],
+              "description": "Register a custom behavior that content authors can use by setting the behavior attribute."
+            },
+            {
+              "kind": "method",
+              "name": "getRegisteredBehaviors",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Map<string, BehaviorFn>"
+                }
+              },
+              "description": "Get all registered custom behaviors."
+            },
+            {
+              "kind": "field",
+              "name": "trigger",
+              "type": {
+                "text": "EffectTriggerType"
+              },
+              "default": "'click'",
+              "description": "The trigger action to listen for",
+              "attribute": "trigger"
+            },
+            {
+              "kind": "field",
+              "name": "behavior",
+              "type": {
+                "text": "EffectBehaviorType"
+              },
+              "default": "'float-displace'",
+              "description": "The movement behavior/vector path to execute",
+              "attribute": "behavior"
+            },
+            {
+              "kind": "field",
+              "name": "density",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "Number of dynamic asset clones generated for particle-based behaviors",
+              "attribute": "density"
+            },
+            {
+              "kind": "field",
+              "name": "velocity",
+              "type": {
+                "text": "string"
+              },
+              "default": "'1s'",
+              "description": "Duration/velocity bound of the movement (e.g. \"600ms\", \"2.5s\")",
+              "attribute": "velocity"
+            },
+            {
+              "kind": "field",
+              "name": "randomize",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Applies real-time visual variations (scale, drift, rotation) to each clone",
+              "attribute": "randomize"
+            },
+            {
+              "kind": "field",
+              "name": "_observer",
+              "type": {
+                "text": "IntersectionObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_hasIntersections",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "_cleanupObserver",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_getTriggerElement",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLElement"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_getAssetTemplate",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLElement"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_setupListeners",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "ignite",
+              "parameters": [
+                {
+                  "name": "event",
+                  "optional": true,
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ],
+              "description": "Launch/Ignite the visual effect. Can be called programmatically."
+            },
+            {
+              "kind": "method",
+              "name": "_parseDuration",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "v",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_createClone",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLElement"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "template",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_executeBakedBehavior",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "triggerEl",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "assetEl",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "container",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "event",
+                  "optional": true,
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "trigger",
+              "type": {
+                "text": "EffectTriggerType"
+              },
+              "default": "'click'",
+              "description": "The trigger action to listen for",
+              "fieldName": "trigger"
+            },
+            {
+              "name": "behavior",
+              "type": {
+                "text": "EffectBehaviorType"
+              },
+              "default": "'float-displace'",
+              "description": "The movement behavior/vector path to execute",
+              "fieldName": "behavior"
+            },
+            {
+              "name": "density",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "Number of dynamic asset clones generated for particle-based behaviors",
+              "fieldName": "density"
+            },
+            {
+              "name": "velocity",
+              "type": {
+                "text": "string"
+              },
+              "default": "'1s'",
+              "description": "Duration/velocity bound of the movement (e.g. \"600ms\", \"2.5s\")",
+              "fieldName": "velocity"
+            },
+            {
+              "name": "randomize",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Applies real-time visual variations (scale, drift, rotation) to each clone",
+              "fieldName": "randomize"
+            }
+          ],
+          "superclass": {
+            "name": "UIBitElement",
+            "package": "@uibit/core"
+          },
+          "tagName": "uibit-effect-trigger",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EffectTrigger",
+          "declaration": {
+            "name": "EffectTrigger",
+            "module": "src/effect-trigger.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-effect-trigger",
+          "declaration": {
+            "name": "EffectTrigger",
+            "module": "src/effect-trigger.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "EffectTrigger",
+            "module": "src/effect-trigger.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./effect-trigger"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EffectTrigger",
+          "declaration": {
+            "name": "EffectTrigger",
+            "module": "./effect-trigger"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EffectTriggerType",
+          "declaration": {
+            "name": "EffectTriggerType",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EffectBehaviorType",
+          "declaration": {
+            "name": "EffectBehaviorType",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BehaviorContext",
+          "declaration": {
+            "name": "BehaviorContext",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "BehaviorFn",
+          "declaration": {
+            "name": "BehaviorFn",
+            "module": "./types"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { display: inline-block; position: relative; } ::slotted([slot=\"trigger\"]) { display: inline-block; } /* Hide the template asset from standard layout */ slot[name=\"asset\"] { display: none !important; } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

@@ -27,11 +27,6 @@ const ROWS: [string, string, string, string, string, string][] = [
 function FullFeaturedDemo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-6">
-        A standard <code>&lt;table&gt;</code> wrapped in <code>&lt;uibit-table&gt;</code> — row
-        selection, multi-sort (shift+click), per-column filters, column visibility, column
-        resizing, density control, sticky header, striped rows, and CSV export all enabled.
-      </p>
       <uibit-table
         searchable
         paginated

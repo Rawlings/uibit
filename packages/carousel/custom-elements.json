@@ -235,6 +235,20 @@
             },
             {
               "kind": "field",
+              "name": "slideObserver",
+              "type": {
+                "text": "IntersectionObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "slideIntersectionRatios",
+              "privacy": "private",
+              "default": "new Map<Element, number>()"
+            },
+            {
+              "kind": "field",
               "name": "isProgrammaticScroll",
               "type": {
                 "text": "boolean"
@@ -258,11 +272,6 @@
               },
               "privacy": "private",
               "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "handleScroll",
-              "privacy": "private"
             },
             {
               "kind": "field",
@@ -291,6 +300,11 @@
             },
             {
               "kind": "method",
+              "name": "setupSlideObserver",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
               "name": "setupResizeObserver",
               "privacy": "private"
             },
@@ -307,11 +321,6 @@
             {
               "kind": "method",
               "name": "stopAutoPlay",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "onScroll",
               "privacy": "private"
             },
             {

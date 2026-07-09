@@ -8,9 +8,6 @@ import eventHandlingExample from './examples/event-handling';
 function SentimentBarDemo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-6">
-        Tap or click an emoji to rate. A second tap confirms and fires the submit event:
-      </p>
       <div className="flex flex-col items-center gap-8">
         <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm text-center w-full max-w-sm">
           <p className="text-sm font-medium text-gray-700 mb-4">How was your experience?</p>

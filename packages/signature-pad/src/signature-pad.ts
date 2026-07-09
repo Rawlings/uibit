@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, getIcon } from '@uibit/core';
+import { html, css } from 'lit';
+import { customElement, getIcon, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import type { SignaturePoint, SignatureStroke } from './types.js';
 
@@ -31,7 +31,7 @@ import type { SignaturePoint, SignatureStroke } from './types.js';
  * @csspart clear-button - The clear button
  */
 @customElement('uibit-signature-pad')
-export class SignaturePad extends LitElement {
+export class SignaturePad extends UIBitElement {
   static styles = css`
     :host {
       display: block;
@@ -208,18 +208,12 @@ export class SignaturePad extends LitElement {
     if (this.currentStroke.length > 0) {
       this.strokes.push({ points: [...this.currentStroke] });
       this.currentStroke = [];
-      this.dispatchEvent(
-        new CustomEvent('signature-change', {
-          detail: { isEmpty: this.isEmpty, dataUrl: this.toDataURL() },
-          bubbles: true,
-          composed: true,
-        })
-      );
+      this.dispatchCustomEvent('signature-change', { isEmpty: this.isEmpty, dataUrl: this.toDataURL() });
     }
   }
 
   private strokeWidth(): number {
-    const raw = getComputedStyle(this).getPropertyValue('--uibit-signature-pad-stroke-width').trim();
+    const raw = this.getCssPropertyValue('--uibit-signature-pad-stroke-width');
     return parseFloat(raw) || 2;
   }
 
@@ -329,13 +323,7 @@ export class SignaturePad extends LitElement {
     this.currentStroke = [];
     this.isEmpty = true;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.dispatchEvent(
-      new CustomEvent('signature-clear', {
-        detail: { previouslyEmpty: wasEmpty },
-        bubbles: true,
-        composed: true,
-      })
-    );
+    this.dispatchCustomEvent('signature-clear', { previouslyEmpty: wasEmpty });
   }
 
   render() {

@@ -7,9 +7,6 @@ import oneShot from './examples/one-shot';
 function TextTypingDemo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-6">
-        The headline below cycles through phrases with realistic typing and deletion:
-      </p>
       <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm text-center">
         <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
           We help teams{' '}
@@ -24,9 +21,6 @@ function TextTypingDemo() {
             <span>move with clarity.</span>
           </uibit-text-typing>
         </h2>
-        <p className="text-gray-500 mt-4 text-sm">
-          Slight speed variance and auto-correcting typos make the animation feel human.
-        </p>
       </div>
     </div>
   );

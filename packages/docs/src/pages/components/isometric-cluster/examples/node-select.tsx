@@ -19,9 +19,6 @@ function NodeSelectDemo() {
 
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-6">
-        Click any layer to select it. The detail panel below updates with the selected node.
-      </p>
       <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
         <uibit-isometric-cluster
           ref={clusterRef}

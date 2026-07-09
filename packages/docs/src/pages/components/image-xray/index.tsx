@@ -7,9 +7,6 @@ import customLens from './examples/custom-lens';
 function ImageXrayDemo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Move your cursor (or drag on touch) over the image to reveal the hidden layer beneath:
-      </p>
       <div className="max-w-2xl mx-auto rounded-lg overflow-hidden border border-gray-200 shadow-sm">
         <uibit-image-xray>
           <img

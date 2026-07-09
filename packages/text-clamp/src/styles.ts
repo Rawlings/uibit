@@ -40,7 +40,7 @@ export const styles = css`
   }
 
   .toggle:focus-visible {
-    outline: 2px solid currentColor;
+    outline: 2px solid var(--uibit-text-clamp-focus-color, #000000);
     outline-offset: 2px;
     border-radius: 0.125rem;
   }

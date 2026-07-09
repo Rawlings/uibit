@@ -1,78 +1,17 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { componentRegistry } from './components';
+import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
 
 export default function StylingGuide() {
-  const [searchQuery, setSearchQuery] = useState('');
-
   useHead({
     title: 'Styling & Theming – UIBit',
     description: 'Learn how to customize UIBit web components using CSS custom properties and design tokens.',
   });
 
-  const allComponents = Object.values(componentRegistry).sort((a, b) =>
-    a.title.localeCompare(b.title)
-  );
-
-  const filteredComponents = allComponents.filter(
-    (c) =>
-      c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Sidebar */}
-        <aside className="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 pb-6 md:pb-0 md:pr-6 md:sticky md:top-8 md:h-[calc(100vh-6rem)] md:overflow-y-auto">
-          <div>
-            <h2 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">
-              Foundations
-            </h2>
-            <nav className="space-y-1 pr-2 mb-6">
-              <Link
-                to="/styling"
-                className="block px-3 py-2 rounded-md text-sm font-semibold bg-gray-100 dark:bg-gray-900 text-gray-950 dark:text-white"
-              >
-                Styling & Theming
-              </Link>
-              <Link
-                to="/localization"
-                className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white transition-all"
-              >
-                Localization
-              </Link>
-            </nav>
-
-            <h2 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
-              Components
-            </h2>
-            <div className="mb-6">
-              <input
-                type="text"
-                placeholder="Search components..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 rounded-md text-sm focus:outline-none focus:border-gray-900 dark:focus:border-gray-100 font-sans"
-              />
-            </div>
-            <nav className="space-y-1 pr-2">
-              {filteredComponents.map((item) => (
-                <Link
-                  key={item.id}
-                  to={`/${item.id}`}
-                  className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white transition-all"
-                >
-                  {item.title}
-                </Link>
-              ))}
-              {filteredComponents.length === 0 && (
-                <p className="text-xs text-gray-600 dark:text-gray-400 italic px-3 py-2">No matching components</p>
-              )}
-            </nav>
-          </div>
-        </aside>
+        <Sidebar activeId="styling" />
 
         {/* Main Documentation Area */}
         <div className="flex-1 min-w-0">

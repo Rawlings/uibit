@@ -21,6 +21,8 @@ export class ScrollProgress extends UIBitElement {
   @state() private progressPercent = 0;
 
   private _scrollUnlisten?: () => void;
+  private _cachedTarget?: HTMLElement | Window;
+  private _rafId?: number;
 
   connectedCallback() {
     super.connectedCallback();
@@ -28,8 +30,14 @@ export class ScrollProgress extends UIBitElement {
     this.updateProgress();
   }
 
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._rafId) cancelAnimationFrame(this._rafId);
+  }
+
   updated(changedProperties: Map<string, unknown>) {
     if (changedProperties.has('target')) {
+      this._cachedTarget = undefined;
       this._attachScrollListener();
       this.updateProgress();
     }
@@ -37,25 +45,36 @@ export class ScrollProgress extends UIBitElement {
 
   private _getTargetElement(): HTMLElement | Window {
     if (typeof window === 'undefined') return window;
-    if (this.target) {
-      const el = document.querySelector(this.target);
-      if (el) return el as HTMLElement;
+    if (!this._cachedTarget) {
+      if (this.target) {
+        const el = document.querySelector(this.target);
+        this._cachedTarget = el ? (el as HTMLElement) : window;
+      } else {
+        this._cachedTarget = window;
+      }
     }
-    return window;
+    return this._cachedTarget;
   }
 
   private _attachScrollListener() {
     if (this._scrollUnlisten) this._scrollUnlisten();
     const target = this._getTargetElement();
-    const handler = () => this.updateProgress();
-    this._scrollUnlisten = this.listen(target, 'scroll', handler);
+    const handler = () => {
+      if (!this._rafId) {
+        this._rafId = requestAnimationFrame(() => {
+          this._rafId = undefined;
+          this.updateProgress();
+        });
+      }
+    };
+    this._scrollUnlisten = this.listen(target, 'scroll', handler, { passive: true });
   }
 
   private updateProgress() {
     let scrollTop = 0;
     let docHeight = 0;
 
-    const target = this._getTargetElement();
+    const target = this._cachedTarget ?? this._getTargetElement();
     if (target === window) {
       scrollTop = window.scrollY;
       docHeight = document.documentElement.scrollHeight - window.innerHeight;

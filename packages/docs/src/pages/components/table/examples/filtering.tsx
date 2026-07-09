@@ -19,9 +19,6 @@ const ROWS: [string, string, string, string][] = [
 function Demo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Use the global search bar to filter across all columns. Click the filter icon in the toolbar to reveal per-column inputs — they are ANDed with the global search.
-      </p>
       <uibit-table searchable filterable striped>
         <table>
           <thead>

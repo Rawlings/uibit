@@ -144,6 +144,25 @@ export class DiffViewer extends UIBitElement {
     return html`
       <slot name="old" @slotchange=${this._handleOldChange} style="display: none;"></slot>
       <slot name="new" @slotchange=${this._handleNewChange} style="display: none;"></slot>
+      <div class="toolbar" part="toolbar">
+        <div class="title" part="title">${this.getAttribute('aria-label') || 'Comparison'}</div>
+        <div class="toggle-group" part="toggle-group" role="radiogroup" aria-label="Layout mode">
+          <button
+            class="toggle-btn ${this.mode === 'split' ? 'active' : ''}"
+            part="toggle-btn ${this.mode === 'split' ? 'toggle-btn-active' : ''}"
+            role="radio"
+            aria-checked="${this.mode === 'split'}"
+            @click=${() => { this.mode = 'split'; }}
+          >Split</button>
+          <button
+            class="toggle-btn ${this.mode === 'inline' ? 'active' : ''}"
+            part="toggle-btn ${this.mode === 'inline' ? 'toggle-btn-active' : ''}"
+            role="radio"
+            aria-checked="${this.mode === 'inline'}"
+            @click=${() => { this.mode = 'inline'; }}
+          >Inline</button>
+        </div>
+      </div>
       ${this.mode === 'split' ? this._renderSplit(ops) : this._renderInline(ops)}
     `;
   }

@@ -66,23 +66,17 @@
           ],
           "events": [
             {
-              "name": "consent-accepted",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when consent is granted"
+              "description": "Fired when consent is granted",
+              "name": "consent-accepted"
             },
             {
-              "name": "consent-declined",
-              "type": {
-                "text": "CustomEvent"
-              },
-              "description": "Fired when consent is declined"
+              "description": "Fired when consent is declined",
+              "name": "consent-declined"
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-consent-guard",
           "customElement": true

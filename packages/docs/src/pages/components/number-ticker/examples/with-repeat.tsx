@@ -7,9 +7,6 @@ function WithRepeatDemo() {
       <div className="text-7xl font-bold text-gray-900">
         <uibit-number-ticker value={1000000} prefix="$" locale="en-US" duration={2000} repeat></uibit-number-ticker>
       </div>
-      <p className="text-sm text-gray-500">
-        Scroll this element out of view and back to watch it replay.
-      </p>
     </div>
   );
 }

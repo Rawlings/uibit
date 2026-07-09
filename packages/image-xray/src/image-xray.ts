@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, UIBitElement } from '@uibit/core';
 import { property, state, query } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { styles } from './styles';
@@ -21,7 +21,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-image-xray-lens-shadow=0 0 0 0.1875rem #ffffff, 0 0.5rem 2rem rgba(0,0,0,0.35)] - Box shadow of the lens ring
  */
 @customElement('uibit-image-xray')
-export class ImageXray extends LitElement {
+export class ImageXray extends UIBitElement {
   static styles = styles;
 
   /** Diameter of the lens in any CSS unit. Overrides the CSS custom property. */
@@ -37,12 +37,8 @@ export class ImageXray extends LitElement {
     super.connectedCallback();
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-  }
-
   private _lensSize(): number {
-    const prop = this.size || getComputedStyle(this).getPropertyValue('--uibit-image-xray-lens-size').trim() || '12rem';
+    const prop = this.size || this.getCssPropertyValue('--uibit-image-xray-lens-size').trim() || '12rem';
     if (prop.endsWith('rem')) {
       return parseFloat(prop) * parseFloat(getComputedStyle(document.documentElement).fontSize);
     }
@@ -68,11 +64,7 @@ export class ImageXray extends LitElement {
       this._lensImg.style.top = `${-(y - size / 2)}px`;
     }
 
-    this.dispatchEvent(new CustomEvent('xray-move', {
-      detail: { x: (x / rect.width) * 100, y: (y / rect.height) * 100 },
-      bubbles: true,
-      composed: true,
-    }));
+    this.dispatchCustomEvent('xray-move', { x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
   }
 
   private _onMouseEnter = (e: MouseEvent) => {
@@ -106,13 +98,13 @@ export class ImageXray extends LitElement {
   };
 
   firstUpdated() {
-    this._base.addEventListener('mouseenter', this._onMouseEnter);
-    this._base.addEventListener('mousemove', this._onMouseMove);
-    this._base.addEventListener('mouseleave', this._onMouseLeave);
-    this._base.addEventListener('touchstart', this._onTouchStart, { passive: false });
-    this._base.addEventListener('touchmove', this._onTouchMove, { passive: false });
-    this._base.addEventListener('touchend', this._onTouchEnd);
-    this._base.addEventListener('touchcancel', this._onTouchEnd);
+    this.listen(this._base, 'mouseenter', this._onMouseEnter);
+    this.listen(this._base, 'mousemove', this._onMouseMove);
+    this.listen(this._base, 'mouseleave', this._onMouseLeave);
+    this.listen(this._base, 'touchstart', this._onTouchStart, { passive: false });
+    this.listen(this._base, 'touchmove', this._onTouchMove, { passive: false });
+    this.listen(this._base, 'touchend', this._onTouchEnd);
+    this.listen(this._base, 'touchcancel', this._onTouchEnd);
   }
 
   render() {

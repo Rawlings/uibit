@@ -1,5 +1,5 @@
-import { LitElement, html, nothing } from 'lit';
-import { customElement } from '@uibit/core';
+import { html, nothing } from 'lit';
+import { customElement, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -47,7 +47,7 @@ export interface ClusterNode {
  * @cssprop [--uibit-isometric-cluster-hint-color=#9ca3af] - Hint text color
  */
 @customElement('uibit-isometric-cluster')
-export class IsometricCluster extends LitElement {
+export class IsometricCluster extends UIBitElement {
   static styles = styles;
 
   @state() private nodes: ClusterNode[] = [];
@@ -112,17 +112,9 @@ export class IsometricCluster extends LitElement {
     if (!this._expanded) return;
     const prev = this._selectedId;
     this._selectedId = prev === node.id ? null : node.id;
-    this.dispatchEvent(new CustomEvent('selection-change', {
-      detail: { id: this._selectedId },
-      bubbles: true,
-      composed: true,
-    }));
+    this.dispatchCustomEvent('selection-change', { id: this._selectedId });
     if (this._selectedId !== null) {
-      this.dispatchEvent(new CustomEvent('node-select', {
-        detail: { node },
-        bubbles: true,
-        composed: true,
-      }));
+      this.dispatchCustomEvent('node-select', { node });
     }
   }
 
@@ -131,6 +123,28 @@ export class IsometricCluster extends LitElement {
     const rx = this.tiltX + this._dragDeltaY * 0.15;
     const ry = this.tiltY + this._dragDeltaX * 0.15;
     return `rotateX(${rx}deg) rotateY(${ry}deg)`;
+  }
+
+  private _getLayerStyle(i: number, total: number, nodeId: string) {
+    const gap = this.layerGap / 16;
+    const midOffset = ((total - 1) / 2) * gap;
+
+    // Use a small spacing in collapsed state to show layers stacked tightly
+    const collapsedGap = 0.1875; // 3px
+    const collapsedMidOffset = ((total - 1) / 2) * collapsedGap;
+
+    // 0 is top, total-1 is bottom. We want index 0 to have the highest Z translate.
+    const indexFactor = total - 1 - i;
+    const baseZ = this._expanded
+      ? (indexFactor * gap - midOffset)
+      : (indexFactor * collapsedGap - collapsedMidOffset);
+
+    const isSelected = this._selectedId === nodeId;
+    // Elevate the selected card slightly more and slide it out to highlight it
+    const finalZ = isSelected ? baseZ + 0.75 : baseZ;
+    const finalX = isSelected ? -42 : -50; // slides out slightly to the side
+
+    return `transform: translate3d(${finalX}%, -50%, ${finalZ}rem); z-index: ${total - i};`;
   }
 
   private _handleSlotChange(e: Event) {
@@ -151,7 +165,6 @@ export class IsometricCluster extends LitElement {
 
   render() {
     const total = this.nodes.length;
-    const midOffset = ((total - 1) / 2) * this.layerGap;
 
     return html`
       <slot @slotchange=${this._handleSlotChange} style="display: none;"></slot>
@@ -165,13 +178,12 @@ export class IsometricCluster extends LitElement {
       >
         <div class="stack" style="transform:${this._stackTransform()}">
           ${this.nodes.map((node, i) => {
-            const offset = this._expanded ? (i * this.layerGap - midOffset) : (i * 3 - (total - 1) * 1.5);
             return html`
               <div
                 class="layer"
                 role="option"
                 aria-selected=${this._selectedId === node.id ? 'true' : 'false'}
-                style="top:${offset}px; z-index:${total - i};"
+                style=${this._getLayerStyle(i, total, node.id)}
                 @click=${(e: Event) => this._onLayerClick(node, e)}
               >
                 ${node.icon ? html`<span class="icon" aria-hidden="true">${node.icon}</span>` : nothing}

@@ -7,11 +7,6 @@ import windowScrollExample from './examples/window-scroll';
 function ScrollProgressDemo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Scroll inside the container below to see the local progress bar update at the top of the
-        box:
-      </p>
-
       <div
         id="demo-scroll-box"
         className="relative border border-gray-300 rounded-lg h-96 overflow-y-scroll bg-white shadow-inner"

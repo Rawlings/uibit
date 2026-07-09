@@ -139,11 +139,11 @@
           ],
           "events": [
             {
-              "name": "xray-move",
               "type": {
                 "text": "{ x: number, y: number }"
               },
-              "description": "Fired as the lens moves; `detail.x` and `detail.y` are percentages"
+              "description": "Fired as the lens moves; `detail.x` and `detail.y` are percentages",
+              "name": "xray-move"
             }
           ],
           "attributes": [
@@ -158,8 +158,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-image-xray",
           "customElement": true

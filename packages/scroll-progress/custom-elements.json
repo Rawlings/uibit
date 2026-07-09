@@ -79,21 +79,31 @@
             },
             {
               "kind": "field",
-              "name": "activeScrollTarget",
+              "name": "_scrollUnlisten",
               "type": {
-                "text": "HTMLElement | Window | null"
+                "text": "() => void | undefined"
               },
-              "privacy": "private",
-              "default": "null"
+              "privacy": "private"
             },
             {
               "kind": "field",
-              "name": "handleScroll",
+              "name": "_cachedTarget",
+              "type": {
+                "text": "HTMLElement | Window | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_rafId",
+              "type": {
+                "text": "number | undefined"
+              },
               "privacy": "private"
             },
             {
               "kind": "method",
-              "name": "getTargetElement",
+              "name": "_getTargetElement",
               "privacy": "private",
               "return": {
                 "type": {
@@ -103,12 +113,7 @@
             },
             {
               "kind": "method",
-              "name": "attachScrollListener",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "detachScrollListener",
+              "name": "_attachScrollListener",
               "privacy": "private"
             },
             {
@@ -128,8 +133,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-scroll-progress",
           "customElement": true

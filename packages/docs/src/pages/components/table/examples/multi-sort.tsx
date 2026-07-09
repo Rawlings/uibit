@@ -17,9 +17,6 @@ const ROWS: [string, string, string, string][] = [
 function Demo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Click a column header to sort. <strong>Shift+click</strong> a second (or third) column to stack sorts — a numbered badge shows priority order.
-      </p>
       <uibit-table searchable striped>
         <table>
           <thead>

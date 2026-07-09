@@ -4,13 +4,6 @@ import { UsageExample } from '../../../../types/docs';
 function WindowScrollDemo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Without a <code className="font-mono text-xs bg-gray-100 px-1 py-0.5 rounded">target</code>{' '}
-        attribute, the component tracks the window scroll position. The demo below simulates this
-        with a scrollable mini-box — in a real page layout, place the component once at the very top
-        of your layout shell:
-      </p>
-
       <div
         id="window-scroll-demo-box"
         className="relative border border-gray-300 rounded-lg h-64 overflow-y-scroll bg-white shadow-inner"
@@ -30,8 +23,8 @@ function WindowScrollDemo() {
         <div className="p-6 space-y-4">
           {Array.from({ length: 8 }).map((_, i) => (
             <p key={i} className="text-sm text-gray-600 leading-relaxed">
-              Paragraph {i + 1} — scroll down to see the progress bar advance. On a real page this
-              bar sits at the very top of your layout, tracking the browser window scroll.
+              Paragraph {i + 1} — Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
           ))}
         </div>

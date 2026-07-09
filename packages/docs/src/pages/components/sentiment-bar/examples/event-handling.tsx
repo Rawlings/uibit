@@ -29,11 +29,9 @@ function EventHandlingDemo() {
   return (
     <div className="flex flex-col items-center gap-6">
       <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm text-center w-full max-w-sm">
-        <p className="text-sm font-medium text-gray-700 mb-4">Select a rating</p>
         <uibit-sentiment-bar show-label ref={barRef}></uibit-sentiment-bar>
       </div>
       <div className="w-full max-w-sm">
-        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">Last event</p>
         <pre className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-sm text-gray-700 min-h-16">
           {lastEvent
             ? JSON.stringify({ event: lastEvent.type, detail: lastEvent.detail }, null, 2)

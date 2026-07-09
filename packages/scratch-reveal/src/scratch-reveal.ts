@@ -45,6 +45,7 @@ export class ScratchReveal extends UIBitElement {
   private canvas?: HTMLCanvasElement;
   private ctx?: CanvasRenderingContext2D | null;
   private isDrawing = false;
+  private _rafId?: number;
 
   connectedCallback() {
     super.connectedCallback();
@@ -89,21 +90,21 @@ export class ScratchReveal extends UIBitElement {
     this.listen(this.canvas, 'mouseup', () => this.stopScratching());
     this.listen(this.canvas, 'mouseleave', () => this.stopScratching());
 
-    this.canvas.addEventListener('touchstart', (e) => {
+    this.listen(this.canvas, 'touchstart', (e) => {
       this.isDrawing = true;
       this.showInstructions = false;
-      const touch = e.touches[0];
+      const touch = (e as TouchEvent).touches[0];
       if (touch) this.scratch(touch);
     }, { passive: true });
 
-    this.canvas.addEventListener('touchmove', (e) => {
-      if (e.cancelable) e.preventDefault();
-      const touch = e.touches[0];
+    this.listen(this.canvas, 'touchmove', (e) => {
+      if ((e as TouchEvent).cancelable) (e as TouchEvent).preventDefault();
+      const touch = (e as TouchEvent).touches[0];
       if (touch) this.scratch(touch);
     }, { passive: false });
 
-    this.canvas.addEventListener('touchend', () => this.stopScratching());
-    this.canvas.addEventListener('touchcancel', () => this.stopScratching());
+    this.listen(this.canvas, 'touchend', () => this.stopScratching());
+    this.listen(this.canvas, 'touchcancel', () => this.stopScratching());
   }
 
   private startScratching(e: MouseEvent) {
@@ -130,7 +131,12 @@ export class ScratchReveal extends UIBitElement {
       this.brushSize * window.devicePixelRatio
     );
 
-    this.calculateRevealPercentage();
+    if (!this._rafId) {
+      this._rafId = requestAnimationFrame(() => {
+        this._rafId = undefined;
+        this.calculateRevealPercentage();
+      });
+    }
   }
 
   private calculateRevealPercentage() {
@@ -162,6 +168,14 @@ export class ScratchReveal extends UIBitElement {
     }
   }
 
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._rafId) {
+      cancelAnimationFrame(this._rafId);
+      this._rafId = undefined;
+    }
+  }
+
   reset() {
     this.isRevealed = false;
     this.showInstructions = true;
@@ -174,7 +188,7 @@ export class ScratchReveal extends UIBitElement {
 
   render() {
     return html`
-      <div part="container" class="scratch-container" role="img" aria-label=${msg('Scratch-off panel to reveal content')}>
+      <div part="container" class="scratch-container" role="img" aria-label=${msg('Scratch-off panel to reveal content')} aria-valuenow=${this._scratchProgress}>
         <div class="content" part="content">
           <slot></slot>
         </div>

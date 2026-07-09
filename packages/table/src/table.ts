@@ -1,6 +1,6 @@
-import { LitElement, html, nothing } from 'lit';
+import { html, nothing } from 'lit';
 import type { TemplateResult } from 'lit';
-import { customElement, msg, str } from '@uibit/core';
+import { customElement, msg, str, UIBitElement, getIcon } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -53,7 +53,7 @@ interface IndexedRow {
  * @cssprop [--uibit-table-max-height=24rem] - Max height when sticky-header is set
  */
 @customElement('uibit-table')
-export class Table extends LitElement {
+export class Table extends UIBitElement {
   static styles = styles;
 
   // ── Feature toggles ────────────────────────────────────────────
@@ -222,7 +222,7 @@ export class Table extends LitElement {
     this._query = (e.target as HTMLInputElement).value;
     this._page = 1;
     this._allFilteredSelected = false;
-    this.dispatchEvent(new CustomEvent('search', { detail: { query: this._query }, bubbles: true, composed: true }));
+    this.dispatchCustomEvent('search', { query: this._query });
   }
 
   private _onSort(col: Col, e: MouseEvent) {
@@ -254,7 +254,7 @@ export class Table extends LitElement {
 
     this._page = 1;
     if (this._sorts.length) {
-      this.dispatchEvent(new CustomEvent('sort', { detail: { sorts: this._sorts }, bubbles: true, composed: true }));
+      this.dispatchCustomEvent('sort', { sorts: this._sorts });
     }
   }
 
@@ -307,7 +307,7 @@ export class Table extends LitElement {
   private _emitSelect() {
     const indices = [...this._selected];
     const rows = indices.map(i => this._rows[i]!);
-    this.dispatchEvent(new CustomEvent('row-select', { detail: { indices, rows }, bubbles: true, composed: true }));
+    this.dispatchCustomEvent('row-select', { indices, rows });
   }
 
   private _onToggleCol(col: Col) {
@@ -494,12 +494,12 @@ export class Table extends LitElement {
 
     const goTo = (p: number) => {
       this._page = p;
-      this.dispatchEvent(new CustomEvent('page-change', { detail: { page: p }, bubbles: true, composed: true }));
+      this.dispatchCustomEvent('page-change', { page: p });
     };
 
     return html`
       <nav class="pagination" aria-label=${msg('Pagination')}>
-        <button class="page-btn" ?disabled=${this._page === 1} @click=${() => goTo(this._page - 1)} aria-label=${msg('Previous')}>‹</button>
+        <button class="page-btn" ?disabled=${this._page === 1} @click=${() => goTo(this._page - 1)} aria-label=${msg('Previous')}>${getIcon('chevron-left', 14)}</button>
         ${pages.map(p =>
           p === '…'
             ? html`<span class="page-btn" style="cursor:default;border-color:transparent;background:transparent">…</span>`
@@ -509,7 +509,7 @@ export class Table extends LitElement {
                 aria-current=${this._page === p ? 'page' : nothing}
               >${p}</button>`
         )}
-        <button class="page-btn" ?disabled=${this._page === this._totalPages} @click=${() => goTo(this._page + 1)} aria-label=${msg('Next')}>›</button>
+        <button class="page-btn" ?disabled=${this._page === this._totalPages} @click=${() => goTo(this._page + 1)} aria-label=${msg('Next')}>${getIcon('chevron-right', 14)}</button>
       </nav>
     `;
   }

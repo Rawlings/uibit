@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ApiDocs } from '../components/ApiDocs';
+import { Sidebar } from '../components/Sidebar';
 import { componentRegistry } from './components';
 import { useHead } from '../hooks/useHead';
 import { DualCode } from '../types/docs';
@@ -98,8 +99,6 @@ export default function ComponentDocs() {
   const { componentId } = useParams<{ componentId: string }>();
   const comp = componentId ? componentRegistry[componentId] : undefined;
 
-  const [searchQuery, setSearchQuery] = useState('');
-
   useHead({
     title: comp ? `${comp.title} – UIBit` : 'UIBit – Web Components Library',
     description: comp
@@ -107,19 +106,9 @@ export default function ComponentDocs() {
       : 'A collection of accessible, production-ready web components built with Lit.js.',
   });
 
-  const allComponents = Object.values(componentRegistry).sort((a, b) =>
-    a.title.localeCompare(b.title)
-  );
-
-  const filteredComponents = allComponents.filter(
-    (c) =>
-      c.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      c.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   if (!componentId || !comp) {
     return (
-      <div className="max-w-6xl mx-auto px-4 py-16 text-center bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+      <div className="max-w-7xl mx-auto px-4 py-16 text-center bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
         <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Component Not Found</h1>
         <p className="text-gray-600 dark:text-gray-400 mb-6">The requested component documentation does not exist.</p>
         <Link to="/" className="text-gray-900 dark:text-white underline font-medium hover:text-gray-600 dark:hover:text-gray-300">
@@ -131,59 +120,45 @@ export default function ComponentDocs() {
 
   const { title, description, packageName, tagName, manifest, Demo, demoCode, examples, usages, features } = comp;
 
-  return (
-    <div className="max-w-6xl mx-auto px-4 py-8 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
-      <div className="flex flex-col md:flex-row gap-8">
-        {/* Sidebar */}
-        <aside className="w-full md:w-64 shrink-0 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 pb-6 md:pb-0 md:pr-6 md:sticky md:top-8 md:h-[calc(100vh-6rem)] md:overflow-y-auto">
-          <div>
-            <h2 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">
-              Foundations
-            </h2>
-            <nav className="space-y-1 pr-2 mb-6">
-              <Link
-                to="/styling"
-                className="block px-3 py-2 rounded-md text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white transition-all"
-              >
-                Styling & Theming
-              </Link>
-            </nav>
+  const [activeSection, setActiveSection] = useState<string>('');
 
-            <h2 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
-              Components
-            </h2>
-            <div className="mb-6">
-              <input
-                type="text"
-                placeholder="Search components..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 rounded-md text-sm focus:outline-none focus:border-gray-900 dark:focus:border-gray-100 font-sans"
-              />
-            </div>
-            <nav className="space-y-1 pr-2">
-              {filteredComponents.map((item) => {
-                const isActive = item.id === componentId;
-                return (
-                  <Link
-                    key={item.id}
-                    to={`/${item.id}`}
-                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-all ${
-                      isActive
-                        ? 'bg-gray-100 dark:bg-gray-900 text-gray-950 dark:text-white font-semibold'
-                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 hover:text-gray-900 dark:hover:text-white'
-                    }`}
-                  >
-                    {item.title}
-                  </Link>
-                );
-              })}
-              {filteredComponents.length === 0 && (
-                <p className="text-xs text-gray-600 dark:text-gray-400 italic px-3 py-2">No matching components</p>
-              )}
-            </nav>
-          </div>
-        </aside>
+  const tocItems = [
+    { id: 'demo', label: 'Demo', show: !!Demo },
+    { id: 'api-reference', label: 'API Reference', show: !!manifest },
+    { id: 'examples', label: 'Examples', show: !!(examples && examples.length > 0) },
+    { id: 'usage', label: 'Usage', show: !examples && !!(usages && usages.length > 0) },
+    { id: 'accessibility', label: 'Accessibility', show: !!comp.a11y },
+    { id: 'features', label: 'Features', show: !!(features && features.length > 0) },
+  ].filter(item => item.show);
+
+  useEffect(() => {
+    const sections = tocItems.map(item => item.id);
+    const elements = sections.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntries = entries.filter(entry => entry.isIntersecting);
+        if (visibleEntries.length > 0) {
+          const closest = visibleEntries.reduce((prev, curr) => {
+            return Math.abs(curr.boundingClientRect.top) < Math.abs(prev.boundingClientRect.top) ? curr : prev;
+          });
+          setActiveSection(closest.target.id);
+        }
+      },
+      {
+        rootMargin: '-80px 0px -60% 0px',
+        threshold: 0,
+      }
+    );
+
+    elements.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, [componentId, tocItems.length]);
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 py-8 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+      <div className="flex flex-col md:flex-row gap-8">
+        <Sidebar activeId={componentId} />
 
         {/* Main Documentation Area */}
         <div className="flex-1 min-w-0">
@@ -212,7 +187,7 @@ export default function ComponentDocs() {
           </header>
 
           {/* Live Demo */}
-          <section className="mb-12">
+          <section id="demo" className="mb-12 scroll-mt-20">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Demo</h2>
             <div className={`bg-white dark:bg-gray-950 p-6 border border-gray-200 dark:border-gray-800 ${demoCode ? 'rounded-t-lg' : 'rounded-lg mb-4'}`}>
               <Demo />
@@ -221,13 +196,13 @@ export default function ComponentDocs() {
           </section>
 
           {/* API Reference */}
-          <section className="mb-12">
+          <section id="api-reference" className="mb-12 scroll-mt-20">
             <ApiDocs manifest={manifest} tagName={tagName} />
           </section>
 
           {/* Rich examples (new format) */}
           {examples && examples.length > 0 && (
-            <section className="mb-12">
+            <section id="examples" className="mb-12 scroll-mt-20">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-8">Examples</h2>
               <div className="space-y-12">
                 {examples.map((example, index) => (
@@ -248,7 +223,7 @@ export default function ComponentDocs() {
 
           {/* Legacy usage snippets (old format fallback) */}
           {!examples && usages && usages.length > 0 && (
-            <section className="mb-12">
+            <section id="usage" className="mb-12 scroll-mt-20">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Usage</h2>
               <div className="space-y-8">
                 {usages.map((usage, index) => (
@@ -270,7 +245,7 @@ export default function ComponentDocs() {
 
           {/* Accessibility (A11y) Guide */}
           {comp.a11y && (
-            <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
+            <section id="accessibility" className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8 scroll-mt-20">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Accessibility & WCAG Compliance</h2>
               <div className="bg-gray-50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-800 rounded-lg p-5">
                 <div className="flex items-center gap-2 mb-4">
@@ -315,7 +290,7 @@ export default function ComponentDocs() {
 
           {/* Key Features */}
           {features && features.length > 0 && (
-            <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
+            <section id="features" className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8 scroll-mt-20">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Features</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {features.map((feature, i) => (
@@ -328,6 +303,37 @@ export default function ComponentDocs() {
             </section>
           )}
         </div>
+
+        {/* Right Sidebar (Table of Contents) */}
+        {tocItems.length > 0 && (
+          <aside className="hidden lg:block w-48 shrink-0 pl-6 border-l border-gray-200 dark:border-gray-800 sticky top-24 self-start">
+            <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+              On this page
+            </h2>
+            <nav className="space-y-2">
+              {tocItems.map((item) => {
+                const isActive = activeSection === item.id;
+                return (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`block text-sm font-medium transition-all ${
+                      isActive
+                        ? 'text-gray-950 dark:text-white font-semibold border-l-2 border-gray-900 dark:border-white pl-2 -ml-2'
+                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
+            </nav>
+          </aside>
+        )}
       </div>
     </div>
   );

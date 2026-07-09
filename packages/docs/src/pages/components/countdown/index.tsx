@@ -9,9 +9,6 @@ function CountdownDemo() {
 
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Counting down to 2 hours and 30 minutes from now:
-      </p>
       <div className="max-w-md bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
         <uibit-countdown target={targetTime} auto-start format="HH:MM:SS"></uibit-countdown>
       </div>

@@ -7,9 +7,6 @@ import customLabels from './examples/custom-labels';
 function TextClampDemo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-6">
-        The paragraph below is clamped to 3 lines. Click "More" to expand it.
-      </p>
       <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm max-w-xl">
         <uibit-text-clamp lines={3} style={{ fontSize: '1rem', lineHeight: '1.625' }}>
           Scandinavian design is defined by simplicity, minimalism, and functionality.

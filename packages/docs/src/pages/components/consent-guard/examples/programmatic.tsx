@@ -25,7 +25,7 @@ function ProgrammaticDemo() {
           }}
         >
           <p style={{ margin: 0, fontSize: '0.875rem', color: '#6b7280' }}>
-            Consent pending — use the buttons below to accept or decline programmatically.
+            Consent pending
           </p>
         </div>
         <div

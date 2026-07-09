@@ -22,9 +22,6 @@ function ReadTimerDemo() {
 
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        The badge below is calculated live from the article text in this demo:
-      </p>
       <div className="max-w-2xl bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
         <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100">
           <span className="text-xs text-gray-400 uppercase tracking-wide font-medium">By UIBit Editors</span>

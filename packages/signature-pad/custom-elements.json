@@ -337,18 +337,18 @@
           ],
           "events": [
             {
-              "name": "signature-change",
               "type": {
                 "text": "{ isEmpty: boolean; dataUrl: string }"
               },
-              "description": "Fired after each stroke ends"
+              "description": "Fired after each stroke ends",
+              "name": "signature-change"
             },
             {
-              "name": "signature-clear",
               "type": {
                 "text": "{ previouslyEmpty: boolean }"
               },
-              "description": "Fired when the canvas is cleared"
+              "description": "Fired when the canvas is cleared",
+              "name": "signature-clear"
             }
           ],
           "attributes": [
@@ -363,8 +363,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-signature-pad",
           "customElement": true

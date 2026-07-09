@@ -1,31 +1,9 @@
 import '@uibit/isometric-cluster';
 import manifest from '@uibit/isometric-cluster/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
+import cloudConsole from './examples/cloud-console';
 import infrastructure from './examples/infrastructure';
 import nodeSelect from './examples/node-select';
-
-function IsometricClusterDemo() {
-  return (
-    <div>
-      <p className="text-sm text-gray-600 mb-6">
-        Hover over the cluster to expand the layers in 3D. Drag to tilt. Click a layer to select it.
-      </p>
-      <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-        <uibit-isometric-cluster
-          layer-gap="60"
-          style={{ height: '22rem' }}
-        >
-          <div id="cdn" label="CDN / Edge" icon="🌐" badge="3 nodes"></div>
-          <div id="lb" label="Load Balancer" icon="⚖️" badge="active"></div>
-          <div id="api" label="API Gateway" icon="🔀" badge="12 routes"></div>
-          <div id="auth" label="Auth Service" icon="🔑"></div>
-          <div id="db" label="Postgres Primary" icon="🗄️" badge="primary"></div>
-          <div id="cache" label="Redis Cache" icon="⚡" badge="99% hit"></div>
-        </uibit-isometric-cluster>
-      </div>
-    </div>
-  );
-}
 
 const data: ComponentDocData = {
   id: 'isometric-cluster',
@@ -35,32 +13,9 @@ const data: ComponentDocData = {
   packageName: '@uibit/isometric-cluster',
   tagName: 'uibit-isometric-cluster',
   manifest,
-  Demo: IsometricClusterDemo,
-  demoCode: {
-    html: `<uibit-isometric-cluster layer-gap="60" style="height:22rem">
-  <div id="cdn"   label="CDN / Edge"       icon="🌐" badge="3 nodes"></div>
-  <div id="lb"    label="Load Balancer"     icon="⚖️" badge="active"></div>
-  <div id="api"   label="API Gateway"       icon="🔀" badge="12 routes"></div>
-  <div id="auth"  label="Auth Service"      icon="🔑"></div>
-  <div id="db"    label="Postgres Primary"  icon="🗄️" badge="primary"></div>
-  <div id="cache" label="Redis Cache"       icon="⚡" badge="99% hit"></div>
-</uibit-isometric-cluster>`,
-    react: `import '@uibit/isometric-cluster';
-
-function IsometricClusterDemo() {
-  return (
-    <uibit-isometric-cluster layer-gap="60" style={{ height: '22rem' }}>
-      <div id="cdn"   label="CDN / Edge"       icon="🌐" badge="3 nodes"></div>
-      <div id="lb"    label="Load Balancer"     icon="⚖️" badge="active"></div>
-      <div id="api"   label="API Gateway"       icon="🔀" badge="12 routes"></div>
-      <div id="auth"  label="Auth Service"      icon="🔑"></div>
-      <div id="db"    label="Postgres Primary"  icon="🗄️" badge="primary"></div>
-      <div id="cache" label="Redis Cache"       icon="⚡" badge="99% hit"></div>
-    </uibit-isometric-cluster>
-  );
-}`,
-  },
-  examples: [infrastructure, nodeSelect],
+  Demo: cloudConsole.Demo,
+  demoCode: cloudConsole.code,
+  examples: [cloudConsole, infrastructure, nodeSelect],
   features: [
     'Collapsed state renders a tight flat stack — one unified block at a glance',
     'Hover expands layers with a spring-eased CSS 3D transform — no canvas, no WebGL',

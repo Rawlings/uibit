@@ -77,11 +77,11 @@ export class UIBitCarousel extends UIBitElement {
 
   private autoPlayTimer?: number;
   private resizeObserver?: ResizeObserver;
+  private slideObserver?: IntersectionObserver;
+  private slideIntersectionRatios = new Map<Element, number>();
   private isProgrammaticScroll = false;
   private programmaticScrollTimeout?: number;
   private isPausedByInteraction = false;
-
-  private handleScroll = () => this.onScroll();
 
   private handlePointerEnter = () => {
     this.isPausedByInteraction = true;
@@ -134,9 +134,6 @@ export class UIBitCarousel extends UIBitElement {
     this.listen(this, 'pointerleave', this.handlePointerLeave);
     this.listen(this, 'focusin', this.handleFocusIn);
     this.listen(this, 'focusout', this.handleFocusOut);
-    if (this.content) {
-      this.listen(this.content, 'scroll', this.handleScroll);
-    }
   }
 
   updated(changedProperties: Map<string, unknown>) {
@@ -178,6 +175,46 @@ export class UIBitCarousel extends UIBitElement {
 
     this.updateNavigationState();
     this.setupResizeObserver();
+    this.setupSlideObserver();
+  }
+
+  private setupSlideObserver() {
+    if (!this.content) return;
+    this.slideObserver?.disconnect();
+    this.slideIntersectionRatios.clear();
+
+    const slides = this.getSlides();
+    if (!slides.length) return;
+
+    this.slideObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => this.slideIntersectionRatios.set(e.target, e.intersectionRatio));
+
+      if (this.isProgrammaticScroll) return;
+
+      let maxRatio = -1;
+      let closestIndex = this.currentIndex;
+      slides.forEach((slide, index) => {
+        const ratio = this.slideIntersectionRatios.get(slide) ?? 0;
+        if (ratio > maxRatio) {
+          maxRatio = ratio;
+          closestIndex = index;
+        }
+      });
+
+      if (closestIndex !== this.currentIndex) {
+        this.currentIndex = closestIndex;
+        this.updateNavigationState();
+        this.emitSlideChange();
+      } else {
+        this.updateNavigationState();
+      }
+    }, {
+      root: this.content,
+      threshold: [0, 0.25, 0.5, 0.75, 1.0],
+    });
+
+    slides.forEach(s => this.slideObserver!.observe(s));
+    this.registerDisposable(() => this.slideObserver?.disconnect());
   }
 
   private setupResizeObserver() {
@@ -219,38 +256,6 @@ export class UIBitCarousel extends UIBitElement {
       clearInterval(this.autoPlayTimer);
       this.autoPlayTimer = undefined;
     }
-  }
-
-  private onScroll() {
-    if (this.isProgrammaticScroll || !this.content) return;
-
-    const items = this.getSlides();
-    if (items.length > 0) {
-      const containerRect = this.content.getBoundingClientRect();
-      const style = window.getComputedStyle(this.content);
-      const paddingLeft = parseFloat(style.paddingLeft) || 0;
-      const containerLeftEdge = containerRect.left + paddingLeft;
-
-      let minDistance = Infinity;
-      let closestIndex = this.currentIndex;
-
-      items.forEach((item, index) => {
-        const itemRect = item.getBoundingClientRect();
-        const distance = Math.abs(itemRect.left - containerLeftEdge);
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestIndex = index;
-        }
-      });
-
-      if (closestIndex !== this.currentIndex) {
-        this.currentIndex = closestIndex;
-        this.updateNavigationState();
-        this.emitSlideChange();
-      }
-    }
-
-    this.updateNavigationState();
   }
 
   private getSlides(): HTMLElement[] {

@@ -28,7 +28,7 @@ export function configureUIBitLocalization(options: {
   loadLocale: (locale: string) => Promise<LocaleModule>;
 }) {
   const result = configureLocalization({
-    sourceLocale: 'en',
+    sourceLocale: 'en-US',
     targetLocales: options.targetLocales,
     loadLocale: options.loadLocale,
   });
@@ -51,9 +51,9 @@ export async function setLocale(locale: string): Promise<void> {
 }
 
 /**
- * Return the currently active UIBit locale tag (e.g. `"en"`, `"fr"`).
- * Returns `"en"` when localization has not been configured.
+ * Return the currently active UIBit locale tag (e.g. `"en-US"`, `"fr"`).
+ * Returns `"en-US"` when localization has not been configured.
  */
 export function getLocale(): string {
-  return _getLocale ? _getLocale() : 'en';
+  return _getLocale ? _getLocale() : 'en-US';
 }

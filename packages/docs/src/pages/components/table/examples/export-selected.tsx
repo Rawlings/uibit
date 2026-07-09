@@ -15,9 +15,6 @@ const ROWS: [string, string, string, string, string][] = [
 function Demo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Select rows using the checkboxes, then click <strong>Export CSV</strong>. With rows selected, only those rows are exported — with no selection, all filtered rows are exported.
-      </p>
       <uibit-table selectable exportable column-chooser striped>
         <table>
           <thead>

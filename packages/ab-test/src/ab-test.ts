@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 
 /**
@@ -12,7 +12,7 @@ import { property, state } from 'lit/decorators.js';
  * @slot variant-{key} - Content to render for the named variant (e.g. `slot="variant-a"`)
  */
 @customElement('uibit-ab-test')
-export class ABTest extends LitElement {
+export class ABTest extends UIBitElement {
   /** `localStorage` key used to persist the assigned variant across sessions. */
   @property({ type: String }) storageKey = 'uibit-ab-test-variant';
   /** Map of variant names to their relative traffic weights (e.g. `{ a: 70, b: 30 }`). */
@@ -94,16 +94,10 @@ export class ABTest extends LitElement {
   }
 
   private emitVariantRendered() {
-    this.dispatchEvent(
-      new CustomEvent('variant-rendered', {
-        detail: {
-          variant: this.selectedVariant,
-          isNewUser: this.isNewUser
-        },
-        bubbles: true,
-        composed: true
-      })
-    );
+    this.dispatchCustomEvent('variant-rendered', {
+      variant: this.selectedVariant,
+      isNewUser: this.isNewUser
+    });
   }
 
   render() {

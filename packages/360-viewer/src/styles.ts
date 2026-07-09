@@ -67,6 +67,11 @@ export const styles = css`
     opacity: 1;
   }
 
+  .nav-button:focus-visible {
+    outline: 0.125rem solid var(--uibit-360-viewer-focus-color, #000000);
+    outline-offset: 0.125rem;
+  }
+
   .nav-button:hover {
     background: var(--uibit-360-viewer-button-bg-hover);
     transform: translateY(-50%) scale(1.05);

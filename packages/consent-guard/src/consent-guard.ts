@@ -1,5 +1,5 @@
-import { LitElement, html, css } from 'lit';
-import { customElement } from '@uibit/core';
+import { html, css } from 'lit';
+import { customElement, UIBitElement } from '@uibit/core';
 import { state } from 'lit/decorators.js';
 
 /**
@@ -24,7 +24,7 @@ import { state } from 'lit/decorators.js';
  * @csspart content - Wrapper around the default slot
  */
 @customElement('uibit-consent-guard')
-export class ConsentGuard extends LitElement {
+export class ConsentGuard extends UIBitElement {
   static styles = css`
     :host {
       display: block;
@@ -56,12 +56,12 @@ export class ConsentGuard extends LitElement {
     if (this._consented) return;
     this._consented = true;
     this.setAttribute('consented', '');
-    this.dispatchEvent(new CustomEvent('consent-accepted', { bubbles: true, composed: true }));
+    this.dispatchCustomEvent('consent-accepted');
   }
 
   /** Programmatically decline consent. */
   decline() {
-    this.dispatchEvent(new CustomEvent('consent-declined', { bubbles: true, composed: true }));
+    this.dispatchCustomEvent('consent-declined');
   }
 
   private _onPlaceholderClick(e: Event) {

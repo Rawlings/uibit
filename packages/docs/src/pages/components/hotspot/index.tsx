@@ -36,9 +36,6 @@ function HotspotDemo() {
 
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Click the blinking pulse triggers below to open the annotation details:
-      </p>
       <div className="max-w-2xl mx-auto bg-white rounded-lg border border-gray-200 p-2 overflow-hidden shadow-sm">
         <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="click">
           <img

@@ -46,6 +46,11 @@ export const styles = css`
     opacity: 1 !important;
   }
 
+  .item:focus-visible {
+    outline: 0.125rem solid var(--uibit-sentiment-bar-focus-color, #000000);
+    outline-offset: 0.125rem;
+  }
+
   .item[data-selected] {
     background: var(--uibit-sentiment-bar-item-selected-bg, var(--uibit-bg-surface, #ffffff));
     box-shadow: var(--uibit-sentiment-bar-item-selected-shadow, 0 0.125rem 0.5rem rgba(0, 0, 0, 0.12));

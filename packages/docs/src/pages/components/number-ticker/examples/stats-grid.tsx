@@ -4,9 +4,6 @@ import { UsageExample } from '../../../../types/docs';
 function StatsGridDemo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Scroll to this section to trigger the count-up animations:
-      </p>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <div className="bg-white rounded-lg border border-gray-200 p-6 text-center shadow-sm">
           <div className="text-4xl font-bold text-gray-900 mb-1">

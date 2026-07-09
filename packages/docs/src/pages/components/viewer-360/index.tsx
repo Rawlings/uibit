@@ -16,9 +16,6 @@ function Viewer360Demo() {
 
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
-        Drag the image or use the buttons/arrow keys to rotate the 360 view:
-      </p>
       <div className="max-w-xl mx-auto bg-white rounded-lg p-4 border border-gray-200">
         <uibit-360-viewer auto-rotate="true" rotation-speed={150}>
           {demoImages.map((src, idx) => (

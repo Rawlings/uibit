@@ -7,9 +7,6 @@ import flipTransition from './examples/flip-transition';
 function TextRotatorDemo() {
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-6">
-        The word below rotates through a list with a vertical slide transition:
-      </p>
       <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm text-center">
         <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
           Build websites{' '}
@@ -24,9 +21,6 @@ function TextRotatorDemo() {
             <span>together</span>
           </uibit-text-rotator>
         </h2>
-        <p className="text-gray-500 mt-6 text-sm">
-          Switch to <code>transition="flip"</code> for a 3D perspective flip.
-        </p>
       </div>
     </div>
   );

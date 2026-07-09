@@ -17,6 +17,7 @@
     "@uibit/consent-guard": "workspace:*",
     "@uibit/core": "workspace:*",
     "@uibit/countdown": "workspace:*",
+    "@uibit/effect-trigger": "workspace:*",
     "@uibit/hotspot": "workspace:*",
     "@uibit/scratch-reveal": "workspace:*",
     "@uibit/signature-pad": "workspace:*",

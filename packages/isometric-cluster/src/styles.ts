@@ -29,17 +29,19 @@ export const styles = css`
   .stack {
     position: relative;
     transform-style: preserve-3d;
-    transition: transform var(--uibit-isometric-cluster-transition, 0.5s) cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform var(--uibit-isometric-cluster-transition, 0.5s) cubic-bezier(0.25, 1, 0.5, 1);
+    width: var(--uibit-isometric-cluster-layer-width, 16rem);
+    height: var(--uibit-isometric-cluster-layer-height, 3rem);
   }
 
   .layer {
     position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
     width: var(--uibit-isometric-cluster-layer-width, 16rem);
     height: var(--uibit-isometric-cluster-layer-height, 3rem);
     background: var(--uibit-isometric-cluster-layer-bg, #f3f4f6);
-    border: 1px solid var(--uibit-isometric-cluster-layer-border, #e5e7eb);
+    border: 0.0625rem solid var(--uibit-isometric-cluster-layer-border, #e5e7eb);
     border-radius: var(--uibit-isometric-cluster-layer-radius, 0.375rem);
     display: flex;
     align-items: center;
@@ -49,24 +51,29 @@ export const styles = css`
     font-size: var(--uibit-isometric-cluster-font-size, 0.8125rem);
     font-weight: 500;
     color: var(--uibit-isometric-cluster-color, #111827);
-    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.07);
+    box-shadow: 0 0.0625rem 0.1875rem 0 rgba(0, 0, 0, 0.07);
     cursor: pointer;
+    transform-style: preserve-3d;
     transition:
-      background var(--uibit-isometric-cluster-transition, 0.5s),
-      border-color var(--uibit-isometric-cluster-transition, 0.5s),
-      box-shadow var(--uibit-isometric-cluster-transition, 0.5s);
+      transform var(--uibit-isometric-cluster-transition, 0.5s) cubic-bezier(0.34, 1.56, 0.64, 1),
+      background 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
-  .layer:hover,
-  .layer[aria-selected="true"] {
+  /* Hover & Active / Selection States */
+  .layer:hover {
     background: var(--uibit-isometric-cluster-layer-active-bg, #ffffff);
     border-color: var(--uibit-isometric-cluster-layer-active-border, #9ca3af);
-    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 0.1);
+    box-shadow: 0 0.625rem 1.25rem 0 rgba(0, 0, 0, 0.15);
   }
 
   .layer[aria-selected="true"] {
-    outline: 2px solid var(--uibit-isometric-cluster-select-ring, #111827);
-    outline-offset: 2px;
+    background: var(--uibit-isometric-cluster-layer-active-bg, #ffffff);
+    border-color: var(--uibit-isometric-cluster-select-ring, #000000);
+    box-shadow: 0 0.625rem 1.5rem 0 rgba(0, 0, 0, 0.2);
+    outline: 0.125rem solid var(--uibit-isometric-cluster-select-ring, #000000);
+    outline-offset: 0.125rem;
   }
 
   .icon {
@@ -94,7 +101,7 @@ export const styles = css`
     font-weight: 500;
     color: var(--uibit-isometric-cluster-badge-color, #6b7280);
     background: var(--uibit-isometric-cluster-badge-bg, #f3f4f6);
-    border: 1px solid var(--uibit-isometric-cluster-layer-border, #e5e7eb);
+    border: 0.0625rem solid var(--uibit-isometric-cluster-layer-border, #e5e7eb);
     border-radius: 9999px;
     padding: 0.125rem 0.5rem;
   }
@@ -115,3 +122,4 @@ export const styles = css`
     opacity: 0;
   }
 `;
+;

@@ -168,6 +168,14 @@
               "default": "false"
             },
             {
+              "kind": "field",
+              "name": "_rafId",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private"
+            },
+            {
               "kind": "method",
               "name": "setupCanvas",
               "privacy": "private"
