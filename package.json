@@ -5,8 +5,8 @@
   "private": true,
   "type": "module",
   "engines": {
-    "pnpm": ">=8.0.0",
-    "node": ">=18.0.0"
+    "pnpm": ">=11.0.0",
+    "node": ">=22.0.0"
   },
   "scripts": {
     "dev": "pnpm -F docs run dev",
