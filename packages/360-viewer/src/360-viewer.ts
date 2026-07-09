@@ -197,6 +197,16 @@ export class Viewer360 extends UIBitElement {
     }
   }
 
+  private handleSlotChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    const elements = slot.assignedElements({ flatten: true }).filter(el => el.tagName === 'IMG') as HTMLImageElement[];
+    if (elements.length > 0) {
+      this.images = elements.map(el => el.getAttribute('src') || el.src || '');
+      this.currentIndex = 0;
+      this.preloadAllImages();
+    }
+  }
+
   render() {
     const image = this.images[this.currentIndex];
     const progressPercent = this.images.length > 0 
@@ -204,6 +214,7 @@ export class Viewer360 extends UIBitElement {
       : 0;
 
     return html`
+      <slot @slotchange=${this.handleSlotChange} style="display: none;"></slot>
       <div 
         part="viewer"
         class="viewer ${this.isDragging ? 'dragging' : ''}"
@@ -228,41 +239,45 @@ export class Viewer360 extends UIBitElement {
         }
 
         ${this.images.length > 0 && !this.isDragging ? html`
-          <div part="drag-hint" class="drag-hint">
-            ${getIcon('move', 16)}
-            Drag to rotate
-          </div>
+          <slot name="hint">
+            <div part="drag-hint" class="drag-hint">
+              ${getIcon('move', 16)}
+              Drag to rotate
+            </div>
+          </slot>
         ` : ''}
 
         ${this.showControls && this.images.length > 0 ? html`
-          <button
-            part="nav-button nav-button-prev"
-            class="nav-button nav-button-prev"
-            aria-label="Rotate left"
-            @click=${(e: Event) => {
-              e.stopPropagation();
-              this.stopAutoRotate();
-              this.clearResumeTimer();
-              this.prev();
-              this.scheduleAutoRotateResume();
-            }}
-          >
-            ${getIcon('chevron-left', 20)}
-          </button>
-          <button
-            part="nav-button nav-button-next"
-            class="nav-button nav-button-next"
-            aria-label="Rotate right"
-            @click=${(e: Event) => {
-              e.stopPropagation();
-              this.stopAutoRotate();
-              this.clearResumeTimer();
-              this.next();
-              this.scheduleAutoRotateResume();
-            }}
-          >
-            ${getIcon('chevron-right', 20)}
-          </button>
+          <slot name="prev" @click=${(e: Event) => {
+            e.stopPropagation();
+            this.stopAutoRotate();
+            this.clearResumeTimer();
+            this.prev();
+            this.scheduleAutoRotateResume();
+          }}>
+            <button
+              part="nav-button nav-button-prev"
+              class="nav-button nav-button-prev"
+              aria-label="Rotate left"
+            >
+              ${getIcon('chevron-left', 20)}
+            </button>
+          </slot>
+          <slot name="next" @click=${(e: Event) => {
+            e.stopPropagation();
+            this.stopAutoRotate();
+            this.clearResumeTimer();
+            this.next();
+            this.scheduleAutoRotateResume();
+          }}>
+            <button
+              part="nav-button nav-button-next"
+              class="nav-button nav-button-next"
+              aria-label="Rotate right"
+            >
+              ${getIcon('chevron-right', 20)}
+            </button>
+          </slot>
         ` : ''}
 
         ${this.showProgressBar && this.images.length > 0 ? html`

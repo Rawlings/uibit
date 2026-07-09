@@ -263,11 +263,11 @@
           ],
           "events": [
             {
-              "name": "change",
               "type": {
                 "text": "{ index: number, total: number }"
               },
-              "description": "Fired each time the displayed frame changes"
+              "description": "Fired each time the displayed frame changes",
+              "name": "change"
             }
           ],
           "attributes": [
@@ -327,8 +327,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-360-viewer",
           "customElement": true

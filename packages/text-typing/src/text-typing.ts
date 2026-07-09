@@ -136,8 +136,20 @@ export class TextTyping extends LitElement {
     }
   }
 
+  private _handleSlotChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    const nodes = slot.assignedNodes({ flatten: true });
+    const phrases = nodes
+      .map(node => node.textContent?.trim() ?? '')
+      .filter(text => text !== '');
+    if (phrases.length > 0) {
+      this.phrases = phrases;
+    }
+  }
+
   render() {
     return html`
+      <slot @slotchange=${this._handleSlotChange} style="display: none;"></slot>
       <span class="text" part="text" aria-live="polite" aria-atomic="true">${this._visible}</span>${this.showCursor
         ? html`<span class="cursor" part="cursor" aria-hidden="true"></span>`
         : ''}

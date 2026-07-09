@@ -1,11 +1,20 @@
 import { useParams, Link } from 'react-router-dom';
 import { ApiDocs } from '../components/ApiDocs';
 import { componentRegistry } from './components';
+import { useHead } from '../hooks/useHead';
 
 export default function ComponentDocs() {
   const { componentId } = useParams<{ componentId: string }>();
+  const comp = componentId ? componentRegistry[componentId] : undefined;
 
-  if (!componentId || !componentRegistry[componentId]) {
+  useHead({
+    title: comp ? `${comp.title} – UIBit` : 'UIBit – Web Components Library',
+    description: comp
+      ? comp.description
+      : 'A collection of accessible, production-ready web components built with Lit.js.',
+  });
+
+  if (!componentId || !comp) {
     return (
       <div className="max-w-6xl mx-auto px-4 py-16 text-center bg-white">
         <h1 className="text-2xl font-semibold text-gray-900 mb-4">Component Not Found</h1>
@@ -17,8 +26,7 @@ export default function ComponentDocs() {
     );
   }
 
-  const { title, description, packageName, tagName, manifest, Demo, usages, features } =
-    componentRegistry[componentId];
+  const { title, description, packageName, tagName, manifest, Demo, usages, features } = comp;
 
   return (
     <div className="bg-white">

@@ -98,11 +98,35 @@ export class TextRotator extends LitElement {
       composed: true,
     }));
 
-    const dur = parseFloat(getComputedStyle(this).getPropertyValue('--uibit-text-rotator-duration') || '0.4') * 1000;
+    const durationStr = getComputedStyle(this).getPropertyValue('--uibit-text-rotator-duration') || '0.4s';
+    const dur = this._parseCssDuration(durationStr);
     setTimeout(() => {
       this._prevIndex = -1;
       this._animating = false;
     }, dur + 50);
+  }
+
+  private _parseCssDuration(val: string): number {
+    const trimmed = val.trim();
+    if (!trimmed) return 400;
+    if (trimmed.endsWith('ms')) {
+      return parseFloat(trimmed);
+    }
+    if (trimmed.endsWith('s')) {
+      return parseFloat(trimmed) * 1000;
+    }
+    return parseFloat(trimmed) || 400;
+  }
+
+  private _handleSlotChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    const nodes = slot.assignedNodes({ flatten: true });
+    const words = nodes
+      .map(node => node.textContent?.trim() ?? '')
+      .filter(text => text !== '');
+    if (words.length > 0) {
+      this.words = words;
+    }
   }
 
   render() {
@@ -111,6 +135,7 @@ export class TextRotator extends LitElement {
     const prevWord = this._prevIndex >= 0 ? this.words[this._prevIndex] : null;
 
     return html`
+      <slot @slotchange=${this._handleSlotChange} style="display: none;"></slot>
       <span class="stage">
         ${prevWord !== null ? html`<span class="word leaving-${t}" aria-hidden="true">${prevWord}</span>` : ''}
         <span class="word ${this._mounted ? `entering-${t}` : 'initial'} active">${activeWord}</span>

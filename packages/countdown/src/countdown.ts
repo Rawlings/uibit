@@ -181,7 +181,7 @@ export class Countdown extends LitElement {
             ${index > 0 ? html`<div part="separator" class="separator">:</div>` : ''}
             <div part="unit" class="unit">
               <div part="value" class="value">${unit.value}</div>
-              <div part="label" class="label">${unit.label}</div>
+              <div part="label" class="label"><slot name="${unit.label.toLowerCase()}-label">${unit.label}</slot></div>
             </div>
           `
         )}

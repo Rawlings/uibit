@@ -88,8 +88,8 @@ export class DiffViewer extends LitElement {
 
     return html`
       <div class="header">
-        <div class="header-cell">${this.oldLabel}</div>
-        <div class="header-cell">${this.newLabel}</div>
+        <div class="header-cell"><slot name="old-label">${this.oldLabel}</slot></div>
+        <div class="header-cell"><slot name="new-label">${this.newLabel}</slot></div>
       </div>
       <div class="body">
         <div class="pane">${leftLines}</div>
@@ -114,7 +114,7 @@ export class DiffViewer extends LitElement {
 
     return html`
       <div class="header">
-        <div class="header-cell">${this.oldLabel} → ${this.newLabel}</div>
+        <div class="header-cell"><slot name="old-label">${this.oldLabel}</slot> → <slot name="new-label">${this.newLabel}</slot></div>
       </div>
       <div class="body">
         <div class="pane">${lines}</div>
@@ -122,9 +122,29 @@ export class DiffViewer extends LitElement {
     `;
   }
 
+  private _handleOldChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    const nodes = slot.assignedNodes({ flatten: true });
+    if (nodes.length > 0) {
+      this.oldText = nodes.map(n => n.textContent ?? '').join('');
+    }
+  }
+
+  private _handleNewChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    const nodes = slot.assignedNodes({ flatten: true });
+    if (nodes.length > 0) {
+      this.newText = nodes.map(n => n.textContent ?? '').join('');
+    }
+  }
+
   render() {
     const ops = diffLines(this.oldText, this.newText);
-    return this.mode === 'split' ? this._renderSplit(ops) : this._renderInline(ops);
+    return html`
+      <slot name="old" @slotchange=${this._handleOldChange} style="display: none;"></slot>
+      <slot name="new" @slotchange=${this._handleNewChange} style="display: none;"></slot>
+      ${this.mode === 'split' ? this._renderSplit(ops) : this._renderInline(ops)}
+    `;
   }
 }
 

@@ -32,7 +32,7 @@
         {
           "kind": "variable",
           "name": "styles",
-          "default": "css` :host { display: block; font-size: var(--uibit-text-clamp-font-size, inherit); font-weight: var(--uibit-text-clamp-font-weight, inherit); color: var(--uibit-text-clamp-color, inherit); font-family: var(--uibit-text-clamp-font-family, inherit); line-height: var(--uibit-text-clamp-line-height, 1.5); } .content { overflow: hidden; } .content.clamped { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; } .toggle { display: inline; background: none; border: none; padding: 0; margin: 0; font: inherit; color: var(--uibit-text-clamp-toggle-color, currentColor); font-weight: var(--uibit-text-clamp-toggle-font-weight, 600); cursor: pointer; text-decoration: var(--uibit-text-clamp-toggle-decoration, underline); text-underline-offset: 0.15em; } .toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 0.125rem; } `"
+          "default": "css` :host { display: block; font-size: var(--uibit-text-clamp-font-size, inherit); font-weight: var(--uibit-text-clamp-font-weight, inherit); color: var(--uibit-text-clamp-color, inherit); font-family: var(--uibit-text-clamp-font-family, inherit); line-height: var(--uibit-text-clamp-line-height, 1.5); } /* Hide the source slot — it's only used for slotchange detection */ .source { display: none; } .content { overflow: hidden; } .content.clamped { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; } .toggle { display: inline; background: none; border: none; padding: 0; margin: 0; font: inherit; color: var(--uibit-text-clamp-toggle-color, currentColor); font-weight: var(--uibit-text-clamp-toggle-font-weight, 600); cursor: pointer; text-decoration: var(--uibit-text-clamp-toggle-decoration, underline); text-underline-offset: 0.15em; } .toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 0.125rem; } `"
         }
       ],
       "exports": [
@@ -52,7 +52,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Clamps slotted text content to an exact line count. When content overflows\nthe clamped height, a \"More\" toggle button appears inline. Clicking it\nexpands the block; clicking \"Less\" collapses it again.\n\nUses a ResizeObserver to recalculate overflow whenever the container width\nchanges, ensuring correct behaviour across all viewport sizes.",
+          "description": "Clamps slotted content to an exact line count. When content overflows the\nclamped height a \"More\" toggle appears inline at the truncation point.\nClicking it expands the block; clicking \"Less\" collapses it again.\n\nUses a ResizeObserver to recalculate on every container-width change.",
           "name": "TextClamp",
           "cssProperties": [
             {
@@ -81,24 +81,24 @@
               "default": "1.5"
             },
             {
-              "description": "\"More\"/\"Less\" button color",
+              "description": "Toggle button color",
               "name": "--uibit-text-clamp-toggle-color",
               "default": "currentColor"
             },
             {
-              "description": "\"More\"/\"Less\" button font weight",
+              "description": "Toggle button font weight",
               "name": "--uibit-text-clamp-toggle-font-weight",
               "default": "600"
             },
             {
-              "description": "\"More\"/\"Less\" button text decoration",
+              "description": "Toggle button text decoration",
               "name": "--uibit-text-clamp-toggle-decoration",
               "default": "underline"
             }
           ],
           "slots": [
             {
-              "description": "The text content to clamp",
+              "description": "The text content to clamp (HTML is preserved)",
               "name": ""
             }
           ],
@@ -153,12 +153,11 @@
             },
             {
               "kind": "field",
-              "name": "_slotText",
+              "name": "_ro",
               "type": {
-                "text": "string"
+                "text": "ResizeObserver | undefined"
               },
-              "privacy": "private",
-              "default": "''"
+              "privacy": "private"
             },
             {
               "kind": "field",
@@ -170,21 +169,26 @@
               "readonly": true
             },
             {
-              "kind": "field",
-              "name": "_ro",
-              "type": {
-                "text": "ResizeObserver | undefined"
-              },
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "_checkOverflow",
-              "privacy": "private"
-            },
-            {
               "kind": "method",
               "name": "_onSlotChange",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_measure",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_applyClamp",
               "privacy": "private"
             },
             {

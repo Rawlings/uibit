@@ -143,11 +143,28 @@ export class IsometricCluster extends LitElement {
     return `rotateX(${rx}deg) rotateY(${ry}deg)`;
   }
 
+  private _handleSlotChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    const elements = slot.assignedElements({ flatten: true });
+    const nodes = elements
+      .filter(el => el.tagName !== 'SLOT' && !el.hasAttribute('slot'))
+      .map((el, i) => ({
+        id: el.getAttribute('id') || el.getAttribute('data-id') || String(i),
+        label: el.getAttribute('label') || el.getAttribute('data-label') || el.textContent?.trim() || '',
+        icon: el.getAttribute('icon') || el.getAttribute('data-icon') || undefined,
+        badge: el.getAttribute('badge') || el.getAttribute('data-badge') || undefined,
+      }));
+    if (nodes.length > 0) {
+      this.nodes = nodes;
+    }
+  }
+
   render() {
     const total = this.nodes.length;
     const midOffset = ((total - 1) / 2) * this.layerGap;
 
     return html`
+      <slot @slotchange=${this._handleSlotChange} style="display: none;"></slot>
       <div
         class="scene"
         @pointerenter=${this._onPointerEnter}
@@ -174,7 +191,7 @@ export class IsometricCluster extends LitElement {
             `;
           })}
         </div>
-        ${!this._expanded ? html`<span class="hint">Hover to explore</span>` : nothing}
+        ${!this._expanded ? html`<slot name="hint"><span class="hint">Hover to explore</span></slot>` : nothing}
       </div>
     `;
   }

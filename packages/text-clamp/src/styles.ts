@@ -10,6 +10,11 @@ export const styles = css`
     line-height: var(--uibit-text-clamp-line-height, 1.5);
   }
 
+  /* Hide the source slot — it's only used for slotchange detection */
+  .source {
+    display: none;
+  }
+
   .content {
     overflow: hidden;
   }

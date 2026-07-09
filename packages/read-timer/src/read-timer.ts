@@ -89,7 +89,9 @@ export class ReadTimer extends LitElement {
       <div class="content-slot">
         <slot></slot>
       </div>
-      ${this.showIcon ? html`<span class="icon" part="icon">${this._clockIcon()}</span>` : ''}
+      <slot name="icon">
+        ${this.showIcon ? html`<span class="icon" part="icon">${this._clockIcon()}</span>` : ''}
+      </slot>
       <span class="label" part="label">${this._label}</span>
     `;
   }

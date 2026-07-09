@@ -345,14 +345,15 @@ export class SignaturePad extends LitElement {
         ${this.isEmpty
         ? html`<div part="hint" class="hint"><slot name="hint">Sign here</slot></div>`
         : ''}
-        ${!this.hideClear
-        ? html`<button
-              part="clear-button"
-              class="clear-button"
-              ?disabled=${this.isEmpty}
-              @click=${() => this.clear()}
-            >${getIcon('rotate-ccw', 14)}<slot name="clear-label">Clear</slot></button>`
-        : ''}
+        <slot name="clear-button" @click=${() => this.clear()}>
+          ${!this.hideClear
+          ? html`<button
+                part="clear-button"
+                class="clear-button"
+                ?disabled=${this.isEmpty}
+              >${getIcon('rotate-ccw', 14)}<slot name="clear-label">Clear</slot></button>`
+          : ''}
+        </slot>
       </div>
     `;
   }

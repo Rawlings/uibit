@@ -2,44 +2,70 @@ import '@uibit/table';
 import manifest from '@uibit/table/custom-elements.json';
 import { ComponentDocData } from '../../types/docs';
 
+const ROWS: [string, string, string, string, string, string][] = [
+  ['Acme Corp', '1 240 000', 'North America', 'Active', '12.4', 'Enterprise'],
+  ['Bright Labs', '830 000', 'Europe', 'Active', '8.1', 'Growth'],
+  ['Cedar Works', '2 100 000', 'Asia Pacific', 'Active', '21.7', 'Enterprise'],
+  ['Dune Systems', '560 000', 'Middle East', 'Inactive', '-3.2', 'Starter'],
+  ['Ember Health', '990 000', 'North America', 'Active', '15.0', 'Growth'],
+  ['Frost AI', '3 400 000', 'Europe', 'Active', '34.9', 'Enterprise'],
+  ['Gale Robotics', '720 000', 'Asia Pacific', 'Review', '2.5', 'Growth'],
+  ['Harbor Cloud', '1 670 000', 'North America', 'Active', '18.3', 'Enterprise'],
+  ['Isle Media', '450 000', 'Europe', 'Inactive', '-6.8', 'Starter'],
+  ['Jasper Fintech', '2 800 000', 'Asia Pacific', 'Active', '27.2', 'Enterprise'],
+  ['Kite Analytics', '390 000', 'Middle East', 'Review', '1.1', 'Starter'],
+  ['Lumen Bio', '1 100 000', 'North America', 'Active', '9.6', 'Growth'],
+  ['Marble Studio', '670 000', 'Europe', 'Active', '7.4', 'Growth'],
+  ['Nova Payments', '4 200 000', 'North America', 'Active', '41.2', 'Enterprise'],
+  ['Orbit Logistics', '310 000', 'Asia Pacific', 'Inactive', '-11.5', 'Starter'],
+  ['Prism Security', '1 890 000', 'Europe', 'Active', '19.8', 'Enterprise'],
+  ['Quill Publishing', '540 000', 'Middle East', 'Review', '3.7', 'Growth'],
+  ['Relay Networks', '780 000', 'North America', 'Active', '6.9', 'Growth'],
+  ['Sable Insurance', '2 350 000', 'Europe', 'Active', '23.1', 'Enterprise'],
+  ['Terra Robotics', '1 450 000', 'Asia Pacific', 'Active', '14.7', 'Growth'],
+];
+
 function TableDemo() {
   return (
     <div>
       <p className="text-sm text-gray-600 mb-6">
-        A standard HTML table wrapped in <code>&lt;uibit-table&gt;</code> gains search, sorting, pagination, and CSV export automatically.
+        A standard <code>&lt;table&gt;</code> wrapped in <code>&lt;uibit-table&gt;</code> — row
+        selection, multi-sort (shift+click), per-column filters, column visibility, column
+        resizing, density control, sticky header, striped rows, and CSV export all enabled.
       </p>
-      <uibit-table searchable paginated exportable page-sizes="5,10,25">
+      <uibit-table
+        searchable
+        paginated
+        exportable
+        selectable
+        filterable
+        resizable
+        column-chooser
+        striped
+        sticky-header
+        page-sizes="5,10,20"
+        style={{ '--uibit-table-max-height': '28rem' } as React.CSSProperties}
+      >
         <table>
           <thead>
             <tr>
-              <th>Name</th>
-              <th data-type="number">Revenue</th>
+              <th>Company</th>
+              <th data-type="number">Revenue ($)</th>
               <th>Region</th>
               <th>Status</th>
               <th data-type="number">Growth %</th>
+              <th>Plan</th>
             </tr>
           </thead>
           <tbody>
-            {[
-              ['Acme Corp', '1 240 000', 'North America', 'Active', '12.4'],
-              ['Bright Labs', '830 000', 'Europe', 'Active', '8.1'],
-              ['Cedar Works', '2 100 000', 'Asia Pacific', 'Active', '21.7'],
-              ['Dune Systems', '560 000', 'Middle East', 'Inactive', '-3.2'],
-              ['Ember Health', '990 000', 'North America', 'Active', '15.0'],
-              ['Frost AI', '3 400 000', 'Europe', 'Active', '34.9'],
-              ['Gale Robotics', '720 000', 'Asia Pacific', 'Review', '2.5'],
-              ['Harbor Cloud', '1 670 000', 'North America', 'Active', '18.3'],
-              ['Isle Media', '450 000', 'Europe', 'Inactive', '-6.8'],
-              ['Jasper Fintech', '2 800 000', 'Asia Pacific', 'Active', '27.2'],
-              ['Kite Analytics', '390 000', 'Middle East', 'Review', '1.1'],
-              ['Lumen Bio', '1 100 000', 'North America', 'Active', '9.6'],
-            ].map(([name, rev, region, status, growth]) => (
+            {ROWS.map(([name, rev, region, status, growth, plan]) => (
               <tr key={name}>
                 <td>{name}</td>
                 <td>{rev}</td>
                 <td>{region}</td>
                 <td>{status}</td>
                 <td>{growth}</td>
+                <td>{plan}</td>
               </tr>
             ))}
           </tbody>
@@ -53,25 +79,90 @@ const data: ComponentDocData = {
   id: 'table',
   title: 'Table',
   description:
-    'Wraps a standard HTML <table> in the default slot and adds global search with result highlighting, multi-column sorting with tri-state cycling (asc → desc → off), paginated navigation with smart page-number elision, per-page row count selector, and one-click CSV export.',
+    'Wraps any standard HTML <table> in the default slot and adds a full datagrid feature set — without touching the source markup. All features are individually opt-in via boolean attributes.',
   packageName: '@uibit/table',
   tagName: 'uibit-table',
   manifest,
   Demo: TableDemo,
   usages: [
     {
-      title: 'HTML Integration',
-      code: `<uibit-table searchable paginated exportable>
+      title: 'Full-featured',
+      code: `<uibit-table
+  searchable paginated exportable
+  selectable filterable resizable
+  column-chooser striped sticky-header
+  page-sizes="10,25,50"
+  style="--uibit-table-max-height: 30rem"
+>
   <table>
     <thead>
-      <tr><th>Name</th><th data-type="number">Score</th><th>Status</th></tr>
+      <tr>
+        <th>Name</th>
+        <th data-type="number">Revenue</th>
+        <th>Region</th>
+        <th data-sortable="false">Actions</th>
+      </tr>
     </thead>
-    <tbody>
-      <tr><td>Alice</td><td>92</td><td>Active</td></tr>
-      <tr><td>Bob</td><td>85</td><td>Inactive</td></tr>
-    </tbody>
+    <tbody>…</tbody>
   </table>
 </uibit-table>`,
+    },
+    {
+      title: 'Multi-sort',
+      description: 'Click a header to sort. Shift+click to add a secondary (or tertiary) sort. Priority is shown as a numbered badge.',
+      code: `<!-- Multi-sort is always available — no attribute needed.
+     Click to sort one column. Shift+click to stack sorts.
+     Click the same column again to cycle asc → desc → off. -->
+<uibit-table searchable>
+  <table>…</table>
+</uibit-table>`,
+    },
+    {
+      title: 'Row Selection',
+      description: 'Enables checkboxes and a selection banner. Clicking a row or its checkbox toggles selection. The banner shows select-all-filtered and clear controls.',
+      code: `<uibit-table selectable>
+  <table>…</table>
+</uibit-table>
+
+<script>
+  document.querySelector('uibit-table').addEventListener('row-select', e => {
+    console.log('selected indices:', e.detail.indices);
+    console.log('selected rows:', e.detail.rows);
+  });
+</script>`,
+    },
+    {
+      title: 'Per-column filters',
+      description: 'Adds a filter row below the header. Each column gets its own text input. Column filters are ANDed with the global search. The toolbar shows a "Clear filters" button when any filter is active.',
+      code: `<uibit-table filterable searchable>
+  <table>…</table>
+</uibit-table>`,
+    },
+    {
+      title: 'Column resizing',
+      description: 'Hover the right edge of any column header to reveal a resize handle. Drag to set a fixed pixel width. Width respects a 60px minimum.',
+      code: `<uibit-table resizable>
+  <table>…</table>
+</uibit-table>`,
+    },
+    {
+      title: 'Column visibility',
+      description: 'Adds a "Columns" dropdown to the toolbar. CSV export only includes visible columns.',
+      code: `<uibit-table column-chooser exportable>
+  <table>…</table>
+</uibit-table>`,
+    },
+    {
+      title: 'Export respects selection',
+      description: 'When rows are selected, the export button exports only those rows. With no selection it exports all filtered rows.',
+      code: `<uibit-table selectable exportable>
+  <table>…</table>
+</uibit-table>`,
+    },
+    {
+      title: 'Disable sort on a column',
+      description: 'Add data-sortable="false" to any <th>.',
+      code: `<th data-sortable="false">Actions</th>`,
     },
     {
       title: 'React Integration',
@@ -79,14 +170,21 @@ const data: ComponentDocData = {
 
 function DataTable({ rows }: { rows: string[][] }) {
   return (
-    <uibit-table searchable paginated exportable page-sizes="10,25,50">
+    <uibit-table
+      searchable paginated exportable selectable filterable
+      page-sizes="10,25,50"
+      onrow-select={(e) => console.log(e.detail)}
+    >
       <table>
         <thead>
-          <tr><th>Name</th><th data-type="number">Value</th></tr>
+          <tr>
+            <th>Name</th>
+            <th data-type="number">Score</th>
+          </tr>
         </thead>
         <tbody>
-          {rows.map(([name, val]) => (
-            <tr key={name}><td>{name}</td><td>{val}</td></tr>
+          {rows.map(([name, score]) => (
+            <tr key={name}><td>{name}</td><td>{score}</td></tr>
           ))}
         </tbody>
       </table>
@@ -94,43 +192,22 @@ function DataTable({ rows }: { rows: string[][] }) {
   );
 }`,
     },
-    {
-      title: 'Numeric Column Sorting',
-      description: 'Add data-type="number" to a <th> for correct numeric sort order.',
-      code: `<table>
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th data-type="number">Price</th>
-      <th data-type="number">Stock</th>
-    </tr>
-  </thead>
-  …
-</table>`,
-    },
-    {
-      title: 'Disable Sorting on a Column',
-      description: 'Add data-sortable="false" to prevent sorting on a specific column.',
-      code: `<th data-sortable="false">Actions</th>`,
-    },
-    {
-      title: 'Event Listeners',
-      code: `const table = document.querySelector('uibit-table');
-
-table.addEventListener('search', e => console.log('query:', e.detail.query));
-table.addEventListener('sort', e => console.log(e.detail.column, e.detail.direction));
-table.addEventListener('page-change', e => console.log('page:', e.detail.page));`,
-    },
   ],
   features: [
-    'Parses a slotted <table> on slot assignment — zero config, source table is never mutated',
-    'Global search filters across all columns simultaneously with live highlighting of matched terms',
-    'Tri-state column sort cycling: ascending → descending → off, with aria-sort attributes',
-    'Numeric column sort via data-type="number" for correct numerical ordering',
-    'Smart pagination with ellipsis elision; configurable page sizes via the page-sizes attribute',
-    'CSV export serialises the full sorted, filtered dataset — not just the visible page',
-    'All features are individually togglable via searchable, paginated, and exportable boolean attributes',
-    'Screen-reader-friendly: role="region", aria-sort, aria-label, and aria-current on pagination',
+    'Global search filters all columns simultaneously with live match highlighting',
+    'Multi-sort: click to sort one column, Shift+click to stack secondary/tertiary sorts with numbered priority badges',
+    'Per-column filter row with text inputs ANDed with the global search; active filters highlighted in green',
+    'Row selection with checkboxes, select-all-page (indeterminate state), select-all-filtered banner, and row-select event',
+    'Column visibility dropdown — hide/show individual columns; hidden columns excluded from CSV export',
+    'Column resizing — drag the right edge of any header to set a fixed pixel width (60px minimum)',
+    'Row density toggle — compact / normal / comfortable via reflected density attribute',
+    'Sticky header — set sticky-header and --uibit-table-max-height for scroll-locked column labels',
+    'Row striping — striped attribute applies alternating backgrounds that respect the selected-row highlight',
+    'CSV export — exports only selected rows when a selection exists; all visible columns in current sort order',
+    '"Clear filters" toolbar button appears whenever any global or column filter is active',
+    'Numeric columns sort by parsed float value when data-type="number" is set on the <th>',
+    'Comma-stripped numeric parsing (handles formatted numbers like "1 240 000")',
+    'Source <table> is never mutated; all state lives in the component',
   ],
 };
 

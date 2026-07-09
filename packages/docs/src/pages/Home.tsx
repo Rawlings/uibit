@@ -1,7 +1,14 @@
 import { Link } from 'react-router-dom';
 import { componentRegistry } from './components';
+import { useHead } from '../hooks/useHead';
 
 function Home() {
+  useHead({
+    title: 'UIBit – Web Components Library',
+    description:
+      'A collection of accessible, production-ready web components built with Lit.js. Lightweight, performant, and framework-agnostic.',
+  });
+
   const components = Object.keys(componentRegistry)
     .sort()
     .map((key) => {

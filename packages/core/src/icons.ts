@@ -7,6 +7,11 @@ import {
   Move,
   Eraser,
   RotateCcw,
+  Frown,
+  Meh,
+  Smile,
+  Laugh,
+  Angry,
   type IconNode,
 } from 'lucide';
 
@@ -38,6 +43,11 @@ const defaults: Record<string, IconDefinition> = {
   'move': fromLucide(Move),
   'eraser': fromLucide(Eraser),
   'rotate-ccw': fromLucide(RotateCcw),
+  'angry': fromLucide(Angry),
+  'frown': fromLucide(Frown),
+  'meh': fromLucide(Meh),
+  'smile': fromLucide(Smile),
+  'laugh': fromLucide(Laugh),
 };
 
 /**

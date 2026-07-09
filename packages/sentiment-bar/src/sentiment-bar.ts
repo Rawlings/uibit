@@ -1,33 +1,34 @@
 import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { customElement, getIcon } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
 export interface SentimentOption {
   value: number;
-  emoji: string;
+  icon: string;
   label: string;
 }
 
 const DEFAULT_OPTIONS: SentimentOption[] = [
-  { value: 1, emoji: '😣', label: 'Terrible' },
-  { value: 2, emoji: '😕', label: 'Bad' },
-  { value: 3, emoji: '😐', label: 'Okay' },
-  { value: 4, emoji: '😊', label: 'Good' },
-  { value: 5, emoji: '😍', label: 'Excellent' },
+  { value: 1, icon: 'angry',  label: 'Terrible' },
+  { value: 2, icon: 'frown',  label: 'Bad' },
+  { value: 3, icon: 'meh',    label: 'Okay' },
+  { value: 4, icon: 'smile',  label: 'Good' },
+  { value: 5, icon: 'laugh',  label: 'Excellent' },
 ];
 
 /**
- * Micro-feedback widget displaying a horizontal row of expressive emoji
- * options. Tapping or clicking an option scales it up with a spring animation
- * and fires a scored event. Grayscale dimming on unselected options draws
- * focus to the current selection.
+ * Micro-feedback widget displaying a horizontal row of expressive face icons.
+ * Tapping or clicking an option scales it up with a spring animation and fires
+ * a scored event. Unselected options are dimmed to focus attention on the
+ * current selection.
  *
  * Customize the option set by setting the `options` property programmatically
- * or by passing a JSON array string on the `options` attribute.
+ * or by passing a JSON array string on the `options` attribute. Each option
+ * references an icon name from the UIBit icon registry.
  *
  * @fires {{ value: number, label: string }} sentiment-change - Fired when the user selects an option
- * @fires {{ value: number, label: string }} sentiment-submit - Fired when the user confirms a selection (second tap or explicit submit)
+ * @fires {{ value: number, label: string }} sentiment-submit - Fired when the user confirms (second tap)
  *
  * @cssprop [--uibit-sentiment-bar-bg=#f3f4f6] - Track background color
  * @cssprop [--uibit-sentiment-bar-border=0.0625rem solid #e5e7eb] - Track border
@@ -35,11 +36,11 @@ const DEFAULT_OPTIONS: SentimentOption[] = [
  * @cssprop [--uibit-sentiment-bar-padding=0.375rem] - Track padding
  * @cssprop [--uibit-sentiment-bar-item-gap=0.25rem] - Gap between items
  * @cssprop [--uibit-sentiment-bar-item-size=2.5rem] - Width and height of each item button
- * @cssprop [--uibit-sentiment-bar-emoji-size=1.25rem] - Font size of each emoji
+ * @cssprop [--uibit-sentiment-bar-icon-size=1.25rem] - Icon size (width and height)
  * @cssprop [--uibit-sentiment-bar-item-hover-bg=rgba(0,0,0,0.06)] - Item hover background
  * @cssprop [--uibit-sentiment-bar-item-selected-bg=#ffffff] - Selected item background
  * @cssprop [--uibit-sentiment-bar-item-selected-shadow=0 0.125rem 0.5rem rgba(0,0,0,0.12)] - Selected item shadow
- * @cssprop [--uibit-sentiment-bar-unselected-grayscale=0.5] - Grayscale amount for unselected items (0–1)
+ * @cssprop [--uibit-sentiment-bar-unselected-opacity=0.35] - Opacity for unselected items
  * @cssprop [--uibit-sentiment-bar-label-font-size=0.75rem] - Label font size
  * @cssprop [--uibit-sentiment-bar-label-font-weight=500] - Label font weight
  * @cssprop [--uibit-sentiment-bar-label-color=#6b7280] - Label color
@@ -49,7 +50,7 @@ const DEFAULT_OPTIONS: SentimentOption[] = [
 export class SentimentBar extends LitElement {
   static styles = styles;
 
-  /** Array of sentiment options. Each must have `value` (number), `emoji` (string), and `label` (string). */
+  /** Array of sentiment options. Each must have `value` (number), `icon` (icon name string), and `label` (string). */
   @property({
     type: Array,
     converter: {
@@ -99,12 +100,26 @@ export class SentimentBar extends LitElement {
     return (hovered ?? selected)?.label ?? '';
   }
 
+  private _onSlotChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    const elements = slot.assignedElements({ flatten: true });
+    if (elements.length > 0) {
+      this.options = elements.map(el => ({
+        value: Number(el.getAttribute('value') || el.getAttribute('data-value') || 0),
+        icon: el.getAttribute('icon') || el.getAttribute('data-icon') || '',
+        label: el.getAttribute('label') || el.getAttribute('data-label') || el.textContent?.trim() || '',
+      }));
+    }
+  }
+
   render() {
+    const iconPx = 20;
     return html`
+      <slot @slotchange=${this._onSlotChange} style="display: none;"></slot>
       <div class="track" part="track" role="radiogroup" aria-label="Sentiment rating">
         ${this.options.map(option => html`
           <button
-            class="item"
+            class="item ${this.value !== undefined && this.value !== option.value ? 'dimmed' : ''}"
             part="item"
             role="radio"
             aria-checked=${this.value === option.value ? 'true' : 'false'}
@@ -114,7 +129,7 @@ export class SentimentBar extends LitElement {
             @mouseenter=${() => { this._hoverValue = option.value; }}
             @mouseleave=${() => { this._hoverValue = undefined; }}
           >
-            <span class="emoji" part="emoji" aria-hidden="true">${option.emoji}</span>
+            <span class="icon" part="icon" aria-hidden="true">${getIcon(option.icon, iconPx)}</span>
           </button>
         `)}
       </div>

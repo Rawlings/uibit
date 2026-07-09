@@ -254,8 +254,19 @@ export class UIBitCarousel extends UIBitElement {
   }
 
   private getSlides(): HTMLElement[] {
-    if (!this.slotElement) return [];
-    return this.slotElement.assignedElements() as HTMLElement[];
+    const slots = this.shadowRoot?.querySelectorAll('slot') ?? [];
+    const slides: HTMLElement[] = [];
+    slots.forEach(slot => {
+      const name = slot.getAttribute('name');
+      if (name === 'item' || !name) {
+        const assigned = slot.assignedElements() as HTMLElement[];
+        slides.push(...assigned.filter(el => {
+          const s = el.getAttribute('slot');
+          return s === 'item' || !s;
+        }));
+      }
+    });
+    return slides;
   }
 
   private updateNavigationState() {
@@ -361,46 +372,51 @@ export class UIBitCarousel extends UIBitElement {
             class="carousel-content"
           >
             <slot name="item" @slotchange=${this.handleSlotChange}></slot>
+            <slot @slotchange=${this.handleSlotChange}></slot>
           </div>
         </div>
-
+ 
         <div part="controls" class="carousel-controls">
           <div part="buttons" class="carousel-buttons">
-            <button
-              part="button button-prev"
-              class="carousel-button"
-              aria-label="Previous slide"
-              ?disabled=${!this.canPrev}
-              @click=${() => this.prev()}
-            >
-              ${getIcon('chevron-left', 16)} Prev
-            </button>
-            <button
-              part="button button-next"
-              class="carousel-button"
-              aria-label="Next slide"
-              ?disabled=${!this.canNext}
-              @click=${() => this.next()}
-            >
-              Next ${getIcon('chevron-right', 16)}
-            </button>
+            <slot name="prev" @click=${() => this.prev()}>
+              <button
+                part="button button-prev"
+                class="carousel-button"
+                aria-label="Previous slide"
+                ?disabled=${!this.canPrev}
+              >
+                ${getIcon('chevron-left', 16)} Prev
+              </button>
+            </slot>
+            <slot name="next" @click=${() => this.next()}>
+              <button
+                part="button button-next"
+                class="carousel-button"
+                aria-label="Next slide"
+                ?disabled=${!this.canNext}
+              >
+                Next ${getIcon('chevron-right', 16)}
+              </button>
+            </slot>
           </div>
-
-          <div part="indicators" class="carousel-indicators" role="tablist" aria-label="Slides">
-            ${Array.from({ length: this.totalSlides }).map(
-              (_, index) => html`
-                <button
-                  role="tab"
-                  part="indicator ${index === this.currentIndex ? 'indicator-active' : ''}"
-                  class="carousel-indicator ${index === this.currentIndex ? 'active' : ''}"
-                  aria-label="Go to slide ${index + 1}"
-                  aria-selected=${index === this.currentIndex}
-                  aria-controls="uibit-carousel-slide-${index}"
-                  @click=${() => this.goToSlide(index)}
-                ></button>
-              `
-            )}
-          </div>
+ 
+          <slot name="indicators">
+            <div part="indicators" class="carousel-indicators" role="tablist" aria-label="Slides">
+              ${Array.from({ length: this.totalSlides }).map(
+                (_, index) => html`
+                  <button
+                    role="tab"
+                    part="indicator ${index === this.currentIndex ? 'indicator-active' : ''}"
+                    class="carousel-indicator ${index === this.currentIndex ? 'active' : ''}"
+                    aria-label="Go to slide ${index + 1}"
+                    aria-selected=${index === this.currentIndex}
+                    aria-controls="uibit-carousel-slide-${index}"
+                    @click=${() => this.goToSlide(index)}
+                  ></button>
+                `
+              )}
+            </div>
+          </slot>
         </div>
       </div>
     `;

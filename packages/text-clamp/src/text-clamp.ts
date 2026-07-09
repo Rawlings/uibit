@@ -1,19 +1,16 @@
 import { LitElement, html } from 'lit';
 import { customElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
-
-
 import { styles } from './styles';
 
 /**
- * Clamps slotted text content to an exact line count. When content overflows
- * the clamped height, a "More" toggle button appears inline. Clicking it
- * expands the block; clicking "Less" collapses it again.
+ * Clamps slotted content to an exact line count. When content overflows the
+ * clamped height a "More" toggle appears inline at the truncation point.
+ * Clicking it expands the block; clicking "Less" collapses it again.
  *
- * Uses a ResizeObserver to recalculate overflow whenever the container width
- * changes, ensuring correct behaviour across all viewport sizes.
+ * Uses a ResizeObserver to recalculate on every container-width change.
  *
- * @slot - The text content to clamp
+ * @slot - The text content to clamp (HTML is preserved)
  *
  * @fires {{ expanded: boolean }} toggle - Fired when expanded/collapsed state changes
  *
@@ -22,9 +19,9 @@ import { styles } from './styles';
  * @cssprop [--uibit-text-clamp-color=inherit] - Text color
  * @cssprop [--uibit-text-clamp-font-family=inherit] - Font family
  * @cssprop [--uibit-text-clamp-line-height=1.5] - Line height (unitless recommended)
- * @cssprop [--uibit-text-clamp-toggle-color=currentColor] - "More"/"Less" button color
- * @cssprop [--uibit-text-clamp-toggle-font-weight=600] - "More"/"Less" button font weight
- * @cssprop [--uibit-text-clamp-toggle-decoration=underline] - "More"/"Less" button text decoration
+ * @cssprop [--uibit-text-clamp-toggle-color=currentColor] - Toggle button color
+ * @cssprop [--uibit-text-clamp-toggle-font-weight=600] - Toggle button font weight
+ * @cssprop [--uibit-text-clamp-toggle-decoration=underline] - Toggle button text decoration
  */
 @customElement('uibit-text-clamp')
 export class TextClamp extends LitElement {
@@ -41,17 +38,16 @@ export class TextClamp extends LitElement {
 
   @state() private _expanded = false;
   @state() private _overflows = false;
-  @state() private _slotText = '';
-
-  private get _contentEl(): HTMLElement | null {
-    return this.shadowRoot?.querySelector('.content') ?? null;
-  }
 
   private _ro?: ResizeObserver;
 
+  private get _contentEl(): HTMLElement | null {
+    return this.shadowRoot?.querySelector<HTMLElement>('.content') ?? null;
+  }
+
   connectedCallback() {
     super.connectedCallback();
-    this._ro = new ResizeObserver(() => this._checkOverflow());
+    this._ro = new ResizeObserver(() => this._measure());
   }
 
   disconnectedCallback() {
@@ -60,91 +56,94 @@ export class TextClamp extends LitElement {
   }
 
   firstUpdated() {
-    if (this._contentEl) {
-      this._ro?.observe(this._contentEl);
-    }
-    this._checkOverflow();
+    const el = this._contentEl;
+    if (el) this._ro?.observe(el);
   }
 
   updated(changed: Map<string, unknown>) {
-    if (changed.has('lines') || changed.has('_slotText')) {
-      this._checkOverflow();
-    }
+    if (changed.has('lines')) this._measure();
+    if (changed.has('_expanded')) this._applyClamp();
   }
 
-  private _checkOverflow() {
+  private _onSlotChange(e: Event) {
+    this._measure();
+  }
+
+  private _measure() {
     const el = this._contentEl;
     if (!el) return;
 
-    // Temporarily unconstrain to measure natural height
-    el.style.webkitLineClamp = '';
+    // Unconstrain to get natural scroll height
+    el.style.removeProperty('-webkit-line-clamp');
+    el.style.removeProperty('display');
+    el.style.removeProperty('-webkit-box-orient');
+    el.style.removeProperty('overflow');
     el.classList.remove('clamped');
 
-    const fullHeight = el.scrollHeight;
+    const fullH = el.scrollHeight;
 
-    // Re-apply clamp to measure clamped height
+    // Apply clamp to measure clamped height
     el.classList.add('clamped');
     el.style.webkitLineClamp = String(this.lines);
 
-    const clampedHeight = el.getBoundingClientRect().height;
+    const clampedH = el.getBoundingClientRect().height;
+    const overflows = fullH > Math.round(clampedH) + 1;
 
-    const overflows = fullHeight > clampedHeight + 1;
-    if (overflows !== this._overflows) {
-      this._overflows = overflows;
-    }
+    this._overflows = overflows;
 
-    // If not overflowing or expanded, remove clamp
     if (!overflows || this._expanded) {
-      el.style.webkitLineClamp = '';
       el.classList.remove('clamped');
+      el.style.removeProperty('-webkit-line-clamp');
     }
   }
 
-  private _onSlotChange() {
-    const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement | null;
-    if (!slot) return;
-    const assigned = slot.assignedNodes({ flatten: true });
-    this._slotText = assigned.map(n => n.textContent ?? '').join('');
-    this.requestUpdate();
-    // Defer to let DOM settle
-    requestAnimationFrame(() => this._checkOverflow());
+  private _applyClamp() {
+    const el = this._contentEl;
+    if (!el) return;
+    if (this._expanded) {
+      el.classList.remove('clamped');
+      el.style.removeProperty('-webkit-line-clamp');
+    } else if (this._overflows) {
+      el.classList.add('clamped');
+      el.style.webkitLineClamp = String(this.lines);
+    }
   }
 
   private _toggle() {
     this._expanded = !this._expanded;
-    const el = this._contentEl;
-    if (el) {
-      if (this._expanded) {
-        el.style.webkitLineClamp = '';
-        el.classList.remove('clamped');
-      } else {
-        el.classList.add('clamped');
-        el.style.webkitLineClamp = String(this.lines);
-      }
-    }
-    this.dispatchEvent(new CustomEvent('toggle', { detail: { expanded: this._expanded }, bubbles: true, composed: true }));
+    this.dispatchEvent(new CustomEvent('toggle', {
+      detail: { expanded: this._expanded },
+      bubbles: true,
+      composed: true,
+    }));
   }
 
   render() {
     return html`
-      <slot @slotchange=${this._onSlotChange}></slot>
-      <div class="content ${this._expanded ? '' : 'clamped'}" part="content">
-        ${this._slotText}${this._overflows && !this._expanded
-          ? html`… <button
-              class="toggle"
-              part="toggle"
-              aria-expanded="false"
-              @click=${this._toggle}
-            >${this.moreLabel}</button>`
-          : this._overflows && this._expanded
-          ? html` <button
-              class="toggle"
-              part="toggle"
-              aria-expanded="true"
-              @click=${this._toggle}
-            >${this.lessLabel}</button>`
-          : ''}
+      <div class="content" part="content">
+        <slot @slotchange=${this._onSlotChange}></slot>
       </div>
+      ${this._overflows ? html`
+        <div class="toggle-container" part="toggle-container">
+          ${this._expanded ? html`
+            <slot name="less" @click=${this._toggle}>
+              <button
+                class="toggle"
+                part="toggle"
+                aria-expanded="true"
+              >${this.lessLabel}</button>
+            </slot>
+          ` : html`
+            <slot name="more" @click=${this._toggle}>
+              <button
+                class="toggle"
+                part="toggle"
+                aria-expanded="false"
+              >… ${this.moreLabel}</button>
+            </slot>
+          `}
+        </div>
+      ` : ''}
     `;
   }
 }

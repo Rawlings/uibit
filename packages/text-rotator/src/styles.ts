@@ -10,49 +10,67 @@ export const styles = css`
     color: var(--uibit-text-rotator-color, inherit);
     font-family: var(--uibit-text-rotator-font-family, inherit);
     line-height: var(--uibit-text-rotator-line-height, 1.2);
-    height: var(--uibit-text-rotator-line-height, 1.2em);
+    /* Height = one line */
+    height: 1.2em;
   }
 
   .stage {
-    position: relative;
     display: inline-block;
-    white-space: nowrap;
+    position: relative;
+    width: max-content;
+    min-width: 1ch;
+    height: 100%;
+    perspective: 20rem;
+    transform-style: preserve-3d;
   }
 
   .word {
     display: inline-block;
     position: absolute;
-    left: 0;
     top: 0;
-    will-change: transform, opacity;
+    left: 0;
+    white-space: nowrap;
+    transform-style: preserve-3d;
   }
 
+  .word.active {
+    position: relative;
+  }
+
+  /* No animation on first render */
+  .word.initial {
+    position: static;
+    opacity: 1;
+  }
+
+  /* Slide */
   .word.entering-slide {
-    animation: slide-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    animation: slide-in var(--uibit-text-rotator-duration, 0.45s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
   .word.leaving-slide {
-    animation: slide-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+    animation: slide-out var(--uibit-text-rotator-duration, 0.45s) cubic-bezier(0.55, 0, 1, 0.45) forwards;
   }
 
+  /* Flip */
   .word.entering-flip {
-    animation: flip-in var(--uibit-text-rotator-duration, 0.5s) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    transform-origin: 50% 0%;
+    animation: flip-in var(--uibit-text-rotator-duration, 0.45s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform-origin: 50% 0;
   }
 
   .word.leaving-flip {
-    animation: flip-out var(--uibit-text-rotator-duration, 0.5s) cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+    animation: flip-out var(--uibit-text-rotator-duration, 0.45s) cubic-bezier(0.55, 0, 1, 0.45) forwards;
     transform-origin: 50% 100%;
   }
 
   @keyframes slide-in {
-    from { transform: translateY(100%); opacity: 0; }
+    from { transform: translateY(110%); opacity: 0; }
     to   { transform: translateY(0);    opacity: 1; }
   }
 
   @keyframes slide-out {
     from { transform: translateY(0);     opacity: 1; }
-    to   { transform: translateY(-100%); opacity: 0; }
+    to   { transform: translateY(-110%); opacity: 0; }
   }
 
   @keyframes flip-in {
@@ -61,7 +79,7 @@ export const styles = css`
   }
 
   @keyframes flip-out {
-    from { transform: rotateX(0deg);   opacity: 1; }
-    to   { transform: rotateX(90deg);  opacity: 0; }
+    from { transform: rotateX(0deg);  opacity: 1; }
+    to   { transform: rotateX(90deg); opacity: 0; }
   }
 `;
