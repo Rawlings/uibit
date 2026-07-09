@@ -6,10 +6,23 @@
       // GitHub Pages SPA redirect: encode the path into the query string so
       // index.html can restore it after the page loads.
       var l = window.location;
+      var repoName = 'uibit';
+      var pathSegments = l.pathname.split('/');
+      var baseSegment = '';
+      var appPath = '';
+
+      if (pathSegments[1] === repoName) {
+        baseSegment = '/' + repoName;
+        appPath = pathSegments.slice(2).join('/');
+      } else {
+        baseSegment = '';
+        appPath = pathSegments.slice(1).join('/');
+      }
+
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + 1).join('/') +
-        '/?p=' + encodeURIComponent(l.pathname.slice(1) + (l.search ? '&' + l.search.slice(1) : '')) +
+        baseSegment +
+        '/?p=' + encodeURIComponent(appPath + (l.search ? '&' + l.search.slice(1) : '')) +
         l.hash
       );
     </script>

@@ -386,10 +386,15 @@ export class Table extends LitElement {
 
     const visKeys = new Set(this._visibleCols.map(c => c.key));
     const visCols = this._cols.filter(c => visKeys.has(c.key));
-    const header = visCols.map(c => `"${c.label.replace(/"/g, '""')}"`).join(',');
+    const csvCell = (val: string) => {
+      const escaped = val.replace(/"/g, '""');
+      // Prefix formula-injection triggers so spreadsheet apps treat the cell as text
+      return /^[=+\-@\t\r]/.test(val) ? `"'${escaped}"` : `"${escaped}"`;
+    };
+    const header = visCols.map(c => csvCell(c.label)).join(',');
     const colIdxs = visCols.map(c => this._cols.indexOf(c));
     const body = exportRows.map(row =>
-      colIdxs.map(ci => `"${(row[ci] ?? '').replace(/"/g, '""')}"`).join(',')
+      colIdxs.map(ci => csvCell(row[ci] ?? '')).join(',')
     );
     const csv = [header, ...body].join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
