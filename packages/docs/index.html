@@ -3,6 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Restore path encoded by 404.html for GitHub Pages SPA routing.
+      (function () {
+        var q = window.location.search;
+        if (q && q.indexOf('?p=') === 0) {
+          var decoded = decodeURIComponent(q.slice(3)).replace(/&/, '?');
+          var base = window.location.pathname.replace(/\/$/, '');
+          window.history.replaceState(null, null, base + '/' + decoded + window.location.hash);
+        }
+      })();
+    </script>
     <title>UIBit – Web Components Library</title>
     <meta name="description" content="A collection of accessible, production-ready web components built with Lit.js. Lightweight, performant, and framework-agnostic." />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
