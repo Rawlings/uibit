@@ -87,6 +87,20 @@ function HotspotDemo() {
 }`,
   },
   examples: [clickTrigger, hoverTrigger],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'Each hotspot beacon is rendered as a <button> element, making it natively keyboard focusable and activatable.',
+      'Tooltip panels use role="tooltip" linked to their trigger via aria-describedby.',
+      'Pressing Escape closes the active tooltip and returns focus to the trigger button.',
+      'Images passed to the default slot should include descriptive alt text.',
+    ],
+    keyboardNav: [
+      { key: 'Tab', description: 'Move focus between hotspot buttons.' },
+      { key: 'Enter / Space', description: 'Open or close the tooltip for the focused hotspot.' },
+      { key: 'Escape', description: 'Close the active tooltip and return focus to the trigger.' },
+    ],
+  },
   features: [
     'Position coordinates with responsive percentage scales',
     'Pulse beacon animations to naturally draw attention',

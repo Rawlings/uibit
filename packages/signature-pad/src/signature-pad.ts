@@ -1,5 +1,6 @@
 import { html, css } from 'lit';
-import { customElement, getIcon, UIBitElement } from '@uibit/core';
+import { customElement, fromLucide, getIcon, UIBitElement } from '@uibit/core';
+import { RotateCcw } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import type { SignaturePoint, SignatureStroke } from './types.js';
 
@@ -339,7 +340,7 @@ export class SignaturePad extends UIBitElement {
                 part="clear-button"
                 class="clear-button"
                 ?disabled=${this.isEmpty}
-              >${getIcon('rotate-ccw', 14)}<slot name="clear-label">Clear</slot></button>`
+              >${getIcon('rotate-ccw', 14, fromLucide(RotateCcw))}<slot name="clear-label">Clear</slot></button>`
           : ''}
         </slot>
       </div>

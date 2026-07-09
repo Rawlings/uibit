@@ -6,7 +6,7 @@ function ScrollContainerDemo() {
     <div>
       <div
         id="demo-scroll-box"
-        className="relative border border-gray-300 rounded-lg h-96 overflow-y-scroll bg-white shadow-inner"
+        className="relative border border-gray-200 rounded-lg h-96 overflow-y-scroll"
         style={{ scrollbarWidth: 'thin' }}
       >
         <uibit-scroll-progress

@@ -8,11 +8,7 @@ function CountdownDemo() {
   const targetTime = new Date(Date.now() + 3600 * 1000 * 2.5).toISOString(); // 2.5 hours from now
 
   return (
-    <div>
-      <div className="max-w-md bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-        <uibit-countdown target={targetTime} auto-start format="HH:MM:SS"></uibit-countdown>
-      </div>
-    </div>
+    <uibit-countdown target={targetTime} auto-start format="HH:MM:SS"></uibit-countdown>
   );
 }
 
@@ -38,6 +34,14 @@ function CountdownDemo() {
 }`,
   },
   examples: [targetDateExample, customLabelsExample],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The countdown region uses role="timer" and aria-live="polite" to announce time updates at screen-reader-appropriate intervals.',
+      'Unit labels are rendered so screen readers read full unit names rather than abbreviations.',
+      'Completion is announced with a polite live region update.',
+    ],
+  },
   features: [
     'Calculates offset once to prevent interval time drifting',
     'Internal count variables hidden from public API attributes',

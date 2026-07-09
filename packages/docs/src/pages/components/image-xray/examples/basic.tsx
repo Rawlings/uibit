@@ -3,8 +3,7 @@ import { UsageExample } from '../../../../types/docs';
 
 function BasicDemo() {
   return (
-    <div className="max-w-2xl mx-auto rounded-lg overflow-hidden border border-gray-200 shadow-sm">
-      <uibit-image-xray>
+    <uibit-image-xray>
         <img
           src="https://picsum.photos/seed/architecture42/800/450"
           alt="Building exterior"
@@ -16,8 +15,7 @@ function BasicDemo() {
           alt="Building interior"
           style={{ display: 'block', width: '100%' }}
         />
-      </uibit-image-xray>
-    </div>
+    </uibit-image-xray>
   );
 }
 

@@ -24,7 +24,14 @@
     "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
     "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
-  "keywords": ["reading-time", "text-analysis", "badge", "cms", "web-component", "lit"],
+  "keywords": [
+    "reading-time",
+    "text-analysis",
+    "badge",
+    "cms",
+    "web-component",
+    "lit"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
@@ -33,7 +40,8 @@
     "directory": "packages/read-timer"
   },
   "dependencies": {
-    "@uibit/core": "workspace:*"
+    "@uibit/core": "workspace:*",
+    "lucide": "^1.24.0"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",

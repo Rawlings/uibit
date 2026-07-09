@@ -1,5 +1,6 @@
 import { html } from 'lit';
-import { customElement, getIcon, msg, str, UIBitElement } from '@uibit/core';
+import { customElement, fromLucide, getIcon, msg, str, UIBitElement } from '@uibit/core';
+import { ChevronLeft, ChevronRight } from 'lucide';
 import { property, query, state } from 'lit/decorators.js';
 import type { CarouselConfig } from './types';
 import { styles } from './styles';
@@ -390,7 +391,7 @@ export class UIBitCarousel extends UIBitElement {
                 aria-label=${msg('Previous slide')}
                 ?disabled=${!this.canPrev}
               >
-                ${getIcon('chevron-left', 16)}
+                ${getIcon('chevron-left', 16, fromLucide(ChevronLeft))}
               </button>
             </slot>
             <slot name="next" @click=${() => this.next()}>
@@ -400,7 +401,7 @@ export class UIBitCarousel extends UIBitElement {
                 aria-label=${msg('Next slide')}
                 ?disabled=${!this.canNext}
               >
-                ${getIcon('chevron-right', 16)}
+                ${getIcon('chevron-right', 16, fromLucide(ChevronRight))}
               </button>
             </slot>
           </div>

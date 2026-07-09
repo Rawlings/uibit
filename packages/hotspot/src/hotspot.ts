@@ -1,5 +1,6 @@
 import { html } from 'lit';
-import { customElement, getIcon, msg, UIBitElement } from '@uibit/core';
+import { customElement, fromLucide, getIcon, msg, UIBitElement } from '@uibit/core';
+import { Plus, X } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import type { HotspotItem } from './types';
 import { styles } from './styles';
@@ -159,7 +160,7 @@ export class Hotspot extends UIBitElement {
                 @click=${(e: Event) => this.handleTriggerClick(spot, spotId, e)}
                 @mouseenter=${() => this.handleTriggerMouseEnter(spotId)}
                 @mouseleave=${() => this.handleTriggerMouseLeave()}
-              >${isOpened ? getIcon('x', 14) : getIcon('plus', 14)}</button>
+              >${isOpened ? getIcon('x', 14, fromLucide(X)) : getIcon('plus', 14, fromLucide(Plus))}</button>
 
               ${isOpened
                 ? html`
@@ -187,7 +188,7 @@ export class Hotspot extends UIBitElement {
                           e.stopPropagation();
                           this.closePopover();
                         }}
-                      >${getIcon('x', 14)}</button>
+                      >${getIcon('x', 14, fromLucide(X))}</button>
                     </div>
                   `
                 : ''}

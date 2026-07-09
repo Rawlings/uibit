@@ -52,6 +52,14 @@ function ImageXrayDemo() {
 }`,
   },
   examples: [basic, customLens],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'Both the primary and xray images must have descriptive alt attributes, as the lens effect provides visual-only context for the secondary layer.',
+      'The xray overlay is purely decorative — no ARIA role or live region is applied to lens movement.',
+      'Touch events are supported alongside pointer events for mobile accessibility.',
+    ],
+  },
   features: [
     'Pixel-perfect alignment: the xray image is offset so the cursor position maps identically to both layers',
     'Smooth opacity transition on cursor enter and leave',

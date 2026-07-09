@@ -65,6 +65,14 @@ const data: ComponentDocData = {
 </div>`,
   },
   examples: [articleByline, customWpm],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The reading time estimate is rendered as inline text and is read by screen readers without any special markup.',
+      'The SVG clock icon is marked aria-hidden so it is not narrated separately from the time label.',
+      'Slotted content used only for word-count measurement should be visually hidden with display:none so it does not appear in the layout.',
+    ],
+  },
   features: [
     'SlotChange observer re-calculates automatically when content updates',
     'Walks the full DOM tree of slotted content, skipping hidden elements',

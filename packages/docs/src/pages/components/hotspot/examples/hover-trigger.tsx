@@ -22,15 +22,13 @@ function HoverTriggerDemo() {
   ];
 
   return (
-    <div className="max-w-xl mx-auto bg-white rounded-lg border border-gray-200 p-2 shadow-sm">
-      <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="hover">
-        <img
-          src="https://picsum.photos/seed/bicycle/600/400"
-          alt="Bicycle product shot"
-          className="w-full rounded-lg"
-        />
-      </uibit-hotspot>
-    </div>
+    <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="hover">
+      <img
+        src="https://picsum.photos/seed/bicycle/600/400"
+        alt="Bicycle product shot"
+        style={{ display: 'block', width: '100%' }}
+      />
+    </uibit-hotspot>
   );
 }
 

@@ -62,6 +62,14 @@ function Hero() {
 }`,
   },
   examples: [heroHeadline, oneShot],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The blinking cursor element is marked aria-hidden so it is not narrated by screen readers.',
+      'When loop="false" the component stops on the last phrase and the final text remains stable in the DOM.',
+      'Typing animation respects prefers-reduced-motion and skips directly to the final phrase when motion is reduced.',
+    ],
+  },
   features: [
     'setTimeout state machine with typing, pause, delete, and inter-phrase pause phases',
     'Per-keystroke speed jitter (±40%) for organic, human-feeling motion',

@@ -197,11 +197,6 @@ function CloudConsoleDemo() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <p className="text-sm text-gray-600">
-          This system monitors live production nodes. Hover over the isometric stack to explode and inspect layers, drag to rotate, or click a layer to lock telemetry view.
-        </p>
-      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 bg-gray-50 border border-gray-200 rounded-xl p-4 lg:p-6 overflow-hidden">
         {/* Left Side: 3D Visualization */}

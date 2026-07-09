@@ -10,13 +10,11 @@ function ManualDemo() {
   ];
 
   return (
-    <div className="max-w-xl mx-auto bg-white rounded-lg p-4 border border-gray-200">
-      <uibit-360-viewer>
-        {frames.map((src, idx) => (
-          <img key={idx} src={src} alt={`Frame ${idx + 1}`} />
-        ))}
-      </uibit-360-viewer>
-    </div>
+    <uibit-360-viewer>
+      {frames.map((src, idx) => (
+        <img key={idx} src={src} alt={`Frame ${idx + 1}`} />
+      ))}
+    </uibit-360-viewer>
   );
 }
 

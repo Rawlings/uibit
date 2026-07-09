@@ -116,6 +116,14 @@ function ScratchRevealDemo() {
 }`,
   },
   examples: [discountCard, darkOverlay],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The canvas overlay does not expose its drawn state to accessibility trees — the revealed content slot carries all semantic context for screen readers.',
+      'A scratch-complete event fires when the reveal threshold is reached; use it to announce the revealed content via a polite live region.',
+      'The component does not provide a keyboard-driven scratch alternative — pair it with a visible "Reveal" button for keyboard-only users.',
+    ],
+  },
 };
 
 export default data;

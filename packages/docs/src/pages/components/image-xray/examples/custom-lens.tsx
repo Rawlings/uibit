@@ -3,8 +3,7 @@ import { UsageExample } from '../../../../types/docs';
 
 function CustomLensDemo() {
   return (
-    <div className="max-w-2xl mx-auto rounded-lg overflow-hidden border border-gray-200 shadow-sm">
-      <uibit-image-xray style={{ '--uibit-image-xray-lens-size': '18rem' } as React.CSSProperties}>
+    <uibit-image-xray style={{ '--uibit-image-xray-lens-size': '18rem' } as React.CSSProperties}>
         <img
           src="https://picsum.photos/seed/watchface99/800/450"
           alt="Watch exterior"
@@ -16,8 +15,7 @@ function CustomLensDemo() {
           alt="Watch movement and gears"
           style={{ display: 'block', width: '100%' }}
         />
-      </uibit-image-xray>
-    </div>
+    </uibit-image-xray>
   );
 }
 

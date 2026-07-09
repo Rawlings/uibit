@@ -1,6 +1,7 @@
 import { html, nothing } from 'lit';
 import type { TemplateResult } from 'lit';
-import { customElement, msg, str, UIBitElement, getIcon } from '@uibit/core';
+import { customElement, fromLucide, getIcon, msg, str, UIBitElement } from '@uibit/core';
+import { ChevronLeft, ChevronRight } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -499,7 +500,7 @@ export class Table extends UIBitElement {
 
     return html`
       <nav class="pagination" aria-label=${msg('Pagination')}>
-        <button class="page-btn" ?disabled=${this._page === 1} @click=${() => goTo(this._page - 1)} aria-label=${msg('Previous')}>${getIcon('chevron-left', 14)}</button>
+        <button class="page-btn" ?disabled=${this._page === 1} @click=${() => goTo(this._page - 1)} aria-label=${msg('Previous')}>${getIcon('chevron-left', 14, fromLucide(ChevronLeft))}</button>
         ${pages.map(p =>
           p === '…'
             ? html`<span class="page-btn" style="cursor:default;border-color:transparent;background:transparent">…</span>`
@@ -509,7 +510,7 @@ export class Table extends UIBitElement {
                 aria-current=${this._page === p ? 'page' : nothing}
               >${p}</button>`
         )}
-        <button class="page-btn" ?disabled=${this._page === this._totalPages} @click=${() => goTo(this._page + 1)} aria-label=${msg('Next')}>${getIcon('chevron-right', 14)}</button>
+        <button class="page-btn" ?disabled=${this._page === this._totalPages} @click=${() => goTo(this._page + 1)} aria-label=${msg('Next')}>${getIcon('chevron-right', 14, fromLucide(ChevronRight))}</button>
       </nav>
     `;
   }

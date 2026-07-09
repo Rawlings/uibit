@@ -63,6 +63,18 @@ function ProductView() {
 }`,
   },
   examples: [autoRotateExample, manualExample],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The viewer region uses role="img" with an aria-label describing the subject (e.g. "360° product view").',
+      'Arrow key controls allow keyboard users to rotate the model without requiring a mouse drag.',
+      'Auto-rotation pauses when focus enters the component and resumes on blur, preventing disorienting movement during keyboard navigation.',
+    ],
+    keyboardNav: [
+      { key: 'ArrowLeft', description: 'Rotate the model counter-clockwise by one frame.' },
+      { key: 'ArrowRight', description: 'Rotate the model clockwise by one frame.' },
+    ],
+  },
   features: [
     'Smooth pointer tracking for swipe and drag actions',
     'Preloads adjacent frames to prevent visual flickering',

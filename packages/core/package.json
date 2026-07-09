@@ -41,6 +41,6 @@
   },
   "dependencies": {
     "@lit/localize": "^0.12.2",
-    "lucide": "^1.23.0"
+    "lucide": "^1.24.0"
   }
 }

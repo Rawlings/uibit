@@ -105,6 +105,14 @@ function SignaturePadDemo() {
 }`,
   },
   examples: [withExport, customStyle],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The signature canvas uses role="img" with an aria-label of "Signature pad" to communicate its purpose to screen readers.',
+      'Screen readers cannot interact with the drawing surface — consider pairing the component with a typed-name fallback field for fully accessible signature flows.',
+      'External Clear and Export controls should carry descriptive accessible names (e.g. "Clear signature", "Export signature as PNG").',
+    ],
+  },
 };
 
 export default data;

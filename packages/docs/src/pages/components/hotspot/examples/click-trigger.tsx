@@ -30,15 +30,13 @@ function ClickTriggerDemo() {
   ];
 
   return (
-    <div className="max-w-xl mx-auto bg-white rounded-lg border border-gray-200 p-2 shadow-sm">
-      <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="click">
-        <img
-          src="https://picsum.photos/seed/smartphone/600/400"
-          alt="Smartphone product shot"
-          className="w-full rounded-lg"
-        />
-      </uibit-hotspot>
-    </div>
+    <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="click">
+      <img
+        src="https://picsum.photos/seed/smartphone/600/400"
+        alt="Smartphone product shot"
+        style={{ display: 'block', width: '100%' }}
+      />
+    </uibit-hotspot>
   );
 }
 

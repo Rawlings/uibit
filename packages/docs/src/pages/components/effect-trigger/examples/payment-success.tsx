@@ -14,28 +14,19 @@ function PaymentSuccessDemo() {
     }, 1200);
   };
 
-  const handleParticleCreate = (e: any) => {
-    const clone = e.detail.particle;
-    clone.innerHTML = `
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#000000" strokeWidth="2.5">
-        <path d="M20 6L9 17l-5-5" />
-      </svg>
-    `;
-  };
-
   return (
     <div className="border border-gray-200 rounded-lg p-6 bg-white max-w-sm mx-auto shadow-sm text-center relative">
       <uibit-effect-trigger
         id="payment-success-trigger"
         trigger="custom"
         behavior="orbit-halo"
-        density={8}
-        velocity="1.2s"
-        randomize
-        onUibitParticleCreate={handleParticleCreate}
+        density={10}
+        velocity="1.4s"
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
-        <span slot="asset"></span>
+        <svg slot="asset" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#111827" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ display: 'block' }}>
+          <path d="M20 6L9 17l-5-5" />
+        </svg>
       </uibit-effect-trigger>
 
       <div className="mb-4">
@@ -75,11 +66,9 @@ function PaymentSuccessDemo() {
 const paymentSuccessExample: UsageExample = {
   title: 'Financial Payment Success',
   description:
-    'Fires a circular halo of micro checkmarks when a mock invoice credit card payment transaction resolves successfully.',
+    'Radiates a ring of micro checkmarks outward from the payment card when a transaction resolves successfully.',
   code: {
-    html: `<uibit-effect-trigger trigger="custom" behavior="orbit-halo" density="8">
-  <button slot="trigger" style="display:none"></button>
-</uibit-effect-trigger>`,
+    html: '',
     react: '',
   },
   Demo: PaymentSuccessDemo,

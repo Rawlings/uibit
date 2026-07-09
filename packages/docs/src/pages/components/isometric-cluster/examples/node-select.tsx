@@ -19,8 +19,7 @@ function NodeSelectDemo() {
 
   return (
     <div>
-      <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-        <uibit-isometric-cluster
+      <uibit-isometric-cluster
           ref={clusterRef}
           layer-gap="56"
           style={{ height: '18rem' }}
@@ -29,8 +28,7 @@ function NodeSelectDemo() {
           <div id="api" label="API Server" icon="🔀" badge="8 routes"></div>
           <div id="queue" label="Job Queue" icon="📬" badge="14 pending"></div>
           <div id="db" label="Database" icon="🗄️" badge="primary"></div>
-        </uibit-isometric-cluster>
-      </div>
+      </uibit-isometric-cluster>
       <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm">
         {selected ? (
           <span className="text-gray-800">

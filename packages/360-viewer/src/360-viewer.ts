@@ -1,5 +1,6 @@
 import { html } from 'lit';
-import { customElement, getIcon, msg, UIBitElement } from '@uibit/core';
+import { customElement, fromLucide, getIcon, msg, UIBitElement } from '@uibit/core';
+import { ChevronLeft, ChevronRight, Move } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -240,7 +241,7 @@ export class Viewer360 extends UIBitElement {
         ${this.images.length > 0 && !this.isDragging ? html`
           <slot name="hint">
             <div part="drag-hint" class="drag-hint">
-              ${getIcon('move', 16)}
+              ${getIcon('move', 16, fromLucide(Move))}
               Drag to rotate
             </div>
           </slot>
@@ -259,7 +260,7 @@ export class Viewer360 extends UIBitElement {
               class="nav-button nav-button-prev"
               aria-label=${msg('Rotate left')}
             >
-              ${getIcon('chevron-left', 20)}
+              ${getIcon('chevron-left', 20, fromLucide(ChevronLeft))}
             </button>
           </slot>
           <slot name="next" @click=${(e: Event) => {
@@ -274,7 +275,7 @@ export class Viewer360 extends UIBitElement {
               class="nav-button nav-button-next"
               aria-label=${msg('Rotate right')}
             >
-              ${getIcon('chevron-right', 20)}
+              ${getIcon('chevron-right', 20, fromLucide(ChevronRight))}
             </button>
           </slot>
         ` : ''}

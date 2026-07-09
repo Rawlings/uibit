@@ -3,12 +3,7 @@ import { UsageExample } from '../../../../types/docs';
 
 function DefaultDemo() {
   return (
-    <div className="flex justify-center">
-      <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm text-center w-full max-w-sm">
-        <p className="text-sm font-medium text-gray-700 mb-4">How was your experience?</p>
-        <uibit-sentiment-bar show-label></uibit-sentiment-bar>
-      </div>
-    </div>
+    <uibit-sentiment-bar show-label></uibit-sentiment-bar>
   );
 }
 

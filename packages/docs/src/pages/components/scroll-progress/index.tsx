@@ -139,6 +139,14 @@ const data: ComponentDocData = {
 </div>`,
   },
   examples: [scrollContainerExample, windowScrollExample],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The component renders with role="progressbar", aria-valuemin="0", and aria-valuemax="100" so screen readers can report scroll progress.',
+      'aria-valuenow is updated on each scroll frame with the current progress percentage.',
+      'The progress bar is decorative and does not intercept any focus or keyboard events.',
+    ],
+  },
   features: [
     'Tracks standard window viewport scrolling by default',
     'Fully supports tracking custom scroll containers via CSS selectors',

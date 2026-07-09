@@ -11,34 +11,26 @@ function KanbanMoveDemo() {
     if (trigger) trigger.ignite();
   };
 
-  const handleParticleCreate = (e: any) => {
-    const clone = e.detail.particle;
-    clone.innerHTML = `
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#111827" strokeWidth="2.5" class="bg-white rounded-full shadow p-1 border border-gray-100">
-        <path d="M20 6L9 17l-5-5M12 5l7 7-7 7" />
-      </svg>
-    `;
-  };
-
   return (
     <div className="border border-gray-200 rounded-lg p-6 bg-white max-w-sm mx-auto shadow-sm relative">
       <uibit-effect-trigger
         id="kanban-sweep-trigger"
         trigger="custom"
         behavior="traverse-x-right"
-        velocity="1.2s"
-        density={1}
-        randomize
-        onUibitParticleCreate={handleParticleCreate}
+        velocity="1s"
+        density={4}
+        stagger="60ms"
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
-        <span slot="asset"></span>
+        <svg slot="asset" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#111827" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ display: 'block' }}>
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
       </uibit-effect-trigger>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="border border-gray-100 rounded p-3 bg-gray-50 min-h-[160px]">
           <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3">In Progress</span>
-          
+
           {column === 'progress' && (
             <div className="border border-gray-200 rounded bg-white p-2.5 shadow-sm space-y-2">
               <div className="text-xs font-bold text-gray-900 truncate">Implement Auth</div>
@@ -55,10 +47,10 @@ function KanbanMoveDemo() {
 
         <div className="border border-gray-100 rounded p-3 bg-gray-50 min-h-[160px]">
           <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3">Done</span>
-          
+
           {column === 'done' && (
             <div className="border border-gray-200 rounded bg-white p-2.5 shadow-sm space-y-2">
-              <div className="text-xs font-bold text-gray-900 line-through text-gray-400">Implement Auth</div>
+              <div className="text-xs font-bold text-gray-400 line-through truncate">Implement Auth</div>
               <button
                 onClick={() => setColumn('progress')}
                 className="w-full text-center text-[10px] text-gray-400 hover:text-black font-medium"
@@ -76,11 +68,9 @@ function KanbanMoveDemo() {
 const kanbanMoveExample: UsageExample = {
   title: 'Kanban Task Board Transition',
   description:
-    'Sweeps a micro double-checkmark vector across the horizontal axis when a card status moves between task columns.',
+    'Sweeps a staggered stream of chevrons across the horizontal axis when a task card moves between columns.',
   code: {
-    html: `<uibit-effect-trigger trigger="custom" behavior="traverse-x-right" density="1">
-  <button slot="trigger" style="display:none"></button>
-</uibit-effect-trigger>`,
+    html: '',
     react: '',
   },
   Demo: KanbanMoveDemo,

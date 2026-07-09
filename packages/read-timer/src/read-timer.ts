@@ -1,5 +1,6 @@
 import { html } from 'lit';
-import { customElement, getIcon, UIBitElement } from '@uibit/core';
+import { customElement, fromLucide, getIcon, UIBitElement } from '@uibit/core';
+import { Clock } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -77,7 +78,7 @@ export class ReadTimer extends UIBitElement {
         <slot></slot>
       </div>
       <slot name="icon">
-        ${this.showIcon ? html`<span class="icon" part="icon">${getIcon('clock', 14)}</span>` : ''}
+        ${this.showIcon ? html`<span class="icon" part="icon">${getIcon('clock', 14, fromLucide(Clock))}</span>` : ''}
       </slot>
       <span class="label" part="label">${this._label}</span>
     `;

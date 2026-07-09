@@ -56,6 +56,18 @@ function Example() {
 }`,
   },
   examples: [basic, customLabels],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The expand/collapse toggle is a native <button> element with an aria-expanded attribute that reflects the current state.',
+      'Screen readers announce the toggle state change when the user activates the button.',
+      'The clamped text remains in the DOM at all times — only its visual overflow is controlled — so screen readers can access the full content regardless of visual clamp state.',
+    ],
+    keyboardNav: [
+      { key: 'Tab', description: 'Move focus to the More/Less toggle button.' },
+      { key: 'Enter / Space', description: 'Toggle between the clamped and expanded state.' },
+    ],
+  },
   features: [
     '-webkit-line-clamp clamping with accurate line-count calculation via scrollHeight comparison',
     'ResizeObserver re-evaluates overflow on every container resize — correct across all viewport widths',

@@ -41,7 +41,8 @@
     "directory": "packages/carousel"
   },
   "dependencies": {
-    "@uibit/core": "workspace:*"
+    "@uibit/core": "workspace:*",
+    "lucide": "^1.24.0"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",

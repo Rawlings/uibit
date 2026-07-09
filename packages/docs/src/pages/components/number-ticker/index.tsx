@@ -77,6 +77,14 @@ function Stats() {
 }`,
   },
   examples: [statsGrid, withRepeat],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The resolved numeric value is rendered as static text when animation completes, ensuring screen readers announce the final number even when animations are skipped.',
+      'An aria-label is applied to convey the fully formatted value including prefix, suffix, and locale formatting.',
+      'The IntersectionObserver-triggered animation does not block focus or alter DOM structure.',
+    ],
+  },
   features: [
     'IntersectionObserver triggers animation only when the element enters the viewport',
     'Three easing curves: ease-out (cubic), ease-in-out (quadratic), linear',

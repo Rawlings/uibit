@@ -251,6 +251,14 @@ const data: ComponentDocData = {
 </uibit-effect-trigger>`,
   },
   examples: processedExamples,
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'Particle animations are purely decorative and are not announced to screen readers.',
+      'The trigger slot must contain an interactive element (button, link) with its own accessible label — the component does not add ARIA to the trigger.',
+      'All animations respect prefers-reduced-motion: particles are suppressed when the user has requested reduced motion in their OS settings.',
+    ],
+  },
   usages: [
     {
       title: 'Lifecycle Interception for Dynamic Particle Content',

@@ -156,6 +156,14 @@ function ABTestDemo() {
 }`,
   },
   examples: [basicExample, eventTrackingExample],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The active variant slot is visible in the DOM while the inactive slot is hidden via display:none, preventing screen readers from announcing hidden content.',
+      'No ARIA roles are added to the host element — slotted variant content is responsible for carrying its own semantic markup and ARIA attributes.',
+      'Storage-key persistence ensures users consistently see the same variant, preventing disorienting layout shifts on repeat visits.',
+    ],
+  },
   features: [
     'Automatic weight-based user variant assignments',
     'Saves variant locally to ensure user gets consistent layout on page reload',

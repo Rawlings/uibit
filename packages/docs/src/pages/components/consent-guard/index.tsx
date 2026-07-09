@@ -234,6 +234,18 @@ function ConsentGuardDemo() {
 }`,
   },
   examples: [youtubeEmbed, programmatic],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'Protected content remains hidden via display:none until consent is granted, preventing screen readers from announcing hidden content.',
+      'The placeholder slot should include focusable accept and decline controls with descriptive labels that clearly communicate what the user is consenting to.',
+      'Accept and decline buttons must carry sufficient context in their accessible name (e.g. "Accept & play YouTube video").',
+    ],
+    keyboardNav: [
+      { key: 'Tab', description: 'Navigate between Accept and Decline controls in the placeholder slot.' },
+      { key: 'Enter / Space', description: 'Activate the focused consent button.' },
+    ],
+  },
   features: [
     'Two slots: placeholder (your prompt UI) and default (your content)',
     'Content stays display:none until consent — iframes with loading="lazy" won\'t make network requests',

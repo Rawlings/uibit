@@ -16,6 +16,18 @@ const data: ComponentDocData = {
   Demo: cloudConsole.Demo,
   demoCode: cloudConsole.code,
   examples: [cloudConsole, infrastructure, nodeSelect],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'Each layer node is rendered as a focusable element that fires node-select on Enter or Space key press.',
+      'The cluster region is labelled so screen readers understand it as a grouped set of interactive layers.',
+      'Selected node state is conveyed via aria-pressed on each layer button.',
+    ],
+    keyboardNav: [
+      { key: 'Tab', description: 'Move focus between layer nodes in the cluster.' },
+      { key: 'Enter / Space', description: 'Select the focused layer and fire the node-select event.' },
+    ],
+  },
   features: [
     'Collapsed state renders a tight flat stack — one unified block at a glance',
     'Hover expands layers with a spring-eased CSS 3D transform — no canvas, no WebGL',

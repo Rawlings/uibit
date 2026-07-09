@@ -6,20 +6,6 @@ function NewsletterSignupDemo() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
-  const handleParticleCreate = (e: any) => {
-    const clone = e.detail.particle;
-    const width = 6 + Math.random() * 8;
-    const height = 4 + Math.random() * 6;
-    const colors = ['#000000', '#4b5563', '#9ca3af', '#e5e7eb'];
-    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-    
-    clone.style.width = `${width}px`;
-    clone.style.height = `${height}px`;
-    clone.style.background = randomColor;
-    clone.style.borderRadius = '1px';
-    clone.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
-  };
-
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
@@ -36,14 +22,15 @@ function NewsletterSignupDemo() {
         id="newsletter-confetti-trigger"
         trigger="custom"
         behavior="fountain-burst"
-        density={24}
-        stagger="15ms"
-        velocity="1.8s"
+        density={14}
+        stagger="18ms"
+        velocity="1.5s"
         randomize
-        onUibitParticleCreate={handleParticleCreate}
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
-        <span slot="asset"></span>
+        <svg slot="asset" viewBox="0 0 6 6" width="5" height="5" fill="#111827" style={{ display: 'block' }}>
+          <circle cx="3" cy="3" r="3" />
+        </svg>
       </uibit-effect-trigger>
 
       <h4 className="text-sm font-bold text-gray-900 mb-1">Weekly Design Digest</h4>
@@ -54,10 +41,7 @@ function NewsletterSignupDemo() {
           <div className="text-xs font-semibold text-gray-900 mb-1">Thank you for subscribing!</div>
           <p className="text-xs text-gray-500">We've added you to our mailing list.</p>
           <button
-            onClick={() => {
-              setStatus('idle');
-              setEmail('');
-            }}
+            onClick={() => { setStatus('idle'); setEmail(''); }}
             className="mt-4 text-xs font-semibold text-gray-400 hover:text-black transition-colors"
           >
             Reset Form
@@ -73,7 +57,6 @@ function NewsletterSignupDemo() {
             placeholder="Enter your email (optional)"
             className="w-full text-xs border border-gray-200 rounded p-2.5 bg-gray-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-black focus:border-black transition-colors"
           />
-          
           <button
             type="submit"
             disabled={status === 'submitting'}
@@ -90,11 +73,9 @@ function NewsletterSignupDemo() {
 const newsletterSignupExample: UsageExample = {
   title: 'Newsletter Signup Success',
   description:
-    'Fires a burst of tiny, floating minimalist paper confetti strips when a subscription form successfully submits. Demonstrates programmatic trigger igniting.',
+    'Fires a burst of tiny dot particles when a subscription form successfully submits. Demonstrates programmatic trigger igniting.',
   code: {
-    html: `<uibit-effect-trigger id="confetti" trigger="custom" behavior="fountain-burst" density="24">
-  <button slot="trigger" style="display:none"></button>
-</uibit-effect-trigger>`,
+    html: '',
     react: '',
   },
   Demo: NewsletterSignupDemo,

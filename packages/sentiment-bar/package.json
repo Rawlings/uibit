@@ -24,7 +24,15 @@
     "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
     "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
-  "keywords": ["sentiment", "feedback", "rating", "emoji", "micro-interaction", "web-component", "lit"],
+  "keywords": [
+    "sentiment",
+    "feedback",
+    "rating",
+    "emoji",
+    "micro-interaction",
+    "web-component",
+    "lit"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
@@ -33,7 +41,8 @@
     "directory": "packages/sentiment-bar"
   },
   "dependencies": {
-    "@uibit/core": "workspace:*"
+    "@uibit/core": "workspace:*",
+    "lucide": "^1.24.0"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",

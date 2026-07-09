@@ -1,5 +1,14 @@
 import { html } from 'lit';
-import { customElement, getIcon, msg, UIBitElement } from '@uibit/core';
+import { customElement, fromLucide, getIcon, msg, UIBitElement, type IconDefinition } from '@uibit/core';
+import { Angry, Frown, Laugh, Meh, Smile } from 'lucide';
+
+const ICON_FALLBACKS: Record<string, IconDefinition> = {
+  angry: fromLucide(Angry),
+  frown: fromLucide(Frown),
+  meh: fromLucide(Meh),
+  smile: fromLucide(Smile),
+  laugh: fromLucide(Laugh),
+};
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -134,7 +143,7 @@ export class SentimentBar extends UIBitElement {
             @mouseenter=${() => { this._hoverValue = option.value; }}
             @mouseleave=${() => { this._hoverValue = undefined; }}
           >
-            <span class="icon" part="icon" aria-hidden="true">${getIcon(option.icon, iconPx)}</span>
+            <span class="icon" part="icon" aria-hidden="true">${getIcon(option.icon, iconPx, ICON_FALLBACKS[option.icon])}</span>
           </button>
         `)}
       </div>

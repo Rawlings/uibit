@@ -62,6 +62,14 @@ function TextRotatorDemo() {
 }`,
   },
   examples: [slideTransition, flipTransition],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'The active word is rendered as visible text so screen readers can read it without special markup.',
+      'A visually hidden aria-live="polite" region announces each word change for screen reader users.',
+      'Rotation pauses when prefers-reduced-motion is enabled and the first word is displayed statically.',
+    ],
+  },
   features: [
     'Vertical slide and 3D CSS flip transitions selectable via the transition attribute',
     'Overflow-hidden host clips motion to a single-line boundary — no layout shift',

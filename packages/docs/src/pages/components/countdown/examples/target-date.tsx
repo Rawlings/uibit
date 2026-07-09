@@ -5,9 +5,7 @@ function TargetDateDemo() {
   const target = new Date(Date.now() + 24 * 3600 * 1000 * 7).toISOString();
 
   return (
-    <div className="max-w-md bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-      <uibit-countdown target={target} auto-start format="DD:HH:MM:SS"></uibit-countdown>
-    </div>
+    <uibit-countdown target={target} auto-start format="DD:HH:MM:SS"></uibit-countdown>
   );
 }
 
