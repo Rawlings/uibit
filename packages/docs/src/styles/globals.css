@@ -1,14 +1,17 @@
 @import "tailwindcss";
 @import "../../../core/theme.css";
 
+/* Enable class-based dark mode — App.tsx adds .dark to <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 html {
   scroll-behavior: smooth;
   font-feature-settings: 'rlig' 1, 'calt' 1;
 }
 
 body {
-  background-color: white;
-  color: theme(colors.gray.900);
+  background-color: var(--uibit-bg-base, white);
+  color: var(--uibit-text-primary, theme(colors.gray.900));
   font-family: Inter, system-ui, -apple-system, sans-serif;
   line-height: 1.625;
 }

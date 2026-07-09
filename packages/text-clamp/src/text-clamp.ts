@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -24,7 +24,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-text-clamp-toggle-decoration=underline] - Toggle button text decoration
  */
 @customElement('uibit-text-clamp')
-export class TextClamp extends LitElement {
+export class TextClamp extends UIBitElement {
   static styles = styles;
 
   /** Maximum number of lines to show when collapsed. */
@@ -107,11 +107,7 @@ export class TextClamp extends LitElement {
 
   private _toggle() {
     this._expanded = !this._expanded;
-    this.dispatchEvent(new CustomEvent('toggle', {
-      detail: { expanded: this._expanded },
-      bubbles: true,
-      composed: true,
-    }));
+    this.dispatchCustomEvent('toggle', { expanded: this._expanded });
   }
 
   render() {

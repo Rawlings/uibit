@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -18,7 +18,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-text-rotator-duration=0.4s] - Transition animation duration
  */
 @customElement('uibit-text-rotator')
-export class TextRotator extends LitElement {
+export class TextRotator extends UIBitElement {
   static styles = styles;
 
   @state() private words: string[] = [];
@@ -82,13 +82,9 @@ export class TextRotator extends LitElement {
     this._prevIndex = this._activeIndex;
     this._activeIndex = next;
 
-    this.dispatchEvent(new CustomEvent('word-change', {
-      detail: { word: this.words[this._activeIndex], index: this._activeIndex },
-      bubbles: true,
-      composed: true,
-    }));
+    this.dispatchCustomEvent('word-change', { word: this.words[this._activeIndex], index: this._activeIndex });
 
-    const durationStr = getComputedStyle(this).getPropertyValue('--uibit-text-rotator-duration') || '0.4s';
+    const durationStr = this.getCssPropertyValue('--uibit-text-rotator-duration') || '0.4s';
     const dur = this._parseCssDuration(durationStr);
     setTimeout(() => {
       this._prevIndex = -1;

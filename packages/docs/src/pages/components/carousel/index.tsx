@@ -131,6 +131,20 @@ function CarouselDemo() {
   },
   examples: [basicExample, autoPlayExample, customNavExample],
   features: ['Native CSS Scroll-Snap', 'Scroll-Driven Animations', 'Fully Accessible', 'Responsive Design', 'Touch & Swipe Support', 'Keyboard Navigation', 'Auto-Play Option', 'Customizable with CSS Variables'],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'Each slide is wrapped in a group role with dynamic aria-label indicating slide index (e.g., "Slide 1 of 4").',
+      'Track container is marked as a carousel region with a defined role.',
+      'Active slide buttons are marked with role="tab" and support tablist relationships.',
+      'Autoplay pauses on focus or mouse hover, avoiding sudden shifts for keyboard and screen reader users.'
+    ],
+    keyboardNav: [
+      { key: 'ArrowLeft', description: 'Advance to the previous slide.' },
+      { key: 'ArrowRight', description: 'Advance to the next slide.' },
+      { key: 'Tab', description: 'Navigate focus between the navigation buttons and indicator controls.' }
+    ]
+  }
 };
 
 export default data;

@@ -1,0 +1,104 @@
+import '@uibit/table';
+import { UsageExample } from '../../../../types/docs';
+
+const ROWS: [string, string, string, string][] = [
+  ['Acme Corp', 'North America', 'Active', 'Enterprise'],
+  ['Bright Labs', 'Europe', 'Active', 'Growth'],
+  ['Cedar Works', 'Asia Pacific', 'Active', 'Enterprise'],
+  ['Dune Systems', 'Middle East', 'Inactive', 'Starter'],
+  ['Ember Health', 'North America', 'Active', 'Growth'],
+  ['Frost AI', 'Europe', 'Active', 'Enterprise'],
+  ['Gale Robotics', 'Asia Pacific', 'Review', 'Growth'],
+  ['Harbor Cloud', 'North America', 'Active', 'Enterprise'],
+  ['Isle Media', 'Europe', 'Inactive', 'Starter'],
+  ['Jasper Fintech', 'Asia Pacific', 'Active', 'Enterprise'],
+  ['Kite Analytics', 'Middle East', 'Review', 'Starter'],
+  ['Lumen Bio', 'North America', 'Active', 'Growth'],
+];
+
+function Demo() {
+  return (
+    <div>
+      <p className="text-sm text-gray-600 mb-4">
+        Use the global search bar to filter across all columns. Click the filter icon in the toolbar to reveal per-column inputs — they are ANDed with the global search.
+      </p>
+      <uibit-table searchable filterable striped>
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Region</th>
+              <th>Status</th>
+              <th>Plan</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ROWS.map(([name, region, status, plan]) => (
+              <tr key={name}>
+                <td>{name}</td>
+                <td>{region}</td>
+                <td>{status}</td>
+                <td>{plan}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </uibit-table>
+    </div>
+  );
+}
+
+const filtering: UsageExample = {
+  title: 'Search & filtering',
+  description:
+    'searchable adds a global search bar that matches across all columns simultaneously. filterable adds per-column filter inputs below the header row — column filters are ANDed with the global search. A "Clear filters" button appears in the toolbar whenever any filter is active.',
+  Demo,
+  code: {
+    html: `<uibit-table searchable filterable>
+  <table>
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Region</th>
+        <th>Status</th>
+        <th>Plan</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Acme Corp</td><td>North America</td><td>Active</td><td>Enterprise</td></tr>
+      <!-- …more rows… -->
+    </tbody>
+  </table>
+</uibit-table>`,
+    react: `import '@uibit/table';
+
+function FilterableTable({ rows }) {
+  return (
+    <uibit-table searchable filterable>
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Region</th>
+            <th>Status</th>
+            <th>Plan</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(([name, region, status, plan]) => (
+            <tr key={name}>
+              <td>{name}</td>
+              <td>{region}</td>
+              <td>{status}</td>
+              <td>{plan}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </uibit-table>
+  );
+}`,
+  },
+};
+
+export default filtering;

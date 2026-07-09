@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { customElement, getIcon, UIBitElement } from '@uibit/core';
+import { customElement, getIcon, msg, str, UIBitElement } from '@uibit/core';
 import { property, query, state } from 'lit/decorators.js';
 import type { CarouselConfig } from './types';
 import { styles } from './styles';
@@ -173,7 +173,7 @@ export class UIBitCarousel extends UIBitElement {
       }
       item.setAttribute('role', 'group');
       item.setAttribute('aria-roledescription', 'slide');
-      item.setAttribute('aria-label', `Slide ${index + 1} of ${this.totalSlides}`);
+      item.setAttribute('aria-label', msg(str`Slide ${index + 1} of ${this.totalSlides}`));
     });
 
     this.updateNavigationState();
@@ -360,11 +360,11 @@ export class UIBitCarousel extends UIBitElement {
         class="carousel" 
         role="region" 
         aria-roledescription="carousel" 
-        aria-label="Content Carousel"
+        aria-label=${msg('Content Carousel')}
       >
-        <div 
-          part="viewport" 
-          class="carousel-viewport" 
+        <div
+          part="viewport"
+          class="carousel-viewport"
           aria-live="${isAutoplayPlaying ? 'off' : 'polite'}"
         >
           <div
@@ -375,40 +375,40 @@ export class UIBitCarousel extends UIBitElement {
             <slot @slotchange=${this.handleSlotChange}></slot>
           </div>
         </div>
- 
+
         <div part="controls" class="carousel-controls">
           <div part="buttons" class="carousel-buttons">
             <slot name="prev" @click=${() => this.prev()}>
               <button
                 part="button button-prev"
                 class="carousel-button"
-                aria-label="Previous slide"
+                aria-label=${msg('Previous slide')}
                 ?disabled=${!this.canPrev}
               >
-                ${getIcon('chevron-left', 16)} Prev
+                ${getIcon('chevron-left', 16)}
               </button>
             </slot>
             <slot name="next" @click=${() => this.next()}>
               <button
                 part="button button-next"
                 class="carousel-button"
-                aria-label="Next slide"
+                aria-label=${msg('Next slide')}
                 ?disabled=${!this.canNext}
               >
-                Next ${getIcon('chevron-right', 16)}
+                ${getIcon('chevron-right', 16)}
               </button>
             </slot>
           </div>
- 
+
           <slot name="indicators">
-            <div part="indicators" class="carousel-indicators" role="tablist" aria-label="Slides">
+            <div part="indicators" class="carousel-indicators" role="tablist" aria-label=${msg('Slides')}>
               ${Array.from({ length: this.totalSlides }).map(
                 (_, index) => html`
                   <button
                     role="tab"
                     part="indicator ${index === this.currentIndex ? 'indicator-active' : ''}"
                     class="carousel-indicator ${index === this.currentIndex ? 'active' : ''}"
-                    aria-label="Go to slide ${index + 1}"
+                    aria-label=${msg(str`Go to slide ${index + 1}`)}
                     aria-selected=${index === this.currentIndex}
                     aria-controls="uibit-carousel-slide-${index}"
                     @click=${() => this.goToSlide(index)}

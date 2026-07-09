@@ -3,9 +3,20 @@ import { css } from 'lit';
 export const styles = css`
   :host {
     display: block;
-    font-size: var(--uibit-table-font-size, 0.875rem);
+    font-size: var(--uibit-table-font-size, calc(0.875rem * var(--uibit-font-scale-factor, 1)));
     font-family: var(--uibit-table-font-family, inherit);
-    color: var(--uibit-table-color, #111827);
+    color: var(--uibit-table-color, var(--uibit-text-primary, #111827));
+    --uibit-table-bg: var(--uibit-bg-surface, #ffffff);
+    --uibit-table-border-color: var(--uibit-border-color, #e5e7eb);
+    --uibit-table-head-bg: var(--uibit-bg-subtle, #f9fafb);
+    --uibit-table-head-color: var(--uibit-text-muted, #6b7280);
+    --uibit-table-hover-bg: var(--uibit-bg-subtle, #f9fafb);
+    --uibit-table-stripe-bg: var(--uibit-stripe-bg, #f9fafb);
+    --uibit-table-selected-bg: var(--uibit-selected-bg, #eff6ff);
+    --uibit-table-selected-hover-bg: var(--uibit-selected-hover-bg, #dbeafe);
+    --uibit-table-focus-color: var(--uibit-focus-color, #6b7280);
+    --uibit-table-radius: var(--uibit-radius-lg, 0.375rem);
+    --uibit-table-cell-padding: var(--uibit-spacing-2, 0.625rem) var(--uibit-spacing-3, 0.875rem);
   }
 
   /* ── Toolbar ─────────────────────────────────────────────── */
@@ -30,7 +41,7 @@ export const styles = css`
     transform: translateY(-50%);
     width: 0.875rem;
     height: 0.875rem;
-    color: #9ca3af;
+    color: var(--uibit-text-muted, #9ca3af);
     pointer-events: none;
   }
 
@@ -48,7 +59,7 @@ export const styles = css`
   }
 
   .search:focus { border-color: var(--uibit-table-focus-color, #6b7280); }
-  .search::placeholder { color: #9ca3af; }
+  .search::placeholder { color: var(--uibit-text-muted, #9ca3af); }
 
   .controls {
     display: flex;
@@ -60,7 +71,7 @@ export const styles = css`
 
   .toolbar-label {
     font-size: 0.75rem;
-    color: #6b7280;
+    color: var(--uibit-text-muted, #6b7280);
     white-space: nowrap;
   }
 
@@ -94,8 +105,11 @@ export const styles = css`
     gap: 0.3rem;
   }
 
-  .ctrl-btn:hover { background: #f9fafb; border-color: #d1d5db; }
-  .ctrl-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+  .ctrl-btn:hover {
+    background: var(--uibit-table-hover-bg, #f9fafb);
+    border-color: var(--uibit-table-border-color, #d1d5db);
+  }
+  .ctrl-btn:focus-visible { outline: 2px solid var(--uibit-table-focus-color, currentColor); outline-offset: 2px; }
   .ctrl-btn .chevron { font-size: 0.625rem; opacity: 0.6; }
 
   /* ── Column menu ─────────────────────────────────────────── */
@@ -127,7 +141,7 @@ export const styles = css`
     user-select: none;
   }
 
-  .col-dropdown-item:hover { background: #f3f4f6; }
+  .col-dropdown-item:hover { background: var(--uibit-bg-subtle, #f3f4f6); }
 
   .col-dropdown-item input[type="checkbox"] {
     width: 0.875rem;
@@ -135,7 +149,7 @@ export const styles = css`
     cursor: pointer;
     flex-shrink: 0;
     margin: 0;
-    accent-color: #111827;
+    accent-color: var(--uibit-focus-color, #111827);
   }
 
   /* ── Selection banner ────────────────────────────────────── */
@@ -147,11 +161,11 @@ export const styles = css`
     flex-wrap: wrap;
     padding: 0.5rem 0.875rem;
     margin-bottom: 0.5rem;
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
+    background: var(--uibit-selected-bg, #eff6ff);
+    border: 1px solid var(--uibit-border-color, #bfdbfe);
     border-radius: var(--uibit-table-radius, 0.375rem);
     font-size: 0.8125rem;
-    color: #1e40af;
+    color: var(--uibit-text-primary, #1e40af);
   }
 
   .sel-banner-count { font-weight: 600; }
@@ -162,15 +176,15 @@ export const styles = css`
     padding: 0;
     font: inherit;
     font-size: 0.8125rem;
-    color: #1d4ed8;
+    color: var(--uibit-focus-color, #1d4ed8);
     cursor: pointer;
     text-decoration: underline;
     text-underline-offset: 0.15em;
   }
 
-  .sel-banner-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 0.125rem; }
+  .sel-banner-btn:focus-visible { outline: 2px solid var(--uibit-focus-color, currentColor); outline-offset: 2px; border-radius: 0.125rem; }
 
-  .sel-banner-sep { color: #93c5fd; }
+  .sel-banner-sep { color: var(--uibit-border-color, #93c5fd); }
 
   /* ── Table wrapper ───────────────────────────────────────── */
 
@@ -245,8 +259,8 @@ export const styles = css`
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
-    background: #374151;
-    color: #fff;
+    background: var(--uibit-focus-color, #374151);
+    color: var(--uibit-bg-surface, #fff);
     font-size: 0.625rem;
     font-weight: 700;
     line-height: 1;
@@ -313,8 +327,8 @@ export const styles = css`
   }
 
   .filter-input:focus { border-color: var(--uibit-table-focus-color, #6b7280); }
-  .filter-input::placeholder { color: #d1d5db; }
-  .filter-input.active { border-color: #6b7280; background: #fafafa; }
+  .filter-input::placeholder { color: var(--uibit-text-muted, #d1d5db); }
+  .filter-input.active { border-color: var(--uibit-table-focus-color, #6b7280); background: var(--uibit-bg-subtle, #fafafa); }
 
   /* ── Checkbox column ─────────────────────────────────────── */
 
@@ -333,7 +347,7 @@ export const styles = css`
     cursor: pointer;
     margin: 0;
     vertical-align: middle;
-    accent-color: #111827;
+    accent-color: var(--uibit-focus-color, #111827);
   }
 
   /* ── Body rows ───────────────────────────────────────────── */
@@ -377,18 +391,20 @@ export const styles = css`
   .empty {
     padding: 2.5rem;
     text-align: center;
-    color: #9ca3af;
+    color: var(--uibit-text-muted, #9ca3af);
     font-size: 0.875rem;
   }
 
   .highlight {
-    background: var(--uibit-table-highlight-bg, #fef9c3);
+    background: var(--uibit-highlight-bg, #fef9c3);
+    color: var(--uibit-highlight-text, #000000);
     border-radius: 0.125rem;
     padding: 0 0.1em;
   }
 
   .filter-highlight {
-    background: var(--uibit-table-filter-highlight-bg, #dcfce7);
+    background: var(--uibit-filter-highlight-bg, #dcfce7);
+    color: var(--uibit-filter-highlight-text, #000000);
     border-radius: 0.125rem;
     padding: 0 0.1em;
   }
@@ -429,10 +445,15 @@ export const styles = css`
     transition: background 0.12s;
   }
 
-  .page-btn:hover:not(:disabled) { background: #f3f4f6; }
-  .page-btn.active { background: #111827; color: #fff; border-color: #111827; font-weight: 600; }
+  .page-btn:hover:not(:disabled) { background: var(--uibit-bg-subtle, #f3f4f6); }
+  .page-btn.active {
+    background: var(--uibit-focus-color, #111827);
+    color: var(--uibit-bg-surface, #fff);
+    border-color: var(--uibit-focus-color, #111827);
+    font-weight: 600;
+  }
   .page-btn:disabled { opacity: 0.4; cursor: default; }
-  .page-btn:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+  .page-btn:focus-visible { outline: 2px solid var(--uibit-focus-color, currentColor); outline-offset: 2px; }
 
   slot { display: none; }
 `;

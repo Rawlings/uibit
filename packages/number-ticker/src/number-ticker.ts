@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -21,7 +21,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-number-ticker-line-height=inherit] - Line height
  */
 @customElement('uibit-number-ticker')
-export class NumberTicker extends LitElement {
+export class NumberTicker extends UIBitElement {
   static styles = styles;
 
   /** Target numeric value to count up to. */
@@ -107,7 +107,7 @@ export class NumberTicker extends LitElement {
     const duration = this.duration;
     let startTime: number | null = null;
 
-    this.dispatchEvent(new CustomEvent('ticker-start', { bubbles: true, composed: true }));
+    this.dispatchCustomEvent('ticker-start');
 
     const step = (ts: number) => {
       if (startTime === null) startTime = ts;
@@ -120,7 +120,7 @@ export class NumberTicker extends LitElement {
         this._raf = requestAnimationFrame(step);
       } else {
         this._display = this._format(endVal);
-        this.dispatchEvent(new CustomEvent('ticker-end', { bubbles: true, composed: true }));
+        this.dispatchCustomEvent('ticker-end');
       }
     };
 

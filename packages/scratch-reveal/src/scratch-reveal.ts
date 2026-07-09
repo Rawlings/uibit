@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, msg, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -8,7 +8,7 @@ import { styles } from './styles';
  * scratches over a configurable overlay layer.
  *
  * @fires {{ percentage: number }} scratch-progress - Fired as the user scratches; `detail.percentage` is 0–100
- * @fires void scratch-reveal - Fired once when the revealed area crosses `revealPercentage`
+ * @fires {{ percentage: number }} scratch-reveal - Fired once when the revealed area crosses `revealThreshold`
  *
  * @slot - The content revealed beneath the scratch overlay
  *
@@ -25,11 +25,13 @@ import { styles } from './styles';
  * @cssprop [--uibit-scratch-reveal-instructions-font-size=0.875rem] - Font size of the scratch instruction hint
  */
 @customElement('uibit-scratch-reveal')
-export class ScratchReveal extends LitElement {
+export class ScratchReveal extends UIBitElement {
   static styles = styles;
 
   /** Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires. */
-  @property({ type: Number }) revealPercentage = 0;
+  @property({ type: Number }) revealThreshold = 50;
+
+  @state() private _scratchProgress = 0;
 
   get brushSize(): number {
     if (typeof window === 'undefined') return 80;
@@ -82,28 +84,22 @@ export class ScratchReveal extends LitElement {
   private attachEventListeners() {
     if (!this.canvas) return;
 
-    this.canvas.addEventListener('mousedown', (e) => this.startScratching(e));
-    this.canvas.addEventListener('mousemove', (e) => this.scratch(e));
-    this.canvas.addEventListener('mouseup', () => this.stopScratching());
-    this.canvas.addEventListener('mouseleave', () => this.stopScratching());
+    this.listen(this.canvas, 'mousedown', (e) => this.startScratching(e as MouseEvent));
+    this.listen(this.canvas, 'mousemove', (e) => this.scratch(e as MouseEvent));
+    this.listen(this.canvas, 'mouseup', () => this.stopScratching());
+    this.listen(this.canvas, 'mouseleave', () => this.stopScratching());
 
     this.canvas.addEventListener('touchstart', (e) => {
       this.isDrawing = true;
       this.showInstructions = false;
       const touch = e.touches[0];
-      if (touch) {
-        this.scratch(touch);
-      }
+      if (touch) this.scratch(touch);
     }, { passive: true });
 
     this.canvas.addEventListener('touchmove', (e) => {
-      if (e.cancelable) {
-        e.preventDefault();
-      }
+      if (e.cancelable) e.preventDefault();
       const touch = e.touches[0];
-      if (touch) {
-        this.scratch(touch);
-      }
+      if (touch) this.scratch(touch);
     }, { passive: false });
 
     this.canvas.addEventListener('touchend', () => this.stopScratching());
@@ -156,32 +152,20 @@ export class ScratchReveal extends LitElement {
     }
 
     const newPercentage = Math.round((revealed / (data.length / 4)) * 100);
-    this.revealPercentage = newPercentage;
+    this._scratchProgress = newPercentage;
 
-    if (newPercentage >= 50 && !this.isRevealed) {
+    this.dispatchCustomEvent('scratch-progress', { percentage: newPercentage });
+
+    if (newPercentage >= this.revealThreshold && !this.isRevealed) {
       this.isRevealed = true;
-      this.dispatchEvent(
-        new CustomEvent('scratch-reveal', {
-          detail: { revealPercentage: newPercentage },
-          bubbles: true,
-          composed: true
-        })
-      );
+      this.dispatchCustomEvent('scratch-reveal', { percentage: newPercentage });
     }
-
-    this.dispatchEvent(
-      new CustomEvent('scratch-progress', {
-        detail: { revealPercentage: newPercentage },
-        bubbles: true,
-        composed: true
-      })
-    );
   }
 
   reset() {
     this.isRevealed = false;
     this.showInstructions = true;
-    this.revealPercentage = 0;
+    this._scratchProgress = 0;
     if (this.ctx && this.canvas) {
       this.ctx.fillStyle = 'var(--uibit-scratch-reveal-overlay-color, #c0c0c0)';
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -190,7 +174,7 @@ export class ScratchReveal extends LitElement {
 
   render() {
     return html`
-      <div part="container" class="scratch-container" role="img" aria-label="Scratch-off panel to reveal content">
+      <div part="container" class="scratch-container" role="img" aria-label=${msg('Scratch-off panel to reveal content')}>
         <div class="content" part="content">
           <slot></slot>
         </div>
@@ -198,7 +182,7 @@ export class ScratchReveal extends LitElement {
         ${this.showInstructions
         ? html`
               <div class="instructions" part="instructions">
-                <span class="instructions-text">Scratch to reveal</span>
+                <span class="instructions-text">${msg('Scratch to reveal')}</span>
               </div>
             `
         : ''}

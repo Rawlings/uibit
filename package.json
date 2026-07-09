@@ -13,13 +13,16 @@
     "build": "pnpm -r --filter '!@uibit/docs' run build && pnpm -F docs run build",
     "build:docs": "pnpm -F docs run build",
     "preview": "pnpm -F docs run preview",
-    "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze"
+    "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze",
+    "test": "vitest run"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",
     "concurrently": "^9.0.0",
+    "happy-dom": "^14.12.3",
     "typescript": "7.0.2",
-    "vite": "^5.4.21"
+    "vite": "^5.4.21",
+    "vitest": "^1.6.0"
   },
   "keywords": [
     "ui",

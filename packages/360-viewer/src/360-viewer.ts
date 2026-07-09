@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { customElement, getIcon, UIBitElement } from '@uibit/core';
+import { customElement, getIcon, msg, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -219,7 +219,7 @@ export class Viewer360 extends UIBitElement {
         class="viewer ${this.isDragging ? 'dragging' : ''}"
         tabindex="0"
         role="region"
-        aria-label="360 degree product view. Use drag, arrow keys, or buttons to rotate."
+        aria-label=${msg('360 degree product view. Use drag, arrow keys, or buttons to rotate.')}
         @pointerdown=${this.handlePointerDown}
         @pointermove=${this.handlePointerMove}
         @pointerup=${this.handlePointerUp}
@@ -257,7 +257,7 @@ export class Viewer360 extends UIBitElement {
             <button
               part="nav-button nav-button-prev"
               class="nav-button nav-button-prev"
-              aria-label="Rotate left"
+              aria-label=${msg('Rotate left')}
             >
               ${getIcon('chevron-left', 20)}
             </button>
@@ -272,7 +272,7 @@ export class Viewer360 extends UIBitElement {
             <button
               part="nav-button nav-button-next"
               class="nav-button nav-button-next"
-              aria-label="Rotate right"
+              aria-label=${msg('Rotate right')}
             >
               ${getIcon('chevron-right', 20)}
             </button>

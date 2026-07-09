@@ -64,8 +64,8 @@ function getPublicProps(decl: CemDeclaration): CemMember[] {
   );
 }
 
-const tdClass = 'px-4 py-3 text-left align-top';
-const thClass = 'px-4 py-3 text-left font-semibold text-gray-900';
+const tdClass = 'px-4 py-3 text-left align-top text-gray-750 dark:text-gray-300';
+const thClass = 'px-4 py-3 text-left font-semibold text-gray-900 dark:text-white';
 
 function Table({
   headers,
@@ -75,10 +75,10 @@ function Table({
   rows: React.ReactNode[][];
 }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-x-auto border border-gray-200 dark:border-gray-800 rounded-lg">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-gray-200">
+          <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
             {headers.map((h) => (
               <th key={h} className={thClass}>
                 {h}
@@ -88,7 +88,7 @@ function Table({
         </thead>
         <tbody>
           {rows.map((cells, i) => (
-            <tr key={i} className="border-b border-gray-100">
+            <tr key={i} className="border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950">
               {cells.map((cell, j) => (
                 <td key={j} className={tdClass}>
                   {cell}
@@ -104,7 +104,7 @@ function Table({
 
 function Code({ children }: { children: React.ReactNode }) {
   return (
-    <code className="font-mono text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-800">
+    <code className="font-mono text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded text-gray-800 dark:text-gray-200">
       {children}
     </code>
   );
@@ -113,7 +113,7 @@ function Code({ children }: { children: React.ReactNode }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-10">
-      <h3 className="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">
+      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 uppercase tracking-wide">
         {title}
       </h3>
       {children}
@@ -138,8 +138,8 @@ export function ApiDocs({
   const cssParts = decl.cssParts ?? [];
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
-      <h2 className="text-xl font-semibold text-gray-900 mb-8">API</h2>
+    <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200 dark:border-gray-800">
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-8">API</h2>
 
       {props.length > 0 && (
         <Section title="Properties">
@@ -147,10 +147,10 @@ export function ApiDocs({
             headers={['Property', 'Attribute', 'Type', 'Default', 'Description']}
             rows={props.map((p) => [
               <Code>{p.name}</Code>,
-              p.attribute ? <Code>{p.attribute}</Code> : <span className="text-gray-400">—</span>,
-              p.type?.text ? <Code>{p.type.text}</Code> : <span className="text-gray-400">—</span>,
-              p.default !== undefined ? <Code>{p.default}</Code> : <span className="text-gray-400">—</span>,
-              <span className="text-gray-600">{p.description ?? ''}</span>,
+              p.attribute ? <Code>{p.attribute}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
+              p.type?.text ? <Code>{p.type.text}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
+              p.default !== undefined ? <Code>{p.default}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
+              <span className="text-gray-650 dark:text-gray-400">{p.description ?? ''}</span>,
             ])}
           />
         </Section>
@@ -162,8 +162,8 @@ export function ApiDocs({
             headers={['Event', 'Detail type', 'Description']}
             rows={events.map((e) => [
               <Code>{e.name}</Code>,
-              e.type?.text ? <Code>{e.type.text}</Code> : <span className="text-gray-400">—</span>,
-              <span className="text-gray-600">{e.description ?? ''}</span>,
+              e.type?.text ? <Code>{e.type.text}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
+              <span className="text-gray-650 dark:text-gray-400">{e.description ?? ''}</span>,
             ])}
           />
         </Section>
@@ -174,8 +174,8 @@ export function ApiDocs({
           <Table
             headers={['Slot', 'Description']}
             rows={slots.map((s) => [
-              s.name ? <Code>{s.name}</Code> : <span className="text-gray-500 italic">default</span>,
-              <span className="text-gray-600">{s.description ?? ''}</span>,
+              s.name ? <Code>{s.name}</Code> : <span className="text-gray-500 dark:text-gray-450 italic">default</span>,
+              <span className="text-gray-650 dark:text-gray-400">{s.description ?? ''}</span>,
             ])}
           />
         </Section>
@@ -187,8 +187,8 @@ export function ApiDocs({
             headers={['Property', 'Default', 'Description']}
             rows={cssProps.map((c) => [
               <Code>{c.name}</Code>,
-              c.default ? <Code>{c.default}</Code> : <span className="text-gray-400">—</span>,
-              <span className="text-gray-600">{c.description ?? ''}</span>,
+              c.default ? <Code>{c.default}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
+              <span className="text-gray-650 dark:text-gray-400">{c.description ?? ''}</span>,
             ])}
           />
         </Section>
@@ -200,7 +200,7 @@ export function ApiDocs({
             headers={['Part', 'Description']}
             rows={cssParts.map((p) => [
               <Code>{p.name}</Code>,
-              <span className="text-gray-600">{p.description ?? ''}</span>,
+              <span className="text-gray-650 dark:text-gray-400">{p.description ?? ''}</span>,
             ])}
           />
         </Section>

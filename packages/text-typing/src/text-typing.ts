@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -24,7 +24,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-text-typing-cursor-blink=0.75s] - Cursor blink interval
  */
 @customElement('uibit-text-typing')
-export class TextTyping extends LitElement {
+export class TextTyping extends UIBitElement {
   static styles = styles;
 
   @state() private phrases: string[] = [];
@@ -116,11 +116,7 @@ export class TextTyping extends LitElement {
         if (!this.loop && next === 0) return;
         this._phraseIndex = next;
         this._charIndex = 0;
-        this.dispatchEvent(new CustomEvent('phrase-change', {
-          detail: { phrase: this.phrases[this._phraseIndex], index: this._phraseIndex },
-          bubbles: true,
-          composed: true,
-        }));
+        this.dispatchCustomEvent('phrase-change', { phrase: this.phrases[this._phraseIndex], index: this._phraseIndex });
         this._timer = setTimeout(() => this._tick(), this.pauseBefore);
       }
     }

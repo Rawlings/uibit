@@ -83,6 +83,18 @@ function App() {
     'All colors are CSS custom properties — adapts to any design system',
     'Scrollable panes contain overflow without breaking layout',
   ],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'Host element functions as an accessible comparison region with role="region" and descriptive label.',
+      'Delete (-) and Insert (+) operators are clearly demarcated in the DOM for screen readers.',
+      'High-contrast, accessible red/green highlight background colors are tailored to exceed 4.5:1 text contrast ratios.'
+    ],
+    keyboardNav: [
+      { key: 'Tab', description: 'Navigate focus to the diff viewer scrollable pane regions.' },
+      { key: 'Arrow Keys', description: 'Scroll through the code content when the pane is focused.' }
+    ]
+  }
 };
 
 export default data;

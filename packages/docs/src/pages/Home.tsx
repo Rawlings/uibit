@@ -22,14 +22,14 @@ function Home() {
     });
 
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
       {/* Hero Section */}
       <section className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
         <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl font-semibold text-gray-900 mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight">
             Web components built right
           </h1>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed">
             A collection of accessible, production-ready components built with Lit. Framework-agnostic, lightweight, and straightforward to use.
           </p>
         </div>
@@ -37,7 +37,7 @@ function Home() {
 
       {/* Components Section */}
       <section className="max-w-6xl mx-auto px-4 py-16 sm:py-20">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-12">
           Components
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -45,15 +45,15 @@ function Home() {
             <Link
               key={component.id}
               to={`/${component.id}`}
-              className="text-left p-6 border border-gray-200 rounded-lg hover:border-gray-900 transition-colors group block hover:shadow-sm"
+              className="text-left p-6 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-gray-900 dark:hover:border-gray-100 transition-colors group block hover:shadow-sm"
             >
-              <h3 className="text-lg font-semibold text-gray-900 mb-3 group-hover:text-gray-600 transition-colors font-sans">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors font-sans">
                 {component.name}
               </h3>
-              <p className="text-sm text-gray-600 leading-relaxed mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4">
                 {component.description}
               </p>
-              <code className="text-xs text-gray-500 font-mono">
+              <code className="text-xs text-gray-500 dark:text-gray-400 font-mono">
                 {component.install}
               </code>
             </Link>

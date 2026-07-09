@@ -18,6 +18,12 @@ export interface UsageExample {
   Demo: ComponentType;
 }
 
+export interface AccessibilitySection {
+  wcagLevel: 'A' | 'AA' | 'AAA';
+  requirements: string[];
+  keyboardNav?: { key: string; description: string }[];
+}
+
 export interface ComponentDocData {
   id: string;
   title: string;
@@ -30,4 +36,5 @@ export interface ComponentDocData {
   examples?: UsageExample[];
   usages?: CodeSnippet[];
   features?: string[];
+  a11y?: AccessibilitySection;
 }

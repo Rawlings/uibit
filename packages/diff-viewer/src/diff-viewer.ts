@@ -1,5 +1,5 @@
-import { LitElement, html, nothing } from 'lit';
-import { customElement } from '@uibit/core';
+import { html, nothing } from 'lit';
+import { customElement, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 import { diffLines } from './diff';
@@ -33,7 +33,7 @@ import type { DiffOp } from './diff';
  * @cssprop [--uibit-diff-viewer-equal-color=var(--uibit-text-secondary)] - Unchanged-line text color
  */
 @customElement('uibit-diff-viewer')
-export class DiffViewer extends LitElement {
+export class DiffViewer extends UIBitElement {
   static styles = styles;
 
   @state() private oldText = '';
@@ -41,6 +41,16 @@ export class DiffViewer extends LitElement {
 
   /** Layout mode: 'split' shows two panes side by side, 'inline' shows a single unified view. */
   @property({ reflect: true }) mode: 'split' | 'inline' = 'split';
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (!this.hasAttribute('role')) {
+      this.setAttribute('role', 'region');
+    }
+    if (!this.hasAttribute('aria-label')) {
+      this.setAttribute('aria-label', 'Code comparison');
+    }
+  }
 
   /** Show line numbers in the gutter. */
   @property({ type: Boolean, attribute: 'show-line-numbers' }) showLineNumbers = true;

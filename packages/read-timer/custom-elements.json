@@ -146,19 +146,6 @@
                   }
                 }
               ]
-            },
-            {
-              "kind": "method",
-              "name": "_clockIcon",
-              "privacy": "private"
-            }
-          ],
-          "events": [
-            {
-              "name": "read-time-change",
-              "type": {
-                "text": "CustomEvent"
-              }
             }
           ],
           "attributes": [
@@ -191,8 +178,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-read-timer",
           "customElement": true

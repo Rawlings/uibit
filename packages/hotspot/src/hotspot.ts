@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { customElement, getIcon, UIBitElement } from '@uibit/core';
+import { customElement, getIcon, msg, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import type { HotspotItem } from './types';
 import { styles } from './styles';
@@ -152,7 +152,7 @@ export class Hotspot extends UIBitElement {
               <button
                 part="trigger ${isOpened ? 'trigger-active' : ''}"
                 class="hotspot-trigger ${isOpened ? 'active' : ''}"
-                aria-label="${spot.label || spot.title || 'Hotspot'}"
+                aria-label="${spot.label || spot.title || msg('Hotspot')}"
                 aria-expanded="${isOpened}"
                 aria-controls="popover-${spotId}"
                 ?disabled=${!this.interactive}
@@ -169,7 +169,7 @@ export class Hotspot extends UIBitElement {
                       class="hotspot-popover ${positionClass}"
                       role="dialog"
                       aria-modal="false"
-                      aria-label="${spot.title || 'Hotspot details'}"
+                      aria-label="${spot.title || msg('Hotspot details')}"
                       @mouseenter=${() => this.handlePopoverMouseEnter()}
                       @mouseleave=${() => this.handlePopoverMouseLeave()}
                     >
@@ -182,7 +182,7 @@ export class Hotspot extends UIBitElement {
                       <button
                         part="popover-close"
                         class="popover-close"
-                        aria-label="Close details"
+                        aria-label=${msg('Close details')}
                         @click=${(e: Event) => {
                           e.stopPropagation();
                           this.closePopover();

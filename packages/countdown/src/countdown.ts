@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, msg, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -24,7 +24,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-countdown-separator-color=#d1d5db] - Color of the colon separator
  */
 @customElement('uibit-countdown')
-export class Countdown extends LitElement {
+export class Countdown extends UIBitElement {
   static styles = styles;
 
   /** ISO 8601 date/time string for the countdown target (e.g. `"2025-12-31T00:00:00"`). Takes precedence over `duration`. */
@@ -98,25 +98,17 @@ export class Countdown extends LitElement {
     this.minutes = Math.floor((this.remaining % (1000 * 60 * 60)) / (1000 * 60));
     this.seconds = Math.floor((this.remaining % (1000 * 60)) / 1000);
 
-    this.dispatchEvent(
-      new CustomEvent('countdown-tick', {
-        detail: {
-          remaining: this.remaining,
-          days: this.days,
-          hours: this.hours,
-          minutes: this.minutes,
-          seconds: this.seconds
-        },
-        bubbles: true,
-        composed: true
-      })
-    );
+    this.dispatchCustomEvent('countdown-tick', {
+      remaining: this.remaining,
+      days: this.days,
+      hours: this.hours,
+      minutes: this.minutes,
+      seconds: this.seconds,
+    });
 
     if (this.remaining <= 0) {
       this.stop();
-      this.dispatchEvent(
-        new CustomEvent('countdown-complete', { bubbles: true, composed: true })
-      );
+      this.dispatchCustomEvent('countdown-complete');
     }
   }
 
@@ -150,23 +142,23 @@ export class Countdown extends LitElement {
 
     const units = [];
     if (fmt.includes('DD') || fmt.includes('DAY')) {
-      units.push({ value: String(displayDays).padStart(2, '0'), label: 'Days' });
+      units.push({ value: String(displayDays).padStart(2, '0'), label: msg('Days') });
     }
     if (fmt.includes('HH') || fmt.includes('HOUR')) {
-      units.push({ value: String(displayHours).padStart(2, '0'), label: 'Hours' });
+      units.push({ value: String(displayHours).padStart(2, '0'), label: msg('Hours') });
     }
     if (fmt.includes('MM') || fmt.includes('MIN')) {
-      units.push({ value: String(displayMinutes).padStart(2, '0'), label: 'Minutes' });
+      units.push({ value: String(displayMinutes).padStart(2, '0'), label: msg('Minutes') });
     }
     if (fmt.includes('SS') || fmt.includes('SEC')) {
-      units.push({ value: String(displaySeconds).padStart(2, '0'), label: 'Seconds' });
+      units.push({ value: String(displaySeconds).padStart(2, '0'), label: msg('Seconds') });
     }
-    
+
     // If format matches nothing standard, default to HH:MM:SS
     if (units.length === 0) {
-      units.push({ value: String(totalHours).padStart(2, '0'), label: 'Hours' });
-      units.push({ value: String(this.minutes).padStart(2, '0'), label: 'Minutes' });
-      units.push({ value: String(this.seconds).padStart(2, '0'), label: 'Seconds' });
+      units.push({ value: String(totalHours).padStart(2, '0'), label: msg('Hours') });
+      units.push({ value: String(this.minutes).padStart(2, '0'), label: msg('Minutes') });
+      units.push({ value: String(this.seconds).padStart(2, '0'), label: msg('Seconds') });
     }
 
     return units;
@@ -175,7 +167,7 @@ export class Countdown extends LitElement {
   render() {
     const units = this.getFormattedUnits();
     return html`
-      <div part="countdown" class="countdown" role="timer" aria-live="polite" aria-label="Countdown timer">
+      <div part="countdown" class="countdown" role="timer" aria-live="polite" aria-label=${msg('Countdown timer')}>
         ${units.map(
           (unit, index) => html`
             ${index > 0 ? html`<div part="separator" class="separator">:</div>` : ''}

@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, msg, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -12,7 +12,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-scroll-progress-color=#000000] - Fill color of the progress indicator
  */
 @customElement('uibit-scroll-progress')
-export class ScrollProgress extends LitElement {
+export class ScrollProgress extends UIBitElement {
   static styles = styles;
 
   /** CSS selector of a custom scrollable container to track. Defaults to the page (`window`). */
@@ -20,28 +20,22 @@ export class ScrollProgress extends LitElement {
 
   @state() private progressPercent = 0;
 
-  private activeScrollTarget: HTMLElement | Window | null = null;
-  private handleScroll = () => this.updateProgress();
+  private _scrollUnlisten?: () => void;
 
   connectedCallback() {
     super.connectedCallback();
-    this.attachScrollListener();
+    this._attachScrollListener();
     this.updateProgress();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.detachScrollListener();
   }
 
   updated(changedProperties: Map<string, unknown>) {
     if (changedProperties.has('target')) {
-      this.attachScrollListener();
+      this._attachScrollListener();
       this.updateProgress();
     }
   }
 
-  private getTargetElement(): HTMLElement | Window {
+  private _getTargetElement(): HTMLElement | Window {
     if (typeof window === 'undefined') return window;
     if (this.target) {
       const el = document.querySelector(this.target);
@@ -50,31 +44,23 @@ export class ScrollProgress extends LitElement {
     return window;
   }
 
-  private attachScrollListener() {
-    this.detachScrollListener();
-    const targetEl = this.getTargetElement();
-    this.activeScrollTarget = targetEl;
-    targetEl.addEventListener('scroll', this.handleScroll);
-  }
-
-  private detachScrollListener() {
-    if (this.activeScrollTarget) {
-      this.activeScrollTarget.removeEventListener('scroll', this.handleScroll);
-      this.activeScrollTarget = null;
-    }
+  private _attachScrollListener() {
+    if (this._scrollUnlisten) this._scrollUnlisten();
+    const target = this._getTargetElement();
+    const handler = () => this.updateProgress();
+    this._scrollUnlisten = this.listen(target, 'scroll', handler);
   }
 
   private updateProgress() {
     let scrollTop = 0;
     let docHeight = 0;
 
-    if (this.activeScrollTarget === window || !this.activeScrollTarget) {
-      if (typeof window !== 'undefined') {
-        scrollTop = window.scrollY;
-        docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      }
+    const target = this._getTargetElement();
+    if (target === window) {
+      scrollTop = window.scrollY;
+      docHeight = document.documentElement.scrollHeight - window.innerHeight;
     } else {
-      const el = this.activeScrollTarget as HTMLElement;
+      const el = target as HTMLElement;
       scrollTop = el.scrollTop;
       docHeight = el.scrollHeight - el.clientHeight;
     }
@@ -92,7 +78,7 @@ export class ScrollProgress extends LitElement {
         aria-valuemin="0"
         aria-valuemax="100"
         aria-valuenow="${Math.round(this.progressPercent)}"
-        aria-label="Scroll progress indicator"
+        aria-label=${msg('Scroll progress indicator')}
       ></div>
     `;
   }

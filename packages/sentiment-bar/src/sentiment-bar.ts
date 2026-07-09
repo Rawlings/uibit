@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement, getIcon } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, getIcon, msg, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -47,7 +47,7 @@ const DEFAULT_OPTIONS: SentimentOption[] = [
  * @cssprop [--uibit-sentiment-bar-gap=0.625rem] - Gap between track and label
  */
 @customElement('uibit-sentiment-bar')
-export class SentimentBar extends LitElement {
+export class SentimentBar extends UIBitElement {
   static styles = styles;
 
   @state() private options: SentimentOption[] = DEFAULT_OPTIONS;
@@ -65,18 +65,10 @@ export class SentimentBar extends LitElement {
     this.value = option.value;
     this.setAttribute('value', String(option.value));
 
-    this.dispatchEvent(new CustomEvent('sentiment-change', {
-      detail: { value: option.value, label: option.label },
-      bubbles: true,
-      composed: true,
-    }));
+    this.dispatchCustomEvent('sentiment-change', { value: option.value, label: option.label });
 
     if (isReselect) {
-      this.dispatchEvent(new CustomEvent('sentiment-submit', {
-        detail: { value: option.value, label: option.label },
-        bubbles: true,
-        composed: true,
-      }));
+      this.dispatchCustomEvent('sentiment-submit', { value: option.value, label: option.label });
     }
   }
 
@@ -102,11 +94,34 @@ export class SentimentBar extends LitElement {
     }
   }
 
+  firstUpdated() {
+    this.listen(this, 'keydown', this._onKeyDown);
+  }
+
+  private _onKeyDown(e: KeyboardEvent) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      const currentIndex = this.options.findIndex(o => o.value === this.value);
+      let nextIndex = currentIndex;
+      if (e.key === 'ArrowLeft') {
+        nextIndex = currentIndex <= 0 ? this.options.length - 1 : currentIndex - 1;
+      } else {
+        nextIndex = currentIndex === -1 || currentIndex === this.options.length - 1 ? 0 : currentIndex + 1;
+      }
+      const nextOption = this.options[nextIndex];
+      if (nextOption) {
+        this._select(nextOption);
+        const buttons = this.shadowRoot?.querySelectorAll('.item') as NodeListOf<HTMLElement>;
+        buttons[nextIndex]?.focus();
+      }
+    }
+  }
+
   render() {
     const iconPx = 20;
     return html`
       <slot @slotchange=${this._onSlotChange} style="display: none;"></slot>
-      <div class="track" part="track" role="radiogroup" aria-label="Sentiment rating">
+      <div class="track" part="track" role="radiogroup" aria-label=${msg('Sentiment rating')}>
         ${this.options.map(option => html`
           <button
             class="item ${this.value !== undefined && this.value !== option.value ? 'dimmed' : ''}"

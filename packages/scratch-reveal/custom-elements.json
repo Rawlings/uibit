@@ -99,13 +99,22 @@
           "members": [
             {
               "kind": "field",
-              "name": "revealPercentage",
+              "name": "revealThreshold",
               "type": {
                 "text": "number"
               },
-              "default": "0",
+              "default": "50",
               "description": "Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires.",
-              "attribute": "revealPercentage"
+              "attribute": "revealThreshold"
+            },
+            {
+              "kind": "field",
+              "name": "_scratchProgress",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
             },
             {
               "kind": "field",
@@ -216,37 +225,34 @@
           ],
           "events": [
             {
-              "name": "scratch-reveal",
-              "type": {
-                "text": "CustomEvent"
-              }
-            },
-            {
-              "name": "scratch-progress",
               "type": {
                 "text": "{ percentage: number }"
               },
-              "description": "Fired as the user scratches; `detail.percentage` is 0–100"
+              "description": "Fired as the user scratches; `detail.percentage` is 0–100",
+              "name": "scratch-progress"
             },
             {
-              "description": "scratch-reveal - Fired once when the revealed area crosses `revealPercentage`",
-              "name": "void"
+              "type": {
+                "text": "{ percentage: number }"
+              },
+              "description": "Fired once when the revealed area crosses `revealThreshold`",
+              "name": "scratch-reveal"
             }
           ],
           "attributes": [
             {
-              "name": "revealPercentage",
+              "name": "revealThreshold",
               "type": {
                 "text": "number"
               },
-              "default": "0",
+              "default": "50",
               "description": "Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires.",
-              "fieldName": "revealPercentage"
+              "fieldName": "revealThreshold"
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-scratch-reveal",
           "customElement": true

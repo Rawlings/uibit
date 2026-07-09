@@ -1,6 +1,6 @@
 import { LitElement, html, nothing } from 'lit';
 import type { TemplateResult } from 'lit';
-import { customElement } from '@uibit/core';
+import { customElement, msg, str } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -102,6 +102,7 @@ export class Table extends LitElement {
   private _resizing: { key: string; startX: number; startW: number } | null = null;
   private _rafId = 0;
   private _closeMenuHandler?: (e: MouseEvent) => void;
+  private _escMenuHandler?: (e: KeyboardEvent) => void;
 
   // ── Lifecycle ───────────────────────────────────────────────────
 
@@ -326,13 +327,28 @@ export class Table extends LitElement {
         this._removeMenuListener();
       }
     };
-    setTimeout(() => document.addEventListener('click', this._closeMenuHandler!), 0);
+    this._escMenuHandler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        this._colMenuOpen = false;
+        this._removeMenuListener();
+        const btn = this.shadowRoot?.querySelector('.col-menu-wrap .ctrl-btn') as HTMLElement;
+        btn?.focus();
+      }
+    };
+    setTimeout(() => {
+      document.addEventListener('click', this._closeMenuHandler!);
+      document.addEventListener('keydown', this._escMenuHandler!);
+    }, 0);
   }
 
   private _removeMenuListener() {
     if (this._closeMenuHandler) {
       document.removeEventListener('click', this._closeMenuHandler);
       this._closeMenuHandler = undefined;
+    }
+    if (this._escMenuHandler) {
+      document.removeEventListener('keydown', this._escMenuHandler);
+      this._escMenuHandler = undefined;
     }
   }
 
@@ -482,8 +498,8 @@ export class Table extends LitElement {
     };
 
     return html`
-      <nav class="pagination" aria-label="Pagination">
-        <button class="page-btn" ?disabled=${this._page === 1} @click=${() => goTo(this._page - 1)} aria-label="Previous">‹</button>
+      <nav class="pagination" aria-label=${msg('Pagination')}>
+        <button class="page-btn" ?disabled=${this._page === 1} @click=${() => goTo(this._page - 1)} aria-label=${msg('Previous')}>‹</button>
         ${pages.map(p =>
           p === '…'
             ? html`<span class="page-btn" style="cursor:default;border-color:transparent;background:transparent">…</span>`
@@ -493,7 +509,7 @@ export class Table extends LitElement {
                 aria-current=${this._page === p ? 'page' : nothing}
               >${p}</button>`
         )}
-        <button class="page-btn" ?disabled=${this._page === this._totalPages} @click=${() => goTo(this._page + 1)} aria-label="Next">›</button>
+        <button class="page-btn" ?disabled=${this._page === this._totalPages} @click=${() => goTo(this._page + 1)} aria-label=${msg('Next')}>›</button>
       </nav>
     `;
   }
@@ -507,15 +523,15 @@ export class Table extends LitElement {
 
     return html`
       <div class="sel-banner" role="status" aria-live="polite">
-        <span class="sel-banner-count">${selCount} row${selCount === 1 ? '' : 's'} selected</span>
+        <span class="sel-banner-count">${msg(str`${selCount} row${selCount === 1 ? '' : 's'} selected`)}</span>
         ${!allFiltered && filteredTotal > this._perPage ? html`
           <span class="sel-banner-sep">·</span>
           <button class="sel-banner-btn" @click=${this._onSelectAllFiltered}>
-            Select all ${filteredTotal} rows
+            ${msg(str`Select all ${filteredTotal} rows`)}
           </button>
         ` : nothing}
         <span class="sel-banner-sep">·</span>
-        <button class="sel-banner-btn" @click=${this._clearSelection}>Clear selection</button>
+        <button class="sel-banner-btn" @click=${this._clearSelection}>${msg('Clear selection')}</button>
       </div>
     `;
   }
@@ -529,7 +545,7 @@ export class Table extends LitElement {
           aria-haspopup="true"
           aria-expanded=${this._colMenuOpen ? 'true' : 'false'}
           @click=${() => this._colMenuOpen ? (this._colMenuOpen = false, this._removeMenuListener()) : this._openColMenu()}
-        >Columns <span class="chevron">▾</span></button>
+        >${msg('Columns')} <span class="chevron">▾</span></button>
         ${this._colMenuOpen ? html`
           <div class="col-dropdown" role="menu">
             ${this._cols.map(col => html`
@@ -552,7 +568,7 @@ export class Table extends LitElement {
     if (!this.filterable) return nothing;
     const vis = this._visibleCols;
     return html`
-      <tr class="filter-row" aria-label="Column filters">
+      <tr class="filter-row" aria-label=${msg('Column filters')}>
         ${this.selectable ? html`<th class="col-check"></th>` : nothing}
         ${vis.map(col => html`
           <th style=${this._colStyle(col)}>
@@ -562,7 +578,7 @@ export class Table extends LitElement {
               placeholder="Filter…"
               .value=${this._colFilters.get(col.key) ?? ''}
               @input=${(e: Event) => this._onColFilter(col, e)}
-              aria-label="Filter ${col.label}"
+              aria-label=${msg(str`Filter ${col.label}`)}
             />
           </th>
         `)}
@@ -601,37 +617,37 @@ export class Table extends LitElement {
                 placeholder=${this.searchPlaceholder}
                 .value=${this._query}
                 @input=${this._onSearch}
-                aria-label="Search table"
+                aria-label=${msg('Search table')}
               />
             </div>
           ` : nothing}
 
           <div class="controls">
             ${this.paginated ? html`
-              <label class="toolbar-label" for="uibit-per-page">Rows:</label>
-              <select id="uibit-per-page" class="ctrl-select" @change=${this._onPerPage} aria-label="Rows per page">
+              <label class="toolbar-label" for="uibit-per-page">${msg('Rows:')}</label>
+              <select id="uibit-per-page" class="ctrl-select" @change=${this._onPerPage} aria-label=${msg('Rows per page')}>
                 ${this._pageSizeOptions.map(n => html`<option value=${n} ?selected=${this._perPage === n}>${n}</option>`)}
               </select>
             ` : nothing}
 
-            <label class="toolbar-label" for="uibit-density">Density:</label>
-            <select id="uibit-density" class="ctrl-select" @change=${(e: Event) => { this.density = (e.target as HTMLSelectElement).value as typeof this.density; }} aria-label="Row density">
-              <option value="compact" ?selected=${this.density === 'compact'}>Compact</option>
-              <option value="normal" ?selected=${this.density === 'normal'}>Normal</option>
-              <option value="comfortable" ?selected=${this.density === 'comfortable'}>Comfortable</option>
+            <label class="toolbar-label" for="uibit-density">${msg('Density:')}</label>
+            <select id="uibit-density" class="ctrl-select" @change=${(e: Event) => { this.density = (e.target as HTMLSelectElement).value as typeof this.density; }} aria-label=${msg('Row density')}>
+              <option value="compact" ?selected=${this.density === 'compact'}>${msg('Compact')}</option>
+              <option value="normal" ?selected=${this.density === 'normal'}>${msg('Normal')}</option>
+              <option value="comfortable" ?selected=${this.density === 'comfortable'}>${msg('Comfortable')}</option>
             </select>
 
             ${this._renderColMenu()}
 
             ${this.exportable ? html`
-              <button class="ctrl-btn" part="export-btn" @click=${this._exportCsv} aria-label="Export as CSV">
-                ${this._selected.size > 0 ? `Export ${this._selected.size} rows` : 'Export CSV'}
+              <button class="ctrl-btn" part="export-btn" @click=${this._exportCsv} aria-label=${msg('Export as CSV')}>
+                ${this._selected.size > 0 ? msg(str`Export ${this._selected.size} rows`) : msg('Export CSV')}
               </button>
             ` : nothing}
 
             ${hasActiveFilters ? html`
-              <button class="ctrl-btn" @click=${() => { this._query = ''; this._colFilters = new Map(); this._page = 1; }} aria-label="Clear all filters">
-                Clear filters
+              <button class="ctrl-btn" @click=${() => { this._query = ''; this._colFilters = new Map(); this._page = 1; }} aria-label=${msg('Clear all filters')}>
+                ${msg('Clear filters')}
               </button>
             ` : nothing}
           </div>
@@ -640,7 +656,7 @@ export class Table extends LitElement {
 
       ${this._renderSelectionBanner()}
 
-      <div class="table-wrap" part="table-wrap" role="region" aria-label="Data table">
+      <div class="table-wrap" part="table-wrap" role="region" aria-label=${msg('Data table')}>
         <table part="table">
           ${vis.length ? html`
             <thead part="thead">
@@ -652,7 +668,7 @@ export class Table extends LitElement {
                       .checked=${selectAllChecked}
                       .indeterminate=${selectAllIndeterminate}
                       @change=${(e: Event) => this._onSelectAllPage((e.target as HTMLInputElement).checked)}
-                      aria-label="Select all rows on this page"
+                      aria-label=${msg('Select all rows on this page')}
                     />
                   </th>
                 ` : nothing}
@@ -712,7 +728,7 @@ export class Table extends LitElement {
                       .checked=${this._selected.has(i)}
                       @click=${(e: Event) => e.stopPropagation()}
                       @change=${() => this._onSelectRow(i)}
-                      aria-label="Select row"
+                      aria-label=${msg('Select row')}
                     />
                   </td>
                 ` : nothing}

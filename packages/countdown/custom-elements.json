@@ -194,17 +194,11 @@
           ],
           "events": [
             {
-              "name": "countdown-tick",
               "type": {
                 "text": "{ days: number, hours: number, minutes: number, seconds: number, remaining: number }"
               },
-              "description": "Fired every second while the countdown is running"
-            },
-            {
-              "name": "countdown-complete",
-              "type": {
-                "text": "CustomEvent"
-              }
+              "description": "Fired every second while the countdown is running",
+              "name": "countdown-tick"
             },
             {
               "description": "countdown-complete - Fired when the countdown reaches zero",
@@ -248,8 +242,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-countdown",
           "customElement": true

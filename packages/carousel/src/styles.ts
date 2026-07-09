@@ -2,14 +2,14 @@ import { css } from 'lit';
 
 export const styles = css`
   :host {
-    --uibit-carousel-gap: 1rem;
+    --uibit-carousel-gap: var(--uibit-spacing-4, 1rem);
     --uibit-carousel-duration: 300ms;
     --uibit-carousel-items-per-view: 1;
     --uibit-carousel-border-color: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb));
     --uibit-carousel-button-bg: var(--uibit-bg-surface, var(--uibit-color-white, #ffffff));
-    --uibit-carousel-button-bg-hover: var(--uibit-color-black, #000000);
+    --uibit-carousel-button-bg-hover: var(--uibit-focus-color, var(--uibit-color-black, #000000));
     --uibit-carousel-indicator-bg: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb));
-    --uibit-carousel-indicator-active-bg: var(--uibit-color-black, #000000);
+    --uibit-carousel-indicator-active-bg: var(--uibit-focus-color, var(--uibit-color-black, #000000));
     --uibit-carousel-focus-color: var(--uibit-focus-color, var(--uibit-color-black, #000000));
     display: block;
     width: 100%;
@@ -18,7 +18,7 @@ export const styles = css`
   .carousel {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: var(--uibit-spacing-4, 1rem);
     width: 100%;
   }
 
@@ -36,7 +36,7 @@ export const styles = css`
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    padding: 1rem;
+    padding: var(--uibit-spacing-4, 1rem);
     width: 100%;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -60,7 +60,7 @@ export const styles = css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: var(--uibit-spacing-4, 1rem);
   }
 
   .carousel-buttons {
@@ -69,7 +69,7 @@ export const styles = css`
   }
 
   .carousel-button {
-    padding: 0.5rem 1rem;
+    padding: var(--uibit-spacing-2, 0.5rem) var(--uibit-spacing-4, 1rem);
     background-color: var(--uibit-carousel-button-bg);
     border: 0.0625rem solid var(--uibit-carousel-border-color);
     border-radius: var(--uibit-radius-lg, 0.375rem);
@@ -80,12 +80,12 @@ export const styles = css`
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
+    gap: var(--uibit-spacing-1, 0.25rem);
   }
 
   .carousel-button:hover:not(:disabled) {
     background-color: var(--uibit-carousel-button-bg-hover);
-    color: #ffffff;
+    color: var(--uibit-bg-surface, var(--uibit-color-white, #ffffff));
     border-color: var(--uibit-carousel-button-bg-hover);
   }
 

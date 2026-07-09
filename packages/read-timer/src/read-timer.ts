@@ -1,5 +1,5 @@
-import { LitElement, html, svg } from 'lit';
-import { customElement } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, getIcon, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -22,7 +22,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-read-timer-icon-color=currentColor] - Color of the clock icon
  */
 @customElement('uibit-read-timer')
-export class ReadTimer extends LitElement {
+export class ReadTimer extends UIBitElement {
   static styles = styles;
 
   /** Average reading speed in words per minute. */
@@ -53,11 +53,7 @@ export class ReadTimer extends LitElement {
     const minutes = Math.ceil(words / this.wpm);
     const timeStr = minutes < 1 ? 'less than 1 min' : `${minutes} min`;
     this._label = this.template.replace('{time}', timeStr);
-    this.dispatchEvent(new CustomEvent('read-time-change', {
-      detail: { words, minutes },
-      bubbles: true,
-      composed: true,
-    }));
+    this.dispatchCustomEvent('read-time-change', { words, minutes });
   }
 
   private _extractText(node: Node): string {
@@ -75,22 +71,13 @@ export class ReadTimer extends LitElement {
     return '';
   }
 
-  private _clockIcon() {
-    return svg`
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <circle cx="12" cy="12" r="10"/>
-        <polyline points="12 6 12 12 16 14"/>
-      </svg>
-    `;
-  }
-
   render() {
     return html`
       <div class="content-slot">
         <slot></slot>
       </div>
       <slot name="icon">
-        ${this.showIcon ? html`<span class="icon" part="icon">${this._clockIcon()}</span>` : ''}
+        ${this.showIcon ? html`<span class="icon" part="icon">${getIcon('clock', 14)}</span>` : ''}
       </slot>
       <span class="label" part="label">${this._label}</span>
     `;

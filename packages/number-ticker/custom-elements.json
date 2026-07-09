@@ -239,18 +239,6 @@
           ],
           "events": [
             {
-              "name": "ticker-start",
-              "type": {
-                "text": "CustomEvent"
-              }
-            },
-            {
-              "name": "ticker-end",
-              "type": {
-                "text": "CustomEvent"
-              }
-            },
-            {
               "description": "ticker-end - Fired when the count animation completes",
               "name": "void"
             }
@@ -348,8 +336,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-number-ticker",
           "customElement": true

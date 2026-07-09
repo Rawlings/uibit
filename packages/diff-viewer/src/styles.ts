@@ -12,7 +12,7 @@ export const styles = css`
 
     display: block;
     font-family: var(--uibit-diff-viewer-font-family, var(--uibit-font-mono, ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace));
-    font-size: var(--uibit-diff-viewer-font-size, 0.8125rem);
+    font-size: var(--uibit-diff-viewer-font-size, calc(0.8125rem * var(--uibit-font-scale-factor, 1)));
     line-height: var(--uibit-diff-viewer-line-height, 1.6);
     border: 1px solid var(--uibit-diff-viewer-border-color);
     border-radius: var(--uibit-diff-viewer-radius);
@@ -34,8 +34,8 @@ export const styles = css`
   }
 
   .header-cell {
-    padding: 0.5rem 1rem;
-    font-size: 0.75rem;
+    padding: calc(0.5rem * var(--uibit-spacing-factor, 1)) calc(1rem * var(--uibit-spacing-factor, 1));
+    font-size: calc(0.75rem * var(--uibit-font-scale-factor, 1));
     font-weight: 500;
     color: var(--uibit-diff-viewer-label-color, #6b7280);
     font-family: inherit;
@@ -75,8 +75,8 @@ export const styles = css`
 
   .gutter {
     user-select: none;
-    min-width: 3rem;
-    padding: 0 0.75rem;
+    min-width: calc(3rem * var(--uibit-spacing-factor, 1));
+    padding: 0 calc(0.75rem * var(--uibit-spacing-factor, 1));
     text-align: right;
     color: var(--uibit-diff-viewer-gutter-color, #9ca3af);
     background: var(--uibit-diff-viewer-gutter-bg, #f9fafb);
@@ -85,29 +85,29 @@ export const styles = css`
   }
 
   .content {
-    padding: 0 1rem;
+    padding: 0 calc(1rem * var(--uibit-spacing-factor, 1));
     white-space: pre;
     flex: 1;
   }
 
   .line.delete {
-    background: var(--uibit-diff-viewer-delete-bg, #fef2f2);
-    color: var(--uibit-diff-viewer-delete-color, #991b1b);
+    background: var(--uibit-diff-delete-bg, #fef2f2);
+    color: var(--uibit-diff-delete-color, #991b1b);
   }
 
   .line.delete .gutter {
-    background: var(--uibit-diff-viewer-delete-gutter-bg, #fee2e2);
-    color: var(--uibit-diff-viewer-delete-color, #991b1b);
+    background: var(--uibit-diff-delete-gutter-bg, #fee2e2);
+    color: var(--uibit-diff-delete-color, #991b1b);
   }
 
   .line.insert {
-    background: var(--uibit-diff-viewer-insert-bg, #f0fdf4);
-    color: var(--uibit-diff-viewer-insert-color, #166534);
+    background: var(--uibit-diff-insert-bg, #f0fdf4);
+    color: var(--uibit-diff-insert-color, #166534);
   }
 
   .line.insert .gutter {
-    background: var(--uibit-diff-viewer-insert-gutter-bg, #dcfce7);
-    color: var(--uibit-diff-viewer-insert-color, #166534);
+    background: var(--uibit-diff-insert-gutter-bg, #dcfce7);
+    color: var(--uibit-diff-insert-color, #166534);
   }
 
   .line.equal {

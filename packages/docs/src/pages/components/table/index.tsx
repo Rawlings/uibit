@@ -3,6 +3,9 @@ import manifest from '@uibit/table/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import fullFeatured from './examples/full-featured';
 import rowSelection from './examples/row-selection';
+import multiSort from './examples/multi-sort';
+import filtering from './examples/filtering';
+import exportSelected from './examples/export-selected';
 
 const ROWS: [string, string, string, string, string, string][] = [
   ['Acme Corp', '1 240 000', 'North America', 'Active', '12.4', 'Enterprise'],
@@ -168,7 +171,7 @@ function TableDemo() {
   );
 }`,
   },
-  examples: [fullFeatured, rowSelection],
+  examples: [fullFeatured, multiSort, filtering, rowSelection, exportSelected],
   features: [
     'Global search filters all columns simultaneously with live match highlighting',
     'Multi-sort: click to sort one column, Shift+click to stack secondary/tertiary sorts with numbered priority badges',
@@ -185,6 +188,21 @@ function TableDemo() {
     'Comma-stripped numeric parsing (handles formatted numbers like "1 240 000")',
     'Source <table> is never mutated; all state lives in the component',
   ],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'Focus indicators are clearly visible on all interactive elements like buttons and dropdowns.',
+      'Aria-sort attribute notifies assistive tech of active sort direction on sorted columns.',
+      'Aria-expanded tracks the state of the column visibility chooser menu.',
+      'Standard labels provide description for input text fields.',
+      'Selection checkbox attributes are updated dynamically to show select-all status.'
+    ],
+    keyboardNav: [
+      { key: 'Tab', description: 'Navigate between search inputs, filters, and page buttons.' },
+      { key: 'Space / Enter', description: 'Trigger sorting on headers or activate selection checkboxes.' },
+      { key: 'Escape', description: 'Close the column visibility selection menu.' }
+    ]
+  }
 };
 
 export default data;

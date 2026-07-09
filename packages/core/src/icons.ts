@@ -12,6 +12,7 @@ import {
   Smile,
   Laugh,
   Angry,
+  Clock,
   type IconNode,
 } from 'lucide';
 
@@ -48,6 +49,7 @@ const defaults: Record<string, IconDefinition> = {
   'meh': fromLucide(Meh),
   'smile': fromLucide(Smile),
   'laugh': fromLucide(Laugh),
+  'clock': fromLucide(Clock),
 };
 
 /**

@@ -57,6 +57,19 @@ function Feedback() {
     'value attribute is reflected — style against [value="5"] for conditional host styling',
     'Fully keyboard accessible with role="radiogroup" and aria-checked state',
   ],
+  a11y: {
+    wcagLevel: 'AA',
+    requirements: [
+      'Track container functions as a radiogroup with role="radiogroup" and a descriptive aria-label.',
+      'Individual sentiment buttons are marked with role="radio" and aria-checked to track selection.',
+      'Active preview labels are placed inside an aria-live="polite" region so changes are announced immediately.'
+    ],
+    keyboardNav: [
+      { key: 'ArrowLeft', description: 'Move selection to the previous rating option.' },
+      { key: 'ArrowRight', description: 'Move selection to the next rating option.' },
+      { key: 'Tab', description: 'Navigate focus onto and away from the sentiment rating group.' }
+    ]
+  }
 };
 
 export default data;
