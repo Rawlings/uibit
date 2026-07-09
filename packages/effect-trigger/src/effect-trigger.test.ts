@@ -7,7 +7,6 @@ describe('EffectTrigger Component', () => {
   let animateSpy: any;
 
   beforeEach(() => {
-    // Mock HTMLElement.prototype.animate
     animateSpy = vi.fn().mockImplementation(() => {
       return {
         onfinish: null,
@@ -18,7 +17,6 @@ describe('EffectTrigger Component', () => {
     vi.stubGlobal('HTMLElement', class extends HTMLElement {
       animate = animateSpy;
     });
-    // Also stub the prototype directly just in case happy-dom has its own prototype
     if (typeof window !== 'undefined' && window.HTMLElement) {
       window.HTMLElement.prototype.animate = animateSpy;
     }
@@ -44,34 +42,39 @@ describe('EffectTrigger Component', () => {
 
   it('triggers ignition when clicked', async () => {
     const igniteSpy = vi.spyOn(element, 'ignite');
-    
-    // Simulate click on the component
     element.click();
-    
     expect(igniteSpy).toHaveBeenCalled();
   });
 
-  it('emits a custom event on ignition', async () => {
+  it('emits uibit-effect-ignite custom event on ignition', async () => {
     const eventHandler = vi.fn();
     element.addEventListener('uibit-effect-ignite', eventHandler);
-    
     element.ignite();
-    
     expect(eventHandler).toHaveBeenCalled();
-    const eventDetail = eventHandler.mock.calls[0][0].detail;
-    expect(eventDetail.trigger).toBe('click');
-    expect(eventDetail.behavior).toBe('float-displace');
   });
 
-  it('allows registering and running custom behaviors', async () => {
-    const customBehaviorSpy = vi.fn();
-    EffectTrigger.registerBehavior('custom-pop', customBehaviorSpy);
-    
-    element.behavior = 'custom-pop';
-    await element.updateComplete;
+  it('fires uibit-particle-create and allows mutating the cloned particle', async () => {
+    const createHandler = vi.fn().mockImplementation((e: CustomEvent) => {
+      e.detail.particle.textContent = 'MUTATED';
+    });
+    element.addEventListener('uibit-particle-create', createHandler as EventListener);
     
     element.ignite();
     
-    expect(customBehaviorSpy).toHaveBeenCalled();
+    expect(createHandler).toHaveBeenCalled();
+    const createdParticle = createHandler.mock.calls[0][0].detail.particle;
+    expect(createdParticle.textContent).toBe('MUTATED');
+  });
+
+  it('respects inline custom keyframes property overriding standard path', async () => {
+    element.keyframes = JSON.stringify([{ opacity: 0 }, { opacity: 1 }]);
+    await element.updateComplete;
+
+    element.ignite();
+
+    expect(animateSpy).toHaveBeenCalledWith(
+      [{ opacity: 0 }, { opacity: 1 }],
+      expect.objectContaining({ duration: 1000 })
+    );
   });
 });

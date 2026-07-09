@@ -18,8 +18,12 @@ export interface BehaviorContext {
   assetEl: HTMLElement;
   containerEl: HTMLElement;
   density: number;
-  velocity: string; // e.g. "600ms", "2.5s", etc.
+  velocity: string;
   randomize: boolean;
+  stagger: string;
+  scaleRange: string;
+  rotationRange: string;
+  destinationSelector?: string;
 }
 
 export type BehaviorFn = (ctx: BehaviorContext) => void;

@@ -14,6 +14,7 @@
     "build:docs": "pnpm -F docs run build",
     "preview": "pnpm -F docs run preview",
     "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze",
+    "lint": "pnpm -r --filter '!@uibit/docs' exec -- tsc --noEmit",
     "test": "vitest run"
   },
   "devDependencies": {

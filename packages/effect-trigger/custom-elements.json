@@ -105,6 +105,63 @@
             },
             {
               "kind": "field",
+              "name": "stagger",
+              "type": {
+                "text": "string"
+              },
+              "default": "'0ms'",
+              "description": "Stagger delay between spawning each particle (e.g., \"50ms\", \"0.1s\")",
+              "attribute": "stagger"
+            },
+            {
+              "kind": "field",
+              "name": "scaleRange",
+              "type": {
+                "text": "string"
+              },
+              "default": "'0.5,1.5'",
+              "description": "Min,Max range scale bounds for randomization (e.g., \"0.5,1.5\")",
+              "attribute": "scale-range"
+            },
+            {
+              "kind": "field",
+              "name": "rotationRange",
+              "type": {
+                "text": "string"
+              },
+              "default": "'-180,180'",
+              "description": "Min,Max range rotation degrees for randomization (e.g., \"-180,180\")",
+              "attribute": "rotation-range"
+            },
+            {
+              "kind": "field",
+              "name": "keyframes",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom keyframe definition in JSON string format to override behavior",
+              "attribute": "keyframes"
+            },
+            {
+              "kind": "field",
+              "name": "targetSelector",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS selector of an external element to bind trigger events to",
+              "attribute": "target-selector"
+            },
+            {
+              "kind": "field",
+              "name": "destinationSelector",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS selector of a destination element to animate particles towards",
+              "attribute": "destination-selector"
+            },
+            {
+              "kind": "field",
               "name": "_observer",
               "type": {
                 "text": "IntersectionObserver | undefined"
@@ -121,8 +178,22 @@
               "default": "false"
             },
             {
+              "kind": "field",
+              "name": "_boundEventsCleanups",
+              "type": {
+                "text": "Array<() => void>"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
               "kind": "method",
               "name": "_cleanupObserver",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_cleanupBoundEvents",
               "privacy": "private"
             },
             {
@@ -163,6 +234,62 @@
                 }
               ],
               "description": "Launch/Ignite the visual effect. Can be called programmatically."
+            },
+            {
+              "kind": "method",
+              "name": "_spawnParticle",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "triggerEl",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "assetEl",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "container",
+                  "type": {
+                    "text": "HTMLElement"
+                  }
+                },
+                {
+                  "name": "event",
+                  "optional": true,
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_getRandomFromRange",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "rangeStr",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
             },
             {
               "kind": "method",
@@ -212,7 +339,7 @@
                   }
                 },
                 {
-                  "name": "assetEl",
+                  "name": "clone",
                   "type": {
                     "text": "HTMLElement"
                   }
@@ -278,6 +405,57 @@
               "default": "false",
               "description": "Applies real-time visual variations (scale, drift, rotation) to each clone",
               "fieldName": "randomize"
+            },
+            {
+              "name": "stagger",
+              "type": {
+                "text": "string"
+              },
+              "default": "'0ms'",
+              "description": "Stagger delay between spawning each particle (e.g., \"50ms\", \"0.1s\")",
+              "fieldName": "stagger"
+            },
+            {
+              "name": "scale-range",
+              "type": {
+                "text": "string"
+              },
+              "default": "'0.5,1.5'",
+              "description": "Min,Max range scale bounds for randomization (e.g., \"0.5,1.5\")",
+              "fieldName": "scaleRange"
+            },
+            {
+              "name": "rotation-range",
+              "type": {
+                "text": "string"
+              },
+              "default": "'-180,180'",
+              "description": "Min,Max range rotation degrees for randomization (e.g., \"-180,180\")",
+              "fieldName": "rotationRange"
+            },
+            {
+              "name": "keyframes",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Custom keyframe definition in JSON string format to override behavior",
+              "fieldName": "keyframes"
+            },
+            {
+              "name": "target-selector",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS selector of an external element to bind trigger events to",
+              "fieldName": "targetSelector"
+            },
+            {
+              "name": "destination-selector",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "CSS selector of a destination element to animate particles towards",
+              "fieldName": "destinationSelector"
             }
           ],
           "superclass": {

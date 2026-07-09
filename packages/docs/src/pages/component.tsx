@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ApiDocs } from '../components/ApiDocs';
 import { Sidebar } from '../components/Sidebar';
 import { componentRegistry } from './components';
@@ -10,7 +10,7 @@ type CodeTab = 'html' | 'react';
 
 function CodePanel({ code }: { code: DualCode }) {
   const [open, setOpen] = useState(false);
-  const [tab, setTab] = useState<CodeTab>('html');
+  const [tab, setTab] = useState<CodeTab>('react');
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -49,7 +49,7 @@ function CodePanel({ code }: { code: DualCode }) {
         <div className="bg-gray-900 relative group">
           <div className="flex items-center justify-between px-4 pt-3 pb-1 border-b border-gray-800/60">
             <div className="flex items-center gap-1">
-              {(['html', 'react'] as CodeTab[]).map((t) => (
+              {(['react', 'html'] as CodeTab[]).map((t) => (
                 <button
                   key={t}
                   onClick={() => setTab(t)}
@@ -91,6 +91,59 @@ function CodePanel({ code }: { code: DualCode }) {
           </pre>
         </div>
       )}
+    </div>
+  );
+}
+
+function formatHTML(html: string): string {
+  let cleaned = html.replace(/<!--.*?-->/g, '').trim();
+  let result = '';
+  let indent = 0;
+  const tokens = cleaned.split(/(<\/?[a-zA-Z0-9\-]+(?:\s+[^>]*?)?>)/g).filter(Boolean);
+  
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i].trim();
+    if (!token) continue;
+    
+    if (token.startsWith('</')) {
+      indent--;
+      result += '\n' + '  '.repeat(Math.max(0, indent)) + token;
+    } else if (token.startsWith('<') && !token.endsWith('/>') && !token.startsWith('<!') && !token.match(/^<(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)/)) {
+      result += '\n' + '  '.repeat(Math.max(0, indent)) + token;
+      indent++;
+    } else {
+      result += '\n' + '  '.repeat(Math.max(0, indent)) + token;
+    }
+  }
+  
+  return result.trim();
+}
+
+function ExampleBlock({ example }: { example: any }) {
+  const [htmlCode, setHtmlCode] = useState(example.code?.html || '');
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      setHtmlCode(formatHTML(ref.current.innerHTML));
+    }
+  }, [example.Demo]);
+
+  const code = {
+    html: htmlCode || example.code?.html || '',
+    react: example.code?.react || ''
+  };
+
+  return (
+    <div>
+      <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">{example.title}</h3>
+      {example.description && (
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{example.description}</p>
+      )}
+      <div ref={ref} className="bg-white dark:bg-gray-950 rounded-t-lg p-6 border border-gray-200 dark:border-gray-800 border-b-0">
+        <example.Demo />
+      </div>
+      <CodePanel code={code} />
     </div>
   );
 }
@@ -206,16 +259,7 @@ export default function ComponentDocs() {
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-8">Examples</h2>
               <div className="space-y-12">
                 {examples.map((example, index) => (
-                  <div key={index}>
-                    <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">{example.title}</h3>
-                    {example.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{example.description}</p>
-                    )}
-                    <div className="bg-white dark:bg-gray-950 rounded-t-lg p-6 border border-gray-200 dark:border-gray-800 border-b-0">
-                      <example.Demo />
-                    </div>
-                    <CodePanel code={example.code} />
-                  </div>
+                  <ExampleBlock key={index} example={example} />
                 ))}
               </div>
             </section>

@@ -54,8 +54,27 @@ export class EffectTrigger extends UIBitElement {
   /** Applies real-time visual variations (scale, drift, rotation) to each clone */
   @property({ type: Boolean }) randomize = false;
 
+  /** Stagger delay between spawning each particle (e.g., "50ms", "0.1s") */
+  @property({ type: String }) stagger = '0ms';
+
+  /** Min,Max range scale bounds for randomization (e.g., "0.5,1.5") */
+  @property({ type: String, attribute: 'scale-range' }) scaleRange = '0.5,1.5';
+
+  /** Min,Max range rotation degrees for randomization (e.g., "-180,180") */
+  @property({ type: String, attribute: 'rotation-range' }) rotationRange = '-180,180';
+
+  /** Custom keyframe definition in JSON string format to override behavior */
+  @property({ type: String }) keyframes?: string;
+
+  /** CSS selector of an external element to bind trigger events to */
+  @property({ type: String, attribute: 'target-selector' }) targetSelector?: string;
+
+  /** CSS selector of a destination element to animate particles towards */
+  @property({ type: String, attribute: 'destination-selector' }) destinationSelector?: string;
+
   private _observer?: IntersectionObserver;
   private _hasIntersections = false;
+  private _boundEventsCleanups: Array<() => void> = [];
 
   connectedCallback() {
     super.connectedCallback();
@@ -65,11 +84,12 @@ export class EffectTrigger extends UIBitElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this._cleanupObserver();
+    this._cleanupBoundEvents();
   }
 
   updated(changedProperties: Map<string, unknown>) {
     super.updated(changedProperties);
-    if (changedProperties.has('trigger')) {
+    if (changedProperties.has('trigger') || changedProperties.has('targetSelector')) {
       this._setupListeners();
     }
   }
@@ -81,7 +101,17 @@ export class EffectTrigger extends UIBitElement {
     }
   }
 
+  private _cleanupBoundEvents() {
+    this._boundEventsCleanups.forEach(cleanup => cleanup());
+    this._boundEventsCleanups = [];
+  }
+
   private _getTriggerElement(): HTMLElement {
+    if (this.targetSelector) {
+      const el = document.querySelector(this.targetSelector);
+      if (el) return el as HTMLElement;
+    }
+
     const triggerSlot = this.shadowRoot?.querySelector('slot[name="trigger"]') as HTMLSlotElement;
     const assigned = triggerSlot?.assignedNodes({ flatten: true }) || [];
     const triggerEl = assigned.find((node) => node.nodeType === Node.ELEMENT_NODE) as HTMLElement;
@@ -109,14 +139,17 @@ export class EffectTrigger extends UIBitElement {
 
   private _setupListeners() {
     this._cleanupObserver();
+    this._cleanupBoundEvents();
 
     const triggerEl = this._getTriggerElement();
     if (!triggerEl) return;
 
     if (this.trigger === 'click') {
-      this.listen(triggerEl, 'click', (e) => this.ignite(e));
+      const cleanup = this.listen(triggerEl, 'click', (e) => this.ignite(e));
+      this._boundEventsCleanups.push(cleanup);
     } else if (this.trigger === 'hover') {
-      this.listen(triggerEl, 'mouseenter', (e) => this.ignite(e));
+      const cleanup = this.listen(triggerEl, 'mouseenter', (e) => this.ignite(e));
+      this._boundEventsCleanups.push(cleanup);
     } else if (this.trigger === 'visible') {
       this._observer = new IntersectionObserver(
         (entries) => {
@@ -147,29 +180,170 @@ export class EffectTrigger extends UIBitElement {
 
     if (!triggerEl || !assetEl || !container) return;
 
-    // Emit event
+    // Emit global ignition event
     this.dispatchCustomEvent('uibit-effect-ignite', {
       trigger: this.trigger,
       behavior: this.behavior,
       event,
     });
 
-    // Check if custom behavior is registered
+    const staggerMs = this._parseDuration(this.stagger);
+    const count = this.density || 1;
+
+    for (let i = 0; i < count; i++) {
+      if (staggerMs > 0 && i > 0) {
+        setTimeout(() => {
+          this._spawnParticle(i, triggerEl, assetEl, container, event);
+        }, staggerMs * i);
+      } else {
+        this._spawnParticle(i, triggerEl, assetEl, container, event);
+      }
+    }
+  }
+
+  private _spawnParticle(
+    index: number,
+    triggerEl: HTMLElement,
+    assetEl: HTMLElement,
+    container: HTMLElement,
+    event?: Event
+  ) {
+    const clone = this._createClone(assetEl);
+
+    // Lifecycle hook: uibit-particle-create
+    const cancelableEvent = new CustomEvent('uibit-particle-create', {
+      bubbles: true,
+      composed: true,
+      cancelable: true,
+      detail: {
+        particle: clone,
+        index,
+        trigger: this.trigger,
+        behavior: this.behavior,
+      },
+    });
+
+    this.dispatchEvent(cancelableEvent);
+
+    if (cancelableEvent.defaultPrevented) {
+      return;
+    }
+
+    const runWithAnimation = (keyframes: Keyframe[], options: KeyframeAnimationOptions) => {
+      container.appendChild(clone);
+      const anim = clone.animate(keyframes, options);
+      anim.onfinish = () => {
+        // Lifecycle hook: uibit-particle-destroy
+        this.dispatchCustomEvent('uibit-particle-destroy', {
+          particle: clone,
+          index,
+        });
+        clone.remove();
+      };
+    };
+
+    // If custom inline keyframes are provided
+    if (this.keyframes) {
+      try {
+        const parsedKeyframes = JSON.parse(this.keyframes);
+        const duration = this._parseDuration(this.velocity);
+        const rect = triggerEl.getBoundingClientRect();
+        let startX = rect.left + rect.width / 2;
+        let startY = rect.top + rect.height / 2;
+
+        if (event instanceof MouseEvent) {
+          startX = event.clientX;
+          startY = event.clientY;
+        }
+
+        clone.style.left = `${startX}px`;
+        clone.style.top = `${startY}px`;
+
+        runWithAnimation(parsedKeyframes, { duration, easing: 'ease-out' });
+        return;
+      } catch (err) {
+        console.error('Failed to parse effect-trigger keyframes JSON attribute', err);
+      }
+    }
+
+    // Check custom behavior registry
     const customBehavior = EffectTrigger._customBehaviors.get(this.behavior);
     if (customBehavior) {
       customBehavior({
         triggerEl,
-        assetEl,
+        assetEl: clone,
         containerEl: container,
         density: this.density,
         velocity: this.velocity,
         randomize: this.randomize,
+        stagger: this.stagger,
+        scaleRange: this.scaleRange,
+        rotationRange: this.rotationRange,
+        destinationSelector: this.destinationSelector,
       });
       return;
     }
 
+    // Trajectory Destination Animation (Fly-to-Target)
+    if (this.destinationSelector) {
+      const destEl = document.querySelector(this.destinationSelector);
+      if (destEl) {
+        const rect = triggerEl.getBoundingClientRect();
+        let clickX = rect.left + rect.width / 2;
+        let clickY = rect.top + rect.height / 2;
+
+        if (event instanceof MouseEvent) {
+          clickX = event.clientX;
+          clickY = event.clientY;
+        }
+
+        clone.style.left = `${clickX}px`;
+        clone.style.top = `${clickY}px`;
+
+        const destRect = destEl.getBoundingClientRect();
+        const destX = destRect.left + destRect.width / 2;
+        const destY = destRect.top + destRect.height / 2;
+
+        const dx = destX - clickX;
+        const dy = destY - clickY;
+
+        const duration = this._parseDuration(this.velocity);
+        const keyframes: Keyframe[] = [];
+        const steps = 30;
+
+        for (let s = 0; s <= steps; s++) {
+          const pct = s / steps;
+          const curX = dx * pct;
+          const arcHeight = -120 * Math.sin(pct * Math.PI); // Parabolic peak upward
+          const curY = dy * pct + arcHeight;
+
+          const baseScale = this.randomize ? this._getRandomFromRange(this.scaleRange) : 1;
+          const scale = baseScale * (1 - pct * 0.4);
+
+          keyframes.push({
+            transform: `translate(-50%, -50%) translate(${curX}px, ${curY}px) scale(${scale})`,
+            opacity: (1 - pct * 0.2).toString(),
+            offset: pct,
+          });
+        }
+
+        runWithAnimation(keyframes, { duration, easing: 'ease-in-out' });
+        return;
+      }
+    }
+
     // Standard pre-baked behaviors
-    this._executeBakedBehavior(triggerEl, assetEl, container, event);
+    this._executeBakedBehavior(triggerEl, clone, container, event);
+  }
+
+  private _getRandomFromRange(rangeStr: string): number {
+    const parts = rangeStr.split(',').map((p) => parseFloat(p.trim()));
+    const p0 = parts[0] ?? 1;
+    const p1 = parts[1] ?? 1;
+    if (parts.length < 2 || isNaN(p0) || isNaN(p1)) return 1;
+    const min = Math.min(p0, p1);
+    const max = Math.max(p0, p1);
+    return min + Math.random() * (max - min);
   }
 
   private _parseDuration(v: string): number {
@@ -190,7 +364,7 @@ export class EffectTrigger extends UIBitElement {
 
   private _executeBakedBehavior(
     triggerEl: HTMLElement,
-    assetEl: HTMLElement,
+    clone: HTMLElement,
     container: HTMLElement,
     event?: Event
   ) {
@@ -199,10 +373,13 @@ export class EffectTrigger extends UIBitElement {
     const centerY = rect.top + rect.height / 2;
     const duration = this._parseDuration(this.velocity);
 
-    const runWithAnimation = (clone: HTMLElement, keyframes: Keyframe[], options: KeyframeAnimationOptions) => {
+    const runWithAnimation = (keyframes: Keyframe[], options: KeyframeAnimationOptions) => {
       container.appendChild(clone);
       const anim = clone.animate(keyframes, options);
       anim.onfinish = () => {
+        this.dispatchCustomEvent('uibit-particle-destroy', {
+          particle: clone,
+        });
         clone.remove();
       };
     };
@@ -211,22 +388,19 @@ export class EffectTrigger extends UIBitElement {
       case 'traverse-x-right':
       case 'traverse-x-left': {
         const isRight = this.behavior === 'traverse-x-right';
-        const clone = this._createClone(assetEl);
         clone.style.top = `${centerY}px`;
         clone.style.transform = 'translate(-50%, -50%)';
 
         const startX = isRight ? -100 : window.innerWidth + 100;
         const endX = isRight ? window.innerWidth + 100 : -100;
 
-        const baseScale = this.randomize ? 0.6 + Math.random() * 0.8 : 1;
-        const rotateStart = this.randomize ? `${(Math.random() - 0.5) * 360}deg` : '0deg';
-        const rotateEnd = this.randomize ? `${(Math.random() - 0.5) * 720}deg` : '360deg';
+        const baseScale = this.randomize ? this._getRandomFromRange(this.scaleRange) : 1;
+        const rotVal = this.randomize ? this._getRandomFromRange(this.rotationRange) : 360;
 
         runWithAnimation(
-          clone,
           [
-            { left: `${startX}px`, transform: `translate(-50%, -50%) scale(${baseScale}) rotate(${rotateStart})` },
-            { left: `${endX}px`, transform: `translate(-50%, -50%) scale(${baseScale}) rotate(${rotateEnd})` },
+            { left: `${startX}px`, transform: `translate(-50%, -50%) scale(${baseScale}) rotate(0deg)` },
+            { left: `${endX}px`, transform: `translate(-50%, -50%) scale(${baseScale}) rotate(${rotVal}deg)` },
           ],
           { duration, easing: 'linear' }
         );
@@ -236,22 +410,19 @@ export class EffectTrigger extends UIBitElement {
       case 'traverse-y-up':
       case 'traverse-y-down': {
         const isUp = this.behavior === 'traverse-y-up';
-        const clone = this._createClone(assetEl);
         clone.style.left = `${centerX}px`;
         clone.style.transform = 'translate(-50%, -50%)';
 
         const startY = isUp ? window.innerHeight + 100 : -100;
         const endY = isUp ? -100 : window.innerHeight + 100;
 
-        const baseScale = this.randomize ? 0.6 + Math.random() * 0.8 : 1;
-        const rotateStart = this.randomize ? `${(Math.random() - 0.5) * 360}deg` : '0deg';
-        const rotateEnd = this.randomize ? `${(Math.random() - 0.5) * 720}deg` : '360deg';
+        const baseScale = this.randomize ? this._getRandomFromRange(this.scaleRange) : 1;
+        const rotVal = this.randomize ? this._getRandomFromRange(this.rotationRange) : 360;
 
         runWithAnimation(
-          clone,
           [
-            { top: `${startY}px`, transform: `translate(-50%, -50%) scale(${baseScale}) rotate(${rotateStart})` },
-            { top: `${endY}px`, transform: `translate(-50%, -50%) scale(${baseScale}) rotate(${rotateEnd})` },
+            { top: `${startY}px`, transform: `translate(-50%, -50%) scale(${baseScale}) rotate(0deg)` },
+            { top: `${endY}px`, transform: `translate(-50%, -50%) scale(${baseScale}) rotate(${rotVal}deg)` },
           ],
           { duration, easing: 'linear' }
         );
@@ -259,121 +430,106 @@ export class EffectTrigger extends UIBitElement {
       }
 
       case 'fountain-burst': {
-        const count = this.density || 8;
-        for (let i = 0; i < count; i++) {
-          const clone = this._createClone(assetEl);
-          clone.style.left = `${centerX}px`;
-          clone.style.top = `${centerY}px`;
+        clone.style.left = `${centerX}px`;
+        clone.style.top = `${centerY}px`;
 
-          // Physics setup
-          const angle = (Math.PI * 1.25) + (Math.random() * Math.PI * 0.5); // arching upward
-          const speed = (this.randomize ? 8 + Math.random() * 8 : 12) * (duration / 1000);
-          const vx = Math.cos(angle) * speed * 25;
-          const vy = Math.sin(angle) * speed * 25;
+        const angle = (Math.PI * 1.25) + (Math.random() * Math.PI * 0.5);
+        const speed = (this.randomize ? 8 + Math.random() * 8 : 12) * (duration / 1000);
+        const vx = Math.cos(angle) * speed * 25;
+        const vy = Math.sin(angle) * speed * 25;
 
-          const keyframes: Keyframe[] = [];
-          const steps = 20;
-          const g = 0.8; // simulated gravity
+        const keyframes: Keyframe[] = [];
+        const steps = 20;
+        const g = 0.8;
 
-          const rot = (Math.random() - 0.5) * 360;
-          const baseScale = this.randomize ? 0.4 + Math.random() * 0.8 : 1;
+        const rotVal = this.randomize ? this._getRandomFromRange(this.rotationRange) : 360;
+        const baseScale = this.randomize ? this._getRandomFromRange(this.scaleRange) : 1;
 
-          for (let step = 0; step <= steps; step++) {
-            const pct = step / steps;
-            const x = vx * pct;
-            const y = vy * pct + 0.5 * g * (pct * 30) * (pct * 30);
-            const opacity = pct > 0.8 ? 1 - (pct - 0.8) / 0.2 : 1;
-            const scale = baseScale * (1 - pct * 0.4);
+        for (let step = 0; step <= steps; step++) {
+          const pct = step / steps;
+          const x = vx * pct;
+          const y = vy * pct + 0.5 * g * (pct * 30) * (pct * 30);
+          const opacity = pct > 0.8 ? 1 - (pct - 0.8) / 0.2 : 1;
+          const scale = baseScale * (1 - pct * 0.4);
 
-            keyframes.push({
-              transform: `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${scale}) rotate(${rot * pct}deg)`,
-              opacity: opacity.toString(),
-              offset: pct,
-            });
-          }
-
-          runWithAnimation(clone, keyframes, { duration, easing: 'ease-out' });
+          keyframes.push({
+            transform: `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${scale}) rotate(${rotVal * pct}deg)`,
+            opacity: opacity.toString(),
+            offset: pct,
+          });
         }
+
+        runWithAnimation(keyframes, { duration, easing: 'ease-out' });
         break;
       }
 
       case 'vortex-attractor': {
-        const count = this.density || 8;
-        for (let i = 0; i < count; i++) {
-          const clone = this._createClone(assetEl);
-          clone.style.left = `${centerX}px`;
-          clone.style.top = `${centerY}px`;
+        clone.style.left = `${centerX}px`;
+        clone.style.top = `${centerY}px`;
 
-          const startRadius = 150 + Math.random() * 200;
-          const startAngle = Math.random() * Math.PI * 2;
-          const spins = 1 + (this.randomize ? Math.random() * 2 : 1.5);
-          const baseScale = this.randomize ? 0.5 + Math.random() * 0.7 : 1;
+        const startRadius = 150 + Math.random() * 200;
+        const startAngle = Math.random() * Math.PI * 2;
+        const spins = 1 + (this.randomize ? Math.random() * 2 : 1.5);
+        const baseScale = this.randomize ? this._getRandomFromRange(this.scaleRange) : 1;
+        const rotVal = this.randomize ? this._getRandomFromRange(this.rotationRange) : 720;
 
-          const keyframes: Keyframe[] = [];
-          const steps = 30;
+        const keyframes: Keyframe[] = [];
+        const steps = 30;
 
-          for (let step = 0; step <= steps; step++) {
-            const pct = step / steps;
-            const radius = startRadius * (1 - pct);
-            const angle = startAngle + pct * spins * Math.PI * 2;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-            const opacity = 1 - pct;
-            const scale = baseScale * (1 - pct);
+        for (let step = 0; step <= steps; step++) {
+          const pct = step / steps;
+          const radius = startRadius * (1 - pct);
+          const angle = startAngle + pct * spins * Math.PI * 2;
+          const x = Math.cos(angle) * radius;
+          const y = Math.sin(angle) * radius;
+          const opacity = 1 - pct;
+          const scale = baseScale * (1 - pct);
 
-            keyframes.push({
-              transform: `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${scale}) rotate(${pct * 720}deg)`,
-              opacity: opacity.toString(),
-              offset: pct,
-            });
-          }
-
-          runWithAnimation(clone, keyframes, { duration, easing: 'ease-in-out' });
+          keyframes.push({
+            transform: `translate(-50%, -50%) translate(${x}px, ${y}px) scale(${scale}) rotate(${pct * rotVal}deg)`,
+            opacity: opacity.toString(),
+            offset: pct,
+          });
         }
+
+        runWithAnimation(keyframes, { duration, easing: 'ease-in-out' });
         break;
       }
 
       case 'ambient-drift': {
-        const count = this.density || 6;
-        for (let i = 0; i < count; i++) {
-          const clone = this._createClone(assetEl);
+        const offsetRange = 60;
+        const spawnX = rect.left + (Math.random() * rect.width) + (Math.random() - 0.5) * offsetRange;
+        const spawnY = rect.bottom;
 
-          // Position randomly across trigger horizontal bounds plus offset
-          const offsetRange = 60;
-          const spawnX = rect.left + (Math.random() * rect.width) + (Math.random() - 0.5) * offsetRange;
-          const spawnY = rect.bottom;
+        clone.style.left = `${spawnX}px`;
+        clone.style.top = `${spawnY}px`;
 
-          clone.style.left = `${spawnX}px`;
-          clone.style.top = `${spawnY}px`;
+        const sway = 15 + Math.random() * 25;
+        const riseDistance = 100 + Math.random() * 100;
+        const scale = this.randomize ? this._getRandomFromRange(this.scaleRange) : 0.8;
 
-          const sway = 15 + Math.random() * 25;
-          const riseDistance = 100 + Math.random() * 100;
-          const scale = this.randomize ? 0.5 + Math.random() * 0.6 : 0.8;
-
-          runWithAnimation(
-            clone,
-            [
-              { transform: 'translate(-50%, 0) translateX(0px) scale(' + scale + ')', opacity: '0' },
-              { transform: 'translate(-50%, -20px) translateX(' + sway / 2 + 'px) scale(' + scale + ')', opacity: '1', offset: 0.2 },
-              { transform: 'translate(-50%, -60px) translateX(-' + sway + 'px) scale(' + scale + ')', offset: 0.6 },
-              { transform: 'translate(-50%, -' + riseDistance + 'px) translateX(' + sway / 3 + 'px) scale(' + (scale * 0.5) + ')', opacity: '0' },
-            ],
-            { duration: duration * (this.randomize ? 0.8 + Math.random() * 0.5 : 1), easing: 'ease-out' }
-          );
-        }
+        runWithAnimation(
+          [
+            { transform: `translate(-50%, 0) translateX(0px) scale(${scale})`, opacity: '0' },
+            { transform: `translate(-50%, -20px) translateX(${sway / 2}px) scale(${scale})`, opacity: '1', offset: 0.2 },
+            { transform: `translate(-50%, -60px) translateX(-${sway}px) scale(${scale})`, offset: 0.6 },
+            { transform: `translate(-50%, -${riseDistance}px) translateX(${sway / 3}px) scale(${scale * 0.5})`, opacity: '0' },
+          ],
+          { duration: duration * (this.randomize ? 0.8 + Math.random() * 0.5 : 1), easing: 'ease-out' }
+        );
         break;
       }
 
       case 'focal-pop': {
-        const clone = this._createClone(assetEl);
         clone.style.left = '50%';
         clone.style.top = '50%';
 
+        const baseScale = this.randomize ? this._getRandomFromRange(this.scaleRange) : 1.2;
+
         runWithAnimation(
-          clone,
           [
             { transform: 'translate(-50%, -50%) scale(0) rotate(-15deg)', opacity: '0' },
-            { transform: 'translate(-50%, -50%) scale(1.2) rotate(5deg)', opacity: '1', offset: 0.2 },
+            { transform: `translate(-50%, -50%) scale(${baseScale}) rotate(5deg)`, opacity: '1', offset: 0.2 },
             { transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', opacity: '1', offset: 0.3 },
             { transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', opacity: '1', offset: 0.8 },
             { transform: 'translate(-50%, -50%) scale(0) rotate(15deg)', opacity: '0' },
@@ -384,43 +540,34 @@ export class EffectTrigger extends UIBitElement {
       }
 
       case 'orbit-halo': {
-        const count = this.density || 6;
         const radius = Math.max(rect.width, rect.height) / 2 + 15;
+        clone.style.left = `${centerX}px`;
+        clone.style.top = `${centerY}px`;
 
-        for (let i = 0; i < count; i++) {
-          const clone = this._createClone(assetEl);
-          clone.style.left = `${centerX}px`;
-          clone.style.top = `${centerY}px`;
+        const startAngle = Math.random() * Math.PI * 2;
+        const keyframes: Keyframe[] = [];
+        const steps = 30;
 
-          const startAngle = (i / count) * Math.PI * 2;
-          const spins = 1;
+        for (let step = 0; step <= steps; step++) {
+          const pct = step / steps;
+          const angle = startAngle + pct * Math.PI * 2;
+          const x = Math.cos(angle) * radius;
+          const y = Math.sin(angle) * radius;
+          const opacity = pct > 0.7 ? 1 - (pct - 0.7) / 0.3 : 1;
 
-          const keyframes: Keyframe[] = [];
-          const steps = 30;
-
-          for (let step = 0; step <= steps; step++) {
-            const pct = step / steps;
-            const angle = startAngle + pct * spins * Math.PI * 2;
-            const x = Math.cos(angle) * radius;
-            const y = Math.sin(angle) * radius;
-            const opacity = pct > 0.7 ? 1 - (pct - 0.7) / 0.3 : 1;
-
-            keyframes.push({
-              transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${pct * 360}deg)`,
-              opacity: opacity.toString(),
-              offset: pct,
-            });
-          }
-
-          runWithAnimation(clone, keyframes, { duration, easing: 'ease-in-out' });
+          keyframes.push({
+            transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${pct * 360}deg)`,
+            opacity: opacity.toString(),
+            offset: pct,
+          });
         }
+
+        runWithAnimation(keyframes, { duration, easing: 'ease-in-out' });
         break;
       }
 
       case 'float-displace':
       default: {
-        const clone = this._createClone(assetEl);
-
         let clickX = centerX;
         let clickY = centerY;
 
@@ -433,11 +580,10 @@ export class EffectTrigger extends UIBitElement {
         clone.style.top = `${clickY}px`;
 
         const distance = 120 + (this.randomize ? Math.random() * 60 : 30);
-        const sway = this.randomize ? (Math.random() - 0.5) * 60 : 0;
-        const scale = this.randomize ? 0.7 + Math.random() * 0.6 : 1;
+        const sway = this.randomize ? this._getRandomFromRange(this.rotationRange) * 0.15 : 0;
+        const scale = this.randomize ? this._getRandomFromRange(this.scaleRange) : 1;
 
         runWithAnimation(
-          clone,
           [
             { transform: `translate(-50%, -50%) translateY(0px) translateX(0px) scale(${scale})`, opacity: '0' },
             { transform: `translate(-50%, -50%) translateY(-20px) translateX(${sway * 0.1}px) scale(${scale})`, opacity: '1', offset: 0.15 },

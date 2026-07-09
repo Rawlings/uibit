@@ -3,6 +3,34 @@ import '@uibit/effect-trigger';
 import { EffectTrigger } from '@uibit/effect-trigger';
 import manifest from '@uibit/effect-trigger/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
+import starRatingExample from './examples/star-rating';
+import starRatingRaw from './examples/star-rating?raw';
+import flyToCartExample from './examples/fly-to-cart';
+import flyToCartRaw from './examples/fly-to-cart?raw';
+import newsletterSignupExample from './examples/newsletter-signup';
+import newsletterSignupRaw from './examples/newsletter-signup?raw';
+import paymentSuccessExample from './examples/payment-success';
+import paymentSuccessRaw from './examples/payment-success?raw';
+import fileUploadExample from './examples/file-upload';
+import fileUploadRaw from './examples/file-upload?raw';
+import inviteMemberExample from './examples/invite-member';
+import inviteMemberRaw from './examples/invite-member?raw';
+import kanbanMoveExample from './examples/kanban-move';
+import kanbanMoveRaw from './examples/kanban-move?raw';
+import systemUpgradeExample from './examples/system-upgrade';
+import systemUpgradeRaw from './examples/system-upgrade?raw';
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...starRatingExample, code: { ...starRatingExample.code, react: starRatingRaw } },
+  { ...flyToCartExample, code: { ...flyToCartExample.code, react: flyToCartRaw } },
+  { ...newsletterSignupExample, code: { ...newsletterSignupExample.code, react: newsletterSignupRaw } },
+  { ...paymentSuccessExample, code: { ...paymentSuccessExample.code, react: paymentSuccessRaw } },
+  { ...fileUploadExample, code: { ...fileUploadExample.code, react: fileUploadRaw } },
+  { ...inviteMemberExample, code: { ...inviteMemberExample.code, react: inviteMemberRaw } },
+  { ...kanbanMoveExample, code: { ...kanbanMoveExample.code, react: kanbanMoveRaw } },
+  { ...systemUpgradeExample, code: { ...systemUpgradeExample.code, react: systemUpgradeRaw } },
+];
 
 function EffectTriggerDemo() {
   const [behavior, setBehavior] = useState('float-displace');
@@ -10,18 +38,17 @@ function EffectTriggerDemo() {
   const [density, setDensity] = useState(8);
   const [velocity, setVelocity] = useState('1s');
   const [randomize, setRandomize] = useState(true);
+  const [stagger, setStagger] = useState('50ms');
   const [customRegistered, setCustomRegistered] = useState(false);
 
   useEffect(() => {
     if (!customRegistered && typeof window !== 'undefined') {
-      // Register a custom confetti/gravity burst behavior
       EffectTrigger.registerBehavior('custom-confetti', (ctx) => {
         const { triggerEl, assetEl, containerEl } = ctx;
         const rect = triggerEl.getBoundingClientRect();
         const centerX = rect.left + rect.width / 2;
         const centerY = rect.top + rect.height / 2;
-
-        const colors = ['#f43f5e', '#3b82f6', '#10b981', '#eab308', '#a855f7'];
+        const colors = ['#000000', '#4b5563', '#9ca3af', '#d1d5db', '#111827'];
 
         for (let i = 0; i < 20; i++) {
           const clone = assetEl.cloneNode(true) as HTMLElement;
@@ -30,13 +57,12 @@ function EffectTriggerDemo() {
           clone.style.zIndex = '999999';
           clone.style.left = `${centerX}px`;
           clone.style.top = `${centerY}px`;
-          // Apply a random color to SVG or text
           clone.style.color = colors[Math.floor(Math.random() * colors.length)];
 
           const angle = Math.random() * Math.PI * 2;
-          const distance = 80 + Math.random() * 150;
+          const distance = 60 + Math.random() * 120;
           const destX = Math.cos(angle) * distance;
-          const destY = Math.sin(angle) * distance + 50; // drift down a bit
+          const destY = Math.sin(angle) * distance + 40;
 
           containerEl.appendChild(clone);
 
@@ -44,7 +70,7 @@ function EffectTriggerDemo() {
             { transform: 'translate(-50%, -50%) translate(0, 0) scale(1) rotate(0deg)', opacity: '1' },
             { transform: `translate(-50%, -50%) translate(${destX}px, ${destY}px) scale(0.3) rotate(${Math.random() * 360}deg)`, opacity: '0' }
           ], {
-            duration: 800 + Math.random() * 600,
+            duration: 800 + Math.random() * 400,
             easing: 'ease-out'
           });
 
@@ -84,7 +110,7 @@ function EffectTriggerDemo() {
                 <option value="traverse-x-left">traverse-x-left (Right-to-left sweep)</option>
                 <option value="traverse-y-up">traverse-y-up (Bottom-to-top sweep)</option>
                 <option value="traverse-y-down">traverse-y-down (Top-to-bottom sweep)</option>
-                <option value="custom-confetti">custom-confetti (Custom Registered Confetti)</option>
+                <option value="custom-confetti">custom-confetti (Custom Confetti)</option>
               </select>
             </div>
 
@@ -224,18 +250,41 @@ const data: ComponentDocData = {
   </svg>
 </uibit-effect-trigger>`,
   },
+  examples: processedExamples,
   usages: [
     {
-      title: 'Registering Custom Behaviors',
-      description: 'You can define custom coordinate-based motion paths globally using the static registration registry API:',
+      title: 'Lifecycle Interception for Dynamic Particle Content',
+      description: 'Hook into the uibit-particle-create event to mutate the cloned DOM before animation starts. This is ideal for tally increment values, random reward amounts, or changing emoji arrays.',
+      code: `const trigger = document.querySelector('uibit-effect-trigger');
+trigger.addEventListener('uibit-particle-create', (e) => {
+  const clone = e.detail.particle;
+  const values = ['✨', '💎', '⭐️', '👑'];
+  clone.textContent = values[Math.floor(Math.random() * values.length)];
+  clone.style.fontSize = '24px';
+});`,
+    },
+    {
+      title: 'Inline Custom CSS Keyframes Override',
+      description: 'You can configure custom keyframe animations directly via the keyframes property, letting you override pre-baked motion curves.',
+      code: `<uibit-effect-trigger
+  trigger="click"
+  keyframes='[{"transform": "translate(-50%, -50%) scale(1)"}, {"transform": "translate(-50%, -150px) scale(0)", "opacity": 0}]'
+  velocity="1.2s"
+>
+  <button slot="trigger">Double Click Me</button>
+  <span slot="asset">⭐️</span>
+</uibit-effect-trigger>`,
+    },
+    {
+      title: 'Global Custom Behavior Registration',
+      description: 'Define custom coordinates or math calculations in JS using the static register API:',
       code: `import { EffectTrigger } from '@uibit/effect-trigger';
 
-// Register custom movement
+// Register custom movement behavior
 EffectTrigger.registerBehavior('custom-spiral', (ctx) => {
   const { triggerEl, assetEl, containerEl } = ctx;
   const clone = assetEl.cloneNode(true) as HTMLElement;
   
-  // Custom setup & Web Animations API logic...
   containerEl.appendChild(clone);
   clone.animate([
     { transform: 'translate(0, 0) scale(1)' },
@@ -248,10 +297,12 @@ EffectTrigger.registerBehavior('custom-spiral', (ctx) => {
     'Complete decoupling of trigger element from visual assets',
     'Supports any slotted DOM, including SVG icons, custom markup, or image frames',
     '8+ pre-baked coordinate calculations and physics path archetypes out-of-the-box',
-    'GPU-accelerated animations using native Web Animations API (WAAPI)',
+    'Staggered particle generation (stagger attribute) for sequential stream effects',
+    'Target delegation (target-selector attribute) to capture events on non-slotted elements',
+    'Fly-to destination paths (destination-selector attribute) with automatic parabolic vector math',
+    'Inline custom keyframes overrides (keyframes JSON string attribute)',
     'Global coordinate cloning prevents clipping in overflow-hidden containers',
-    'Static behavior registration system for user-defined custom motion algorithms',
-    'Passive "custom" trigger mode for programmatic API integration (.ignite())',
+    'Lifecycle events (uibit-particle-create, uibit-particle-destroy) to mutate cloned DOM elements in real time',
   ],
 };
 
