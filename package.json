@@ -11,6 +11,7 @@
   "scripts": {
     "dev": "pnpm -F docs run dev",
     "build": "pnpm -r --filter '!@uibit/docs' run build && pnpm -F docs run build",
+    "build:docs": "pnpm -F docs run build",
     "preview": "pnpm -F docs run preview",
     "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze"
   },
