@@ -19,13 +19,12 @@ function DiffViewerDemo() {
       <p className="text-sm text-gray-600 mb-6">
         Side-by-side diff computed internally — no external library required:
       </p>
-      <uibit-diff-viewer
-        old-text={OLD}
-        new-text={NEW}
-        old-label="before.js"
-        new-label="after.ts"
-        mode="split"
-      ></uibit-diff-viewer>
+      <uibit-diff-viewer mode="split">
+        <pre slot="old">{OLD}</pre>
+        <pre slot="new">{NEW}</pre>
+        <span slot="old-label">before.js</span>
+        <span slot="new-label">after.ts</span>
+      </uibit-diff-viewer>
     </div>
   );
 }
@@ -42,28 +41,26 @@ const data: ComponentDocData = {
   usages: [
     {
       title: 'Side-by-side (default)',
-      code: `<uibit-diff-viewer
-  old-text="const x = 1;"
-  new-text="const x = 2;"
-  old-label="Before"
-  new-label="After"
-></uibit-diff-viewer>`,
+      code: `<uibit-diff-viewer>
+  <pre slot="old">const x = 1;</pre>
+  <pre slot="new">const x = 2;</pre>
+  <span slot="old-label">Before</span>
+  <span slot="new-label">After</span>
+</uibit-diff-viewer>`,
     },
     {
       title: 'Inline / unified view',
-      code: `<uibit-diff-viewer
-  old-text="const x = 1;"
-  new-text="const x = 2;"
-  mode="inline"
-></uibit-diff-viewer>`,
+      code: `<uibit-diff-viewer mode="inline">
+  <pre slot="old">const x = 1;</pre>
+  <pre slot="new">const x = 2;</pre>
+</uibit-diff-viewer>`,
     },
     {
       title: 'Without line numbers',
-      code: `<uibit-diff-viewer
-  old-text="foo"
-  new-text="bar"
-  show-line-numbers="false"
-></uibit-diff-viewer>`,
+      code: `<uibit-diff-viewer show-line-numbers="false">
+  <pre slot="old">foo</pre>
+  <pre slot="new">bar</pre>
+</uibit-diff-viewer>`,
     },
     {
       title: 'React Integration',
@@ -71,12 +68,12 @@ const data: ComponentDocData = {
 
 function Review({ before, after }) {
   return (
-    <uibit-diff-viewer
-      old-text={before}
-      new-text={after}
-      old-label="v1.2"
-      new-label="v1.3"
-    />
+    <uibit-diff-viewer>
+      <pre slot="old">{before}</pre>
+      <pre slot="new">{after}</pre>
+      <span slot="old-label">v1.2</span>
+      <span slot="new-label">v1.3</span>
+    </uibit-diff-viewer>
   );
 }`,
     },

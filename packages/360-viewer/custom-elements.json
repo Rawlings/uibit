@@ -59,9 +59,8 @@
               "type": {
                 "text": "string[]"
               },
-              "default": "[]",
-              "description": "Ordered array of image URLs representing each frame of the 360° rotation.",
-              "attribute": "images"
+              "privacy": "private",
+              "default": "[]"
             },
             {
               "kind": "field",
@@ -259,6 +258,19 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "handleSlotChange",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
             }
           ],
           "events": [
@@ -271,15 +283,6 @@
             }
           ],
           "attributes": [
-            {
-              "name": "images",
-              "type": {
-                "text": "string[]"
-              },
-              "default": "[]",
-              "description": "Ordered array of image URLs representing each frame of the 360° rotation.",
-              "fieldName": "images"
-            },
             {
               "name": "autoRotate",
               "type": {

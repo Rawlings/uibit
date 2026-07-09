@@ -48,17 +48,21 @@ const data: ComponentDocData = {
 
 function Article({ body }: { body: string }) {
   return (
-    <uibit-text-clamp lines={4} more-label="Read more" less-label="Show less">
+    <uibit-text-clamp lines={4}>
       {body}
+      <button slot="more">Read more</button>
+      <button slot="less">Show less</button>
     </uibit-text-clamp>
   );
 }`,
     },
     {
-      title: 'Custom Toggle Labels',
-      description: 'Override the default More/Less labels.',
-      code: `<uibit-text-clamp lines="2" more-label="Read more" less-label="Show less">
-  …
+      title: 'Custom Toggle Labels (Bring Your Own UI)',
+      description: 'Override the default More/Less buttons with your own elements.',
+      code: `<uibit-text-clamp lines="2">
+  <p>Your content...</p>
+  <button slot="more">Read more</button>
+  <button slot="less">Show less</button>
 </uibit-text-clamp>`,
     },
     {

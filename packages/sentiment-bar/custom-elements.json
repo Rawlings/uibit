@@ -125,9 +125,8 @@
               "type": {
                 "text": "SentimentOption[]"
               },
-              "default": "[ { value: 1, icon: 'angry', label: 'Terrible' }, { value: 2, icon: 'frown', label: 'Bad' }, { value: 3, icon: 'meh', label: 'Okay' }, { value: 4, icon: 'smile', label: 'Good' }, { value: 5, icon: 'laugh', label: 'Excellent' }, ]",
-              "description": "Array of sentiment options. Each must have `value` (number), `icon` (icon name string), and `label` (string).",
-              "attribute": "options"
+              "privacy": "private",
+              "default": "[ { value: 1, icon: 'angry', label: 'Terrible' }, { value: 2, icon: 'frown', label: 'Bad' }, { value: 3, icon: 'meh', label: 'Okay' }, { value: 4, icon: 'smile', label: 'Good' }, { value: 5, icon: 'laugh', label: 'Excellent' }, ]"
             },
             {
               "kind": "field",
@@ -179,6 +178,19 @@
                   "text": "string"
                 }
               }
+            },
+            {
+              "kind": "method",
+              "name": "_onSlotChange",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
             }
           ],
           "events": [
@@ -198,15 +210,6 @@
             }
           ],
           "attributes": [
-            {
-              "name": "options",
-              "type": {
-                "text": "SentimentOption[]"
-              },
-              "default": "DEFAULT_OPTIONS",
-              "description": "Array of sentiment options. Each must have `value` (number), `icon` (icon name string), and `label` (string).",
-              "fieldName": "options"
-            },
             {
               "name": "value",
               "type": {

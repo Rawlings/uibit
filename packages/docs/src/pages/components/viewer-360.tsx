@@ -19,10 +19,13 @@ function Viewer360Demo() {
       </p>
       <div className="max-w-xl mx-auto bg-white rounded-lg p-4 border border-gray-200">
         <uibit-360-viewer
-          images={JSON.stringify(demoImages)}
           auto-rotate="true"
           rotation-speed={150}
-        ></uibit-360-viewer>
+        >
+          {demoImages.map((src, idx) => (
+            <img key={idx} src={src} alt={`Frame ${idx + 1}`} />
+          ))}
+        </uibit-360-viewer>
       </div>
     </div>
   );
@@ -40,31 +43,25 @@ const data: ComponentDocData = {
   usages: [
     {
       title: 'HTML Example',
-      code: `<uibit-360-viewer id="product-viewer" auto-rotate="true" rotation-speed="200"></uibit-360-viewer>
-
-<script>
-  const viewer = document.getElementById('product-viewer');
-  viewer.images = [
-    'frame-1.jpg',
-    'frame-2.jpg',
-    'frame-3.jpg',
-    'frame-4.jpg'
-  ];
-</script>`,
+      code: `<uibit-360-viewer auto-rotate="true" rotation-speed="200">
+  <img src="frame-1.jpg" alt="Frame 1" />
+  <img src="frame-2.jpg" alt="Frame 2" />
+  <img src="frame-3.jpg" alt="Frame 3" />
+  <img src="frame-4.jpg" alt="Frame 4" />
+</uibit-360-viewer>`,
     },
     {
       title: 'React Integration',
       code: `import '@uibit/360-viewer';
 
 function ProductView() {
-  const images = ['frame-1.jpg', 'frame-2.jpg', 'frame-3.jpg', 'frame-4.jpg'];
-
   return (
-    <uibit-360-viewer 
-      images={JSON.stringify(images)} 
-      auto-rotate="true" 
-      rotation-speed={150}
-    />
+    <uibit-360-viewer auto-rotate="true" rotation-speed={150}>
+      <img src="frame-1.jpg" alt="Frame 1" />
+      <img src="frame-2.jpg" alt="Frame 2" />
+      <img src="frame-3.jpg" alt="Frame 3" />
+      <img src="frame-4.jpg" alt="Frame 4" />
+    </uibit-360-viewer>
   );
 }`,
     },

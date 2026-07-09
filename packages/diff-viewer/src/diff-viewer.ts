@@ -1,6 +1,6 @@
 import { LitElement, html, nothing } from 'lit';
 import { customElement } from '@uibit/core';
-import { property } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 import { diffLines } from './diff';
 import type { DiffOp } from './diff';
@@ -36,20 +36,11 @@ import type { DiffOp } from './diff';
 export class DiffViewer extends LitElement {
   static styles = styles;
 
-  /** The original (left / "before") text. */
-  @property({ attribute: 'old-text' }) oldText = '';
-
-  /** The modified (right / "after") text. */
-  @property({ attribute: 'new-text' }) newText = '';
+  @state() private oldText = '';
+  @state() private newText = '';
 
   /** Layout mode: 'split' shows two panes side by side, 'inline' shows a single unified view. */
   @property({ reflect: true }) mode: 'split' | 'inline' = 'split';
-
-  /** Label shown above the old (left) pane. */
-  @property({ attribute: 'old-label' }) oldLabel = 'Before';
-
-  /** Label shown above the new (right) pane. */
-  @property({ attribute: 'new-label' }) newLabel = 'After';
 
   /** Show line numbers in the gutter. */
   @property({ type: Boolean, attribute: 'show-line-numbers' }) showLineNumbers = true;
@@ -88,8 +79,8 @@ export class DiffViewer extends LitElement {
 
     return html`
       <div class="header">
-        <div class="header-cell"><slot name="old-label">${this.oldLabel}</slot></div>
-        <div class="header-cell"><slot name="new-label">${this.newLabel}</slot></div>
+        <div class="header-cell"><slot name="old-label">Before</slot></div>
+        <div class="header-cell"><slot name="new-label">After</slot></div>
       </div>
       <div class="body">
         <div class="pane">${leftLines}</div>
@@ -114,7 +105,7 @@ export class DiffViewer extends LitElement {
 
     return html`
       <div class="header">
-        <div class="header-cell"><slot name="old-label">${this.oldLabel}</slot> → <slot name="new-label">${this.newLabel}</slot></div>
+        <div class="header-cell"><slot name="old-label">Before</slot> → <slot name="new-label">After</slot></div>
       </div>
       <div class="body">
         <div class="pane">${lines}</div>

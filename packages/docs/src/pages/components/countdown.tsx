@@ -43,6 +43,16 @@ function SaleTimer() {
   );
 }`,
     },
+    {
+      title: 'Custom Labels via Slots',
+      description: 'Customize or translate unit labels.',
+      code: `<uibit-countdown target="2026-12-31T23:59:59">
+  <span slot="days-label">d</span>
+  <span slot="hours-label">h</span>
+  <span slot="minutes-label">m</span>
+  <span slot="seconds-label">s</span>
+</uibit-countdown>`,
+    },
   ],
   features: [
     'Calculates offset once to prevent interval time drifting',

@@ -50,17 +50,7 @@ export interface ClusterNode {
 export class IsometricCluster extends LitElement {
   static styles = styles;
 
-  /** JSON array of ClusterNode objects. */
-  @property({
-    type: Array,
-    converter: {
-      fromAttribute: (v: string | null) => {
-        if (!v) return [];
-        try { return JSON.parse(v); } catch { return []; }
-      },
-      toAttribute: (v: ClusterNode[]) => JSON.stringify(v),
-    },
-  }) nodes: ClusterNode[] = [];
+  @state() private nodes: ClusterNode[] = [];
 
   /** Gap in px between layers when expanded. */
   @property({ type: Number, attribute: 'layer-gap' }) layerGap = 56;

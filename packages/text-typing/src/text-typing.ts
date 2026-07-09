@@ -27,17 +27,7 @@ import { styles } from './styles';
 export class TextTyping extends LitElement {
   static styles = styles;
 
-  /** JSON array of phrases to cycle through. */
-  @property({
-    type: Array,
-    converter: {
-      fromAttribute: (v: string | null) => {
-        if (!v) return [];
-        try { return JSON.parse(v); } catch { return [v]; }
-      },
-      toAttribute: (v: string[]) => JSON.stringify(v),
-    },
-  }) phrases: string[] = [];
+  @state() private phrases: string[] = [];
 
   /** Base typing speed in ms per character. A small random variance is applied. */
   @property({ type: Number, attribute: 'type-speed' }) typeSpeed = 80;

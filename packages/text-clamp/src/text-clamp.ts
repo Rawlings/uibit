@@ -30,11 +30,7 @@ export class TextClamp extends LitElement {
   /** Maximum number of lines to show when collapsed. */
   @property({ type: Number }) lines = 3;
 
-  /** Label for the expand button. */
-  @property({ attribute: 'more-label' }) moreLabel = 'More';
 
-  /** Label for the collapse button. */
-  @property({ attribute: 'less-label' }) lessLabel = 'Less';
 
   @state() private _expanded = false;
   @state() private _overflows = false;
@@ -65,7 +61,7 @@ export class TextClamp extends LitElement {
     if (changed.has('_expanded')) this._applyClamp();
   }
 
-  private _onSlotChange(e: Event) {
+  private _onSlotChange() {
     this._measure();
   }
 
@@ -131,7 +127,7 @@ export class TextClamp extends LitElement {
                 class="toggle"
                 part="toggle"
                 aria-expanded="true"
-              >${this.lessLabel}</button>
+              >Less</button>
             </slot>
           ` : html`
             <slot name="more" @click=${this._toggle}>
@@ -139,7 +135,7 @@ export class TextClamp extends LitElement {
                 class="toggle"
                 part="toggle"
                 aria-expanded="false"
-              >… ${this.moreLabel}</button>
+              >… More</button>
             </slot>
           `}
         </div>

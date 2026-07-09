@@ -145,9 +145,8 @@
               "type": {
                 "text": "ClusterNode[]"
               },
-              "default": "[]",
-              "description": "JSON array of ClusterNode objects.",
-              "attribute": "nodes"
+              "privacy": "private",
+              "default": "[]"
             },
             {
               "kind": "field",
@@ -316,6 +315,19 @@
               "kind": "method",
               "name": "_stackTransform",
               "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_handleSlotChange",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
             }
           ],
           "events": [
@@ -335,15 +347,6 @@
             }
           ],
           "attributes": [
-            {
-              "name": "nodes",
-              "type": {
-                "text": "ClusterNode[]"
-              },
-              "default": "[]",
-              "description": "JSON array of ClusterNode objects.",
-              "fieldName": "nodes"
-            },
             {
               "name": "layer-gap",
               "type": {

@@ -48,19 +48,19 @@ function CarouselDemo() {
       `}</style>
 
       <uibit-carousel ref={carouselRef} loop>
-        <div slot="item" className="carousel-slide">
+        <div className="carousel-slide">
           <img src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow at dawn" />
           <span className="carousel-slide-caption">Alpine Meadow — Graubünden, Switzerland</span>
         </div>
-        <div slot="item" className="carousel-slide">
+        <div className="carousel-slide">
           <img src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline at sunset" />
           <span className="carousel-slide-caption">Rugged Coastline — Algarve, Portugal</span>
         </div>
-        <div slot="item" className="carousel-slide">
+        <div className="carousel-slide">
           <img src="https://picsum.photos/seed/kyoto/900/560" alt="Temple path in autumn forest" />
           <span className="carousel-slide-caption">Temple Path — Kyoto, Japan</span>
         </div>
-        <div slot="item" className="carousel-slide">
+        <div className="carousel-slide">
           <img src="https://picsum.photos/seed/dunes/900/560" alt="Sand dunes at golden hour" />
           <span className="carousel-slide-caption">Sand Dunes — Merzouga, Morocco</span>
         </div>
@@ -82,9 +82,9 @@ const data: ComponentDocData = {
     {
       title: 'Basic HTML',
       code: `<uibit-carousel>
-  <div slot="item">Slide 1</div>
-  <div slot="item">Slide 2</div>
-  <div slot="item">Slide 3</div>
+  <div>Slide 1</div>
+  <div>Slide 2</div>
+  <div>Slide 3</div>
 </uibit-carousel>`,
     },
     {
@@ -93,21 +93,18 @@ const data: ComponentDocData = {
   auto-play
   auto-play-interval="3000"
   loop>
-  <img slot="item" src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow" />
-  <img slot="item" src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline" />
+  <img src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow" />
+  <img src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline" />
 </uibit-carousel>`,
     },
     {
-      title: 'Programmatic Control',
-      code: `const carousel = document.querySelector('uibit-carousel');
-
-carousel.prev();
-carousel.next();
-carousel.goToSlide(2);
-
-carousel.addEventListener('slide-change', (e) => {
-  console.log(\`Slide \${e.detail.index + 1} of \${e.detail.totalSlides}\`);
-});`,
+      title: 'Custom Navigation Buttons (Bring Your Own UI)',
+      code: `<uibit-carousel>
+  <div>Slide 1</div>
+  <div>Slide 2</div>
+  <button slot="prev">Custom Back</button>
+  <button slot="next">Custom Next</button>
+</uibit-carousel>`,
     },
     {
       title: 'React Integration',
@@ -116,8 +113,8 @@ carousel.addEventListener('slide-change', (e) => {
 function MyCarousel() {
   return (
     <uibit-carousel autoPlay loop>
-      <div slot="item">Slide 1</div>
-      <div slot="item">Slide 2</div>
+      <div>Slide 1</div>
+      <div>Slide 2</div>
     </uibit-carousel>
   );
 }`,

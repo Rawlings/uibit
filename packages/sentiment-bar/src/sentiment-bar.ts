@@ -50,17 +50,7 @@ const DEFAULT_OPTIONS: SentimentOption[] = [
 export class SentimentBar extends LitElement {
   static styles = styles;
 
-  /** Array of sentiment options. Each must have `value` (number), `icon` (icon name string), and `label` (string). */
-  @property({
-    type: Array,
-    converter: {
-      fromAttribute: (v: string | null) => {
-        if (!v) return DEFAULT_OPTIONS;
-        try { return JSON.parse(v); } catch { return DEFAULT_OPTIONS; }
-      },
-      toAttribute: (v: SentimentOption[]) => JSON.stringify(v),
-    },
-  }) options: SentimentOption[] = DEFAULT_OPTIONS;
+  @state() private options: SentimentOption[] = DEFAULT_OPTIONS;
 
   /** Currently selected value. Reflected as an attribute. */
   @property({ type: Number, reflect: true }) value?: number;

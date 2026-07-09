@@ -99,9 +99,8 @@
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "The original (left / \"before\") text.",
-              "attribute": "old-text"
+              "privacy": "private",
+              "default": "''"
             },
             {
               "kind": "field",
@@ -109,9 +108,8 @@
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "The modified (right / \"after\") text.",
-              "attribute": "new-text"
+              "privacy": "private",
+              "default": "''"
             },
             {
               "kind": "field",
@@ -123,26 +121,6 @@
               "description": "Layout mode: 'split' shows two panes side by side, 'inline' shows a single unified view.",
               "attribute": "mode",
               "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "oldLabel",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Before'",
-              "description": "Label shown above the old (left) pane.",
-              "attribute": "old-label"
-            },
-            {
-              "kind": "field",
-              "name": "newLabel",
-              "type": {
-                "text": "string"
-              },
-              "default": "'After'",
-              "description": "Label shown above the new (right) pane.",
-              "attribute": "new-label"
             },
             {
               "kind": "field",
@@ -204,27 +182,35 @@
                   }
                 }
               ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleOldChange",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleNewChange",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
             }
           ],
           "attributes": [
-            {
-              "name": "old-text",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "The original (left / \"before\") text.",
-              "fieldName": "oldText"
-            },
-            {
-              "name": "new-text",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "The modified (right / \"after\") text.",
-              "fieldName": "newText"
-            },
             {
               "name": "mode",
               "type": {
@@ -233,24 +219,6 @@
               "default": "'split'",
               "description": "Layout mode: 'split' shows two panes side by side, 'inline' shows a single unified view.",
               "fieldName": "mode"
-            },
-            {
-              "name": "old-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Before'",
-              "description": "Label shown above the old (left) pane.",
-              "fieldName": "oldLabel"
-            },
-            {
-              "name": "new-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "'After'",
-              "description": "Label shown above the new (right) pane.",
-              "fieldName": "newLabel"
             },
             {
               "name": "show-line-numbers",

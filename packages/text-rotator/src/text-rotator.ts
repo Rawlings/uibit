@@ -21,17 +21,7 @@ import { styles } from './styles';
 export class TextRotator extends LitElement {
   static styles = styles;
 
-  /** JSON array of words/phrases to rotate through. */
-  @property({
-    type: Array,
-    converter: {
-      fromAttribute: (v: string | null) => {
-        if (!v) return [];
-        try { return JSON.parse(v); } catch { return [v]; }
-      },
-      toAttribute: (v: string[]) => JSON.stringify(v),
-    },
-  }) words: string[] = [];
+  @state() private words: string[] = [];
 
   /** Interval in ms between rotations. */
   @property({ type: Number }) interval = 2500;

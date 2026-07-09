@@ -3,13 +3,6 @@ import manifest from '@uibit/text-typing/custom-elements.json';
 import { ComponentDocData } from '../../types/docs';
 
 function TextTypingDemo() {
-  const phrases = JSON.stringify([
-    'ship faster.',
-    'build better.',
-    'scale confidently.',
-    'move with clarity.',
-  ]);
-
   return (
     <div>
       <p className="text-sm text-gray-600 mb-6">
@@ -19,11 +12,15 @@ function TextTypingDemo() {
         <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
           We help teams{' '}
           <uibit-text-typing
-            phrases={phrases}
             type-speed="75"
             typo-rate="0.05"
             style={{ color: '#111827' }}
-          ></uibit-text-typing>
+          >
+            <span>ship faster.</span>
+            <span>build better.</span>
+            <span>scale confidently.</span>
+            <span>move with clarity.</span>
+          </uibit-text-typing>
         </h2>
         <p className="text-gray-500 mt-4 text-sm">
           Slight speed variance and auto-correcting typos make the animation feel human.
@@ -47,21 +44,26 @@ const data: ComponentDocData = {
       title: 'HTML Integration',
       code: `<h1>
   We help teams
-  <uibit-text-typing
-    phrases='["ship faster", "build better", "scale confidently"]'
-  ></uibit-text-typing>
+  <uibit-text-typing>
+    <span>ship faster</span>
+    <span>build better</span>
+    <span>scale confidently</span>
+  </uibit-text-typing>
 </h1>`,
     },
     {
       title: 'React Integration',
       code: `import '@uibit/text-typing';
 
-const phrases = JSON.stringify(['Ship faster', 'Build better', 'Scale confidently']);
-
 function Hero() {
   return (
     <h1>
-      We help teams <uibit-text-typing phrases={phrases} type-speed="80" />
+      We help teams
+      <uibit-text-typing type-speed="80">
+        <span>Ship faster</span>
+        <span>Build better</span>
+        <span>Scale confidently</span>
+      </uibit-text-typing>
     </h1>
   );
 }`,
@@ -70,10 +72,12 @@ function Hero() {
       title: 'One-shot (no loop)',
       description: 'Run through all phrases once and stop on the last one.',
       code: `<uibit-text-typing
-  phrases='["Loading complete.", "Welcome back."]'
   loop="false"
   pause-after="3000"
-></uibit-text-typing>`,
+>
+  <span>Loading complete.</span>
+  <span>Welcome back.</span>
+</uibit-text-typing>`,
     },
     {
       title: 'Phrase Change Event',

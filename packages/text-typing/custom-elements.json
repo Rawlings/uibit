@@ -108,9 +108,8 @@
               "type": {
                 "text": "string[]"
               },
-              "default": "[]",
-              "description": "JSON array of phrases to cycle through.",
-              "attribute": "phrases"
+              "privacy": "private",
+              "default": "[]"
             },
             {
               "kind": "field",
@@ -261,6 +260,19 @@
               "kind": "method",
               "name": "_tick",
               "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_handleSlotChange",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
             }
           ],
           "events": [
@@ -273,15 +285,6 @@
             }
           ],
           "attributes": [
-            {
-              "name": "phrases",
-              "type": {
-                "text": "string[]"
-              },
-              "default": "[]",
-              "description": "JSON array of phrases to cycle through.",
-              "fieldName": "phrases"
-            },
             {
               "name": "type-speed",
               "type": {

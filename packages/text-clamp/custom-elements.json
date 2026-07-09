@@ -115,26 +115,6 @@
             },
             {
               "kind": "field",
-              "name": "moreLabel",
-              "type": {
-                "text": "string"
-              },
-              "default": "'More'",
-              "description": "Label for the expand button.",
-              "attribute": "more-label"
-            },
-            {
-              "kind": "field",
-              "name": "lessLabel",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Less'",
-              "description": "Label for the collapse button.",
-              "attribute": "less-label"
-            },
-            {
-              "kind": "field",
               "name": "_expanded",
               "type": {
                 "text": "boolean"
@@ -171,15 +151,7 @@
             {
               "kind": "method",
               "name": "_onSlotChange",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "e",
-                  "type": {
-                    "text": "Event"
-                  }
-                }
-              ]
+              "privacy": "private"
             },
             {
               "kind": "method",
@@ -215,24 +187,6 @@
               "default": "3",
               "description": "Maximum number of lines to show when collapsed.",
               "fieldName": "lines"
-            },
-            {
-              "name": "more-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "'More'",
-              "description": "Label for the expand button.",
-              "fieldName": "moreLabel"
-            },
-            {
-              "name": "less-label",
-              "type": {
-                "text": "string"
-              },
-              "default": "'Less'",
-              "description": "Label for the collapse button.",
-              "fieldName": "lessLabel"
             }
           ],
           "superclass": {

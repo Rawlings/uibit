@@ -22,8 +22,7 @@ import { styles } from './styles';
 export class Viewer360 extends UIBitElement {
   static styles = styles;
 
-  /** Ordered array of image URLs representing each frame of the 360° rotation. */
-  @property({ type: Array }) images: string[] = [];
+  @state() private images: string[] = [];
   /** Automatically rotate through frames when no user interaction is occurring. */
   @property({ type: Boolean }) autoRotate = false;
   /** Milliseconds between frames during auto-rotation. Lower values spin faster. */

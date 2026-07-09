@@ -3,8 +3,6 @@ import manifest from '@uibit/text-rotator/custom-elements.json';
 import { ComponentDocData } from '../../types/docs';
 
 function TextRotatorDemo() {
-  const words = JSON.stringify(['faster', 'better', 'smarter', 'together']);
-
   return (
     <div>
       <p className="text-sm text-gray-600 mb-6">
@@ -14,11 +12,15 @@ function TextRotatorDemo() {
         <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
           Build websites{' '}
           <uibit-text-rotator
-            words={words}
             interval="2000"
             transition="slide"
             style={{ color: '#111827' }}
-          ></uibit-text-rotator>
+          >
+            <span>faster</span>
+            <span>better</span>
+            <span>smarter</span>
+            <span>together</span>
+          </uibit-text-rotator>
         </h2>
         <p className="text-gray-500 mt-6 text-sm">
           Switch to <code>transition="flip"</code> for a 3D perspective flip.
@@ -42,30 +44,34 @@ const data: ComponentDocData = {
       title: 'Slide transition (default)',
       code: `<h1>
   Build websites
-  <uibit-text-rotator
-    words='["faster", "better", "smarter"]'
-    interval="2000"
-  ></uibit-text-rotator>
+  <uibit-text-rotator interval="2000">
+    <span>faster</span>
+    <span>better</span>
+    <span>smarter</span>
+  </uibit-text-rotator>
 </h1>`,
     },
     {
       title: 'Flip transition',
-      code: `<uibit-text-rotator
-  words='["faster", "better", "smarter"]'
-  transition="flip"
-  interval="2500"
-></uibit-text-rotator>`,
+      code: `<uibit-text-rotator transition="flip" interval="2500">
+  <span>faster</span>
+  <span>better</span>
+  <span>smarter</span>
+</uibit-text-rotator>`,
     },
     {
       title: 'React Integration',
       code: `import '@uibit/text-rotator';
 
-const words = JSON.stringify(['faster', 'better', 'smarter']);
-
 function Hero() {
   return (
     <h1>
-      Build websites <uibit-text-rotator words={words} transition="slide" />
+      Build websites
+      <uibit-text-rotator transition="slide">
+        <span>faster</span>
+        <span>better</span>
+        <span>smarter</span>
+      </uibit-text-rotator>
     </h1>
   );
 }`,

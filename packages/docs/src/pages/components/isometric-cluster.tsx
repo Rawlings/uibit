@@ -2,15 +2,6 @@ import '@uibit/isometric-cluster';
 import manifest from '@uibit/isometric-cluster/custom-elements.json';
 import { ComponentDocData } from '../../types/docs';
 
-const nodes = JSON.stringify([
-  { id: 'cdn', label: 'CDN / Edge', icon: '🌐', badge: '3 nodes' },
-  { id: 'lb', label: 'Load Balancer', icon: '⚖️', badge: 'active' },
-  { id: 'api', label: 'API Gateway', icon: '🔀', badge: '12 routes' },
-  { id: 'auth', label: 'Auth Service', icon: '🔑' },
-  { id: 'db', label: 'Postgres Primary', icon: '🗄️', badge: 'primary' },
-  { id: 'cache', label: 'Redis Cache', icon: '⚡', badge: '99% hit' },
-]);
-
 function IsometricClusterDemo() {
   return (
     <div>
@@ -19,10 +10,16 @@ function IsometricClusterDemo() {
       </p>
       <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
         <uibit-isometric-cluster
-          nodes={nodes}
           layer-gap="60"
           style={{ height: '22rem' }}
-        ></uibit-isometric-cluster>
+        >
+          <div id="cdn" label="CDN / Edge" icon="🌐" badge="3 nodes"></div>
+          <div id="lb" label="Load Balancer" icon="⚖️" badge="active"></div>
+          <div id="api" label="API Gateway" icon="🔀" badge="12 routes"></div>
+          <div id="auth" label="Auth Service" icon="🔑"></div>
+          <div id="db" label="Postgres Primary" icon="🗄️" badge="primary"></div>
+          <div id="cache" label="Redis Cache" icon="⚡" badge="99% hit"></div>
+        </uibit-isometric-cluster>
       </div>
     </div>
   );
@@ -40,25 +37,23 @@ const data: ComponentDocData = {
   usages: [
     {
       title: 'HTML Integration',
-      code: `<uibit-isometric-cluster
-  nodes='[
-    { "id": "api", "label": "API Gateway", "icon": "🔀", "badge": "12 routes" },
-    { "id": "db",  "label": "Postgres",    "icon": "🗄️", "badge": "primary"  }
-  ]'
-></uibit-isometric-cluster>`,
+      code: `<uibit-isometric-cluster>
+  <div id="api" label="API Gateway" icon="🔀" badge="12 routes"></div>
+  <div id="db" label="Postgres" icon="🗄️" badge="primary"></div>
+</uibit-isometric-cluster>`,
     },
     {
       title: 'React Integration',
       code: `import '@uibit/isometric-cluster';
 
-const nodes = JSON.stringify([
-  { id: 'cdn',  label: 'CDN / Edge',     icon: '🌐', badge: '3 nodes' },
-  { id: 'api',  label: 'API Gateway',    icon: '🔀', badge: '12 routes' },
-  { id: 'db',   label: 'Postgres',       icon: '🗄️', badge: 'primary' },
-]);
-
 function Diagram() {
-  return <uibit-isometric-cluster nodes={nodes} layer-gap="60" />;
+  return (
+    <uibit-isometric-cluster layer-gap="60">
+      <div id="cdn" label="CDN / Edge" icon="🌐" badge="3 nodes"></div>
+      <div id="api" label="API Gateway" icon="🔀" badge="12 routes"></div>
+      <div id="db" label="Postgres" icon="🗄️" badge="primary"></div>
+    </uibit-isometric-cluster>
+  );
 }`,
     },
     {
