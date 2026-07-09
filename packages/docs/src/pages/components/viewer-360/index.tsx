@@ -2,7 +2,9 @@ import '@uibit/360-viewer';
 import manifest from '@uibit/360-viewer/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import autoRotateExample from './examples/auto-rotate';
+import autoRotateRaw from './examples/auto-rotate?raw';
 import manualExample from './examples/manual';
+import manualRaw from './examples/manual?raw';
 
 function Viewer360Demo() {
   const demoImages = [
@@ -26,6 +28,12 @@ function Viewer360Demo() {
     </div>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...autoRotateExample, code: { react: autoRotateRaw } },
+  { ...manualExample, code: { react: manualRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'viewer-360',
@@ -62,7 +70,7 @@ function ProductView() {
   );
 }`,
   },
-  examples: [autoRotateExample, manualExample],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

@@ -78,10 +78,6 @@ const systemUpgradeExample: UsageExample = {
   title: 'System Cluster Upgrade',
   description:
     'Simulates a cluster node synchronization where floating bundle blocks spiral inwards via the vortex attractor path toward the main server hub on upgrade success.',
-  code: {
-    html: '',
-    react: '',
-  },
   Demo: SystemUpgradeDemo,
 };
 

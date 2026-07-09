@@ -67,10 +67,6 @@ const paymentSuccessExample: UsageExample = {
   title: 'Financial Payment Success',
   description:
     'Radiates a ring of micro checkmarks outward from the payment card when a transaction resolves successfully.',
-  code: {
-    html: '',
-    react: '',
-  },
   Demo: PaymentSuccessDemo,
 };
 

@@ -31,22 +31,6 @@ const noLineNumbersExample: UsageExample = {
   description:
     'Set show-line-numbers="false" for a cleaner look when line references are not important — ideal for short snippets or config diffs.',
   Demo,
-  code: {
-    html: `<uibit-diff-viewer show-line-numbers="false">
-  <pre slot="old">body { color: #000; }</pre>
-  <pre slot="new">body { color: #111; }</pre>
-</uibit-diff-viewer>`,
-    react: `import '@uibit/diff-viewer';
-
-function ConfigDiff({ before, after }) {
-  return (
-    <uibit-diff-viewer show-line-numbers="false">
-      <pre slot="old">{before}</pre>
-      <pre slot="new">{after}</pre>
-    </uibit-diff-viewer>
-  );
-}`,
-  },
 };
 
 export default noLineNumbersExample;

@@ -39,44 +39,6 @@ function DarkOverlayDemo() {
 const darkOverlay: UsageExample = {
   title: 'Dark Overlay',
   description: 'A dark themed scratch card with a near-black overlay and light revealed content.',
-  code: {
-    html: `<uibit-scratch-reveal
-  style="
-    --uibit-scratch-reveal-width: 320px;
-    --uibit-scratch-reveal-height: 200px;
-    --uibit-scratch-reveal-background: #111111;
-    --uibit-scratch-reveal-color: #f5f5f5;
-    --uibit-scratch-reveal-overlay-color: #1a1a1a;
-  "
->
-  <div>
-    <p>Secret reward</p>
-    <p>Free Shipping</p>
-    <p>On your next order over $50</p>
-  </div>
-</uibit-scratch-reveal>`,
-    react: `import '@uibit/scratch-reveal';
-
-function DarkOverlay() {
-  return (
-    <uibit-scratch-reveal
-      style={{
-        '--uibit-scratch-reveal-width': '320px',
-        '--uibit-scratch-reveal-height': '200px',
-        '--uibit-scratch-reveal-background': '#111111',
-        '--uibit-scratch-reveal-color': '#f5f5f5',
-        '--uibit-scratch-reveal-overlay-color': '#1a1a1a',
-      }}
-    >
-      <div>
-        <p>Secret reward</p>
-        <p>Free Shipping</p>
-        <p>On your next order over $50</p>
-      </div>
-    </uibit-scratch-reveal>
-  );
-}`,
-  },
   Demo: DarkOverlayDemo,
 };
 

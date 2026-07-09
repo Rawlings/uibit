@@ -102,34 +102,6 @@ const scrollContainerExample: UsageExample = {
   title: 'Scroll Container',
   description:
     'Track scroll progress within a specific scrollable element by passing a CSS selector to the `target` attribute. Place the component as the first child of the container with `sticky top-0` so it stays pinned to the top as you scroll.',
-  code: {
-    html: `<div id="scrollable-block" style="height: 24rem; overflow-y: scroll; position: relative;">
-  <uibit-scroll-progress
-    target="#scrollable-block"
-    style="--uibit-scroll-progress-color: #000000; --uibit-scroll-progress-height: 4px;"
-    class="sticky top-0 z-10 block"
-  ></uibit-scroll-progress>
-  <div style="padding: 1.5rem;">
-    <!-- scrollable content -->
-  </div>
-</div>`,
-    react: `<div
-  id="scrollable-block"
-  className="relative h-96 overflow-y-scroll"
->
-  <uibit-scroll-progress
-    target="#scrollable-block"
-    style={{
-      '--uibit-scroll-progress-color': '#000000',
-      '--uibit-scroll-progress-height': '4px',
-    } as React.CSSProperties}
-    class="sticky top-0 z-10 block"
-  ></uibit-scroll-progress>
-  <div className="p-6">
-    {/* scrollable content */}
-  </div>
-</div>`,
-  },
   Demo: ScrollContainerDemo,
 };
 

@@ -3,7 +3,9 @@ import '@uibit/scratch-reveal';
 import manifest from '@uibit/scratch-reveal/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import discountCard from './examples/discount-card';
+import discountCardRaw from './examples/discount-card?raw';
 import darkOverlay from './examples/dark-overlay';
+import darkOverlayRaw from './examples/dark-overlay?raw';
 
 function ScratchRevealDemo() {
   const elementRef = useRef<any>(null);
@@ -54,6 +56,12 @@ function ScratchRevealDemo() {
     </div>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...discountCard, code: { react: discountCardRaw } },
+  { ...darkOverlay, code: { react: darkOverlayRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'scratch-reveal',
@@ -115,7 +123,7 @@ function ScratchRevealDemo() {
   );
 }`,
   },
-  examples: [discountCard, darkOverlay],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

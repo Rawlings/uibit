@@ -2,7 +2,9 @@ import '@uibit/scroll-progress';
 import manifest from '@uibit/scroll-progress/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import scrollContainerExample from './examples/scroll-container';
+import scrollContainerRaw from './examples/scroll-container?raw';
 import windowScrollExample from './examples/window-scroll';
+import windowScrollRaw from './examples/window-scroll?raw';
 
 function ScrollProgressDemo() {
   return (
@@ -101,6 +103,12 @@ function ScrollProgressDemo() {
   );
 }
 
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...scrollContainerExample, code: { react: scrollContainerRaw } },
+  { ...windowScrollExample, code: { react: windowScrollRaw } },
+];
+
 const data: ComponentDocData = {
   id: 'scroll-progress',
   title: 'Scroll Progress',
@@ -138,7 +146,7 @@ const data: ComponentDocData = {
   </div>
 </div>`,
   },
-  examples: [scrollContainerExample, windowScrollExample],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

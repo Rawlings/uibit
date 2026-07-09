@@ -15,24 +15,6 @@ function OneShotDemo() {
 const oneShot: UsageExample = {
   title: 'One-shot (no loop)',
   description: 'Types through all phrases once and stops on the last. Good for loading states or one-time reveals.',
-  code: {
-    html: `<uibit-text-typing loop="false" pause-after="2000" type-speed="80">
-  <span>Loading complete.</span>
-  <span>Welcome back.</span>
-</uibit-text-typing>`,
-    react: `import '@uibit/text-typing';
-
-function LoadingReveal() {
-  return (
-    <p>
-      <uibit-text-typing loop="false" pause-after="2000" type-speed="80">
-        <span>Loading complete.</span>
-        <span>Welcome back.</span>
-      </uibit-text-typing>
-    </p>
-  );
-}`,
-  },
   Demo: OneShotDemo,
 };
 

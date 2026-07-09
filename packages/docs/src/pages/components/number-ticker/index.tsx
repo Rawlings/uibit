@@ -2,7 +2,9 @@ import '@uibit/number-ticker';
 import manifest from '@uibit/number-ticker/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import statsGrid from './examples/stats-grid';
+import statsGridRaw from './examples/stats-grid?raw';
 import withRepeat from './examples/with-repeat';
+import withRepeatRaw from './examples/with-repeat?raw';
 
 function NumberTickerDemo() {
   return (
@@ -30,6 +32,12 @@ function NumberTickerDemo() {
     </div>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...statsGrid, code: { react: statsGridRaw } },
+  { ...withRepeat, code: { react: withRepeatRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'number-ticker',
@@ -76,7 +84,7 @@ function Stats() {
   );
 }`,
   },
-  examples: [statsGrid, withRepeat],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

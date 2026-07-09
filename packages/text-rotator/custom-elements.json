@@ -214,11 +214,11 @@
           ],
           "events": [
             {
-              "name": "word-change",
               "type": {
                 "text": "{ word: string, index: number }"
               },
-              "description": "Fired when the active word changes"
+              "description": "Fired when the active word changes",
+              "name": "word-change"
             }
           ],
           "attributes": [
@@ -251,8 +251,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-text-rotator",
           "customElement": true

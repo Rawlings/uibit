@@ -2,7 +2,9 @@ import '@uibit/text-typing';
 import manifest from '@uibit/text-typing/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import heroHeadline from './examples/hero-headline';
+import heroHeadlineRaw from './examples/hero-headline?raw';
 import oneShot from './examples/one-shot';
+import oneShotRaw from './examples/one-shot?raw';
 
 function TextTypingDemo() {
   return (
@@ -25,6 +27,12 @@ function TextTypingDemo() {
     </div>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...heroHeadline, code: { react: heroHeadlineRaw } },
+  { ...oneShot, code: { react: oneShotRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'text-typing',
@@ -61,7 +69,7 @@ function Hero() {
   );
 }`,
   },
-  examples: [heroHeadline, oneShot],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

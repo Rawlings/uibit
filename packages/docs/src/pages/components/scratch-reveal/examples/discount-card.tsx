@@ -55,57 +55,6 @@ function DiscountCardDemo() {
 const discountCard: UsageExample = {
   title: 'Discount Card',
   description: 'A promotional scratch card that reveals a discount code with a reset button.',
-  code: {
-    html: `<uibit-scratch-reveal
-  style="
-    --uibit-scratch-reveal-width: 320px;
-    --uibit-scratch-reveal-height: 200px;
-    --uibit-scratch-reveal-background: #ffffff;
-    --uibit-scratch-reveal-color: #000000;
-    --uibit-scratch-reveal-overlay-color: #b0b0b0;
-  "
->
-  <div>
-    <p>You've won</p>
-    <p>30% OFF</p>
-    <p>Use code LUCKY30 at checkout</p>
-  </div>
-</uibit-scratch-reveal>`,
-    react: `import { useRef } from 'react';
-import '@uibit/scratch-reveal';
-
-function DiscountCard() {
-  const elementRef = useRef(null);
-
-  const handleReset = () => {
-    if (elementRef.current) {
-      elementRef.current.reset();
-    }
-  };
-
-  return (
-    <div>
-      <uibit-scratch-reveal
-        ref={elementRef}
-        style={{
-          '--uibit-scratch-reveal-width': '320px',
-          '--uibit-scratch-reveal-height': '200px',
-          '--uibit-scratch-reveal-background': '#ffffff',
-          '--uibit-scratch-reveal-color': '#000000',
-          '--uibit-scratch-reveal-overlay-color': '#b0b0b0',
-        }}
-      >
-        <div>
-          <p>You've won</p>
-          <p>30% OFF</p>
-          <p>Use code LUCKY30 at checkout</p>
-        </div>
-      </uibit-scratch-reveal>
-      <button onClick={handleReset}>Reset Scratch Card</button>
-    </div>
-  );
-}`,
-  },
   Demo: DiscountCardDemo,
 };
 

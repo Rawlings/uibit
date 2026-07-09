@@ -6,24 +6,25 @@ import { styles } from './styles';
 
 /**
  * Analyzes the word count of its slotted content and renders a reading-time
- * badge inline. The calculation happens inside the shadow DOM via a slot
+ * badge. The calculation happens inside the shadow DOM via a slot
  * change observer — no backend metadata required.
  *
- * Place any HTML content in the default slot. The component counts only text
+ * Place your HTML content in the default slot. The component counts only text
  * nodes, ignoring markup and hidden elements.
  *
  * @slot - The content whose text will be measured
+ * @slot timer - Optional named slot to position or override the read-time label/badge
  *
- * @cssprop [--uibit-read-timer-font-size=0.8125rem] - Badge font size
- * @cssprop [--uibit-read-timer-font-weight=500] - Badge font weight
- * @cssprop [--uibit-read-timer-color=#6b7280] - Badge text color
- * @cssprop [--uibit-read-timer-font-family=inherit] - Badge font family
- * @cssprop [--uibit-read-timer-gap=0.375rem] - Gap between icon and label
- * @cssprop [--uibit-read-timer-icon-size=0.875rem] - Size of the clock icon
- * @cssprop [--uibit-read-timer-icon-color=currentColor] - Color of the clock icon
+ * @cssprop [--uibit-text-read-timer-font-size=0.8125rem] - Badge font size
+ * @cssprop [--uibit-text-read-timer-font-weight=500] - Badge font weight
+ * @cssprop [--uibit-text-read-timer-color=#6b7280] - Badge text color
+ * @cssprop [--uibit-text-read-timer-font-family=inherit] - Badge font family
+ * @cssprop [--uibit-text-read-timer-gap=0.375rem] - Gap between icon and label
+ * @cssprop [--uibit-text-read-timer-icon-size=0.875rem] - Size of the clock icon
+ * @cssprop [--uibit-text-read-timer-icon-color=currentColor] - Color of the clock icon
  */
-@customElement('uibit-read-timer')
-export class ReadTimer extends UIBitElement {
+@customElement('uibit-text-read-timer')
+export class TextReadTimer extends UIBitElement {
   static styles = styles;
 
   /** Average reading speed in words per minute. */
@@ -36,10 +37,15 @@ export class ReadTimer extends UIBitElement {
   @state() private _label = '';
 
   private _slot?: HTMLSlotElement;
+  private _timerSlot?: HTMLSlotElement;
 
   firstUpdated() {
     this._slot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement;
     this._slot?.addEventListener('slotchange', () => this._calculate());
+
+    this._timerSlot = this.shadowRoot?.querySelector('slot[name="timer"]') as HTMLSlotElement;
+    this._timerSlot?.addEventListener('slotchange', () => this._calculate());
+
     this._calculate();
   }
 
@@ -54,6 +60,18 @@ export class ReadTimer extends UIBitElement {
     const minutes = Math.ceil(words / this.wpm);
     const timeStr = minutes < 1 ? 'less than 1 min' : `${minutes} min`;
     this._label = this.template.replace('{time}', timeStr);
+
+    // Update any slotted elements inside slot="timer"
+    if (this._timerSlot) {
+      const assignedTimer = this._timerSlot.assignedElements({ flatten: true });
+      for (const el of assignedTimer) {
+        if (!el.textContent || el.textContent.trim() === '' || el.hasAttribute('data-auto-update')) {
+          el.textContent = this._label;
+          el.setAttribute('data-auto-update', '');
+        }
+      }
+    }
+
     this.dispatchCustomEvent('read-time-change', { words, minutes });
   }
 
@@ -61,6 +79,9 @@ export class ReadTimer extends UIBitElement {
     if (node.nodeType === Node.TEXT_NODE) return node.textContent || '';
     if (node.nodeType === Node.ELEMENT_NODE) {
       const el = node as Element;
+      // Skip the timer slot itself if it happens to be nested or queried
+      if (el.getAttribute('slot') === 'timer') return '';
+      
       const style = window.getComputedStyle(el as HTMLElement);
       if (style.display === 'none' || style.visibility === 'hidden') return '';
       let t = '';
@@ -74,26 +95,26 @@ export class ReadTimer extends UIBitElement {
 
   render() {
     return html`
-      <div class="content-slot">
-        <slot></slot>
-      </div>
-      <slot name="icon">
-        ${this.showIcon ? html`<span class="icon" part="icon">${getIcon('clock', 14, fromLucide(Clock))}</span>` : ''}
+      <slot name="timer">
+        <div class="timer" part="timer">
+          ${this.showIcon ? html`<span class="icon" part="icon">${getIcon('clock', 14, fromLucide(Clock))}</span>` : ''}
+          <span class="label" part="label">${this._label}</span>
+        </div>
       </slot>
-      <span class="label" part="label">${this._label}</span>
+      <slot></slot>
     `;
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uibit-read-timer': ReadTimer;
+    'uibit-text-read-timer': TextReadTimer;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-read-timer': ReadTimer;
+      'uibit-text-read-timer': TextReadTimer;
     }
   }
 }
 
-export default ReadTimer;
+export default TextReadTimer;

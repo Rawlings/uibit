@@ -48,45 +48,6 @@ const eventTrackingExample: UsageExample = {
   title: 'Event Tracking',
   description: 'Listen to the variant-rendered event to track which variant a user was assigned. Useful for logging to analytics on mount.',
   Demo: EventTrackingDemo,
-  code: {
-    html: `<uibit-ab-test id="my-test" storage-key="event-tracking-demo">
-  <div slot="variant-a">Variant A</div>
-  <div slot="variant-b">Variant B</div>
-</uibit-ab-test>
-
-<script>
-  document.getElementById('my-test').addEventListener('variant-rendered', (e) => {
-    console.log('Variant assigned:', e.detail.variant);
-    // analytics.track('ab_variant_assigned', { variant: e.detail.variant });
-  });
-</script>`,
-    react: `import { useEffect, useRef } from 'react';
-import '@uibit/ab-test';
-
-function EventTrackingDemo() {
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    const handle = (e) => {
-      console.log('Variant assigned:', e.detail.variant);
-      // analytics.track('ab_variant_assigned', { variant: e.detail.variant });
-    };
-    container.addEventListener('variant-rendered', handle);
-    return () => container.removeEventListener('variant-rendered', handle);
-  }, []);
-
-  return (
-    <div ref={containerRef}>
-      <uibit-ab-test storage-key="event-tracking-demo">
-        <div slot="variant-a">Variant A</div>
-        <div slot="variant-b">Variant B</div>
-      </uibit-ab-test>
-    </div>
-  );
-}`,
-  },
 };
 
 export default eventTrackingExample;

@@ -22,24 +22,6 @@ function CustomLabelsDemo() {
 const customLabels: UsageExample = {
   title: 'Custom Labels',
   description: 'Override the default More/Less toggles with your own slotted elements.',
-  code: {
-    html: `<uibit-text-clamp lines="3">
-  Your long paragraph text goes here...
-  <button slot="more">Read more</button>
-  <button slot="less">Show less</button>
-</uibit-text-clamp>`,
-    react: `import '@uibit/text-clamp';
-
-function Example() {
-  return (
-    <uibit-text-clamp lines={3}>
-      Your long paragraph text goes here...
-      <button slot="more">Read more</button>
-      <button slot="less">Show less</button>
-    </uibit-text-clamp>
-  );
-}`,
-  },
   Demo: CustomLabelsDemo,
 };
 

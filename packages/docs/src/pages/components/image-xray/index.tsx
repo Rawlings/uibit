@@ -2,7 +2,9 @@ import '@uibit/image-xray';
 import manifest from '@uibit/image-xray/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import basic from './examples/basic';
+import basicRaw from './examples/basic?raw';
 import customLens from './examples/custom-lens';
+import customLensRaw from './examples/custom-lens?raw';
 
 function ImageXrayDemo() {
   return (
@@ -25,6 +27,12 @@ function ImageXrayDemo() {
     </div>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...basic, code: { react: basicRaw } },
+  { ...customLens, code: { react: customLensRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'image-xray',
@@ -51,7 +59,7 @@ function ImageXrayDemo() {
   );
 }`,
   },
-  examples: [basic, customLens],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

@@ -277,11 +277,11 @@
           ],
           "events": [
             {
-              "name": "phrase-change",
               "type": {
                 "text": "{ phrase: string, index: number }"
               },
-              "description": "Fired when a new phrase begins typing"
+              "description": "Fired when a new phrase begins typing",
+              "name": "phrase-change"
             }
           ],
           "attributes": [
@@ -350,8 +350,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-text-typing",
           "customElement": true

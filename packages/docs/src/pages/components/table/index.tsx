@@ -2,10 +2,15 @@ import '@uibit/table';
 import manifest from '@uibit/table/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import fullFeatured from './examples/full-featured';
+import fullFeaturedRaw from './examples/full-featured?raw';
 import rowSelection from './examples/row-selection';
+import rowSelectionRaw from './examples/row-selection?raw';
 import multiSort from './examples/multi-sort';
+import multiSortRaw from './examples/multi-sort?raw';
 import filtering from './examples/filtering';
+import filteringRaw from './examples/filtering?raw';
 import exportSelected from './examples/export-selected';
+import exportSelectedRaw from './examples/export-selected?raw';
 
 const ROWS: [string, string, string, string, string, string][] = [
   ['Acme Corp', '1 240 000', 'North America', 'Active', '12.4', 'Enterprise'],
@@ -74,6 +79,15 @@ function TableDemo() {
     </div>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...fullFeatured, code: { react: fullFeaturedRaw } },
+  { ...rowSelection, code: { react: rowSelectionRaw } },
+  { ...multiSort, code: { react: multiSortRaw } },
+  { ...filtering, code: { react: filteringRaw } },
+  { ...exportSelected, code: { react: exportSelectedRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'table',
@@ -166,7 +180,7 @@ function TableDemo() {
   );
 }`,
   },
-  examples: [fullFeatured, multiSort, filtering, rowSelection, exportSelected],
+  examples: processedExamples,
   features: [
     'Global search filters all columns simultaneously with live match highlighting',
     'Multi-sort: click to sort one column, Shift+click to stack secondary/tertiary sorts with numbered priority badges',

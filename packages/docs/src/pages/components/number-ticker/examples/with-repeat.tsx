@@ -15,28 +15,6 @@ const withRepeat: UsageExample = {
   title: 'Repeat on scroll',
   description:
     'Add the `repeat` attribute to re-trigger the animation each time the element re-enters the viewport — useful for hero sections or carousels where the user may scroll past and return.',
-  code: {
-    html: `<uibit-number-ticker
-  value="1000000"
-  prefix="$"
-  locale="en-US"
-  duration="2000"
-  repeat
-></uibit-number-ticker>`,
-    react: `import '@uibit/number-ticker';
-
-function HeroStat() {
-  return (
-    <uibit-number-ticker
-      value={1000000}
-      prefix="$"
-      locale="en-US"
-      duration={2000}
-      repeat
-    />
-  );
-}`,
-  },
   Demo: WithRepeatDemo,
 };
 

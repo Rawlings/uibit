@@ -74,10 +74,6 @@ const newsletterSignupExample: UsageExample = {
   title: 'Newsletter Signup Success',
   description:
     'Fires a burst of tiny dot particles when a subscription form successfully submits. Demonstrates programmatic trigger igniting.',
-  code: {
-    html: '',
-    react: '',
-  },
   Demo: NewsletterSignupDemo,
 };
 

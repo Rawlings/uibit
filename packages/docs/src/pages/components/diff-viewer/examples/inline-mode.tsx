@@ -40,26 +40,6 @@ const inlineModeExample: UsageExample = {
   description:
     'Inline (unified) view interleaves deletions and insertions in a single column — useful when horizontal space is limited or the diff is dense.',
   Demo,
-  code: {
-    html: `<uibit-diff-viewer mode="inline">
-  <pre slot="old"><!-- old content --></pre>
-  <pre slot="new"><!-- new content --></pre>
-  <span slot="old-label">v1</span>
-  <span slot="new-label">v2</span>
-</uibit-diff-viewer>`,
-    react: `import '@uibit/diff-viewer';
-
-function PatchView({ oldCode, newCode }) {
-  return (
-    <uibit-diff-viewer mode="inline">
-      <pre slot="old">{oldCode}</pre>
-      <pre slot="new">{newCode}</pre>
-      <span slot="old-label">Before</span>
-      <span slot="new-label">After</span>
-    </uibit-diff-viewer>
-  );
-}`,
-  },
 };
 
 export default inlineModeExample;

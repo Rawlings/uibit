@@ -3,7 +3,9 @@ import '@uibit/signature-pad';
 import manifest from '@uibit/signature-pad/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import withExport from './examples/with-export';
+import withExportRaw from './examples/with-export?raw';
 import customStyle from './examples/custom-style';
+import customStyleRaw from './examples/custom-style?raw';
 
 function SignaturePadDemo() {
   const padRef = useRef<any>(null);
@@ -69,6 +71,12 @@ function SignaturePadDemo() {
   );
 }
 
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...withExport, code: { react: withExportRaw } },
+  { ...customStyle, code: { react: customStyleRaw } },
+];
+
 const data: ComponentDocData = {
   id: 'signature-pad',
   title: 'Signature Pad',
@@ -104,7 +112,7 @@ function SignaturePadDemo() {
   );
 }`,
   },
-  examples: [withExport, customStyle],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

@@ -50,52 +50,6 @@ const filtering: UsageExample = {
   description:
     'searchable adds a global search bar that matches across all columns simultaneously. filterable adds per-column filter inputs below the header row — column filters are ANDed with the global search. A "Clear filters" button appears in the toolbar whenever any filter is active.',
   Demo,
-  code: {
-    html: `<uibit-table searchable filterable>
-  <table>
-    <thead>
-      <tr>
-        <th>Company</th>
-        <th>Region</th>
-        <th>Status</th>
-        <th>Plan</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Acme Corp</td><td>North America</td><td>Active</td><td>Enterprise</td></tr>
-      <!-- …more rows… -->
-    </tbody>
-  </table>
-</uibit-table>`,
-    react: `import '@uibit/table';
-
-function FilterableTable({ rows }) {
-  return (
-    <uibit-table searchable filterable>
-      <table>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Region</th>
-            <th>Status</th>
-            <th>Plan</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(([name, region, status, plan]) => (
-            <tr key={name}>
-              <td>{name}</td>
-              <td>{region}</td>
-              <td>{status}</td>
-              <td>{plan}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </uibit-table>
-  );
-}`,
-  },
 };
 
 export default filtering;

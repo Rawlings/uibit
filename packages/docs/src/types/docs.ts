@@ -14,7 +14,6 @@ export interface DualCode {
 export interface UsageExample {
   title: string;
   description?: string;
-  code: DualCode;
   Demo: ComponentType;
 }
 

@@ -44,34 +44,6 @@ const clickTrigger: UsageExample = {
   title: 'Click to open',
   description:
     'Hotspots activate on click. Each trigger pulses to invite interaction; clicking opens a tooltip card that dismisses on click-away or Escape.',
-  code: {
-    html: `<uibit-hotspot id="demo" trigger="click">
-  <img src="product.jpg" alt="Product" />
-</uibit-hotspot>
-
-<script>
-  document.getElementById('demo').hotspots = [
-    { id: '1', x: 30, y: 40, title: 'Camera', content: 'Triple lens system.' },
-    { id: '2', x: 65, y: 60, title: 'Display', content: 'ProMotion 120Hz.' },
-    { id: '3', x: 48, y: 85, title: 'Chip', content: 'Neural engine.' },
-  ];
-</script>`,
-    react: `import '@uibit/hotspot';
-
-function ProductDemo() {
-  const hotspots = [
-    { id: '1', x: 30, y: 40, title: 'Camera', content: 'Triple lens system.' },
-    { id: '2', x: 65, y: 60, title: 'Display', content: 'ProMotion 120Hz.' },
-    { id: '3', x: 48, y: 85, title: 'Chip', content: 'Neural engine.' },
-  ];
-
-  return (
-    <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="click">
-      <img src="product.jpg" alt="Product" />
-    </uibit-hotspot>
-  );
-}`,
-  },
   Demo: ClickTriggerDemo,
 };
 

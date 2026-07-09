@@ -2,7 +2,9 @@ import '@uibit/hotspot';
 import manifest from '@uibit/hotspot/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import clickTrigger from './examples/click-trigger';
+import clickTriggerRaw from './examples/click-trigger?raw';
 import hoverTrigger from './examples/hover-trigger';
+import hoverTriggerRaw from './examples/hover-trigger?raw';
 
 function HotspotDemo() {
   const hotspots = [
@@ -49,6 +51,12 @@ function HotspotDemo() {
   );
 }
 
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...clickTrigger, code: { react: clickTriggerRaw } },
+  { ...hoverTrigger, code: { react: hoverTriggerRaw } },
+];
+
 const data: ComponentDocData = {
   id: 'hotspot',
   title: 'Hotspot',
@@ -86,7 +94,7 @@ function HotspotDemo() {
   );
 }`,
   },
-  examples: [clickTrigger, hoverTrigger],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

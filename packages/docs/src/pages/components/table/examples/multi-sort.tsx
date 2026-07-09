@@ -48,55 +48,6 @@ const multiSort: UsageExample = {
   description:
     'Click any column header to sort. Shift+click additional columns to stack secondary and tertiary sorts. A numbered badge appears on each active sort column to show its priority. Click the same column again to cycle ascending → descending → off.',
   Demo,
-  code: {
-    html: `<!-- Multi-sort is always on — no attribute needed.
-     Click to sort, Shift+click to stack. -->
-<uibit-table>
-  <table>
-    <thead>
-      <tr>
-        <th>Company</th>
-        <th>Region</th>
-        <th>Status</th>
-        <th>Plan</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Acme Corp</td><td>North America</td><td>Active</td><td>Enterprise</td></tr>
-      <!-- …more rows… -->
-    </tbody>
-  </table>
-</uibit-table>`,
-    react: `import '@uibit/table';
-
-// Multi-sort requires no configuration — just render the table.
-function SortableTable({ rows }) {
-  return (
-    <uibit-table>
-      <table>
-        <thead>
-          <tr>
-            <th>Company</th>
-            <th>Region</th>
-            <th>Status</th>
-            <th>Plan</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(([name, region, status, plan]) => (
-            <tr key={name}>
-              <td>{name}</td>
-              <td>{region}</td>
-              <td>{status}</td>
-              <td>{plan}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </uibit-table>
-  );
-}`,
-  },
 };
 
 export default multiSort;

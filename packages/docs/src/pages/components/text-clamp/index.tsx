@@ -2,7 +2,9 @@ import '@uibit/text-clamp';
 import manifest from '@uibit/text-clamp/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import basic from './examples/basic';
+import basicRaw from './examples/basic?raw';
 import customLabels from './examples/custom-labels';
+import customLabelsRaw from './examples/custom-labels?raw';
 
 function TextClampDemo() {
   return (
@@ -23,6 +25,12 @@ function TextClampDemo() {
     </div>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...basic, code: { react: basicRaw } },
+  { ...customLabels, code: { react: customLabelsRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'text-clamp',
@@ -55,7 +63,7 @@ function Example() {
   );
 }`,
   },
-  examples: [basic, customLabels],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

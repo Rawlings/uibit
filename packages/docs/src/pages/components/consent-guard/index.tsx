@@ -3,7 +3,9 @@ import '@uibit/consent-guard';
 import manifest from '@uibit/consent-guard/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import youtubeEmbed from './examples/youtube-embed';
+import youtubeEmbedRaw from './examples/youtube-embed?raw';
 import programmatic from './examples/programmatic';
+import programmaticRaw from './examples/programmatic?raw';
 
 function ConsentGuardDemo() {
   const youtubeRef = useRef<any>(null);
@@ -160,6 +162,12 @@ function ConsentGuardDemo() {
   );
 }
 
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...youtubeEmbed, code: { react: youtubeEmbedRaw } },
+  { ...programmatic, code: { react: programmaticRaw } },
+];
+
 const data: ComponentDocData = {
   id: 'consent-guard',
   title: 'Consent Guard',
@@ -233,7 +241,7 @@ function ConsentGuardDemo() {
   );
 }`,
   },
-  examples: [youtubeEmbed, programmatic],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

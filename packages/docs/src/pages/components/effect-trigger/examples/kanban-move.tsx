@@ -69,10 +69,6 @@ const kanbanMoveExample: UsageExample = {
   title: 'Kanban Task Board Transition',
   description:
     'Sweeps a staggered stream of chevrons across the horizontal axis when a task card moves between columns.',
-  code: {
-    html: '',
-    react: '',
-  },
   Demo: KanbanMoveDemo,
 };
 

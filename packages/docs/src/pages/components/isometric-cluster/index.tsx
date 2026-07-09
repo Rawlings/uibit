@@ -2,8 +2,18 @@ import '@uibit/isometric-cluster';
 import manifest from '@uibit/isometric-cluster/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import cloudConsole from './examples/cloud-console';
+import cloudConsoleRaw from './examples/cloud-console?raw';
 import infrastructure from './examples/infrastructure';
+import infrastructureRaw from './examples/infrastructure?raw';
 import nodeSelect from './examples/node-select';
+import nodeSelectRaw from './examples/node-select?raw';
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...cloudConsole, code: { react: cloudConsoleRaw } },
+  { ...infrastructure, code: { react: infrastructureRaw } },
+  { ...nodeSelect, code: { react: nodeSelectRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'isometric-cluster',
@@ -15,7 +25,7 @@ const data: ComponentDocData = {
   manifest,
   Demo: cloudConsole.Demo,
   demoCode: cloudConsole.code,
-  examples: [cloudConsole, infrastructure, nodeSelect],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

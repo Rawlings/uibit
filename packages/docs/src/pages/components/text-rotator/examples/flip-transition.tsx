@@ -18,32 +18,6 @@ function FlipTransitionDemo() {
 const flipTransition: UsageExample = {
   title: 'Flip transition',
   description: 'Words rotate in on a 3D perspective axis for a more dramatic reveal.',
-  code: {
-    html: `<h2>
-  Ship code with
-  <uibit-text-rotator interval="2500" transition="flip">
-    <span>confidence</span>
-    <span>clarity</span>
-    <span>purpose</span>
-    <span>speed</span>
-  </uibit-text-rotator>
-</h2>`,
-    react: `import '@uibit/text-rotator';
-
-function Hero() {
-  return (
-    <h2>
-      Ship code with{' '}
-      <uibit-text-rotator interval="2500" transition="flip">
-        <span>confidence</span>
-        <span>clarity</span>
-        <span>purpose</span>
-        <span>speed</span>
-      </uibit-text-rotator>
-    </h2>
-  );
-}`,
-  },
   Demo: FlipTransitionDemo,
 };
 

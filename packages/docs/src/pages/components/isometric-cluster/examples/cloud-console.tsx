@@ -315,48 +315,6 @@ const cloudConsole: UsageExample = {
   title: 'Production Infrastructure Console',
   description:
     'An interactive infrastructure stack dashboard simulator. Click on nodes in the 3D representation to dynamically isolate service metrics and stream real-time logs in the telemetry console.',
-  code: {
-    html: `<uibit-isometric-cluster id="infra-cluster" layer-gap="64" tilt-x="45" tilt-y="-20" style="height:22rem">
-  <div id="cdn"   label="Edge CDN"         icon="🌐" badge="32 POPs"></div>
-  <div id="lb"    label="Load Balancer"     icon="⚖️" badge="active"></div>
-  <div id="api"   label="API Gateway"       icon="🔀" badge="18 services"></div>
-  <div id="auth"  label="Auth Provider"      icon="🔑"></div>
-  <div id="app"   label="Application Core"  icon="⚙️" badge="Warning"></div>
-  <div id="db"    label="Database Primary"  icon="🗄️" badge="primary"></div>
-</uibit-isometric-cluster>`,
-    react: `import '@uibit/isometric-cluster';
-import { useEffect, useRef, useState } from 'react';
-
-function Dashboard() {
-  const clusterRef = useRef(null);
-  const [selected, setSelected] = useState('cdn');
-
-  useEffect(() => {
-    const el = clusterRef.current;
-    if (!el) return;
-    const onSelect = (e) => setSelected(e.detail.node.id);
-    el.addEventListener('node-select', onSelect);
-    return () => el.removeEventListener('node-select', onSelect);
-  }, []);
-
-  return (
-    <div className="dashboard">
-      <uibit-isometric-cluster ref={clusterRef} layer-gap="64" tilt-x="45" tilt-y="-20">
-        <div id="cdn"   label="Edge CDN"         icon="🌐" badge="32 POPs"></div>
-        <div id="lb"    label="Load Balancer"     icon="⚖️" badge="active"></div>
-        <div id="api"   label="API Gateway"       icon="🔀" badge="18 services"></div>
-        <div id="auth"  label="Auth Provider"      icon="🔑"></div>
-        <div id="app"   label="Application Core"  icon="⚙️" badge="Warning"></div>
-        <div id="db"    label="Database Primary"  icon="🗄️" badge="primary"></div>
-      </uibit-isometric-cluster>
-      
-      <div className="telemetry-panel">
-        Active Node: {selected}
-      </div>
-    </div>
-  );
-}`,
-  },
   Demo: CloudConsoleDemo,
 };
 

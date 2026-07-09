@@ -59,10 +59,6 @@ const flyToCartExample: UsageExample = {
   title: 'Add-to-Bag Flyover',
   description:
     'Perfect for high-end e-commerce sites, this curves a clean minimalist vector particle directly into the header bag widget using destination selectors.',
-  code: {
-    html: '',
-    react: '',
-  },
   Demo: FlyToCartDemo,
 };
 

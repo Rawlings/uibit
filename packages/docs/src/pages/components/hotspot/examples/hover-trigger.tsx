@@ -36,32 +36,6 @@ const hoverTrigger: UsageExample = {
   title: 'Hover to reveal',
   description:
     'Setting trigger="hover" opens tooltips on mouse-enter and closes them on mouse-leave — ideal for quick-scan product details without requiring a click.',
-  code: {
-    html: `<uibit-hotspot id="demo" trigger="hover">
-  <img src="product.jpg" alt="Product" />
-</uibit-hotspot>
-
-<script>
-  document.getElementById('demo').hotspots = [
-    { id: '1', x: 35, y: 45, title: 'Seat', content: 'Ergonomic contoured foam.' },
-    { id: '2', x: 68, y: 30, title: 'Handlebars', content: 'Multi-position grip.' },
-  ];
-</script>`,
-    react: `import '@uibit/hotspot';
-
-function ProductDemo() {
-  const hotspots = [
-    { id: '1', x: 35, y: 45, title: 'Seat', content: 'Ergonomic contoured foam.' },
-    { id: '2', x: 68, y: 30, title: 'Handlebars', content: 'Multi-position grip.' },
-  ];
-
-  return (
-    <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="hover">
-      <img src="product.jpg" alt="Product" />
-    </uibit-hotspot>
-  );
-}`,
-  },
   Demo: HoverTriggerDemo,
 };
 

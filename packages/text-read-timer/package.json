@@ -1,5 +1,5 @@
 {
-  "name": "@uibit/read-timer",
+  "name": "@uibit/text-read-timer",
   "version": "0.1.0",
   "description": "Text-analyzer badge that scans slotted content and outputs an estimated reading time string",
   "type": "module",
@@ -37,7 +37,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/uibit.git",
-    "directory": "packages/read-timer"
+    "directory": "packages/text-read-timer"
   },
   "dependencies": {
     "@uibit/core": "workspace:*",

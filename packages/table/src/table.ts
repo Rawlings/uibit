@@ -1,5 +1,5 @@
 import { html, nothing } from 'lit';
-import type { TemplateResult } from 'lit';
+import type { TemplateResult, PropertyValues } from 'lit';
 import { customElement, fromLucide, getIcon, msg, str, UIBitElement } from '@uibit/core';
 import { ChevronLeft, ChevronRight } from 'lucide';
 import { property, state } from 'lit/decorators.js';
@@ -30,11 +30,13 @@ interface IndexedRow {
  * never mutated; all rendering happens inside shadow DOM.
  *
  * @slot - A standard `<table>` element
+ * @slot search-placeholder - A slot to customize/translate the search input placeholder
  *
  * @fires {{ query: string }} search
  * @fires {{ sorts: SortEntry[] }} sort
  * @fires {{ page: number }} page-change
  * @fires {{ indices: number[], rows: string[][] }} row-select
+ * @fires load-more - Dispatched when infiniteScroll is enabled and scrolled near the bottom
  *
  * @cssprop [--uibit-table-font-size=0.875rem]
  * @cssprop [--uibit-table-font-family=inherit]
@@ -53,17 +55,22 @@ interface IndexedRow {
  * @cssprop [--uibit-table-cell-padding=0.625rem 0.875rem]
  * @cssprop [--uibit-table-max-height=24rem] - Max height when sticky-header is set
  */
+const defaultTrueBoolean = {
+  fromAttribute: (value: string | null) => value === null ? true : value !== 'false',
+  toAttribute: (value: boolean) => value ? '' : null
+};
+
 @customElement('uibit-table')
 export class Table extends UIBitElement {
   static styles = styles;
 
   // ── Feature toggles ────────────────────────────────────────────
   /** Show the global search input. */
-  @property({ type: Boolean }) searchable = true;
+  @property({ converter: defaultTrueBoolean }) searchable = true;
   /** Show pagination controls and per-page selector. */
-  @property({ type: Boolean }) paginated = true;
+  @property({ converter: defaultTrueBoolean }) paginated = true;
   /** Show CSV export button. */
-  @property({ type: Boolean }) exportable = true;
+  @property({ converter: defaultTrueBoolean }) exportable = true;
   /** Enable row-selection checkboxes. */
   @property({ type: Boolean }) selectable = false;
   /** Show per-column filter row below the header. */
@@ -76,14 +83,16 @@ export class Table extends UIBitElement {
   @property({ type: Boolean, reflect: true }) striped = false;
   /** Stick the header row when the table overflows vertically. */
   @property({ type: Boolean, attribute: 'sticky-header', reflect: true }) stickyHeader = false;
-  /** Row height density: compact | normal | comfortable. */
-  @property({ reflect: true }) density: 'compact' | 'normal' | 'comfortable' = 'normal';
 
   // ── Config ─────────────────────────────────────────────────────
   /** Comma-separated rows-per-page options. */
   @property({ attribute: 'page-sizes' }) pageSizes = '10,25,50,100';
-  /** Placeholder for the global search input. */
-  @property({ attribute: 'search-placeholder' }) searchPlaceholder = 'Search…';
+  /** Controls layout: 'inline' or consolidated 'menu' under a dropdown. */
+  @property({ attribute: 'controls-layout' }) controlsLayout: 'inline' | 'menu' = 'inline';
+  /** Enable infinite scroll behavior instead of page pagination. */
+  @property({ type: Boolean, attribute: 'infinite-scroll' }) infiniteScroll = false;
+  /** Indicates the table is loading more items in infinite scroll mode. */
+  @property({ type: Boolean }) loading = false;
 
   // ── Reactive state ──────────────────────────────────────────────
   @state() private _cols: Col[] = [];
@@ -96,7 +105,9 @@ export class Table extends UIBitElement {
   @state() private _hiddenCols = new Set<string>();
   @state() private _colFilters = new Map<string, string>();
   @state() private _colMenuOpen = false;
+  @state() private _optionsMenuOpen = false;
   @state() private _allFilteredSelected = false;
+  @state() private _searchPlaceholderText = '';
 
   // ── Non-reactive internal ───────────────────────────────────────
   private _colWidths = new Map<string, number>();
@@ -111,12 +122,31 @@ export class Table extends UIBitElement {
     super.connectedCallback();
     const sizes = this._pageSizeOptions;
     if (sizes.length) this._perPage = sizes[0]!;
+    window.addEventListener('resize', this._resizeHandler);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this._cleanupResizeListeners();
     this._removeMenuListener();
+    window.removeEventListener('resize', this._resizeHandler);
+  }
+
+  firstUpdated(changedProperties: PropertyValues) {
+    super.firstUpdated(changedProperties);
+    this._updateHeaderHeight();
+
+    // If slotchange hasn't fired yet (e.g. in test environment), parse manually
+    if (this._rows.length === 0) {
+      const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement | null;
+      if (slot) {
+        this._onSlotChange({ target: slot } as unknown as Event);
+      }
+    }
+    const placeholderSlot = this.shadowRoot?.querySelector('slot[name="search-placeholder"]') as HTMLSlotElement | null;
+    if (placeholderSlot) {
+      this._onSearchPlaceholderChange({ target: placeholderSlot } as unknown as Event);
+    }
   }
 
   // ── Data pipeline ───────────────────────────────────────────────
@@ -172,7 +202,7 @@ export class Table extends UIBitElement {
   }
 
   private get _pageRows(): IndexedRow[] {
-    if (!this.paginated) return this._sortedRows;
+    if (this.infiniteScroll || !this.paginated) return this._sortedRows;
     const start = (this._page - 1) * this._perPage;
     return this._sortedRows.slice(start, start + this._perPage);
   }
@@ -190,11 +220,27 @@ export class Table extends UIBitElement {
     return this._pageRows.some(({ i }) => this._selected.has(i));
   }
 
+  // ── Header alignment ───────────────────────────────────────────
+
+  private _resizeHandler = () => this._updateHeaderHeight();
+
+  private _updateHeaderHeight() {
+    if (!this.shadowRoot) return;
+    const firstRow = this.shadowRoot.querySelector('thead tr:first-child') as HTMLElement;
+    if (firstRow) {
+      const height = firstRow.getBoundingClientRect().height;
+      this.style.setProperty('--uibit-table-header-height', `${height}px`);
+    }
+  }
+
   // ── Slot parsing ────────────────────────────────────────────────
 
   private _onSlotChange(e: Event) {
     const slot = e.target as HTMLSlotElement;
-    const table = slot.assignedElements({ flatten: true }).find(el => el.tagName === 'TABLE') as HTMLTableElement | undefined;
+    let table = slot.assignedElements({ flatten: true }).find(el => el.tagName === 'TABLE') as HTMLTableElement | undefined;
+    if (!table) {
+      table = this.querySelector('table') as HTMLTableElement | undefined;
+    }
     if (!table) return;
 
     this._cols = Array.from(table.querySelectorAll('thead th, thead td')).map(th => {
@@ -215,6 +261,19 @@ export class Table extends UIBitElement {
     this._selected = new Set();
     this._colFilters = new Map();
     this._sorts = [];
+
+    this.updateComplete.then(() => {
+      this._updateHeaderHeight();
+    });
+  }
+
+  private _onSearchPlaceholderChange(e: Event) {
+    const slot = e.target as HTMLSlotElement;
+    let text = slot.assignedNodes({ flatten: true }).map(n => n.textContent).join('').trim();
+    if (!text) {
+      text = this.querySelector('[slot="search-placeholder"]')?.textContent?.trim() || '';
+    }
+    this._searchPlaceholderText = text;
   }
 
   // ── Event handlers ──────────────────────────────────────────────
@@ -315,6 +374,9 @@ export class Table extends UIBitElement {
     const next = new Set(this._hiddenCols);
     if (next.has(col.key)) next.delete(col.key); else next.add(col.key);
     this._hiddenCols = next;
+    this.updateComplete.then(() => {
+      this._updateHeaderHeight();
+    });
   }
 
   private _openColMenu() {
@@ -342,6 +404,31 @@ export class Table extends UIBitElement {
     }, 0);
   }
 
+  private _openOptionsMenu() {
+    this._optionsMenuOpen = true;
+    this._removeMenuListener();
+    this._closeMenuHandler = (e: MouseEvent) => {
+      const path = e.composedPath();
+      const wrap = this.shadowRoot?.querySelector('.options-menu-wrap');
+      if (wrap && !path.includes(wrap)) {
+        this._optionsMenuOpen = false;
+        this._removeMenuListener();
+      }
+    };
+    this._escMenuHandler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        this._optionsMenuOpen = false;
+        this._removeMenuListener();
+        const btn = this.shadowRoot?.querySelector('.options-menu-wrap .ctrl-btn') as HTMLElement;
+        btn?.focus();
+      }
+    };
+    setTimeout(() => {
+      document.addEventListener('click', this._closeMenuHandler!);
+      document.addEventListener('keydown', this._escMenuHandler!);
+    }, 0);
+  }
+
   private _removeMenuListener() {
     if (this._closeMenuHandler) {
       document.removeEventListener('click', this._closeMenuHandler);
@@ -350,6 +437,18 @@ export class Table extends UIBitElement {
     if (this._escMenuHandler) {
       document.removeEventListener('keydown', this._escMenuHandler);
       this._escMenuHandler = undefined;
+    }
+  }
+
+  // ── Infinite scroll ──────────────────────────────────────────────
+
+  private _onScroll(e: Event) {
+    if (!this.infiniteScroll || this.loading) return;
+    const wrap = e.currentTarget as HTMLElement;
+    const threshold = 30; // px threshold from bottom
+    const isNearBottom = wrap.scrollHeight - wrap.scrollTop - wrap.clientHeight <= threshold;
+    if (isNearBottom) {
+      this.dispatchCustomEvent('load-more');
     }
   }
 
@@ -405,7 +504,6 @@ export class Table extends UIBitElement {
     const visCols = this._cols.filter(c => visKeys.has(c.key));
     const csvCell = (val: string) => {
       const escaped = val.replace(/"/g, '""');
-      // Prefix formula-injection triggers so spreadsheet apps treat the cell as text
       return /^[=+\-@\t\r]/.test(val) ? `"'${escaped}"` : `"${escaped}"`;
     };
     const header = visCols.map(c => csvCell(c.label)).join(',');
@@ -428,13 +526,11 @@ export class Table extends UIBitElement {
   private _highlight(text: string, colKey: string): unknown {
     let result: TemplateResult | string = text;
 
-    // Apply per-column filter highlight first
     const colFilter = this._colFilters.get(colKey);
     if (colFilter) {
       result = this._applyHighlight(text, colFilter, 'filter-highlight');
     }
 
-    // Apply global search highlight on top
     if (this._query) {
       const src = typeof result === 'string' ? result : text;
       return this._applyHighlight(src, this._query, 'highlight');
@@ -565,6 +661,57 @@ export class Table extends UIBitElement {
     `;
   }
 
+  private _renderOptionsMenu(): TemplateResult | typeof nothing {
+    const hasActiveFilters = this._colFilters.size > 0 || this._query;
+    return html`
+      <div class="options-menu-wrap col-menu-wrap">
+        <button
+          class="ctrl-btn"
+          aria-haspopup="true"
+          aria-expanded=${this._optionsMenuOpen ? 'true' : 'false'}
+          @click=${() => this._optionsMenuOpen ? (this._optionsMenuOpen = false, this._removeMenuListener()) : this._openOptionsMenu()}
+        >
+          <svg class="icon-cog" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:2px;">
+            <circle cx="8" cy="8" r="2"/>
+            <path d="M8 1v2m0 10v2M1 8h2m10 0h2m-2.5-4.5l-1.5 1.5M4 12l-1.5 1.5m9.5 0l-1.5-1.5M4 4L2.5 2.5"/>
+          </svg>
+          ${msg('Options')}
+          <span class="chevron">▾</span>
+        </button>
+        ${this._optionsMenuOpen ? html`
+          <div class="col-dropdown options-dropdown" role="menu">
+            ${this.columnChooser ? html`
+              <div class="dropdown-section-title">${msg('Columns')}</div>
+              ${this._cols.map(col => html`
+                <label class="col-dropdown-item" role="menuitemcheckbox">
+                  <input
+                    type="checkbox"
+                    ?checked=${!this._hiddenCols.has(col.key)}
+                    @change=${() => this._onToggleCol(col)}
+                  />
+                  ${col.label}
+                </label>
+              `)}
+              <div class="dropdown-divider"></div>
+            ` : nothing}
+            
+            ${this.exportable ? html`
+              <button class="dropdown-btn" role="menuitem" @click=${() => { this._exportCsv(); this._optionsMenuOpen = false; this._removeMenuListener(); }}>
+                ${this._selected.size > 0 ? msg(str`Export ${this._selected.size} rows`) : msg('Export CSV')}
+              </button>
+            ` : nothing}
+
+            ${hasActiveFilters ? html`
+              <button class="dropdown-btn dropdown-btn-danger" role="menuitem" @click=${() => { this._query = ''; this._colFilters = new Map(); this._page = 1; this._optionsMenuOpen = false; this._removeMenuListener(); }}>
+                ${msg('Clear filters')}
+              </button>
+            ` : nothing}
+          </div>
+        ` : nothing}
+      </div>
+    `;
+  }
+
   private _renderFilterRow(): TemplateResult | typeof nothing {
     if (!this.filterable) return nothing;
     const vis = this._visibleCols;
@@ -576,7 +723,7 @@ export class Table extends UIBitElement {
             <input
               class="filter-input ${this._colFilters.get(col.key) ? 'active' : ''}"
               type="search"
-              placeholder="Filter…"
+              placeholder=${msg('Filter…')}
               .value=${this._colFilters.get(col.key) ?? ''}
               @input=${(e: Event) => this._onColFilter(col, e)}
               aria-label=${msg(str`Filter ${col.label}`)}
@@ -591,17 +738,29 @@ export class Table extends UIBitElement {
     const vis = this._visibleCols;
     const pageRows = this._pageRows;
     const total = this._sortedRows.length;
-    const start = this.paginated ? (this._page - 1) * this._perPage + 1 : 1;
-    const end = this.paginated ? Math.min(start + this._perPage - 1, total) : total;
+    const start = this.paginated && !this.infiniteScroll ? (this._page - 1) * this._perPage + 1 : 1;
+    const end = this.paginated && !this.infiniteScroll ? Math.min(start + this._perPage - 1, total) : total;
 
     const selectAllChecked = this._allPageSelected;
     const selectAllIndeterminate = !selectAllChecked && this._somePageSelected;
 
-    const showToolbar = this.searchable || this.exportable || this.columnChooser || this.paginated;
+    const showToolbar = this.searchable || this.exportable || this.columnChooser || (this.paginated && !this.infiniteScroll);
     const hasActiveFilters = this._colFilters.size > 0 || this._query;
+
+    console.log('RENDER SHOWTOOLBAR:', {
+      searchable: this.searchable,
+      exportable: this.exportable,
+      columnChooser: this.columnChooser,
+      paginated: this.paginated,
+      infiniteScroll: this.infiniteScroll,
+      showToolbar
+    });
 
     return html`
       <slot @slotchange=${this._onSlotChange}></slot>
+      <div style="display: none;">
+        <slot name="search-placeholder" @slotchange=${this._onSearchPlaceholderChange}>${msg('Search…')}</slot>
+      </div>
 
       ${showToolbar ? html`
         <div class="toolbar" part="toolbar">
@@ -615,7 +774,7 @@ export class Table extends UIBitElement {
                 class="search"
                 part="search"
                 type="search"
-                placeholder=${this.searchPlaceholder}
+                placeholder=${this._searchPlaceholderText || msg('Search…')}
                 .value=${this._query}
                 @input=${this._onSearch}
                 aria-label=${msg('Search table')}
@@ -624,40 +783,28 @@ export class Table extends UIBitElement {
           ` : nothing}
 
           <div class="controls">
-            ${this.paginated ? html`
-              <label class="toolbar-label" for="uibit-per-page">${msg('Rows:')}</label>
-              <select id="uibit-per-page" class="ctrl-select" @change=${this._onPerPage} aria-label=${msg('Rows per page')}>
-                ${this._pageSizeOptions.map(n => html`<option value=${n} ?selected=${this._perPage === n}>${n}</option>`)}
-              </select>
-            ` : nothing}
+            ${this.controlsLayout === 'menu' ? this._renderOptionsMenu() : html`
+              ${this._renderColMenu()}
 
-            <label class="toolbar-label" for="uibit-density">${msg('Density:')}</label>
-            <select id="uibit-density" class="ctrl-select" @change=${(e: Event) => { this.density = (e.target as HTMLSelectElement).value as typeof this.density; }} aria-label=${msg('Row density')}>
-              <option value="compact" ?selected=${this.density === 'compact'}>${msg('Compact')}</option>
-              <option value="normal" ?selected=${this.density === 'normal'}>${msg('Normal')}</option>
-              <option value="comfortable" ?selected=${this.density === 'comfortable'}>${msg('Comfortable')}</option>
-            </select>
+              ${this.exportable ? html`
+                <button class="ctrl-btn" part="export-btn" @click=${this._exportCsv} aria-label=${msg('Export as CSV')}>
+                  ${this._selected.size > 0 ? msg(str`Export ${this._selected.size} rows`) : msg('Export CSV')}
+                </button>
+              ` : nothing}
 
-            ${this._renderColMenu()}
-
-            ${this.exportable ? html`
-              <button class="ctrl-btn" part="export-btn" @click=${this._exportCsv} aria-label=${msg('Export as CSV')}>
-                ${this._selected.size > 0 ? msg(str`Export ${this._selected.size} rows`) : msg('Export CSV')}
-              </button>
-            ` : nothing}
-
-            ${hasActiveFilters ? html`
-              <button class="ctrl-btn" @click=${() => { this._query = ''; this._colFilters = new Map(); this._page = 1; }} aria-label=${msg('Clear all filters')}>
-                ${msg('Clear filters')}
-              </button>
-            ` : nothing}
+              ${hasActiveFilters ? html`
+                <button class="ctrl-btn" @click=${() => { this._query = ''; this._colFilters = new Map(); this._page = 1; }} aria-label=${msg('Clear all filters')}>
+                  ${msg('Clear filters')}
+                </button>
+              ` : nothing}
+            `}
           </div>
         </div>
       ` : nothing}
 
       ${this._renderSelectionBanner()}
 
-      <div class="table-wrap" part="table-wrap" role="region" aria-label=${msg('Data table')}>
+      <div class="table-wrap" part="table-wrap" role="region" aria-label=${msg('Data table')} @scroll=${this._onScroll}>
         <table part="table">
           ${vis.length ? html`
             <thead part="thead">
@@ -713,7 +860,7 @@ export class Table extends UIBitElement {
                   colspan=${(this.selectable ? 1 : 0) + vis.length || 1}
                   class="empty"
                   part="empty"
-                >No results found</td>
+                >${msg('No results found')}</td>
               </tr>
             ` : pageRows.map(({ i, row }) => html`
               <tr
@@ -744,13 +891,24 @@ export class Table extends UIBitElement {
         </table>
       </div>
 
-      ${this.paginated && total > 0 ? html`
+      ${(this.paginated || this.infiniteScroll) && total > 0 ? html`
         <div class="footer" part="footer">
-          <span part="count">
-            ${total === 0 ? 'No results' : `${start}–${end} of ${total} row${total === 1 ? '' : 's'}`}
-            ${this._selected.size > 0 ? html` · <strong>${this._selected.size} selected</strong>` : nothing}
-          </span>
-          ${this._renderPagination()}
+          <div class="footer-left">
+            <span part="count">
+              ${total === 0 ? msg('No results') : (this.infiniteScroll ? msg(str`${total} rows`) : msg(str`${start}–${end} of ${total} rows`))}
+              ${this._selected.size > 0 ? html` · <strong>${this._selected.size} selected</strong>` : nothing}
+            </span>
+            ${this.paginated && !this.infiniteScroll ? html`
+              <span class="footer-sep">·</span>
+              <label class="footer-label" for="uibit-per-page-footer">${msg('Rows per page:')}</label>
+              <select id="uibit-per-page-footer" class="ctrl-select footer-select" @change=${this._onPerPage} aria-label=${msg('Rows per page')}>
+                ${this._pageSizeOptions.map(n => html`<option value=${n} ?selected=${this._perPage === n}>${n}</option>`)}
+              </select>
+            ` : nothing}
+          </div>
+          ${this.infiniteScroll && this.loading ? html`
+            <span class="loading-spinner" part="loading-spinner">${msg('Loading more…')}</span>
+          ` : (this.infiniteScroll ? nothing : this._renderPagination())}
         </div>
       ` : nothing}
     `;

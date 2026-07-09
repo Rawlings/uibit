@@ -3,8 +3,11 @@ import '@uibit/carousel';
 import manifest from '@uibit/carousel/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import basicExample from './examples/basic';
+import basicRaw from './examples/basic?raw';
 import autoPlayExample from './examples/auto-play';
+import autoPlayRaw from './examples/auto-play?raw';
 import customNavExample from './examples/custom-nav';
+import customNavRaw from './examples/custom-nav?raw';
 
 function CarouselDemo() {
   const carouselRef = useRef<any>(null);
@@ -45,6 +48,13 @@ function CarouselDemo() {
     </div>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...basicExample, code: { react: basicRaw } },
+  { ...autoPlayExample, code: { react: autoPlayRaw } },
+  { ...customNavExample, code: { react: customNavRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'carousel',
@@ -129,7 +139,7 @@ function CarouselDemo() {
   );
 }`,
   },
-  examples: [basicExample, autoPlayExample, customNavExample],
+  examples: processedExamples,
   features: ['Native CSS Scroll-Snap', 'Scroll-Driven Animations', 'Fully Accessible', 'Responsive Design', 'Touch & Swipe Support', 'Keyboard Navigation', 'Auto-Play Option', 'Customizable with CSS Variables'],
   a11y: {
     wcagLevel: 'AA',

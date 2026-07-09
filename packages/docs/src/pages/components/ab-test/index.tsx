@@ -3,7 +3,9 @@ import '@uibit/ab-test';
 import manifest from '@uibit/ab-test/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import basicExample from './examples/basic';
+import basicRaw from './examples/basic?raw';
 import eventTrackingExample from './examples/event-tracking';
+import eventTrackingRaw from './examples/event-tracking?raw';
 
 const AB_STORAGE_KEY = 'demo-ab-test-docs';
 
@@ -83,6 +85,12 @@ function ABTestDemo() {
   );
 }
 
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...basicExample, code: { react: basicRaw } },
+  { ...eventTrackingExample, code: { react: eventTrackingRaw } },
+];
+
 const data: ComponentDocData = {
   id: 'ab-test',
   title: 'A/B Test',
@@ -155,7 +163,7 @@ function ABTestDemo() {
   );
 }`,
   },
-  examples: [basicExample, eventTrackingExample],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

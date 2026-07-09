@@ -28,38 +28,6 @@ const basicExample: UsageExample = {
   title: 'Basic Variant Slots',
   description: 'Define two variants using named slots. The component automatically assigns a variant on first load and persists the choice via storage-key.',
   Demo: BasicDemo,
-  code: {
-    html: `<uibit-ab-test storage-key="basic-ab-test">
-  <div slot="variant-a">
-    <h3>Variant A</h3>
-    <p>This is the control layout.</p>
-    <button>Get Started</button>
-  </div>
-  <div slot="variant-b">
-    <h3>Variant B</h3>
-    <p>This is the challenger layout.</p>
-    <button>Try It Free</button>
-  </div>
-</uibit-ab-test>`,
-    react: `import '@uibit/ab-test';
-
-function BasicDemo() {
-  return (
-    <uibit-ab-test storage-key="basic-ab-test">
-      <div slot="variant-a" className="p-5 border rounded-lg">
-        <h3>Variant A</h3>
-        <p>This is the control layout.</p>
-        <button>Get Started</button>
-      </div>
-      <div slot="variant-b" className="p-5 border rounded-lg">
-        <h3>Variant B</h3>
-        <p>This is the challenger layout.</p>
-        <button>Try It Free</button>
-      </div>
-    </uibit-ab-test>
-  );
-}`,
-  },
 };
 
 export default basicExample;

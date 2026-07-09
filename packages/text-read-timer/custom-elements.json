@@ -12,61 +12,82 @@
           "name": "default",
           "declaration": {
             "name": "default",
-            "module": "./read-timer"
+            "module": "./text-read-timer"
           }
         },
         {
           "kind": "js",
-          "name": "ReadTimer",
+          "name": "TextReadTimer",
           "declaration": {
-            "name": "ReadTimer",
-            "module": "./read-timer"
+            "name": "TextReadTimer",
+            "module": "./text-read-timer"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "src/read-timer.ts",
+      "path": "src/styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { display: block; font-family: var(--uibit-text-read-timer-font-family, inherit); } .timer { display: inline-flex; align-items: center; gap: var(--uibit-text-read-timer-gap, 0.375rem); font-size: var(--uibit-text-read-timer-font-size, 0.8125rem); font-weight: var(--uibit-text-read-timer-font-weight, 500); color: var(--uibit-text-read-timer-color, #6b7280); line-height: 1; } .icon { display: inline-flex; align-items: center; flex-shrink: 0; color: var(--uibit-text-read-timer-icon-color, currentColor); width: var(--uibit-text-read-timer-icon-size, 0.875rem); height: var(--uibit-text-read-timer-icon-size, 0.875rem); } .icon svg { width: 100%; height: 100%; } .label { white-space: nowrap; } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/text-read-timer.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Analyzes the word count of its slotted content and renders a reading-time\nbadge inline. The calculation happens inside the shadow DOM via a slot\nchange observer — no backend metadata required.\n\nPlace any HTML content in the default slot. The component counts only text\nnodes, ignoring markup and hidden elements.",
-          "name": "ReadTimer",
+          "description": "Analyzes the word count of its slotted content and renders a reading-time\nbadge. The calculation happens inside the shadow DOM via a slot\nchange observer — no backend metadata required.\n\nPlace your HTML content in the default slot. The component counts only text\nnodes, ignoring markup and hidden elements.",
+          "name": "TextReadTimer",
           "cssProperties": [
             {
               "description": "Badge font size",
-              "name": "--uibit-read-timer-font-size",
+              "name": "--uibit-text-read-timer-font-size",
               "default": "0.8125rem"
             },
             {
               "description": "Badge font weight",
-              "name": "--uibit-read-timer-font-weight",
+              "name": "--uibit-text-read-timer-font-weight",
               "default": "500"
             },
             {
               "description": "Badge text color",
-              "name": "--uibit-read-timer-color",
+              "name": "--uibit-text-read-timer-color",
               "default": "#6b7280"
             },
             {
               "description": "Badge font family",
-              "name": "--uibit-read-timer-font-family",
+              "name": "--uibit-text-read-timer-font-family",
               "default": "inherit"
             },
             {
               "description": "Gap between icon and label",
-              "name": "--uibit-read-timer-gap",
+              "name": "--uibit-text-read-timer-gap",
               "default": "0.375rem"
             },
             {
               "description": "Size of the clock icon",
-              "name": "--uibit-read-timer-icon-size",
+              "name": "--uibit-text-read-timer-icon-size",
               "default": "0.875rem"
             },
             {
               "description": "Color of the clock icon",
-              "name": "--uibit-read-timer-icon-color",
+              "name": "--uibit-text-read-timer-icon-color",
               "default": "currentColor"
             }
           ],
@@ -74,6 +95,10 @@
             {
               "description": "The content whose text will be measured",
               "name": ""
+            },
+            {
+              "description": "Optional named slot to position or override the read-time label/badge",
+              "name": "timer"
             }
           ],
           "members": [
@@ -119,6 +144,14 @@
             {
               "kind": "field",
               "name": "_slot",
+              "type": {
+                "text": "HTMLSlotElement | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_timerSlot",
               "type": {
                 "text": "HTMLSlotElement | undefined"
               },
@@ -181,54 +214,33 @@
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
-          "tagName": "uibit-read-timer",
+          "tagName": "uibit-text-read-timer",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "ReadTimer",
+          "name": "TextReadTimer",
           "declaration": {
-            "name": "ReadTimer",
-            "module": "src/read-timer.ts"
+            "name": "TextReadTimer",
+            "module": "src/text-read-timer.ts"
           }
         },
         {
           "kind": "custom-element-definition",
-          "name": "uibit-read-timer",
+          "name": "uibit-text-read-timer",
           "declaration": {
-            "name": "ReadTimer",
-            "module": "src/read-timer.ts"
+            "name": "TextReadTimer",
+            "module": "src/text-read-timer.ts"
           }
         },
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "name": "ReadTimer",
-            "module": "src/read-timer.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: inline-flex; align-items: center; gap: var(--uibit-read-timer-gap, 0.375rem); font-size: var(--uibit-read-timer-font-size, 0.8125rem); font-weight: var(--uibit-read-timer-font-weight, 500); color: var(--uibit-read-timer-color, #6b7280); font-family: var(--uibit-read-timer-font-family, inherit); line-height: 1; } .icon { display: inline-flex; align-items: center; flex-shrink: 0; color: var(--uibit-read-timer-icon-color, currentColor); width: var(--uibit-read-timer-icon-size, 0.875rem); height: var(--uibit-read-timer-icon-size, 0.875rem); } .icon svg { width: 100%; height: 100%; } .label { white-space: nowrap; } .content-slot { display: none; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
+            "name": "TextReadTimer",
+            "module": "src/text-read-timer.ts"
           }
         }
       ]

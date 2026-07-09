@@ -45,59 +45,6 @@ function EventHandlingDemo() {
 const example: UsageExample = {
   title: 'Event Handling',
   description: 'sentiment-change fires on every selection; sentiment-submit fires on re-tap for explicit confirmation. Both carry { value, label } in event.detail.',
-  code: {
-    html: `<uibit-sentiment-bar id="bar" show-label></uibit-sentiment-bar>
-<pre id="output">No event fired yet.</pre>
-
-<script>
-  const bar = document.querySelector('#bar');
-  const output = document.querySelector('#output');
-
-  bar.addEventListener('sentiment-change', e => {
-    output.textContent = JSON.stringify(
-      { event: 'sentiment-change', detail: e.detail },
-      null, 2
-    );
-  });
-
-  bar.addEventListener('sentiment-submit', e => {
-    output.textContent = JSON.stringify(
-      { event: 'sentiment-submit', detail: e.detail },
-      null, 2
-    );
-  });
-</script>`,
-    react: `import '@uibit/sentiment-bar';
-import { useEffect, useRef, useState } from 'react';
-
-function FeedbackWidget() {
-  const barRef = useRef(null);
-  const [lastEvent, setLastEvent] = useState(null);
-
-  useEffect(() => {
-    const el = barRef.current;
-    if (!el) return;
-
-    const handleChange = (e) => setLastEvent({ type: 'sentiment-change', detail: e.detail });
-    const handleSubmit = (e) => setLastEvent({ type: 'sentiment-submit', detail: e.detail });
-
-    el.addEventListener('sentiment-change', handleChange);
-    el.addEventListener('sentiment-submit', handleSubmit);
-
-    return () => {
-      el.removeEventListener('sentiment-change', handleChange);
-      el.removeEventListener('sentiment-submit', handleSubmit);
-    };
-  }, []);
-
-  return (
-    <div>
-      <uibit-sentiment-bar show-label ref={barRef} />
-      <pre>{lastEvent ? JSON.stringify(lastEvent, null, 2) : 'No event fired yet.'}</pre>
-    </div>
-  );
-}`,
-  },
   Demo: EventHandlingDemo,
 };
 

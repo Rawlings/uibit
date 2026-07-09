@@ -23,7 +23,7 @@
     "@uibit/image-xray": "workspace:*",
     "@uibit/isometric-cluster": "workspace:*",
     "@uibit/number-ticker": "workspace:*",
-    "@uibit/read-timer": "workspace:*",
+    "@uibit/text-read-timer": "workspace:*",
     "@uibit/scratch-reveal": "workspace:*",
     "@uibit/scroll-progress": "workspace:*",
     "@uibit/sentiment-bar": "workspace:*",

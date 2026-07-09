@@ -55,10 +55,6 @@ const starRatingExample: UsageExample = {
   title: 'Star Rating Feedback',
   description:
     'Renders a review component where clicking a rating star launches a physics-based fountain cascade of micro SVG stars matching the selected theme color.',
-  code: {
-    html: '',
-    react: '',
-  },
   Demo: StarRatingDemo,
 };
 

@@ -97,10 +97,6 @@ const fileUploadExample: UsageExample = {
   title: 'Cloud Document Sync',
   description:
     'Sends a small document icon flying from the upload button directly to the cloud storage icon using the destination selector.',
-  code: {
-    html: '',
-    react: '',
-  },
   Demo: FileUploadDemo,
 };
 

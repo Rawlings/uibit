@@ -2,8 +2,11 @@ import '@uibit/diff-viewer';
 import manifest from '@uibit/diff-viewer/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import splitModeExample from './examples/split-mode';
+import splitModeRaw from './examples/split-mode?raw';
 import inlineModeExample from './examples/inline-mode';
+import inlineModeRaw from './examples/inline-mode?raw';
 import noLineNumbersExample from './examples/no-line-numbers';
+import noLineNumbersRaw from './examples/no-line-numbers?raw';
 
 const OLD = `function greet(name) {
   var msg = "Hello, " + name;
@@ -26,6 +29,13 @@ function DiffViewerDemo() {
     </uibit-diff-viewer>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...splitModeExample, code: { react: splitModeRaw } },
+  { ...inlineModeExample, code: { react: inlineModeRaw } },
+  { ...noLineNumbersExample, code: { react: noLineNumbersRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'diff-viewer',
@@ -74,7 +84,7 @@ function App() {
   );
 }`,
   },
-  examples: [splitModeExample, inlineModeExample, noLineNumbersExample],
+  examples: processedExamples,
   features: [
     'Pure LCS diff engine — no external dependency, computes in-component',
     'Side-by-side split mode shows old and new panes with aligned blank-line padding',

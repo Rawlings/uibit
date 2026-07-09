@@ -22,22 +22,6 @@ function CustomLensDemo() {
 const customLens: UsageExample = {
   title: 'Custom Lens Size',
   description: 'Control the lens diameter with the --uibit-image-xray-lens-size CSS custom property for a larger reveal area.',
-  code: {
-    html: `<uibit-image-xray style="--uibit-image-xray-lens-size: 18rem;">
-  <img src="https://picsum.photos/seed/watchface99/800/450" alt="Watch exterior" style="display: block; width: 100%;" />
-  <img slot="xray" src="https://picsum.photos/seed/watchmovement99/800/450" alt="Watch movement and gears" style="display: block; width: 100%;" />
-</uibit-image-xray>`,
-    react: `import '@uibit/image-xray';
-
-function LargeReveal() {
-  return (
-    <uibit-image-xray style={{ '--uibit-image-xray-lens-size': '18rem' } as React.CSSProperties}>
-      <img src="https://picsum.photos/seed/watchface99/800/450" alt="Watch exterior" style={{ display: 'block', width: '100%' }} />
-      <img slot="xray" src="https://picsum.photos/seed/watchmovement99/800/450" alt="Watch movement and gears" style={{ display: 'block', width: '100%' }} />
-    </uibit-image-xray>
-  );
-}`,
-  },
   Demo: CustomLensDemo,
 };
 

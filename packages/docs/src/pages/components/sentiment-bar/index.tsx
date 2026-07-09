@@ -2,8 +2,11 @@ import '@uibit/sentiment-bar';
 import manifest from '@uibit/sentiment-bar/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import defaultExample from './examples/default';
+import defaultRaw from './examples/default?raw';
 import customOptionsExample from './examples/custom-options';
+import customOptionsRaw from './examples/custom-options?raw';
 import eventHandlingExample from './examples/event-handling';
+import eventHandlingRaw from './examples/event-handling?raw';
 
 function SentimentBarDemo() {
   return (
@@ -28,6 +31,13 @@ function SentimentBarDemo() {
   );
 }
 
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...defaultExample, code: { react: defaultRaw } },
+  { ...customOptionsExample, code: { react: customOptionsRaw } },
+  { ...eventHandlingExample, code: { react: eventHandlingRaw } },
+];
+
 const data: ComponentDocData = {
   id: 'sentiment-bar',
   title: 'Sentiment Bar',
@@ -45,7 +55,7 @@ function Feedback() {
   return <uibit-sentiment-bar show-label />;
 }`,
   },
-  examples: [defaultExample, customOptionsExample, eventHandlingExample],
+  examples: processedExamples,
   features: [
     'Spring-curve CSS transform (cubic-bezier 0.34, 1.56) gives selected items a satisfying pop',
     'Grayscale + opacity filter dims unselected options to draw focus to the active choice',

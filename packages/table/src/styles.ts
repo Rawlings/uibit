@@ -16,7 +16,7 @@ export const styles = css`
     --uibit-table-selected-hover-bg: var(--uibit-selected-hover-bg, #dbeafe);
     --uibit-table-focus-color: var(--uibit-focus-color, #6b7280);
     --uibit-table-radius: var(--uibit-radius-lg, 0.375rem);
-    --uibit-table-cell-padding: var(--uibit-spacing-2, 0.625rem) var(--uibit-spacing-3, 0.875rem);
+    --uibit-table-cell-padding: var(--uibit-spacing-2, 0.5rem) var(--uibit-spacing-3, 0.75rem);
   }
 
   /* ── Toolbar ─────────────────────────────────────────────── */
@@ -152,6 +152,46 @@ export const styles = css`
     accent-color: var(--uibit-focus-color, #111827);
   }
 
+  /* Consolidated Options dropdown styles */
+  .options-dropdown {
+    min-width: 12rem;
+  }
+  .dropdown-section-title {
+    font-size: 0.6875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--uibit-text-muted, #6b7280);
+    padding: 0.375rem 0.5rem 0.25rem;
+  }
+  .dropdown-divider {
+    height: 1px;
+    background: var(--uibit-table-border-color, #e5e7eb);
+    margin: 0.375rem 0;
+  }
+  .dropdown-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 0.375rem 0.5rem;
+    font: inherit;
+    font-size: 0.8125rem;
+    color: var(--uibit-text-primary, #111827);
+    border-radius: 0.25rem;
+    cursor: pointer;
+  }
+  .dropdown-btn:hover {
+    background: var(--uibit-bg-subtle, #f3f4f6);
+  }
+  .dropdown-btn-danger {
+    color: #b91c1c;
+  }
+  .dropdown-btn-danger:hover {
+    background: #fef2f2;
+  }
+
   /* ── Selection banner ────────────────────────────────────── */
 
   .sel-banner {
@@ -218,7 +258,7 @@ export const styles = css`
   }
 
   th {
-    padding: var(--uibit-table-cell-padding, 0.625rem 0.875rem);
+    padding: var(--uibit-table-cell-padding, 0.5rem 0.75rem);
     text-align: left;
     font-weight: 600;
     font-size: 0.75rem;
@@ -353,7 +393,7 @@ export const styles = css`
   /* ── Body rows ───────────────────────────────────────────── */
 
   td {
-    padding: var(--uibit-table-cell-padding, 0.625rem 0.875rem);
+    padding: var(--uibit-table-cell-padding, 0.5rem 0.75rem);
     border-bottom: 1px solid var(--uibit-table-border-color, #e5e7eb);
     color: var(--uibit-table-color, #111827);
     white-space: nowrap;
@@ -372,18 +412,6 @@ export const styles = css`
 
   :host([striped]) tbody tr:nth-child(even):not(.row-selected) td {
     background: var(--uibit-table-stripe-bg, #f9fafb);
-  }
-
-  /* ── Density ─────────────────────────────────────────────── */
-
-  :host([density="compact"]) td,
-  :host([density="compact"]) th {
-    padding: 0.25rem 0.5rem;
-  }
-
-  :host([density="comfortable"]) td,
-  :host([density="comfortable"]) th {
-    padding: 1rem 1.25rem;
   }
 
   /* ── Misc ────────────────────────────────────────────────── */
@@ -422,6 +450,25 @@ export const styles = css`
     color: #6b7280;
   }
 
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .footer-sep {
+    color: var(--uibit-table-border-color, #e5e7eb);
+  }
+
+  .footer-label {
+    color: var(--uibit-text-muted, #6b7280);
+  }
+
+  .footer-select {
+    padding: 0.15rem 0.35rem;
+    font-size: 0.75rem;
+  }
+
   .pagination {
     display: flex;
     align-items: center;
@@ -455,5 +502,27 @@ export const styles = css`
   .page-btn:disabled { opacity: 0.4; cursor: default; }
   .page-btn:focus-visible { outline: 2px solid var(--uibit-focus-color, currentColor); outline-offset: 2px; }
 
+  /* Loading Spinner */
+  .loading-spinner {
+    font-size: 0.75rem;
+    color: var(--uibit-text-muted, #6b7280);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+  .loading-spinner::before {
+    content: '';
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 1.5px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: uibit-spin 0.6s linear infinite;
+  }
+  @keyframes uibit-spin {
+    to { transform: rotate(360deg); }
+  }
+
   slot { display: none; }
 `;
+

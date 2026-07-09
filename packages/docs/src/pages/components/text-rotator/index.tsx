@@ -2,7 +2,9 @@ import '@uibit/text-rotator';
 import manifest from '@uibit/text-rotator/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
 import slideTransition from './examples/slide-transition';
+import slideTransitionRaw from './examples/slide-transition?raw';
 import flipTransition from './examples/flip-transition';
+import flipTransitionRaw from './examples/flip-transition?raw';
 
 function TextRotatorDemo() {
   return (
@@ -25,6 +27,12 @@ function TextRotatorDemo() {
     </div>
   );
 }
+
+// Map raw file contents to the react code panel dynamically
+const processedExamples = [
+  { ...slideTransition, code: { react: slideTransitionRaw } },
+  { ...flipTransition, code: { react: flipTransitionRaw } },
+];
 
 const data: ComponentDocData = {
   id: 'text-rotator',
@@ -61,7 +69,7 @@ function TextRotatorDemo() {
   );
 }`,
   },
-  examples: [slideTransition, flipTransition],
+  examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',
     requirements: [

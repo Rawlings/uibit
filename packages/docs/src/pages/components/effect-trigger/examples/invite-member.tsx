@@ -77,10 +77,6 @@ const inviteMemberExample: UsageExample = {
   title: 'Workspace Member Invite',
   description:
     'Releases a staggered stream of person silhouettes that drift upward when email invitations are dispatched.',
-  code: {
-    html: '',
-    react: '',
-  },
   Demo: InviteMemberDemo,
 };
 
