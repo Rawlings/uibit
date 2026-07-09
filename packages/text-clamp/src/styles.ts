@@ -7,7 +7,7 @@ export const styles = css`
     font-weight: var(--uibit-text-clamp-font-weight, inherit);
     color: var(--uibit-text-clamp-color, inherit);
     font-family: var(--uibit-text-clamp-font-family, inherit);
-    line-height: var(--uibit-text-clamp-line-height, 1.5);
+    line-height: var(--uibit-text-clamp-line-height, var(--uibit-line-height-normal, 1.5));
   }
 
   /* Hide the source slot — it's only used for slotchange detection */
@@ -33,7 +33,7 @@ export const styles = css`
     margin: 0;
     font: inherit;
     color: var(--uibit-text-clamp-toggle-color, currentColor);
-    font-weight: var(--uibit-text-clamp-toggle-font-weight, 600);
+    font-weight: var(--uibit-text-clamp-toggle-font-weight, var(--uibit-font-weight-semibold, 600));
     cursor: pointer;
     text-decoration: var(--uibit-text-clamp-toggle-decoration, underline);
     text-underline-offset: 0.15em;

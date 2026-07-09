@@ -130,15 +130,4 @@ export class ImageXray extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-image-xray': ImageXray;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-image-xray': ImageXray;
-    }
-  }
-}
-
 export default ImageXray;

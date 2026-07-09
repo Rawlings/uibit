@@ -141,16 +141,16 @@ export const styles = css`
 
   .popover-content h3 {
     margin: 0 0 0.375rem 0;
-    font-size: 0.9375rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-size: var(--uibit-font-size-base, 0.9375rem);
+    font-weight: var(--uibit-font-weight-semibold, 600);
+    letter-spacing: var(--uibit-letter-spacing-tight, -0.01em);
     color: var(--uibit-hotspot-popover-color, #111827);
   }
 
   .popover-content p {
     margin: 0;
-    font-size: 0.8125rem;
-    line-height: 1.625;
+    font-size: var(--uibit-font-size-sm, 0.8125rem);
+    line-height: var(--uibit-line-height-relaxed, 1.625);
     color: var(--uibit-hotspot-popover-content-color, #4b5563);
   }
 

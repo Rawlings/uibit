@@ -82,8 +82,8 @@ export const styles = css`
   }
 
   .label {
-    font-size: var(--uibit-sentiment-bar-label-font-size, calc(0.75rem * var(--uibit-font-scale-factor, 1)));
-    font-weight: var(--uibit-sentiment-bar-label-font-weight, 500);
+    font-size: var(--uibit-sentiment-bar-label-font-size, var(--uibit-font-size-xs, calc(0.75rem * var(--uibit-font-scale-factor, 1))));
+    font-weight: var(--uibit-sentiment-bar-label-font-weight, var(--uibit-font-weight-medium, 500));
     color: var(--uibit-sentiment-bar-label-color, var(--uibit-text-muted, #6b7280));
     min-height: 1em;
     min-width: 5rem;

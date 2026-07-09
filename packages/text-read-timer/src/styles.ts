@@ -10,10 +10,10 @@ export const styles = css`
     display: inline-flex;
     align-items: center;
     gap: var(--uibit-text-read-timer-gap, 0.375rem);
-    font-size: var(--uibit-text-read-timer-font-size, 0.8125rem);
-    font-weight: var(--uibit-text-read-timer-font-weight, 500);
+    font-size: var(--uibit-text-read-timer-font-size, var(--uibit-font-size-sm, 0.8125rem));
+    font-weight: var(--uibit-text-read-timer-font-weight, var(--uibit-font-weight-medium, 500));
     color: var(--uibit-text-read-timer-color, #6b7280);
-    line-height: 1;
+    line-height: var(--uibit-line-height-normal, 1.5);
   }
 
   .icon {

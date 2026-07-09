@@ -106,15 +106,4 @@ export class TextReadTimer extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-text-read-timer': TextReadTimer;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-text-read-timer': TextReadTimer;
-    }
-  }
-}
-
 export default TextReadTimer;

@@ -136,6 +136,183 @@ export class Table extends UIBitElement {
     super.firstUpdated(changedProperties);
     this._updateHeaderHeight();
 
+    const root = this.shadowRoot;
+    if (root) {
+      // Scroll listener on wrapper
+      const wrap = root.querySelector('.table-wrap');
+      if (wrap) {
+        wrap.addEventListener('scroll', (e) => this._onScroll(e));
+      }
+
+      // Slotchange listener delegation
+      root.addEventListener('slotchange', (e) => {
+        const slot = e.target as HTMLSlotElement;
+        if (slot.name === 'search-placeholder') {
+          this._onSearchPlaceholderChange(e);
+        } else if (!slot.name) {
+          this._onSlotChange(e);
+        }
+      });
+
+      // Mousedown listener delegation for resize handles
+      root.addEventListener('mousedown', (e) => {
+        const target = e.target as HTMLElement;
+        if (target.classList.contains('resize-handle')) {
+          const th = target.closest('th');
+          const colKey = th?.getAttribute('data-col-key');
+          const col = this._cols.find(c => c.key === colKey);
+          if (col) {
+            this._onResizeStart(e as MouseEvent, col);
+          }
+        }
+      });
+
+      // Click listener delegation
+      root.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+
+        // Column sort click
+        const th = target.closest('th');
+        if (th && th.classList.contains('sortable')) {
+          const isResize = target.classList.contains('resize-handle');
+          if (!isResize) {
+            const colKey = th.getAttribute('data-col-key');
+            const col = this._cols.find(c => c.key === colKey);
+            if (col) {
+              this._onSort(col, e as MouseEvent);
+              return;
+            }
+          }
+        }
+
+        // Options menu button click
+        const optionsBtn = target.closest('.options-menu-wrap button.ctrl-btn');
+        if (optionsBtn) {
+          this._optionsMenuOpen ? (this._optionsMenuOpen = false, this._removeMenuListener()) : this._openOptionsMenu();
+          return;
+        }
+
+        // Column chooser button click
+        const colBtn = target.closest('.col-menu-wrap button.ctrl-btn');
+        if (colBtn && !optionsBtn) {
+          this._colMenuOpen ? (this._colMenuOpen = false, this._removeMenuListener()) : this._openColMenu();
+          return;
+        }
+
+        // Selection banner buttons
+        const clearBtn = target.closest('.sel-banner-btn');
+        if (clearBtn) {
+          if (clearBtn.classList.contains('sel-banner-btn-clear') || clearBtn.textContent?.includes('Clear')) {
+            this._clearSelection();
+          } else {
+            this._onSelectAllFiltered();
+          }
+          return;
+        }
+
+        // Options dropdown item click
+        const dropdownBtn = target.closest('.options-dropdown .dropdown-btn');
+        if (dropdownBtn) {
+          if (dropdownBtn.classList.contains('dropdown-btn-danger')) {
+            this._query = '';
+            this._colFilters = new Map();
+            this._page = 1;
+          } else {
+            this._exportCsv();
+          }
+          this._optionsMenuOpen = false;
+          this._removeMenuListener();
+          return;
+        }
+
+        // Pagination buttons click
+        const pageBtn = target.closest('.pagination .page-btn');
+        if (pageBtn) {
+          const action = pageBtn.getAttribute('data-page-action');
+          const numAttr = pageBtn.getAttribute('data-page-num');
+          if (action === 'prev') {
+            this._page = Math.max(1, this._page - 1);
+            this.dispatchCustomEvent('page-change', { page: this._page });
+          } else if (action === 'next') {
+            this._page = Math.min(this._totalPages, this._page + 1);
+            this.dispatchCustomEvent('page-change', { page: this._page });
+          } else if (numAttr !== null) {
+            this._page = parseInt(numAttr, 10);
+            this.dispatchCustomEvent('page-change', { page: this._page });
+          }
+          return;
+        }
+
+        // Inline Clear Filters button click
+        const inlineClearBtn = target.closest('.controls .ctrl-btn-clear-filters');
+        if (inlineClearBtn) {
+          this._query = '';
+          this._colFilters = new Map();
+          this._page = 1;
+          return;
+        }
+
+        // Export CSV button click
+        const exportBtn = target.closest('[part="export-btn"]');
+        if (exportBtn) {
+          this._exportCsv();
+          return;
+        }
+
+        // Row click delegation (for selection)
+        this._onTableClick(e);
+      });
+
+      // Change listener delegation
+      root.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+
+        // Select all header checkbox
+        if (target.closest('thead th.col-check input')) {
+          this._onSelectAllPage(target.checked);
+          return;
+        }
+
+        // Row select checkbox
+        if (target.closest('tbody td.col-check input')) {
+          this._onTableChange(e);
+          return;
+        }
+
+        // Column show/hide checkbox in options/column dropdowns
+        if (target.closest('.col-dropdown-item input')) {
+          const label = target.closest('.col-dropdown-item');
+          const colLabel = label?.textContent?.trim();
+          const col = this._cols.find(c => c.label === colLabel);
+          if (col) {
+            this._onToggleCol(col);
+          }
+          return;
+        }
+
+        // Rows per page dropdown
+        if (target.classList.contains('footer-select')) {
+          this._onPerPage(e);
+          return;
+        }
+      });
+
+      // Input listener delegation
+      root.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target.classList.contains('search')) {
+          this._onSearch(e);
+        } else if (target.classList.contains('filter-input')) {
+          const th = target.closest('th');
+          const colKey = th?.getAttribute('data-col-key');
+          const col = this._cols.find(c => c.key === colKey);
+          if (col) {
+            this._onColFilter(col, e);
+          }
+        }
+      });
+    }
+
     // If slotchange hasn't fired yet (e.g. in test environment), parse manually
     if (this._rows.length === 0) {
       const slot = this.shadowRoot?.querySelector('slot') as HTMLSlotElement | null;
@@ -146,6 +323,14 @@ export class Table extends UIBitElement {
     const placeholderSlot = this.shadowRoot?.querySelector('slot[name="search-placeholder"]') as HTMLSlotElement | null;
     if (placeholderSlot) {
       this._onSearchPlaceholderChange({ target: placeholderSlot } as unknown as Event);
+    }
+  }
+
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    const selectAllCheckbox = this.shadowRoot?.querySelector('thead th.col-check input') as HTMLInputElement | null;
+    if (selectAllCheckbox) {
+      selectAllCheckbox.indeterminate = !this._allPageSelected && this._somePageSelected;
     }
   }
 
@@ -350,6 +535,32 @@ export class Table extends UIBitElement {
     this._emitSelect();
   }
 
+  private _onTableClick(e: Event) {
+    if (!this.selectable) return;
+    const target = e.target as HTMLElement;
+    const isCheckbox = target.tagName === 'INPUT' && (target as HTMLInputElement).type === 'checkbox';
+    if (isCheckbox) return;
+
+    const tr = target.closest('tr');
+    if (!tr) return;
+    const indexAttr = tr.getAttribute('data-row-index');
+    if (indexAttr === null) return;
+    const i = parseInt(indexAttr, 10);
+    this._onSelectRow(i);
+  }
+
+  private _onTableChange(e: Event) {
+    const target = e.target as HTMLInputElement;
+    if (target.tagName === 'INPUT' && target.type === 'checkbox') {
+      const tr = target.closest('tr');
+      if (!tr) return;
+      const indexAttr = tr.getAttribute('data-row-index');
+      if (indexAttr === null) return;
+      const i = parseInt(indexAttr, 10);
+      this._onSelectRow(i);
+    }
+  }
+
   private _onSelectAllFiltered() {
     const next = new Set<number>();
     for (const { i } of this._sortedRows) next.add(i);
@@ -507,7 +718,7 @@ export class Table extends UIBitElement {
       return /^[=+\-@\t\r]/.test(val) ? `"'${escaped}"` : `"${escaped}"`;
     };
     const header = visCols.map(c => csvCell(c.label)).join(',');
-    const colIdxs = visCols.map(c => this._cols.indexOf(c));
+    const colIdxs = visCols.map(c => this._cols.findIndex(col => col.key === c.key));
     const body = exportRows.map(row =>
       colIdxs.map(ci => csvCell(row[ci] ?? '')).join(',')
     );
@@ -589,24 +800,21 @@ export class Table extends UIBitElement {
       pages.push(total);
     }
 
-    const goTo = (p: number) => {
-      this._page = p;
-      this.dispatchCustomEvent('page-change', { page: p });
-    };
+
 
     return html`
       <nav class="pagination" aria-label=${msg('Pagination')}>
-        <button class="page-btn" ?disabled=${this._page === 1} @click=${() => goTo(this._page - 1)} aria-label=${msg('Previous')}>${getIcon('chevron-left', 14, fromLucide(ChevronLeft))}</button>
+        <button class="page-btn" ?disabled=${this._page === 1} data-page-action="prev" aria-label=${msg('Previous')}>${getIcon('chevron-left', 14, fromLucide(ChevronLeft))}</button>
         ${pages.map(p =>
           p === '…'
             ? html`<span class="page-btn" style="cursor:default;border-color:transparent;background:transparent">…</span>`
             : html`<button
                 class="page-btn ${this._page === p ? 'active' : ''}"
-                @click=${() => goTo(p as number)}
+                data-page-num=${p}
                 aria-current=${this._page === p ? 'page' : nothing}
               >${p}</button>`
         )}
-        <button class="page-btn" ?disabled=${this._page === this._totalPages} @click=${() => goTo(this._page + 1)} aria-label=${msg('Next')}>${getIcon('chevron-right', 14, fromLucide(ChevronRight))}</button>
+        <button class="page-btn" ?disabled=${this._page === this._totalPages} data-page-action="next" aria-label=${msg('Next')}>${getIcon('chevron-right', 14, fromLucide(ChevronRight))}</button>
       </nav>
     `;
   }
@@ -623,12 +831,12 @@ export class Table extends UIBitElement {
         <span class="sel-banner-count">${msg(str`${selCount} row${selCount === 1 ? '' : 's'} selected`)}</span>
         ${!allFiltered && filteredTotal > this._perPage ? html`
           <span class="sel-banner-sep">·</span>
-          <button class="sel-banner-btn" @click=${this._onSelectAllFiltered}>
+          <button class="sel-banner-btn sel-banner-btn-all">
             ${msg(str`Select all ${filteredTotal} rows`)}
           </button>
         ` : nothing}
         <span class="sel-banner-sep">·</span>
-        <button class="sel-banner-btn" @click=${this._clearSelection}>${msg('Clear selection')}</button>
+        <button class="sel-banner-btn sel-banner-btn-clear">${msg('Clear selection')}</button>
       </div>
     `;
   }
@@ -641,7 +849,6 @@ export class Table extends UIBitElement {
           class="ctrl-btn"
           aria-haspopup="true"
           aria-expanded=${this._colMenuOpen ? 'true' : 'false'}
-          @click=${() => this._colMenuOpen ? (this._colMenuOpen = false, this._removeMenuListener()) : this._openColMenu()}
         >${msg('Columns')} <span class="chevron">▾</span></button>
         ${this._colMenuOpen ? html`
           <div class="col-dropdown" role="menu">
@@ -650,7 +857,6 @@ export class Table extends UIBitElement {
                 <input
                   type="checkbox"
                   ?checked=${!this._hiddenCols.has(col.key)}
-                  @change=${() => this._onToggleCol(col)}
                 />
                 ${col.label}
               </label>
@@ -669,7 +875,6 @@ export class Table extends UIBitElement {
           class="ctrl-btn"
           aria-haspopup="true"
           aria-expanded=${this._optionsMenuOpen ? 'true' : 'false'}
-          @click=${() => this._optionsMenuOpen ? (this._optionsMenuOpen = false, this._removeMenuListener()) : this._openOptionsMenu()}
         >
           <svg class="icon-cog" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" style="width:14px;height:14px;display:inline-block;vertical-align:middle;margin-right:2px;">
             <circle cx="8" cy="8" r="2"/>
@@ -687,7 +892,6 @@ export class Table extends UIBitElement {
                   <input
                     type="checkbox"
                     ?checked=${!this._hiddenCols.has(col.key)}
-                    @change=${() => this._onToggleCol(col)}
                   />
                   ${col.label}
                 </label>
@@ -696,13 +900,13 @@ export class Table extends UIBitElement {
             ` : nothing}
             
             ${this.exportable ? html`
-              <button class="dropdown-btn" role="menuitem" @click=${() => { this._exportCsv(); this._optionsMenuOpen = false; this._removeMenuListener(); }}>
+              <button class="dropdown-btn" role="menuitem">
                 ${this._selected.size > 0 ? msg(str`Export ${this._selected.size} rows`) : msg('Export CSV')}
               </button>
             ` : nothing}
 
             ${hasActiveFilters ? html`
-              <button class="dropdown-btn dropdown-btn-danger" role="menuitem" @click=${() => { this._query = ''; this._colFilters = new Map(); this._page = 1; this._optionsMenuOpen = false; this._removeMenuListener(); }}>
+              <button class="dropdown-btn dropdown-btn-danger" role="menuitem">
                 ${msg('Clear filters')}
               </button>
             ` : nothing}
@@ -719,13 +923,12 @@ export class Table extends UIBitElement {
       <tr class="filter-row" aria-label=${msg('Column filters')}>
         ${this.selectable ? html`<th class="col-check"></th>` : nothing}
         ${vis.map(col => html`
-          <th style=${this._colStyle(col)}>
+          <th style=${this._colStyle(col)} data-col-key=${col.key}>
             <input
               class="filter-input ${this._colFilters.get(col.key) ? 'active' : ''}"
               type="search"
               placeholder=${msg('Filter…')}
-              .value=${this._colFilters.get(col.key) ?? ''}
-              @input=${(e: Event) => this._onColFilter(col, e)}
+              value=${this._colFilters.get(col.key) ?? ''}
               aria-label=${msg(str`Filter ${col.label}`)}
             />
           </th>
@@ -742,7 +945,6 @@ export class Table extends UIBitElement {
     const end = this.paginated && !this.infiniteScroll ? Math.min(start + this._perPage - 1, total) : total;
 
     const selectAllChecked = this._allPageSelected;
-    const selectAllIndeterminate = !selectAllChecked && this._somePageSelected;
 
     const showToolbar = this.searchable || this.exportable || this.columnChooser || (this.paginated && !this.infiniteScroll);
     const hasActiveFilters = this._colFilters.size > 0 || this._query;
@@ -753,13 +955,17 @@ export class Table extends UIBitElement {
       columnChooser: this.columnChooser,
       paginated: this.paginated,
       infiniteScroll: this.infiniteScroll,
-      showToolbar
+      showToolbar,
+      rowsCount: this._rows.length,
+      colsCount: this._cols.length,
+      totalSorted: total,
+      pageRowsCount: pageRows.length
     });
 
     return html`
-      <slot @slotchange=${this._onSlotChange}></slot>
+      <slot></slot>
       <div style="display: none;">
-        <slot name="search-placeholder" @slotchange=${this._onSearchPlaceholderChange}>${msg('Search…')}</slot>
+        <slot name="search-placeholder">${msg('Search…')}</slot>
       </div>
 
       ${showToolbar ? html`
@@ -775,8 +981,7 @@ export class Table extends UIBitElement {
                 part="search"
                 type="search"
                 placeholder=${this._searchPlaceholderText || msg('Search…')}
-                .value=${this._query}
-                @input=${this._onSearch}
+                value=${this._query}
                 aria-label=${msg('Search table')}
               />
             </div>
@@ -787,13 +992,13 @@ export class Table extends UIBitElement {
               ${this._renderColMenu()}
 
               ${this.exportable ? html`
-                <button class="ctrl-btn" part="export-btn" @click=${this._exportCsv} aria-label=${msg('Export as CSV')}>
+                <button class="ctrl-btn" part="export-btn" aria-label=${msg('Export as CSV')}>
                   ${this._selected.size > 0 ? msg(str`Export ${this._selected.size} rows`) : msg('Export CSV')}
                 </button>
               ` : nothing}
 
               ${hasActiveFilters ? html`
-                <button class="ctrl-btn" @click=${() => { this._query = ''; this._colFilters = new Map(); this._page = 1; }} aria-label=${msg('Clear all filters')}>
+                <button class="ctrl-btn ctrl-btn-clear-filters" aria-label=${msg('Clear all filters')}>
                   ${msg('Clear filters')}
                 </button>
               ` : nothing}
@@ -804,7 +1009,7 @@ export class Table extends UIBitElement {
 
       ${this._renderSelectionBanner()}
 
-      <div class="table-wrap" part="table-wrap" role="region" aria-label=${msg('Data table')} @scroll=${this._onScroll}>
+      <div class="table-wrap" part="table-wrap" role="region" aria-label="Data table">
         <table part="table">
           ${vis.length ? html`
             <thead part="thead">
@@ -813,9 +1018,7 @@ export class Table extends UIBitElement {
                   <th class="col-check" part="th">
                     <input
                       type="checkbox"
-                      .checked=${selectAllChecked}
-                      .indeterminate=${selectAllIndeterminate}
-                      @change=${(e: Event) => this._onSelectAllPage((e.target as HTMLInputElement).checked)}
+                      checked=${selectAllChecked ? '' : nothing}
                       aria-label=${msg('Select all rows on this page')}
                     />
                   </th>
@@ -828,7 +1031,7 @@ export class Table extends UIBitElement {
                       class="${col.sortable ? 'sortable' : ''} ${sortClass}"
                       part="th"
                       style=${this._colStyle(col)}
-                      @click=${(e: MouseEvent) => this._onSort(col, e)}
+                      data-col-key=${col.key}
                       aria-sort=${entry
                         ? entry.dir === 'asc' ? 'ascending' : 'descending'
                         : nothing}
@@ -841,7 +1044,6 @@ export class Table extends UIBitElement {
                       ${this.resizable ? html`
                         <div
                           class="resize-handle"
-                          @mousedown=${(e: MouseEvent) => this._onResizeStart(e, col)}
                           aria-hidden="true"
                         ></div>
                       ` : nothing}
@@ -866,23 +1068,21 @@ export class Table extends UIBitElement {
               <tr
                 class=${this._selected.has(i) ? 'row-selected' : ''}
                 part="row"
-                @click=${this.selectable ? () => this._onSelectRow(i) : nothing}
+                data-row-index=${i}
                 style=${this.selectable ? 'cursor:pointer' : ''}
               >
                 ${this.selectable ? html`
                   <td class="col-check" part="cell">
                     <input
                       type="checkbox"
-                      .checked=${this._selected.has(i)}
-                      @click=${(e: Event) => e.stopPropagation()}
-                      @change=${() => this._onSelectRow(i)}
+                      checked=${this._selected.has(i) ? '' : nothing}
                       aria-label=${msg('Select row')}
                     />
                   </td>
                 ` : nothing}
                 ${vis.map((col) => html`
                   <td part="cell" style=${this._colStyle(col)}>
-                    ${this._highlight(row[this._cols.indexOf(col)] ?? '', col.key)}
+                    ${this._highlight(row[this._cols.findIndex(c => c.key === col.key)] ?? '', col.key)}
                   </td>
                 `)}
               </tr>
@@ -901,8 +1101,8 @@ export class Table extends UIBitElement {
             ${this.paginated && !this.infiniteScroll ? html`
               <span class="footer-sep">·</span>
               <label class="footer-label" for="uibit-per-page-footer">${msg('Rows per page:')}</label>
-              <select id="uibit-per-page-footer" class="ctrl-select footer-select" @change=${this._onPerPage} aria-label=${msg('Rows per page')}>
-                ${this._pageSizeOptions.map(n => html`<option value=${n} ?selected=${this._perPage === n}>${n}</option>`)}
+              <select id="uibit-per-page-footer" class="ctrl-select footer-select" aria-label=${msg('Rows per page')}>
+                ${this._pageSizeOptions.map(n => html`<option value=${n} selected=${this._perPage === n ? '' : nothing}>${n}</option>`)}
               </select>
             ` : nothing}
           </div>
@@ -913,11 +1113,6 @@ export class Table extends UIBitElement {
       ` : nothing}
     `;
   }
-}
-
-declare global {
-  interface HTMLElementTagNameMap { 'uibit-table': Table; }
-  namespace JSX { interface IntrinsicElements { 'uibit-table': Table; } }
 }
 
 export default Table;

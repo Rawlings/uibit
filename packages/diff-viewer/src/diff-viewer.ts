@@ -168,15 +168,4 @@ export class DiffViewer extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-diff-viewer': DiffViewer;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-diff-viewer': DiffViewer;
-    }
-  }
-}
-
 export default DiffViewer;

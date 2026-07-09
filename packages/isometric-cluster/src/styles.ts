@@ -48,8 +48,8 @@ export const styles = css`
     padding: 0 1rem;
     gap: 0.625rem;
     font-family: var(--uibit-isometric-cluster-font-family, inherit);
-    font-size: var(--uibit-isometric-cluster-font-size, 0.8125rem);
-    font-weight: 500;
+    font-size: var(--uibit-isometric-cluster-font-size, var(--uibit-font-size-sm, 0.8125rem));
+    font-weight: var(--uibit-font-weight-medium, 500);
     color: var(--uibit-isometric-cluster-color, #111827);
     box-shadow: 0 0.0625rem 0.1875rem 0 rgba(0, 0, 0, 0.07);
     cursor: pointer;
@@ -85,7 +85,7 @@ export const styles = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.6875rem;
+    font-size: var(--uibit-font-size-xs, 0.6875rem);
   }
 
   .label {
@@ -97,8 +97,8 @@ export const styles = css`
 
   .badge {
     flex-shrink: 0;
-    font-size: 0.6875rem;
-    font-weight: 500;
+    font-size: var(--uibit-font-size-xs, 0.6875rem);
+    font-weight: var(--uibit-font-weight-medium, 500);
     color: var(--uibit-isometric-cluster-badge-color, #6b7280);
     background: var(--uibit-isometric-cluster-badge-bg, #f3f4f6);
     border: 0.0625rem solid var(--uibit-isometric-cluster-layer-border, #e5e7eb);
@@ -111,7 +111,7 @@ export const styles = css`
     bottom: 0.75rem;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 0.6875rem;
+    font-size: var(--uibit-font-size-xs, 0.6875rem);
     color: var(--uibit-isometric-cluster-hint-color, #9ca3af);
     pointer-events: none;
     white-space: nowrap;

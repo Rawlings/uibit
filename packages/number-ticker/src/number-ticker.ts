@@ -132,15 +132,4 @@ export class NumberTicker extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-number-ticker': NumberTicker;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-number-ticker': NumberTicker;
-    }
-  }
-}
-
 export default NumberTicker;

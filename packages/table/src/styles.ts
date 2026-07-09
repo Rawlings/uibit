@@ -3,7 +3,7 @@ import { css } from 'lit';
 export const styles = css`
   :host {
     display: block;
-    font-size: var(--uibit-table-font-size, calc(0.875rem * var(--uibit-font-scale-factor, 1)));
+    font-size: var(--uibit-table-font-size, var(--uibit-font-size-sm, calc(0.875rem * var(--uibit-font-scale-factor, 1))));
     font-family: var(--uibit-table-font-family, inherit);
     color: var(--uibit-table-color, var(--uibit-text-primary, #111827));
     --uibit-table-bg: var(--uibit-bg-surface, #ffffff);
@@ -51,7 +51,7 @@ export const styles = css`
     border: 1px solid var(--uibit-table-border-color, #e5e7eb);
     border-radius: var(--uibit-table-radius, 0.375rem);
     font: inherit;
-    font-size: 0.8125rem;
+    font-size: var(--uibit-font-size-xs, 0.8125rem);
     background: var(--uibit-table-bg, #ffffff);
     color: inherit;
     outline: none;
@@ -70,7 +70,7 @@ export const styles = css`
   }
 
   .toolbar-label {
-    font-size: 0.75rem;
+    font-size: var(--uibit-font-size-xs, 0.75rem);
     color: var(--uibit-text-muted, #6b7280);
     white-space: nowrap;
   }
@@ -80,7 +80,7 @@ export const styles = css`
     border: 1px solid var(--uibit-table-border-color, #e5e7eb);
     border-radius: var(--uibit-table-radius, 0.375rem);
     font: inherit;
-    font-size: 0.8125rem;
+    font-size: var(--uibit-font-size-xs, 0.8125rem);
     background: var(--uibit-table-bg, #ffffff);
     color: inherit;
     cursor: pointer;
@@ -94,7 +94,7 @@ export const styles = css`
     border: 1px solid var(--uibit-table-border-color, #e5e7eb);
     border-radius: var(--uibit-table-radius, 0.375rem);
     font: inherit;
-    font-size: 0.8125rem;
+    font-size: var(--uibit-font-size-xs, 0.8125rem);
     background: var(--uibit-table-bg, #ffffff);
     color: inherit;
     cursor: pointer;
@@ -136,7 +136,7 @@ export const styles = css`
     padding: 0.3rem 0.5rem;
     border-radius: 0.25rem;
     cursor: pointer;
-    font-size: 0.8125rem;
+    font-size: var(--uibit-font-size-xs, 0.8125rem);
     white-space: nowrap;
     user-select: none;
   }
@@ -157,10 +157,10 @@ export const styles = css`
     min-width: 12rem;
   }
   .dropdown-section-title {
-    font-size: 0.6875rem;
-    font-weight: 700;
+    font-size: var(--uibit-font-size-xs, 0.6875rem);
+    font-weight: var(--uibit-font-weight-bold, 700);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--uibit-letter-spacing-wide, 0.05em);
     color: var(--uibit-text-muted, #6b7280);
     padding: 0.375rem 0.5rem 0.25rem;
   }
@@ -177,7 +177,7 @@ export const styles = css`
     border: none;
     padding: 0.375rem 0.5rem;
     font: inherit;
-    font-size: 0.8125rem;
+    font-size: var(--uibit-font-size-xs, 0.8125rem);
     color: var(--uibit-text-primary, #111827);
     border-radius: 0.25rem;
     cursor: pointer;
@@ -204,7 +204,7 @@ export const styles = css`
     background: var(--uibit-selected-bg, #eff6ff);
     border: 1px solid var(--uibit-border-color, #bfdbfe);
     border-radius: var(--uibit-table-radius, 0.375rem);
-    font-size: 0.8125rem;
+    font-size: var(--uibit-font-size-xs, 0.8125rem);
     color: var(--uibit-text-primary, #1e40af);
   }
 
@@ -215,7 +215,7 @@ export const styles = css`
     border: none;
     padding: 0;
     font: inherit;
-    font-size: 0.8125rem;
+    font-size: var(--uibit-font-size-xs, 0.8125rem);
     color: var(--uibit-focus-color, #1d4ed8);
     cursor: pointer;
     text-decoration: underline;
@@ -260,10 +260,10 @@ export const styles = css`
   th {
     padding: var(--uibit-table-cell-padding, 0.5rem 0.75rem);
     text-align: left;
-    font-weight: 600;
-    font-size: 0.75rem;
+    font-weight: var(--uibit-font-weight-semibold, 600);
+    font-size: var(--uibit-font-size-xs, 0.75rem);
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: var(--uibit-letter-spacing-wide, 0.04em);
     color: var(--uibit-table-head-color, #6b7280);
     border-bottom: 1px solid var(--uibit-table-border-color, #e5e7eb);
     user-select: none;
@@ -297,12 +297,13 @@ export const styles = css`
     align-items: center;
     justify-content: center;
     width: 1rem;
+    width: 1rem;
     height: 1rem;
     border-radius: 50%;
     background: var(--uibit-focus-color, #374151);
     color: var(--uibit-bg-surface, #fff);
-    font-size: 0.625rem;
-    font-weight: 700;
+    font-size: var(--uibit-font-size-xs, 0.625rem);
+    font-weight: var(--uibit-font-weight-bold, 700);
     line-height: 1;
     flex-shrink: 0;
   }
@@ -358,7 +359,7 @@ export const styles = css`
     border: 1px solid var(--uibit-table-border-color, #e5e7eb);
     border-radius: 0.25rem;
     font: inherit;
-    font-size: 0.75rem;
+    font-size: var(--uibit-font-size-xs, 0.75rem);
     background: var(--uibit-table-bg, #ffffff);
     color: inherit;
     outline: none;
@@ -420,7 +421,7 @@ export const styles = css`
     padding: 2.5rem;
     text-align: center;
     color: var(--uibit-text-muted, #9ca3af);
-    font-size: 0.875rem;
+    font-size: var(--uibit-font-size-sm, 0.875rem);
   }
 
   .highlight {
@@ -446,7 +447,7 @@ export const styles = css`
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 0.75rem;
-    font-size: 0.75rem;
+    font-size: var(--uibit-font-size-xs, 0.75rem);
     color: #6b7280;
   }
 
@@ -466,7 +467,7 @@ export const styles = css`
 
   .footer-select {
     padding: 0.15rem 0.35rem;
-    font-size: 0.75rem;
+    font-size: var(--uibit-font-size-xs, 0.75rem);
   }
 
   .pagination {
@@ -482,7 +483,7 @@ export const styles = css`
     border: 1px solid var(--uibit-table-border-color, #e5e7eb);
     border-radius: 0.25rem;
     font: inherit;
-    font-size: 0.75rem;
+    font-size: var(--uibit-font-size-xs, 0.75rem);
     background: var(--uibit-table-bg, #ffffff);
     color: inherit;
     cursor: pointer;
@@ -504,7 +505,7 @@ export const styles = css`
 
   /* Loading Spinner */
   .loading-spinner {
-    font-size: 0.75rem;
+    font-size: var(--uibit-font-size-xs, 0.75rem);
     color: var(--uibit-text-muted, #6b7280);
     display: inline-flex;
     align-items: center;

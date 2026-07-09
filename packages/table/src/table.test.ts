@@ -54,7 +54,7 @@ describe('Table Component', () => {
     expect(searchInput).toBeDefined();
 
     searchInput.value = 'Item B';
-    searchInput.dispatchEvent(new Event('input'));
+    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
     await element.updateComplete;
 
     const sortedRows = (element as any)._sortedRows;
@@ -63,14 +63,18 @@ describe('Table Component', () => {
   });
 
   it('selects rows and triggers row-select event', async () => {
+    console.log('SELECT ROWS LENGTH:', (element as any)._rows.length);
+    console.log('BEFORE SELECTABLE INNER:', element.shadowRoot?.innerHTML);
     element.selectable = true;
+    await new Promise(r => setTimeout(r, 50));
     await element.updateComplete;
 
     const rowSelectSpy = vi.fn();
     element.addEventListener('row-select', rowSelectSpy as EventListener);
 
+    console.log('SELECT TEST INNER:', element.shadowRoot?.innerHTML);
     const check = element.shadowRoot?.querySelector('tbody tr td.col-check input') as HTMLInputElement;
-    expect(check).toBeDefined();
+    expect(check).toBeTruthy();
     check.click();
 
     expect(rowSelectSpy).toHaveBeenCalled();
@@ -80,16 +84,26 @@ describe('Table Component', () => {
   });
 
   it('uses slot search-placeholder if provided', async () => {
+    const el = document.createElement('uibit-table') as Table;
     const slot = document.createElement('span');
     slot.slot = 'search-placeholder';
     slot.textContent = 'Custom Search Text';
-    element.appendChild(slot);
+    el.appendChild(slot);
 
+    const table = document.createElement('table');
+    table.innerHTML = `
+      <thead><tr><th>Name</th></tr></thead>
+      <tbody><tr><td>Item A</td></tr></tbody>
+    `;
+    el.appendChild(table);
+
+    document.body.appendChild(el);
     await new Promise(r => setTimeout(r, 50));
-    await element.updateComplete;
+    await el.updateComplete;
 
-    const searchInput = element.shadowRoot?.querySelector('.search') as HTMLInputElement;
+    const searchInput = el.shadowRoot?.querySelector('.search') as HTMLInputElement;
     expect(searchInput.placeholder).toBe('Custom Search Text');
+    el.remove();
   });
 
   it('renders menu layout when controlsLayout is menu', async () => {

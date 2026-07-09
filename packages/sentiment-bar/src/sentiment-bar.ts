@@ -154,15 +154,4 @@ export class SentimentBar extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-sentiment-bar': SentimentBar;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-sentiment-bar': SentimentBar;
-    }
-  }
-}
-
 export default SentimentBar;

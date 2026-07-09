@@ -12,8 +12,8 @@ export const styles = css`
 
     display: block;
     font-family: var(--uibit-diff-viewer-font-family, var(--uibit-font-mono, ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace));
-    font-size: var(--uibit-diff-viewer-font-size, calc(0.8125rem * var(--uibit-font-scale-factor, 1)));
-    line-height: var(--uibit-diff-viewer-line-height, 1.6);
+    font-size: var(--uibit-diff-viewer-font-size, var(--uibit-font-size-sm, calc(0.8125rem * var(--uibit-font-scale-factor, 1))));
+    line-height: var(--uibit-diff-viewer-line-height, var(--uibit-line-height-normal, 1.5));
     border: 1px solid var(--uibit-diff-viewer-border-color);
     border-radius: var(--uibit-diff-viewer-radius);
     overflow: hidden;
@@ -35,8 +35,8 @@ export const styles = css`
 
   .header-cell {
     padding: calc(0.5rem * var(--uibit-spacing-factor, 1)) calc(1rem * var(--uibit-spacing-factor, 1));
-    font-size: calc(0.75rem * var(--uibit-font-scale-factor, 1));
-    font-weight: 500;
+    font-size: var(--uibit-font-size-xs, calc(0.75rem * var(--uibit-font-scale-factor, 1)));
+    font-weight: var(--uibit-font-weight-medium, 500);
     color: var(--uibit-diff-viewer-label-color, #6b7280);
     font-family: inherit;
     border-right: 1px solid var(--uibit-diff-viewer-border-color, #e5e7eb);
@@ -137,11 +137,11 @@ export const styles = css`
   }
 
   .title {
-    font-size: calc(0.75rem * var(--uibit-font-scale-factor, 1));
-    font-weight: 600;
+    font-size: var(--uibit-font-size-xs, calc(0.75rem * var(--uibit-font-scale-factor, 1)));
+    font-weight: var(--uibit-font-weight-semibold, 600);
     color: var(--uibit-diff-viewer-label-color, #6b7280);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: var(--uibit-letter-spacing-wide, 0.05em);
   }
 
   .toggle-group {
@@ -153,8 +153,8 @@ export const styles = css`
   }
 
   .toggle-btn {
-    font-size: calc(0.75rem * var(--uibit-font-scale-factor, 1));
-    font-weight: 500;
+    font-size: var(--uibit-font-size-xs, calc(0.75rem * var(--uibit-font-scale-factor, 1)));
+    font-weight: var(--uibit-font-weight-medium, 500);
     padding: 0.125rem 0.5rem;
     border: none;
     background: transparent;

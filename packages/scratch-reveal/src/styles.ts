@@ -28,8 +28,8 @@ export const styles = css`
     align-items: center;
     justify-content: center;
     padding: var(--uibit-scratch-reveal-padding, 1rem);
-    font-size: var(--uibit-scratch-reveal-font-size, 1rem);
-    font-weight: var(--uibit-scratch-reveal-font-weight, 600);
+    font-size: var(--uibit-scratch-reveal-font-size, var(--uibit-font-size-base, 1rem));
+    font-weight: var(--uibit-scratch-reveal-font-weight, var(--uibit-font-weight-semibold, 600));
     color: var(--uibit-scratch-reveal-color, #111827);
     text-align: center;
     word-break: break-word;
@@ -51,7 +51,7 @@ export const styles = css`
     transform: translate(-50%, -50%);
     text-align: center;
     color: var(--uibit-scratch-reveal-instructions-color, rgba(0, 0, 0, 0.4));
-    font-size: var(--uibit-scratch-reveal-instructions-font-size, 0.875rem);
+    font-size: var(--uibit-scratch-reveal-instructions-font-size, var(--uibit-font-size-sm, 0.875rem));
     pointer-events: none;
     z-index: 3;
   }

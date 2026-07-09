@@ -43,26 +43,50 @@ All values map directly to Tailwind CSS's built-in theme. Use Tailwind classes i
 Font stack: `Inter, system-ui, -apple-system, sans-serif`  
 Monospace: `ui-monospace, 'SF Mono', Menlo, monospace` → Tailwind `font-mono`
 
-| Tailwind class | Size | Usage |
-|---|---|---|
-| `text-xs` | `0.75rem` | Labels, captions, meta |
-| `text-sm` | `0.875rem` | Secondary text, code |
-| `text-base` | `1rem` | Body text |
-| `text-lg` | `1.125rem` | Large body |
-| `text-xl` | `1.25rem` | Section headings |
-| `text-2xl` | `1.5rem` | Page sub-headings |
-| `text-3xl` | `1.875rem` | Page headings |
-| `text-4xl` | `2.25rem` | Hero headings |
-| `text-5xl` | `3rem` | Display |
+### Premium Fluid Scale
 
-**Letter spacing:**
-- Headings: `tracking-tight` (`-0.025em`)
-- Body: default (`0`)
-- Uppercase labels: `tracking-widest` (`0.1em`)
+To create a balanced, premium feel across varying screens, UIBit components utilize a **fluid typography scale** defined via CSS variables and `clamp()`. This scale smoothly adjusts sizes relative to the viewport inline width.
 
-**Line height:**
-- Headings: `leading-tight` (`1.25`)
-- Body: `leading-relaxed` (`1.625`)
+| Token | CSS Variable | Fluid Value Range | Usage |
+|---|---|---|---|
+| `xs` | `--uibit-font-size-xs` | `0.75rem` ↔ `0.8125rem` | Labels, captions, meta |
+| `sm` | `--uibit-font-size-sm` | `0.8125rem` ↔ `0.875rem` | Secondary text, controls, code |
+| `base` | `--uibit-font-size-base` | `0.9375rem` ↔ `1.0625rem` | Body text, standard content |
+| `lg` | `--uibit-font-size-lg` | `1.0625rem` ↔ `1.25rem` | Subheadings, card titles |
+| `xl` | `--uibit-font-size-xl` | `1.25rem` ↔ `1.5rem` | Block / Section headings |
+| `2xl` | `--uibit-font-size-2xl` | `1.5rem` ↔ `1.875rem` | Page sub-headings |
+| `3xl` | `--uibit-font-size-3xl` | `1.875rem` ↔ `2.5rem` | Page titles, major headings |
+| `4xl` | `--uibit-font-size-4xl` | `2.5rem` ↔ `3.5rem` | Hero text, display |
+| `5xl` | `--uibit-font-size-5xl` | `3.5rem` ↔ `5.0rem` | High-impact numbers, graphics |
+
+**Letter spacing (Tracking):**
+* Tight (`-0.025em`): `--uibit-letter-spacing-tight` (used on headings/large displays)
+* Normal (`0em`): `--uibit-letter-spacing-normal` (default body text)
+* Wide (`0.05em`): `--uibit-letter-spacing-wide` (small inline elements)
+* Widest (`0.1em`): `--uibit-letter-spacing-widest` (uppercase labels)
+
+**Line height (Leading):**
+* Tight (`1.25`): `--uibit-line-height-tight` (headings)
+* Normal (`1.5`): `--uibit-line-height-normal` (secondary and code)
+* Relaxed (`1.625`): `--uibit-line-height-relaxed` (default body paragraphs)
+
+**Font Weights:**
+* Normal (`400`): `--uibit-font-weight-normal`
+* Medium (`500`): `--uibit-font-weight-medium`
+* Semibold (`600`): `--uibit-font-weight-semibold`
+* Bold (`700`): `--uibit-font-weight-bold`
+
+### Encapsulation Rules
+
+Each Lit component must declare its typography fallback defaults in `:host {}` to allow independent rendering when theme stylesheets are not loaded:
+
+```css
+:host {
+  font-size: var(--uibit-component-font-size, var(--uibit-font-size-base, 1rem));
+  font-weight: var(--uibit-component-font-weight, var(--uibit-font-weight-normal, 400));
+  line-height: var(--uibit-component-line-height, var(--uibit-line-height-relaxed, 1.625));
+}
+```
 
 ---
 

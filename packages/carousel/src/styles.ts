@@ -36,7 +36,7 @@ export const styles = css`
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    padding: var(--uibit-spacing-4, 1rem);
+    padding: 1rem;
     width: 100%;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -46,13 +46,18 @@ export const styles = css`
     display: none;
   }
 
+  slot[name='item'] {
+    display: contents;
+  }
+
   ::slotted([slot='item']) {
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    flex: 0 0 calc(
-      (100% - (var(--uibit-carousel-items-per-view) - 1) * var(--uibit-carousel-gap)) /
-        var(--uibit-carousel-items-per-view)
+    width: calc(
+      (100% - (var(--uibit-carousel-items-per-view, 1) - 1) * var(--uibit-carousel-gap, 1rem)) /
+        var(--uibit-carousel-items-per-view, 1)
     );
+    flex-shrink: 0;
     min-width: 0;
   }
 
@@ -74,8 +79,8 @@ export const styles = css`
     border: 0.0625rem solid var(--uibit-carousel-border-color);
     border-radius: var(--uibit-radius-lg, 0.375rem);
     cursor: pointer;
-    font-weight: 500;
-    font-size: 0.875rem;
+    font-weight: var(--uibit-font-weight-medium, 500);
+    font-size: var(--uibit-font-size-sm, 0.875rem);
     color: var(--uibit-text-primary, var(--uibit-color-gray-900, #111827));
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
     display: inline-flex;

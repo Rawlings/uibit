@@ -30,6 +30,34 @@
   /* Tier 2: Semantic Layout & Typography Tokens */
   --uibit-font-sans: inherit;
   --uibit-font-mono: inherit;
+
+  /* Premium Fluid Typography Scale (Smoothly scales with viewport) */
+  --uibit-font-size-xs: calc(clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem) * var(--uibit-font-scale-factor, 1));
+  --uibit-font-size-sm: calc(clamp(0.8125rem, 0.78rem + 0.18vw, 0.875rem) * var(--uibit-font-scale-factor, 1));
+  --uibit-font-size-base: calc(clamp(0.9375rem, 0.9rem + 0.22vw, 1.0625rem) * var(--uibit-font-scale-factor, 1));
+  --uibit-font-size-lg: calc(clamp(1.0625rem, 1.0rem + 0.35vw, 1.25rem) * var(--uibit-font-scale-factor, 1));
+  --uibit-font-size-xl: calc(clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem) * var(--uibit-font-scale-factor, 1));
+  --uibit-font-size-2xl: calc(clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem) * var(--uibit-font-scale-factor, 1));
+  --uibit-font-size-3xl: calc(clamp(1.875rem, 1.65rem + 1.1vw, 2.5rem) * var(--uibit-font-scale-factor, 1));
+  --uibit-font-size-4xl: calc(clamp(2.5rem, 2.15rem + 1.75vw, 3.5rem) * var(--uibit-font-scale-factor, 1));
+  --uibit-font-size-5xl: calc(clamp(3.5rem, 2.9rem + 3.0vw, 5.0rem) * var(--uibit-font-scale-factor, 1));
+
+  /* Line Heights */
+  --uibit-line-height-tight: 1.25;
+  --uibit-line-height-normal: 1.5;
+  --uibit-line-height-relaxed: 1.625;
+
+  /* Letter Spacing */
+  --uibit-letter-spacing-tight: -0.025em;
+  --uibit-letter-spacing-normal: 0em;
+  --uibit-letter-spacing-wide: 0.05em;
+  --uibit-letter-spacing-widest: 0.1em;
+
+  /* Font Weights */
+  --uibit-font-weight-normal: 400;
+  --uibit-font-weight-medium: 500;
+  --uibit-font-weight-semibold: 600;
+  --uibit-font-weight-bold: 700;
   
   --uibit-border-color: var(--uibit-color-gray-200);
   --uibit-focus-color: var(--uibit-color-black);

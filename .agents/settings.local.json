@@ -24,7 +24,8 @@
       "Bash(pnpm -F * exec *)",
       "Bash(pnpm --filter * exec *)",
       "Bash(npx cem *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(npx vitest run packages/**/*)"
     ]
   }
 }

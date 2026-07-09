@@ -146,25 +146,45 @@ registerIcons({
               <div>
                 <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Using with Lucide</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
-                  If your project already uses Lucide you can register additional icons from it directly.
+                  If your project already uses Lucide, you can easily register additional icons from it using the built-in <code>fromLucide</code> helper.
+                </p>
+                <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed">
+                  <code>{`import { registerIcons, fromLucide } from '@uibit/core';
+import { Star, Heart } from 'lucide';
+
+registerIcons({
+  'star': fromLucide(Star),
+  'heart': fromLucide(Heart),
+});`}</code>
+                </pre>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Using with FontAwesome</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
+                  To register FontAwesome icons, you can extract the SVG path data from FontAwesome's SVG package (e.g. <code>@fortawesome/free-solid-svg-icons</code>) and return an SVG string.
                 </p>
                 <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed">
                   <code>{`import { registerIcons } from '@uibit/core';
-import { Star, Heart } from 'lucide';
-
-function fromLucide(node, size) {
-  const children = node
-    .map(([tag, attrs]) => {
-      const attrStr = Object.entries(attrs).map(([k, v]) => \`\${k}="\${v}"\`).join(' ');
-      return \`<\${tag} \${attrStr}/>\`;
-    })
-    .join('');
-  return \`<svg xmlns="http://www.w3.org/2000/svg" width="\${size}" height="\${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">\${children}</svg>\`;
-}
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 registerIcons({
-  'star': (size) => fromLucide(Star, size),
-  'heart': (size) => fromLucide(Heart, size),
+  'star': (size) => {
+    const [width, height, , , pathData] = faStar.icon;
+    return \`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 \${width} \${height}" width="\${size}" height="\${size}" fill="currentColor">
+      <path d="\${pathData}" />
+    </svg>\`;
+  }
+});`}</code>
+                </pre>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-4 mb-3 leading-relaxed">
+                  Alternatively, if you load the FontAwesome webfont stylesheet, you can register a function that returns an icon element with FontAwesome classes:
+                </p>
+                <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed">
+                  <code>{`import { registerIcons } from '@uibit/core';
+
+registerIcons({
+  'star': (size) => \`<i class="fa-solid fa-star" style="font-size: \${size}px; line-height: 1;"></i>\`,
 });`}</code>
                 </pre>
               </div>

@@ -9,7 +9,7 @@ export const styles = css`
     font-weight: var(--uibit-text-rotator-font-weight, inherit);
     color: var(--uibit-text-rotator-color, inherit);
     font-family: var(--uibit-text-rotator-font-family, inherit);
-    line-height: var(--uibit-text-rotator-line-height, 1.2);
+    line-height: var(--uibit-text-rotator-line-height, var(--uibit-line-height-tight, 1.2));
     /* Height = one line */
     height: 1.2em;
   }
