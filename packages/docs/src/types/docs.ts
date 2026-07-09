@@ -1,3 +1,5 @@
+import { ComponentType } from 'react';
+
 export interface CodeSnippet {
   title: string;
   description?: string;
@@ -11,6 +13,7 @@ export interface ComponentDocData {
   packageName: string;
   tagName: string;
   manifest: any;
+  Demo: ComponentType;
   usages: CodeSnippet[];
   features?: string[];
 }

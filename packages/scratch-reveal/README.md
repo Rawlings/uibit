@@ -1,106 +1,32 @@
-# Scratch Reveal Component
+# Scratch Reveal – Playful Moments of Discovery
 
-A gamified, accessible web component that reveals hidden content by scratching away an opaque "silver" overlay. Perfect for promotions, surprise announcements, or interactive experiences.
+Interaction can be fun. A scratch-off panel transforms a simple reveal into a tactile, playful moment. Scratch to discover a prize, reveal a secret, uncover a surprise. It works because it mimics a real-world interaction—the satisfaction of scratching and discovering.
 
-## Installation
+## Why Scratch Reveal Matters
 
-```bash
-npm install @uibit/scratch-reveal
-```
+**Engagement through play** – Scratching feels interactive, creating memorable moments  
+**Delayed gratification** – The action of scratching builds anticipation before the reveal  
+**Works for promotions** – Lottery scratchers, surprise offers, hidden prizes—all feel special  
+**Multi-sensory feedback** – Motion and visual change create a complete interaction  
 
-## Usage
+Perfect for: promotional campaigns, game mechanics, surprise reveals, reward unlocks, lottery-style offers, gamified experiences, loyalty programs.
 
-### Basic Example
+## What You Get
 
-```html
-<uibit-scratch-reveal>
-  <div>You won $50!</div>
-</uibit-scratch-reveal>
-```
+- A realistic scratching interaction that feels tactile
+- Responsive to touch and mouse input
+- Customizable content and styling
+- Events that fire at key moments (revealing, fully scratched, progress updates)
+- Accessible interaction patterns
+- Reset capability for reuse
 
-### With JavaScript
+## See It in Action
 
-```javascript
-import { ScratchReveal } from '@uibit/scratch-reveal';
+Visit the [interactive demo](https://your-docs-url) to play with scratch-reveal. Try different content types, scratch speeds, and design variations.
 
-const scratchPanel = document.querySelector('uibit-scratch-reveal');
+## Implementation
 
-// Listen for reveal event
-scratchPanel.addEventListener('scratch-reveal', (e) => {
-  console.log('Revealed at:', e.detail.revealPercentage + '%');
-});
-
-// Listen for progress updates
-scratchPanel.addEventListener('scratch-progress', (e) => {
-  console.log('Current reveal:', e.detail.revealPercentage + '%');
-});
-
-// Reset the panel
-scratchPanel.reset();
-```
-
-## Attributes
-
-No custom attributes.
-
-## Properties
-
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `revealPercentage` | number | 0 | Current percentage of panel revealed (read-only) |
-
-## Methods
-
-| Method | Description |
-|--------|-------------|
-| `reset()` | Resets the panel to its original state |
-
-## Events
-
-| Event | Detail | Description |
-|-------|--------|-------------|
-| `scratch-reveal` | `{ revealPercentage: number }` | Fired when 50% or more of the panel is revealed |
-| `scratch-progress` | `{ revealPercentage: number }` | Fired continuously as the user scratches |
-
-## CSS Custom Properties
-
-| Property | Default | Description |
-|----------|---------|-------------|
-| `--uibit-scratch-reveal-width` | 300px | Panel width |
-| `--uibit-scratch-reveal-height` | 200px | Panel height |
-| `--uibit-scratch-reveal-overlay-color` | #c0c0c0 | Color of the scratch-off overlay |
-| `--uibit-scratch-reveal-background` | #f0f0f0 | Background color behind overlay |
-| `--uibit-scratch-reveal-color` | #000000 | Text color of revealed content |
-| `--uibit-scratch-reveal-font-size` | 1rem | Font size of revealed content |
-| `--uibit-scratch-reveal-font-weight` | bold | Font weight of revealed content |
-| `--uibit-scratch-reveal-border-radius` | 8px | Border radius of panel |
-| `--uibit-scratch-reveal-padding` | 1rem | Padding inside panel |
-| `--uibit-scratch-reveal-brush-size` | 40px | Size of scratch brush |
-| `--uibit-scratch-reveal-cursor` | - | Custom cursor for scratch interaction |
-| `--uibit-scratch-reveal-instructions-font-size` | 0.875rem | Font size of instructions text |
-| `--uibit-scratch-reveal-instructions-color` | rgba(0, 0, 0, 0.6) | Color of instructions text |
-
-## CSS Shadow Parts
-
-| Part | Description |
-|------|-------------|
-| `container` | The outer scratch container block |
-| `content` | The revealed content area |
-| `canvas` | The scratching canvas overlay |
-| `instructions` | The instruction text shown before scratching |
-
-## Accessibility
-
-- ARIA labels and roles for screen readers
-- Touch and mouse support
-- Keyboard-accessible through standard web component patterns
-- High contrast overlay for visibility
-
-## Browser Support
-
-- Chrome/Edge 90+
-- Firefox 88+
-- Safari 14+
+Add a scratch-reveal panel to your engagement flow with any framework. Refer to our documentation site for implementation details, design guidance on reward communications, and best practices around user expectations.
 
 ## License
 

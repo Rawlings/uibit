@@ -1,58 +1,32 @@
-# @uibit/scroll-progress
+# Scroll Progress – Subtle Reading Companion
 
-A progress bar showing how far the user has scrolled on the page.
+Long-form content deserves acknowledgment. As readers move through articles, essays, documentation, or reports, a progress bar quietly shows how far they've come. It's not intrusive. It's there when needed, fading into the background when focus is on the words.
 
-## Features
+## Why Scroll Progress Matters
 
-- **Fixed Positioning**: Stays at top of viewport
-- **Smooth Animation**: GPU-accelerated CSS transitions
-- **Customizable**: CSS variables for colors and height
-- **Performance**: Throttled scroll events
-- **Accessible**: Respects `prefers-reduced-motion`
-- **Lightweight**: Minimal JavaScript
+**Rewards the reading journey** – Users see their progress, which psychologically encourages completion  
+**Provides context** – "I'm 40% through this article" helps readers decide whether to continue or return later  
+**Subtly motivates** – The visual movement creates momentum without demanding attention  
+**Fits any aesthetic** – A thin line that integrates seamlessly with your design  
 
-## Installation
+Perfect for: blog articles, long-form journalism, documentation, research papers, e-books, course content, white papers.
 
-```bash
-pnpm add @uibit/scroll-progress
-```
+## What You Get
 
-## Quick Start
+- A sleek progress bar that tracks reading progress
+- Smooth, GPU-accelerated animation
+- Fully customizable colors and height
+- Respects user motion preferences
+- Minimal performance impact
+- Automatically adapts to dynamic content
 
-```html
-<uibit-scroll-progress></uibit-scroll-progress>
+## See It in Action
 
-<style>
-  uibit-scroll-progress {
-    --uibit-scroll-progress-color: #000000;
-    --uibit-scroll-progress-height: 4px;
-  }
-</style>
-```
+Visit the [interactive demo](https://your-docs-url) to see scroll progress in action with different content lengths and styling.
 
-## API
+## Implementation
 
-### CSS Variables
-
-| Variable Name | Type | Default | Description |
-|---|---|---|---|
-| `--uibit-scroll-progress-color` | color | `#000000` | Progress bar color |
-| `--uibit-scroll-progress-height` | length | `4px` | Height of the progress bar |
-| `--uibit-scroll-progress-bg` | color | `transparent` | Background color of the container |
-
-### CSS Shadow Parts
-
-| Part Name | Description |
-|---|---|
-| `progress` | The active progress bar element |
-
-### Events
-
-- `progress-change`: Fired when scroll percentage changes
-
-## Browser Support
-
-All modern browsers with ES2020 support.
+Add a scroll progress bar to your content with any framework. Refer to our documentation site for implementation details and design guidance on positioning, color choices, and best practices for long-form content.
 
 ## License
 

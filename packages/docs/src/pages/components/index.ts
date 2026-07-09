@@ -20,5 +20,3 @@ export const componentRegistry: Record<string, ComponentDocData> = {
   'signature-pad': signaturePad,
   'viewer-360': viewer360,
 };
-
-export { DemoRenderer } from './DemoRenderer';

@@ -1,93 +1,32 @@
-# @uibit/countdown
+# Countdown – Time as a Moment
 
-Countdown timer to a target date or duration with customizable formatting.
+A countdown isn't just a clock. It's a conversation with your users about time, urgency, and anticipation. Launch days. Limited offers. Event countdowns. Deadline reminders. Each brings its own psychological weight, and a well-crafted countdown timer can amplify that moment.
 
-## Features
+## Why Countdown Matters
 
-- **Target Date**: Countdown to a specific date/time
-- **Duration**: Or countdown a fixed duration
-- **Auto-Start**: Begin counting automatically
-- **Custom Format**: Display days, hours, minutes, seconds
-- **Events**: Get tick updates and completion notifications
-- **Accessible**: Live regions for screen readers
+**Creates urgency** – Visible time pressure influences decision-making (in honest, transparent ways)  
+**Builds anticipation** – Countdown to a launch, sale, or event creates engagement and emotional investment  
+**Establishes clarity** – Users know exactly when something happens—no guessing, no surprises  
+**Drives action** – Time-sensitive elements naturally prompt users to act before the moment passes  
 
-## Installation
+Perfect for: product launches, limited-time offers, event registration deadlines, flash sales, seasonal campaigns, reservation windows.
 
-```bash
-pnpm add @uibit/countdown
-```
+## What You Get
 
-## Quick Start
+- Countdown to a specific date or duration
+- Clear, readable display of time remaining
+- Auto-start when the page loads, or start manually
+- Customizable appearance to match your brand
+- Accessible to screen readers
+- Events that fire for custom logic (display a message when time expires, trigger a callback)
 
-```html
-<!-- Countdown to a date -->
-<uibit-countdown target="2025-12-25T00:00:00"></uibit-countdown>
+## See It in Action
 
-<!-- Or countdown a duration (milliseconds) -->
-<uibit-countdown duration="86400000"></uibit-countdown>
+Visit the [interactive demo](https://your-docs-url) to see different countdown scenarios: a product launch, a limited-time offer, an event countdown. See how timing, formatting, and styling impact the psychological effect.
 
-<script>
-  const countdown = document.querySelector('uibit-countdown');
-  countdown.addEventListener('countdown-tick', (e) => {
-    console.log(`${e.detail.days}d ${e.detail.hours}h ${e.detail.minutes}m`);
-  });
-  countdown.addEventListener('countdown-complete', () => {
-    console.log('Done!');
-  });
-</script>
-```
+## Implementation
 
-## API
-
-### Properties
-
-- `target`: ISO date string for countdown target
-- `duration`: Milliseconds to count down
-- `autoStart`: Start counting on mount (default: true)
-- `format`: Display format (default: "HH:MM:SS")
-
-### Methods
-
-- `start()`: Begin counting
-- `stop()`: Pause counting
-
-### Events
-
-- `countdown-tick`: Fired every second with time details
-- `countdown-complete`: Fired when reaching zero
-
-### CSS Variables
-
-Customize the countdown appearance with CSS variables:
-
-| Variable Name | Type | Default | Description |
-|---|---|---|---|
-| `--uibit-countdown-font-family` | string | `monospace` | Font family of the countdown display |
-| `--uibit-countdown-font-size` | length | `1.5rem` | Base font size of the timer |
-| `--uibit-countdown-font-weight` | string | `bold` | Font weight of the timer |
-| `--uibit-countdown-color` | color | `#000000` | Base text color |
-| `--uibit-countdown-gap` | length | `1rem` | Gap spacing between units |
-| `--uibit-countdown-unit-gap` | length | `0.5rem` | Vertical gap between value and label |
-| `--uibit-countdown-value-font-size` | length | `2.5rem` | Font size of numerical value |
-| `--uibit-countdown-value-min-width` | length | `80px` | Minimum width of numerical value to prevent shifts |
-| `--uibit-countdown-label-font-size` | length | `0.8rem` | Font size of text labels |
-| `--uibit-countdown-label-color` | color | `#4b5563` | Color of text labels |
-| `--uibit-countdown-separator-font-size` | length | `2.5rem` | Font size of unit separator `:` |
-| `--uibit-countdown-separator-color` | color | `#000000` | Color of unit separator `:` |
-
-### CSS Shadow Parts
-
-| Part Name | Description |
-|---|---|
-| `countdown` | The main flexbox container for the countdown timer |
-| `unit` | Individual countdown unit wrapper (e.g. Days container) |
-| `value` | The numerical display element for a unit |
-| `label` | The text label element for a unit (e.g. "Days") |
-| `separator` | The divider elements between units |
-
-## Browser Support
-
-All modern browsers with ES2020 support.
+Add a countdown to your digital experience with any framework. Refer to our documentation site for implementation details and guidance on placement, timing, and design patterns.
 
 ## License
 

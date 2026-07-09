@@ -1,57 +1,32 @@
-# @uibit/ab-test
+# A/B Test – Evolve Through Experimentation
 
-A/B testing harness with automatic variant distribution and localStorage persistence.
+You have an idea. Is it better? The only way to know is to test it. A/B Test makes experimentation seamless—split traffic between variations, measure which works better, and evolve your product based on real user behavior.
 
-## Features
+## Why A/B Test Matters
 
-- **Variant Distribution**: Weighted distribution (e.g., 50/50, 70/30)
-- **Persistence**: localStorage keeps users consistent
-- **Event Dispatch**: Know which variant was selected
-- **Easy Integration**: Simple slot-based API
-- **No Tracking**: Fully client-side, no external dependencies
+**Data beats instinct** – Stop guessing. See which approach users actually prefer  
+**Continuous improvement** – Small, tested changes compound into significant gains  
+**Consistent experience** – Users see the same variation each time they return  
+**Simple to integrate** – No external services required; fully self-contained  
 
-## Installation
+Perfect for: testing headlines, button labels, layouts, colors, calls-to-action, feature rollouts, pricing strategies, messaging, user flows.
 
-```bash
-pnpm add @uibit/ab-test
-```
+## What You Get
 
-## Quick Start
+- Easy variant distribution (50/50, 70/30, or any ratio)
+- Consistent user experience across sessions
+- Know which variant each user sees
+- Trigger callbacks when variants render
+- Client-side implementation with no external dependencies
+- Privacy-friendly—all processing stays in your app
 
-```html
-<uibit-ab-test storage-key="my-test">
-  <div slot="variant-a">
-    <h1>Version A</h1>
-    <p>This is variant A</p>
-  </div>
-  <div slot="variant-b">
-    <h1>Version B</h1>
-    <p>This is variant B</p>
-  </div>
-</uibit-ab-test>
+## See It in Action
 
-<script>
-  const test = document.querySelector('uibit-ab-test');
-  test.addEventListener('variant-rendered', (e) => {
-    console.log(`Rendered: ${e.detail.variant} (new: ${e.detail.isNewUser})`);
-  });
-</script>
-```
+Visit the [interactive demo](https://your-docs-url) to see how A/B tests work and how variants are distributed across users.
 
-## API
+## Implementation
 
-### Properties
-
-- `storageKey`: localStorage key for persistence
-- `variantDistribution`: Object with variant names and weights
-
-### Events
-
-- `variant-rendered`: Fired with `{ variant, isNewUser }`
-
-## Browser Support
-
-All modern browsers with localStorage support.
+Add A/B testing to your product with any framework. Refer to our documentation site for implementation details, guidance on running valid tests, and integration with analytics or conversion tracking.
 
 ## License
 

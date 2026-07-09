@@ -1,5 +1,32 @@
+import '@uibit/360-viewer';
 import manifest from '@uibit/360-viewer/custom-elements.json';
 import { ComponentDocData } from '../../types/docs';
+
+function Viewer360Demo() {
+  const demoImages = [
+    'https://picsum.photos/seed/sneaker1/600/400',
+    'https://picsum.photos/seed/sneaker2/600/400',
+    'https://picsum.photos/seed/sneaker3/600/400',
+    'https://picsum.photos/seed/sneaker4/600/400',
+    'https://picsum.photos/seed/sneaker5/600/400',
+    'https://picsum.photos/seed/sneaker6/600/400',
+  ];
+
+  return (
+    <div>
+      <p className="text-sm text-gray-600 mb-4">
+        Drag the image or use the buttons/arrow keys to rotate the 360 view:
+      </p>
+      <div className="max-w-xl mx-auto bg-white rounded-lg p-4 border border-gray-200">
+        <uibit-360-viewer
+          images={JSON.stringify(demoImages)}
+          auto-rotate="true"
+          rotation-speed={150}
+        ></uibit-360-viewer>
+      </div>
+    </div>
+  );
+}
 
 const data: ComponentDocData = {
   id: 'viewer-360',
@@ -9,6 +36,7 @@ const data: ComponentDocData = {
   packageName: '@uibit/360-viewer',
   tagName: 'uibit-360-viewer',
   manifest,
+  Demo: Viewer360Demo,
   usages: [
     {
       title: 'HTML Example',

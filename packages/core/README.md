@@ -1,7 +1,11 @@
-# @uibit/core
+# Core – Shared Utilities
 
-Core utilities and decorators for UIBit web components.
+Internal utilities used across UIBit components. This package provides foundational patterns that power our micro-experiences.
 
-## Features
+## For Developers
 
-- **Safe customElement Decorator**: Replaces the native `@customElement` decorator from `lit/decorators.js` with a version that checks if the component is already defined in the `customElements` registry. This prevents duplicate registration errors (`NotSupportedError`).
+If you're using UIBit components, you don't need to worry about this package—it's automatically included as a dependency. If you're building custom components or extending UIBit, refer to the documentation site for guidance on accessing these utilities.
+
+## License
+
+MIT

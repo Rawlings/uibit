@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { ApiDocs } from '../components/ApiDocs';
-import { componentRegistry, DemoRenderer } from './components';
+import { componentRegistry } from './components';
 
 export default function ComponentDocs() {
   const { componentId } = useParams<{ componentId: string }>();
@@ -17,7 +17,7 @@ export default function ComponentDocs() {
     );
   }
 
-  const { title, description, packageName, tagName, manifest, usages, features } =
+  const { title, description, packageName, tagName, manifest, Demo, usages, features } =
     componentRegistry[componentId];
 
   return (
@@ -48,7 +48,7 @@ export default function ComponentDocs() {
       <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200">
         <h2 className="text-xl font-semibold text-gray-900 mb-6">Demo</h2>
         <div className="bg-gray-50 rounded-lg p-8 border border-gray-200">
-          <DemoRenderer componentId={componentId} />
+          <Demo />
         </div>
       </section>
 
