@@ -43,6 +43,8 @@ export class UIBitElement extends LitElement {
     const baseStyles = css`
       :host {
         box-sizing: border-box;
+        font-family: var(--uibit-font-sans, inherit);
+        color: var(--uibit-text-primary, inherit);
       }
       *,
       *::before,

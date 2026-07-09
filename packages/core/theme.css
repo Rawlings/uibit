@@ -1,0 +1,37 @@
+:root {
+  /* Tier 1: Base Palette (Default Minimal Scandinavian) */
+  --uibit-color-black: #000000;
+  --uibit-color-white: #ffffff;
+  --uibit-color-gray-50: #f9fafb;
+  --uibit-color-gray-100: #f3f4f6;
+  --uibit-color-gray-200: #e5e7eb;
+  --uibit-color-gray-300: #d1d5db;
+  --uibit-color-gray-400: #9ca3af;
+  --uibit-color-gray-500: #6b7280;
+  --uibit-color-gray-600: #4b5563;
+  --uibit-color-gray-700: #374151;
+  --uibit-color-gray-800: #1f2937;
+  --uibit-color-gray-900: #111827;
+  --uibit-color-gray-950: #030712;
+
+  /* Tier 2: Semantic Layout & Typography Tokens */
+  --uibit-font-sans: inherit;
+  --uibit-font-mono: inherit;
+  
+  --uibit-border-color: var(--uibit-color-gray-200);
+  --uibit-focus-color: var(--uibit-color-black);
+  
+  --uibit-bg-base: var(--uibit-color-white);
+  --uibit-bg-surface: var(--uibit-color-white);
+  --uibit-bg-subtle: var(--uibit-color-gray-50);
+  
+  --uibit-text-primary: var(--uibit-color-gray-900);
+  --uibit-text-secondary: var(--uibit-color-gray-800);
+  --uibit-text-muted: var(--uibit-color-gray-600);
+  
+  --uibit-radius-sm: 0.125rem;
+  --uibit-radius-md: 0.25rem;
+  --uibit-radius-lg: 0.375rem;
+  --uibit-radius-xl: 0.5rem;
+  --uibit-radius-2xl: 0.75rem;
+}

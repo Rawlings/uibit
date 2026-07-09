@@ -9,10 +9,12 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./theme.css": "./theme.css"
   },
   "files": [
     "dist",
+    "theme.css",
     "package.json",
     "README.md",
     "LICENSE"

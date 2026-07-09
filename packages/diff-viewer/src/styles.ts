@@ -2,19 +2,27 @@ import { css } from 'lit';
 
 export const styles = css`
   :host {
+    --uibit-diff-viewer-border-color: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb));
+    --uibit-diff-viewer-radius: var(--uibit-radius-2xl, 0.5rem);
+    --uibit-diff-viewer-header-bg: var(--uibit-bg-subtle, var(--uibit-color-gray-50, #f9fafb));
+    --uibit-diff-viewer-label-color: var(--uibit-text-muted, var(--uibit-color-gray-500, #6b7280));
+    --uibit-diff-viewer-gutter-bg: var(--uibit-bg-subtle, var(--uibit-color-gray-50, #f9fafb));
+    --uibit-diff-viewer-gutter-color: var(--uibit-color-gray-400, #9ca3af);
+    --uibit-diff-viewer-equal-color: var(--uibit-text-secondary, var(--uibit-color-gray-700, #374151));
+
     display: block;
-    font-family: var(--uibit-diff-viewer-font-family, ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace);
+    font-family: var(--uibit-diff-viewer-font-family, var(--uibit-font-mono, ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace));
     font-size: var(--uibit-diff-viewer-font-size, 0.8125rem);
     line-height: var(--uibit-diff-viewer-line-height, 1.6);
-    border: 1px solid var(--uibit-diff-viewer-border-color, #e5e7eb);
-    border-radius: var(--uibit-diff-viewer-radius, 0.5rem);
+    border: 1px solid var(--uibit-diff-viewer-border-color);
+    border-radius: var(--uibit-diff-viewer-radius);
     overflow: hidden;
   }
 
   .header {
     display: grid;
-    border-bottom: 1px solid var(--uibit-diff-viewer-border-color, #e5e7eb);
-    background: var(--uibit-diff-viewer-header-bg, #f9fafb);
+    border-bottom: 1px solid var(--uibit-diff-viewer-border-color);
+    background: var(--uibit-diff-viewer-header-bg);
   }
 
   :host([mode="split"]) .header {

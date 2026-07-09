@@ -6,6 +6,18 @@ export interface CodeSnippet {
   code: string;
 }
 
+export interface DualCode {
+  html: string;
+  react: string;
+}
+
+export interface UsageExample {
+  title: string;
+  description?: string;
+  code: DualCode;
+  Demo: ComponentType;
+}
+
 export interface ComponentDocData {
   id: string;
   title: string;
@@ -14,6 +26,8 @@ export interface ComponentDocData {
   tagName: string;
   manifest: any;
   Demo: ComponentType;
-  usages: CodeSnippet[];
+  demoCode?: DualCode;
+  examples?: UsageExample[];
+  usages?: CodeSnippet[];
   features?: string[];
 }

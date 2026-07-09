@@ -5,12 +5,12 @@ export const styles = css`
     --uibit-carousel-gap: 1rem;
     --uibit-carousel-duration: 300ms;
     --uibit-carousel-items-per-view: 1;
-    --uibit-carousel-border-color: #e5e7eb;
-    --uibit-carousel-button-bg: #ffffff;
-    --uibit-carousel-button-bg-hover: #000000;
-    --uibit-carousel-indicator-bg: #e5e7eb;
-    --uibit-carousel-indicator-active-bg: #000000;
-    --uibit-carousel-focus-color: #000000;
+    --uibit-carousel-border-color: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb));
+    --uibit-carousel-button-bg: var(--uibit-bg-surface, var(--uibit-color-white, #ffffff));
+    --uibit-carousel-button-bg-hover: var(--uibit-color-black, #000000);
+    --uibit-carousel-indicator-bg: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb));
+    --uibit-carousel-indicator-active-bg: var(--uibit-color-black, #000000);
+    --uibit-carousel-focus-color: var(--uibit-focus-color, var(--uibit-color-black, #000000));
     display: block;
     width: 100%;
   }
@@ -26,8 +26,8 @@ export const styles = css`
     position: relative;
     overflow: hidden;
     border: 0.0625rem solid var(--uibit-carousel-border-color);
-    border-radius: 0.5rem;
-    background-color: #ffffff;
+    border-radius: var(--uibit-radius-2xl, 0.75rem);
+    background-color: var(--uibit-bg-surface, var(--uibit-color-white, #ffffff));
   }
 
   .carousel-content {
@@ -72,11 +72,11 @@ export const styles = css`
     padding: 0.5rem 1rem;
     background-color: var(--uibit-carousel-button-bg);
     border: 0.0625rem solid var(--uibit-carousel-border-color);
-    border-radius: 0.375rem;
+    border-radius: var(--uibit-radius-lg, 0.375rem);
     cursor: pointer;
     font-weight: 500;
     font-size: 0.875rem;
-    color: #111827;
+    color: var(--uibit-text-primary, var(--uibit-color-gray-900, #111827));
     transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
     display: inline-flex;
     align-items: center;

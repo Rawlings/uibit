@@ -1,6 +1,7 @@
 import { Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import ComponentDocs from './pages/component';
+import StylingGuide from './pages/Styling';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -9,12 +10,18 @@ function App() {
       <ScrollToTop />
       {/* Header */}
       <header className="border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-4 py-5 sm:py-6">
+        <div className="max-w-6xl mx-auto px-4 py-5 sm:py-6 flex items-center justify-between">
           <Link
             to="/"
             className="text-lg font-semibold text-gray-900 hover:text-gray-600 transition-colors"
           >
             UIBit
+          </Link>
+          <Link
+            to="/styling"
+            className="text-sm font-medium text-gray-600 hover:text-gray-950 transition-colors"
+          >
+            Styling & Theming
           </Link>
         </div>
       </header>
@@ -23,6 +30,7 @@ function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/styling" element={<StylingGuide />} />
           <Route path="/:componentId" element={<ComponentDocs />} />
           <Route
             path="*"

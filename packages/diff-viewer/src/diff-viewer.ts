@@ -15,22 +15,22 @@ import type { DiffOp } from './diff';
  * `new-text` attributes for HTML usage). Switch between layouts with the
  * `mode` attribute.
  *
- * @cssprop [--uibit-diff-viewer-font-family=monospace] - Code font stack
+ * @cssprop [--uibit-diff-viewer-font-family=var(--uibit-font-mono)] - Code font stack
  * @cssprop [--uibit-diff-viewer-font-size=0.8125rem] - Font size
  * @cssprop [--uibit-diff-viewer-line-height=1.6] - Line height
- * @cssprop [--uibit-diff-viewer-border-color=#e5e7eb] - Border and divider color
- * @cssprop [--uibit-diff-viewer-radius=0.5rem] - Corner radius
- * @cssprop [--uibit-diff-viewer-header-bg=#f9fafb] - Header background
- * @cssprop [--uibit-diff-viewer-label-color=#6b7280] - Header label text color
- * @cssprop [--uibit-diff-viewer-gutter-bg=#f9fafb] - Line-number gutter background
- * @cssprop [--uibit-diff-viewer-gutter-color=#9ca3af] - Line-number gutter text color
+ * @cssprop [--uibit-diff-viewer-border-color=var(--uibit-border-color)] - Border and divider color
+ * @cssprop [--uibit-diff-viewer-radius=var(--uibit-radius-2xl)] - Corner radius
+ * @cssprop [--uibit-diff-viewer-header-bg=var(--uibit-bg-subtle)] - Header background
+ * @cssprop [--uibit-diff-viewer-label-color=var(--uibit-text-muted)] - Header label text color
+ * @cssprop [--uibit-diff-viewer-gutter-bg=var(--uibit-bg-subtle)] - Line-number gutter background
+ * @cssprop [--uibit-diff-viewer-gutter-color=var(--uibit-color-gray-400)] - Line-number gutter text color
  * @cssprop [--uibit-diff-viewer-delete-bg=#fef2f2] - Deleted-line background
  * @cssprop [--uibit-diff-viewer-delete-color=#991b1b] - Deleted-line text color
  * @cssprop [--uibit-diff-viewer-delete-gutter-bg=#fee2e2] - Deleted-line gutter background
  * @cssprop [--uibit-diff-viewer-insert-bg=#f0fdf4] - Inserted-line background
  * @cssprop [--uibit-diff-viewer-insert-color=#166534] - Inserted-line text color
  * @cssprop [--uibit-diff-viewer-insert-gutter-bg=#dcfce7] - Inserted-line gutter background
- * @cssprop [--uibit-diff-viewer-equal-color=#374151] - Unchanged-line text color
+ * @cssprop [--uibit-diff-viewer-equal-color=var(--uibit-text-secondary)] - Unchanged-line text color
  */
 @customElement('uibit-diff-viewer')
 export class DiffViewer extends LitElement {

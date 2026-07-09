@@ -10,7 +10,7 @@ export const styles = css`
 
   .progress {
     height: 100%;
-    background: var(--uibit-scroll-progress-color, #000000);
+    background: var(--uibit-scroll-progress-color, var(--uibit-focus-color, var(--uibit-color-black, #000000)));
     width: 0%;
     transition: width 150ms ease;
   }
