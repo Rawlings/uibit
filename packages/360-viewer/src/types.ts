@@ -1,3 +1,5 @@
+import type Viewer360 from './360-viewer';
+
 export interface Hotspot360 {
   id: string;
   x: number;
@@ -15,11 +17,11 @@ export interface Viewer360Config {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uibit-360-viewer': import('./360-viewer').Viewer360;
+    'uibit-360-viewer': Viewer360;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-360-viewer': import('./360-viewer').Viewer360;
+      'uibit-360-viewer': Viewer360;
     }
   }
 }

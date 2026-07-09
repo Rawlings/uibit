@@ -330,7 +330,7 @@ declare global {
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-consent-guard': any;
+      'uibit-consent-guard': ConsentGuard;
     }
   }
 }

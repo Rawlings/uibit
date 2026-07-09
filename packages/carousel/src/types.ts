@@ -1,3 +1,5 @@
+import type UIBitCarousel from './carousel';
+
 export interface CarouselConfig {
   autoPlay?: boolean;
   autoPlayInterval?: number;
@@ -16,11 +18,11 @@ export interface SlideChangeEvent extends CustomEvent {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uibit-carousel': import('./carousel').UIBitCarousel;
+    'uibit-carousel': UIBitCarousel;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-carousel': import('./carousel').UIBitCarousel;
+      'uibit-carousel': UIBitCarousel;
     }
   }
 }

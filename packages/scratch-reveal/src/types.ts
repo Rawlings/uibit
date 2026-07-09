@@ -1,3 +1,5 @@
+import type ScratchReveal from './scratch-reveal';
+
 export interface ScratchRevealDetail {
   revealPercentage: number;
 }
@@ -8,11 +10,11 @@ export interface ScratchProgressDetail {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uibit-scratch-reveal': import('./scratch-reveal').ScratchReveal;
+    'uibit-scratch-reveal': ScratchReveal;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-scratch-reveal': import('./scratch-reveal').ScratchReveal;
+      'uibit-scratch-reveal': ScratchReveal;
     }
   }
 }

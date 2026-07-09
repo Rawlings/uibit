@@ -1,3 +1,5 @@
+import type Hotspot from './hotspot';
+
 export interface HotspotItem {
   id: string;
   x: number;
@@ -16,11 +18,11 @@ export interface HotspotConfig {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uibit-hotspot': import('./hotspot').Hotspot;
+    'uibit-hotspot': Hotspot;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-hotspot': import('./hotspot').Hotspot;
+      'uibit-hotspot': Hotspot;
     }
   }
 }

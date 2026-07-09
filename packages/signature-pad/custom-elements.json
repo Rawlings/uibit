@@ -42,7 +42,7 @@
             {
               "description": "Height of the signature area",
               "name": "--uibit-signature-pad-height",
-              "default": "200px"
+              "default": "12.5rem"
             },
             {
               "description": "Canvas background color",
@@ -52,12 +52,12 @@
             {
               "description": "Border around the canvas",
               "name": "--uibit-signature-pad-border",
-              "default": "1px solid #d1d5db"
+              "default": "0.0625rem solid #e5e7eb"
             },
             {
               "description": "Border radius",
               "name": "--uibit-signature-pad-border-radius",
-              "default": "8px"
+              "default": "0.5rem"
             },
             {
               "description": "Ink/stroke color",
@@ -67,17 +67,17 @@
             {
               "description": "Base stroke width (varies with velocity)",
               "name": "--uibit-signature-pad-stroke-width",
-              "default": "2px"
+              "default": "0.125rem"
             },
             {
               "description": "Color of the sign-here hint text",
               "name": "--uibit-signature-pad-hint-color",
-              "default": "rgba(0,0,0,0.25)"
+              "default": "rgba(0,0,0,0.22)"
             },
             {
               "description": "Font size of the hint text",
               "name": "--uibit-signature-pad-hint-font-size",
-              "default": "0.875rem"
+              "default": "0.8125rem"
             },
             {
               "description": "Cursor style over the canvas",

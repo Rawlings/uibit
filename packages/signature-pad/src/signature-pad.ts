@@ -364,7 +364,7 @@ declare global {
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-signature-pad': any;
+      'uibit-signature-pad': SignaturePad;
     }
   }
 }

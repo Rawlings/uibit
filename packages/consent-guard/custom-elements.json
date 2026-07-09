@@ -19,12 +19,12 @@
             {
               "description": "Hover background of the accept button",
               "name": "--uibit-consent-guard-primary-hover-bg",
-              "default": "#333333"
+              "default": "#1f2937"
             },
             {
               "description": "Primary text color",
               "name": "--uibit-consent-guard-text-color",
-              "default": "#1f2937"
+              "default": "#111827"
             },
             {
               "description": "Muted/secondary text color",
@@ -34,12 +34,12 @@
             {
               "description": "Border color of the placeholder and buttons",
               "name": "--uibit-consent-guard-border-color",
-              "default": "#d1d5db"
+              "default": "#e5e7eb"
             },
             {
               "description": "Background of the placeholder area",
               "name": "--uibit-consent-guard-bg",
-              "default": "linear-gradient(...)"
+              "default": "#f9fafb"
             }
           ],
           "cssParts": [

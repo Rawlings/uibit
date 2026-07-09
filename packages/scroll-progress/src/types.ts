@@ -1,3 +1,5 @@
+import type ScrollProgress from './scroll-progress';
+
 export interface ScrollProgressConfig {
   height?: number;
   color?: string;
@@ -7,11 +9,11 @@ export interface ScrollProgressConfig {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uibit-scroll-progress': import('./scroll-progress').ScrollProgress;
+    'uibit-scroll-progress': ScrollProgress;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-scroll-progress': import('./scroll-progress').ScrollProgress;
+      'uibit-scroll-progress': ScrollProgress;
     }
   }
 }

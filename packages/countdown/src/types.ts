@@ -1,3 +1,5 @@
+import type Countdown from './countdown';
+
 export interface CountdownConfig {
   target?: string | Date;
   duration?: number;
@@ -18,11 +20,11 @@ export interface CountdownTickEvent extends CustomEvent {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uibit-countdown': import('./countdown').Countdown;
+    'uibit-countdown': Countdown;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-countdown': import('./countdown').Countdown;
+      'uibit-countdown': Countdown;
     }
   }
 }

@@ -1,3 +1,5 @@
+import type ABTest from './ab-test';
+
 export interface ABTestConfig {
   storageKey: string;
   variantDistribution?: Record<string, number>;
@@ -13,11 +15,11 @@ export interface VariantRenderedEvent extends CustomEvent {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uibit-ab-test': import('./ab-test').ABTest;
+    'uibit-ab-test': ABTest;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-ab-test': import('./ab-test').ABTest;
+      'uibit-ab-test': ABTest;
     }
   }
 }
