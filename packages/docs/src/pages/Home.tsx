@@ -1,93 +1,19 @@
 import { Link } from 'react-router-dom';
-
-const COMPONENTS = [
-  {
-    id: 'carousel',
-    name: 'Carousel',
-    description: 'Native, accessible carousel using CSS scroll-snap and scroll-driven animations. Perfect for image galleries, testimonials, and product showcases.',
-    install: '@uibit/carousel',
-  },
-  {
-    id: 'viewer-360',
-    name: '360-Viewer',
-    description: 'Interactive 360-degree image viewer component. Display products and objects from every angle with smooth interactions and touch support.',
-    install: '@uibit/360-viewer',
-  },
-  {
-    id: 'scroll-progress',
-    name: 'Scroll Progress',
-    description: 'Lightweight scroll progress indicator that tracks page scroll position. Minimal, performant, and fully customizable.',
-    install: '@uibit/scroll-progress',
-  },
-  {
-    id: 'hotspot',
-    name: 'Hotspot',
-    description: 'Interactive hotspot component for adding clickable points to images. Useful for product annotations and interactive guides.',
-    install: '@uibit/hotspot',
-  },
-  {
-    id: 'consent-guard',
-    name: 'Consent Guard',
-    description: 'Asset-level consent wrapper for privacy-invasive third-party scripts and iframes. Display a placeholder and load content only after user consent.',
-    install: '@uibit/consent-guard',
-  },
-  {
-    id: 'ab-test',
-    name: 'A/B Test',
-    description: 'A/B testing utility component for framework-agnostic experimentation. Easy variant assignment and tracking.',
-    install: '@uibit/ab-test',
-  },
-  {
-    id: 'countdown',
-    name: 'Countdown',
-    description: 'Countdown timer component. Display time remaining until a specific date or event with custom formatting.',
-    install: '@uibit/countdown',
-  },
-  {
-    id: 'scratch-reveal',
-    name: 'Scratch Reveal',
-    description: 'A gamified, interactive scratch-off panel that reveals hidden content with smooth canvas drawing and touch gestures.',
-    install: '@uibit/scratch-reveal',
-  },
-  {
-    id: 'signature-pad',
-    name: 'Signature Pad',
-    description: 'Canvas drawing area for capturing freehand signatures using touch or mouse gestures, rendered as smooth bezier-curved vector lines with simulated pen pressure.',
-    install: '@uibit/signature-pad',
-  },
-  {
-    id: 'image-xray',
-    name: 'Image Xray',
-    description: 'Floating circular lens that follows the cursor or touch point, revealing a synchronized secondary image exactly where the user looks. Built for luxury product storytelling.',
-    install: '@uibit/image-xray',
-  },
-  {
-    id: 'number-ticker',
-    name: 'Number Ticker',
-    description: 'Intersection-aware numeric counter that animates to a target value once it scrolls into the viewport. Supports easing curves, locale formatting, prefix/suffix, and currency symbols.',
-    install: '@uibit/number-ticker',
-  },
-  {
-    id: 'read-timer',
-    name: 'Read Timer',
-    description: 'Text-analyzer badge that scans slotted content, calculates average reading duration, and outputs a clean estimate. Works in any CMS template without backend metadata.',
-    install: '@uibit/read-timer',
-  },
-  {
-    id: 'typing-text',
-    name: 'Typing Text',
-    description: 'Headline text block that cycles through marketing phrases with realistic typing and deletion, speed variance, simulated auto-correcting typos, and a blinking cursor.',
-    install: '@uibit/typing-text',
-  },
-  {
-    id: 'sentiment-bar',
-    name: 'Sentiment Bar',
-    description: 'Micro-feedback widget with a row of expressive emoji options. Selecting one triggers a spring animation, dims alternatives, and fires a scored event instantly on release.',
-    install: '@uibit/sentiment-bar',
-  },
-];
+import { componentRegistry } from './components';
 
 function Home() {
+  const components = Object.keys(componentRegistry)
+    .sort()
+    .map((key) => {
+      const comp = componentRegistry[key]!;
+      return {
+        id: comp.id,
+        name: comp.title,
+        description: comp.description,
+        install: comp.packageName,
+      };
+    });
+
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -108,7 +34,7 @@ function Home() {
           Components
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {COMPONENTS.map((component) => (
+          {components.map((component) => (
             <Link
               key={component.id}
               to={`/${component.id}`}
