@@ -1,45 +1,30 @@
 # Contributing to UIBit
 
-UIBit is built by people who believe that small interactions matter. Every component starts with a single question: *What moment are we trying to create?*
+Thank you for your interest in contributing to UIBit. We welcome contributions that help expand the capabilities, accessibility, and quality of our component library.
 
-If you share that belief, we'd love your voice in shaping UIBit.
+## Ways to Contribute
 
-## How You Can Help
+There are several avenues for participating in the development of UIBit:
 
-**Ideas for new components** – Do you see a gap? A moment in the UX journey that deserves more intentionality? Share it.
+- **Feature Proposals** – Suggest new components or enhancements to existing ones that address real-world application needs and user interface challenges.
+- **Feedback & UX Refinements** – Share observations on usability, visual design, animations, and how components behave in production environments.
+- **Defect Reports** – Report issues with rendering, performance, browser compatibility, or accessibility.
+- **Documentation Improvements** – Help refine component guides, examples, and descriptions to ensure they are clear and helpful.
 
-**Feedback on existing components** – How do they feel? Do they work for your use cases? Does the interaction feel right?
+## Collaboration Process
 
-**Real-world examples** – Show us how you're using UIBit. The best contributions are the products built with it.
+We encourage open discussion and collaboration. When proposing new ideas or reporting issues, please outline:
 
-**Design & interaction refinement** – Help us make these moments feel better. Motion, timing, touch response, accessibility—it all matters.
+- The specific user experience or business challenge the proposal addresses.
+- The expected behavior or visual outcome of the component.
+- The value this change introduces to the library as a whole.
 
-**Documentation & guidance** – Help others discover and implement UIBit effectively.
+## Standards and Guidelines
 
-## Share Your Ideas
+All contributions are expected to meet our standards for:
 
-Open an issue or discussion with your thoughts. If you're proposing a new micro-experience, help us understand:
+- **Accessibility** – Components must adhere to WCAG guidelines, supporting screen readers, keyboard navigation, and proper ARIA standards.
+- **Performance** – Logic and styles should be structured to minimize package footprints and avoid unnecessary DOM re-renders.
+- **Design System Alignment** – Visual details should conform to our established design tokens, ensuring cohesive presentation across the entire catalog.
 
-- What user moment does it address?
-- Why does it matter?
-- Where would it add value?
-
-We believe the best contributions come from understanding the *why*, not just the *what*.
-
-## We're Here to Collaborate
-
-This is a conversation, not a gatekeeping process. We want you involved early. Share rough ideas, work-in-progress thinking, and feedback freely.
-
-## Code of Conduct
-
-Treat everyone with respect and kindness. We're building something we're proud of together.
-
-## Questions or Want to Connect?
-
-- **Discussions**: Share ideas and get feedback
-- **Issues**: Report problems or propose features
-- **Email**: Reach out to the maintainers directly
-
----
-
-Thank you for helping us create interactions that matter. 💙
+We look forward to collaborating with you to build a better component library.

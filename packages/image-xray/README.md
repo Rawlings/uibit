@@ -1,40 +1,22 @@
-# Image Xray – See What Lies Beneath
+# Image X-Ray
 
-Every premium product has a story hidden inside it. The carbon fibre weave under the paint. The battery pack beneath the chassis. The acoustic chambers behind the speaker grille. Image Xray lets you tell that story interactively, at exactly the moment and location the user is looking.
+[Interactive Demonstration](https://rawlings.github.io/uibit/image-xray)
 
-## Why Image Xray Matters
+Image X-Ray is an interactive comparative display component that reveals layers of information beneath a primary image. By rendering a cursor-following circular lens that acts as a window to a secondary, synchronized image, it offers a polished, engaging way to highlight internal craftsmanship, design layers, or material compositions.
 
-**Demonstrates depth** – Two images synchronized pixel-to-pixel; the lens reveals the hidden layer exactly where the cursor sits  
-**Commands attention** – Cursor-following interactions are inherently exploratory; users linger longer  
-**Replaces static diagrams** – No need for separate cutaway illustrations; context is discovered in place  
-**Signals quality** – The reveal interaction itself communicates that there is something worth showing inside  
+## Value Delivery
 
-Perfect for: electric vehicle interiors, consumer electronics cross-sections, architectural material layers, luxury watch movements, industrial machinery, medical device construction.
+- **Interactive Comparison** – Prompts user exploration by allowing them to visually peek underneath a primary surface in real-time.
+- **Pixel-Perfect Alignment** – Ensures absolute structural alignment between the base and secondary layers at all viewport sizes.
+- **Responsive Interactions** – Operates smoothly on mouse movement for desktops and supports tactile touch-based drag triggers for mobile screens.
+- **High-Impact Visual Narrative** – Ideal for telling stories of build quality, material composition, or engineering structure without static split diagrams.
 
-## What You Get
+## Ideal Applications
 
-- Floating circular lens that follows cursor and touch events
-- Pixel-perfect alignment between primary and xray images at any lens position
-- Smooth opacity transition on cursor enter/leave
-- Configurable lens size via CSS custom property or attribute
-- Touch support for mobile product pages
-- Shadow DOM isolation — drop it into any page without style conflicts
+- **Product Cutaways** – Showing internal components of consumer electronics, automotive design, or luxury accessories.
+- **Architectural Presentations** – Revealing structural framing, insulation layers, or historical alterations beneath finished walls.
+- **Educational Materials** – Displaying layered anatomical, geological, or historical illustrations.
 
-## See It in Action
+## Further Information
 
-Visit the interactive demo on the documentation site to see it applied to an electric vehicle exterior/chassis reveal.
-
-## Implementation
-
-Place the primary image in the default slot and the reveal image in the `xray` named slot.
-
-```html
-<uibit-image-xray>
-  <img slot="" src="car-exterior.jpg" alt="Electric vehicle exterior" />
-  <img slot="xray" src="car-chassis.jpg" alt="Battery and motor layout" />
-</uibit-image-xray>
-```
-
-## License
-
-MIT
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

@@ -1,33 +1,22 @@
-# Scroll Progress – Subtle Reading Companion
+# Scroll Progress
 
-Long-form content deserves acknowledgment. As readers move through articles, essays, documentation, or reports, a progress bar quietly shows how far they've come. It's not intrusive. It's there when needed, fading into the background when focus is on the words.
+[Interactive Demonstration](https://rawlings.github.io/uibit/scroll-progress)
 
-## Why Scroll Progress Matters
+Scroll Progress is a reading indicator component that displays content navigation progress. As users scroll through long-form articles, documentation, or reports, a subtle progress indicator shows their position, providing context and encouraging reading completion.
 
-**Rewards the reading journey** – Users see their progress, which psychologically encourages completion  
-**Provides context** – "I'm 40% through this article" helps readers decide whether to continue or return later  
-**Subtly motivates** – The visual movement creates momentum without demanding attention  
-**Fits any aesthetic** – A thin line that integrates seamlessly with your design  
+## Value Delivery
 
-Perfect for: blog articles, long-form journalism, documentation, research papers, e-books, course content, white papers.
+- **Reading Context** – Provides users with a clear sense of remaining content length, improving completion rates on long pages.
+- **Subtle Visual Feedback** – Quietly tracks reading position at the top or bottom of the viewport without distracting from the text.
+- **Hardware Accelerated Performance** – Optimizes scroll listener logic and rendering to prevent browser layout thrashing or stuttering.
+- **Adaptive Layout Support** – Automatically recalibrates dimensions when dynamic content loads or screen sizes resize.
 
-## What You Get
+## Ideal Applications
 
-- A sleek progress bar that tracks reading progress
-- Smooth, GPU-accelerated animation
-- Fully customizable colors and height
-- Respects user motion preferences
-- Minimal performance impact
-- Automatically adapts to dynamic content
+- **Long-Form Articles & Editorial Pages** – Enhancing user engagement on blogs, news portals, and feature pieces.
+- **Technical Documentation** – Helping users track their progress through guides and references.
+- **Annual Reports & Case Studies** – Providing orientation for data-heavy corporate communications.
 
-## See It in Action
+## Further Information
 
-Visit the [interactive demo](https://your-docs-url) to see scroll progress in action with different content lengths and styling.
-
-## Implementation
-
-Add a scroll progress bar to your content with any framework. Refer to our documentation site for implementation details and design guidance on positioning, color choices, and best practices for long-form content.
-
-## License
-
-MIT
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

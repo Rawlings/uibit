@@ -1,61 +1,22 @@
-# Text Read Timer – Respect Your Reader's Time
+# Text Read Timer
 
-Before readers commit to an article, they want to know what they're signing up for. A reading time estimate is a small act of respect that dramatically reduces bounce. Text Read Timer calculates it automatically from whatever content is slotted — no backend, no metadata field, no word-count plugin.
+[Interactive Demonstration](https://rawlings.github.io/uibit/text-read-timer)
 
-## Why Text Read Timer Matters
+Text Read Timer automatically analyzes document length and displays a reading time estimate to users. By calculating read times directly on the client, it helps readers set expectations before committing to long-form articles, improving retention rates and page loyalty.
 
-**Reduces bounce** – Readers self-select based on available time; showing the estimate keeps qualified readers and filters out the rest honestly  
-**Signals editorial quality** – Publications that show reading time signal that they value the reader's attention  
-**Zero config in CMS templates** – Drop it in once; it measures every article automatically regardless of length  
-**Fully inline or flexible slotting** – Renders as a badge that slots naturally into bylines and article headers, or can be placed in a custom slot anywhere in the component  
+## Value Delivery
 
-Perfect for: editorial sites, blog platforms, documentation hubs, email newsletters, CMS templates, marketing long-form pages.
+- **Improved Engagement** – Transparent reading estimates give readers context, reducing bounce rates on detailed pages.
+- **Client-Side Calculation** – Counts words and estimates reading durations in real-time on the client side, eliminating backend plugins or metadata fields.
+- **Flexible Integration** – Renders dynamically as a badge, with support for custom slotting so that the timer can be positioned anywhere within article bylines or headers.
+- **Adjustable Parameters** – Supports configurable words-per-minute calibrations to accommodate different audiences and languages.
 
-## What You Get
+## Ideal Applications
 
-- Automatic word counting from slotted HTML — ignores markup, hidden elements, and scripts
-- Configurable WPM rate (default 238, reflecting modern reading research)
-- Customizable label template with `{time}` placeholder
-- Built-in SVG clock icon, togglable
-- Fires `read-time-change` with `{ words, minutes }` detail for analytics
-- Shadow DOM isolated with full CSS custom property theming
+- **Editorial Platforms & Blogs** – Displaying read times in article summaries, headers, and indexes.
+- **Documentation Sites** – Providing guides and tutorials with clear completion timeframes.
+- **Knowledge Bases** – Helping users locate quick-read answers or detailed guides.
 
-## Implementation
+## Further Information
 
-### Basic Usage
-The text inside the element is fully visible, and the reading time badge displays above it automatically:
-```html
-<uibit-text-read-timer>
-  <article>
-    <h1>My Article</h1>
-    <p>Long form content goes here...</p>
-  </article>
-</uibit-text-read-timer>
-```
-
-### Custom Slotting
-Place the calculated reading time text exactly where you want it inside your layout by targeting `slot="timer"`:
-```html
-<uibit-text-read-timer>
-  <div class="byline">
-    <span>By Author Name</span>
-    <span>·</span>
-    <!-- The component will automatically inject the time label into this slot -->
-    <span slot="timer"></span>
-  </div>
-  <article>
-    <p>Long form content goes here...</p>
-  </article>
-</uibit-text-read-timer>
-```
-
-### Custom Template and WPM
-```html
-<uibit-text-read-timer wpm="200" template="{time} to read" show-icon>
-  <div class="article-body">...</div>
-</uibit-text-read-timer>
-```
-
-## License
-
-MIT
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

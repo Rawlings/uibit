@@ -1,33 +1,22 @@
-# Consent Guard – Privacy Without Friction
+# Consent Guard
 
-Respect user privacy. Loading third-party content shouldn't mean tracking or violating user trust. Consent Guard replaces generic cookie banners with something better: respect for specific content. Users see what's being loaded, understand why it matters, and choose with agency.
+[Interactive Demonstration](https://rawlings.github.io/uibit/consent-guard)
 
-## Why Consent Guard Matters
+Consent Guard provides a polished, content-specific consent interface that respects user privacy without interrupting the user experience. By replacing third-party embeddings with clear, informative placeholders, it gives users control over which services load, building trust and meeting compliance requirements.
 
-**Compliance without shame** – Meet privacy regulations without feeling apologetic about your business  
-**Selective consent** – Users grant permission for what matters to them (videos, forms, analytics) individually  
-**Transparency** – Clear communication about what you're loading and why  
-**Better experience** – No intrusive popups—just honest conversations about shared data  
+## Value Delivery
 
-Perfect for: websites with embedded videos, contact forms, analytics, chat widgets, third-party tools, GDPR-compliant sites, privacy-conscious brands.
+- **Privacy Compliance** – Adhere to international privacy standards by securing explicit consent before loading third-party trackers or resources.
+- **Granular Control** – Allows users to authorize specific content types (such as video embeds, maps, or widgets) individually rather than forcing all-or-nothing decisions.
+- **Seamless UX Integration** – Integrates placeholders directly into the content flow instead of relying on obtrusive overlays.
+- **Brand Alignment** – Custom styling ensures placeholders and consent dialogues match the host application's aesthetic.
 
-## What You Get
+## Ideal Applications
 
-- Clean, non-intrusive placeholder for third-party content
-- Granular consent—each asset is independent
-- Remembers user choices across sessions
-- Works with iframes, scripts, and external content
-- Fully customizable to match your brand
-- Accessible and keyboard-navigable
+- **Privacy-Conscious Web Applications** – Sites hosting third-party media embeds, interactive maps, or widgets.
+- **Compliance-Driven Landing Pages** – Pages requiring selective loading of analytics, tracking, or marketing scripts.
+- **Enterprise Portals** – Ensuring strict data privacy boundaries for embedded customer service tools.
 
-## See It in Action
+## Further Information
 
-Visit the [interactive demo](https://your-docs-url) to see how Consent Guard protects privacy while maintaining transparency. Explore different content types and consent scenarios.
-
-## Implementation
-
-Add privacy-respecting consent management to your site with any framework. Refer to our documentation site for implementation details, best practices around messaging, and guidance on integrating with analytics and tracking.
-
-## License
-
-MIT
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

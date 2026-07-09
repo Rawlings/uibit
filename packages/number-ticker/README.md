@@ -1,33 +1,22 @@
-# Number Ticker – Statistics That Earn Attention
+# Number Ticker
 
-Numbers tell stories. But a static number on a page is easy to ignore. A number that counts up from zero the moment a user sees it is impossible to dismiss. Number Ticker turns impact metrics, conversion stats, and financial figures into animated moments that land.
+[Interactive Demonstration](https://rawlings.github.io/uibit/number-ticker)
 
-## Why Number Ticker Matters
+Number Ticker is a visual performance indicator component that animates numerical statistics, percentages, and currencies when they enter the user's viewport. By displaying numbers with a smooth counting motion rather than as static values, it highlights milestones and growth metrics.
 
-**Creates perceived momentum** – Counting up signals growth; users feel the trajectory, not just the endpoint  
-**Rewards scroll** – The animation triggers only when the element enters the viewport, so effort feels earned  
-**Handles any format** – Currency symbols, locale separators, decimals, suffixes like "k" or "%" — all native  
-**Stays off the main thread** – rAF-based animation loop with easing curves never causes layout thrash  
+## Value Delivery
 
-Perfect for: revenue figures, user counts, performance benchmarks, ESG impact stats, portfolio returns, signup numbers, SLA uptime percentages.
+- **Dynamic Visual Momentum** – Draws attention to critical business metrics, giving stats a sense of growth and scale.
+- **Scroll-Triggered Activation** – Automatically starts the counting animation only when the component enters the visible viewport.
+- **Global Localization Support** – Formats currencies, decimals, and custom separators according to user locale preferences.
+- **Fluid Easing Curves** – Uses hardware-accelerated rendering methods to ensure smooth visual ticks without causing layout recalculations.
 
-## What You Get
+## Ideal Applications
 
-- `IntersectionObserver`-triggered animation — fires once in viewport, or every re-entry with `repeat`
-- Three easing curves: `ease-out` (default), `ease-in-out`, `linear`
-- Locale-aware formatting via `Intl.NumberFormat`
-- Configurable `prefix`, `suffix`, `decimals`, `from`, and `duration`
-- Fires `ticker-start` and `ticker-end` events for chaining animations
-- Shadow DOM isolated — inherits font styles from the host naturally
+- **Key Performance Indicators** – Showcasing revenue figures, conversion rates, and corporate achievements.
+- **User Milestones** – Animating active user counts, community sizes, or transaction histories.
+- **Impact Dashboards** – Highlighting carbon offsets, project progress, or resource savings.
 
-## Implementation
+## Further Information
 
-```html
-<uibit-number-ticker value="12500" prefix="$" locale="en-US" duration="2000"></uibit-number-ticker>
-
-<uibit-number-ticker value="99.9" suffix="%" decimals="1" easing="ease-in-out"></uibit-number-ticker>
-```
-
-## License
-
-MIT
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

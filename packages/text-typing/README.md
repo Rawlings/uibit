@@ -1,42 +1,22 @@
-# Typing Text – Headlines That Write Themselves
+# Text Typing
 
-Static headlines compete with everything else on the page. A headline that types itself in real time commands the eye. Typing Text cycles through your best marketing phrases with the kind of subtle imperfection — slight speed variance, the occasional auto-corrected typo — that makes it feel genuinely human rather than mechanical.
+[Interactive Demonstration](https://rawlings.github.io/uibit/text-typing)
 
-## Why Typing Text Matters
+Text Typing is an animated display component that cycles through multiple phrases with a typing motion. By simulating speed variations, pauses, and corrections, it creates dynamic visual interest, making it ideal for landing page headlines and key value propositions.
 
-**Packs more message into less space** – Cycle through five value propositions where one used to live  
-**Human imperfection builds trust** – Simulated typos and speed variance signal organic motion, not a CSS loop  
-**Keeps above-the-fold fresh** – Returning visitors see a different phrase each cycle without a page reload  
-**Zero layout shift** – The cursor and text live inline; reserve height with your container, not the component  
+## Value Delivery
 
-Perfect for: hero sections, product taglines, landing page headlines, SaaS value propositions, portfolio headers, waitlist pages.
+- **Dynamic Value Messaging** – Cycles through multiple key phrases in the same space, allowing you to highlight various product benefits without cluttering the layout.
+- **Natural Motion Simulation** – Introduces speed variations and minor corrections during typing loops to create a organic, engaging aesthetic.
+- **Stable Layout Rendering** – Designed to operate inline without causing visual layout shifts on page content.
+- **Visual Callouts** – Includes a configurable blinking cursor to direct reader focus to active statements.
 
-## What You Get
+## Ideal Applications
 
-- Realistic typing and deletion loop with configurable per-character speed
-- Speed jitter (±40% per keystroke) for organic feel
-- Configurable typo rate — wrong character inserted then immediately corrected
-- Blinking cursor node with CSS-controlled blink interval and style
-- `phrase-change` event for syncing other elements to the active phrase
-- `loop` flag to stop after the last phrase for one-shot animations
+- **Hero Headers** – Presenting primary features or slogans on homepage landing folds.
+- **Taglines** – Cycling through customer benefit statements on landing pages.
+- **Introductory Portals** – Greeting visitors with animated welcome text.
 
-## Implementation
+## Further Information
 
-```html
-<h1>
-  We help teams
-  <uibit-typing-text phrases='["ship faster", "build better", "scale confidently"]'></uibit-typing-text>
-</h1>
-```
-
-```js
-// Or set phrases programmatically
-const el = document.querySelector('uibit-typing-text');
-el.phrases = ['Ship faster', 'Build better', 'Scale confidently'];
-el.typeSpeed = 70;
-el.typoRate = 0.06;
-```
-
-## License
-
-MIT
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

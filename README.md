@@ -1,42 +1,31 @@
-# UIBit – Micro-Experiences That Matter
+# UIBit
 
-**[Live Documentation →](https://rawlings.github.io/uibit/)**
+[Live Documentation](https://rawlings.github.io/uibit/)
 
-Every great digital product lives in the details. UIBit is a collection of carefully crafted micro-experiences—those moments of intentional interaction that transform passive content into something users *feel*.
+UIBit is a professional collection of framework-agnostic web components designed to elevate digital products. Built with Lit, these components deliver performant, accessible, and highly customizable interactive experiences for web applications.
 
-We believe the best UX isn't about adding more features. It's about elevating the moments that already exist: the scroll, the selection, the discovery, the reveal. Each UIBit component is built around one clear purpose: to create a genuine emotional and functional connection between user and content.
+Instead of developing complex user interface elements from scratch, UIBit provides a catalog of optimized components that integrate into any technology stack.
 
-## The Components
+## The Catalog
 
-**Carousel** – Browsing that feels natural and effortless  
-**360 Viewer** – Product exploration with tactile control  
-**Hotspot** – Hidden layers of context made discoverable  
-**Countdown** – Moments that build anticipation and create urgency  
-**Scroll Progress** – A subtle companion through long-form content  
-**Consent Guard** – Privacy respect without friction  
-**Signature Pad** – Handwritten moments in digital workflows  
-**A/B Test** – Evolve experiences through experimentation
+Our component library spans several core categories:
 
-Each component is production-ready, accessible, and built to integrate seamlessly into any digital product—whether it's an e-commerce platform, a content site, or a SaaS application.
+- **Media & Visualization** – Dynamic carousels, 360-degree product viewers, interactive hotspots, and image comparative viewers that drive visual engagement.
+- **Forms & Feedback** – Signature pads, interactive sentiment feedback selectors, and privacy consent guards designed to streamline user input.
+- **Typography & Display** – Polished typing effects, text clamping, read time calculators, and countdown timers that draw attention to key content.
+- **Data & Utilities** – Responsive tables, scroll progress indicators, and self-contained A/B testing controllers that optimize interface performance.
 
-## Why UIBit Exists
+## Key Value Drivers
 
-Standard interfaces are efficient. They're predictable. They work.
+- **Framework Agnostic** – Built on modern web standards, UIBit components operate seamlessly with React, Vue, Svelte, Angular, or vanilla HTML/JavaScript.
+- **Performance First** – Optimized rendering cycles and minimal bundle sizes ensure fast page load times and excellent Core Web Vitals.
+- **Accessibility Compliance** – Built with keyboard navigation and proper ARIA semantics as default design criteria.
+- **Flexible Customization** – Style components easily using standardized CSS custom properties and shadow parts to match any brand identity.
 
-But great products feel alive. They respond. They guide. They delight.
+## Explore the Library
 
-UIBit bridges that gap. We've distilled years of interaction design thinking into components that do one thing exceptionally well. Fast. Accessible. Customizable. Purpose-built.
+Interactive demonstrations, design specifications, and implementation guidelines for all components are available on our documentation site.
 
-## Explore the Possibilities
+## Licensing
 
-See how each component works in context at **[rawlings.github.io/uibit](https://rawlings.github.io/uibit/)**. Every component comes with real-world examples, customization options, and clear guidance for implementation.
-
-## For Developers, Designers & Product Builders
-
-UIBit works with any technology stack. No vendor lock-in. No framework assumptions. Just thoughtful interactions that enhance your user experience.
-
----
-
-UIBit is open source and built collaboratively. Have ideas? Want to contribute? We'd love to hear from you.
-
-MIT License – See [LICENSE](./LICENSE)
+Licensed under the MIT License.

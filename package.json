@@ -38,12 +38,5 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/uibit.git"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@swc/core",
-      "esbuild",
-      "rs-module-lexer"
-    ]
   }
 }

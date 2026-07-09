@@ -1,33 +1,22 @@
-# Carousel – Browsing Made Natural
+# Carousel
 
-Product galleries. Image collections. Content flows. A carousel is more than a slideshow—it's an invitation to explore. UIBit's carousel feels less like navigating a grid and more like turning pages, with smooth motion, intuitive controls, and seamless touch interactions.
+[Interactive Demonstration](https://rawlings.github.io/uibit/carousel)
 
-## Why Carousel Matters
+Carousel provides a fluid and responsive content presentation display that invites exploration. With smooth transitions, touch responsiveness, and elegant pagination control, it showcases visual content without cluttering the interface structure.
 
-**Better content discovery** – Users can browse collections at their own pace, with visual continuity between items  
-**Saves space** – Display multiple items in a contained area without overwhelming the layout  
-**Feels responsive** – Smooth scrolling and touch support create a sense of direct control  
-**Guides attention** – Auto-play can introduce featured content without requiring user action  
+## Value Delivery
 
-Carousels work everywhere: e-commerce galleries, testimonial sections, product recommendations, content showcases, image stories.
+- **Effortless Discovery** – Users can browse through galleries or testimonials at their own pace, maintaining layout context.
+- **Space Efficiency** – Displays multiple featured items in a single container, preventing vertical page bloat.
+- **Responsive Layouts** – Adapts item counts and dimensions smoothly between compact mobile screens and spacious desktops.
+- **Polished Presentation** – Subtle animations and support for optional automatic cycles create a high-end, responsive feel.
 
-## What You Get
+## Ideal Applications
 
-- Effortless browsing with native, smooth motion
-- Works perfectly on touch devices
-- Responsive—show 1 item on mobile, 3+ on desktop
-- Optional auto-play for featured content
-- Keyboard accessible for all users
-- Customizable appearance to match your brand
+- **Product Galleries** – Displaying multi-angle shots or catalog collections.
+- **Content Showcases** – Highlighting blog posts, featured articles, or portfolio highlights.
+- **Testimonial Carousels** – Presenting social proof and user feedback in an elegant, interactive format.
 
-## See It in Action
+## Further Information
 
-Head over to the [interactive demo](https://your-docs-url) to explore different carousel configurations and see how it adapts to various layouts and content types.
-
-## Implementation
-
-The carousel integrates seamlessly with React, Vue, vanilla JavaScript, or any framework. Refer to our documentation site for implementation details and code examples for your specific tech stack.
-
-## License
-
-MIT – See [LICENSE](../../LICENSE)
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

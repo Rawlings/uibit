@@ -1,34 +1,22 @@
-# Signature Pad – Handwritten Intent in Digital Forms
+# Signature Pad
 
-Some moments need a signature. Not a typed name. Not a checkbox. A real, handwritten mark that carries weight and intention. Signature Pad brings that moment into your digital workflows, from contracts to agreements to declarations.
+[Interactive Demonstration](https://rawlings.github.io/uibit/signature-pad)
 
-## Why Signature Pad Matters
+Signature Pad is a signature capture component that allows users to write signatures on digital forms. By providing smooth, high-fidelity stroke tracking for mouse, touch, and stylus inputs, it streamlines document workflows and digital authorization processes.
 
-**Creates commitment** – A signature feels more binding than typed text; it carries psychological weight  
-**Legal clarity** – Handwritten signatures are recognized in legal contexts; digital signatures add legitimacy  
-**Personal touch** – In an age of automation, a signature reminds people they're dealing with a real choice  
-**Complete workflows** – Close agreements, confirmations, and declarations with a moment of genuine intent  
+## Value Delivery
 
-Perfect for: legal agreements, form sign-offs, consent declarations, order confirmations, medical forms, financial documents, any workflow requiring authentication.
+- **Seamless Digitization** – Replaces printing, physical signing, and scanning cycles with a direct, digital signing flow.
+- **Natural Writing Mechanics** – Tracks pressure and speed variations to render realistic strokes, improving user comfort.
+- **Export Formats** – Exports signatures directly as standard images, making it easy to archive signatures in back-office document storage.
+- **High Responsiveness** – Adapts signing inputs smoothly across both desktop mouse control and mobile touchscreen gestures.
 
-## What You Get
+## Ideal Applications
 
-- Natural handwriting experience on touch and desktop
-- Smooth, responsive stroke tracking
-- Customizable capture area and styling
-- Export-ready output for integration with your workflow
-- Support for multiple input methods (stylus, finger, mouse)
-- Undo/clear functionality
-- Accessible interaction patterns
+- **Service Agreements** – Capturing sign-offs on terms, service contracts, and proposals.
+- **Onboarding Verification** – Capturing signatures for member registration or employee enrollment.
+- **Transactional Approvals** – Securing approvals on delivery notes or invoices.
 
-## See It in Action
+## Further Information
 
-Visit the [interactive demo](https://your-docs-url) to try capturing a signature. Explore different stroke styles, capture areas, and export formats.
-
-## Implementation
-
-Add signature capture to your workflows with any framework. Refer to our documentation site for implementation details, best practices around consent flow, legal considerations, and integration with document systems.
-
-## License
-
-MIT
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

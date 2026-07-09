@@ -3,3 +3,10 @@ packages:
   - '!packages/.gitkeep'
 
 shared-workspace-lockfile: true
+
+allowBuilds:
+  '@swc/core': true
+  'esbuild': true
+  'rs-module-lexer': true
+
+minimumReleaseAge: 0

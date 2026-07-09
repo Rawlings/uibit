@@ -1,11 +1,13 @@
-# Core – Shared Utilities
+# Core Utilities
 
-Internal utilities used across UIBit components. This package provides foundational patterns that power our micro-experiences.
+The Core package provides the shared foundation for all UIBit components. It contains internal optimization logic, base custom element definitions, and performance utilities that enable our component library to deliver fast rendering speeds and consistent behavior.
 
-## For Developers
+## Core Value
 
-If you're using UIBit components, you don't need to worry about this package—it's automatically included as a dependency. If you're building custom components or extending UIBit, refer to the documentation site for guidance on accessing these utilities.
+- **Optimized Performance** – Centralizes common rendering lifecycle hooks to minimize component overhead and footprint.
+- **Consistency** – Establishes uniform architectural patterns, event dispatch systems, and styling foundations across all components.
+- **Dependency Reduction** – Keeps individual component packages lightweight by deduplicating shared helper code.
 
-## License
+## Further Information
 
-MIT
+While this package is automatically included with individual UIBit components, architectural details are available on our documentation site.

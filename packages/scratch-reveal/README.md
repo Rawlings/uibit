@@ -1,33 +1,22 @@
-# Scratch Reveal – Playful Moments of Discovery
+# Scratch Reveal
 
-Interaction can be fun. A scratch-off panel transforms a simple reveal into a tactile, playful moment. Scratch to discover a prize, reveal a secret, uncover a surprise. It works because it mimics a real-world interaction—the satisfaction of scratching and discovering.
+[Interactive Demonstration](https://rawlings.github.io/uibit/scratch-reveal)
 
-## Why Scratch Reveal Matters
+Scratch Reveal is an interactive promotional display component that mimics a physical scratch-card interaction. By obscuring content (such as a discount code, coupon, or image) with an erasable overlay, it introduces gamification and anticipation to user actions.
 
-**Engagement through play** – Scratching feels interactive, creating memorable moments  
-**Delayed gratification** – The action of scratching builds anticipation before the reveal  
-**Works for promotions** – Lottery scratchers, surprise offers, hidden prizes—all feel special  
-**Multi-sensory feedback** – Motion and visual change create a complete interaction  
+## Value Delivery
 
-Perfect for: promotional campaigns, game mechanics, surprise reveals, reward unlocks, lottery-style offers, gamified experiences, loyalty programs.
+- **Gamified Engagement** – Adds interactive play to digital interfaces, encouraging longer user session times.
+- **Anticipation & Discovery** – Creates a memorable experience by delaying the gratification of the final reward.
+- **Conversion Driver** – Ideal for revealing exclusive discount codes, mystery deals, and rewards in campaign flows.
+- **Cross-Platform Compatibility** – Offers a responsive scratching canvas that translates touch swipes on mobile and mouse gestures on desktop.
 
-## What You Get
+## Ideal Applications
 
-- A realistic scratching interaction that feels tactile
-- Responsive to touch and mouse input
-- Customizable content and styling
-- Events that fire at key moments (revealing, fully scratched, progress updates)
-- Accessible interaction patterns
-- Reset capability for reuse
+- **E-Commerce Promotions** – Revealing surprise sales, seasonal offers, and coupon codes.
+- **Loyalty Programs** – Gamifying reward distributions and membership perks.
+- **Brand Campaigns** – Unveiling secret announcements or hidden content.
 
-## See It in Action
+## Further Information
 
-Visit the [interactive demo](https://your-docs-url) to play with scratch-reveal. Try different content types, scratch speeds, and design variations.
-
-## Implementation
-
-Add a scratch-reveal panel to your engagement flow with any framework. Refer to our documentation site for implementation details, design guidance on reward communications, and best practices around user expectations.
-
-## License
-
-MIT
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
