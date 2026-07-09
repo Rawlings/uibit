@@ -249,11 +249,11 @@
           ],
           "events": [
             {
-              "name": "hotspot-click",
               "type": {
                 "text": "HotspotItem"
               },
-              "description": "Fired when a hotspot trigger is activated"
+              "description": "Fired when a hotspot trigger is activated",
+              "name": "hotspot-click"
             }
           ],
           "attributes": [
@@ -286,8 +286,8 @@
             }
           ],
           "superclass": {
-            "name": "LitElement",
-            "package": "lit"
+            "name": "UIBitElement",
+            "package": "@uibit/core"
           },
           "tagName": "uibit-hotspot",
           "customElement": true

@@ -1,8 +1,8 @@
-import '@uibit/typing-text';
-import manifest from '@uibit/typing-text/custom-elements.json';
+import '@uibit/text-typing';
+import manifest from '@uibit/text-typing/custom-elements.json';
 import { ComponentDocData } from '../../types/docs';
 
-function TypingTextDemo() {
+function TextTypingDemo() {
   const phrases = JSON.stringify([
     'ship faster.',
     'build better.',
@@ -18,12 +18,12 @@ function TypingTextDemo() {
       <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm text-center">
         <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
           We help teams{' '}
-          <uibit-typing-text
+          <uibit-text-typing
             phrases={phrases}
             type-speed="75"
             typo-rate="0.05"
             style={{ color: '#111827' }}
-          ></uibit-typing-text>
+          ></uibit-text-typing>
         </h2>
         <p className="text-gray-500 mt-4 text-sm">
           Slight speed variance and auto-correcting typos make the animation feel human.
@@ -34,34 +34,34 @@ function TypingTextDemo() {
 }
 
 const data: ComponentDocData = {
-  id: 'typing-text',
-  title: 'Typing Text',
+  id: 'text-typing',
+  title: 'Text Typing',
   description:
     'Headline text block that cycles through marketing phrases with a realistic typing and deleting animation. Includes speed variance, simulated auto-correcting typos, and a blinking cursor.',
-  packageName: '@uibit/typing-text',
-  tagName: 'uibit-typing-text',
+  packageName: '@uibit/text-typing',
+  tagName: 'uibit-text-typing',
   manifest,
-  Demo: TypingTextDemo,
+  Demo: TextTypingDemo,
   usages: [
     {
       title: 'HTML Integration',
       code: `<h1>
   We help teams
-  <uibit-typing-text
+  <uibit-text-typing
     phrases='["ship faster", "build better", "scale confidently"]'
-  ></uibit-typing-text>
+  ></uibit-text-typing>
 </h1>`,
     },
     {
       title: 'React Integration',
-      code: `import '@uibit/typing-text';
+      code: `import '@uibit/text-typing';
 
 const phrases = JSON.stringify(['Ship faster', 'Build better', 'Scale confidently']);
 
 function Hero() {
   return (
     <h1>
-      We help teams <uibit-typing-text phrases={phrases} type-speed="80" />
+      We help teams <uibit-text-typing phrases={phrases} type-speed="80" />
     </h1>
   );
 }`,
@@ -69,16 +69,16 @@ function Hero() {
     {
       title: 'One-shot (no loop)',
       description: 'Run through all phrases once and stop on the last one.',
-      code: `<uibit-typing-text
+      code: `<uibit-text-typing
   phrases='["Loading complete.", "Welcome back."]'
   loop="false"
   pause-after="3000"
-></uibit-typing-text>`,
+></uibit-text-typing>`,
     },
     {
       title: 'Phrase Change Event',
       description: 'Sync other elements to the active phrase index.',
-      code: `document.querySelector('uibit-typing-text').addEventListener('phrase-change', e => {
+      code: `document.querySelector('uibit-text-typing').addEventListener('phrase-change', e => {
   console.log(e.detail.phrase, e.detail.index);
 });`,
     },

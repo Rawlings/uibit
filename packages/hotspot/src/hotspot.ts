@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement, getIcon } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, getIcon, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import type { HotspotItem } from './types';
 import { styles } from './styles';
@@ -34,7 +34,7 @@ import { styles } from './styles';
  * @csspart popover-close - The close button inside the popover
  */
 @customElement('uibit-hotspot')
-export class Hotspot extends LitElement {
+export class Hotspot extends UIBitElement {
   static styles = styles;
 
   /** Array of hotspot items. Each item requires `id`, `x` (%), `y` (%), `label`, and optionally `title` and `content`. */
@@ -50,14 +50,12 @@ export class Hotspot extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    document.addEventListener('keydown', this.handleDocumentKeyDown);
-    document.addEventListener('click', this.handleDocumentClick);
+    this.listen(document, 'keydown', this.handleDocumentKeyDown);
+    this.listen(document, 'click', this.handleDocumentClick);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    document.removeEventListener('keydown', this.handleDocumentKeyDown);
-    document.removeEventListener('click', this.handleDocumentClick);
     if (this.hoverTimeout) {
       clearTimeout(this.hoverTimeout);
     }
@@ -132,13 +130,7 @@ export class Hotspot extends LitElement {
   }
 
   private onHotspotClick(spot: HotspotItem) {
-    this.dispatchEvent(
-      new CustomEvent('hotspot-click', {
-        detail: spot,
-        bubbles: true,
-        composed: true
-      })
-    );
+    this.dispatchCustomEvent('hotspot-click', spot);
   }
 
   render() {

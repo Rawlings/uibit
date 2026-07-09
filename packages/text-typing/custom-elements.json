@@ -12,15 +12,15 @@
           "name": "default",
           "declaration": {
             "name": "default",
-            "module": "./typing-text"
+            "module": "./text-typing"
           }
         },
         {
           "kind": "js",
-          "name": "TypingText",
+          "name": "TextTyping",
           "declaration": {
-            "name": "TypingText",
-            "module": "./typing-text"
+            "name": "TextTyping",
+            "module": "./text-typing"
           }
         }
       ]
@@ -32,7 +32,7 @@
         {
           "kind": "variable",
           "name": "styles",
-          "default": "css` :host { display: inline; font-size: var(--uibit-typing-text-font-size, inherit); font-weight: var(--uibit-typing-text-font-weight, inherit); color: var(--uibit-typing-text-color, inherit); font-family: var(--uibit-typing-text-font-family, inherit); line-height: var(--uibit-typing-text-line-height, inherit); } .text { display: inline; } .cursor { display: inline-block; width: var(--uibit-typing-text-cursor-width, 0.125rem); height: 1.1em; background: var(--uibit-typing-text-cursor-color, currentColor); margin-left: 0.05em; vertical-align: text-bottom; border-radius: var(--uibit-typing-text-cursor-radius, 0.0625rem); animation: blink var(--uibit-typing-text-cursor-blink, 0.75s) step-end infinite; } :host([paused]) .cursor { animation: none; opacity: 1; } @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } } `"
+          "default": "css` :host { display: inline; font-size: var(--uibit-text-typing-font-size, inherit); font-weight: var(--uibit-text-typing-font-weight, inherit); color: var(--uibit-text-typing-color, inherit); font-family: var(--uibit-text-typing-font-family, inherit); line-height: var(--uibit-text-typing-line-height, inherit); } .text { display: inline; } .cursor { display: inline-block; width: var(--uibit-text-typing-cursor-width, 0.125rem); height: 1.1em; background: var(--uibit-text-typing-cursor-color, currentColor); margin-left: 0.05em; vertical-align: text-bottom; border-radius: var(--uibit-text-typing-cursor-radius, 0.0625rem); animation: blink var(--uibit-text-typing-cursor-blink, 0.75s) step-end infinite; } :host([paused]) .cursor { animation: none; opacity: 1; } @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } } `"
         }
       ],
       "exports": [
@@ -48,56 +48,56 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/typing-text.ts",
+      "path": "src/text-typing.ts",
       "declarations": [
         {
           "kind": "class",
           "description": "Cycles through an array of phrases by simulating realistic keystroke\ntyping and backspace deletion. Includes subtle speed variance, randomized\nsimulated typos that auto-correct, and a blinking cursor node.\n\nPass phrases as a JSON array string on the `phrases` attribute, or set the\nproperty directly.",
-          "name": "TypingText",
+          "name": "TextTyping",
           "cssProperties": [
             {
               "description": "Font size",
-              "name": "--uibit-typing-text-font-size",
+              "name": "--uibit-text-typing-font-size",
               "default": "inherit"
             },
             {
               "description": "Font weight",
-              "name": "--uibit-typing-text-font-weight",
+              "name": "--uibit-text-typing-font-weight",
               "default": "inherit"
             },
             {
               "description": "Text color",
-              "name": "--uibit-typing-text-color",
+              "name": "--uibit-text-typing-color",
               "default": "inherit"
             },
             {
               "description": "Font family",
-              "name": "--uibit-typing-text-font-family",
+              "name": "--uibit-text-typing-font-family",
               "default": "inherit"
             },
             {
               "description": "Line height",
-              "name": "--uibit-typing-text-line-height",
+              "name": "--uibit-text-typing-line-height",
               "default": "inherit"
             },
             {
               "description": "Cursor bar color",
-              "name": "--uibit-typing-text-cursor-color",
+              "name": "--uibit-text-typing-cursor-color",
               "default": "currentColor"
             },
             {
               "description": "Cursor bar width",
-              "name": "--uibit-typing-text-cursor-width",
+              "name": "--uibit-text-typing-cursor-width",
               "default": "0.125rem"
             },
             {
               "description": "Cursor bar border radius",
-              "name": "--uibit-typing-text-cursor-radius",
+              "name": "--uibit-text-typing-cursor-radius",
               "default": "0.0625rem"
             },
             {
               "description": "Cursor blink interval",
-              "name": "--uibit-typing-text-cursor-blink",
+              "name": "--uibit-text-typing-cursor-blink",
               "default": "0.75s"
             }
           ],
@@ -350,33 +350,33 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "uibit-typing-text",
+          "tagName": "uibit-text-typing",
           "customElement": true
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "TypingText",
+          "name": "TextTyping",
           "declaration": {
-            "name": "TypingText",
-            "module": "src/typing-text.ts"
+            "name": "TextTyping",
+            "module": "src/text-typing.ts"
           }
         },
         {
           "kind": "custom-element-definition",
-          "name": "uibit-typing-text",
+          "name": "uibit-text-typing",
           "declaration": {
-            "name": "TypingText",
-            "module": "src/typing-text.ts"
+            "name": "TextTyping",
+            "module": "src/text-typing.ts"
           }
         },
         {
           "kind": "js",
           "name": "default",
           "declaration": {
-            "name": "TypingText",
-            "module": "src/typing-text.ts"
+            "name": "TextTyping",
+            "module": "src/text-typing.ts"
           }
         }
       ]

@@ -1,5 +1,5 @@
-import { LitElement, html } from 'lit';
-import { customElement, getIcon } from '@uibit/core';
+import { html } from 'lit';
+import { customElement, getIcon, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -19,7 +19,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-360-viewer-hint-bg=rgba(17,24,39,0.65)] - Background of the drag hint overlay
  */
 @customElement('uibit-360-viewer')
-export class Viewer360 extends LitElement {
+export class Viewer360 extends UIBitElement {
   static styles = styles;
 
   /** Ordered array of image URLs representing each frame of the 360° rotation. */
@@ -136,16 +136,10 @@ export class Viewer360 extends LitElement {
   }
 
   private emitChange() {
-    this.dispatchEvent(
-      new CustomEvent('change', {
-        detail: {
-          index: this.currentIndex,
-          image: this.images[this.currentIndex]
-        },
-        bubbles: true,
-        composed: true
-      })
-    );
+    this.dispatchCustomEvent('change', {
+      index: this.currentIndex,
+      image: this.images[this.currentIndex]
+    });
   }
 
   private handlePointerDown(e: PointerEvent) {

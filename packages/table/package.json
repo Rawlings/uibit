@@ -1,7 +1,7 @@
 {
-  "name": "@uibit/typing-text",
+  "name": "@uibit/table",
   "version": "0.1.0",
-  "description": "Headline text block that cycles marketing phrases with a realistic typing/deleting animation, typo simulation, and blinking cursor",
+  "description": "Enhanced HTML table wrapper with global search, multi-column sorting, pagination, CSV export, and search-term highlighting",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -24,13 +24,13 @@
     "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
     "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
-  "keywords": ["typewriter", "typing", "animation", "headline", "marketing", "web-component", "lit"],
+  "keywords": ["table", "datatable", "filter", "sort", "pagination", "web-component", "lit"],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/uibit.git",
-    "directory": "packages/typing-text"
+    "directory": "packages/table"
   },
   "dependencies": {
     "@uibit/core": "workspace:*"

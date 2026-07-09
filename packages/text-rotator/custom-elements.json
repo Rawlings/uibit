@@ -1,0 +1,281 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./text-rotator"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TextRotator",
+          "declaration": {
+            "name": "TextRotator",
+            "module": "./text-rotator"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { display: inline-block; overflow: hidden; vertical-align: bottom; font-size: var(--uibit-text-rotator-font-size, inherit); font-weight: var(--uibit-text-rotator-font-weight, inherit); color: var(--uibit-text-rotator-color, inherit); font-family: var(--uibit-text-rotator-font-family, inherit); line-height: var(--uibit-text-rotator-line-height, 1.2); height: var(--uibit-text-rotator-line-height, 1.2em); } .stage { position: relative; display: inline-block; white-space: nowrap; } .word { display: inline-block; position: absolute; left: 0; top: 0; will-change: transform, opacity; } .word.entering-slide { animation: slide-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; } .word.leaving-slide { animation: slide-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards; } .word.entering-flip { animation: flip-in var(--uibit-text-rotator-duration, 0.5s) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; transform-origin: 50% 0%; } .word.leaving-flip { animation: flip-out var(--uibit-text-rotator-duration, 0.5s) cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards; transform-origin: 50% 100%; } @keyframes slide-in { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } } @keyframes slide-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100%); opacity: 0; } } @keyframes flip-in { from { transform: rotateX(-90deg); opacity: 0; } to { transform: rotateX(0deg); opacity: 1; } } @keyframes flip-out { from { transform: rotateX(0deg); opacity: 1; } to { transform: rotateX(90deg); opacity: 0; } } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/text-rotator.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Rotates a single word inside a static sentence by animating between items\nwith a vertical slide or 3D flip transition. Designed to highlight changing\nvalue propositions without motion outside the component boundary.",
+          "name": "TextRotator",
+          "cssProperties": [
+            {
+              "description": "Font size",
+              "name": "--uibit-text-rotator-font-size",
+              "default": "inherit"
+            },
+            {
+              "description": "Font weight",
+              "name": "--uibit-text-rotator-font-weight",
+              "default": "inherit"
+            },
+            {
+              "description": "Text color",
+              "name": "--uibit-text-rotator-color",
+              "default": "inherit"
+            },
+            {
+              "description": "Font family",
+              "name": "--uibit-text-rotator-font-family",
+              "default": "inherit"
+            },
+            {
+              "description": "Line height (also controls host height)",
+              "name": "--uibit-text-rotator-line-height",
+              "default": "1.2"
+            },
+            {
+              "description": "Transition animation duration",
+              "name": "--uibit-text-rotator-duration",
+              "default": "0.4s"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "words",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "description": "JSON array of words/phrases to rotate through.",
+              "attribute": "words"
+            },
+            {
+              "kind": "field",
+              "name": "interval",
+              "type": {
+                "text": "number"
+              },
+              "default": "2500",
+              "description": "Interval in ms between rotations.",
+              "attribute": "interval"
+            },
+            {
+              "kind": "field",
+              "name": "transition",
+              "type": {
+                "text": "'slide' | 'flip'"
+              },
+              "default": "'slide'",
+              "description": "Transition style: 'slide' for vertical slide, 'flip' for 3D perspective flip.",
+              "attribute": "transition"
+            },
+            {
+              "kind": "field",
+              "name": "loop",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Loop indefinitely. Set to false to stop after the last word.",
+              "attribute": "loop"
+            },
+            {
+              "kind": "field",
+              "name": "_activeIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_prevIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "-1"
+            },
+            {
+              "kind": "field",
+              "name": "_animating",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_stageWidth",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_stage",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_timer",
+              "type": {
+                "text": "ReturnType<typeof setInterval> | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_updateWidth",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_start",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_advance",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "word-change",
+              "type": {
+                "text": "{ word: string, index: number }"
+              },
+              "description": "Fired when the active word changes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "words",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "description": "JSON array of words/phrases to rotate through.",
+              "fieldName": "words"
+            },
+            {
+              "name": "interval",
+              "type": {
+                "text": "number"
+              },
+              "default": "2500",
+              "description": "Interval in ms between rotations.",
+              "fieldName": "interval"
+            },
+            {
+              "name": "transition",
+              "type": {
+                "text": "'slide' | 'flip'"
+              },
+              "default": "'slide'",
+              "description": "Transition style: 'slide' for vertical slide, 'flip' for 3D perspective flip.",
+              "fieldName": "transition"
+            },
+            {
+              "name": "loop",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Loop indefinitely. Set to false to stop after the last word.",
+              "fieldName": "loop"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-text-rotator",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TextRotator",
+          "declaration": {
+            "name": "TextRotator",
+            "module": "src/text-rotator.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-text-rotator",
+          "declaration": {
+            "name": "TextRotator",
+            "module": "src/text-rotator.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "TextRotator",
+            "module": "src/text-rotator.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

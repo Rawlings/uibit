@@ -1,0 +1,270 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./text-clamp"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TextClamp",
+          "declaration": {
+            "name": "TextClamp",
+            "module": "./text-clamp"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { display: block; font-size: var(--uibit-text-clamp-font-size, inherit); font-weight: var(--uibit-text-clamp-font-weight, inherit); color: var(--uibit-text-clamp-color, inherit); font-family: var(--uibit-text-clamp-font-family, inherit); line-height: var(--uibit-text-clamp-line-height, 1.5); } .content { overflow: hidden; } .content.clamped { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; } .toggle { display: inline; background: none; border: none; padding: 0; margin: 0; font: inherit; color: var(--uibit-text-clamp-toggle-color, currentColor); font-weight: var(--uibit-text-clamp-toggle-font-weight, 600); cursor: pointer; text-decoration: var(--uibit-text-clamp-toggle-decoration, underline); text-underline-offset: 0.15em; } .toggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; border-radius: 0.125rem; } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/text-clamp.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Clamps slotted text content to an exact line count. When content overflows\nthe clamped height, a \"More\" toggle button appears inline. Clicking it\nexpands the block; clicking \"Less\" collapses it again.\n\nUses a ResizeObserver to recalculate overflow whenever the container width\nchanges, ensuring correct behaviour across all viewport sizes.",
+          "name": "TextClamp",
+          "cssProperties": [
+            {
+              "description": "Font size",
+              "name": "--uibit-text-clamp-font-size",
+              "default": "inherit"
+            },
+            {
+              "description": "Font weight",
+              "name": "--uibit-text-clamp-font-weight",
+              "default": "inherit"
+            },
+            {
+              "description": "Text color",
+              "name": "--uibit-text-clamp-color",
+              "default": "inherit"
+            },
+            {
+              "description": "Font family",
+              "name": "--uibit-text-clamp-font-family",
+              "default": "inherit"
+            },
+            {
+              "description": "Line height (unitless recommended)",
+              "name": "--uibit-text-clamp-line-height",
+              "default": "1.5"
+            },
+            {
+              "description": "\"More\"/\"Less\" button color",
+              "name": "--uibit-text-clamp-toggle-color",
+              "default": "currentColor"
+            },
+            {
+              "description": "\"More\"/\"Less\" button font weight",
+              "name": "--uibit-text-clamp-toggle-font-weight",
+              "default": "600"
+            },
+            {
+              "description": "\"More\"/\"Less\" button text decoration",
+              "name": "--uibit-text-clamp-toggle-decoration",
+              "default": "underline"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The text content to clamp",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "lines",
+              "type": {
+                "text": "number"
+              },
+              "default": "3",
+              "description": "Maximum number of lines to show when collapsed.",
+              "attribute": "lines"
+            },
+            {
+              "kind": "field",
+              "name": "moreLabel",
+              "type": {
+                "text": "string"
+              },
+              "default": "'More'",
+              "description": "Label for the expand button.",
+              "attribute": "more-label"
+            },
+            {
+              "kind": "field",
+              "name": "lessLabel",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Less'",
+              "description": "Label for the collapse button.",
+              "attribute": "less-label"
+            },
+            {
+              "kind": "field",
+              "name": "_expanded",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_overflows",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_slotText",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "_contentEl",
+              "type": {
+                "text": "HTMLElement | null"
+              },
+              "privacy": "private",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_ro",
+              "type": {
+                "text": "ResizeObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_checkOverflow",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_onSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_toggle",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle",
+              "type": {
+                "text": "{ expanded: boolean }"
+              },
+              "description": "Fired when expanded/collapsed state changes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "lines",
+              "type": {
+                "text": "number"
+              },
+              "default": "3",
+              "description": "Maximum number of lines to show when collapsed.",
+              "fieldName": "lines"
+            },
+            {
+              "name": "more-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "'More'",
+              "description": "Label for the expand button.",
+              "fieldName": "moreLabel"
+            },
+            {
+              "name": "less-label",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Less'",
+              "description": "Label for the collapse button.",
+              "fieldName": "lessLabel"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-text-clamp",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TextClamp",
+          "declaration": {
+            "name": "TextClamp",
+            "module": "src/text-clamp.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-text-clamp",
+          "declaration": {
+            "name": "TextClamp",
+            "module": "src/text-clamp.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "TextClamp",
+            "module": "src/text-clamp.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

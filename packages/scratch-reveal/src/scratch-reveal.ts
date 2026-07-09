@@ -32,9 +32,9 @@ export class ScratchReveal extends LitElement {
   @property({ type: Number }) revealPercentage = 0;
 
   get brushSize(): number {
-    if (typeof window === 'undefined') return 40;
+    if (typeof window === 'undefined') return 80;
     const val = getComputedStyle(this).getPropertyValue('--uibit-scratch-reveal-brush-size').trim();
-    return val ? parseFloat(val) || 40 : 40;
+    return val ? parseFloat(val) || 80 : 80;
   }
 
   @state() private isRevealed = false;

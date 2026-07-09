@@ -13,18 +13,18 @@ import { styles } from './styles';
  *
  * @fires {{ phrase: string, index: number }} phrase-change - Fired when a new phrase begins typing
  *
- * @cssprop [--uibit-typing-text-font-size=inherit] - Font size
- * @cssprop [--uibit-typing-text-font-weight=inherit] - Font weight
- * @cssprop [--uibit-typing-text-color=inherit] - Text color
- * @cssprop [--uibit-typing-text-font-family=inherit] - Font family
- * @cssprop [--uibit-typing-text-line-height=inherit] - Line height
- * @cssprop [--uibit-typing-text-cursor-color=currentColor] - Cursor bar color
- * @cssprop [--uibit-typing-text-cursor-width=0.125rem] - Cursor bar width
- * @cssprop [--uibit-typing-text-cursor-radius=0.0625rem] - Cursor bar border radius
- * @cssprop [--uibit-typing-text-cursor-blink=0.75s] - Cursor blink interval
+ * @cssprop [--uibit-text-typing-font-size=inherit] - Font size
+ * @cssprop [--uibit-text-typing-font-weight=inherit] - Font weight
+ * @cssprop [--uibit-text-typing-color=inherit] - Text color
+ * @cssprop [--uibit-text-typing-font-family=inherit] - Font family
+ * @cssprop [--uibit-text-typing-line-height=inherit] - Line height
+ * @cssprop [--uibit-text-typing-cursor-color=currentColor] - Cursor bar color
+ * @cssprop [--uibit-text-typing-cursor-width=0.125rem] - Cursor bar width
+ * @cssprop [--uibit-text-typing-cursor-radius=0.0625rem] - Cursor bar border radius
+ * @cssprop [--uibit-text-typing-cursor-blink=0.75s] - Cursor blink interval
  */
-@customElement('uibit-typing-text')
-export class TypingText extends LitElement {
+@customElement('uibit-text-typing')
+export class TextTyping extends LitElement {
   static styles = styles;
 
   /** JSON array of phrases to cycle through. */
@@ -91,15 +91,12 @@ export class TypingText extends LitElement {
     const phrase = this.phrases[this._phraseIndex] ?? '';
 
     if (!this._deleting) {
-      // Typing forward
       if (this._charIndex < phrase.length) {
-        // Simulate typo: inject wrong char then schedule immediate correction
         if (!this._typoChar && Math.random() < this.typoRate) {
           const wrongChar = String.fromCharCode(phrase.charCodeAt(this._charIndex) + (Math.random() > 0.5 ? 1 : -1));
           this._visible += wrongChar;
           this._typoChar = wrongChar;
           this._timer = setTimeout(() => {
-            // Delete the typo
             this._visible = this._visible.slice(0, -1);
             this._typoChar = '';
             this._tick();
@@ -111,7 +108,6 @@ export class TypingText extends LitElement {
         this._charIndex++;
         this._timer = setTimeout(() => this._tick(), this._jitter(this.typeSpeed));
       } else {
-        // Phrase complete — pause then delete
         this.setAttribute('paused', '');
         this._timer = setTimeout(() => {
           this.removeAttribute('paused');
@@ -120,13 +116,11 @@ export class TypingText extends LitElement {
         }, this.pauseAfter);
       }
     } else {
-      // Deleting backward
       if (this._charIndex > 0) {
         this._charIndex--;
         this._visible = phrase.slice(0, this._charIndex);
         this._timer = setTimeout(() => this._tick(), this._jitter(this.deleteSpeed));
       } else {
-        // Done deleting — move to next phrase
         this._deleting = false;
         const next = (this._phraseIndex + 1) % this.phrases.length;
         if (!this.loop && next === 0) return;
@@ -153,13 +147,13 @@ export class TypingText extends LitElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'uibit-typing-text': TypingText;
+    'uibit-text-typing': TextTyping;
   }
   namespace JSX {
     interface IntrinsicElements {
-      'uibit-typing-text': TypingText;
+      'uibit-text-typing': TextTyping;
     }
   }
 }
 
-export default TypingText;
+export default TextTyping;

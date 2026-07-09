@@ -6,8 +6,8 @@ export const styles = css`
     --uibit-carousel-duration: 300ms;
     --uibit-carousel-items-per-view: 1;
     --uibit-carousel-border-color: #e5e7eb;
-    --uibit-carousel-button-bg: #f9fafb;
-    --uibit-carousel-button-bg-hover: #f3f4f6;
+    --uibit-carousel-button-bg: #ffffff;
+    --uibit-carousel-button-bg-hover: #000000;
     --uibit-carousel-indicator-bg: #e5e7eb;
     --uibit-carousel-indicator-active-bg: #000000;
     --uibit-carousel-focus-color: #000000;
@@ -77,7 +77,7 @@ export const styles = css`
     font-weight: 500;
     font-size: 0.875rem;
     color: #111827;
-    transition: background-color 150ms ease;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
@@ -85,10 +85,12 @@ export const styles = css`
 
   .carousel-button:hover:not(:disabled) {
     background-color: var(--uibit-carousel-button-bg-hover);
+    color: #ffffff;
+    border-color: var(--uibit-carousel-button-bg-hover);
   }
 
   .carousel-button:disabled {
-    opacity: 0.4;
+    opacity: 0.3;
     cursor: not-allowed;
   }
 
@@ -100,18 +102,19 @@ export const styles = css`
   .carousel-indicators {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
     justify-content: center;
   }
 
   .carousel-indicator {
-    width: 0.375rem;
-    height: 0.375rem;
+    width: 0.5rem;
+    height: 0.5rem;
     border-radius: 9999rem;
     background-color: var(--uibit-carousel-indicator-bg);
     cursor: pointer;
     border: none;
     padding: 0;
-    transition: background-color 150ms ease, transform 150ms ease;
+    transition: background-color 150ms ease, width 150ms ease, border-radius 150ms ease;
   }
 
   .carousel-indicator:hover {
@@ -119,27 +122,14 @@ export const styles = css`
   }
 
   .carousel-indicator.active {
+    width: 1.25rem;
+    border-radius: 0.25rem;
     background-color: var(--uibit-carousel-indicator-active-bg);
-    transform: scale(1.25);
   }
 
   .carousel-indicator:focus-visible {
     outline: 0.125rem solid var(--uibit-carousel-focus-color);
     outline-offset: 0.125rem;
-  }
-
-  @supports (animation-timeline: view()) {
-    .carousel-indicator {
-      animation: indicator-glow linear;
-      animation-timeline: view();
-      animation-range: entry 0% cover 100%;
-    }
-
-    @keyframes indicator-glow {
-      to {
-        background-color: var(--uibit-carousel-indicator-active-bg);
-      }
-    }
   }
 
   @media (max-width: 40rem) {
