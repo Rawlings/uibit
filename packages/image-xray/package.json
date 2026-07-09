@@ -1,0 +1,47 @@
+{
+  "name": "@uibit/image-xray",
+  "version": "0.1.0",
+  "description": "Floating circular lens that reveals a synchronized secondary image as the cursor moves over a primary image",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./custom-elements.json": "./custom-elements.json"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "custom-elements.json"
+  ],
+  "scripts": {
+    "build": "npm run analyze && tsc",
+    "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
+  },
+  "keywords": ["xray", "lens", "loupe", "image", "reveal", "web-component", "lit"],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/image-xray"
+  },
+  "dependencies": {
+    "@uibit/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "lit": "^3.3.3",
+    "typescript": "7.0.2"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  },
+  "customElements": "custom-elements.json"
+}

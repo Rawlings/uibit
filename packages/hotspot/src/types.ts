@@ -2,8 +2,8 @@ import type Hotspot from './hotspot';
 
 export interface HotspotItem {
   id: string;
-  x: number;
-  y: number;
+  x: string | number;
+  y: string | number;
   label: string;
   title?: string;
   content?: string;

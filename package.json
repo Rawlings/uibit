@@ -20,6 +20,11 @@
     "build:countdown": "pnpm -F countdown run build",
     "build:scratch-reveal": "pnpm -F scratch-reveal run build",
     "build:signature-pad": "pnpm -F signature-pad run build",
+    "build:image-xray": "pnpm -F image-xray run build",
+    "build:number-ticker": "pnpm -F number-ticker run build",
+    "build:read-timer": "pnpm -F read-timer run build",
+    "build:typing-text": "pnpm -F typing-text run build",
+    "build:sentiment-bar": "pnpm -F sentiment-bar run build",
     "build:docs": "pnpm -F docs run build",
     "preview": "pnpm -F docs run preview",
     "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze"

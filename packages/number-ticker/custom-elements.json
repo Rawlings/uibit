@@ -1,0 +1,407 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./number-ticker"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "NumberTicker",
+          "declaration": {
+            "name": "NumberTicker",
+            "module": "./number-ticker"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/number-ticker.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Animates a numeric value from zero (or a custom start) up to the `value`\nattribute once the element scrolls into the viewport. Supports easing,\ndecimal places, prefix/suffix strings, and locale-aware formatting.\n\nThe animation runs entirely in the shadow DOM on a rAF loop so it never\nblocks the main thread via layout thrashing.",
+          "name": "NumberTicker",
+          "cssProperties": [
+            {
+              "description": "Font size",
+              "name": "--uibit-number-ticker-font-size",
+              "default": "inherit"
+            },
+            {
+              "description": "Font weight",
+              "name": "--uibit-number-ticker-font-weight",
+              "default": "inherit"
+            },
+            {
+              "description": "Text color",
+              "name": "--uibit-number-ticker-color",
+              "default": "inherit"
+            },
+            {
+              "description": "Font family",
+              "name": "--uibit-number-ticker-font-family",
+              "default": "inherit"
+            },
+            {
+              "description": "Line height",
+              "name": "--uibit-number-ticker-line-height",
+              "default": "inherit"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Target numeric value to count up to.",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "from",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Starting value for the animation.",
+              "attribute": "from"
+            },
+            {
+              "kind": "field",
+              "name": "duration",
+              "type": {
+                "text": "number"
+              },
+              "default": "1800",
+              "description": "Duration of the count animation in milliseconds.",
+              "attribute": "duration"
+            },
+            {
+              "kind": "field",
+              "name": "decimals",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Number of decimal places to display.",
+              "attribute": "decimals"
+            },
+            {
+              "kind": "field",
+              "name": "prefix",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "String prepended to the value (e.g. \"$\").",
+              "attribute": "prefix"
+            },
+            {
+              "kind": "field",
+              "name": "suffix",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "String appended to the value (e.g. \"k\" or \"%\").",
+              "attribute": "suffix"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "BCP 47 locale string for number formatting (e.g. \"en-US\"). Empty disables locale formatting.",
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "easing",
+              "type": {
+                "text": "'ease-out' | 'ease-in-out' | 'linear'"
+              },
+              "default": "'ease-out'",
+              "description": "Easing curve: \"ease-out\" | \"ease-in-out\" | \"linear\".",
+              "attribute": "easing"
+            },
+            {
+              "kind": "field",
+              "name": "threshold",
+              "type": {
+                "text": "number"
+              },
+              "default": "0.2",
+              "description": "Intersection threshold (0–1) at which the animation triggers.",
+              "attribute": "threshold"
+            },
+            {
+              "kind": "field",
+              "name": "repeat",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Re-animate each time the element re-enters the viewport.",
+              "attribute": "repeat"
+            },
+            {
+              "kind": "field",
+              "name": "_display",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "_observer",
+              "type": {
+                "text": "IntersectionObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_raf",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_started",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "_ease",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "t",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_format",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "n",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_start",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "ticker-start",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "ticker-end",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "description": "ticker-end - Fired when the count animation completes",
+              "name": "void"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Target numeric value to count up to.",
+              "fieldName": "value"
+            },
+            {
+              "name": "from",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Starting value for the animation.",
+              "fieldName": "from"
+            },
+            {
+              "name": "duration",
+              "type": {
+                "text": "number"
+              },
+              "default": "1800",
+              "description": "Duration of the count animation in milliseconds.",
+              "fieldName": "duration"
+            },
+            {
+              "name": "decimals",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "Number of decimal places to display.",
+              "fieldName": "decimals"
+            },
+            {
+              "name": "prefix",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "String prepended to the value (e.g. \"$\").",
+              "fieldName": "prefix"
+            },
+            {
+              "name": "suffix",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "String appended to the value (e.g. \"k\" or \"%\").",
+              "fieldName": "suffix"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "BCP 47 locale string for number formatting (e.g. \"en-US\"). Empty disables locale formatting.",
+              "fieldName": "locale"
+            },
+            {
+              "name": "easing",
+              "type": {
+                "text": "'ease-out' | 'ease-in-out' | 'linear'"
+              },
+              "default": "'ease-out'",
+              "description": "Easing curve: \"ease-out\" | \"ease-in-out\" | \"linear\".",
+              "fieldName": "easing"
+            },
+            {
+              "name": "threshold",
+              "type": {
+                "text": "number"
+              },
+              "default": "0.2",
+              "description": "Intersection threshold (0–1) at which the animation triggers.",
+              "fieldName": "threshold"
+            },
+            {
+              "name": "repeat",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Re-animate each time the element re-enters the viewport.",
+              "fieldName": "repeat"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-number-ticker",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NumberTicker",
+          "declaration": {
+            "name": "NumberTicker",
+            "module": "src/number-ticker.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-number-ticker",
+          "declaration": {
+            "name": "NumberTicker",
+            "module": "src/number-ticker.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "NumberTicker",
+            "module": "src/number-ticker.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { display: inline-block; font-variant-numeric: tabular-nums; font-size: var(--uibit-number-ticker-font-size, inherit); font-weight: var(--uibit-number-ticker-font-weight, inherit); color: var(--uibit-number-ticker-color, inherit); font-family: var(--uibit-number-ticker-font-family, inherit); line-height: var(--uibit-number-ticker-line-height, inherit); } .value { display: inline; } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

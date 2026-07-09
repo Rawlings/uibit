@@ -148,10 +148,15 @@ export class Hotspot extends LitElement {
         ${this.hotspots.map((spot, index) => {
           const spotId = spot.id || String(index);
           const isOpened = this.activeHotspotId === spotId;
-          const positionClass = spot.y < 30 ? 'position-below' : 'position-above';
+          
+          const yVal = typeof spot.y === 'number' ? spot.y : parseFloat(String(spot.y || '0'));
+          const positionClass = yVal < 30 ? 'position-below' : 'position-above';
+
+          const leftStyle = typeof spot.x === 'number' ? `${spot.x}%` : (String(spot.x).endsWith('%') ? spot.x : `${spot.x}%`);
+          const topStyle = typeof spot.y === 'number' ? `${spot.y}%` : (String(spot.y).endsWith('%') ? spot.y : `${spot.y}%`);
 
           return html`
-            <div part="wrapper" class="hotspot-wrapper" style="left: ${spot.x}%; top: ${spot.y}%">
+            <div part="wrapper" class="hotspot-wrapper" style="left: ${leftStyle}; top: ${topStyle}">
               <button
                 part="trigger ${isOpened ? 'trigger-active' : ''}"
                 class="hotspot-trigger ${isOpened ? 'active' : ''}"

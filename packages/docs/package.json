@@ -20,6 +20,11 @@
     "@uibit/scratch-reveal": "workspace:*",
     "@uibit/signature-pad": "workspace:*",
     "@uibit/scroll-progress": "workspace:*",
+    "@uibit/image-xray": "workspace:*",
+    "@uibit/number-ticker": "workspace:*",
+    "@uibit/read-timer": "workspace:*",
+    "@uibit/typing-text": "workspace:*",
+    "@uibit/sentiment-bar": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.18.1"

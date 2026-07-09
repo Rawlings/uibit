@@ -1,0 +1,385 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./typing-text"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TypingText",
+          "declaration": {
+            "name": "TypingText",
+            "module": "./typing-text"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { display: inline; font-size: var(--uibit-typing-text-font-size, inherit); font-weight: var(--uibit-typing-text-font-weight, inherit); color: var(--uibit-typing-text-color, inherit); font-family: var(--uibit-typing-text-font-family, inherit); line-height: var(--uibit-typing-text-line-height, inherit); } .text { display: inline; } .cursor { display: inline-block; width: var(--uibit-typing-text-cursor-width, 0.125rem); height: 1.1em; background: var(--uibit-typing-text-cursor-color, currentColor); margin-left: 0.05em; vertical-align: text-bottom; border-radius: var(--uibit-typing-text-cursor-radius, 0.0625rem); animation: blink var(--uibit-typing-text-cursor-blink, 0.75s) step-end infinite; } :host([paused]) .cursor { animation: none; opacity: 1; } @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/typing-text.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Cycles through an array of phrases by simulating realistic keystroke\ntyping and backspace deletion. Includes subtle speed variance, randomized\nsimulated typos that auto-correct, and a blinking cursor node.\n\nPass phrases as a JSON array string on the `phrases` attribute, or set the\nproperty directly.",
+          "name": "TypingText",
+          "cssProperties": [
+            {
+              "description": "Font size",
+              "name": "--uibit-typing-text-font-size",
+              "default": "inherit"
+            },
+            {
+              "description": "Font weight",
+              "name": "--uibit-typing-text-font-weight",
+              "default": "inherit"
+            },
+            {
+              "description": "Text color",
+              "name": "--uibit-typing-text-color",
+              "default": "inherit"
+            },
+            {
+              "description": "Font family",
+              "name": "--uibit-typing-text-font-family",
+              "default": "inherit"
+            },
+            {
+              "description": "Line height",
+              "name": "--uibit-typing-text-line-height",
+              "default": "inherit"
+            },
+            {
+              "description": "Cursor bar color",
+              "name": "--uibit-typing-text-cursor-color",
+              "default": "currentColor"
+            },
+            {
+              "description": "Cursor bar width",
+              "name": "--uibit-typing-text-cursor-width",
+              "default": "0.125rem"
+            },
+            {
+              "description": "Cursor bar border radius",
+              "name": "--uibit-typing-text-cursor-radius",
+              "default": "0.0625rem"
+            },
+            {
+              "description": "Cursor blink interval",
+              "name": "--uibit-typing-text-cursor-blink",
+              "default": "0.75s"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "phrases",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "description": "JSON array of phrases to cycle through.",
+              "attribute": "phrases"
+            },
+            {
+              "kind": "field",
+              "name": "typeSpeed",
+              "type": {
+                "text": "number"
+              },
+              "default": "80",
+              "description": "Base typing speed in ms per character. A small random variance is applied.",
+              "attribute": "type-speed"
+            },
+            {
+              "kind": "field",
+              "name": "deleteSpeed",
+              "type": {
+                "text": "number"
+              },
+              "default": "40",
+              "description": "Base delete speed in ms per character.",
+              "attribute": "delete-speed"
+            },
+            {
+              "kind": "field",
+              "name": "pauseAfter",
+              "type": {
+                "text": "number"
+              },
+              "default": "1800",
+              "description": "Pause in ms after finishing a phrase before starting to delete.",
+              "attribute": "pause-after"
+            },
+            {
+              "kind": "field",
+              "name": "pauseBefore",
+              "type": {
+                "text": "number"
+              },
+              "default": "400",
+              "description": "Pause in ms after fully deleting before typing the next phrase.",
+              "attribute": "pause-before"
+            },
+            {
+              "kind": "field",
+              "name": "typoRate",
+              "type": {
+                "text": "number"
+              },
+              "default": "0.04",
+              "description": "Probability (0–1) that a character will be mis-typed and immediately corrected.",
+              "attribute": "typo-rate"
+            },
+            {
+              "kind": "field",
+              "name": "showCursor",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Show the blinking cursor.",
+              "attribute": "show-cursor"
+            },
+            {
+              "kind": "field",
+              "name": "loop",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Loop indefinitely. Set to false to stop after the last phrase.",
+              "attribute": "loop"
+            },
+            {
+              "kind": "field",
+              "name": "_visible",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "_timer",
+              "type": {
+                "text": "ReturnType<typeof setTimeout> | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_phraseIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_charIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_deleting",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_typoChar",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "''"
+            },
+            {
+              "kind": "method",
+              "name": "_jitter",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "base",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "factor",
+                  "default": "0.4"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_tick",
+              "privacy": "private"
+            }
+          ],
+          "events": [
+            {
+              "name": "phrase-change",
+              "type": {
+                "text": "{ phrase: string, index: number }"
+              },
+              "description": "Fired when a new phrase begins typing"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "phrases",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "description": "JSON array of phrases to cycle through.",
+              "fieldName": "phrases"
+            },
+            {
+              "name": "type-speed",
+              "type": {
+                "text": "number"
+              },
+              "default": "80",
+              "description": "Base typing speed in ms per character. A small random variance is applied.",
+              "fieldName": "typeSpeed"
+            },
+            {
+              "name": "delete-speed",
+              "type": {
+                "text": "number"
+              },
+              "default": "40",
+              "description": "Base delete speed in ms per character.",
+              "fieldName": "deleteSpeed"
+            },
+            {
+              "name": "pause-after",
+              "type": {
+                "text": "number"
+              },
+              "default": "1800",
+              "description": "Pause in ms after finishing a phrase before starting to delete.",
+              "fieldName": "pauseAfter"
+            },
+            {
+              "name": "pause-before",
+              "type": {
+                "text": "number"
+              },
+              "default": "400",
+              "description": "Pause in ms after fully deleting before typing the next phrase.",
+              "fieldName": "pauseBefore"
+            },
+            {
+              "name": "typo-rate",
+              "type": {
+                "text": "number"
+              },
+              "default": "0.04",
+              "description": "Probability (0–1) that a character will be mis-typed and immediately corrected.",
+              "fieldName": "typoRate"
+            },
+            {
+              "name": "show-cursor",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Show the blinking cursor.",
+              "fieldName": "showCursor"
+            },
+            {
+              "name": "loop",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Loop indefinitely. Set to false to stop after the last phrase.",
+              "fieldName": "loop"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-typing-text",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TypingText",
+          "declaration": {
+            "name": "TypingText",
+            "module": "src/typing-text.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-typing-text",
+          "declaration": {
+            "name": "TypingText",
+            "module": "src/typing-text.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "TypingText",
+            "module": "src/typing-text.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./sentiment-bar"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SentimentBar",
+          "declaration": {
+            "name": "SentimentBar",
+            "module": "./sentiment-bar"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "SentimentOption",
+          "declaration": {
+            "name": "SentimentOption",
+            "module": "./sentiment-bar"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/sentiment-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "Micro-feedback widget displaying a horizontal row of expressive emoji\noptions. Tapping or clicking an option scales it up with a spring animation\nand fires a scored event. Grayscale dimming on unselected options draws\nfocus to the current selection.\n\nCustomize the option set by setting the `options` property programmatically\nor by passing a JSON array string on the `options` attribute.",
+          "name": "SentimentBar",
+          "cssProperties": [
+            {
+              "description": "Track background color",
+              "name": "--uibit-sentiment-bar-bg",
+              "default": "#f3f4f6"
+            },
+            {
+              "description": "Track border",
+              "name": "--uibit-sentiment-bar-border",
+              "default": "0.0625rem solid #e5e7eb"
+            },
+            {
+              "description": "Track border radius",
+              "name": "--uibit-sentiment-bar-radius",
+              "default": "9999px"
+            },
+            {
+              "description": "Track padding",
+              "name": "--uibit-sentiment-bar-padding",
+              "default": "0.375rem"
+            },
+            {
+              "description": "Gap between items",
+              "name": "--uibit-sentiment-bar-item-gap",
+              "default": "0.25rem"
+            },
+            {
+              "description": "Width and height of each item button",
+              "name": "--uibit-sentiment-bar-item-size",
+              "default": "2.5rem"
+            },
+            {
+              "description": "Font size of each emoji",
+              "name": "--uibit-sentiment-bar-emoji-size",
+              "default": "1.25rem"
+            },
+            {
+              "description": "Item hover background",
+              "name": "--uibit-sentiment-bar-item-hover-bg",
+              "default": "rgba(0,0,0,0.06)"
+            },
+            {
+              "description": "Selected item background",
+              "name": "--uibit-sentiment-bar-item-selected-bg",
+              "default": "#ffffff"
+            },
+            {
+              "description": "Selected item shadow",
+              "name": "--uibit-sentiment-bar-item-selected-shadow",
+              "default": "0 0.125rem 0.5rem rgba(0,0,0,0.12)"
+            },
+            {
+              "description": "Grayscale amount for unselected items (0–1)",
+              "name": "--uibit-sentiment-bar-unselected-grayscale",
+              "default": "0.5"
+            },
+            {
+              "description": "Label font size",
+              "name": "--uibit-sentiment-bar-label-font-size",
+              "default": "0.75rem"
+            },
+            {
+              "description": "Label font weight",
+              "name": "--uibit-sentiment-bar-label-font-weight",
+              "default": "500"
+            },
+            {
+              "description": "Label color",
+              "name": "--uibit-sentiment-bar-label-color",
+              "default": "#6b7280"
+            },
+            {
+              "description": "Gap between track and label",
+              "name": "--uibit-sentiment-bar-gap",
+              "default": "0.625rem"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "SentimentOption[]"
+              },
+              "default": "[ { value: 1, emoji: '😣', label: 'Terrible' }, { value: 2, emoji: '😕', label: 'Bad' }, { value: 3, emoji: '😐', label: 'Okay' }, { value: 4, emoji: '😊', label: 'Good' }, { value: 5, emoji: '😍', label: 'Excellent' }, ]",
+              "description": "Array of sentiment options. Each must have `value` (number), `emoji` (string), and `label` (string).",
+              "attribute": "options"
+            },
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Currently selected value. Reflected as an attribute.",
+              "attribute": "value",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "showLabel",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Show the label text for the selected option below the track.",
+              "attribute": "show-label"
+            },
+            {
+              "kind": "field",
+              "name": "_hoverValue",
+              "type": {
+                "text": "number | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_select",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "option",
+                  "type": {
+                    "text": "SentimentOption"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_activeLabel",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "sentiment-change",
+              "type": {
+                "text": "{ value: number, label: string }"
+              },
+              "description": "Fired when the user selects an option"
+            },
+            {
+              "name": "sentiment-submit",
+              "type": {
+                "text": "{ value: number, label: string }"
+              },
+              "description": "Fired when the user confirms a selection (second tap or explicit submit)"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "options",
+              "type": {
+                "text": "SentimentOption[]"
+              },
+              "default": "DEFAULT_OPTIONS",
+              "description": "Array of sentiment options. Each must have `value` (number), `emoji` (string), and `label` (string).",
+              "fieldName": "options"
+            },
+            {
+              "name": "value",
+              "type": {
+                "text": "number | undefined"
+              },
+              "description": "Currently selected value. Reflected as an attribute.",
+              "fieldName": "value"
+            },
+            {
+              "name": "show-label",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "Show the label text for the selected option below the track.",
+              "fieldName": "showLabel"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "uibit-sentiment-bar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SentimentBar",
+          "declaration": {
+            "name": "SentimentBar",
+            "module": "src/sentiment-bar.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-sentiment-bar",
+          "declaration": {
+            "name": "SentimentBar",
+            "module": "src/sentiment-bar.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "SentimentBar",
+            "module": "src/sentiment-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { display: inline-flex; flex-direction: column; align-items: center; gap: var(--uibit-sentiment-bar-gap, 0.625rem); font-family: var(--uibit-sentiment-bar-font-family, inherit); -webkit-user-select: none; user-select: none; } .track { display: flex; align-items: center; gap: var(--uibit-sentiment-bar-item-gap, 0.25rem); padding: var(--uibit-sentiment-bar-padding, 0.375rem); background: var(--uibit-sentiment-bar-bg, #f3f4f6); border-radius: var(--uibit-sentiment-bar-radius, 9999px); border: var(--uibit-sentiment-bar-border, 0.0625rem solid #e5e7eb); } .item { display: flex; align-items: center; justify-content: center; width: var(--uibit-sentiment-bar-item-size, 2.5rem); height: var(--uibit-sentiment-bar-item-size, 2.5rem); border-radius: 50%; cursor: pointer; transition: background 0.2s ease, transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1); font-size: var(--uibit-sentiment-bar-emoji-size, 1.25rem); line-height: 1; position: relative; border: none; background: transparent; outline: none; } .item:hover, .item:focus-visible { background: var(--uibit-sentiment-bar-item-hover-bg, rgba(0, 0, 0, 0.06)); transform: scale(1.15) translateY(-0.125rem); } .item[data-selected] { background: var(--uibit-sentiment-bar-item-selected-bg, #ffffff); box-shadow: var(--uibit-sentiment-bar-item-selected-shadow, 0 0.125rem 0.5rem rgba(0, 0, 0, 0.12)); transform: scale(1.25) translateY(-0.25rem); } .item[data-selected]:hover { transform: scale(1.3) translateY(-0.3rem); } .emoji { display: block; transition: filter 0.2s ease; line-height: 1; } .item:not([data-selected]) .emoji { filter: grayscale(var(--uibit-sentiment-bar-unselected-grayscale, 0.5)) opacity(0.7); } .label { font-size: var(--uibit-sentiment-bar-label-font-size, 0.75rem); font-weight: var(--uibit-sentiment-bar-label-font-weight, 500); color: var(--uibit-sentiment-bar-label-color, #6b7280); min-height: 1em; text-align: center; transition: opacity 0.2s ease; } :host(:not([value])) .label { opacity: 0; } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

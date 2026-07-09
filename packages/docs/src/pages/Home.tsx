@@ -55,6 +55,36 @@ const COMPONENTS = [
     description: 'Canvas drawing area for capturing freehand signatures using touch or mouse gestures, rendered as smooth bezier-curved vector lines with simulated pen pressure.',
     install: '@uibit/signature-pad',
   },
+  {
+    id: 'image-xray',
+    name: 'Image Xray',
+    description: 'Floating circular lens that follows the cursor or touch point, revealing a synchronized secondary image exactly where the user looks. Built for luxury product storytelling.',
+    install: '@uibit/image-xray',
+  },
+  {
+    id: 'number-ticker',
+    name: 'Number Ticker',
+    description: 'Intersection-aware numeric counter that animates to a target value once it scrolls into the viewport. Supports easing curves, locale formatting, prefix/suffix, and currency symbols.',
+    install: '@uibit/number-ticker',
+  },
+  {
+    id: 'read-timer',
+    name: 'Read Timer',
+    description: 'Text-analyzer badge that scans slotted content, calculates average reading duration, and outputs a clean estimate. Works in any CMS template without backend metadata.',
+    install: '@uibit/read-timer',
+  },
+  {
+    id: 'typing-text',
+    name: 'Typing Text',
+    description: 'Headline text block that cycles through marketing phrases with realistic typing and deletion, speed variance, simulated auto-correcting typos, and a blinking cursor.',
+    install: '@uibit/typing-text',
+  },
+  {
+    id: 'sentiment-bar',
+    name: 'Sentiment Bar',
+    description: 'Micro-feedback widget with a row of expressive emoji options. Selecting one triggers a spring animation, dims alternatives, and fires a scored event instantly on release.',
+    install: '@uibit/sentiment-bar',
+  },
 ];
 
 function Home() {
