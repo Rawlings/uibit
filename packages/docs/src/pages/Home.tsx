@@ -6,7 +6,7 @@ function Home() {
   useHead({
     title: 'UIBit – Premium Web Components',
     description:
-      'Accessible, framework-agnostic web components built with Lit. Performance-first design for modern interfaces.',
+      'A curated library of high-quality web components built on native browser standards. Encapsulated, accessible, and designed to last.',
   });
 
   const componentsMap = Object.keys(componentRegistry).reduce((acc, key) => {
@@ -15,19 +15,19 @@ function Home() {
       id: comp.id,
       name: comp.title,
       description: comp.description,
-      install: comp.packageName,
+      packageName: comp.packageName,
+      tagName: comp.tagName,
     };
     return acc;
-  }, {} as Record<string, { id: string; name: string; description: string; install: string }>);
+  }, {} as Record<string, { id: string; name: string; description: string; packageName: string; tagName: string }>);
 
-  // Group components by functional category
   const categories = [
     {
       name: 'Visual & Media',
       ids: ['carousel', 'viewer-360', 'hotspot', 'image-xray', 'isometric-cluster'],
     },
     {
-      name: 'Forms & Inputs',
+      name: 'Forms & Input',
       ids: ['signature-pad', 'sentiment-bar', 'consent-guard'],
     },
     {
@@ -38,26 +38,41 @@ function Home() {
       name: 'Data & Utilities',
       ids: ['table', 'scroll-progress', 'number-ticker', 'countdown', 'effect-trigger', 'scratch-reveal', 'diff-viewer'],
     },
+    {
+      name: 'A/B Testing',
+      ids: ['ab-test'],
+    },
   ];
 
   return (
     <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
       {/* Hero Section */}
       <section className="relative max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6">
+        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-5">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-950 via-gray-700 to-gray-800 dark:from-white dark:via-gray-200 dark:to-gray-400 font-sans">
-            Web components built right.
+            UI components the browser understands.
           </span>
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto leading-relaxed mb-8">
-          A clean catalog of accessible, framework-agnostic web components powered by Lit. Designed for modern web applications.
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto leading-relaxed mb-4">
+          A curated set of polished, accessible web components built on the platform itself — not on top of it.
+          No virtual DOM. No runtime overhead. Just elements.
         </p>
+        <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">
+          Built with Lit · Shadow DOM encapsulated · WCAG AA accessible
+        </p>
+
+        {/* Quick install */}
+        <div className="inline-flex items-center gap-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-2.5 mb-8 font-mono text-sm text-gray-700 dark:text-gray-300">
+          <span className="text-gray-400 dark:text-gray-500 select-none">$</span>
+          npm install @uibit/core
+        </div>
+
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             to="/styling"
             className="px-5 py-2.5 bg-gray-900 text-white dark:bg-gray-50 dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-all text-sm shadow-sm"
           >
-            Get Started
+            Read the docs
           </Link>
           <a
             href="https://github.com/rawlings/uibit"
@@ -74,24 +89,66 @@ function Home() {
         </div>
       </section>
 
+      {/* Why UIBit */}
+      <section className="max-w-5xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-900">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          {[
+            {
+              heading: 'Works Everywhere',
+              body: 'Standard HTML custom elements run natively in any framework or plain HTML — the same tag, the same API, the same bundle. No framework-specific builds.',
+            },
+            {
+              heading: 'Isolated by Default',
+              body: 'Shadow DOM encapsulation means component internals are invisible to global styles. Your CSS never breaks our components; our CSS never leaks into yours.',
+            },
+            {
+              heading: 'Typed for Your Stack',
+              body: 'Auto-generated wrappers ship type definitions for React 19, Vue 3, Svelte 5, Angular, Astro, Preact, Stencil, and vanilla TypeScript — full IDE autocomplete, zero runtime overhead.',
+            },
+          ].map(({ heading, body }) => (
+            <div key={heading}>
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">{heading}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Guides Section */}
       <section className="max-w-5xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-900">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-5">Guides</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { to: '/styling', label: 'Styling', description: 'CSS custom properties and density.' },
-            { to: '/localization', label: 'Localization', description: 'Built-in labels and text overrides.' },
-            { to: '/icons', label: 'Icons', description: 'Default vector asset customization.' },
-            { to: '/foundations', label: 'Frameworks', description: 'Framework wrapper integration and codegen.' },
+            {
+              to: '/styling',
+              label: 'Styling & Theming',
+              description: 'Three-tier CSS token architecture. Override anything from global palette to per-component properties.',
+            },
+            {
+              to: '/localization',
+              label: 'Localization',
+              description: 'Ship in any language. Built-in @lit/localize support with automatic RTL layout handling.',
+            },
+            {
+              to: '/icons',
+              label: 'Icons',
+              description: 'Built-in Lucide icons. Override any icon or register your own with a single function call.',
+            },
+            {
+              to: '/foundations',
+              label: 'Framework Integrations',
+              description: 'Auto-generated type wrappers for React, Vue, Svelte, Angular, Astro, and more.',
+            },
           ].map(({ to, label, description }) => (
             <Link
               key={to}
               to={to}
               className="p-5 border border-gray-100 dark:border-gray-900/60 rounded-xl hover:border-gray-300 dark:hover:border-gray-800 transition-all group block"
             >
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
                 {label}
               </h3>
-              <p className="text-xs text-gray-600 dark:text-gray-400">
+              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
                 {description}
               </p>
             </Link>
@@ -101,7 +158,7 @@ function Home() {
 
       {/* Components Section */}
       <section id="components" className="max-w-5xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-900 scroll-mt-20">
-        <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white mb-10">
+        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-8">
           Components
         </h2>
 
@@ -115,26 +172,34 @@ function Home() {
 
             return (
               <div key={idx} className="space-y-4">
-                <h3 className="text-sm font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
-                  {cat.name}
-                </h3>
+                <div className="flex items-center gap-3">
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                    {cat.name}
+                  </h3>
+                  <span className="text-xs text-gray-400 dark:text-gray-600">{catComps.length}</span>
+                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {catComps.map((comp) => (
                     <Link
                       key={comp.id}
                       to={`/${comp.id}`}
-                      className="p-5 border border-gray-100 dark:border-gray-900 bg-gray-50/20 dark:bg-gray-900/10 rounded-xl hover:border-gray-300 dark:hover:border-gray-800 transition-all group block"
+                      className="p-5 border border-gray-100 dark:border-gray-900 rounded-xl hover:border-gray-300 dark:hover:border-gray-800 transition-all group block"
                     >
                       <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1.5 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
                         {comp.name}
                       </h4>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-3 line-clamp-2">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
                         {comp.description}
                       </p>
-                      <span className="text-[10px] text-gray-400 dark:text-gray-500 font-mono">
-                        {comp.install}
-                      </span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] text-gray-400 dark:text-gray-500 font-mono">
+                          {comp.packageName}
+                        </span>
+                        <span className="text-[10px] text-gray-300 dark:text-gray-700 font-mono">
+                          {'<'}{comp.tagName}{'>'}
+                        </span>
+                      </div>
                     </Link>
                   ))}
                 </div>

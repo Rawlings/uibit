@@ -9,6 +9,8 @@ import { solidPlugin } from './templates/solid.js';
 import { astroPlugin } from './templates/astro.js';
 import { qwikPlugin } from './templates/qwik.js';
 import { nuxtPlugin } from './templates/nuxt.js';
+import { preactPlugin } from './templates/preact.js';
+import { stencilPlugin } from './templates/stencil.js';
 
 import type { ComponentMetadata } from './core/types.js';
 import { resolveExportedTypes } from './core/parser.js';
@@ -21,7 +23,9 @@ const plugins = [
   solidPlugin,
   astroPlugin,
   qwikPlugin,
-  nuxtPlugin
+  nuxtPlugin,
+  preactPlugin,
+  stencilPlugin
 ];
 
 function run() {

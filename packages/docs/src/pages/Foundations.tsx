@@ -45,12 +45,12 @@ export default function FoundationsGuide() {
 
             <div className="space-y-8">
               <div>
-                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">1. React / Next.js</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Includes <code>"use client";</code> for Next.js SSR compatibility.</p>
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">1. React (React 19 Native)</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Registers custom element tag names inside the global <code>React.JSX.IntrinsicElements</code> namespace for native custom elements JSX type safety without runtime component wrappers.</p>
                 <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed mb-6">
-                  <code>{`import { Table } from '@uibit/table/react';
+                  <code>{`import '@uibit/table/react'; // loads React 19 JSX types
 
-<Table searchable paginated={true} />`}</code>
+<uibit-table searchable={true} />`}</code>
                 </pre>
               </div>
 
@@ -80,10 +80,10 @@ export default function FoundationsGuide() {
                 <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">4. Angular</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Exposes a standalone component directive proxy.</p>
                 <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed mb-6">
-                  <code>{`import { TableProxy } from '@uibit/table/angular';
+                  <code>{`import { NgxTable } from '@uibit/table/angular';
 
 @Component({
-  imports: [TableProxy],
+  imports: [NgxTable],
   template: '<uibit-table [searchable]="true"></uibit-table>'
 })`}</code>
                 </pre>
@@ -96,6 +96,36 @@ export default function FoundationsGuide() {
                   <code>{`import '@uibit/table/astro'; // loads global types
 
 <uibit-table searchable client:load />`}</code>
+                </pre>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">6. Preact</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Extends Preact's native <code>JSX.IntrinsicElements</code> namespace to resolve type definitions without wrapper overhead.</p>
+                <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed mb-6">
+                  <code>{`import '@uibit/table/preact'; // loads Preact global types
+
+<uibit-table searchable={true} />`}</code>
+                </pre>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">7. Vanilla TS / Lit</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Registers custom elements in the global <code>HTMLElementTagNameMap</code> namespace for typed DOM operations.</p>
+                <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed mb-6">
+                  <code>{`import '@uibit/table/vanilla'; // registers global DOM types
+
+const table = document.createElement('uibit-table'); // typed as Table`}</code>
+                </pre>
+              </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">8. StencilJS</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">Maps custom element typings directly into Stencil's own JSX namespace for clean custom element composition.</p>
+                <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed mb-6">
+                  <code>{`import '@uibit/table/stencil'; // loads Stencil JSX types
+
+<uibit-table searchable={true} />`}</code>
                 </pre>
               </div>
             </div>

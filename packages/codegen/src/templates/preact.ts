@@ -1,8 +1,8 @@
 import type { ComponentMetadata } from '../core/types.js';
 import { SourceBuilder, mergePropertiesAndAttributes, generateTypeImports } from '../core/utils.js';
 
-export const reactPlugin = {
-  name: 'react',
+export const preactPlugin = {
+  name: 'preact',
   generate(component: ComponentMetadata) {
     return {
       'index.d.ts': buildDTS(component)
@@ -14,7 +14,7 @@ function buildDTS(component: ComponentMetadata): string {
   const { name, tagName, properties, attributes, referencedTypes } = component;
   const builder = new SourceBuilder();
 
-  builder.append(`import type { HTMLAttributes } from 'react';
+  builder.append(`import type { JSX } from 'preact';
 import type { ${name} as HTMLElementClass } from '../../index.js';
 import '../../index.js';
 ${generateTypeImports(referencedTypes)}`);
@@ -24,14 +24,12 @@ ${generateTypeImports(referencedTypes)}`);
     return `      ${propName}?: ${propType};`;
   }).join('\n');
 
-  builder.append(`declare global {
-  namespace React {
-    namespace JSX {
-      interface IntrinsicElements {
-        '${tagName}': HTMLElementClass & HTMLAttributes<HTMLElementClass> & {
+  builder.append(`declare module 'preact' {
+  namespace JSX {
+    interface IntrinsicElements {
+      '${tagName}': JSX.HTMLAttributes<HTMLElementClass> & {
 ${propTypes}
-        };
-      }
+      };
     }
   }
 }`);

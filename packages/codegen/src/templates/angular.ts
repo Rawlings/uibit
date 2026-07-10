@@ -25,7 +25,7 @@ function renderComponentClass(name: string, tagName: string): string {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
-export class ${name}Proxy {
+export class Ngx${name} {
   constructor(private el: ElementRef) {}
 }`;
 }
@@ -43,7 +43,7 @@ function renderDirectiveBindings(name: string, component: ComponentMetadata): st
     .join('\n');
 
   return `// Directives bindings
-export interface ${name}Proxy {
+export interface Ngx${name} {
 ${inputs}
 ${outputs}
 }`;
