@@ -1,3 +1,5 @@
+import type SignaturePad from './signature-pad';
+
 export interface SignaturePoint {
   x: number;
   y: number;
@@ -16,4 +18,15 @@ export interface SignatureChangeDetail {
 
 export interface SignatureClearDetail {
   previouslyEmpty: boolean;
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'uibit-signature-pad': SignaturePad;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'uibit-signature-pad': SignaturePad;
+    }
+  }
 }

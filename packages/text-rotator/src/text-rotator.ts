@@ -130,15 +130,4 @@ export class TextRotator extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-text-rotator': TextRotator;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-text-rotator': TextRotator;
-    }
-  }
-}
-
 export default TextRotator;

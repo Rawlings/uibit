@@ -85,15 +85,4 @@ export class ConsentGuard extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-consent-guard': ConsentGuard;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-consent-guard': ConsentGuard;
-    }
-  }
-}
-
 export default ConsentGuard;

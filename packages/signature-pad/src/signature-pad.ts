@@ -348,15 +348,4 @@ export class SignaturePad extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-signature-pad': SignaturePad;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-signature-pad': SignaturePad;
-    }
-  }
-}
-
 export default SignaturePad;

@@ -137,15 +137,4 @@ export class TextClamp extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-text-clamp': TextClamp;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-text-clamp': TextClamp;
-    }
-  }
-}
-
 export default TextClamp;

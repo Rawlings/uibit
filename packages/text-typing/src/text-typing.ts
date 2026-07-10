@@ -143,15 +143,4 @@ export class TextTyping extends UIBitElement {
   }
 }
 
-declare global {
-  interface HTMLElementTagNameMap {
-    'uibit-text-typing': TextTyping;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-text-typing': TextTyping;
-    }
-  }
-}
-
 export default TextTyping;
