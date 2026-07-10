@@ -212,6 +212,14 @@
             "name": "ImageXray",
             "module": "./image-xray"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/types"
+          }
         }
       ]
     },
@@ -235,6 +243,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
     }
   ]
 }

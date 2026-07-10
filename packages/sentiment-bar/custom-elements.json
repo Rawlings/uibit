@@ -30,6 +30,14 @@
             "name": "SentimentOption",
             "module": "./sentiment-bar"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/types"
+          }
         }
       ]
     },
@@ -296,6 +304,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
     }
   ]
 }

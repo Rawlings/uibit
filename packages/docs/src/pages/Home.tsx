@@ -76,11 +76,12 @@ function Home() {
 
       {/* Guides Section */}
       <section className="max-w-5xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-900">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             { to: '/styling', label: 'Styling', description: 'CSS custom properties and density.' },
             { to: '/localization', label: 'Localization', description: 'Built-in labels and text overrides.' },
             { to: '/icons', label: 'Icons', description: 'Default vector asset customization.' },
+            { to: '/foundations', label: 'Frameworks', description: 'Framework wrapper integration and codegen.' },
           ].map(({ to, label, description }) => (
             <Link
               key={to}

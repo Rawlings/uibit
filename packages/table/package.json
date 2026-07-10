@@ -10,6 +10,17 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
+    "./react": {
+      "types": "./dist/frameworks/react/index.d.ts",
+      "import": "./dist/frameworks/react/index.js"
+    },
+    "./vue": "./dist/frameworks/vue/index.ts",
+    "./svelte": "./dist/frameworks/svelte/index.svelte",
+    "./angular": "./dist/frameworks/angular/index.ts",
+    "./solid": "./dist/frameworks/solid/index.d.ts",
+    "./astro": "./dist/frameworks/astro/index.astro",
+    "./qwik": "./dist/frameworks/qwik/index.tsx",
+    "./nuxt": "./dist/frameworks/nuxt/index.ts",
     "./custom-elements.json": "./custom-elements.json"
   },
   "files": [
@@ -20,7 +31,7 @@
     "custom-elements.json"
   ],
   "scripts": {
-    "build": "npm run analyze && tsc",
+    "build": "npm run analyze && uibit-codegen --package . && tsc",
     "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
     "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
@@ -46,11 +57,22 @@
   },
   "devDependencies": {
     "@types/node": "^20.19.43",
+    "@uibit/codegen": "workspace:*",
     "lit": "^3.3.3",
     "typescript": "7.0.2"
   },
   "peerDependencies": {
-    "lit": "^3.0.0"
+    "lit": "^3.0.0",
+    "react": ">=18",
+    "vue": ">=3",
+    "svelte": ">=4 || ^5",
+    "@angular/core": ">=14"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true },
+    "vue": { "optional": true },
+    "svelte": { "optional": true },
+    "@angular/core": { "optional": true }
   },
   "customElements": "custom-elements.json"
 }

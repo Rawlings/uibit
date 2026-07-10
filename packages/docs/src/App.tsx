@@ -5,6 +5,7 @@ import ComponentDocs from './pages/component';
 import StylingGuide from './pages/Styling';
 import LocalizationGuide from './pages/Localization';
 import IconsGuide from './pages/Icons';
+import FoundationsGuide from './pages/Foundations';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -106,6 +107,7 @@ function App() {
           <Route path="/styling" element={<StylingGuide />} />
           <Route path="/localization" element={<LocalizationGuide />} />
           <Route path="/icons" element={<IconsGuide />} />
+          <Route path="/foundations" element={<FoundationsGuide />} />
           <Route path="/:componentId" element={<ComponentDocs />} />
           <Route
             path="*"
@@ -156,6 +158,11 @@ function App() {
                 <li>
                   <Link to="/icons" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                     Icons
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/foundations" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Framework Integrations
                   </Link>
                 </li>
               </ul>

@@ -1,0 +1,35 @@
+# @uibit/codegen
+
+A generic, high-performance web component wrapper generator for multiple frontend frameworks. It reads a standard Custom Elements Manifest (`custom-elements.json`) and generates native-feeling, tree-shakable wrappers for React, Vue 3, Svelte 5, Angular, SolidJS, Astro, Qwik, and Nuxt 3.
+
+## Features
+
+- **Zero Runtime Dependencies**: The generated wrapper files are written as raw source code or lightweight wrappers (using standard utilities like `@lit/react`), requiring no compilation or heavy libraries in your library's repo.
+- **Tree Shakable**: Generates individual files per component and framework, enabling modern bundlers to optimize your bundle sizes.
+- **Strictly Typed**: Outputs precise TypeScript declarations (`.d.ts`) matching your components' properties, attributes, and custom events.
+- **Svelte 5 Runes**: Automatically templates wrappers using Svelte 5's new `$props()`, `$state()`, and `$effect()` runes.
+- **SSR Friendly**: Generates `"use client";` directives for React/Next.js and safe client-side loading wrappers for Nuxt 3.
+
+## Installation
+
+```bash
+npm install -D @uibit/codegen
+# or
+pnpm add -D @uibit/codegen
+```
+
+## Usage
+
+Ensure you have run the Custom Elements Manifest analyzer first:
+
+```bash
+npx @custom-elements-manifest/analyzer analyze --globs "src/**/*.ts" --litelement
+```
+
+Then run the wrapper generator:
+
+```bash
+npx uibit-codegen --package .
+```
+
+This will output all wrappers directly to `./dist/frameworks/` inside your package.

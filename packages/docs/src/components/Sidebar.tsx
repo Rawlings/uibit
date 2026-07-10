@@ -6,6 +6,7 @@ const GUIDES = [
   { id: 'styling', title: 'Styling & Theming', to: '/styling' },
   { id: 'localization', title: 'Localization', to: '/localization' },
   { id: 'icons', title: 'Icons', to: '/icons' },
+  { id: 'frameworks', title: 'Framework Integrations', to: '/foundations' },
 ];
 
 const allComponents = Object.values(componentRegistry).sort((a, b) =>

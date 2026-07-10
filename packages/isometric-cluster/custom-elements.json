@@ -30,6 +30,14 @@
             "name": "ClusterNode",
             "module": "./isometric-cluster"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/types"
+          }
         }
       ]
     },
@@ -464,6 +472,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
     }
   ]
 }

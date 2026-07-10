@@ -22,6 +22,14 @@
             "name": "TextClamp",
             "module": "./text-clamp"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/types"
+          }
         }
       ]
     },
@@ -222,6 +230,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
     }
   ]
 }

@@ -22,6 +22,14 @@
             "name": "NumberTicker",
             "module": "./number-ticker"
           }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/types"
+          }
         }
       ]
     },
@@ -390,6 +398,12 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
     }
   ]
 }
