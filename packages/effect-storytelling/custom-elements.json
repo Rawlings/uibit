@@ -22,22 +22,12 @@
               "default": "0rem"
             },
             {
-              "description": "Flex basis for the track in side-by-side layouts.",
-              "name": "--uibit-effect-storytelling-track-width",
-              "default": "1fr"
-            },
-            {
-              "description": "Flex basis for the stage in side-by-side layouts.",
-              "name": "--uibit-effect-storytelling-stage-width",
-              "default": "1fr"
-            },
-            {
-              "description": "Transition applied to built-in mode animations.",
+              "description": "Transition for built-in mode animations.",
               "name": "--uibit-effect-storytelling-transition",
               "default": "0.45s cubic-bezier(0.4,0,0.2,1)"
             },
             {
-              "description": "IntersectionObserver visibility threshold (0–1) for step activation.",
+              "description": "IntersectionObserver threshold (0–1) for step activation.",
               "name": "--uibit-effect-storytelling-step-threshold",
               "default": "0.5"
             }
@@ -52,7 +42,7 @@
               "name": "stage-wrapper"
             },
             {
-              "description": "Inner stage container; use for perspective transforms.",
+              "description": "Inner stage container.",
               "name": "stage-inner"
             },
             {
@@ -66,7 +56,7 @@
           ],
           "slots": [
             {
-              "description": "The sticky visual area. Locks to the viewport while scrolling through the track. Direct children or elements with `[data-step]` are treated as discrete visual layers and managed by the active `mode`.",
+              "description": "The sticky visual area. Locks to the viewport while scrolling through the track. Direct children or elements with `[data-step]` are treated as discrete visual layers managed by the active `mode`.",
               "name": "stage"
             },
             {
@@ -96,7 +86,7 @@
                 "text": "TrackAlignment"
               },
               "default": "'right'",
-              "description": "Spatial layout of the track relative to the stage.\n- `right`: track on right, stage on left (default, Apple-style).\n- `left`: track on left, stage on right.\n- `center`: stage full-width, track centered narrow column.\n- `overlap`: stage full-width, track freely overlaid.",
+              "description": "Spatial layout of the track relative to the stage.\n- `right`: track on right, stage on left (default, Apple-style).\n- `left`: track on left, stage on right.\n- `center`: stage full-width, track centered narrow column overlaid.\n- `overlap`: stage full-width, track freely overlaid.",
               "attribute": "trackAlignment"
             },
             {
@@ -155,12 +145,27 @@
             },
             {
               "kind": "field",
+              "name": "_stageChildren",
+              "type": {
+                "text": "HTMLElement[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_intersectingSteps",
+              "privacy": "private",
+              "default": "new Set<number>()"
+            },
+            {
+              "kind": "field",
               "name": "_activeStep",
               "type": {
                 "text": "number"
               },
               "privacy": "private",
-              "default": "-1"
+              "default": "0"
             },
             {
               "kind": "field",
@@ -208,7 +213,7 @@
                   "text": "number"
                 }
               },
-              "description": "Returns a 0–1 value representing how far the component has been scrolled\nthrough. 0 = component top at viewport top; 1 = component bottom at viewport bottom."
+              "description": "Returns 0–1 representing how far the component has scrolled through.\n0 = component top at viewport top. 1 = component bottom at viewport bottom."
             },
             {
               "kind": "method",
@@ -263,7 +268,7 @@
             },
             {
               "kind": "method",
-              "name": "_applySnapPoints",
+              "name": "_syncSnapPoints",
               "privacy": "private"
             },
             {
@@ -322,8 +327,7 @@
                     "text": "number"
                   }
                 }
-              ],
-              "description": "sequence-fade — each child fades in as its corresponding track step becomes active.\nChildren slide slightly on the Z axis for a subtle depth cue."
+              ]
             },
             {
               "kind": "method",
@@ -342,8 +346,7 @@
                     "text": "number"
                   }
                 }
-              ],
-              "description": "reveal-wipe — the second stage child wipes in from left to right as progress increases.\nAdditional children are hidden. Works best with two overlapping visual layers."
+              ]
             },
             {
               "kind": "method",
@@ -362,8 +365,7 @@
                     "text": "number"
                   }
                 }
-              ],
-              "description": "layer-depth — active step is brought forward; siblings recede in 3D space.\nRequires `transform-style: preserve-3d` on the parent (applied via stage-inner)."
+              ]
             },
             {
               "kind": "method",
@@ -382,8 +384,7 @@
                     "text": "number"
                   }
                 }
-              ],
-              "description": "zoom-focus — a continuous effect where steps scale up and become sharp as the\nscroll position passes through them, then recede and blur as it moves on."
+              ]
             }
           ],
           "events": [
@@ -418,7 +419,7 @@
                 "text": "TrackAlignment"
               },
               "default": "'right'",
-              "description": "Spatial layout of the track relative to the stage.\n- `right`: track on right, stage on left (default, Apple-style).\n- `left`: track on left, stage on right.\n- `center`: stage full-width, track centered narrow column.\n- `overlap`: stage full-width, track freely overlaid.",
+              "description": "Spatial layout of the track relative to the stage.\n- `right`: track on right, stage on left (default, Apple-style).\n- `left`: track on left, stage on right.\n- `center`: stage full-width, track centered narrow column overlaid.\n- `overlap`: stage full-width, track freely overlaid.",
               "fieldName": "trackAlignment"
             },
             {

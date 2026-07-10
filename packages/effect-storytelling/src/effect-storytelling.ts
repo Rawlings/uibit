@@ -67,6 +67,11 @@ export class EffectStorytelling extends UIBitElement {
    */
   @property({ type: Boolean }) snapPoints = false;
 
+  /**
+   * When true, renders interactive dot navigation indicators on the stage.
+   */
+  @property({ type: Boolean, attribute: 'navigation' }) navigation = false;
+
   @query('slot[name="track"]') private _trackSlot!: HTMLSlotElement;
   @query('slot[name="stage"]') private _stageSlot!: HTMLSlotElement;
 
@@ -80,6 +85,15 @@ export class EffectStorytelling extends UIBitElement {
   private _stepCount = 0;
   private _rafId: number | null = null;
   private _lastProgress = -1;
+
+  /**
+   * Smoothly scrolls the viewport to align the step element at the given index.
+   */
+  scrollToStep(index: number) {
+    const step = this._trackSteps[index];
+    if (!step) return;
+    step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 
   firstUpdated() {
     this._trackSlot?.addEventListener('slotchange', () => this._onTrackSlotChange());
@@ -128,7 +142,8 @@ export class EffectStorytelling extends UIBitElement {
 
   private _tick() {
     const progress = this._computeProgress();
-    if (Math.abs(progress - this._lastProgress) < 0.0003) return;
+    // Allow small updates so continuous transforms work smoothly
+    if (Math.abs(progress - this._lastProgress) < 0.0001) return;
     this._lastProgress = progress;
     this._broadcastCssVars(progress);
     this._applyModeEffect(progress, this._activeStep);
@@ -151,6 +166,17 @@ export class EffectStorytelling extends UIBitElement {
     this.style.setProperty('--story-progress', progress.toFixed(5));
     this.style.setProperty('--story-step-active', String(this._activeStep));
     this.style.setProperty('--story-step-count', String(this._stepCount));
+
+    const viewH = window.innerHeight;
+    this._trackSteps.forEach((step, i) => {
+      const rect = step.getBoundingClientRect();
+      const range = viewH + rect.height;
+      const stepProg = range > 0 ? Math.max(0, Math.min(1, (viewH - rect.top) / range)) : 0;
+      this.style.setProperty(`--story-step-progress-${i}`, stepProg.toFixed(5));
+      if (i === this._activeStep) {
+        this.style.setProperty('--story-step-active-progress', stepProg.toFixed(5));
+      }
+    });
   }
 
   private _syncStageHeight() {
@@ -230,6 +256,7 @@ export class EffectStorytelling extends UIBitElement {
       this.style.setProperty('--story-step-active', String(this._activeStep));
       this._applyModeEffect(Math.max(0, this._lastProgress), this._activeStep);
       this.dispatchCustomEvent('story-step', { step: this._activeStep, total: this._stepCount });
+      this.requestUpdate();
     }
   }
 
@@ -399,6 +426,18 @@ export class EffectStorytelling extends UIBitElement {
           <div class="stage-inner" part="stage-inner">
             <slot name="stage"></slot>
           </div>
+          ${this.navigation ? html`
+            <div class="nav-dots" part="nav-dots">
+              ${Array.from({ length: this._stepCount }).map((_, i) => html`
+                <button
+                  class="nav-dot ${i === this._activeStep ? 'active' : ''}"
+                  part="nav-dot ${i === this._activeStep ? 'nav-dot-active' : ''}"
+                  @click=${() => this.scrollToStep(i)}
+                  aria-label="Go to step ${i + 1}"
+                ></button>
+              `)}
+            </div>
+          ` : ''}
           <div class="overlay-wrapper" part="overlay-wrapper">
             <slot name="overlay"></slot>
           </div>

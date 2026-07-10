@@ -14,81 +14,102 @@ import cssVariablesRaw from './examples/css-variables?raw';
 
 function EffectStorytellingDemo() {
   return (
-    <div style={{ border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
+    <div style={{ border: '1px solid #e5e7eb', borderRadius: '12px', overflow: 'visible', background: '#fafafa', position: 'relative' }}>
       <uibit-effect-storytelling mode="sequence-fade" track-alignment="right">
-        <div slot="stage" style={{ background: '#f9fafb', height: '100%' }}>
+        <div slot="stage" style={{ background: '#09090b', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* Step 1: Core Blueprint */}
           <div
             data-step
             style={{
               display: 'flex', flexDirection: 'column', alignItems: 'center',
-              justifyContent: 'center', height: '100%', gap: '1rem',
+              justifyContent: 'center', height: '100%', gap: '1.5rem', width: '100%', padding: '2rem',
+              boxSizing: 'border-box',
             }}
           >
-            <div style={{ fontSize: '3.5rem' }}>📦</div>
-            <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#9ca3af', letterSpacing: '0.08em' }}>INSTALL</span>
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 0 15px rgba(99, 102, 241, 0.4))' }}>
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+              <line x1="12" y1="22.08" x2="12" y2="12" />
+            </svg>
+            <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#6366f1', letterSpacing: '0.15em', textTransform: 'uppercase' }}>01 / Blueprint</span>
+            <h4 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#f4f4f5', margin: 0, textAlign: 'center' }}>Reactive Core</h4>
           </div>
+
+          {/* Step 2: Shadow DOM */}
           <div
             data-step
             style={{
               display: 'flex', flexDirection: 'column', alignItems: 'center',
-              justifyContent: 'center', height: '100%', gap: '1rem',
+              justifyContent: 'center', height: '100%', gap: '1.5rem', width: '100%', padding: '2rem',
+              boxSizing: 'border-box',
             }}
           >
-            <div style={{ fontSize: '3.5rem' }}>⚡</div>
-            <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#9ca3af', letterSpacing: '0.08em' }}>COMPOSE</span>
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 0 15px rgba(16, 185, 129, 0.4))' }}>
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <line x1="9" y1="3" x2="9" y2="21" />
+              <line x1="15" y1="3" x2="15" y2="21" />
+              <line x1="3" y1="9" x2="21" y2="9" />
+              <line x1="3" y1="15" x2="21" y2="15" />
+            </svg>
+            <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#10b981', letterSpacing: '0.15em', textTransform: 'uppercase' }}>02 / Isolation</span>
+            <h4 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#f4f4f5', margin: 0, textAlign: 'center' }}>Shadow DOM Encapsulation</h4>
           </div>
+
+          {/* Step 3: Accessibility */}
           <div
             data-step
             style={{
               display: 'flex', flexDirection: 'column', alignItems: 'center',
-              justifyContent: 'center', height: '100%', gap: '1rem',
+              justifyContent: 'center', height: '100%', gap: '1.5rem', width: '100%', padding: '2rem',
+              boxSizing: 'border-box',
             }}
           >
-            <div style={{ fontSize: '3.5rem' }}>🚀</div>
-            <span style={{ fontSize: '0.875rem', fontWeight: '600', color: '#9ca3af', letterSpacing: '0.08em' }}>SHIP</span>
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ filter: 'drop-shadow(0 0 15px rgba(245, 158, 11, 0.4))' }}>
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8a2.5 2.5 0 0 1 2 2" />
+              <path d="M12 12h.01" />
+              <path d="M16 16c-1.5 1.5-3.5 2-5.5 1.5s-4-2-4.5-4" />
+            </svg>
+            <span style={{ fontSize: '0.75rem', fontWeight: '600', color: '#f59e0b', letterSpacing: '0.15em', textTransform: 'uppercase' }}>03 / Accessibility</span>
+            <h4 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#f4f4f5', margin: 0, textAlign: 'center' }}>Inclusive Foundations</h4>
           </div>
         </div>
 
         <div slot="track">
           <section
-            class="step"
+            className="step"
             style={{
-              minHeight: '100vh', display: 'flex', flexDirection: 'column',
-              justifyContent: 'center', padding: '4rem 2rem',
+              minHeight: '80vh', display: 'flex', flexDirection: 'column',
+              justifyContent: 'center', padding: '4rem 3rem',
             }}
           >
-            <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.75rem', color: '#111827' }}>One package</h3>
-            <p style={{ color: '#4b5563', lineHeight: '1.7', maxWidth: '28rem' }}>
-              Drop in <code style={{ fontFamily: 'monospace', background: '#f3f4f6', padding: '0.1em 0.3em', borderRadius: '4px' }}>@uibit/effect-storytelling</code> and
-              you have the complete scroll theatre — sticky stage, scrollable track, live CSS variables.
+            <h3 style={{ fontSize: '1.75rem', fontWeight: '700', marginBottom: '1rem', color: '#09090b', letterSpacing: '-0.02em' }}>Declarative & Reactive</h3>
+            <p style={{ color: '#4b5563', lineHeight: '1.8', maxWidth: '28rem', fontSize: '0.95rem' }}>
+              UIBit components leverage Lit's fast reactive properties. The element automatically re-renders only when observed state changes, ensuring lightning-fast updates without a heavy virtual DOM.
             </p>
           </section>
           <section
-            class="step"
+            className="step"
             style={{
-              minHeight: '100vh', display: 'flex', flexDirection: 'column',
-              justifyContent: 'center', padding: '4rem 2rem',
+              minHeight: '80vh', display: 'flex', flexDirection: 'column',
+              justifyContent: 'center', padding: '4rem 3rem',
             }}
           >
-            <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.75rem', color: '#111827' }}>Slots, not props</h3>
-            <p style={{ color: '#4b5563', lineHeight: '1.7', maxWidth: '28rem' }}>
-              Drop any HTML into <code style={{ fontFamily: 'monospace', background: '#f3f4f6', padding: '0.1em 0.3em', borderRadius: '4px' }}>slot="stage"</code> and{' '}
-              <code style={{ fontFamily: 'monospace', background: '#f3f4f6', padding: '0.1em 0.3em', borderRadius: '4px' }}>slot="track"</code>.
-              Images, code blocks, canvas, video — it doesn't care.
+            <h3 style={{ fontSize: '1.75rem', fontWeight: '700', marginBottom: '1rem', color: '#09090b', letterSpacing: '-0.02em' }}>Scoped Styles</h3>
+            <p style={{ color: '#4b5563', lineHeight: '1.8', maxWidth: '28rem', fontSize: '0.95rem' }}>
+              Every component uses Shadow DOM to fully isolate its CSS rules. Global styles won't bleed in, and component styles won't break your site layout. Safe, predictable, and fully modular.
             </p>
           </section>
           <section
-            class="step"
+            className="step"
             style={{
-              minHeight: '100vh', display: 'flex', flexDirection: 'column',
-              justifyContent: 'center', padding: '4rem 2rem',
+              minHeight: '80vh', display: 'flex', flexDirection: 'column',
+              justifyContent: 'center', padding: '4rem 3rem',
             }}
           >
-            <h3 style={{ fontSize: '1.5rem', fontWeight: '700', marginBottom: '0.75rem', color: '#111827' }}>Zero JS required</h3>
-            <p style={{ color: '#4b5563', lineHeight: '1.7', maxWidth: '28rem' }}>
-              Build custom animations purely in CSS using <code style={{ fontFamily: 'monospace', background: '#f3f4f6', padding: '0.1em 0.3em', borderRadius: '4px' }}>--story-progress</code>,{' '}
-              <code style={{ fontFamily: 'monospace', background: '#f3f4f6', padding: '0.1em 0.3em', borderRadius: '4px' }}>--story-step-active</code>, and{' '}
-              <code style={{ fontFamily: 'monospace', background: '#f3f4f6', padding: '0.1em 0.3em', borderRadius: '4px' }}>--story-step-count</code>.
+            <h3 style={{ fontSize: '1.75rem', fontWeight: '700', marginBottom: '1rem', color: '#09090b', letterSpacing: '-0.02em' }}>WCAG Compliant</h3>
+            <p style={{ color: '#4b5563', lineHeight: '1.8', maxWidth: '28rem', fontSize: '0.95rem' }}>
+              Designed from the ground up to support screen readers, keyboard navigation, and custom focus outlines. Accessibility isn't an afterthought; it is built into the blueprint.
             </p>
           </section>
         </div>

@@ -29,6 +29,11 @@ export const styles = css`
     touch-action: none;
   }
 
+  .container.dragging,
+  .container.dragging .handle {
+    cursor: grabbing !important;
+  }
+
   .layer {
     position: absolute;
     top: 0;

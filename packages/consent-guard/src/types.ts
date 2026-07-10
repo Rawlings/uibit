@@ -9,7 +9,6 @@ export interface ConsentGuardConfig {
   autoHeight?: boolean;
   height?: number | string;
   acceptLabel?: string;
-  declineLabel?: string;
 }
 
 export interface ConsentGuard {
@@ -21,7 +20,6 @@ export interface ConsentGuard {
   autoHeight: boolean;
   height: number | string;
   acceptLabel: string;
-  declineLabel: string;
   isConsentGiven: boolean;
 }
 

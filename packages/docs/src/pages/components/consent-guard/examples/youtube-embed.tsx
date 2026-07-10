@@ -30,38 +30,21 @@ function YoutubeEmbedDemo() {
             Loading this video will connect to YouTube and may set cookies on your device.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
-          <button
-            data-consent-accept
-            style={{
-              padding: '0.5rem 1.25rem',
-              background: '#111827',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '0.375rem',
-              fontSize: '0.875rem',
-              fontWeight: 500,
-              cursor: 'pointer',
-            }}
-          >
-            Accept &amp; play
-          </button>
-          <button
-            data-consent-decline
-            style={{
-              padding: '0.5rem 1.25rem',
-              background: '#fff',
-              color: '#374151',
-              border: '0.0625rem solid #e5e7eb',
-              borderRadius: '0.375rem',
-              fontSize: '0.875rem',
-              fontWeight: 500,
-              cursor: 'pointer',
-            }}
-          >
-            Decline
-          </button>
-        </div>
+        <button
+          data-consent-accept
+          style={{
+            padding: '0.5rem 1.25rem',
+            background: '#111827',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '0.375rem',
+            fontSize: '0.875rem',
+            fontWeight: 500,
+            cursor: 'pointer',
+          }}
+        >
+          Accept &amp; play
+        </button>
       </div>
       <iframe
         src="https://www.youtube-nocookie.com/embed/jNQXAC9IVRw"
@@ -76,7 +59,7 @@ function YoutubeEmbedDemo() {
 
 const youtubeEmbed: UsageExample = {
   title: 'YouTube embed',
-  description: 'Gate a YouTube iframe behind a consent placeholder. Buttons with data-consent-accept and data-consent-decline trigger the component\'s built-in state.',
+  description: 'Gate a YouTube iframe behind a consent placeholder. Buttons with data-consent-accept trigger the component\'s built-in state.',
   Demo: YoutubeEmbedDemo,
 };
 

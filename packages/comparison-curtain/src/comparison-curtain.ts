@@ -237,7 +237,7 @@ export class ComparisonCurtain extends UIBitElement {
 
     return html`
       <div 
-        class="container" 
+        class="container ${this._isDragging ? 'dragging' : ''}" 
         part="container"
         @pointerdown=${this._onPointerDown}
         @pointermove=${this._onPointerMove}

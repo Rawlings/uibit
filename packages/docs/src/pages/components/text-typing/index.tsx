@@ -9,12 +9,12 @@ import oneShotRaw from './examples/one-shot?raw';
 function TextTypingDemo() {
   return (
     <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
-      We help teams{' '}
       <uibit-text-typing type-speed="75" typo-rate="0.05">
-        <span>ship faster.</span>
-        <span>build better.</span>
-        <span>scale confidently.</span>
-        <span>move with clarity.</span>
+        We help teams{' '}
+        <span slot="text">ship faster.</span>
+        <span slot="text">build better.</span>
+        <span slot="text">scale confidently.</span>
+        <span slot="text">move with clarity.</span>
       </uibit-text-typing>
     </h2>
   );
@@ -37,12 +37,12 @@ const data: ComponentDocData = {
   Demo: TextTypingDemo,
   demoCode: {
     html: `<h2>
-  We help teams
   <uibit-text-typing type-speed="75" typo-rate="0.05">
-    <span>ship faster.</span>
-    <span>build better.</span>
-    <span>scale confidently.</span>
-    <span>move with clarity.</span>
+    We help teams
+    <span slot="text">ship faster.</span>
+    <span slot="text">build better.</span>
+    <span slot="text">scale confidently.</span>
+    <span slot="text">move with clarity.</span>
   </uibit-text-typing>
 </h2>`,
     react: `import '@uibit/text-typing';
@@ -50,12 +50,12 @@ const data: ComponentDocData = {
 function Hero() {
   return (
     <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
-      We help teams{' '}
       <uibit-text-typing type-speed="75" typo-rate="0.05">
-        <span>ship faster.</span>
-        <span>build better.</span>
-        <span>scale confidently.</span>
-        <span>move with clarity.</span>
+        We help teams{' '}
+        <span slot="text">ship faster.</span>
+        <span slot="text">build better.</span>
+        <span slot="text">scale confidently.</span>
+        <span slot="text">move with clarity.</span>
       </uibit-text-typing>
     </h2>
   );

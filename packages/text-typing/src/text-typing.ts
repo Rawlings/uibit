@@ -8,8 +8,8 @@ import { styles } from './styles';
  * typing and backspace deletion. Includes subtle speed variance, randomized
  * simulated typos that auto-correct, and a blinking cursor node.
  *
- * Pass phrases as a JSON array string on the `phrases` attribute, or set the
- * property directly.
+ * Pass static prefix or wrapper text inside the default slot, and phrases to cycle through
+ * inside elements with `slot="text"` (e.g. `<span slot="text">phrase</span>`).
  *
  * @fires {{ phrase: string, index: number }} phrase-change - Fired when a new phrase begins typing
  *
@@ -135,7 +135,8 @@ export class TextTyping extends UIBitElement {
 
   render() {
     return html`
-      <slot @slotchange=${this._handleSlotChange} style="display: none;"></slot>
+      <slot></slot>
+      <slot name="text" @slotchange=${this._handleSlotChange} style="display: none;"></slot>
       <span class="text" part="text" aria-live="polite" aria-atomic="true">${this._visible}</span>${this.showCursor
         ? html`<span class="cursor" part="cursor" aria-hidden="true"></span>`
         : ''}

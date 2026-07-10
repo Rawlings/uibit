@@ -128,6 +128,7 @@ export class SentimentBar extends UIBitElement {
 
   render() {
     const iconPx = 20;
+    const activeLabel = this._activeLabel();
     return html`
       <slot @slotchange=${this._onSlotChange} style="display: none;"></slot>
       <div class="track" part="track" role="radiogroup" aria-label=${msg('Sentiment rating')}>
@@ -148,7 +149,7 @@ export class SentimentBar extends UIBitElement {
         `)}
       </div>
       ${this.showLabel
-        ? html`<div class="label" part="label" aria-live="polite">${this._activeLabel()}</div>`
+        ? html`<div class="label ${activeLabel ? 'visible' : ''}" part="label" aria-live="polite">${activeLabel || '\u00a0'}</div>`
         : ''}
     `;
   }

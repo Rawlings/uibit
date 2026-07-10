@@ -12,17 +12,16 @@
     },
     "./hotspot.css": "./dist/hotspot.css",
     "./custom-elements.json": "./custom-elements.json",
-    "./react": {
-      "types": "./dist/frameworks/react/index.d.ts",
-      "import": "./dist/frameworks/react/index.js"
-    },
+    "./react": "./dist/frameworks/react/index.d.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",
     "./solid": "./dist/frameworks/solid/index.d.ts",
     "./astro": "./dist/frameworks/astro/index.astro",
     "./qwik": "./dist/frameworks/qwik/index.tsx",
-    "./nuxt": "./dist/frameworks/nuxt/index.ts"
+    "./nuxt": "./dist/frameworks/nuxt/index.ts",
+    "./preact": "./dist/frameworks/preact/index.d.ts",
+    "./stencil": "./dist/frameworks/stencil/index.d.ts"
   },
   "files": [
     "dist",

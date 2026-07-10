@@ -153,7 +153,6 @@ export class Viewer360 extends UIBitElement {
     }
     if (newIndex !== this.currentIndex) {
       this.currentIndex = newIndex;
-      this.preloadAdjacentImages();
     }
   }
 

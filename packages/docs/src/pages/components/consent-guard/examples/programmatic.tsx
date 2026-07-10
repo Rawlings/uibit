@@ -53,12 +53,6 @@ function ProgrammaticDemo() {
         >
           accept()
         </button>
-        <button
-          className="px-5 py-2 bg-white text-gray-700 text-sm font-medium rounded-md cursor-pointer border border-gray-200"
-          onClick={() => guardRef.current?.decline()}
-        >
-          decline()
-        </button>
       </div>
     </div>
   );
@@ -66,7 +60,7 @@ function ProgrammaticDemo() {
 
 const programmatic: UsageExample = {
   title: 'Programmatic control',
-  description: 'Use the accept() and decline() methods to control consent state from JavaScript — useful for restoring a previously stored choice.',
+  description: 'Use the accept() method to control consent state from JavaScript — useful for restoring a previously stored choice.',
   Demo: ProgrammaticDemo,
 };
 

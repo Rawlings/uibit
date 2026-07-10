@@ -6,10 +6,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "uibit-codegen": "./dist/index.js"
+    "uibit-codegen": "./bin/uibit-codegen"
   },
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
   "scripts": {
     "build": "tsc",

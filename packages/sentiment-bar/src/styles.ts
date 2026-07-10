@@ -83,10 +83,13 @@ export const styles = css`
     min-height: 1em;
     min-width: 5rem;
     text-align: center;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    opacity: 0;
+    visibility: hidden;
   }
 
-  :host(:not([value])) .label {
-    opacity: 0;
+  .label.visible {
+    opacity: 1;
+    visibility: visible;
   }
 `;

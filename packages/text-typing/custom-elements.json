@@ -60,7 +60,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Cycles through an array of phrases by simulating realistic keystroke\ntyping and backspace deletion. Includes subtle speed variance, randomized\nsimulated typos that auto-correct, and a blinking cursor node.\n\nPass phrases as a JSON array string on the `phrases` attribute, or set the\nproperty directly.",
+          "description": "Cycles through an array of phrases by simulating realistic keystroke\ntyping and backspace deletion. Includes subtle speed variance, randomized\nsimulated typos that auto-correct, and a blinking cursor node.\n\nPass static prefix or wrapper text inside the default slot, and phrases to cycle through\ninside elements with `slot=\"text\"` (e.g. `<span slot=\"text\">phrase</span>`).",
           "name": "TextTyping",
           "cssProperties": [
             {

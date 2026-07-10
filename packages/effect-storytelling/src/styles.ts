@@ -119,7 +119,7 @@ export const styles = css`
 
   :host([track-alignment="center"]) .track-wrapper ::slotted(*),
   :host([track-alignment="overlap"]) .track-wrapper ::slotted(*) {
-    pointer-events: auto;
+    pointer-events: none;
   }
 
   /* Center variant: constrain track width to a readable column */
@@ -132,6 +132,41 @@ export const styles = css`
 
   :host([snap-points]) .track-wrapper {
     scroll-snap-type: y mandatory;
+  }
+
+  /* ── Navigation Dots HUD ────────────────────────────────────────────────── */
+  .nav-dots {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    z-index: 15;
+  }
+
+  .nav-dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: var(--uibit-effect-storytelling-nav-dot-bg, rgba(255, 255, 255, 0.3));
+    border: 1px solid var(--uibit-effect-storytelling-nav-dot-border, rgba(255, 255, 255, 0.4));
+    cursor: pointer;
+    padding: 0;
+    transition: all var(--_transition);
+  }
+
+  .nav-dot:hover {
+    background: var(--uibit-effect-storytelling-nav-dot-hover-bg, rgba(255, 255, 255, 0.6));
+    transform: scale(1.2);
+  }
+
+  .nav-dot.active {
+    background: var(--uibit-effect-storytelling-nav-dot-active-bg, #fff);
+    border-color: var(--uibit-effect-storytelling-nav-dot-active-border, #fff);
+    transform: scale(1.3);
+    box-shadow: 0 0 8px var(--uibit-effect-storytelling-nav-dot-active-glow, rgba(255, 255, 255, 0.5));
   }
 
   /* ── Reduced motion ───────────────────────────────────────────────────────── */

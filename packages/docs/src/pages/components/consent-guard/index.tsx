@@ -87,14 +87,9 @@ const data: ComponentDocData = {
     <p style="margin:0;font-size:0.875rem;color:#6b7280;max-width:20rem;">
       Loading this video will connect to YouTube and may set cookies on your device.
     </p>
-    <div style="display:flex;gap:0.75rem;">
-      <button data-consent-accept style="padding:0.5rem 1.25rem;background:#111827;color:#fff;border:none;border-radius:0.375rem;font-size:0.875rem;font-weight:500;cursor:pointer;">
-        Accept &amp; play
-      </button>
-      <button data-consent-decline style="padding:0.5rem 1.25rem;background:#fff;color:#374151;border:0.0625rem solid #e5e7eb;border-radius:0.375rem;font-size:0.875rem;font-weight:500;cursor:pointer;">
-        Decline
-      </button>
-    </div>
+    <button data-consent-accept style="padding:0.5rem 1.25rem;background:#111827;color:#fff;border:none;border-radius:0.375rem;font-size:0.875rem;font-weight:500;cursor:pointer;">
+      Accept &amp; play
+    </button>
   </div>
 
   <iframe
@@ -125,14 +120,9 @@ function ConsentGuardDemo() {
         <p style={{ margin: 0, fontSize: '0.875rem', color: '#6b7280', maxWidth: '20rem' }}>
           Loading this video will connect to YouTube and may set cookies on your device.
         </p>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
-          <button data-consent-accept style={{ padding: '0.5rem 1.25rem', background: '#111827', color: '#fff', border: 'none', borderRadius: '0.375rem', fontSize: '0.875rem', fontWeight: 500, cursor: 'pointer' }}>
-            Accept &amp; play
-          </button>
-          <button data-consent-decline style={{ padding: '0.5rem 1.25rem', background: '#fff', color: '#374151', border: '0.0625rem solid #e5e7eb', borderRadius: '0.375rem', fontSize: '0.875rem', fontWeight: 500, cursor: 'pointer' }}>
-            Decline
-          </button>
-        </div>
+        <button data-consent-accept style={{ padding: '0.5rem 1.25rem', background: '#111827', color: '#fff', border: 'none', borderRadius: '0.375rem', fontSize: '0.875rem', fontWeight: 500, cursor: 'pointer' }}>
+          Accept &amp; play
+        </button>
       </div>
       <iframe
         src="https://www.youtube-nocookie.com/embed/jNQXAC9IVRw"
@@ -149,19 +139,19 @@ function ConsentGuardDemo() {
     wcagLevel: 'AA',
     requirements: [
       'Protected content remains hidden via display:none until consent is granted, preventing screen readers from announcing hidden content.',
-      'The placeholder slot should include focusable accept and decline controls with descriptive labels that clearly communicate what the user is consenting to.',
-      'Accept and decline buttons must carry sufficient context in their accessible name (e.g. "Accept & play YouTube video").',
+      'The placeholder slot should include focusable accept controls with descriptive labels that clearly communicate what the user is consenting to.',
+      'Accept buttons must carry sufficient context in their accessible name (e.g. "Accept & play YouTube video").',
     ],
     keyboardNav: [
-      { key: 'Tab', description: 'Navigate between Accept and Decline controls in the placeholder slot.' },
+      { key: 'Tab', description: 'Navigate to Accept control in the placeholder slot.' },
       { key: 'Enter / Space', description: 'Activate the focused consent button.' },
     ],
   },
   features: [
     'Two slots: placeholder (your prompt UI) and default (your content)',
     'Content stays display:none until consent — iframes with loading="lazy" won\'t make network requests',
-    'Trigger consent via data-consent-accept / data-consent-decline attributes on any element',
-    'Public accept() and decline() methods for programmatic control',
+    'Trigger consent via data-consent-accept attribute on any element',
+    'Public accept() method for programmatic control',
     'No opinions on styling, copy, storage, or content type',
     'Zero dependencies — pure Lit web component',
   ],
