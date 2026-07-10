@@ -1,12 +1,16 @@
 import { html } from 'lit';
+import { keyed } from 'lit/directives/keyed.js';
 import { customElement, UIBitElement } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
 /**
- * Rotates a single word inside a static sentence by animating between items
- * with a vertical slide or 3D flip transition. Designed to highlight changing
+ * Cycles through an array of phrases inside a static sentence by animating between
+ * items with a vertical slide or 3D flip transition. Designed to highlight changing
  * value propositions without motion outside the component boundary.
+ *
+ * Pass static prefix or wrapper text inside the default slot, and phrases to cycle through
+ * inside elements with `slot="text"` (e.g. `<span slot="text">phrase</span>`).
  *
  * @fires {{ word: string, index: number }} word-change - Fired when the active word changes
  *
@@ -14,7 +18,7 @@ import { styles } from './styles';
  * @cssprop [--uibit-text-rotator-font-weight=inherit] - Font weight
  * @cssprop [--uibit-text-rotator-color=inherit] - Text color
  * @cssprop [--uibit-text-rotator-font-family=inherit] - Font family
- * @cssprop [--uibit-text-rotator-line-height=1.2] - Line height (also controls host height)
+ * @cssprop [--uibit-text-rotator-line-height=inherit] - Line height
  * @cssprop [--uibit-text-rotator-duration=0.4s] - Transition animation duration
  */
 @customElement('uibit-text-rotator')
@@ -121,10 +125,11 @@ export class TextRotator extends UIBitElement {
     const prevWord = this._prevIndex >= 0 ? this.words[this._prevIndex] : null;
 
     return html`
-      <slot @slotchange=${this._handleSlotChange} style="display: none;"></slot>
+      <slot></slot>
+      <slot name="text" @slotchange=${this._handleSlotChange} style="display: none;"></slot>
       <span class="stage">
         ${prevWord !== null ? html`<span class="word leaving-${t}" aria-hidden="true">${prevWord}</span>` : ''}
-        <span class="word ${this._mounted ? `entering-${t}` : 'initial'} active">${activeWord}</span>
+        ${keyed(this._activeIndex, html`<span class="word ${this._mounted ? `entering-${t}` : 'initial'} active">${activeWord}</span>`)}
       </span>
     `;
   }

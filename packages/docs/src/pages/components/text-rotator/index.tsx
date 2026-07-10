@@ -9,12 +9,12 @@ import flipTransitionRaw from './examples/flip-transition?raw';
 function TextRotatorDemo() {
   return (
     <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
-      Build websites{' '}
       <uibit-text-rotator interval="2000" transition="slide">
-        <span>faster</span>
-        <span>better</span>
-        <span>smarter</span>
-        <span>together</span>
+        Build websites{' '}
+        <span slot="text">faster</span>
+        <span slot="text">better</span>
+        <span slot="text">smarter</span>
+        <span slot="text">together</span>
       </uibit-text-rotator>
     </h2>
   );
@@ -37,12 +37,12 @@ const data: ComponentDocData = {
   Demo: TextRotatorDemo,
   demoCode: {
     html: `<h2>
-  Build websites
   <uibit-text-rotator interval="2000" transition="slide">
-    <span>faster</span>
-    <span>better</span>
-    <span>smarter</span>
-    <span>together</span>
+    Build websites
+    <span slot="text">faster</span>
+    <span slot="text">better</span>
+    <span slot="text">smarter</span>
+    <span slot="text">together</span>
   </uibit-text-rotator>
 </h2>`,
     react: `import '@uibit/text-rotator';
@@ -50,12 +50,12 @@ const data: ComponentDocData = {
 function TextRotatorDemo() {
   return (
     <h2>
-      Build websites{' '}
       <uibit-text-rotator interval="2000" transition="slide">
-        <span>faster</span>
-        <span>better</span>
-        <span>smarter</span>
-        <span>together</span>
+        Build websites{' '}
+        <span slot="text">faster</span>
+        <span slot="text">better</span>
+        <span slot="text">smarter</span>
+        <span slot="text">together</span>
       </uibit-text-rotator>
     </h2>
   );

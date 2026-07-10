@@ -37,6 +37,7 @@ export const styles = css`
     width: 100%;
     height: 100%;
     overflow: hidden;
+    perspective: 1200px;
   }
 
   /* ── Overlay wrapper ──────────────────────────────────────────────────────── */
@@ -59,73 +60,171 @@ export const styles = css`
     min-height: var(--_stage-height);
   }
 
-  /* ── track-alignment: right (default) — stage left, track right ──────────── */
+  /* ── track-alignment layouts ─────────────────────────────────────────────── */
 
+  /* split-left (default / right): stage left, track right */
   :host([track-alignment="right"]) .outer,
+  :host([track-alignment="split-left"]) .outer,
   :host(:not([track-alignment])) .outer {
     flex-direction: row;
   }
 
   :host([track-alignment="right"]) .stage-wrapper,
+  :host([track-alignment="split-left"]) .stage-wrapper,
   :host(:not([track-alignment])) .stage-wrapper {
     order: 0;
   }
 
   :host([track-alignment="right"]) .track-wrapper,
+  :host([track-alignment="split-left"]) .track-wrapper,
   :host(:not([track-alignment])) .track-wrapper {
     order: 1;
   }
 
-  /* ── track-alignment: left — track left, stage right ─────────────────────── */
-
-  :host([track-alignment="left"]) .outer {
+  /* split-right (left): track left, stage right */
+  :host([track-alignment="left"]) .outer,
+  :host([track-alignment="split-right"]) .outer {
     flex-direction: row;
   }
 
-  :host([track-alignment="left"]) .stage-wrapper {
+  :host([track-alignment="left"]) .stage-wrapper,
+  :host([track-alignment="split-right"]) .stage-wrapper {
     order: 1;
   }
 
-  :host([track-alignment="left"]) .track-wrapper {
+  :host([track-alignment="left"]) .track-wrapper,
+  :host([track-alignment="split-right"]) .track-wrapper {
     order: 0;
   }
 
-  /* ── track-alignment: center / overlap — stage full-width, track on top ──── */
-
+  /* center / overlap / split-alternate / overlay-center / overlay-bottom */
   :host([track-alignment="center"]) .outer,
-  :host([track-alignment="overlap"]) .outer {
+  :host([track-alignment="overlap"]) .outer,
+  :host([track-alignment="split-alternate"]) .outer,
+  :host([track-alignment="overlay-center"]) .outer,
+  :host([track-alignment="overlay-bottom"]) .outer {
     display: block;
     position: relative;
   }
 
   :host([track-alignment="center"]) .stage-wrapper,
-  :host([track-alignment="overlap"]) .stage-wrapper {
+  :host([track-alignment="overlap"]) .stage-wrapper,
+  :host([track-alignment="split-alternate"]) .stage-wrapper,
+  :host([track-alignment="overlay-center"]) .stage-wrapper,
+  :host([track-alignment="overlay-bottom"]) .stage-wrapper {
     width: 100%;
     flex: none;
   }
 
   :host([track-alignment="center"]) .track-wrapper,
-  :host([track-alignment="overlap"]) .track-wrapper {
+  :host([track-alignment="overlap"]) .track-wrapper,
+  :host([track-alignment="split-alternate"]) .track-wrapper,
+  :host([track-alignment="overlay-center"]) .track-wrapper,
+  :host([track-alignment="overlay-bottom"]) .track-wrapper {
     position: relative;
     z-index: 2;
-    /* Pull track up to visually start at the same position as the stage */
     margin-top: calc(-1 * var(--_stage-height));
     min-height: var(--_stage-height);
-    /* Track items need a transparent or semi-transparent background */
     pointer-events: none;
     flex: none;
     width: 100%;
   }
 
   :host([track-alignment="center"]) .track-wrapper ::slotted(*),
-  :host([track-alignment="overlap"]) .track-wrapper ::slotted(*) {
+  :host([track-alignment="overlap"]) .track-wrapper ::slotted(*),
+  :host([track-alignment="split-alternate"]) .track-wrapper ::slotted(*),
+  :host([track-alignment="overlay-center"]) .track-wrapper ::slotted(*),
+  :host([track-alignment="overlay-bottom"]) .track-wrapper ::slotted(*) {
     pointer-events: none;
   }
 
-  /* Center variant: constrain track width to a readable column */
+  /* Center variant */
   :host([track-alignment="center"]) .track-wrapper {
     max-width: 36rem;
     margin-inline: auto;
+  }
+
+  /* split-alternate alignment */
+  :host([track-alignment="split-alternate"]) .track-wrapper ::slotted(*:nth-child(odd)) {
+    margin-right: auto;
+    margin-left: 5%;
+    max-width: 40%;
+  }
+
+  :host([track-alignment="split-alternate"]) .track-wrapper ::slotted(*:nth-child(even)) {
+    margin-left: auto;
+    margin-right: 5%;
+    max-width: 40%;
+  }
+
+  /* overlay-center and overlay-bottom */
+  :host([track-alignment="overlay-center"]) .track-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  :host([track-alignment="overlay-center"]) .track-wrapper ::slotted(*) {
+    margin-inline: auto;
+    max-width: 36rem;
+    text-align: center;
+  }
+
+  :host([track-alignment="overlay-bottom"]) .track-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  :host([track-alignment="overlay-bottom"]) .track-wrapper ::slotted(*) {
+    margin-inline: auto;
+    max-width: 36rem;
+    margin-bottom: 4rem;
+  }
+
+  /* sticky-top and sticky-bottom */
+  :host([track-alignment="sticky-top"]) .outer {
+    flex-direction: column;
+  }
+
+  :host([track-alignment="sticky-top"]) .stage-wrapper {
+    position: sticky;
+    top: 0;
+    height: 50vh;
+    width: 100%;
+  }
+
+  :host([track-alignment="sticky-top"]) .track-wrapper {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  :host([track-alignment="sticky-bottom"]) .outer {
+    flex-direction: column-reverse;
+  }
+
+  :host([track-alignment="sticky-bottom"]) .stage-wrapper {
+    position: sticky;
+    bottom: 0;
+    height: 50vh;
+    width: 100%;
+  }
+
+  :host([track-alignment="sticky-bottom"]) .track-wrapper {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  /* headless mode */
+  :host([track-alignment="headless"]) .outer {
+    display: block;
+  }
+
+  :host([track-alignment="headless"]) .stage-wrapper,
+  :host([track-alignment="headless"]) .track-wrapper {
+    position: static;
+    height: auto;
+    width: auto;
   }
 
   /* ── Snap points ──────────────────────────────────────────────────────────── */
@@ -167,6 +266,65 @@ export const styles = css`
     border-color: var(--uibit-effect-storytelling-nav-dot-active-border, #fff);
     transform: scale(1.3);
     box-shadow: 0 0 8px var(--uibit-effect-storytelling-nav-dot-active-glow, rgba(255, 255, 255, 0.5));
+  }
+
+  /* ── Keyframes for scroll modes ─────────────────────────────────────────── */
+
+  @keyframes uibit-story-mode-sequence-fade {
+    0%, 100% {
+      opacity: 0;
+      transform: translateY(1rem) scale(0.98);
+      pointer-events: none;
+    }
+    30%, 70% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+  }
+
+  @keyframes uibit-story-mode-reveal-wipe {
+    0% {
+      clip-path: inset(0 100% 0 0);
+      pointer-events: none;
+    }
+    100% {
+      clip-path: inset(0 0% 0 0);
+      pointer-events: auto;
+    }
+  }
+
+  @keyframes uibit-story-mode-layer-depth {
+    0% {
+      opacity: 0;
+      transform: translateZ(120px) scale(1.1);
+      pointer-events: none;
+    }
+    30%, 70% {
+      opacity: 1;
+      transform: translateZ(0) scale(1);
+      pointer-events: auto;
+    }
+    100% {
+      opacity: 0;
+      transform: translateZ(-120px) scale(0.9);
+      pointer-events: none;
+    }
+  }
+
+  @keyframes uibit-story-mode-zoom-focus {
+    0%, 100% {
+      opacity: 0.1;
+      transform: scale(0.9);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+    30%, 70% {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0);
+      pointer-events: auto;
+    }
   }
 
   /* ── Reduced motion ───────────────────────────────────────────────────────── */

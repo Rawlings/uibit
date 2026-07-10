@@ -40,7 +40,7 @@
         {
           "kind": "variable",
           "name": "styles",
-          "default": "css` :host { display: inline-block; overflow: hidden; vertical-align: bottom; font-size: var(--uibit-text-rotator-font-size, inherit); font-weight: var(--uibit-text-rotator-font-weight, inherit); color: var(--uibit-text-rotator-color, inherit); font-family: var(--uibit-text-rotator-font-family, inherit); line-height: var(--uibit-text-rotator-line-height, var(--uibit-line-height-tight, 1.2)); /* Height = one line */ height: 1.2em; } .stage { display: inline-block; position: relative; width: max-content; min-width: 1ch; height: 100%; perspective: 20rem; transform-style: preserve-3d; } .word { display: inline-block; position: absolute; top: 0; left: 0; white-space: nowrap; transform-style: preserve-3d; } .word.active { position: relative; } /* No animation on first render */ .word.initial { position: static; opacity: 1; } /* Slide */ .word.entering-slide { animation: slide-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0, 0, 0.2, 1) forwards; } .word.leaving-slide { animation: slide-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 1, 1) forwards; } /* Flip */ .word.entering-flip { animation: flip-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0, 0, 0.2, 1) forwards; transform-origin: 50% 0; } .word.leaving-flip { animation: flip-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 1, 1) forwards; transform-origin: 50% 100%; } @keyframes slide-in { from { transform: translateY(50%); opacity: 0; } to { transform: translateY(0); opacity: 1; } } @keyframes slide-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-50%); opacity: 0; } } @keyframes flip-in { from { transform: rotateX(-80deg); opacity: 0; } to { transform: rotateX(0deg); opacity: 1; } } @keyframes flip-out { from { transform: rotateX(0deg); opacity: 1; } to { transform: rotateX(80deg); opacity: 0; } } `"
+          "default": "css` :host { display: inline-block; vertical-align: text-bottom; font-size: var(--uibit-text-rotator-font-size, inherit); font-weight: var(--uibit-text-rotator-font-weight, inherit); color: var(--uibit-text-rotator-color, inherit); font-family: var(--uibit-text-rotator-font-family, inherit); line-height: var(--uibit-text-rotator-line-height, inherit); /* Pad the host horizontally to prevent clipping of long words, pull back with margin */ padding: 0 4rem; margin: 0 -4rem; /* Tight vertical mask fade out at top and bottom to protect descenders and timing */ -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; } .stage { display: inline-block; position: relative; width: max-content; min-width: 1ch; perspective: 20rem; transform-style: preserve-3d; } .word { display: inline-block; position: absolute; top: 0; left: 0; white-space: nowrap; transform-style: preserve-3d; } .word.active { position: relative; } /* No animation on first render */ .word.initial { position: static; opacity: 1; } /* Slide */ .word.entering-slide { animation: slide-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; } .word.leaving-slide { animation: slide-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; } /* Flip */ .word.entering-flip { animation: flip-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; transform-origin: 50% 0; } .word.leaving-flip { animation: flip-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; transform-origin: 50% 100%; } @keyframes slide-in { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } } @keyframes slide-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100%); opacity: 0; } } @keyframes flip-in { from { transform: rotateX(-80deg); opacity: 0; } to { transform: rotateX(0deg); opacity: 1; } } @keyframes flip-out { from { transform: rotateX(0deg); opacity: 1; } to { transform: rotateX(80deg); opacity: 0; } } `"
         }
       ],
       "exports": [
@@ -60,7 +60,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Rotates a single word inside a static sentence by animating between items\nwith a vertical slide or 3D flip transition. Designed to highlight changing\nvalue propositions without motion outside the component boundary.",
+          "description": "Cycles through an array of phrases inside a static sentence by animating between\nitems with a vertical slide or 3D flip transition. Designed to highlight changing\nvalue propositions without motion outside the component boundary.\n\nPass static prefix or wrapper text inside the default slot, and phrases to cycle through\ninside elements with `slot=\"text\"` (e.g. `<span slot=\"text\">phrase</span>`).",
           "name": "TextRotator",
           "cssProperties": [
             {
@@ -84,9 +84,9 @@
               "default": "inherit"
             },
             {
-              "description": "Line height (also controls host height)",
+              "description": "Line height",
               "name": "--uibit-text-rotator-line-height",
-              "default": "1.2"
+              "default": "inherit"
             },
             {
               "description": "Transition animation duration",

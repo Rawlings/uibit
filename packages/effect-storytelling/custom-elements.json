@@ -8,63 +8,19 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A scroll-driven storytelling layout orchestrator. Establishes a sticky visual\nstage synchronized with a scrollable narrative track and broadcasts real-time\nscroll state as CSS custom properties, enabling fully composable animations\nwithout external dependencies.",
+          "description": "A scroll-driven storytelling layout orchestrator. Establishes a sticky visual\nstage synchronized with a scrollable narrative track using native CSS Scroll-driven\nAnimations (view-timeline) for ultra-performant, 0-latency animations.",
           "name": "EffectStorytelling",
-          "cssProperties": [
-            {
-              "description": "Height of the sticky stage.",
-              "name": "--uibit-effect-storytelling-stage-height",
-              "default": "100vh"
-            },
-            {
-              "description": "Gap between stage and track in side-by-side layouts.",
-              "name": "--uibit-effect-storytelling-gap",
-              "default": "0rem"
-            },
-            {
-              "description": "Transition for built-in mode animations.",
-              "name": "--uibit-effect-storytelling-transition",
-              "default": "0.45s cubic-bezier(0.4,0,0.2,1)"
-            },
-            {
-              "description": "IntersectionObserver threshold (0–1) for step activation.",
-              "name": "--uibit-effect-storytelling-step-threshold",
-              "default": "0.5"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The root flex/block container.",
-              "name": "outer"
-            },
-            {
-              "description": "The sticky stage container.",
-              "name": "stage-wrapper"
-            },
-            {
-              "description": "Inner stage container.",
-              "name": "stage-inner"
-            },
-            {
-              "description": "The overlay slot container.",
-              "name": "overlay-wrapper"
-            },
-            {
-              "description": "The scrollable narrative container.",
-              "name": "track-wrapper"
-            }
-          ],
           "slots": [
             {
-              "description": "The sticky visual area. Locks to the viewport while scrolling through the track. Direct children or elements with `[data-step]` are treated as discrete visual layers managed by the active `mode`.",
+              "description": "The sticky visual area. Locks to the viewport while scrolling through the track.",
               "name": "stage"
             },
             {
-              "description": "The scrollable narrative content. Its scroll depth drives the animation timeline. Mark individual sections with `class=\"step\"` or `[data-step]` for step-based tracking.",
+              "description": "The scrollable narrative content.",
               "name": "track"
             },
             {
-              "description": "A passive z-indexed layer above the stage. Use for progress indicators, chapter labels, or back-to-top controls.",
+              "description": "A passive z-indexed layer above the stage.",
               "name": "overlay"
             }
           ],
@@ -76,7 +32,6 @@
                 "text": "StoryMode"
               },
               "default": "'sequence-fade'",
-              "description": "Built-in animation mode applied to stage children on scroll.\n- `sequence-fade`: steps fade in/out as the active track step changes (default).\n- `reveal-wipe`: second stage child wipes over the first, driven by raw scroll progress.\n- `layer-depth`: steps recede in 3D as focus shifts to the active step.\n- `zoom-focus`: steps scale and blur relative to their distance from the active scroll position.",
               "attribute": "mode"
             },
             {
@@ -86,7 +41,6 @@
                 "text": "TrackAlignment"
               },
               "default": "'right'",
-              "description": "Spatial layout of the track relative to the stage.\n- `right`: track on right, stage on left (default, Apple-style).\n- `left`: track on left, stage on right.\n- `center`: stage full-width, track centered narrow column overlaid.\n- `overlap`: stage full-width, track freely overlaid.",
               "attribute": "trackAlignment"
             },
             {
@@ -96,7 +50,6 @@
                 "text": "TimelineScope"
               },
               "default": "'viewport'",
-              "description": "Whether the scroll progress is tracked against the viewport or a local\noverflow container. Currently informational for user CSS; internal tracking\nalways uses the nearest scroll ancestor.",
               "attribute": "timelineScope"
             },
             {
@@ -106,8 +59,16 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "When true, applies `scroll-snap-align: start` to narrative step elements\ninside the track slot.",
               "attribute": "snapPoints"
+            },
+            {
+              "kind": "field",
+              "name": "navigation",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "navigation"
             },
             {
               "kind": "field",
@@ -127,12 +88,21 @@
             },
             {
               "kind": "field",
-              "name": "_stepObserver",
+              "name": "_stepCount",
               "type": {
-                "text": "IntersectionObserver | null"
+                "text": "number"
               },
               "privacy": "private",
-              "default": "null"
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_activeStep",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
             },
             {
               "kind": "field",
@@ -154,74 +124,19 @@
             },
             {
               "kind": "field",
-              "name": "_intersectingSteps",
-              "privacy": "private",
-              "default": "new Set<number>()"
-            },
-            {
-              "kind": "field",
-              "name": "_activeStep",
+              "name": "_stepObserver",
               "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "_stepCount",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "_rafId",
-              "type": {
-                "text": "number | null"
+                "text": "IntersectionObserver | null"
               },
               "privacy": "private",
               "default": "null"
             },
             {
-              "kind": "field",
-              "name": "_lastProgress",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "-1"
-            },
-            {
               "kind": "method",
-              "name": "_setupScrollTracking",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "_tick",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "_computeProgress",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              },
-              "description": "Returns 0–1 representing how far the component has scrolled through.\n0 = component top at viewport top. 1 = component bottom at viewport bottom."
-            },
-            {
-              "kind": "method",
-              "name": "_broadcastCssVars",
-              "privacy": "private",
+              "name": "scrollToStep",
               "parameters": [
                 {
-                  "name": "progress",
+                  "name": "index",
                   "type": {
                     "text": "number"
                   }
@@ -230,12 +145,12 @@
             },
             {
               "kind": "method",
-              "name": "_syncStageHeight",
+              "name": "_onTrackSlotChange",
               "privacy": "private"
             },
             {
               "kind": "method",
-              "name": "_onTrackSlotChange",
+              "name": "_onStageSlotChange",
               "privacy": "private"
             },
             {
@@ -250,34 +165,6 @@
             },
             {
               "kind": "method",
-              "name": "_setupStepObserver",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "_onStepIntersect",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "entries",
-                  "type": {
-                    "text": "IntersectionObserverEntry[]"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_syncSnapPoints",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "_onStageSlotChange",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
               "name": "_collectStageChildren",
               "privacy": "private",
               "return": {
@@ -288,119 +175,13 @@
             },
             {
               "kind": "method",
-              "name": "_initStageChildren",
+              "name": "_updateTimelines",
               "privacy": "private"
             },
             {
               "kind": "method",
-              "name": "_applyModeEffect",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "progress",
-                  "type": {
-                    "text": "number"
-                  }
-                },
-                {
-                  "name": "activeStep",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_modeSequenceFade",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "children",
-                  "type": {
-                    "text": "HTMLElement[]"
-                  }
-                },
-                {
-                  "name": "activeStep",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_modeRevealWipe",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "children",
-                  "type": {
-                    "text": "HTMLElement[]"
-                  }
-                },
-                {
-                  "name": "progress",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_modeLayerDepth",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "children",
-                  "type": {
-                    "text": "HTMLElement[]"
-                  }
-                },
-                {
-                  "name": "activeStep",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_modeZoomFocus",
-              "privacy": "private",
-              "parameters": [
-                {
-                  "name": "children",
-                  "type": {
-                    "text": "HTMLElement[]"
-                  }
-                },
-                {
-                  "name": "progress",
-                  "type": {
-                    "text": "number"
-                  }
-                }
-              ]
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "progress: number, step: number"
-              },
-              "description": "Emitted on each scroll tick with current progress (0–1) and active step index.",
-              "name": "story-progress"
-            },
-            {
-              "type": {
-                "text": "step: number, total: number"
-              },
-              "description": "Emitted when the active narrative step changes.",
-              "name": "story-step"
+              "name": "_setupIntersectionObserver",
+              "privacy": "private"
             }
           ],
           "attributes": [
@@ -410,7 +191,6 @@
                 "text": "StoryMode"
               },
               "default": "'sequence-fade'",
-              "description": "Built-in animation mode applied to stage children on scroll.\n- `sequence-fade`: steps fade in/out as the active track step changes (default).\n- `reveal-wipe`: second stage child wipes over the first, driven by raw scroll progress.\n- `layer-depth`: steps recede in 3D as focus shifts to the active step.\n- `zoom-focus`: steps scale and blur relative to their distance from the active scroll position.",
               "fieldName": "mode"
             },
             {
@@ -419,7 +199,6 @@
                 "text": "TrackAlignment"
               },
               "default": "'right'",
-              "description": "Spatial layout of the track relative to the stage.\n- `right`: track on right, stage on left (default, Apple-style).\n- `left`: track on left, stage on right.\n- `center`: stage full-width, track centered narrow column overlaid.\n- `overlap`: stage full-width, track freely overlaid.",
               "fieldName": "trackAlignment"
             },
             {
@@ -428,7 +207,6 @@
                 "text": "TimelineScope"
               },
               "default": "'viewport'",
-              "description": "Whether the scroll progress is tracked against the viewport or a local\noverflow container. Currently informational for user CSS; internal tracking\nalways uses the nearest scroll ancestor.",
               "fieldName": "timelineScope"
             },
             {
@@ -437,8 +215,15 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "When true, applies `scroll-snap-align: start` to narrative step elements\ninside the track slot.",
               "fieldName": "snapPoints"
+            },
+            {
+              "name": "navigation",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "navigation"
             }
           ],
           "superclass": {
@@ -538,7 +323,7 @@
         {
           "kind": "variable",
           "name": "styles",
-          "default": "css` :host { display: block; position: relative; /* Internal layout tokens */ --_stage-height: var(--uibit-effect-storytelling-stage-height, 100vh); --_gap: var(--uibit-effect-storytelling-gap, 0rem); --_track-width: var(--uibit-effect-storytelling-track-width, 1fr); --_stage-width: var(--uibit-effect-storytelling-stage-width, 1fr); --_transition: var(--uibit-effect-storytelling-transition, 0.45s cubic-bezier(0.4, 0, 0.2, 1)); } /* ── Outer container ──────────────────────────────────────────────────────── */ .outer { display: flex; align-items: flex-start; gap: var(--_gap); } /* ── Stage wrapper (sticky) ───────────────────────────────────────────────── */ .stage-wrapper { position: sticky; top: 0; height: var(--_stage-height); overflow: hidden; flex-shrink: 0; flex: 1 1 0; } .stage-inner { position: relative; width: 100%; height: 100%; overflow: hidden; } /* ── Overlay wrapper ──────────────────────────────────────────────────────── */ .overlay-wrapper { position: absolute; inset: 0; z-index: 10; pointer-events: none; } .overlay-wrapper ::slotted(*) { pointer-events: auto; } /* ── Track wrapper ────────────────────────────────────────────────────────── */ .track-wrapper { flex: 1 1 0; min-height: var(--_stage-height); } /* ── track-alignment: right (default) — stage left, track right ──────────── */ :host([track-alignment=\"right\"]) .outer, :host(:not([track-alignment])) .outer { flex-direction: row; } :host([track-alignment=\"right\"]) .stage-wrapper, :host(:not([track-alignment])) .stage-wrapper { order: 0; } :host([track-alignment=\"right\"]) .track-wrapper, :host(:not([track-alignment])) .track-wrapper { order: 1; } /* ── track-alignment: left — track left, stage right ─────────────────────── */ :host([track-alignment=\"left\"]) .outer { flex-direction: row; } :host([track-alignment=\"left\"]) .stage-wrapper { order: 1; } :host([track-alignment=\"left\"]) .track-wrapper { order: 0; } /* ── track-alignment: center / overlap — stage full-width, track on top ──── */ :host([track-alignment=\"center\"]) .outer, :host([track-alignment=\"overlap\"]) .outer { display: block; position: relative; } :host([track-alignment=\"center\"]) .stage-wrapper, :host([track-alignment=\"overlap\"]) .stage-wrapper { width: 100%; flex: none; } :host([track-alignment=\"center\"]) .track-wrapper, :host([track-alignment=\"overlap\"]) .track-wrapper { position: relative; z-index: 2; /* Pull track up to visually start at the same position as the stage */ margin-top: calc(-1 * var(--_stage-height)); min-height: var(--_stage-height); /* Track items need a transparent or semi-transparent background */ pointer-events: none; flex: none; width: 100%; } :host([track-alignment=\"center\"]) .track-wrapper ::slotted(*), :host([track-alignment=\"overlap\"]) .track-wrapper ::slotted(*) { pointer-events: auto; } /* Center variant: constrain track width to a readable column */ :host([track-alignment=\"center\"]) .track-wrapper { max-width: 36rem; margin-inline: auto; } /* ── Snap points ──────────────────────────────────────────────────────────── */ :host([snap-points]) .track-wrapper { scroll-snap-type: y mandatory; } /* ── Reduced motion ───────────────────────────────────────────────────────── */ @media (prefers-reduced-motion: reduce) { .stage-inner * { transition: none !important; animation: none !important; } } `"
+          "default": "css` :host { display: block; position: relative; /* Internal layout tokens */ --_stage-height: var(--uibit-effect-storytelling-stage-height, 100vh); --_gap: var(--uibit-effect-storytelling-gap, 0rem); --_track-width: var(--uibit-effect-storytelling-track-width, 1fr); --_stage-width: var(--uibit-effect-storytelling-stage-width, 1fr); --_transition: var(--uibit-effect-storytelling-transition, 0.45s cubic-bezier(0.4, 0, 0.2, 1)); } /* ── Outer container ──────────────────────────────────────────────────────── */ .outer { display: flex; align-items: flex-start; gap: var(--_gap); } /* ── Stage wrapper (sticky) ───────────────────────────────────────────────── */ .stage-wrapper { position: sticky; top: 0; height: var(--_stage-height); overflow: hidden; flex-shrink: 0; flex: 1 1 0; } .stage-inner { position: relative; width: 100%; height: 100%; overflow: hidden; perspective: 1200px; } /* ── Overlay wrapper ──────────────────────────────────────────────────────── */ .overlay-wrapper { position: absolute; inset: 0; z-index: 10; pointer-events: none; } .overlay-wrapper ::slotted(*) { pointer-events: auto; } /* ── Track wrapper ────────────────────────────────────────────────────────── */ .track-wrapper { flex: 1 1 0; min-height: var(--_stage-height); } /* ── track-alignment layouts ─────────────────────────────────────────────── */ /* split-left (default / right): stage left, track right */ :host([track-alignment=\"right\"]) .outer, :host([track-alignment=\"split-left\"]) .outer, :host(:not([track-alignment])) .outer { flex-direction: row; } :host([track-alignment=\"right\"]) .stage-wrapper, :host([track-alignment=\"split-left\"]) .stage-wrapper, :host(:not([track-alignment])) .stage-wrapper { order: 0; } :host([track-alignment=\"right\"]) .track-wrapper, :host([track-alignment=\"split-left\"]) .track-wrapper, :host(:not([track-alignment])) .track-wrapper { order: 1; } /* split-right (left): track left, stage right */ :host([track-alignment=\"left\"]) .outer, :host([track-alignment=\"split-right\"]) .outer { flex-direction: row; } :host([track-alignment=\"left\"]) .stage-wrapper, :host([track-alignment=\"split-right\"]) .stage-wrapper { order: 1; } :host([track-alignment=\"left\"]) .track-wrapper, :host([track-alignment=\"split-right\"]) .track-wrapper { order: 0; } /* center / overlap / split-alternate / overlay-center / overlay-bottom */ :host([track-alignment=\"center\"]) .outer, :host([track-alignment=\"overlap\"]) .outer, :host([track-alignment=\"split-alternate\"]) .outer, :host([track-alignment=\"overlay-center\"]) .outer, :host([track-alignment=\"overlay-bottom\"]) .outer { display: block; position: relative; } :host([track-alignment=\"center\"]) .stage-wrapper, :host([track-alignment=\"overlap\"]) .stage-wrapper, :host([track-alignment=\"split-alternate\"]) .stage-wrapper, :host([track-alignment=\"overlay-center\"]) .stage-wrapper, :host([track-alignment=\"overlay-bottom\"]) .stage-wrapper { width: 100%; flex: none; } :host([track-alignment=\"center\"]) .track-wrapper, :host([track-alignment=\"overlap\"]) .track-wrapper, :host([track-alignment=\"split-alternate\"]) .track-wrapper, :host([track-alignment=\"overlay-center\"]) .track-wrapper, :host([track-alignment=\"overlay-bottom\"]) .track-wrapper { position: relative; z-index: 2; margin-top: calc(-1 * var(--_stage-height)); min-height: var(--_stage-height); pointer-events: none; flex: none; width: 100%; } :host([track-alignment=\"center\"]) .track-wrapper ::slotted(*), :host([track-alignment=\"overlap\"]) .track-wrapper ::slotted(*), :host([track-alignment=\"split-alternate\"]) .track-wrapper ::slotted(*), :host([track-alignment=\"overlay-center\"]) .track-wrapper ::slotted(*), :host([track-alignment=\"overlay-bottom\"]) .track-wrapper ::slotted(*) { pointer-events: none; } /* Center variant */ :host([track-alignment=\"center\"]) .track-wrapper { max-width: 36rem; margin-inline: auto; } /* split-alternate alignment */ :host([track-alignment=\"split-alternate\"]) .track-wrapper ::slotted(*:nth-child(odd)) { margin-right: auto; margin-left: 5%; max-width: 40%; } :host([track-alignment=\"split-alternate\"]) .track-wrapper ::slotted(*:nth-child(even)) { margin-left: auto; margin-right: 5%; max-width: 40%; } /* overlay-center and overlay-bottom */ :host([track-alignment=\"overlay-center\"]) .track-wrapper { display: flex; flex-direction: column; align-items: center; } :host([track-alignment=\"overlay-center\"]) .track-wrapper ::slotted(*) { margin-inline: auto; max-width: 36rem; text-align: center; } :host([track-alignment=\"overlay-bottom\"]) .track-wrapper { display: flex; flex-direction: column; justify-content: flex-end; } :host([track-alignment=\"overlay-bottom\"]) .track-wrapper ::slotted(*) { margin-inline: auto; max-width: 36rem; margin-bottom: 4rem; } /* sticky-top and sticky-bottom */ :host([track-alignment=\"sticky-top\"]) .outer { flex-direction: column; } :host([track-alignment=\"sticky-top\"]) .stage-wrapper { position: sticky; top: 0; height: 50vh; width: 100%; } :host([track-alignment=\"sticky-top\"]) .track-wrapper { width: 100%; margin-top: 0; } :host([track-alignment=\"sticky-bottom\"]) .outer { flex-direction: column-reverse; } :host([track-alignment=\"sticky-bottom\"]) .stage-wrapper { position: sticky; bottom: 0; height: 50vh; width: 100%; } :host([track-alignment=\"sticky-bottom\"]) .track-wrapper { width: 100%; margin-top: 0; } /* headless mode */ :host([track-alignment=\"headless\"]) .outer { display: block; } :host([track-alignment=\"headless\"]) .stage-wrapper, :host([track-alignment=\"headless\"]) .track-wrapper { position: static; height: auto; width: auto; } /* ── Snap points ──────────────────────────────────────────────────────────── */ :host([snap-points]) .track-wrapper { scroll-snap-type: y mandatory; } /* ── Navigation Dots HUD ────────────────────────────────────────────────── */ .nav-dots { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 0.75rem; z-index: 15; } .nav-dot { width: 0.625rem; height: 0.625rem; border-radius: 50%; background: var(--uibit-effect-storytelling-nav-dot-bg, rgba(255, 255, 255, 0.3)); border: 1px solid var(--uibit-effect-storytelling-nav-dot-border, rgba(255, 255, 255, 0.4)); cursor: pointer; padding: 0; transition: all var(--_transition); } .nav-dot:hover { background: var(--uibit-effect-storytelling-nav-dot-hover-bg, rgba(255, 255, 255, 0.6)); transform: scale(1.2); } .nav-dot.active { background: var(--uibit-effect-storytelling-nav-dot-active-bg, #fff); border-color: var(--uibit-effect-storytelling-nav-dot-active-border, #fff); transform: scale(1.3); box-shadow: 0 0 8px var(--uibit-effect-storytelling-nav-dot-active-glow, rgba(255, 255, 255, 0.5)); } /* ── Keyframes for scroll modes ─────────────────────────────────────────── */ @keyframes uibit-story-mode-sequence-fade { 0%, 100% { opacity: 0; transform: translateY(1rem) scale(0.98); pointer-events: none; } 30%, 70% { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; } } @keyframes uibit-story-mode-reveal-wipe { 0% { clip-path: inset(0 100% 0 0); pointer-events: none; } 100% { clip-path: inset(0 0% 0 0); pointer-events: auto; } } @keyframes uibit-story-mode-layer-depth { 0% { opacity: 0; transform: translateZ(120px) scale(1.1); pointer-events: none; } 30%, 70% { opacity: 1; transform: translateZ(0) scale(1); pointer-events: auto; } 100% { opacity: 0; transform: translateZ(-120px) scale(0.9); pointer-events: none; } } @keyframes uibit-story-mode-zoom-focus { 0%, 100% { opacity: 0.1; transform: scale(0.9); filter: blur(10px); pointer-events: none; } 30%, 70% { opacity: 1; transform: scale(1); filter: blur(0); pointer-events: auto; } } /* ── Reduced motion ───────────────────────────────────────────────────────── */ @media (prefers-reduced-motion: reduce) { .stage-inner * { transition: none !important; animation: none !important; } } `"
         }
       ],
       "exports": [

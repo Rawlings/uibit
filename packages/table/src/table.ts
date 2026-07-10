@@ -949,70 +949,61 @@ export class Table extends UIBitElement {
     const showToolbar = this.searchable || this.exportable || this.columnChooser || (this.paginated && !this.infiniteScroll);
     const hasActiveFilters = this._colFilters.size > 0 || this._query;
 
-    console.log('RENDER SHOWTOOLBAR:', {
-      searchable: this.searchable,
-      exportable: this.exportable,
-      columnChooser: this.columnChooser,
-      paginated: this.paginated,
-      infiniteScroll: this.infiniteScroll,
-      showToolbar,
-      rowsCount: this._rows.length,
-      colsCount: this._cols.length,
-      totalSorted: total,
-      pageRowsCount: pageRows.length
-    });
-
     return html`
       <slot></slot>
       <div style="display: none;">
         <slot name="search-placeholder">${msg('Search…')}</slot>
       </div>
 
-      ${showToolbar ? html`
-        <div class="toolbar" part="toolbar">
-          ${this.searchable ? html`
-            <div class="search-wrap">
-              <svg class="search-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
-                <path d="M10 10l4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-              </svg>
-              <input
-                class="search"
-                part="search"
-                type="search"
-                placeholder=${this._searchPlaceholderText || msg('Search…')}
-                value=${this._query}
-                aria-label=${msg('Search table')}
-              />
+      <div style="display: contents;">
+        ${showToolbar ? html`
+          <div class="toolbar" part="toolbar">
+            ${this.searchable ? html`
+              <div class="search-wrap">
+                <svg class="search-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.4"/>
+                  <path d="M10 10l4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+                <input
+                  class="search"
+                  part="search"
+                  type="search"
+                  placeholder=${this._searchPlaceholderText || msg('Search…')}
+                  value=${this._query}
+                  aria-label=${msg('Search table')}
+                />
+              </div>
+            ` : nothing}
+
+            <div class="controls">
+              ${this.controlsLayout === 'menu' ? this._renderOptionsMenu() : html`
+                ${this._renderColMenu()}
+
+                ${this.exportable ? html`
+                  <button class="ctrl-btn" part="export-btn" aria-label=${msg('Export as CSV')}>
+                    ${this._selected.size > 0 ? msg(str`Export ${this._selected.size} rows`) : msg('Export CSV')}
+                  </button>
+                ` : nothing}
+
+                ${hasActiveFilters ? html`
+                  <button class="ctrl-btn ctrl-btn-clear-filters" aria-label=${msg('Clear all filters')}>
+                    ${msg('Clear filters')}
+                  </button>
+                ` : nothing}
+              `}
             </div>
-          ` : nothing}
-
-          <div class="controls">
-            ${this.controlsLayout === 'menu' ? this._renderOptionsMenu() : html`
-              ${this._renderColMenu()}
-
-              ${this.exportable ? html`
-                <button class="ctrl-btn" part="export-btn" aria-label=${msg('Export as CSV')}>
-                  ${this._selected.size > 0 ? msg(str`Export ${this._selected.size} rows`) : msg('Export CSV')}
-                </button>
-              ` : nothing}
-
-              ${hasActiveFilters ? html`
-                <button class="ctrl-btn ctrl-btn-clear-filters" aria-label=${msg('Clear all filters')}>
-                  ${msg('Clear filters')}
-                </button>
-              ` : nothing}
-            `}
           </div>
-        </div>
-      ` : nothing}
+        ` : nothing}
+      </div>
 
-      ${this._renderSelectionBanner()}
+      <div style="display: contents;">
+        ${this._renderSelectionBanner()}
+      </div>
 
       <div class="table-wrap" part="table-wrap" role="region" aria-label="Data table">
         <table part="table">
-          ${vis.length ? html`
-            <thead part="thead">
+          <thead part="thead">
+            ${vis.length ? html`
               <tr>
                 ${this.selectable ? html`
                   <th class="col-check" part="th">
@@ -1052,8 +1043,8 @@ export class Table extends UIBitElement {
                 })}
               </tr>
               ${this._renderFilterRow()}
-            </thead>
-          ` : nothing}
+            ` : nothing}
+          </thead>
 
           <tbody part="tbody">
             ${pageRows.length === 0 ? html`
@@ -1091,26 +1082,28 @@ export class Table extends UIBitElement {
         </table>
       </div>
 
-      ${(this.paginated || this.infiniteScroll) && total > 0 ? html`
-        <div class="footer" part="footer">
-          <div class="footer-left">
-            <span part="count">
-              ${total === 0 ? msg('No results') : (this.infiniteScroll ? msg(str`${total} rows`) : msg(str`${start}–${end} of ${total} rows`))}
-              ${this._selected.size > 0 ? html` · <strong>${this._selected.size} selected</strong>` : nothing}
-            </span>
-            ${this.paginated && !this.infiniteScroll ? html`
-              <span class="footer-sep">·</span>
-              <label class="footer-label" for="uibit-per-page-footer">${msg('Rows per page:')}</label>
-              <select id="uibit-per-page-footer" class="ctrl-select footer-select" aria-label=${msg('Rows per page')}>
-                ${this._pageSizeOptions.map(n => html`<option value=${n} selected=${this._perPage === n ? '' : nothing}>${n}</option>`)}
-              </select>
-            ` : nothing}
+      <div style="display: contents;">
+        ${(this.paginated || this.infiniteScroll) && total > 0 ? html`
+          <div class="footer" part="footer">
+            <div class="footer-left">
+              <span part="count">
+                ${total === 0 ? msg('No results') : (this.infiniteScroll ? msg(str`${total} rows`) : msg(str`${start}–${end} of ${total} rows`))}
+                ${this._selected.size > 0 ? html` · <strong>${this._selected.size} selected</strong>` : nothing}
+              </span>
+              ${this.paginated && !this.infiniteScroll ? html`
+                <span class="footer-sep">·</span>
+                <label class="footer-label" for="uibit-per-page-footer">${msg('Rows per page:')}</label>
+                <select id="uibit-per-page-footer" class="ctrl-select footer-select" aria-label=${msg('Rows per page')}>
+                  ${this._pageSizeOptions.map(n => html`<option value=${n} selected=${this._perPage === n ? '' : nothing}>${n}</option>`)}
+                </select>
+              ` : nothing}
+            </div>
+            ${this.infiniteScroll && this.loading ? html`
+              <span class="loading-spinner" part="loading-spinner">${msg('Loading more…')}</span>
+            ` : (this.infiniteScroll ? nothing : this._renderPagination())}
           </div>
-          ${this.infiniteScroll && this.loading ? html`
-            <span class="loading-spinner" part="loading-spinner">${msg('Loading more…')}</span>
-          ` : (this.infiniteScroll ? nothing : this._renderPagination())}
-        </div>
-      ` : nothing}
+        ` : nothing}
+      </div>
     `;
   }
 }

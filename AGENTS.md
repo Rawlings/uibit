@@ -6,6 +6,15 @@ This document describes the AI agents and skills configured for the UIBit web co
 
 UIBit uses Claude Code agents and skills to accelerate development of accessible, production-ready web components built with Lit.js. These skills provide AI-assisted workflows for common component development tasks.
 
+## Agent Workflow and Tool Usage Guidelines
+
+To ensure efficient development and minimize interactive approval prompts:
+
+1. **Avoid Unnecessary Terminal Commands**: Do not run terminal commands for tasks that can be completed using direct API tools.
+2. **Prioritize Native File Tools**: Use specific file-manipulation tools (`view_file`, `write_to_file`, `replace_file_content`, `multi_replace_file_content`, `list_dir`, `grep_search`) directly instead of running shell equivalents (e.g. `cat`, `ls`, `grep`, `mkdir`, `touch`).
+3. **Minimize Approval Fatigue**: Use commands that require explicit user approval (like shell execution via `run_command`) only when necessary.
+4. **Deferred Verification**: Focus primarily on writing and editing code. Defer testing and builds (e.g., running tests, linting, or production builds) to the final stages of the task, rather than executing them after every minor change.
+
 ## Available Skills
 
 ### 1. **lit-component-generator**

@@ -49,7 +49,6 @@ function TableDemo() {
         striped
         sticky-header
         page-sizes="5,10,20"
-        style={{ '--uibit-table-max-height': '28rem' } as React.CSSProperties}
       >
         <table>
           <thead>
@@ -104,7 +103,6 @@ const data: ComponentDocData = {
   selectable filterable resizable
   column-chooser striped sticky-header
   page-sizes="5,10,20"
-  style="--uibit-table-max-height: 28rem"
 >
   <table>
     <thead>
@@ -150,7 +148,6 @@ function TableDemo() {
       striped
       sticky-header
       page-sizes="5,10,20"
-      style={{ '--uibit-table-max-height': '28rem' }}
     >
       <table>
         <thead>

@@ -4,12 +4,12 @@ import { UsageExample } from '../../../../types/docs';
 function SlideTransitionDemo() {
   return (
     <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
-      Build websites{' '}
       <uibit-text-rotator interval="2000" transition="slide">
-        <span>faster</span>
-        <span>better</span>
-        <span>smarter</span>
-        <span>together</span>
+        Build websites{' '}
+        <span slot="text">faster</span>
+        <span slot="text">better</span>
+        <span slot="text">smarter</span>
+        <span slot="text">together</span>
       </uibit-text-rotator>
     </h2>
   );

@@ -10,12 +10,6 @@ function ScrollContainerDemo() {
     >
       <uibit-scroll-progress
         target="#demo-scroll-box"
-        style={
-          {
-            '--uibit-scroll-progress-color': '#000000',
-            '--uibit-scroll-progress-height': '3px',
-          } as React.CSSProperties
-        }
         class="sticky top-0 z-10 block"
       ></uibit-scroll-progress>
 

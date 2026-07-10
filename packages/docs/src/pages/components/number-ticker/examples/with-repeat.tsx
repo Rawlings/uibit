@@ -4,7 +4,17 @@ import { UsageExample } from '../../../../types/docs';
 function WithRepeatDemo() {
   return (
     <div className="text-7xl font-bold text-gray-900">
-      <uibit-number-ticker value={1000000} prefix="$" locale="en-US" duration={2000} repeat></uibit-number-ticker>
+      <uibit-number-ticker
+        value={1000000}
+        duration={2000}
+        repeat
+        locale="en-US"
+        options={{
+          style: 'currency',
+          currency: 'USD',
+          maximumFractionDigits: 0,
+        }}
+      ></uibit-number-ticker>
     </div>
   );
 }

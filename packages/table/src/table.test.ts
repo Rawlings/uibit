@@ -72,8 +72,7 @@ describe('Table Component', () => {
     const rowSelectSpy = vi.fn();
     element.addEventListener('row-select', rowSelectSpy as EventListener);
 
-    console.log('SELECT TEST INNER:', element.shadowRoot?.innerHTML);
-    const check = element.shadowRoot?.querySelector('tbody tr td.col-check input') as HTMLInputElement;
+    const check = element.shadowRoot?.querySelector('.table-wrap tbody tr td.col-check input') as HTMLInputElement;
     expect(check).toBeTruthy();
     check.click();
 

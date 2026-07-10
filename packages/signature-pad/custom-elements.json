@@ -42,7 +42,7 @@
             {
               "description": "Height of the signature area",
               "name": "--uibit-signature-pad-height",
-              "default": "12.5rem"
+              "default": "11.25rem"
             },
             {
               "description": "Canvas background color",
@@ -67,7 +67,7 @@
             {
               "description": "Base stroke width (varies with velocity)",
               "name": "--uibit-signature-pad-stroke-width",
-              "default": "0.125rem"
+              "default": "0.15625rem"
             },
             {
               "description": "Color of the sign-here hint text",

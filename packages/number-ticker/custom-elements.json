@@ -39,7 +39,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Animates a numeric value from zero (or a custom start) up to the `value`\nattribute once the element scrolls into the viewport. Supports easing,\ndecimal places, prefix/suffix strings, and locale-aware formatting.\n\nThe animation runs entirely in the shadow DOM on a rAF loop so it never\nblocks the main thread via layout thrashing.",
+          "description": "Animates a numeric value from zero (or a custom start) up to the `value`\nattribute once the element scrolls into the viewport. Supports easing,\ndecimal places, and custom formatting functions.\n\nThe animation runs entirely in the shadow DOM on a rAF loop so it never\nblocks the main thread via layout thrashing.",
           "name": "NumberTicker",
           "cssProperties": [
             {
@@ -106,28 +106,8 @@
                 "text": "number"
               },
               "default": "0",
-              "description": "Number of decimal places to display.",
+              "description": "Number of decimal places to display. Used only if no custom formatter is provided.",
               "attribute": "decimals"
-            },
-            {
-              "kind": "field",
-              "name": "prefix",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "String prepended to the value (e.g. \"$\").",
-              "attribute": "prefix"
-            },
-            {
-              "kind": "field",
-              "name": "suffix",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "String appended to the value (e.g. \"k\" or \"%\").",
-              "attribute": "suffix"
             },
             {
               "kind": "field",
@@ -136,8 +116,25 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for number formatting (e.g. \"en-US\"). Empty disables locale formatting.",
+              "description": "BCP 47 locale string for number formatting (e.g. \"en-US\"). Defaults to browser locale if options is set.",
               "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "options",
+              "type": {
+                "text": "Intl.NumberFormatOptions | undefined"
+              },
+              "description": "Options for Intl.NumberFormat.",
+              "attribute": "options"
+            },
+            {
+              "kind": "field",
+              "name": "formatter",
+              "type": {
+                "text": "(value: number) => string | undefined"
+              },
+              "description": "Custom formatter function to format the number for display. Overrides locale and options."
             },
             {
               "kind": "field",
@@ -285,26 +282,8 @@
                 "text": "number"
               },
               "default": "0",
-              "description": "Number of decimal places to display.",
+              "description": "Number of decimal places to display. Used only if no custom formatter is provided.",
               "fieldName": "decimals"
-            },
-            {
-              "name": "prefix",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "String prepended to the value (e.g. \"$\").",
-              "fieldName": "prefix"
-            },
-            {
-              "name": "suffix",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "String appended to the value (e.g. \"k\" or \"%\").",
-              "fieldName": "suffix"
             },
             {
               "name": "locale",
@@ -312,8 +291,16 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for number formatting (e.g. \"en-US\"). Empty disables locale formatting.",
+              "description": "BCP 47 locale string for number formatting (e.g. \"en-US\"). Defaults to browser locale if options is set.",
               "fieldName": "locale"
+            },
+            {
+              "name": "options",
+              "type": {
+                "text": "Intl.NumberFormatOptions | undefined"
+              },
+              "description": "Options for Intl.NumberFormat.",
+              "fieldName": "options"
             },
             {
               "name": "easing",

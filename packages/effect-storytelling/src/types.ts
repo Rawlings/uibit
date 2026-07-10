@@ -11,12 +11,30 @@ export type StoryMode = 'sequence-fade' | 'reveal-wipe' | 'layer-depth' | 'zoom-
 /**
  * Spatial relationship between the scrollable track and the sticky stage.
  *
- * - `right`:   Track on the right, stage on the left (default).
- * - `left`:    Track on the left, stage on the right.
- * - `center`:  Stage is full-width and sticky; track is a centered narrow column scrolling over it.
+ * - `right` / `split-left`: Track on the right, stage on the left (default).
+ * - `left` / `split-right`: Track on the left, stage on the right.
+ * - `center`: Stage is full-width and sticky; track is a centered narrow column scrolling over it.
  * - `overlap`: Stage is full-width and sticky; track scrolls over it without width constraints.
+ * - `split-alternate`: Stage is full-bleed or side-aligned, track content alternates sides as you scroll.
+ * - `overlay-center`: Cinematic full-bleed stage, text floats center-aligned.
+ * - `overlay-bottom`: Cinematic full-bleed stage, text floats bottom-aligned.
+ * - `sticky-top`: Visual stage occupies top half of viewport, track scrolls on bottom.
+ * - `sticky-bottom`: Visual stage occupies bottom half of viewport, track scrolls on top.
+ * - `headless`: Component sets up scroll timelines, but element layouts are fully handled by user CSS.
  */
-export type TrackAlignment = 'right' | 'left' | 'center' | 'overlap';
+export type TrackAlignment =
+  | 'right'
+  | 'split-left'
+  | 'left'
+  | 'split-right'
+  | 'center'
+  | 'overlap'
+  | 'split-alternate'
+  | 'overlay-center'
+  | 'overlay-bottom'
+  | 'sticky-top'
+  | 'sticky-bottom'
+  | 'headless';
 
 /** Determines which scroll container drives the animation timeline. */
 export type TimelineScope = 'viewport' | 'container';

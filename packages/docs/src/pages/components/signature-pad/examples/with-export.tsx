@@ -33,13 +33,6 @@ function WithExportDemo() {
       <div className="w-full max-w-lg">
         <uibit-signature-pad
           ref={padRef}
-          style={
-            {
-              '--uibit-signature-pad-height': '180px',
-              '--uibit-signature-pad-stroke-color': '#111111',
-              '--uibit-signature-pad-stroke-width': '2.5px',
-            } as React.CSSProperties
-          }
         />
       </div>
       <div className="flex gap-3 flex-wrap justify-center">

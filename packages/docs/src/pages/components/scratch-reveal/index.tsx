@@ -20,15 +20,6 @@ function ScratchRevealDemo() {
     <div className="flex flex-col items-start gap-4">
       <uibit-scratch-reveal
         ref={elementRef}
-        style={
-          {
-            '--uibit-scratch-reveal-width': '320px',
-            '--uibit-scratch-reveal-height': '200px',
-            '--uibit-scratch-reveal-background': '#ffffff',
-            '--uibit-scratch-reveal-color': '#000000',
-            '--uibit-scratch-reveal-overlay-color': '#b0b0b0',
-          } as React.CSSProperties
-        }
       >
         <div className="flex flex-col items-center justify-center gap-2 text-center px-4">
           <span className="text-3xl">🎉</span>
@@ -66,15 +57,7 @@ const data: ComponentDocData = {
   manifest,
   Demo: ScratchRevealDemo,
   demoCode: {
-    html: `<uibit-scratch-reveal
-  style="
-    --uibit-scratch-reveal-width: 320px;
-    --uibit-scratch-reveal-height: 200px;
-    --uibit-scratch-reveal-background: #ffffff;
-    --uibit-scratch-reveal-color: #000000;
-    --uibit-scratch-reveal-overlay-color: #b0b0b0;
-  "
->
+    html: `<uibit-scratch-reveal>
   <div>
     <p>You've won</p>
     <p>30% OFF</p>
@@ -97,13 +80,6 @@ function ScratchRevealDemo() {
     <div>
       <uibit-scratch-reveal
         ref={elementRef}
-        style={{
-          '--uibit-scratch-reveal-width': '320px',
-          '--uibit-scratch-reveal-height': '200px',
-          '--uibit-scratch-reveal-background': '#ffffff',
-          '--uibit-scratch-reveal-color': '#000000',
-          '--uibit-scratch-reveal-overlay-color': '#b0b0b0',
-        }}
       >
         <div>
           <p>You've won</p>

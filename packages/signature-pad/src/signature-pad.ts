@@ -16,12 +16,12 @@ import type { SignaturePoint, SignatureStroke } from './types.js';
  * @slot clear-label - Label text inside the clear button. Defaults to "Clear".
  *
  * @cssprop [--uibit-signature-pad-width=100%] - Width of the signature area
- * @cssprop [--uibit-signature-pad-height=12.5rem] - Height of the signature area
+ * @cssprop [--uibit-signature-pad-height=11.25rem] - Height of the signature area
  * @cssprop [--uibit-signature-pad-background=#ffffff] - Canvas background color
  * @cssprop [--uibit-signature-pad-border=0.0625rem solid #e5e7eb] - Border around the canvas
  * @cssprop [--uibit-signature-pad-border-radius=0.5rem] - Border radius
  * @cssprop [--uibit-signature-pad-stroke-color=#111111] - Ink/stroke color
- * @cssprop [--uibit-signature-pad-stroke-width=0.125rem] - Base stroke width (varies with velocity)
+ * @cssprop [--uibit-signature-pad-stroke-width=0.15625rem] - Base stroke width (varies with velocity)
  * @cssprop [--uibit-signature-pad-hint-color=rgba(0,0,0,0.22)] - Color of the sign-here hint text
  * @cssprop [--uibit-signature-pad-hint-font-size=0.8125rem] - Font size of the hint text
  * @cssprop [--uibit-signature-pad-cursor=crosshair] - Cursor style over the canvas
@@ -37,12 +37,12 @@ export class SignaturePad extends UIBitElement {
     :host {
       display: block;
       --uibit-signature-pad-width: 100%;
-      --uibit-signature-pad-height: 12.5rem;
+      --uibit-signature-pad-height: 11.25rem;
       --uibit-signature-pad-background: #ffffff;
       --uibit-signature-pad-border: 0.0625rem solid #e5e7eb;
       --uibit-signature-pad-border-radius: 0.5rem;
       --uibit-signature-pad-stroke-color: #111111;
-      --uibit-signature-pad-stroke-width: 0.125rem;
+      --uibit-signature-pad-stroke-width: 0.15625rem;
       --uibit-signature-pad-hint-color: rgba(0, 0, 0, 0.22);
       --uibit-signature-pad-hint-font-size: 0.8125rem;
       --uibit-signature-pad-cursor: crosshair;
@@ -218,8 +218,19 @@ export class SignaturePad extends UIBitElement {
   }
 
   private strokeWidth(): number {
-    const raw = this.getCssPropertyValue('--uibit-signature-pad-stroke-width');
-    return parseFloat(raw) || 2;
+    const raw = this.getCssPropertyValue('--uibit-signature-pad-stroke-width').trim();
+    if (!raw) return 2;
+    const num = parseFloat(raw);
+    if (isNaN(num)) return 2;
+    if (raw.endsWith('rem')) {
+      const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+      return num * rootFontSize;
+    }
+    if (raw.endsWith('em')) {
+      const parentFontSize = parseFloat(getComputedStyle(this).fontSize) || 16;
+      return num * parentFontSize;
+    }
+    return num;
   }
 
   private strokeColor(): string {

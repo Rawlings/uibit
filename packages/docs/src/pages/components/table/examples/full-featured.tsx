@@ -38,7 +38,6 @@ function FullFeaturedDemo() {
         striped
         sticky-header
         page-sizes="5,10,20"
-        style={{ '--uibit-table-max-height': '28rem' } as React.CSSProperties}
       >
         <table>
           <thead>

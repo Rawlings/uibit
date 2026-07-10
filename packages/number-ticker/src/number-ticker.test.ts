@@ -50,15 +50,27 @@ describe('NumberTicker Component', () => {
     expect(valueEl?.textContent).toBe('5.00');
   });
 
-  it('applies prefix and suffix strings', async () => {
-    element.prefix = '$';
-    element.suffix = '/mo';
-    element.from = 100;
-    element.value = 100;
+  it('applies custom formatter function', async () => {
+    element.formatter = (val) => `USD ${val.toFixed(2)}`;
+    element.from = 120.5;
+    element.value = 120.5;
     element.connectedCallback();
     await element.updateComplete;
 
     const valueEl = element.shadowRoot?.querySelector('.value');
-    expect(valueEl?.textContent).toBe('$100/mo');
+    expect(valueEl?.textContent).toBe('USD 120.50');
+  });
+
+  it('applies locale and options properties', async () => {
+    element.locale = 'en-US';
+    element.options = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 };
+    element.from = 1000;
+    element.value = 1000;
+    element.connectedCallback();
+    await element.updateComplete;
+
+    const valueEl = element.shadowRoot?.querySelector('.value');
+    const text = valueEl?.textContent?.replace(/\u00a0/g, ' ');
+    expect(text).toBe('$1,000');
   });
 });

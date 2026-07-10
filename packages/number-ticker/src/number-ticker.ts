@@ -6,7 +6,7 @@ import { styles } from './styles';
 /**
  * Animates a numeric value from zero (or a custom start) up to the `value`
  * attribute once the element scrolls into the viewport. Supports easing,
- * decimal places, prefix/suffix strings, and locale-aware formatting.
+ * decimal places, and custom formatting functions.
  *
  * The animation runs entirely in the shadow DOM on a rAF loop so it never
  * blocks the main thread via layout thrashing.
@@ -30,14 +30,14 @@ export class NumberTicker extends UIBitElement {
   @property({ type: Number, attribute: 'from' }) from = 0;
   /** Duration of the count animation in milliseconds. */
   @property({ type: Number }) duration = 1800;
-  /** Number of decimal places to display. */
+  /** Number of decimal places to display. Used only if no custom formatter is provided. */
   @property({ type: Number }) decimals = 0;
-  /** String prepended to the value (e.g. "$"). */
-  @property({ type: String }) prefix = '';
-  /** String appended to the value (e.g. "k" or "%"). */
-  @property({ type: String }) suffix = '';
-  /** BCP 47 locale string for number formatting (e.g. "en-US"). Empty disables locale formatting. */
+  /** BCP 47 locale string for number formatting (e.g. "en-US"). Defaults to browser locale if options is set. */
   @property({ type: String }) locale = '';
+  /** Options for Intl.NumberFormat. */
+  @property({ type: Object }) options?: Intl.NumberFormatOptions;
+  /** Custom formatter function to format the number for display. Overrides locale and options. */
+  @property({ attribute: false }) formatter?: (value: number) => string;
   /** Easing curve: "ease-out" | "ease-in-out" | "linear". */
   @property({ type: String }) easing: 'ease-out' | 'ease-in-out' | 'linear' = 'ease-out';
   /** Intersection threshold (0–1) at which the animation triggers. */
@@ -86,17 +86,13 @@ export class NumberTicker extends UIBitElement {
   }
 
   private _format(n: number): string {
-    const fixed = n.toFixed(this.decimals);
-    let formatted: string;
-    if (this.locale) {
-      formatted = Number(fixed).toLocaleString(this.locale, {
-        minimumFractionDigits: this.decimals,
-        maximumFractionDigits: this.decimals,
-      });
-    } else {
-      formatted = fixed;
+    if (this.formatter) {
+      return this.formatter(n);
     }
-    return `${this.prefix}${formatted}${this.suffix}`;
+    if (this.options || this.locale) {
+      return new Intl.NumberFormat(this.locale || undefined, this.options).format(n);
+    }
+    return n.toFixed(this.decimals);
   }
 
   private _start() {

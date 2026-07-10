@@ -16,13 +16,9 @@
       "Bash(pnpm run analyze)",
       "Bash(pnpm run lint)",
       "Bash(pnpm run test)",
-      "Bash(pnpm -F * run build)",
-      "Bash(pnpm -F * build)",
       "Bash(pnpm --filter * build)",
       "Bash(pnpm --filter * run build)",
       "Bash(pnpm --filter * test)",
-      "Bash(pnpm -F * exec *)",
-      "Bash(pnpm --filter * exec *)",
       "Bash(npx cem *)",
       "Bash(npx tsc *)",
       "Bash(npx vitest run packages/**/*)"
