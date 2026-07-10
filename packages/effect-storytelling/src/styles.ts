@@ -268,6 +268,37 @@ export const styles = css`
     box-shadow: 0 0 8px var(--uibit-effect-storytelling-nav-dot-active-glow, rgba(255, 255, 255, 0.5));
   }
 
+  /* ── Slotted Stage Animations ───────────────────────────────────────────── */
+
+  ::slotted([slot="stage"]) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    animation-fill-mode: both !important;
+    animation-timing-function: linear !important;
+  }
+
+  :host([mode="sequence-fade"]) ::slotted([slot="stage"]) {
+    animation-name: uibit-story-mode-sequence-fade;
+  }
+
+  :host([mode="reveal-wipe"]) ::slotted([slot="stage"]:nth-child(2)) {
+    animation-name: uibit-story-mode-reveal-wipe;
+  }
+
+  :host([mode="layer-depth"]) ::slotted([slot="stage"]) {
+    animation-name: uibit-story-mode-layer-depth;
+  }
+
+  :host([mode="zoom-focus"]) ::slotted([slot="stage"]) {
+    animation-name: uibit-story-mode-zoom-focus;
+  }
+
+  .track-wrapper ::slotted(*) {
+    pointer-events: auto !important;
+  }
+
   /* ── Keyframes for scroll modes ─────────────────────────────────────────── */
 
   @keyframes uibit-story-mode-sequence-fade {

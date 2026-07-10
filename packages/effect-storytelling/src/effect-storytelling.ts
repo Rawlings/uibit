@@ -104,7 +104,7 @@ export class EffectStorytelling extends UIBitElement {
   }
 
   private _updateTimelines() {
-    // 1. Assign view-timeline to each track step
+    // 1. Assign view-timeline and layout styles to each track step
     this._trackSteps.forEach((step, idx) => {
       const htmlEl = step as HTMLElement;
       htmlEl.style.setProperty('view-timeline', `--story-step-${idx} block`);
@@ -112,6 +112,34 @@ export class EffectStorytelling extends UIBitElement {
         htmlEl.style.scrollSnapAlign = 'start';
       } else {
         htmlEl.style.scrollSnapAlign = '';
+      }
+
+      // Reset prior layout inline styles
+      htmlEl.style.margin = '';
+      htmlEl.style.marginLeft = '';
+      htmlEl.style.marginRight = '';
+      htmlEl.style.maxWidth = '';
+      htmlEl.style.textAlign = '';
+      htmlEl.style.pointerEvents = 'auto';
+
+      if (this.trackAlignment === 'split-alternate') {
+        htmlEl.style.boxSizing = 'border-box';
+        if (idx % 2 === 0) {
+          htmlEl.style.marginRight = 'auto';
+          htmlEl.style.marginLeft = '5%';
+          htmlEl.style.maxWidth = '40%';
+        } else {
+          htmlEl.style.marginLeft = 'auto';
+          htmlEl.style.marginRight = '5%';
+          htmlEl.style.maxWidth = '40%';
+        }
+      } else if (this.trackAlignment === 'overlay-center') {
+        htmlEl.style.marginInline = 'auto';
+        htmlEl.style.maxWidth = '36rem';
+        htmlEl.style.textAlign = 'center';
+      } else if (this.trackAlignment === 'overlay-bottom') {
+        htmlEl.style.marginInline = 'auto';
+        htmlEl.style.maxWidth = '36rem';
       }
     });
 
@@ -121,22 +149,9 @@ export class EffectStorytelling extends UIBitElement {
       this.style.setProperty('timeline-scope', scopes);
     }
 
-    // 3. Link stage children animations to the timelines
-    const animationName = `uibit-story-mode-${this.mode}`;
+    // 3. Link stage children timelines
     this._stageChildren.forEach((el, idx) => {
-      el.style.position = 'absolute';
-      el.style.inset = '0';
-      el.style.width = '100%';
-      el.style.height = '100%';
-      el.style.setProperty('animation-name', animationName);
       el.style.setProperty('animation-timeline', `--story-step-${idx}`);
-      el.style.setProperty('animation-fill-mode', 'both');
-      el.style.setProperty('animation-timing-function', 'linear');
-
-      // Stagger or clip rules for reveal-wipe
-      if (this.mode === 'reveal-wipe' && idx > 0) {
-        el.style.setProperty('animation-name', 'uibit-story-mode-reveal-wipe');
-      }
     });
   }
 

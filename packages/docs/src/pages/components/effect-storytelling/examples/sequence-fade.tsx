@@ -22,7 +22,6 @@ function SequenceFadeDemo() {
           transform-style: preserve-3d;
           transform: rotateX(45deg) rotateZ(-30deg);
         }
-        /* Elevate the glass screen bezel as step 0 scrolls */
         .watch-screen {
           position: absolute;
           inset: 0;
@@ -31,11 +30,15 @@ function SequenceFadeDemo() {
           background: rgba(99, 102, 241, 0.1);
           backdrop-filter: blur(4px);
           box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
-          transform: translateZ(calc(var(--story-step-progress-0, 0) * 80px));
-          transition: transform 0.1s ease-out;
           display: flex;
           align-items: center;
           justify-content: center;
+          animation: lift-screen both;
+          animation-timeline: --story-step-0;
+        }
+        @keyframes lift-screen {
+          0% { transform: translateZ(0px); }
+          100% { transform: translateZ(80px); }
         }
         /* Elevate & rotate the motherboard sensor array as step 1 scrolls */
         .watch-logic {
@@ -44,11 +47,15 @@ function SequenceFadeDemo() {
           border: 2px solid #10b981;
           border-radius: 30px;
           background: rgba(16, 185, 129, 0.05);
-          transform: translateZ(calc(var(--story-step-progress-1, 0) * 50px)) rotate(calc(var(--story-step-progress-1, 0) * 90deg));
-          transition: transform 0.1s ease-out;
           display: flex;
           align-items: center;
           justify-content: center;
+          animation: lift-rotate-logic both;
+          animation-timeline: --story-step-1;
+        }
+        @keyframes lift-rotate-logic {
+          0% { transform: translateZ(0px) rotate(0deg); }
+          100% { transform: translateZ(50px) rotate(90deg); }
         }
         /* Highlight the inductive charging coil as step 2 scrolls */
         .watch-base {
@@ -58,8 +65,12 @@ function SequenceFadeDemo() {
           border-radius: 50%;
           background: rgba(245, 158, 11, 0.05);
           transform: translateZ(0);
-          box-shadow: 0 0 calc(var(--story-step-progress-2, 0) * 20px) rgba(245, 158, 11, 0.4);
-          transition: box-shadow 0.1s ease-out;
+          animation: glow-base both;
+          animation-timeline: --story-step-2;
+        }
+        @keyframes glow-base {
+          0% { box-shadow: 0 0 0px rgba(245, 158, 11, 0); }
+          100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
         }
       `}</style>
       

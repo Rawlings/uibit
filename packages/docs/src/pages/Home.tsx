@@ -21,44 +21,26 @@ function Home() {
     return acc;
   }, {} as Record<string, { id: string; name: string; description: string; packageName: string; tagName: string }>);
 
-  const categories = [
-    {
-      name: 'Visual & Media',
-      ids: ['carousel', 'viewer-360', 'hotspot', 'image-xray', 'isometric-cluster'],
-    },
-    {
-      name: 'Forms & Input',
-      ids: ['signature-pad', 'sentiment-bar', 'consent-guard'],
-    },
-    {
-      name: 'Typography & Display',
-      ids: ['text-typing', 'text-clamp', 'text-read-timer', 'text-rotator'],
-    },
-    {
-      name: 'Data & Utilities',
-      ids: ['table', 'scroll-progress', 'number-ticker', 'countdown', 'effect-trigger', 'scratch-reveal', 'diff-viewer'],
-    },
-    {
-      name: 'A/B Testing',
-      ids: ['ab-test'],
-    },
-  ];
+  const allComponents = Object.keys(componentRegistry)
+    .map((key) => componentRegistry[key]!)
+    .sort((a, b) => a.title.localeCompare(b.title));
 
   return (
-    <div className="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <div className="relative bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200 overflow-hidden">
+      {/* Mesh/Grid background pattern at the top of the Home page */}
+      <div className="absolute top-0 inset-x-0 h-[600px] pointer-events-none -z-10 bg-[radial-gradient(circle_at_top,#f3f4f6_0%,transparent_70%)] dark:bg-[radial-gradient(circle_at_top,#111827_0%,transparent_70%)]">
+        <div className="w-full h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)] [background-size:24px_24px] [mask-image:linear-gradient(to_bottom,black_50%,transparent)]" />
+      </div>
+
       {/* Hero Section */}
       <section className="relative max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-5">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-950 via-gray-700 to-gray-800 dark:from-white dark:via-gray-200 dark:to-gray-400 font-sans">
-            UI components the browser understands.
+            Premium micro-experiences for your web applications.
           </span>
         </h1>
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto leading-relaxed mb-4">
-          A curated set of polished, accessible web components built on the platform itself — not on top of it.
-          No virtual DOM. No runtime overhead. Just elements.
-        </p>
-        <p className="text-sm text-gray-400 dark:text-gray-500 mb-8">
-          Built with Lit · Shadow DOM encapsulated · WCAG AA accessible
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto leading-relaxed mb-8">
+          A curated library of beautiful, interactive, and high-performance components designed to engage users and elevate your product's user interface.
         </p>
 
         {/* Quick install */}
@@ -89,21 +71,23 @@ function Home() {
         </div>
       </section>
 
+
+
       {/* Three qualities */}
       <section className="max-w-5xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-900">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           {[
             {
-              heading: 'Encapsulated',
-              body: 'Shadow DOM means styles never bleed in or out. What you see in the docs is exactly what you get in your app — regardless of your global CSS.',
+              heading: 'Engaging & Interactive',
+              body: 'Delight your users with smooth micro-animations, rich media tools, and polished interactions that feel premium.',
             },
             {
-              heading: 'Accessible by default',
-              body: 'Every component ships with correct ARIA roles, keyboard navigation, and focus management. Accessibility is the starting point, not a feature you opt into.',
+              heading: 'Production Ready',
+              body: 'Fully accessible, localized, and tested components that drop seamlessly into any project with zero setup.',
             },
             {
-              heading: 'Minimal surface area',
-              body: 'Components do one thing well. No opinions about your routing, state management, or layout. Wrap them, compose them, extend them as you see fit.',
+              heading: 'Performant by Design',
+              body: 'Built to load instantly and run smoothly, ensuring your application remains lightweight and fast.',
             },
           ].map(({ heading, body }) => (
             <div key={heading}>
@@ -162,50 +146,29 @@ function Home() {
           Components
         </h2>
 
-        <div className="space-y-12">
-          {categories.map((cat, idx) => {
-            const catComps = cat.ids
-              .map((id) => componentsMap[id])
-              .filter(Boolean);
-
-            if (catComps.length === 0) return null;
-
-            return (
-              <div key={idx} className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
-                    {cat.name}
-                  </h3>
-                  <span className="text-xs text-gray-400 dark:text-gray-600">{catComps.length}</span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {catComps.map((comp) => (
-                    <Link
-                      key={comp.id}
-                      to={`/${comp.id}`}
-                      className="p-5 border border-gray-100 dark:border-gray-900 rounded-xl hover:border-gray-300 dark:hover:border-gray-800 transition-all group block"
-                    >
-                      <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1.5 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
-                        {comp.name}
-                      </h4>
-                      <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
-                        {comp.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-[10px] text-gray-400 dark:text-gray-500 font-mono">
-                          {comp.packageName}
-                        </span>
-                        <span className="text-[10px] text-gray-300 dark:text-gray-700 font-mono">
-                          {'<'}{comp.tagName}{'>'}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {allComponents.map((comp) => (
+            <Link
+              key={comp.id}
+              to={`/${comp.id}`}
+              className="p-5 border border-gray-100 dark:border-gray-900 rounded-xl hover:border-gray-300 dark:hover:border-gray-800 transition-all group block bg-white dark:bg-gray-950"
+            >
+              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1.5 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+                {comp.title}
+              </h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed mb-4 line-clamp-2">
+                {comp.description}
+              </p>
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] text-gray-400 dark:text-gray-500 font-mono">
+                  {comp.packageName}
+                </span>
+                <span className="text-[10px] text-gray-300 dark:text-gray-700 font-mono">
+                  {'<'}{comp.tagName}{'>'}
+                </span>
               </div>
-            );
-          })}
+            </Link>
+          ))}
         </div>
       </section>
     </div>

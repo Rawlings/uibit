@@ -9,8 +9,10 @@ import layerDepthExample from './examples/layer-depth';
 import layerDepthRaw from './examples/layer-depth?raw';
 import zoomFocusExample from './examples/zoom-focus';
 import zoomFocusRaw from './examples/zoom-focus?raw';
-import cssVariablesExample from './examples/css-variables';
-import cssVariablesRaw from './examples/css-variables?raw';
+import splitAlternateExample from './examples/split-alternate';
+import splitAlternateRaw from './examples/split-alternate?raw';
+import stickyTopExample from './examples/sticky-top';
+import stickyTopRaw from './examples/sticky-top?raw';
 
 function EffectStorytellingDemo() {
   return (
@@ -123,14 +125,15 @@ const processedExamples = [
   { ...revealWipeExample, code: { react: revealWipeRaw } },
   { ...layerDepthExample, code: { react: layerDepthRaw } },
   { ...zoomFocusExample, code: { react: zoomFocusRaw } },
-  { ...cssVariablesExample, code: { react: cssVariablesRaw } },
+  { ...splitAlternateExample, code: { react: splitAlternateRaw } },
+  { ...stickyTopExample, code: { react: stickyTopRaw } },
 ];
 
 const data: ComponentDocData = {
   id: 'effect-storytelling',
   title: 'Effect Storytelling',
   description:
-    'A scroll-driven layout orchestrator that creates a sticky visual stage synchronized with a scrollable narrative track. Broadcasts live scroll state as CSS custom properties for composable, zero-dependency animations.',
+    'A scroll-driven layout orchestrator that creates a sticky visual stage synchronized with a scrollable narrative track using native CSS Scroll-driven Animations.',
   packageName: '@uibit/effect-storytelling',
   tagName: 'uibit-effect-storytelling',
   manifest,
@@ -183,10 +186,8 @@ function Demo() {
   features: [
     'Four built-in modes: sequence-fade, reveal-wipe, layer-depth, zoom-focus',
     'Three composable slots: stage (sticky visuals), track (narrative), overlay (HUD layer)',
-    'Four track alignment layouts: right, left, center, overlap',
-    'Broadcasts --story-progress, --story-step-active, --story-step-count, --story-stage-height as CSS custom properties',
-    'Fires story-progress and story-step custom events for JavaScript-driven extensions',
-    'IntersectionObserver-based step detection with configurable threshold',
+    'Comprehensive layout system: split-left, split-right, split-alternate, overlay-center, overlay-bottom, sticky-top, sticky-bottom, headless',
+    'Native CSS Scroll-driven Animations view-timeline integrations',
     'Optional CSS scroll-snap on track steps via snap-points attribute',
     'Respects prefers-reduced-motion',
   ],

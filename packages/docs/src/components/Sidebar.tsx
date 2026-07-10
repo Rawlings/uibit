@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { componentRegistry } from '../pages/components';
 
@@ -10,14 +10,28 @@ const GUIDES = [
 ];
 
 const COMPONENT_CATEGORIES = [
-  { label: 'Visual & Media', ids: ['carousel', 'viewer-360', 'hotspot', 'image-xray', 'isometric-cluster', 'effect-particles', 'effect-storytelling', 'comparison-curtain'] },
+  { label: 'Visual & Media', ids: ['carousel', 'viewer-360', 'hotspot', 'image-xray', 'effect-particles', 'effect-storytelling', 'comparison-curtain'] },
   { label: 'Forms & Input', ids: ['signature-pad', 'sentiment-bar', 'consent-guard'] },
   { label: 'Typography & Display', ids: ['text-typing', 'text-clamp', 'text-read-timer', 'text-rotator'] },
   { label: 'Data & Utilities', ids: ['table', 'scroll-progress', 'number-ticker', 'countdown', 'effect-trigger', 'scratch-reveal', 'diff-viewer'] },
   { label: 'A/B Testing', ids: ['ab-test'] },
 ];
 
-export function Sidebar({ activeId }: { activeId?: string }) {
+export function Sidebar({ activeId, className = '' }: { activeId?: string; className?: string }) {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  let resolvedActiveId = activeId;
+  if (!resolvedActiveId) {
+    if (currentPath === '/styling') resolvedActiveId = 'styling';
+    else if (currentPath === '/localization') resolvedActiveId = 'localization';
+    else if (currentPath === '/icons') resolvedActiveId = 'icons';
+    else if (currentPath === '/foundations') resolvedActiveId = 'frameworks';
+    else {
+      resolvedActiveId = currentPath.substring(1);
+    }
+  }
+
   const [searchQuery, setSearchQuery] = useState('');
   const q = searchQuery.toLowerCase();
 
@@ -45,7 +59,7 @@ export function Sidebar({ activeId }: { activeId?: string }) {
   const hasResults = filteredGuides.length > 0 || categoriesWithMatches.length > 0;
 
   return (
-    <aside className="w-full md:w-56 shrink-0 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-800 pb-6 md:pb-0 md:pr-6">
+    <aside className={`w-full md:w-56 shrink-0 md:border-r border-gray-200 dark:border-gray-800 md:pr-6 ${className}`}>
       <div className="mb-5">
         <input
           type="text"
@@ -71,7 +85,7 @@ export function Sidebar({ activeId }: { activeId?: string }) {
                 key={guide.id}
                 to={guide.to}
                 className={`block px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-                  activeId === guide.id ? activeStyle : inactiveStyle
+                  resolvedActiveId === guide.id ? activeStyle : inactiveStyle
                 }`}
               >
                 {guide.title}
@@ -90,7 +104,7 @@ export function Sidebar({ activeId }: { activeId?: string }) {
                 key={item.id}
                 to={`/${item.id}`}
                 className={`block px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
-                  activeId === item.id ? activeStyle : inactiveStyle
+                  resolvedActiveId === item.id ? activeStyle : inactiveStyle
                 }`}
               >
                 {item.title}

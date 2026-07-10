@@ -15,6 +15,7 @@ function CssVariablesDemo() {
       <style>{`
         .css-var-demo {
           --uibit-effect-storytelling-stage-height: 80vh;
+          view-timeline: --storytelling-tl block;
         }
         .css-var-demo .custom-stage {
           height: 100%;
@@ -38,22 +39,23 @@ function CssVariablesDemo() {
           font-weight: 700;
           color: #f4f4f5;
         }
-        /* Rotate a pseudo-element based on --story-progress */
-        @property --story-progress {
-          syntax: '<number>';
-          initial-value: 0;
-          inherits: true;
-        }
         .css-var-demo .progress-arc {
           position: absolute;
           inset: -0.25rem;
           border-radius: 50%;
-          background: conic-gradient(
-            #6366f1 calc(var(--story-progress, 0) * 360deg),
-            transparent 0
-          );
           mask: radial-gradient(farthest-side, transparent calc(100% - 0.35rem), #000 0);
           filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.6));
+          animation: fill-arc both;
+          animation-timeline: --storytelling-tl;
+          animation-range: entry 100% exit 0%;
+        }
+        @keyframes fill-arc {
+          0% {
+            background: conic-gradient(#6366f1 0deg, transparent 0);
+          }
+          100% {
+            background: conic-gradient(#6366f1 360deg, transparent 0);
+          }
         }
       `}</style>
 

@@ -211,7 +211,7 @@ export default function ComponentDocs() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
       <div className="flex flex-col md:flex-row gap-8">
-        <Sidebar activeId={componentId} />
+        <Sidebar activeId={componentId} className="hidden md:block" />
 
         {/* Main Documentation Area */}
         <div className="flex-1 min-w-0">

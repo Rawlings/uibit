@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>
+    .vert {
+      fill: url(#vert-gradient-light);
+    }
+    .rot {
+      fill: url(#rot-gradient-light);
+    }
+    @media (prefers-color-scheme: dark) {
+      .vert {
+        fill: url(#vert-gradient-dark);
+      }
+      .rot {
+        fill: url(#rot-gradient-dark);
+      }
+    }
+  </style>
+  <defs>
+    <!-- Light mode gradients -->
+    <linearGradient id="vert-gradient-light" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#9ca3af" />
+      <stop offset="100%" stop-color="#111827" />
+    </linearGradient>
+    <linearGradient id="rot-gradient-light" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#030712" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+
+    <!-- Dark mode gradients -->
+    <linearGradient id="vert-gradient-dark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4b5563" />
+      <stop offset="100%" stop-color="#ffffff" />
+    </linearGradient>
+    <linearGradient id="rot-gradient-dark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#475569" />
+    </linearGradient>
+  </defs>
+  <rect class="vert" x="13" y="4" width="6" height="24" rx="3" />
+  <rect class="rot" x="4" y="13" width="24" height="6" rx="3" transform="rotate(45 16 16)" />
+</svg>

@@ -24,7 +24,6 @@
     "@uibit/effect-trigger": "workspace:*",
     "@uibit/hotspot": "workspace:*",
     "@uibit/image-xray": "workspace:*",
-    "@uibit/isometric-cluster": "workspace:*",
     "@uibit/number-ticker": "workspace:*",
     "@uibit/text-read-timer": "workspace:*",
     "@uibit/scratch-reveal": "workspace:*",
