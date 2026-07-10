@@ -4,25 +4,22 @@ export const styles = css`
   :host {
     --uibit-diff-viewer-border-color: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb));
     --uibit-diff-viewer-radius: var(--uibit-radius-2xl, 0.5rem);
-    --uibit-diff-viewer-header-bg: var(--uibit-bg-subtle, var(--uibit-color-gray-50, #f9fafb));
     --uibit-diff-viewer-label-color: var(--uibit-text-muted, var(--uibit-color-gray-500, #6b7280));
-    --uibit-diff-viewer-gutter-bg: var(--uibit-bg-subtle, var(--uibit-color-gray-50, #f9fafb));
-    --uibit-diff-viewer-gutter-color: var(--uibit-color-gray-400, #9ca3af);
+    --uibit-diff-viewer-gutter-color: var(--uibit-color-gray-400, #d1d5db);
     --uibit-diff-viewer-equal-color: var(--uibit-text-secondary, var(--uibit-color-gray-700, #374151));
 
     display: block;
     font-family: var(--uibit-diff-viewer-font-family, var(--uibit-font-mono, ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace));
     font-size: var(--uibit-diff-viewer-font-size, var(--uibit-font-size-sm, calc(0.8125rem * var(--uibit-font-scale-factor, 1))));
     line-height: var(--uibit-diff-viewer-line-height, var(--uibit-line-height-normal, 1.5));
-    border: 1px solid var(--uibit-diff-viewer-border-color);
+    border: 0.0625rem solid var(--uibit-diff-viewer-border-color);
     border-radius: var(--uibit-diff-viewer-radius);
     overflow: hidden;
   }
 
   .header {
     display: grid;
-    border-bottom: 1px solid var(--uibit-diff-viewer-border-color);
-    background: var(--uibit-diff-viewer-header-bg);
+    border-bottom: 0.0625rem solid var(--uibit-diff-viewer-border-color);
   }
 
   :host([mode="split"]) .header {
@@ -38,8 +35,8 @@ export const styles = css`
     font-size: var(--uibit-font-size-xs, calc(0.75rem * var(--uibit-font-scale-factor, 1)));
     font-weight: var(--uibit-font-weight-medium, 500);
     color: var(--uibit-diff-viewer-label-color, #6b7280);
-    font-family: inherit;
-    border-right: 1px solid var(--uibit-diff-viewer-border-color, #e5e7eb);
+    font-family: var(--uibit-diff-viewer-font-family, inherit);
+    border-right: 0.0625rem solid var(--uibit-diff-viewer-border-color, #e5e7eb);
   }
 
   .header-cell:last-child {
@@ -61,7 +58,7 @@ export const styles = css`
 
   .pane {
     overflow: auto;
-    border-right: 1px solid var(--uibit-diff-viewer-border-color, #e5e7eb);
+    border-right: 0.0625rem solid var(--uibit-diff-viewer-border-color, #e5e7eb);
   }
 
   .pane:last-child {
@@ -78,9 +75,8 @@ export const styles = css`
     min-width: calc(3rem * var(--uibit-spacing-factor, 1));
     padding: 0 calc(0.75rem * var(--uibit-spacing-factor, 1));
     text-align: right;
-    color: var(--uibit-diff-viewer-gutter-color, #9ca3af);
-    background: var(--uibit-diff-viewer-gutter-bg, #f9fafb);
-    border-right: 1px solid var(--uibit-diff-viewer-border-color, #e5e7eb);
+    color: var(--uibit-diff-viewer-gutter-color, #d1d5db);
+    border-right: 0.0625rem solid var(--uibit-diff-viewer-border-color, #e5e7eb);
     flex-shrink: 0;
   }
 
@@ -91,23 +87,21 @@ export const styles = css`
   }
 
   .line.delete {
-    background: var(--uibit-diff-delete-bg, #fef2f2);
+    background: rgba(239, 68, 68, 0.06);
     color: var(--uibit-diff-delete-color, #991b1b);
   }
 
   .line.delete .gutter {
-    background: var(--uibit-diff-delete-gutter-bg, #fee2e2);
-    color: var(--uibit-diff-delete-color, #991b1b);
+    color: rgba(153, 27, 27, 0.4);
   }
 
   .line.insert {
-    background: var(--uibit-diff-insert-bg, #f0fdf4);
+    background: rgba(34, 197, 94, 0.06);
     color: var(--uibit-diff-insert-color, #166534);
   }
 
   .line.insert .gutter {
-    background: var(--uibit-diff-insert-gutter-bg, #dcfce7);
-    color: var(--uibit-diff-insert-color, #166534);
+    color: rgba(22, 101, 52, 0.4);
   }
 
   .line.equal {
@@ -120,10 +114,11 @@ export const styles = css`
     width: 1rem;
     margin-right: 0.25rem;
     flex-shrink: 0;
+    opacity: 0.5;
   }
 
   .divider {
-    width: 1px;
+    width: 0.0625rem;
     background: var(--uibit-diff-viewer-border-color, #e5e7eb);
   }
 
@@ -132,50 +127,57 @@ export const styles = css`
     align-items: center;
     justify-content: space-between;
     padding: calc(0.5rem * var(--uibit-spacing-factor, 1)) calc(1rem * var(--uibit-spacing-factor, 1));
-    background: var(--uibit-diff-viewer-header-bg);
-    border-bottom: 1px solid var(--uibit-diff-viewer-border-color);
+    border-bottom: 0.0625rem solid var(--uibit-diff-viewer-border-color);
   }
 
   .title {
     font-size: var(--uibit-font-size-xs, calc(0.75rem * var(--uibit-font-scale-factor, 1)));
-    font-weight: var(--uibit-font-weight-semibold, 600);
+    font-weight: var(--uibit-font-weight-medium, 500);
     color: var(--uibit-diff-viewer-label-color, #6b7280);
-    text-transform: uppercase;
-    letter-spacing: var(--uibit-letter-spacing-wide, 0.05em);
+    font-family: var(--uibit-diff-viewer-font-family, inherit);
   }
 
   .toggle-group {
     display: inline-flex;
-    background: var(--uibit-color-gray-100, #f3f4f6);
-    padding: 0.125rem;
-    border-radius: var(--uibit-radius-md, 0.375rem);
-    border: 1px solid var(--uibit-diff-viewer-border-color);
+    border: 0.0625rem solid var(--uibit-diff-viewer-border-color);
+    border-radius: 0.375rem;
+    overflow: hidden;
   }
 
   .toggle-btn {
     font-size: var(--uibit-font-size-xs, calc(0.75rem * var(--uibit-font-scale-factor, 1)));
     font-weight: var(--uibit-font-weight-medium, 500);
-    padding: 0.125rem 0.5rem;
+    padding: 0.25rem 0.625rem;
     border: none;
     background: transparent;
-    border-radius: var(--uibit-radius-sm, 0.25rem);
     cursor: pointer;
-    color: var(--uibit-color-gray-600, #4b5563);
-    transition: background 150ms ease, color 150ms ease;
+    color: var(--uibit-diff-viewer-label-color, #6b7280);
+    transition: background 150ms ease, color 150ms ease, box-shadow 100ms ease, opacity 100ms ease;
+    font-family: var(--uibit-diff-viewer-font-family, inherit);
+    border-right: 0.0625rem solid var(--uibit-diff-viewer-border-color, #e5e7eb);
+  }
+
+  .toggle-btn:last-child {
+    border-right: none;
   }
 
   .toggle-btn:hover {
     color: var(--uibit-color-gray-900, #111827);
+    background: rgba(0, 0, 0, 0.03);
   }
 
   .toggle-btn.active {
-    background: var(--uibit-color-white, #ffffff);
-    color: var(--uibit-color-black, #000000);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    background: #111827;
+    color: #ffffff;
+  }
+
+  .toggle-btn:active {
+    box-shadow: inset 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.1);
+    opacity: 0.8;
   }
 
   .toggle-btn:focus-visible {
-    outline: 2px solid var(--uibit-diff-viewer-focus-color, #000000);
-    outline-offset: 1px;
+    outline: 0.125rem solid var(--uibit-diff-viewer-focus-color, #000000);
+    outline-offset: 0.0625rem;
   }
 `;

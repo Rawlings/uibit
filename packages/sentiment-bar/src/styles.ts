@@ -33,17 +33,17 @@ export const styles = css`
     background: transparent;
     outline: none;
     color: var(--uibit-text-secondary, #374151);
-    transition:
-      background 0.15s ease,
-      transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1),
-      opacity 0.15s ease;
+    transition: background 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
   }
 
   .item:hover,
   .item:focus-visible {
     background: var(--uibit-sentiment-bar-item-hover-bg, var(--uibit-bg-subtle, rgba(0, 0, 0, 0.06)));
-    transform: scale(1.15) translateY(-0.125rem);
     opacity: 1 !important;
+  }
+
+  .item:active {
+    opacity: 0.7;
   }
 
   .item:focus-visible {
@@ -54,13 +54,8 @@ export const styles = css`
   .item[data-selected] {
     background: var(--uibit-sentiment-bar-item-selected-bg, var(--uibit-bg-surface, #ffffff));
     box-shadow: var(--uibit-sentiment-bar-item-selected-shadow, 0 0.125rem 0.5rem rgba(0, 0, 0, 0.12));
-    transform: scale(1.25) translateY(-0.25rem);
     color: var(--uibit-text-primary, #111827);
     opacity: 1 !important;
-  }
-
-  .item[data-selected]:hover {
-    transform: scale(1.3) translateY(-0.3rem);
   }
 
   .item.dimmed {

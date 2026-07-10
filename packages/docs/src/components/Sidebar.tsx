@@ -10,7 +10,7 @@ const GUIDES = [
 ];
 
 const COMPONENT_CATEGORIES = [
-  { label: 'Visual & Media', ids: ['carousel', 'viewer-360', 'hotspot', 'image-xray', 'isometric-cluster'] },
+  { label: 'Visual & Media', ids: ['carousel', 'viewer-360', 'hotspot', 'image-xray', 'isometric-cluster', 'effect-particles', 'effect-storytelling', 'comparison-curtain'] },
   { label: 'Forms & Input', ids: ['signature-pad', 'sentiment-bar', 'consent-guard'] },
   { label: 'Typography & Display', ids: ['text-typing', 'text-clamp', 'text-read-timer', 'text-rotator'] },
   { label: 'Data & Utilities', ids: ['table', 'scroll-progress', 'number-ticker', 'countdown', 'effect-trigger', 'scratch-reveal', 'diff-viewer'] },

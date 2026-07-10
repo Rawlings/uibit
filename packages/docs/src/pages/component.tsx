@@ -7,7 +7,6 @@ import { useHead } from '../hooks/useHead';
 import { DualCode } from '../types/docs';
 
 type CodeTab = 'html' | 'react';
-type PkgManager = 'npm' | 'pnpm' | 'yarn';
 
 function CodePanel({ code }: { code: DualCode }) {
   const [open, setOpen] = useState(false);
@@ -174,14 +173,7 @@ export default function ComponentDocs() {
 
   const { title, description, packageName, tagName, manifest, Demo, demoCode, examples, usages, features } = comp;
 
-  const [pkgManager, setPkgManager] = useState<PkgManager>('npm');
   const [activeSection, setActiveSection] = useState<string>('');
-
-  const installCommands: Record<PkgManager, string> = {
-    npm: `npm install ${packageName}`,
-    pnpm: `pnpm add ${packageName}`,
-    yarn: `yarn add ${packageName}`,
-  };
 
   const tocItems = [
     { id: 'demo', label: 'Demo', show: !!Demo },
@@ -242,24 +234,12 @@ export default function ComponentDocs() {
             <p className="text-base text-gray-600 dark:text-gray-450 mb-6 leading-relaxed max-w-3xl">
               {description}
             </p>
-            <div className="inline-flex flex-col items-start border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden">
-              <div className="flex border-b border-gray-200 dark:border-gray-800">
-                {(['npm', 'pnpm', 'yarn'] as PkgManager[]).map((pm) => (
-                  <button
-                    key={pm}
-                    onClick={() => setPkgManager(pm)}
-                    className={`px-3 py-1.5 text-xs font-medium transition-colors cursor-pointer ${
-                      pkgManager === pm
-                        ? 'bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white'
-                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-900'
-                    }`}
-                  >
-                    {pm}
-                  </button>
-                ))}
-              </div>
-              <code className="px-4 py-2.5 text-sm font-mono text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-950">
-                {installCommands[pkgManager]}
+            <div className="flex items-center gap-4">
+              <code className="inline-block bg-gray-100 dark:bg-gray-900 px-3 py-2 rounded text-sm font-mono text-gray-700 dark:text-gray-300">
+                npm install {packageName}
+              </code>
+              <code className="text-sm font-mono text-gray-400 dark:text-gray-500">
+                {'<'}{tagName}{'>'}
               </code>
             </div>
           </header>

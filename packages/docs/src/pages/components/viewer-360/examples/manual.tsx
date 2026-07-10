@@ -1,14 +1,11 @@
 import '@uibit/360-viewer';
 import { UsageExample } from '../../../../types/docs';
 
-function ManualDemo() {
-  const frames = [
-    'https://picsum.photos/seed/orbit1/600/400',
-    'https://picsum.photos/seed/orbit2/600/400',
-    'https://picsum.photos/seed/orbit3/600/400',
-    'https://picsum.photos/seed/orbit4/600/400',
-  ];
+const frames = Array.from({ length: 73 }, (_, i) =>
+  `https://scaleflex.cloudimg.io/v7/demo/suv-orange-car-360/orange-${i + 1}.jpg`
+);
 
+function ManualDemo() {
   return (
     <uibit-360-viewer>
       {frames.map((src, idx) => (

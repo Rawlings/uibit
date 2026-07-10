@@ -8,23 +8,15 @@ import oneShotRaw from './examples/one-shot?raw';
 
 function TextTypingDemo() {
   return (
-    <div>
-      <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm text-center">
-        <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
-          We help teams{' '}
-          <uibit-text-typing
-            type-speed="75"
-            typo-rate="0.05"
-            style={{ color: '#111827' }}
-          >
-            <span>ship faster.</span>
-            <span>build better.</span>
-            <span>scale confidently.</span>
-            <span>move with clarity.</span>
-          </uibit-text-typing>
-        </h2>
-      </div>
-    </div>
+    <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
+      We help teams{' '}
+      <uibit-text-typing type-speed="75" typo-rate="0.05">
+        <span>ship faster.</span>
+        <span>build better.</span>
+        <span>scale confidently.</span>
+        <span>move with clarity.</span>
+      </uibit-text-typing>
+    </h2>
   );
 }
 

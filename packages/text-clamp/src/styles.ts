@@ -40,8 +40,8 @@ export const styles = css`
   }
 
   .toggle:focus-visible {
-    outline: 2px solid var(--uibit-text-clamp-focus-color, #000000);
-    outline-offset: 2px;
+    outline: 0.125rem solid var(--uibit-text-clamp-focus-color, #000000);
+    outline-offset: 0.125rem;
     border-radius: 0.125rem;
   }
 `;

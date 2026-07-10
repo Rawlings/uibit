@@ -8,23 +8,19 @@ import customLensRaw from './examples/custom-lens?raw';
 
 function ImageXrayDemo() {
   return (
-    <div>
-      <div className="max-w-2xl mx-auto rounded-lg overflow-hidden border border-gray-200 shadow-sm">
-        <uibit-image-xray>
-          <img
-            src="https://picsum.photos/seed/carexterior/800/450"
-            alt="Vehicle exterior"
-            style={{ display: 'block', width: '100%' }}
-          />
-          <img
-            slot="xray"
-            src="https://picsum.photos/seed/carbattery/800/450"
-            alt="Battery and motor layout"
-            style={{ display: 'block', width: '100%' }}
-          />
-        </uibit-image-xray>
-      </div>
-    </div>
+    <uibit-image-xray>
+      <img
+        src="https://picsum.photos/seed/carexterior/800/450"
+        alt="Vehicle exterior"
+        style={{ display: 'block', width: '100%' }}
+      />
+      <img
+        slot="xray"
+        src="https://picsum.photos/seed/carbattery/800/450"
+        alt="Battery and motor layout"
+        style={{ display: 'block', width: '100%' }}
+      />
+    </uibit-image-xray>
   );
 }
 

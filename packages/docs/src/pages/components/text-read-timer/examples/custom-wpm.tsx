@@ -11,19 +11,14 @@ const technicalText = `
 
 function Demo() {
   return (
-    <div className="space-y-4">
-      <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-5 shadow-sm">
-        <uibit-text-read-timer wpm="100" template="{time} to read" show-icon>
-          <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100 dark:border-gray-800">
-            <span className="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-wide">Technical Documentation</span>
-            {/* The component automatically injects the calculated time into slot="timer" */}
-            <span slot="timer" className="text-xs text-gray-500 dark:text-gray-400 font-medium"></span>
-          </div>
-          <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Binary Search Trees</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-3">{technicalText.trim()}</p>
-        </uibit-text-read-timer>
+    <uibit-text-read-timer wpm="100" template="{time} to read" show-icon>
+      <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
+        <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">Technical Documentation</span>
+        <span slot="timer" className="text-xs text-gray-500 font-medium"></span>
       </div>
-    </div>
+      <h3 className="text-base font-semibold text-gray-900 mb-2">Binary Search Trees</h3>
+      <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">{technicalText.trim()}</p>
+    </uibit-text-read-timer>
   );
 }
 

@@ -23,20 +23,15 @@ function TextReadTimerDemo() {
   `;
 
   return (
-    <div>
-      <div className="max-w-2xl bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6 shadow-sm">
-        <uibit-text-read-timer show-icon>
-          <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
-            <span className="text-xs text-gray-400 dark:text-gray-500 uppercase tracking-wide font-medium">By UIBit Editors</span>
-            <span className="text-gray-250 dark:text-gray-700">·</span>
-            {/* The component automatically updates this element's textContent */}
-            <span slot="timer" className="text-xs text-gray-500 dark:text-gray-400 font-medium"></span>
-          </div>
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">Why Reading Time Estimates Work</h2>
-          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-4">{sampleContent.trim()}</p>
-        </uibit-text-read-timer>
+    <uibit-text-read-timer show-icon>
+      <div className="flex items-center gap-2 mb-3">
+        <span className="text-xs text-gray-400 uppercase tracking-wide font-medium">By UIBit Editors</span>
+        <span className="text-gray-300">·</span>
+        <span slot="timer" className="text-xs text-gray-500 font-medium"></span>
       </div>
-    </div>
+      <h2 className="text-lg font-semibold text-gray-900 mb-2">Why Reading Time Estimates Work</h2>
+      <p className="text-sm text-gray-600 leading-relaxed line-clamp-4">{sampleContent.trim()}</p>
+    </uibit-text-read-timer>
   );
 }
 

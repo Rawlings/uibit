@@ -1,4 +1,3 @@
-import { useRef } from 'react';
 import '@uibit/carousel';
 import manifest from '@uibit/carousel/custom-elements.json';
 import { ComponentDocData } from '../../../types/docs';
@@ -10,42 +9,13 @@ import customNavExample from './examples/custom-nav';
 import customNavRaw from './examples/custom-nav?raw';
 
 function CarouselDemo() {
-  const carouselRef = useRef<any>(null);
-
   return (
-    <div>
-      <style>{`
-        uibit-carousel {
-          --uibit-carousel-items-per-view: 1;
-          --uibit-carousel-gap: 1rem;
-        }
-        @media (min-width: 768px) {
-          uibit-carousel { --uibit-carousel-items-per-view: 2; }
-        }
-        .carousel-slide { position: relative; height: 280px; border-radius: 0.5rem; overflow: hidden; }
-        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .carousel-slide-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); color: white; font-size: 0.875rem; font-weight: 500; }
-      `}</style>
-
-      <uibit-carousel ref={carouselRef} loop>
-        <div className="carousel-slide">
-          <img src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow at dawn" />
-          <span className="carousel-slide-caption">Alpine Meadow — Graubünden, Switzerland</span>
-        </div>
-        <div className="carousel-slide">
-          <img src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline at sunset" />
-          <span className="carousel-slide-caption">Rugged Coastline — Algarve, Portugal</span>
-        </div>
-        <div className="carousel-slide">
-          <img src="https://picsum.photos/seed/kyoto/900/560" alt="Temple path in autumn forest" />
-          <span className="carousel-slide-caption">Temple Path — Kyoto, Japan</span>
-        </div>
-        <div className="carousel-slide">
-          <img src="https://picsum.photos/seed/dunes/900/560" alt="Sand dunes at golden hour" />
-          <span className="carousel-slide-caption">Sand Dunes — Merzouga, Morocco</span>
-        </div>
-      </uibit-carousel>
-    </div>
+    <uibit-carousel loop>
+      <img src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow at dawn" style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }} />
+      <img src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline at sunset" style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }} />
+      <img src="https://picsum.photos/seed/kyoto/900/560" alt="Temple path in autumn forest" style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }} />
+      <img src="https://picsum.photos/seed/dunes/900/560" alt="Sand dunes at golden hour" style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }} />
+    </uibit-carousel>
   );
 }
 
@@ -65,77 +35,22 @@ const data: ComponentDocData = {
   manifest,
   Demo: CarouselDemo,
   demoCode: {
-    html: `<style>
-  uibit-carousel {
-    --uibit-carousel-items-per-view: 1;
-    --uibit-carousel-gap: 1rem;
-  }
-  @media (min-width: 768px) {
-    uibit-carousel { --uibit-carousel-items-per-view: 2; }
-  }
-  .carousel-slide { position: relative; height: 280px; border-radius: 0.5rem; overflow: hidden; }
-  .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .carousel-slide-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); color: white; font-size: 0.875rem; font-weight: 500; }
-</style>
-
-<uibit-carousel loop>
-  <div class="carousel-slide">
-    <img src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow at dawn" />
-    <span class="carousel-slide-caption">Alpine Meadow — Graubünden, Switzerland</span>
-  </div>
-  <div class="carousel-slide">
-    <img src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline at sunset" />
-    <span class="carousel-slide-caption">Rugged Coastline — Algarve, Portugal</span>
-  </div>
-  <div class="carousel-slide">
-    <img src="https://picsum.photos/seed/kyoto/900/560" alt="Temple path in autumn forest" />
-    <span class="carousel-slide-caption">Temple Path — Kyoto, Japan</span>
-  </div>
-  <div class="carousel-slide">
-    <img src="https://picsum.photos/seed/dunes/900/560" alt="Sand dunes at golden hour" />
-    <span class="carousel-slide-caption">Sand Dunes — Merzouga, Morocco</span>
-  </div>
+    html: `<uibit-carousel loop>
+  <img src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow at dawn" style="width:100%;height:280px;object-fit:cover;display:block;" />
+  <img src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline at sunset" style="width:100%;height:280px;object-fit:cover;display:block;" />
+  <img src="https://picsum.photos/seed/kyoto/900/560" alt="Temple path in autumn forest" style="width:100%;height:280px;object-fit:cover;display:block;" />
+  <img src="https://picsum.photos/seed/dunes/900/560" alt="Sand dunes at golden hour" style="width:100%;height:280px;object-fit:cover;display:block;" />
 </uibit-carousel>`,
-    react: `import { useRef } from 'react';
-import '@uibit/carousel';
+    react: `import '@uibit/carousel';
 
-function CarouselDemo() {
-  const carouselRef = useRef(null);
-
+function Demo() {
   return (
-    <div>
-      <style>{\`
-        uibit-carousel {
-          --uibit-carousel-items-per-view: 1;
-          --uibit-carousel-gap: 1rem;
-        }
-        @media (min-width: 768px) {
-          uibit-carousel { --uibit-carousel-items-per-view: 2; }
-        }
-        .carousel-slide { position: relative; height: 280px; border-radius: 0.5rem; overflow: hidden; }
-        .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .carousel-slide-caption { position: absolute; bottom: 0; left: 0; right: 0; padding: 0.75rem 1rem; background: linear-gradient(to top, rgba(0,0,0,0.55), transparent); color: white; font-size: 0.875rem; font-weight: 500; }
-      \`}</style>
-
-      <uibit-carousel ref={carouselRef} loop>
-        <div className="carousel-slide">
-          <img src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow at dawn" />
-          <span className="carousel-slide-caption">Alpine Meadow — Graubünden, Switzerland</span>
-        </div>
-        <div className="carousel-slide">
-          <img src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline at sunset" />
-          <span className="carousel-slide-caption">Rugged Coastline — Algarve, Portugal</span>
-        </div>
-        <div className="carousel-slide">
-          <img src="https://picsum.photos/seed/kyoto/900/560" alt="Temple path in autumn forest" />
-          <span className="carousel-slide-caption">Temple Path — Kyoto, Japan</span>
-        </div>
-        <div className="carousel-slide">
-          <img src="https://picsum.photos/seed/dunes/900/560" alt="Sand dunes at golden hour" />
-          <span className="carousel-slide-caption">Sand Dunes — Merzouga, Morocco</span>
-        </div>
-      </uibit-carousel>
-    </div>
+    <uibit-carousel loop>
+      <img src="https://picsum.photos/seed/alps/900/560" alt="Alpine meadow at dawn" style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }} />
+      <img src="https://picsum.photos/seed/coastline/900/560" alt="Rocky coastline at sunset" style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }} />
+      <img src="https://picsum.photos/seed/kyoto/900/560" alt="Temple path in autumn forest" style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }} />
+      <img src="https://picsum.photos/seed/dunes/900/560" alt="Sand dunes at golden hour" style={{ width: '100%', height: '280px', objectFit: 'cover', display: 'block' }} />
+    </uibit-carousel>
   );
 }`,
   },

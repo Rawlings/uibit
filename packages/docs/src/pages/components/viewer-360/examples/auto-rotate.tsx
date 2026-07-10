@@ -1,16 +1,11 @@
 import '@uibit/360-viewer';
 import { UsageExample } from '../../../../types/docs';
 
-function AutoRotateDemo() {
-  const frames = [
-    'https://picsum.photos/seed/sneaker1/600/400',
-    'https://picsum.photos/seed/sneaker2/600/400',
-    'https://picsum.photos/seed/sneaker3/600/400',
-    'https://picsum.photos/seed/sneaker4/600/400',
-    'https://picsum.photos/seed/sneaker5/600/400',
-    'https://picsum.photos/seed/sneaker6/600/400',
-  ];
+const frames = Array.from({ length: 73 }, (_, i) =>
+  `https://scaleflex.cloudimg.io/v7/demo/suv-orange-car-360/orange-${i + 1}.jpg`
+);
 
+function AutoRotateDemo() {
   return (
     <uibit-360-viewer auto-rotate="true" rotation-speed={150}>
       {frames.map((src, idx) => (

@@ -36,7 +36,12 @@ export class ScratchReveal extends UIBitElement {
   get brushSize(): number {
     if (typeof window === 'undefined') return 80;
     const val = getComputedStyle(this).getPropertyValue('--uibit-scratch-reveal-brush-size').trim();
-    return val ? parseFloat(val) || 80 : 80;
+    if (!val) return 80;
+    if (val.endsWith('rem')) {
+      return parseFloat(val) * parseFloat(getComputedStyle(document.documentElement).fontSize);
+    }
+    if (val.endsWith('px')) return parseFloat(val);
+    return parseFloat(val) || 80;
   }
 
   @state() private isRevealed = false;
@@ -123,13 +128,14 @@ export class ScratchReveal extends UIBitElement {
     const rect = this.canvas.getBoundingClientRect();
     const x = (e.clientX - rect.left) * window.devicePixelRatio;
     const y = (e.clientY - rect.top) * window.devicePixelRatio;
+    const r = (this.brushSize * window.devicePixelRatio) / 2;
 
-    this.ctx.clearRect(
-      x - (this.brushSize * window.devicePixelRatio) / 2,
-      y - (this.brushSize * window.devicePixelRatio) / 2,
-      this.brushSize * window.devicePixelRatio,
-      this.brushSize * window.devicePixelRatio
-    );
+    this.ctx.save();
+    this.ctx.globalCompositeOperation = 'destination-out';
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, r, 0, Math.PI * 2);
+    this.ctx.fill();
+    this.ctx.restore();
 
     if (!this._rafId) {
       this._rafId = requestAnimationFrame(() => {

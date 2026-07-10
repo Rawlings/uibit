@@ -30,7 +30,7 @@ export const styles = css`
     justify-content: center;
     box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
     position: relative;
-    transition: transform 150ms ease, background-color 150ms ease;
+    transition: transform 150ms ease, background-color 150ms ease, box-shadow 100ms ease;
     outline: none;
     padding: 0;
   }
@@ -42,18 +42,22 @@ export const styles = css`
     height: 100%;
     border-radius: 9999rem;
     background: inherit;
-    animation: pulse 2s infinite;
+    animation: pulse 2.5s ease-out infinite;
     z-index: -1;
-    opacity: 0.5;
+    opacity: 0;
   }
 
   @keyframes pulse {
     0% {
       transform: scale(1);
-      opacity: 0.5;
+      opacity: 0.35;
+    }
+    70% {
+      transform: scale(1.7);
+      opacity: 0;
     }
     100% {
-      transform: scale(2.2);
+      transform: scale(1.7);
       opacity: 0;
     }
   }
@@ -62,6 +66,12 @@ export const styles = css`
   .hotspot-trigger.active {
     background: var(--uibit-hotspot-trigger-bg-hover, rgba(0, 0, 0, 0.9));
     transform: scale(1.1);
+  }
+
+  .hotspot-trigger:active {
+    box-shadow:
+      0 0 0.125rem rgba(0, 0, 0, 0.2),
+      inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.2);
   }
 
   .hotspot-trigger:focus-visible {
@@ -171,12 +181,17 @@ export const styles = css`
     align-items: center;
     justify-content: center;
     border-radius: 9999rem;
-    transition: background-color 150ms ease, color 150ms ease;
+    transition: background-color 150ms ease, color 150ms ease, box-shadow 100ms ease;
   }
 
   .popover-close:hover {
     background-color: #f3f4f6;
     color: #111827;
+  }
+
+  .popover-close:active {
+    background-color: #e5e7eb;
+    box-shadow: inset 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.1);
   }
 
   .popover-close:focus-visible {

@@ -89,21 +89,21 @@ function Home() {
         </div>
       </section>
 
-      {/* Why UIBit */}
+      {/* Three qualities */}
       <section className="max-w-5xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-900">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
           {[
             {
-              heading: 'Works Everywhere',
-              body: 'Standard HTML custom elements run natively in any framework or plain HTML — the same tag, the same API, the same bundle. No framework-specific builds.',
+              heading: 'Encapsulated',
+              body: 'Shadow DOM means styles never bleed in or out. What you see in the docs is exactly what you get in your app — regardless of your global CSS.',
             },
             {
-              heading: 'Isolated by Default',
-              body: 'Shadow DOM encapsulation means component internals are invisible to global styles. Your CSS never breaks our components; our CSS never leaks into yours.',
+              heading: 'Accessible by default',
+              body: 'Every component ships with correct ARIA roles, keyboard navigation, and focus management. Accessibility is the starting point, not a feature you opt into.',
             },
             {
-              heading: 'Typed for Your Stack',
-              body: 'Auto-generated wrappers ship type definitions for React 19, Vue 3, Svelte 5, Angular, Astro, Preact, Stencil, and vanilla TypeScript — full IDE autocomplete, zero runtime overhead.',
+              heading: 'Minimal surface area',
+              body: 'Components do one thing well. No opinions about your routing, state management, or layout. Wrap them, compose them, extend them as you see fit.',
             },
           ].map(({ heading, body }) => (
             <div key={heading}>

@@ -25,19 +25,57 @@ export const styles = css`
     user-select: none;
     -webkit-user-drag: none;
     outline: none;
+    min-height: 4rem;
   }
 
   .viewer:focus-visible {
     box-shadow: 0 0 0 0.125rem var(--uibit-360-viewer-focus-color);
   }
 
-  img {
-    display: block;
+  .frames {
+    position: relative;
     width: 100%;
-    height: auto;
+    overflow: hidden;
+  }
+
+  .frames:not(.ready) {
+    visibility: hidden;
+  }
+
+  .frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     pointer-events: none;
     user-select: none;
     -webkit-user-drag: none;
+    opacity: 0;
+    will-change: opacity;
+  }
+
+  .frame-active {
+    opacity: 1;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .skeleton {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      var(--uibit-360-viewer-bg) 25%,
+      rgba(0, 0, 0, 0.06) 50%,
+      var(--uibit-360-viewer-bg) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.4s ease infinite;
+    aspect-ratio: inherit;
   }
 
   .nav-button {
@@ -57,9 +95,12 @@ export const styles = css`
     justify-content: center;
     cursor: pointer;
     opacity: 0;
-    transition: opacity 200ms ease, background-color 150ms ease, transform 150ms ease;
     z-index: 10;
-    box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.1);
+    box-shadow:
+      0 0.125rem 0.5rem rgba(0, 0, 0, 0.12),
+      0 0.25rem 1rem rgba(0, 0, 0, 0.1),
+      0 0 0 0.0625rem rgba(0, 0, 0, 0.06);
+    transition: opacity 200ms ease, background-color 150ms ease, box-shadow 150ms ease;
   }
 
   .viewer:hover .nav-button,
@@ -74,11 +115,16 @@ export const styles = css`
 
   .nav-button:hover {
     background: var(--uibit-360-viewer-button-bg-hover);
-    transform: translateY(-50%) scale(1.05);
+    box-shadow:
+      0 0.25rem 0.75rem rgba(0, 0, 0, 0.16),
+      0 0.5rem 1.5rem rgba(0, 0, 0, 0.12),
+      0 0 0 0.0625rem rgba(0, 0, 0, 0.08);
   }
 
   .nav-button:active {
-    transform: translateY(-50%) scale(0.95);
+    box-shadow:
+      0 0 0 0.0625rem rgba(0, 0, 0, 0.06),
+      inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12);
   }
 
   .nav-button-prev {

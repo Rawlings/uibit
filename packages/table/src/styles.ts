@@ -99,7 +99,7 @@ export const styles = css`
     color: inherit;
     cursor: pointer;
     white-space: nowrap;
-    transition: background 0.12s, border-color 0.12s;
+    transition: background 0.12s, border-color 0.12s, opacity 0.1s ease, box-shadow 0.1s ease;
     display: inline-flex;
     align-items: center;
     gap: 0.3rem;
@@ -109,7 +109,8 @@ export const styles = css`
     background: var(--uibit-table-hover-bg, #f9fafb);
     border-color: var(--uibit-table-border-color, #d1d5db);
   }
-  .ctrl-btn:focus-visible { outline: 2px solid var(--uibit-table-focus-color, currentColor); outline-offset: 2px; }
+  .ctrl-btn:active { box-shadow: inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1); opacity: 0.8; }
+  .ctrl-btn:focus-visible { outline: 0.125rem solid var(--uibit-table-focus-color, currentColor); outline-offset: 0.125rem; }
   .ctrl-btn .chevron { font-size: 0.625rem; opacity: 0.6; }
 
   /* ── Column menu ─────────────────────────────────────────── */
@@ -222,7 +223,7 @@ export const styles = css`
     text-underline-offset: 0.15em;
   }
 
-  .sel-banner-btn:focus-visible { outline: 2px solid var(--uibit-focus-color, currentColor); outline-offset: 2px; border-radius: 0.125rem; }
+  .sel-banner-btn:focus-visible { outline: 0.125rem solid var(--uibit-focus-color, currentColor); outline-offset: 0.125rem; border-radius: 0.125rem; }
 
   .sel-banner-sep { color: var(--uibit-border-color, #93c5fd); }
 
@@ -490,10 +491,11 @@ export const styles = css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.12s;
+    transition: background 0.12s, box-shadow 0.1s ease, opacity 0.1s ease;
   }
 
   .page-btn:hover:not(:disabled) { background: var(--uibit-bg-subtle, #f3f4f6); }
+  .page-btn:active:not(:disabled) { box-shadow: inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12); opacity: 0.8; }
   .page-btn.active {
     background: var(--uibit-focus-color, #111827);
     color: var(--uibit-bg-surface, #fff);
@@ -501,7 +503,7 @@ export const styles = css`
     font-weight: 600;
   }
   .page-btn:disabled { opacity: 0.4; cursor: default; }
-  .page-btn:focus-visible { outline: 2px solid var(--uibit-focus-color, currentColor); outline-offset: 2px; }
+  .page-btn:focus-visible { outline: 0.125rem solid var(--uibit-focus-color, currentColor); outline-offset: 0.125rem; }
 
   /* Loading Spinner */
   .loading-spinner {

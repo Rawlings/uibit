@@ -6,11 +6,7 @@ function StarRatingDemo() {
   const [rating, setRating] = useState(0);
 
   return (
-    <div className="border border-gray-200 rounded-lg p-6 bg-white flex flex-col items-center justify-center shadow-sm max-w-sm mx-auto">
-      <h4 className="text-sm font-bold text-gray-900 mb-1">Rate your experience</h4>
-      <p className="text-xs text-gray-500 mb-4">Your feedback helps us improve our product.</p>
-      
-      <div className="flex space-x-2">
+    <div className="flex space-x-2">
         {[1, 2, 3, 4, 5].map((star) => (
           <uibit-effect-trigger
             key={star}
@@ -46,7 +42,6 @@ function StarRatingDemo() {
             </div>
           </uibit-effect-trigger>
         ))}
-      </div>
     </div>
   );
 }

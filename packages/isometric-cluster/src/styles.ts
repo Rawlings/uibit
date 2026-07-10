@@ -58,7 +58,8 @@ export const styles = css`
       transform var(--uibit-isometric-cluster-transition, 0.5s) cubic-bezier(0.34, 1.56, 0.64, 1),
       background 0.2s ease,
       border-color 0.2s ease,
-      box-shadow 0.2s ease;
+      box-shadow 0.2s ease,
+      opacity 0.1s ease;
   }
 
   /* Hover & Active / Selection States */
@@ -66,6 +67,12 @@ export const styles = css`
     background: var(--uibit-isometric-cluster-layer-active-bg, #ffffff);
     border-color: var(--uibit-isometric-cluster-layer-active-border, #9ca3af);
     box-shadow: 0 0.625rem 1.25rem 0 rgba(0, 0, 0, 0.15);
+  }
+
+  .layer:active {
+    opacity: 0.75;
+    box-shadow: 0 0.125rem 0.375rem 0 rgba(0, 0, 0, 0.08) !important;
+    transition-duration: 60ms;
   }
 
   .layer[aria-selected="true"] {

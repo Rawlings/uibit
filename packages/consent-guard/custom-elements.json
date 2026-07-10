@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Gate any content behind a consent prompt. Shows the `placeholder` slot until\nthe user grants consent, then reveals the default slot.\n\nConsent is triggered by clicking any element with `[data-consent-accept]`\nor `[data-consent-decline]` inside the placeholder slot, or by calling\nthe `accept()` / `decline()` methods programmatically.\n\nContent in the default slot is kept `display:none` until consent is granted,\nso iframes with `loading=\"lazy\"` will not make network requests beforehand.",
+          "description": "Gate any content behind a consent prompt. Shows the `placeholder` slot until\nthe user grants consent, then reveals the default slot.\n\nConsent is triggered by clicking any element with `[data-consent-accept]`\ninside the placeholder slot, or by calling the `accept()` method programmatically.\n\nContent in the default slot is kept `display:none` until consent is granted,\nso iframes with `loading=\"lazy\"` will not make network requests beforehand.",
           "name": "ConsentGuard",
           "cssParts": [
             {
@@ -22,7 +22,7 @@
           ],
           "slots": [
             {
-              "description": "Shown before consent. Put your prompt UI here. Mark your accept button with `data-consent-accept` and decline with `data-consent-decline`.",
+              "description": "Shown before consent. Put your prompt UI here. Mark your accept button with `data-consent-accept`.",
               "name": "placeholder"
             },
             {
@@ -47,11 +47,6 @@
             },
             {
               "kind": "method",
-              "name": "decline",
-              "description": "Programmatically decline consent."
-            },
-            {
-              "kind": "method",
               "name": "_onPlaceholderClick",
               "privacy": "private",
               "parameters": [
@@ -68,10 +63,6 @@
             {
               "description": "Fired when consent is granted",
               "name": "consent-accepted"
-            },
-            {
-              "description": "Fired when consent is declined",
-              "name": "consent-declined"
             }
           ],
           "superclass": {

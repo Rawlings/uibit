@@ -37,6 +37,8 @@ export class Viewer360 extends UIBitElement {
 
   @state() private currentIndex = 0;
   @state() private isDragging = false;
+  @state() private firstFrameReady = false;
+  @state() private aspectRatio = '16 / 9';
 
   private autoRotateTimer?: number;
   private resumeTimer?: number;
@@ -45,8 +47,6 @@ export class Viewer360 extends UIBitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.startAutoRotate();
-    this.preloadAllImages();
   }
 
   disconnectedCallback() {
@@ -65,16 +65,14 @@ export class Viewer360 extends UIBitElement {
     }
     if (changedProperties.has('images')) {
       this.currentIndex = 0;
-      this.preloadAllImages();
-      if (this.autoRotate) {
-        this.startAutoRotate();
-      }
+      this.firstFrameReady = false;
+      this.stopAutoRotate();
     }
   }
 
   private startAutoRotate() {
     this.stopAutoRotate();
-    if (!this.autoRotate || this.images.length === 0) return;
+    if (!this.autoRotate || this.images.length === 0 || !this.firstFrameReady) return;
     this.autoRotateTimer = window.setInterval(() => {
       this.next();
     }, this.rotationSpeed);
@@ -102,36 +100,26 @@ export class Viewer360 extends UIBitElement {
     }
   }
 
-  private preloadAdjacentImages() {
-    if (!this.images || this.images.length === 0) return;
-    const nextIndex = (this.currentIndex + 1) % this.images.length;
-    const prevIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-    
-    [nextIndex, prevIndex].forEach((idx) => {
-      const img = new Image();
-      img.src = this.images[idx]!;
-    });
-  }
-
-  private preloadAllImages() {
-    if (!this.images) return;
-    this.images.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
+  private handleFrameLoad(e: Event, index: number) {
+    if (index === 0) {
+      const img = e.target as HTMLImageElement;
+      if (img.naturalWidth && img.naturalHeight) {
+        this.aspectRatio = `${img.naturalWidth} / ${img.naturalHeight}`;
+      }
+      this.firstFrameReady = true;
+      if (this.autoRotate) this.startAutoRotate();
+    }
   }
 
   next() {
     if (this.images.length === 0) return;
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
-    this.preloadAdjacentImages();
     this.emitChange();
   }
 
   prev() {
     if (this.images.length === 0) return;
     this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-    this.preloadAdjacentImages();
     this.emitChange();
   }
 
@@ -203,19 +191,18 @@ export class Viewer360 extends UIBitElement {
     if (elements.length > 0) {
       this.images = elements.map(el => el.getAttribute('src') || el.src || '');
       this.currentIndex = 0;
-      this.preloadAllImages();
+      this.firstFrameReady = false;
     }
   }
 
   render() {
-    const image = this.images[this.currentIndex];
-    const progressPercent = this.images.length > 0 
-      ? ((this.currentIndex + 1) / this.images.length) * 100 
+    const progressPercent = this.images.length > 0
+      ? ((this.currentIndex + 1) / this.images.length) * 100
       : 0;
 
     return html`
       <slot @slotchange=${this.handleSlotChange} style="display: none;"></slot>
-      <div 
+      <div
         part="viewer"
         class="viewer ${this.isDragging ? 'dragging' : ''}"
         tabindex="0"
@@ -227,18 +214,31 @@ export class Viewer360 extends UIBitElement {
         @pointercancel=${this.handlePointerUp}
         @keydown=${this.handleKeyDown}
       >
-        ${image 
-          ? html`
-              <img 
+        ${this.images.length > 0 ? html`
+          <div
+            class="frames ${this.firstFrameReady ? 'ready' : ''}"
+            style="aspect-ratio: ${this.aspectRatio};"
+          >
+            ${this.images.map((src, i) => html`
+              <img
                 part="image"
-                src="${image}" 
-                alt="360 view frame ${this.currentIndex + 1} of ${this.images.length}" 
+                class="frame ${i === this.currentIndex ? 'frame-active' : ''}"
+                src="${src}"
+                alt=""
+                aria-hidden="${i !== this.currentIndex}"
+                @load=${(e: Event) => this.handleFrameLoad(e, i)}
               />
-            ` 
-          : html`<p style="padding: 24px; text-align: center; color: var(--uibit-360-viewer-button-color);">No images provided</p>`
-        }
+            `)}
+          </div>
+        ` : html`
+          <p style="padding: 24px; text-align: center; color: var(--uibit-360-viewer-button-color);">No images provided</p>
+        `}
 
-        ${this.images.length > 0 && !this.isDragging ? html`
+        ${!this.firstFrameReady && this.images.length > 0 ? html`
+          <div part="skeleton" class="skeleton"></div>
+        ` : ''}
+
+        ${this.firstFrameReady && !this.isDragging ? html`
           <slot name="hint">
             <div part="drag-hint" class="drag-hint">
               ${getIcon('move', 16, fromLucide(Move))}
@@ -247,7 +247,7 @@ export class Viewer360 extends UIBitElement {
           </slot>
         ` : ''}
 
-        ${this.showControls && this.images.length > 0 ? html`
+        ${this.showControls && this.firstFrameReady ? html`
           <slot name="prev" @click=${(e: Event) => {
             e.stopPropagation();
             this.stopAutoRotate();
@@ -280,7 +280,7 @@ export class Viewer360 extends UIBitElement {
           </slot>
         ` : ''}
 
-        ${this.showProgressBar && this.images.length > 0 ? html`
+        ${this.showProgressBar && this.firstFrameReady ? html`
           <div part="progress-track" class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="${this.images.length}" aria-valuenow="${this.currentIndex + 1}">
             <div part="progress-bar" class="progress-bar" style="width: ${progressPercent}%"></div>
           </div>

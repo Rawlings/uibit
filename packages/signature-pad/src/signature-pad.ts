@@ -103,24 +103,28 @@ export class SignaturePad extends UIBitElement {
       position: absolute;
       top: 0.5rem;
       right: 0.5rem;
-      padding: 0.25rem 0.625rem;
-      font-size: 0.75rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      padding: 0;
       font-family: inherit;
       background: transparent;
-      border: 0.0625rem solid currentColor;
-      border-radius: 0.25rem;
+      border: none;
+      border-radius: 9999rem;
       color: var(--uibit-signature-pad-hint-color);
       cursor: pointer;
-      line-height: 1.5;
-      transition: color 150ms ease, border-color 150ms ease;
+      transition: color 150ms ease, background-color 150ms ease;
       display: inline-flex;
       align-items: center;
-      gap: 0.25rem;
+      justify-content: center;
     }
 
     .clear-button:hover {
       color: var(--uibit-signature-pad-stroke-color);
-      border-color: var(--uibit-signature-pad-stroke-color);
+      background-color: rgba(0, 0, 0, 0.06);
+    }
+
+    .clear-button:active {
+      background-color: rgba(0, 0, 0, 0.1);
     }
 
     .clear-button:focus-visible {
@@ -340,7 +344,7 @@ export class SignaturePad extends UIBitElement {
                 part="clear-button"
                 class="clear-button"
                 ?disabled=${this.isEmpty}
-              >${getIcon('rotate-ccw', 14, fromLucide(RotateCcw))}<slot name="clear-label">Clear</slot></button>`
+              >${getIcon('rotate-ccw', 14, fromLucide(RotateCcw))}</button>`
           : ''}
         </slot>
       </div>

@@ -6,26 +6,19 @@ import autoRotateRaw from './examples/auto-rotate?raw';
 import manualExample from './examples/manual';
 import manualRaw from './examples/manual?raw';
 
+const CAR_FRAMES = Array.from({ length: 73 }, (_, i) =>
+  `https://scaleflex.cloudimg.io/v7/demo/suv-orange-car-360/orange-${i + 1}.jpg`
+);
+
 function Viewer360Demo() {
-  const demoImages = [
-    'https://picsum.photos/seed/sneaker1/600/400',
-    'https://picsum.photos/seed/sneaker2/600/400',
-    'https://picsum.photos/seed/sneaker3/600/400',
-    'https://picsum.photos/seed/sneaker4/600/400',
-    'https://picsum.photos/seed/sneaker5/600/400',
-    'https://picsum.photos/seed/sneaker6/600/400',
-  ];
+  const demoImages = CAR_FRAMES;
 
   return (
-    <div>
-      <div className="max-w-xl mx-auto bg-white rounded-lg p-4 border border-gray-200">
-        <uibit-360-viewer auto-rotate="true" rotation-speed={150}>
-          {demoImages.map((src, idx) => (
-            <img key={idx} src={src} alt={`Frame ${idx + 1}`} />
-          ))}
-        </uibit-360-viewer>
-      </div>
-    </div>
+    <uibit-360-viewer auto-rotate="true" rotation-speed={150}>
+      {demoImages.map((src, idx) => (
+        <img key={idx} src={src} alt={`Frame ${idx + 1}`} />
+      ))}
+    </uibit-360-viewer>
   );
 }
 

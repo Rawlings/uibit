@@ -7,17 +7,15 @@ import { state } from 'lit/decorators.js';
  * the user grants consent, then reveals the default slot.
  *
  * Consent is triggered by clicking any element with `[data-consent-accept]`
- * or `[data-consent-decline]` inside the placeholder slot, or by calling
- * the `accept()` / `decline()` methods programmatically.
+ * inside the placeholder slot, or by calling the `accept()` method programmatically.
  *
  * Content in the default slot is kept `display:none` until consent is granted,
  * so iframes with `loading="lazy"` will not make network requests beforehand.
  *
  * @fires consent-accepted - Fired when consent is granted
- * @fires consent-declined - Fired when consent is declined
  *
  * @slot placeholder - Shown before consent. Put your prompt UI here. Mark your
- *   accept button with `data-consent-accept` and decline with `data-consent-decline`.
+ *   accept button with `data-consent-accept`.
  * @slot (default) - The content to reveal after consent (e.g. an iframe).
  *
  * @csspart placeholder - Wrapper around the placeholder slot
@@ -59,17 +57,10 @@ export class ConsentGuard extends UIBitElement {
     this.dispatchCustomEvent('consent-accepted');
   }
 
-  /** Programmatically decline consent. */
-  decline() {
-    this.dispatchCustomEvent('consent-declined');
-  }
-
   private _onPlaceholderClick(e: Event) {
     const path = e.composedPath() as Element[];
     if (path.some(el => el instanceof HTMLElement && el.hasAttribute('data-consent-accept'))) {
       this.accept();
-    } else if (path.some(el => el instanceof HTMLElement && el.hasAttribute('data-consent-decline'))) {
-      this.decline();
     }
   }
 

@@ -1,0 +1,561 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/effect-storytelling.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A scroll-driven storytelling layout orchestrator. Establishes a sticky visual\nstage synchronized with a scrollable narrative track and broadcasts real-time\nscroll state as CSS custom properties, enabling fully composable animations\nwithout external dependencies.",
+          "name": "EffectStorytelling",
+          "cssProperties": [
+            {
+              "description": "Height of the sticky stage.",
+              "name": "--uibit-effect-storytelling-stage-height",
+              "default": "100vh"
+            },
+            {
+              "description": "Gap between stage and track in side-by-side layouts.",
+              "name": "--uibit-effect-storytelling-gap",
+              "default": "0rem"
+            },
+            {
+              "description": "Flex basis for the track in side-by-side layouts.",
+              "name": "--uibit-effect-storytelling-track-width",
+              "default": "1fr"
+            },
+            {
+              "description": "Flex basis for the stage in side-by-side layouts.",
+              "name": "--uibit-effect-storytelling-stage-width",
+              "default": "1fr"
+            },
+            {
+              "description": "Transition applied to built-in mode animations.",
+              "name": "--uibit-effect-storytelling-transition",
+              "default": "0.45s cubic-bezier(0.4,0,0.2,1)"
+            },
+            {
+              "description": "IntersectionObserver visibility threshold (0–1) for step activation.",
+              "name": "--uibit-effect-storytelling-step-threshold",
+              "default": "0.5"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "The root flex/block container.",
+              "name": "outer"
+            },
+            {
+              "description": "The sticky stage container.",
+              "name": "stage-wrapper"
+            },
+            {
+              "description": "Inner stage container; use for perspective transforms.",
+              "name": "stage-inner"
+            },
+            {
+              "description": "The overlay slot container.",
+              "name": "overlay-wrapper"
+            },
+            {
+              "description": "The scrollable narrative container.",
+              "name": "track-wrapper"
+            }
+          ],
+          "slots": [
+            {
+              "description": "The sticky visual area. Locks to the viewport while scrolling through the track. Direct children or elements with `[data-step]` are treated as discrete visual layers and managed by the active `mode`.",
+              "name": "stage"
+            },
+            {
+              "description": "The scrollable narrative content. Its scroll depth drives the animation timeline. Mark individual sections with `class=\"step\"` or `[data-step]` for step-based tracking.",
+              "name": "track"
+            },
+            {
+              "description": "A passive z-indexed layer above the stage. Use for progress indicators, chapter labels, or back-to-top controls.",
+              "name": "overlay"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "mode",
+              "type": {
+                "text": "StoryMode"
+              },
+              "default": "'sequence-fade'",
+              "description": "Built-in animation mode applied to stage children on scroll.\n- `sequence-fade`: steps fade in/out as the active track step changes (default).\n- `reveal-wipe`: second stage child wipes over the first, driven by raw scroll progress.\n- `layer-depth`: steps recede in 3D as focus shifts to the active step.\n- `zoom-focus`: steps scale and blur relative to their distance from the active scroll position.",
+              "attribute": "mode"
+            },
+            {
+              "kind": "field",
+              "name": "trackAlignment",
+              "type": {
+                "text": "TrackAlignment"
+              },
+              "default": "'right'",
+              "description": "Spatial layout of the track relative to the stage.\n- `right`: track on right, stage on left (default, Apple-style).\n- `left`: track on left, stage on right.\n- `center`: stage full-width, track centered narrow column.\n- `overlap`: stage full-width, track freely overlaid.",
+              "attribute": "trackAlignment"
+            },
+            {
+              "kind": "field",
+              "name": "timelineScope",
+              "type": {
+                "text": "TimelineScope"
+              },
+              "default": "'viewport'",
+              "description": "Whether the scroll progress is tracked against the viewport or a local\noverflow container. Currently informational for user CSS; internal tracking\nalways uses the nearest scroll ancestor.",
+              "attribute": "timelineScope"
+            },
+            {
+              "kind": "field",
+              "name": "snapPoints",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When true, applies `scroll-snap-align: start` to narrative step elements\ninside the track slot.",
+              "attribute": "snapPoints"
+            },
+            {
+              "kind": "field",
+              "name": "_trackSlot",
+              "type": {
+                "text": "HTMLSlotElement"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_stageSlot",
+              "type": {
+                "text": "HTMLSlotElement"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_stepObserver",
+              "type": {
+                "text": "IntersectionObserver | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_trackSteps",
+              "type": {
+                "text": "Element[]"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_activeStep",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "-1"
+            },
+            {
+              "kind": "field",
+              "name": "_stepCount",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_rafId",
+              "type": {
+                "text": "number | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_lastProgress",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "-1"
+            },
+            {
+              "kind": "method",
+              "name": "_setupScrollTracking",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_tick",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_computeProgress",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              },
+              "description": "Returns a 0–1 value representing how far the component has been scrolled\nthrough. 0 = component top at viewport top; 1 = component bottom at viewport bottom."
+            },
+            {
+              "kind": "method",
+              "name": "_broadcastCssVars",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "progress",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_syncStageHeight",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_onTrackSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_collectTrackSteps",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Element[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_setupStepObserver",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_onStepIntersect",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "entries",
+                  "type": {
+                    "text": "IntersectionObserverEntry[]"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_applySnapPoints",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_onStageSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_collectStageChildren",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "HTMLElement[]"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_initStageChildren",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_applyModeEffect",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "progress",
+                  "type": {
+                    "text": "number"
+                  }
+                },
+                {
+                  "name": "activeStep",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_modeSequenceFade",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "children",
+                  "type": {
+                    "text": "HTMLElement[]"
+                  }
+                },
+                {
+                  "name": "activeStep",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "sequence-fade — each child fades in as its corresponding track step becomes active.\nChildren slide slightly on the Z axis for a subtle depth cue."
+            },
+            {
+              "kind": "method",
+              "name": "_modeRevealWipe",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "children",
+                  "type": {
+                    "text": "HTMLElement[]"
+                  }
+                },
+                {
+                  "name": "progress",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "reveal-wipe — the second stage child wipes in from left to right as progress increases.\nAdditional children are hidden. Works best with two overlapping visual layers."
+            },
+            {
+              "kind": "method",
+              "name": "_modeLayerDepth",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "children",
+                  "type": {
+                    "text": "HTMLElement[]"
+                  }
+                },
+                {
+                  "name": "activeStep",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "layer-depth — active step is brought forward; siblings recede in 3D space.\nRequires `transform-style: preserve-3d` on the parent (applied via stage-inner)."
+            },
+            {
+              "kind": "method",
+              "name": "_modeZoomFocus",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "children",
+                  "type": {
+                    "text": "HTMLElement[]"
+                  }
+                },
+                {
+                  "name": "progress",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ],
+              "description": "zoom-focus — a continuous effect where steps scale up and become sharp as the\nscroll position passes through them, then recede and blur as it moves on."
+            }
+          ],
+          "events": [
+            {
+              "type": {
+                "text": "progress: number, step: number"
+              },
+              "description": "Emitted on each scroll tick with current progress (0–1) and active step index.",
+              "name": "story-progress"
+            },
+            {
+              "type": {
+                "text": "step: number, total: number"
+              },
+              "description": "Emitted when the active narrative step changes.",
+              "name": "story-step"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "mode",
+              "type": {
+                "text": "StoryMode"
+              },
+              "default": "'sequence-fade'",
+              "description": "Built-in animation mode applied to stage children on scroll.\n- `sequence-fade`: steps fade in/out as the active track step changes (default).\n- `reveal-wipe`: second stage child wipes over the first, driven by raw scroll progress.\n- `layer-depth`: steps recede in 3D as focus shifts to the active step.\n- `zoom-focus`: steps scale and blur relative to their distance from the active scroll position.",
+              "fieldName": "mode"
+            },
+            {
+              "name": "trackAlignment",
+              "type": {
+                "text": "TrackAlignment"
+              },
+              "default": "'right'",
+              "description": "Spatial layout of the track relative to the stage.\n- `right`: track on right, stage on left (default, Apple-style).\n- `left`: track on left, stage on right.\n- `center`: stage full-width, track centered narrow column.\n- `overlap`: stage full-width, track freely overlaid.",
+              "fieldName": "trackAlignment"
+            },
+            {
+              "name": "timelineScope",
+              "type": {
+                "text": "TimelineScope"
+              },
+              "default": "'viewport'",
+              "description": "Whether the scroll progress is tracked against the viewport or a local\noverflow container. Currently informational for user CSS; internal tracking\nalways uses the nearest scroll ancestor.",
+              "fieldName": "timelineScope"
+            },
+            {
+              "name": "snapPoints",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "When true, applies `scroll-snap-align: start` to narrative step elements\ninside the track slot.",
+              "fieldName": "snapPoints"
+            }
+          ],
+          "superclass": {
+            "name": "UIBitElement",
+            "package": "@uibit/core"
+          },
+          "tagName": "uibit-effect-storytelling",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "EffectStorytelling",
+          "declaration": {
+            "name": "EffectStorytelling",
+            "module": "src/effect-storytelling.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-effect-storytelling",
+          "declaration": {
+            "name": "EffectStorytelling",
+            "module": "src/effect-storytelling.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "EffectStorytelling",
+            "module": "src/effect-storytelling.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "default",
+          "declaration": {
+            "name": "default",
+            "module": "./effect-storytelling"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EffectStorytelling",
+          "declaration": {
+            "name": "EffectStorytelling",
+            "module": "./effect-storytelling"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "StoryMode",
+          "declaration": {
+            "name": "StoryMode",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TrackAlignment",
+          "declaration": {
+            "name": "TrackAlignment",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "TimelineScope",
+          "declaration": {
+            "name": "TimelineScope",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "EffectStorytellingConfig",
+          "declaration": {
+            "name": "EffectStorytellingConfig",
+            "module": "./types"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { display: block; position: relative; /* Internal layout tokens */ --_stage-height: var(--uibit-effect-storytelling-stage-height, 100vh); --_gap: var(--uibit-effect-storytelling-gap, 0rem); --_track-width: var(--uibit-effect-storytelling-track-width, 1fr); --_stage-width: var(--uibit-effect-storytelling-stage-width, 1fr); --_transition: var(--uibit-effect-storytelling-transition, 0.45s cubic-bezier(0.4, 0, 0.2, 1)); } /* ── Outer container ──────────────────────────────────────────────────────── */ .outer { display: flex; align-items: flex-start; gap: var(--_gap); } /* ── Stage wrapper (sticky) ───────────────────────────────────────────────── */ .stage-wrapper { position: sticky; top: 0; height: var(--_stage-height); overflow: hidden; flex-shrink: 0; flex: 1 1 0; } .stage-inner { position: relative; width: 100%; height: 100%; overflow: hidden; } /* ── Overlay wrapper ──────────────────────────────────────────────────────── */ .overlay-wrapper { position: absolute; inset: 0; z-index: 10; pointer-events: none; } .overlay-wrapper ::slotted(*) { pointer-events: auto; } /* ── Track wrapper ────────────────────────────────────────────────────────── */ .track-wrapper { flex: 1 1 0; min-height: var(--_stage-height); } /* ── track-alignment: right (default) — stage left, track right ──────────── */ :host([track-alignment=\"right\"]) .outer, :host(:not([track-alignment])) .outer { flex-direction: row; } :host([track-alignment=\"right\"]) .stage-wrapper, :host(:not([track-alignment])) .stage-wrapper { order: 0; } :host([track-alignment=\"right\"]) .track-wrapper, :host(:not([track-alignment])) .track-wrapper { order: 1; } /* ── track-alignment: left — track left, stage right ─────────────────────── */ :host([track-alignment=\"left\"]) .outer { flex-direction: row; } :host([track-alignment=\"left\"]) .stage-wrapper { order: 1; } :host([track-alignment=\"left\"]) .track-wrapper { order: 0; } /* ── track-alignment: center / overlap — stage full-width, track on top ──── */ :host([track-alignment=\"center\"]) .outer, :host([track-alignment=\"overlap\"]) .outer { display: block; position: relative; } :host([track-alignment=\"center\"]) .stage-wrapper, :host([track-alignment=\"overlap\"]) .stage-wrapper { width: 100%; flex: none; } :host([track-alignment=\"center\"]) .track-wrapper, :host([track-alignment=\"overlap\"]) .track-wrapper { position: relative; z-index: 2; /* Pull track up to visually start at the same position as the stage */ margin-top: calc(-1 * var(--_stage-height)); min-height: var(--_stage-height); /* Track items need a transparent or semi-transparent background */ pointer-events: none; flex: none; width: 100%; } :host([track-alignment=\"center\"]) .track-wrapper ::slotted(*), :host([track-alignment=\"overlap\"]) .track-wrapper ::slotted(*) { pointer-events: auto; } /* Center variant: constrain track width to a readable column */ :host([track-alignment=\"center\"]) .track-wrapper { max-width: 36rem; margin-inline: auto; } /* ── Snap points ──────────────────────────────────────────────────────────── */ :host([snap-points]) .track-wrapper { scroll-snap-type: y mandatory; } /* ── Reduced motion ───────────────────────────────────────────────────────── */ @media (prefers-reduced-motion: reduce) { .stage-inner * { transition: none !important; animation: none !important; } } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

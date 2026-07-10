@@ -53,8 +53,10 @@ export const styles = css`
     pointer-events: none;
     box-shadow: var(
       --uibit-image-xray-lens-shadow,
-      0 0 0 0.1875rem #ffffff,
-      0 0.5rem 2rem rgba(0, 0, 0, 0.35)
+      0 0 0 0.0625rem rgba(0, 0, 0, 0.18),
+      0 0 0 0.1875rem rgba(255, 255, 255, 0.92),
+      0 0 0 0.25rem rgba(0, 0, 0, 0.1),
+      0 0.75rem 2.5rem rgba(0, 0, 0, 0.45)
     );
     transform: translate(-50%, -50%);
     will-change: transform;

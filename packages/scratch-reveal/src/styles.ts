@@ -7,7 +7,7 @@ export const styles = css`
     --uibit-scratch-reveal-height: 12.5rem;
     --uibit-scratch-reveal-overlay-color: #d1d5db;
     --uibit-scratch-reveal-cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="13" fill="%23111" opacity="0.5"/><circle cx="16" cy="16" r="12" fill="none" stroke="white" stroke-width="2"/><circle cx="16" cy="16" r="4" fill="white"/></svg>') 16 16, crosshair;
-    --uibit-scratch-reveal-brush-size: 5rem;
+    --uibit-scratch-reveal-brush-size: 3rem;
   }
 
   .scratch-container {

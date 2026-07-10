@@ -45,41 +45,41 @@ export const styles = css`
 
   /* Slide */
   .word.entering-slide {
-    animation: slide-in var(--uibit-text-rotator-duration, 0.45s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: slide-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0, 0, 0.2, 1) forwards;
   }
 
   .word.leaving-slide {
-    animation: slide-out var(--uibit-text-rotator-duration, 0.45s) cubic-bezier(0.55, 0, 1, 0.45) forwards;
+    animation: slide-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 1, 1) forwards;
   }
 
   /* Flip */
   .word.entering-flip {
-    animation: flip-in var(--uibit-text-rotator-duration, 0.45s) cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: flip-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0, 0, 0.2, 1) forwards;
     transform-origin: 50% 0;
   }
 
   .word.leaving-flip {
-    animation: flip-out var(--uibit-text-rotator-duration, 0.45s) cubic-bezier(0.55, 0, 1, 0.45) forwards;
+    animation: flip-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 1, 1) forwards;
     transform-origin: 50% 100%;
   }
 
   @keyframes slide-in {
-    from { transform: translateY(110%); opacity: 0; }
-    to   { transform: translateY(0);    opacity: 1; }
+    from { transform: translateY(50%); opacity: 0; }
+    to   { transform: translateY(0);   opacity: 1; }
   }
 
   @keyframes slide-out {
-    from { transform: translateY(0);     opacity: 1; }
-    to   { transform: translateY(-110%); opacity: 0; }
+    from { transform: translateY(0);    opacity: 1; }
+    to   { transform: translateY(-50%); opacity: 0; }
   }
 
   @keyframes flip-in {
-    from { transform: rotateX(-90deg); opacity: 0; }
+    from { transform: rotateX(-80deg); opacity: 0; }
     to   { transform: rotateX(0deg);   opacity: 1; }
   }
 
   @keyframes flip-out {
-    from { transform: rotateX(0deg);  opacity: 1; }
-    to   { transform: rotateX(90deg); opacity: 0; }
+    from { transform: rotateX(0deg);   opacity: 1; }
+    to   { transform: rotateX(80deg);  opacity: 0; }
   }
 `;

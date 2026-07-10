@@ -23,8 +23,8 @@ const data: ComponentDocData = {
   packageName: '@uibit/isometric-cluster',
   tagName: 'uibit-isometric-cluster',
   manifest,
-  Demo: cloudConsole.Demo,
-  demoCode: cloudConsole.code,
+  Demo: infrastructure.Demo,
+  demoCode: infrastructure.code,
   examples: processedExamples,
   a11y: {
     wcagLevel: 'AA',

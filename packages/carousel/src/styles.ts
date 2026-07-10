@@ -82,7 +82,7 @@ export const styles = css`
     font-weight: var(--uibit-font-weight-medium, 500);
     font-size: var(--uibit-font-size-sm, 0.875rem);
     color: var(--uibit-text-primary, var(--uibit-color-gray-900, #111827));
-    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, opacity 100ms ease, box-shadow 100ms ease;
     display: inline-flex;
     align-items: center;
     gap: var(--uibit-spacing-1, 0.25rem);
@@ -92,6 +92,11 @@ export const styles = css`
     background-color: var(--uibit-carousel-button-bg-hover);
     color: var(--uibit-bg-surface, var(--uibit-color-white, #ffffff));
     border-color: var(--uibit-carousel-button-bg-hover);
+  }
+
+  .carousel-button:active:not(:disabled) {
+    box-shadow: inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12);
+    opacity: 0.8;
   }
 
   .carousel-button:disabled {
@@ -119,11 +124,15 @@ export const styles = css`
     cursor: pointer;
     border: none;
     padding: 0;
-    transition: background-color 150ms ease, width 150ms ease, border-radius 150ms ease;
+    transition: background-color 150ms ease, width 150ms ease, border-radius 150ms ease, opacity 100ms ease;
   }
 
   .carousel-indicator:hover {
     background-color: var(--uibit-carousel-indicator-active-bg);
+  }
+
+  .carousel-indicator:active {
+    opacity: 0.6;
   }
 
   .carousel-indicator.active {

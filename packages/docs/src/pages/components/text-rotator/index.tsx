@@ -8,23 +8,15 @@ import flipTransitionRaw from './examples/flip-transition?raw';
 
 function TextRotatorDemo() {
   return (
-    <div>
-      <div className="bg-white rounded-lg border border-gray-200 p-8 shadow-sm text-center">
-        <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
-          Build websites{' '}
-          <uibit-text-rotator
-            interval="2000"
-            transition="slide"
-            style={{ color: '#111827' }}
-          >
-            <span>faster</span>
-            <span>better</span>
-            <span>smarter</span>
-            <span>together</span>
-          </uibit-text-rotator>
-        </h2>
-      </div>
-    </div>
+    <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
+      Build websites{' '}
+      <uibit-text-rotator interval="2000" transition="slide">
+        <span>faster</span>
+        <span>better</span>
+        <span>smarter</span>
+        <span>together</span>
+      </uibit-text-rotator>
+    </h2>
   );
 }
 
