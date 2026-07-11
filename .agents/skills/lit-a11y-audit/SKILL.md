@@ -8,123 +8,88 @@ author: UIBit Team
 
 # Lit Component A11y Audit
 
-Performs a comprehensive accessibility audit of Lit web components, checking for WCAG 2.1 compliance, ARIA best practices, and semantic HTML standards.
+Performs a comprehensive accessibility audit of Lit web components, verifying WCAG 2.1 Level AA compliance, keyboard navigation, and proper ARIA semantics.
 
 ## What It Does
 
-Audits:
-
-- **Semantic HTML** - Proper use of `<button>`, `<input>`, `<label>`, etc.
-- **ARIA attributes** - Correct `role`, `aria-label`, `aria-describedby`, etc.
-- **Keyboard navigation** - Tab order, focus management, keyboard event handlers
-- **Visual accessibility** - Color contrast, focus indicators, text sizing
-- **Screen reader support** - Proper announcements, alt text, live regions
-- **Form accessibility** - Labels, error messages, required indicators
-- **Interactive elements** - Click targets, hover states, disabled states
+Audits components for:
+- **Semantic HTML:** Proper use of native elements (`<button>`, `<input>`, `<label>`, `<dialog>`) inside shadow roots.
+- **ARIA Semantics:** Valid role declarations, matching attributes (e.g. `aria-expanded`, `aria-checked`), and custom element labels.
+- **Keyboard Access:** Tab navigation order, arrow-key layouts, activation states (Enter/Space key handlers), and modal focus traps.
+- **Screen Reader Support:** Announcement of dynamic state changes, screen-reader-only labels, and **localization** (ensuring all user-facing fallback text is localized via `msg` from `@uibit/core`).
+- **Visual Design (DESIGN.md):** Focus ring presence and size (defined in `rem` only: `0.125rem` solid black, with offset), color contrast (4.5:1 ratio for text, 3:1 for graphical objects), and target click sizes (minimum 2.75rem or 44px equivalent).
 
 ## Input Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `componentPath` | string | ✓ | Path to component package (e.g., "packages/button") |
-| `wcagLevel` | string | | Compliance level: A, AA (default), AAA |
-| `interactive` | boolean | | Check interactive elements (default: true) |
-| `forms` | boolean | | Check form elements (default: true) |
-| `visual` | boolean | | Check visual design (default: true) |
+| `componentPath` | string | ✓ | Path to component package (e.g., "packages/scroll-progress") |
+| `wcagLevel` | string | | Compliance level: "A", "AA" (default), "AAA" |
 
 ## Usage Examples
 
-### Quick Audit
+### Run Accessibility Audit
 ```bash
 claude --skill lit-a11y-audit --args '{
-  "componentPath": "packages/button"
+  "componentPath": "packages/hotspot"
 }'
 ```
 
-### Full WCAG AAA Compliance Check
+### Run Strict WCAG AAA Compliance Audit
 ```bash
 claude --skill lit-a11y-audit --args '{
-  "componentPath": "packages/form-input",
-  "wcagLevel": "AAA",
-  "interactive": true,
-  "forms": true,
-  "visual": true
+  "componentPath": "packages/consent-guard",
+  "wcagLevel": "AAA"
 }'
 ```
 
-### Visual Design Audit Only
-```bash
-claude --skill lit-a11y-audit --args '{
-  "componentPath": "packages/card",
-  "interactive": false,
-  "forms": false,
-  "visual": true
-}'
+---
+
+## Auditing Guidelines & Checklist
+
+### 1. Semantic Elements & Click Targets
+- **Interactive elements:** Use native `<button>` or `<a href="...">` instead of styling `<div>` or `<span>` with click handlers.
+- **Click targets:** Ensure touch targets are at least `2.75rem` (44px equivalent) or declare CSS variables to let consumers scale them.
+
+### 2. Keyboard & Focus Management
+- **Focus Ring:** Every interactive element must display a visible outline when focused. Outline sizes must be in `rem` (e.g. `outline: 0.125rem solid #000000; outline-offset: 0.125rem;`). Never hide outlines with `outline: none;` without providing a focus ring equivalent.
+- **Keyboard Events:** If mapping custom elements to controls (menus, tabs, carousels), listen for and implement keyboard events (Arrow keys, Space/Enter to activate, Escape to close).
+- **Focus Trap:** Overlays and dialogs must implement a focus trap. On open, focus must move to the first element; on close, focus must return to the trigger element.
+
+### 3. ARIA Semantics
+- **Labels:** Custom inputs or buttons must support label mapping (`aria-label` or `aria-labelledby`).
+- **Roles:** Verify that ARIA roles represent the structure (e.g., `role="progressbar"` for status elements, `role="tooltip"` for hover info).
+- **Dynamic States:** Update attributes dynamically (e.g., `aria-valuenow` on scroll indicators, `aria-hidden` on collapsed states).
+
+### 4. Localization / I18n
+- **User-Facing Strings:** Check that all hardcoded strings intended for screen reader announcements are wrapped in `msg` from `@uibit/core` (e.g. `aria-label=${msg('Close dialog')}`).
+
+### 5. Automated Accessibility Testing (Vitest)
+Verify that accessibility tests exist in `src/<component-name>.test.ts` and test keyboard events:
+
+```typescript
+it('handles keyboard navigation and activation', async () => {
+  const element = document.createElement('uibit-my-button') as MyButton;
+  document.body.appendChild(element);
+  await element.updateComplete;
+
+  const clickSpy = vi.fn();
+  element.addEventListener('click', clickSpy);
+
+  element.focus();
+  element.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+
+  expect(clickSpy).toHaveBeenCalled();
+  element.remove();
+});
 ```
 
-## What It Checks
+---
 
-### Semantic HTML (Level A)
-- ✓ Uses semantic elements (`<button>`, `<nav>`, `<main>`, etc.)
-- ✓ No `<div role="button">` where `<button>` should be
-- ✓ Proper heading hierarchy
-- ✓ List structure (`<ul>`, `<ol>`, `<li>`)
-
-### ARIA (Level A)
-- ✓ `aria-label` or `aria-labelledby` on unlabeled elements
-- ✓ Correct `role` values
-- ✓ `aria-live` regions for dynamic content
-- ✓ No contradictory ARIA (e.g., `role="button"` on `<input>`)
-- ✓ Required ARIA attributes present
-
-### Keyboard Navigation (Level A)
-- ✓ All interactive elements keyboard accessible
-- ✓ Logical tab order
-- ✓ Escape key handling for modals/popovers
-- ✓ Arrow keys for menu/listbox navigation
-- ✓ Enter/Space for activation
-
-### Focus Management (Level A)
-- ✓ Visible focus indicators
-- ✓ Focus outline contrast (4.5:1 minimum)
-- ✓ Focus trap in modals
-- ✓ Return focus after dismissal
-- ✓ No keyboard trap (unless intentional)
-
-### Color Contrast (Level AA)
-- ✓ Text-to-background 4.5:1 (normal text)
-- ✓ Text-to-background 3:1 (large text)
-- ✓ UI component contrast 3:1
-- ✓ No color-only information conveyance
-
-### Form Accessibility (Level A)
-- ✓ All form inputs have associated `<label>`
-- ✓ Error messages associated with inputs
-- ✓ Required fields indicated
-- ✓ Input validation messages accessible
-- ✓ Success/confirmation messages announced
-
-### Screen Reader (Level A)
-- ✓ Purpose is clear without visual context
-- ✓ State changes announced
-- ✓ Error messages descriptive
-- ✓ Hidden elements properly hidden
-- ✓ Decorative images have `alt=""`
-
-## Report Output
-
-The audit generates a report with:
-
-1. **Summary** - Pass/fail by category, overall compliance level
-2. **Violations** - Grouped by severity (Critical, Major, Minor)
-3. **Suggestions** - Specific, actionable fixes with code examples
-4. **Patterns** - Common issues across the codebase
-5. **Test Cases** - Accessibility test cases to add
-
-## Example Report Structure
+## Example Audit Report
 
 ```
-ACCESSIBILITY AUDIT: @uibit/button
+ACCESSIBILITY AUDIT: @uibit/signature-pad
 ═══════════════════════════════════════════
 
 SUMMARY
@@ -135,53 +100,19 @@ SUMMARY
   ✗ Visual: FAIL
 
 CRITICAL (Fix immediately)
-  [1] Missing focus indicator
-      Location: src/button.styles.ts:45
-      Issue: Button has no visible focus state
-      Fix: Add :focus-visible { outline: 2px solid #0066cc; }
+  [1] Focus indicator using forbidden px unit
+      Location: src/styles.ts:24
+      Issue: Focus visible outline uses px: "outline: 2px solid #000;"
+      Fix: Replace with rem scale: "outline: 0.125rem solid #000000;"
+
+  [2] Target sizing too small for pointer taps
+      Location: src/styles.ts:56
+      Issue: Signature clear button is less than 2.75rem.
+      Fix: Set height/width to var(--uibit-signature-pad-btn-size, 2.75rem).
 
 MAJOR (Fix before release)
-  [2] Contrast insufficient
-      Location: src/button.styles.ts
-      Issue: Text color #888 on #f0f0f0 = 3.2:1 (need 4.5:1)
-      Fix: Change text-color to #555 (contrast: 5.1:1)
-
-TESTS TO ADD
-  □ Keyboard navigation test
-  □ Focus indicator screenshot test
-  □ Color contrast verification
+  [3] Text styling has insufficient contrast
+      Location: src/styles.ts:72
+      Issue: Muted instruction label on canvas has contrast of 3.2:1 (need 4.5:1)
+      Fix: Lighten/darken text color based on gray scale (e.g. gray-600 #4b5563).
 ```
-
-## Integration
-
-The audit works with:
-
-- **Storybook** - Can audit component stories
-- **Web Test Runner** - Generates test cases
-- **axe-core** - Uses industry-standard accessibility engine
-- **GitHub Actions** - Can run in CI/CD pipeline
-
-## After Audit
-
-1. **Review violations** - Prioritize by severity
-2. **Make fixes** - Use suggested code examples
-3. **Add tests** - Use generated test cases
-4. **Re-audit** - Verify fixes with `lit-a11y-audit` again
-5. **Document** - Update README with accessibility notes
-
-## Next Steps
-
-After audit, consider using:
-
-1. **`lit-test-generator`** - Generate accessibility tests
-2. **`lit-component-refactor`** - Refactor for accessibility
-3. **`lit-docs-generator`** - Document accessibility features
-
----
-
-**Best Practice:** Run this audit early and often—it's much cheaper to fix accessibility in development than after release.
-
-**WCAG Levels:**
-- **A** (Minimum) - Basic accessibility
-- **AA** (Recommended) - Standard web accessibility
-- **AAA** (Enhanced) - Best-in-class accessibility

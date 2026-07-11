@@ -109,7 +109,7 @@ export const localizedStrings: LocalizedStringEntry[] = [
     "context": "aria-label on progress bar"
   },
   {
-    "component": "uibit-sentiment-bar",
+    "component": "uibit-sentiment-selector",
     "string": "Sentiment rating",
     "context": "aria-label on radiogroup"
   },

@@ -8,443 +8,216 @@ author: UIBit Team
 
 # Lit Component Refactor
 
-Refactors and optimizes existing Lit web components following Lit best practices, improving code quality, performance, and maintainability.
+Refactors and optimizes existing Lit web components within the UIBit monorepo to align them with best practices, improving architecture, performance, accessibility, and type safety.
 
 ## What It Does
 
-Analyzes and improves:
-
-- **Reactive properties** - Optimize decorators and change detection
-- **Rendering logic** - Simplify templates and reduce re-renders
-- **Lifecycle hooks** - Streamline connectedCallback, disconnectedCallback
-- **Type safety** - Improve TypeScript typing and inference
-- **Performance** - Reduce memory, bundle size, and render time
-- **Accessibility** - Add missing ARIA attributes and semantic HTML
-- **Code organization** - Extract reusable logic and components
+Analyzes and refactors existing components to:
+- **Base Class Alignment:** Migrate standard `LitElement` components to inherit from `UIBitElement` from `@uibit/core`.
+- **Property & Attribute Naming:** Verify property configurations. CamelCase properties map automatically to kebab-case attributes via `UIBitElement`. Selector properties must end in `Selector` and map to `*-selector` attributes.
+- **Composability (Properties to Slots):** Move static text content properties (e.g. `label`, `title`) to slots, keeping properties as optional fallbacks for backward compatibility.
+- **Styling System (DESIGN.md):** Eliminate `px` units (using `rem` equivalents instead), ensure grayscale-only colors, black focus rings, CSS Custom Properties prefixed with `--uibit-[component-name]-*`, and decorate elements with shadow parts (`part="..."`).
+- **Memory & Lifecycle Cleanup:** Convert manual event listeners to use `this.listen(...)` from `UIBitElement` for automatic garbage collection. Use `this.dispatchCustomEvent` for custom events.
+- **Reactivity Optimization:** Remove manual `requestUpdate()` calls for standard reactive properties.
+- **Vitest Testing Integration:** Update component tests to use Vitest + Happy DOM in `src/`.
 
 ## Input Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `componentPath` | string | ✓ | Path to component package (e.g., "packages/button") |
-| `focus` | string | | Refactor focus: "all" (default), "performance", "accessibility", "code-quality", "types" |
-| `modernLit` | boolean | | Use modern Lit patterns (default: true) |
-| `extractShared` | boolean | | Extract shared logic to base classes (default: true) |
-| `aggressive` | boolean | | Apply aggressive optimizations (default: false) |
+| `focus` | string | | Refactor focus: "all" (default), "performance", "accessibility", "styling", "types" |
 
 ## Usage Examples
 
-### Full Refactor
+### Scaffold/Run a Full Component Refactoring
 ```bash
 claude --skill lit-component-refactor --args '{
-  "componentPath": "packages/button",
-  "focus": "all",
-  "modernLit": true,
-  "extractShared": true
+  "componentPath": "packages/text-clamp",
+  "focus": "all"
 }'
 ```
 
-### Performance Focused
+### Refactor Style Declarations to follow DESIGN.md
 ```bash
 claude --skill lit-component-refactor --args '{
-  "componentPath": "packages/table",
-  "focus": "performance",
-  "aggressive": true
+  "componentPath": "packages/carousel",
+  "focus": "styling"
 }'
 ```
 
-### Accessibility Improvements
-```bash
-claude --skill lit-component-refactor --args '{
-  "componentPath": "packages/form-input",
-  "focus": "accessibility"
-}'
-```
+---
 
-## Refactoring Patterns
+## Refactoring Reference Patterns
 
-### Property Optimization & Naming Alignment
-
-- **Reactivity Optimization**: Avoid manual `requestUpdate()` calls in `updated()` for reactive properties. Lit handles this automatically.
-- **CamelCase to Kebab-Case Attribute Mapping**: Any camelCase property must map to an explicit kebab-case attribute (using the `attribute` property options) so it does not default to an all-lowercase name.
-- **Selector Suffix Alignment**: Any property referencing a CSS selector of a DOM element must be named with the `Selector` suffix (e.g. `targetSelector`) and mapped to its kebab-case attribute counterpart (e.g. `target-selector`).
+### 1. Property Optimization & Suffix Alignment
+Properties referencing DOM selectors must end in the `Selector` suffix and map to `-selector` attributes. Other properties must map camelCase to kebab-case.
 
 **Before:**
 ```typescript
-export class MyButton extends LitElement {
-  @property() label: string = '';
-  @property() variant: string = 'primary';
-  @property({ type: Boolean }) disabled = false;
+import { LitElement, html } from 'lit';
+import { property } from 'lit/decorators.js';
+
+export class TextRotator extends LitElement {
+  @property({ type: String }) target: string = ''; // Selector
   @property({ type: Boolean }) autoPlay = false;
-  @property({ type: String }) target?: string; // CSS Selector
-  
-  updated(changedProperties: PropertyValues) {
-    if (changedProperties.has('label')) {
-      this.requestUpdate();
+
+  updated(changedProperties: Map<string, unknown>) {
+    if (changedProperties.has('target')) {
+      this.requestUpdate(); // Manual update is redundant
     }
   }
 }
 ```
 
-**After:**
+**After (Standardized):**
 ```typescript
-export class MyButton extends LitElement {
-  @property() label = '';
-  @property() variant: 'primary' | 'secondary' = 'primary';
-  @property({ type: Boolean }) disabled = false;
+import { UIBitElement } from '@uibit/core';
+import { customElement } from '@uibit/core';
+import { property } from 'lit/decorators.js';
+
+@customElement('uibit-text-rotator')
+export class TextRotator extends UIBitElement {
+  @property({ type: String, attribute: 'target-selector' }) targetSelector = '';
   @property({ type: Boolean, attribute: 'auto-play' }) autoPlay = false;
-  @property({ type: String, attribute: 'target-selector' }) targetSelector?: string;
+
+  // UIBitElement automatically maps autoPlay -> auto-play and targetSelector -> target-selector.
+  // No manual requestUpdate() needed for reactive properties.
+}
+```
+
+### 2. Styling System Optimization (DESIGN.md)
+Expose styling variables and shadow parts. Never use `px` values. Colors must belong to the grayscale spectrum.
+
+**Before:**
+```typescript
+// styles.ts
+export const styles = css`
+  :host {
+    display: inline-block;
+  }
   
-  // No manual updated() needed - Lit handles reactivity
+  button {
+    padding: 8px 16px; /* px is forbidden */
+    border-radius: 4px; /* px is forbidden */
+    background: #007bff; /* Chromatic colors forbidden */
+    color: #ffffff;
+  }
+
+  button:focus-visible {
+    outline: 2px solid #007bff; /* px and chromatic forbidden */
+  }
+`;
+```
+
+**After (Standardized):**
+```typescript
+// styles.ts
+export const styles = css`
+  :host {
+    display: inline-block;
+  }
+  
+  button {
+    padding: var(--uibit-button-padding, 0.5rem 1rem); /* rem units matching spacing scale */
+    border-radius: var(--uibit-button-radius, 0.25rem); /* rem units matching radius scale */
+    background: var(--uibit-button-bg, #000000); /* Grayscale palette only */
+    color: var(--uibit-button-color, #ffffff);
+    border: 0.0625rem solid var(--uibit-button-border, #e5e7eb); /* 0.0625rem = 1px */
+    transition: background-color 150ms ease;
+  }
+
+  button:hover {
+    background: var(--uibit-button-bg-hover, #1f2937);
+  }
+
+  button:focus-visible {
+    outline: 0.125rem solid var(--uibit-focus-color, #000000); /* black focus ring */
+    outline-offset: 0.125rem;
+  }
+`;
+```
+
+### 3. Composability Refactoring (Properties to Slots)
+Expose slots for content instead of attributes. Wrap fallback rendering in slot tags for backward compatibility.
+
+**Before:**
+```typescript
+// text-clamp.ts
+export class TextClamp extends UIBitElement {
+  @property({ type: String }) text = '';
+
+  render() {
+    return html`<div class="content">${this.text}</div>`;
+  }
 }
 ```
 
-### Composability Refactoring (Properties to Slots)
-
-**Before (Passing content through property string):**
+**After (Standardized):**
 ```typescript
-export class InfoCard extends LitElement {
-  @property({ type: String }) title = '';
-  @property({ type: String }) description = '';
+// text-clamp.ts
+export class TextClamp extends UIBitElement {
+  @property({ type: String }) text = '';
 
   render() {
     return html`
-      <div class="card">
-        <h3>${this.title}</h3>
-        <p>${this.description}</p>
+      <div class="content" part="content">
+        <slot>${this.text}</slot>
       </div>
     `;
   }
 }
 ```
 
-**After (Standardized: Using slots for composability, with property fallbacks if needed):**
-```typescript
-export class InfoCard extends LitElement {
-  @property({ type: String }) title = '';
-  @property({ type: String }) description = '';
-
-  render() {
-    return html`
-      <div class="card">
-        <h3>
-          <slot name="title">${this.title}</slot>
-        </h3>
-        <p>
-          <slot name="description">${this.description}</slot>
-        </p>
-      </div>
-    `;
-  }
-}
-```
-
-### Template Optimization
+### 4. Event Handler & Listener Optimization
+Use `this.listen(...)` to add listeners that clean themselves up automatically. Use `this.dispatchCustomEvent` for firing events.
 
 **Before:**
 ```typescript
-render() {
-  return html`
-    <button 
-      class="btn ${this.variant} ${this.disabled ? 'disabled' : ''}"
-      ?disabled="${this.disabled}"
-      @click="${this.onClick}"
-    >
-      ${this.label}
-    </button>
-  `;
-}
-```
-
-**After:**
-```typescript
-render() {
-  return html`
-    <button 
-      class="btn"
-      class.variant="${this.variant}"
-      ?disabled="${this.disabled}"
-      @click="${() => this.onClick()}"
-    >
-      ${this.label}
-    </button>
-  `;
-}
-```
-
-### Event Handler Optimization
-
-**Before:**
-```typescript
-constructor() {
-  super();
-  this.handleClick = this.handleClick.bind(this);
-  this.handleKeydown = this.handleKeydown.bind(this);
-}
-
 connectedCallback() {
   super.connectedCallback();
-  this.addEventListener('click', this.handleClick);
-  this.addEventListener('keydown', this.handleKeydown);
+  window.addEventListener('resize', this._handleResize);
 }
 
 disconnectedCallback() {
   super.disconnectedCallback();
-  this.removeEventListener('click', this.handleClick);
-  this.removeEventListener('keydown', this.handleKeydown);
+  window.removeEventListener('resize', this._handleResize);
+}
+
+private _fireEvent() {
+  this.dispatchEvent(new CustomEvent('change', { detail: { value: this.value } }));
 }
 ```
 
-**After:**
+**After (Standardized):**
 ```typescript
-// Use event handlers directly in template
-@click="${this._onClick}"
-@keydown="${this._onKeydown}"
-
-private _onClick = () => { /* handler */ };
-private _onKeydown = () => { /* handler */ };
-```
-
-### Memoization for Expensive Computations
-
-**Before:**
-```typescript
-get displayLabel(): string {
-  return this.label.toUpperCase().trim().replace(/\s+/g, ' ');
-}
-```
-
-**After:**
-```typescript
-@state() private _displayLabel = '';
-
-willUpdate(changedProperties: PropertyValues) {
-  if (changedProperties.has('label')) {
-    this._displayLabel = this.label
-      .toUpperCase()
-      .trim()
-      .replace(/\s+/g, ' ');
-  }
-}
-```
-
-### Style Optimization
-
-**Before (Exposes style properties, has arbitrary CSS variables, uses non-monochrome styling, missing parts):**
-```typescript
-export class MyButton extends LitElement {
-  @property({ type: String }) color = '#007bff';
-  @property({ type: Number }) padding = 8;
-
-  static styles = css`
-    :host {
-      display: inline-block;
-    }
-    
-    button {
-      background: var(--button-color, #007bff);
-      border: none;
-      cursor: pointer;
-    }
-    
-    button:focus-visible { outline: 2px solid #007bff; }
-  `;
-
-  render() {
-    return html`
-      <button style="padding: ${this.padding}px">
-        <slot></slot>
-      </button>
-    `;
-  }
-}
-```
-
-**After (Standardized: No styling properties, prefixed CSS variables, shadow parts, Scandinavian monochrome aesthetic):**
-```typescript
-export class MyButton extends LitElement {
-  // No style properties like 'color' or 'padding'
-
-  static styles = css`
-    :host { 
-      display: inline-block; 
-    }
-    
-    button {
-      padding: var(--uibit-my-button-padding, 8px 16px);
-      background: var(--uibit-my-button-bg, #000000);
-      color: var(--uibit-my-button-color, #ffffff);
-      border: 1px solid var(--uibit-my-button-border-color, #e5e7eb);
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 150ms ease, opacity 150ms ease;
-    }
-    
-    button:hover { 
-      background: var(--uibit-my-button-bg-hover, #1f2937); 
-    }
-    
-    button:focus-visible { 
-      outline: 2px solid var(--uibit-my-button-focus-color, #000000);
-      outline-offset: 2px;
-    }
-  `;
-
-  render() {
-    return html`
-      <button part="button">
-        <slot></slot>
-      </button>
-    `;
-  }
-}
-```
-
-## Refactoring Categories
-
-### 1. Performance
-
-- Remove unnecessary re-renders
-- Memoize expensive computations
-- Lazy-load components
-- Optimize change detection strategy
-- Reduce template complexity
-- Extract large templates
-- Cache computed properties
-
-### 2. Accessibility
-
-- Add missing ARIA attributes
-- Improve semantic HTML
-- Add keyboard event handlers
-- Improve focus management
-- Add screen reader support
-- Improve color contrast
-- Add alt text where needed
-
-### 3. Code Quality
-
-- Remove dead code
-- Extract reusable methods
-- Improve naming
-- Add JSDoc comments
-- Reduce complexity
-- Remove duplicated logic
-- Follow Lit best practices
-
-### 4. Type Safety
-
-- Improve TypeScript typing
-- Use strict types
-- Add generics where appropriate
-- Remove `any` types
-- Export types properly
-- Add type guards
-- Improve inference
-
-### 5. Maintainability
-
-- Extract shared logic to base classes
-- Create mixin functions
-- Improve code organization
-- Add component composition
-- Reduce coupling
-- Improve documentation
-- Add error handling
-
-## Shared Logic Extraction
-
-Can extract to:
-
-**Base Classes:**
-```typescript
-export class FormElement extends LitElement {
-  @property() name = '';
-  @property() disabled = false;
-  @property() required = false;
-  
-  protected checkValidity(): boolean { /* ... */ }
-  protected reportValidity(): boolean { /* ... */ }
+connectedCallback() {
+  super.connectedCallback();
+  this.listen(window, 'resize', this._handleResize, { passive: true });
 }
 
-export class MyInput extends FormElement { /* ... */ }
+// No disconnectedCallback listener cleanup needed - UIBitElement handles this!
+
+private _fireEvent() {
+  this.dispatchCustomEvent('uibit-change', { value: this.value });
+}
 ```
-
-**Mixins:**
-```typescript
-export const ResizableMixin = <T extends Constructor<LitElement>>(Base: T) => {
-  return class Resizable extends Base {
-    @property() width = '';
-    @property() height = '';
-    /* ... */
-  };
-};
-```
-
-**Shared Utilities:**
-```typescript
-export const createFormValidator = () => { /* ... */ };
-export const createAccessibilityHelpers = () => { /* ... */ };
-```
-
-## Quality Metrics
-
-Reports improvements in:
-
-- **Bundle size** - Pre and post refactor
-- **Render time** - Update detection performance
-- **Type coverage** - % of code with types
-- **Accessibility score** - WCAG compliance
-- **Code complexity** - Cyclomatic complexity
-- **Test coverage** - Impact on tests
-
-## Safe Refactoring
-
-The refactoring:
-
-1. **Preserves API** - No breaking changes
-2. **Maintains tests** - Tests should still pass
-3. **Improves types** - Better TypeScript support
-4. **Adds comments** - Documents non-obvious changes
-5. **Keeps semantics** - Same DOM structure
-
-## After Refactoring
-
-1. **Review changes** - Understand improvements
-2. **Run tests** - Verify tests still pass
-3. **Check performance** - Benchmark improvements
-4. **Update docs** - If API changed
-5. **Deploy** - Roll out improvements
-
-## Verification
-
-After refactoring, verify:
-
-- ✓ All tests pass
-- ✓ No new console warnings
-- ✓ No accessibility regressions
-- ✓ Bundle size reduced or stable
-- ✓ Render performance improved
-- ✓ API unchanged (backward compatible)
-
-## Next Steps
-
-After refactoring:
-
-1. **`lit-test-generator`** - Ensure tests updated
-2. **`lit-a11y-audit`** - Verify accessibility
-3. **`lit-build-optimizer`** - Optimize further
 
 ---
 
-**Best Practice:** Refactor with a full test suite in place. Make small, atomic changes. Measure before and after. Keep PRs focused on a single refactoring pattern.
+## Refactoring Checklist
 
-**When to Refactor:**
-- ✓ Component code is hard to understand
-- ✓ Performance is noticeably slow
-- ✓ Accessibility issues found
-- ✓ Type safety is poor
-- ✓ Duplication is high
-- ✓ During feature additions
-- ✗ Just before release
-- ✗ Without tests
+- [ ] Component inherits from `UIBitElement` from `@uibit/core`.
+- [ ] Registered via `@customElement` from `@uibit/core`.
+- [ ] No `px` values are used in `styles.ts` (use `rem` equivalents, e.g. `0.0625rem` for 1px).
+- [ ] Colors are grayscale-only (no chromatic colors in default styles).
+- [ ] Focus rings are black (`#000000`).
+- [ ] Custom CSS variables default in `:host` and are prefixed with `--uibit-[component-name]-*`.
+- [ ] Sub-elements exposed for style overrides via `part="..."` attributes.
+- [ ] Properties referencing selectors end in `Selector` and map to `*-selector` attributes.
+- [ ] Visual labels, titles, and body content use slots instead of static string properties.
+- [ ] User-facing default strings are localized using `msg(...)` from `@uibit/core`.
+- [ ] Custom events use `this.dispatchCustomEvent(...)`.
+- [ ] Event listeners use `this.listen(target, type, callback)`.
+- [ ] Component JSDocs correctly annotate `@cssprop` and `@csspart` for CEM generation.
+- [ ] Vitest tests exist in `src/<component-name>.test.ts` using standard describe/it block.

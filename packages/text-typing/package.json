@@ -84,7 +84,7 @@
   "uibit": {
     "id": "text-typing",
     "title": "Text Typing",
-    "category": "Typography & Display",
+    "category": "Text",
     "tagName": "uibit-text-typing"
   }
 }

@@ -34,7 +34,7 @@ describe('Docs Application Shell', () => {
       </MemoryRouter>
     );
 
-    const toggleBtn = screen.getByRole('button', { name: 'Toggle theme' });
+    const toggleBtn = screen.getByRole('button', { name: /Toggle.*theme/i });
     expect(toggleBtn).toBeDefined();
 
     // Initial theme should default to light (assuming prefers-color-scheme is not mocked to dark)

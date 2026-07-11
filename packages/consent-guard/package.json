@@ -85,7 +85,7 @@
   "uibit": {
     "id": "consent-guard",
     "title": "Consent Guard",
-    "category": "Forms & Input",
+    "category": "Media",
     "tagName": "uibit-consent-guard"
   }
 }

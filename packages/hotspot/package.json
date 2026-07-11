@@ -82,9 +82,9 @@
     }
   },
   "uibit": {
-    "id": "1",
-    "title": "High-Fidelity Drivers",
-    "category": "Visual & Media",
+    "id": "hotspot",
+    "title": "Hotspot",
+    "category": "Media",
     "tagName": "uibit-hotspot"
   }
 }

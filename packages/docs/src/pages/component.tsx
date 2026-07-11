@@ -356,7 +356,7 @@ export default function ComponentDocs() {
         {/* Right Sidebar (Table of Contents) */}
         {tocItems.length > 0 && (
           <aside className="hidden lg:block w-48 shrink-0 pl-6 border-l border-gray-200 dark:border-gray-800 sticky top-24 self-start">
-            <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+            <h2 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
               On this page
             </h2>
             <nav className="space-y-2">
@@ -370,9 +370,9 @@ export default function ComponentDocs() {
                       e.preventDefault();
                       document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className={`block text-sm font-medium transition-all ${
+                    className={`block text-sm font-normal transition-all ${
                       isActive
-                        ? 'text-gray-950 dark:text-white font-semibold border-l-2 border-gray-900 dark:border-white pl-2 -ml-2'
+                        ? 'text-gray-950 dark:text-white border-l-2 border-gray-900 dark:border-white pl-2 -ml-2'
                         : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                     }`}
                   >

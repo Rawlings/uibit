@@ -8,58 +8,46 @@ author: UIBit Team
 
 # Lit Component Generator
 
-Generates a complete, production-ready Lit web component with TypeScript, accessibility features, tests, and documentation.
+Generates a complete, production-ready Lit web component package within the monorepo, following UIBit architecture, styling, and testing conventions.
 
 ## What It Does
 
-This skill scaffolds:
+This skill scaffolds a new component package inside `packages/<component-name>/` with:
 
-- **Component file** (`component-name.ts`) with Lit reactive properties and methods
-- **Styles** (`component-name.styles.ts`) using Lit CSS tagged template
-- **Tests** (`component-name.test.ts`) with Web Test Runner setup
-- **Story** (`component-name.stories.ts`) for Storybook integration
-- **README.md** with usage documentation and API table
-- **Package structure** ready for pnpm workspace
+- **Component file** (`src/<component-name>.ts`) extending `UIBitElement` from `@uibit/core` and using `@customElement` and `msg` from `@uibit/core`
+- **Styles** (`src/styles.ts`) using Lit CSS tagged template (rem units only, grayscale palette, no chromatic colors)
+- **Tests** (`src/<component-name>.test.ts`) using **Vitest** with browser-like happy-dom environment setup
+- **Types** (`src/types.ts`) exposing JSX and global HTML type declarations for framework support
+- **README.md** with component description, basic HTML/React usage, a11y notes, and main docs site references
+- **Package structure** matching our pnpm workspace build setup (`tsconfig.json`, `package.json` with build scripts)
 
 ## Input Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `componentName` | string | ✓ | PascalCase component name (e.g., "MyButton") |
-| `category` | string | ✓ | Component category: forms, layout, feedback, navigation, etc. |
+| `componentName` | string | ✓ | PascalCase component name (e.g., "ScrollProgress") |
+| `category` | string | ✓ | Category for the docs site (e.g. "Data", "Feedback", "Navigation") |
 | `description` | string | | Short component description |
 | `hasSlots` | boolean | | Include slot support (default: true) |
 | `hasEvents` | boolean | | Include custom events (default: true) |
-| `accessible` | boolean | | Include ARIA attributes (default: true) |
+
 ## Usage Examples
 
-### Basic Button Component via Claude CLI
+### Scaffold a Sentiment Selector Component
 ```bash
 claude --skill lit-component-generator --args '{
-  "componentName": "MyButton",
-  "category": "forms",
-  "description": "A versatile button component with multiple variants"
+  "componentName": "SentimentSelector",
+  "category": "Feedback",
+  "description": "Interactive feedback bar tracking sentiment ratings"
 }'
 ```
 
-### Form Input with Advanced Features
+### Scaffold a Custom Video Player
 ```bash
 claude --skill lit-component-generator --args '{
-  "componentName": "TextInput",
-  "category": "forms",
-  "description": "Text input field with validation and error states",
-  "hasSlots": true,
-  "hasEvents": true,
-  "accessible": true
-}'
-```
-
-### Layout Container
-```bash
-claude --skill lit-component-generator --args '{
-  "componentName": "Card",
-  "category": "layout",
-  "description": "Content container with consistent spacing and shadow",
+  "componentName": "VideoPlayer",
+  "category": "Media",
+  "description": "Scandinavian minimalist video player wrapping native video elements",
   "hasSlots": true
 }'
 ```
@@ -69,122 +57,107 @@ claude --skill lit-component-generator --args '{
 ```
 packages/<kebab-case>/
 ├── src/
-│   ├── component-name.ts          # Main component class
-│   ├── component-name.styles.ts   # Lit CSS styles
-│   ├── component-name.test.ts     # Web Test Runner tests
-│   ├── component-name.stories.ts  # Storybook stories
-│   └── types.ts                   # TypeScript type definitions
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-├── web-test-runner.config.mjs
-├── README.md
-└── index.ts                       # Entry point / exports
+│   ├── component-name.ts          # Main component class extending UIBitElement
+│   ├── styles.ts                  # Lit CSS styles (rem units, grayscale)
+│   ├── component-name.test.ts     # Vitest unit & integration tests
+│   ├── types.ts                   # Types and JSX declarations
+│   └── index.ts                   # Entry point exporting component and types
+├── package.json                   # Build scripts and dependency configurations
+├── tsconfig.json                  # Extends root tsconfig.base.json
+├── README.md                      # Basic installation & usage guide
+└── LICENSE                        # MIT License
 ```
 
-## What's Included
+## Implementation Guidelines
 
-### Component Boilerplate
-- Lit class component with TypeScript
-- Reactive `@property` decorators (only for behavioral parameters and data; do not use properties for styling or setting text content).
-- **Naming Conventions**:
-  - All camelCase properties must explicitly map to kebab-case attributes using the `attribute` option (e.g. `@property({ type: Boolean, attribute: 'auto-play' }) autoPlay = false;`). Without this, Lit defaults to lowercase names (e.g. `autoPlay` -> `autoplay`), which violates our design standards.
-  - Any property representing a CSS selector of a DOM element must end in `Selector` and map to a kebab-case attribute ending in `-selector` (e.g. `@property({ type: String, attribute: 'target-selector' }) targetSelector?: string;`).
-- Expose HTML `<slot>` components for rendering user-facing text, labels, or inner markup instead of properties. **This is mandatory** — any visible string that a consumer might want to change (hint text, button labels, titles, descriptions) must be a slot, not a string property. Use the property value as the slot's fallback content:
+### 1. Main Component Class (`src/component-name.ts`)
+- **Base Class:** Every component MUST extend `UIBitElement` from `@uibit/core`. Never inherit from `LitElement` directly.
+- **Decorator:** Register using `@customElement('uibit-component-name')` imported from `@uibit/core` (to avoid double-registration errors).
+- **Properties Naming & Attributes:**
+  - CamelCase properties map to kebab-case attributes automatically via `UIBitElement`, but they should be documented explicitly: `@property({ type: Boolean, attribute: 'auto-play' }) autoPlay = false;`.
+  - Properties referencing a CSS selector of another DOM element must end in `Selector` and map to attributes ending in `-selector` (e.g., `targetSelector` maps to `target-selector`).
+- **Slots Over Properties:** Never pass user-facing text, titles, or inner content through reactive string properties. Expose `<slot>` tags instead, using a property value as a fallback:
   ```typescript
-  // ✅ correct — slot with fallback
-  html`<div class="hint"><slot name="hint">Sign here</slot></div>`
-
-  // ❌ wrong — string property for visible text
-  @property({ type: String }) hint = 'Sign here';
-  html`<div class="hint">${this.hint}</div>`
+  // ✅ Correct: slot with fallback
+  render() {
+    return html`<div class="label"><slot name="label">${this.label}</slot></div>`;
+  }
   ```
-- Lifecycle hooks (`connectedCallback`, `disconnectedCallback`)
-- Default styling setup following **Scandinavian Greyscale** aesthetic (monochrome colors, clear borders, transitions, no vibrant default colors)
-- Standardized CSS Custom Properties prefixed with `--uibit-[component-name]-[variable-name]`
-- Elements decorated with `part="..."` attributes to expose Shadow Parts
-- Element registration via `@customElement` decorator
-
-### Accessibility
-- ARIA attributes scaffolding
-- Semantic HTML structure
-- Keyboard event handlers (if applicable)
-- Focus management hints
-- Screen reader support comments
-
-### Testing
-- Web Test Runner configuration
-- Unit test template
-- Accessibility test example (axe-core)
-- Snapshot testing setup
-
-### Documentation
-- API property table
-- Event documentation
-- Slot documentation
-- Usage examples
-- Accessibility notes
-
-### React / JSX Usage
-
-When documenting or generating usage examples of web components inside React/JSX:
-
-- Regular HTML elements (`<div>`, `<img>`, `<span>`, etc.) use **`className`** as normal in React/JSX.
-- Custom web component elements (`<uibit-*>`) use **`class`** — `className` is a React abstraction that only applies to React-controlled DOM elements and is silently ignored on custom elements:
-  ```jsx
-  // ✅ correct
-  <div className="wrapper">
-    <uibit-scroll-progress class="sticky top-0 z-10 block" />
-    <img className="w-full" src="..." />
-  </div>
-
-  // ❌ wrong — className silently ignored on the custom element
-  <uibit-scroll-progress className="sticky top-0 z-10 block" />
+- **Localization:** Wrap all default user-facing strings in the `msg` function from `@uibit/core`:
+  ```typescript
+  import { msg } from '@uibit/core';
+  
+  html`<span aria-label=${msg('Close panel')}>✕</span>`
   ```
-- The same scoping applies to other React prop aliases: use HTML attribute names (`for`, `tabindex`) only on custom elements, and keep React aliases (`htmlFor`, `tabIndex`) on regular HTML elements.
+- **Clean Event Registration:** Use `this.listen(target, type, handler, options)` helper from `UIBitElement` for adding event listeners. These are automatically disconnected when the component is unmounted.
 
-### Build Configuration
-- TypeScript configuration (`tsconfig.json`): Must be kept minimal, extending `../../tsconfig.base.json` to prevent duplicated settings, specifying output directory:
+### 2. Styling System (`src/styles.ts`)
+- **Rem Units only:** Never use `px` in CSS rules. Spacings, widths, borders, radii, shadows, and fonts must use `rem` values matching the Tailwind theme equivalents (defined in `DESIGN.md`). Exception: bare `0` needs no unit.
+- **Grayscale Palette:** Use the Tailind CSS `gray` scale hex codes. No chromatic accent colors (blues, greens, reds) allowed in defaults.
+- **Focus Rings:** Must be black. Standard ring outline: `outline: 0.125rem solid #000000; outline-offset: 0.125rem;`.
+- **CSS Shadow Parts:** Attach `part="..."` attributes to sub-elements to allow theme styling from outside the shadow root (e.g., `<button part="button">`).
+- **Encapsulation:** Define CSS variable defaults in `:host {}`. All custom variables must be prefixed: `--uibit-[component-name]-[variable]`.
+
+### 3. Vitest Testing (`src/component-name.test.ts`)
+- All tests run under **Vitest** in the workspace root with Happy DOM.
+- Do NOT use Mocha, Chai, or Open Web Components `fixture` helpers.
+- Setup/Teardown should create the element using `document.createElement('uibit-component-name')` and append/remove from the body:
+  ```typescript
+  import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+  import './component-name';
+  import { ComponentName } from './component-name';
+
+  describe('ComponentName', () => {
+    let element: ComponentName;
+
+    beforeEach(async () => {
+      element = document.createElement('uibit-component-name') as ComponentName;
+      document.body.appendChild(element);
+      await element.updateComplete;
+    });
+
+    afterEach(() => {
+      element.remove();
+    });
+
+    it('renders with default states', () => {
+      expect(element.active).toBe(false);
+    });
+  });
+  ```
+
+### 4. Code Generation & Exports
+- **`tsconfig.json`:** Minimal configuration extending `../../tsconfig.base.json`:
   ```json
   {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-      "outDir": "./dist"
+      "outDir": "./dist",
+      "rootDir": "./src"
     },
-    "include": ["src"],
-    "references": [{ "path": "./tsconfig.node.json" }]
+    "include": ["src"]
   }
   ```
-- Node TS configuration (`tsconfig.node.json`): Configures TypeScript settings for compilation of `vite.config.ts`.
-- Vite configuration (`vite.config.ts`): Packages must use library mode with Rollup configuration to bundle UMD and ES outputs cleanly.
-- Package exports: Package `package.json` must export UMD/ES entrypoints, types, and CSS.
-- Web component manifest (if applicable)
+- **`package.json` Scripts:**
+  ```json
+  "scripts": {
+    "build": "npm run analyze && uibit-codegen --package . && tsc",
+    "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
+  }
+  ```
+- **Framework Wrappers:** Running `uibit-codegen` parses `custom-elements.json` (CEM manifest) to automatically generate React/Vue/Svelte/etc. wrappers inside `dist/frameworks/`.
 
-## After Generation
-
-1. **Implement component logic** in the generated `.ts` file
-2. **Add tests** to the `.test.ts` file
-3. **Run dev server:** `pnpm dev`
-4. **View in Storybook:** Check `.stories.ts` file
-5. **Test locally:** `pnpm -F @uibit/component-name run test`
-
-## Template Variables Used
-
-The generator substitutes:
-- `{ComponentName}` → PascalCase class name
-- `{component-name}` → kebab-case tag name
-- `{category}` → folder structure
-- `{description}` → README and docs
-
-## Next Steps
-
-After generation, consider using:
-
-1. **`lit-test-generator`** - Generate comprehensive test suite
-2. **`lit-docs-generator`** - Auto-generate full documentation
-3. **`lit-a11y-audit`** - Verify accessibility compliance
-4. **`lit-build-optimizer`** - Optimize for production
+### 5. JSX Usage Examples
+When generating React/JSX documentation, verify:
+- HTML wrapper elements use `className="..."`.
+- Custom web components (`<uibit-*>`) use `class="..."` (since React ignores `className` on custom elements):
+  ```jsx
+  <div className="wrapper">
+    <uibit-scroll-progress class="sticky top-0 block" />
+  </div>
+  ```
 
 ---
 
-**Best Practice:** Generate components early in development, customize them, then let `lit-test-generator` create a full test suite.
+**Best Practice:** Scaffolding the basic skeleton sets a clean foundation. Ensure it builds (`pnpm build`) and passes its tests (`pnpm test`) before adding logic.

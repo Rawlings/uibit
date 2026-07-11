@@ -10,11 +10,11 @@ const GUIDES = [
 ];
 
 const CATEGORY_ORDER = [
-  'Visual & Media',
-  'Forms & Input',
-  'Typography & Display',
-  'Data & Utilities',
-  'A/B Testing'
+  'Layout',
+  'Media',
+  'Text',
+  'Data',
+  'Forms'
 ];
 
 export function Sidebar({ activeId, className = '' }: { activeId?: string; className?: string }) {
@@ -41,7 +41,7 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
 
   const isSearching = searchQuery.length > 0;
 
-  const activeStyle = 'border-l-2 border-black dark:border-white pl-4 -ml-[17px] text-gray-950 dark:text-white font-semibold transition-all duration-150';
+  const activeStyle = 'border-l-2 border-black dark:border-white pl-4 -ml-[17px] text-gray-950 dark:text-white font-normal transition-all duration-150';
   const inactiveStyle = 'border-l border-transparent pl-4 -ml-[16px] text-gray-500 dark:text-gray-400 hover:text-gray-950 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-150';
 
   const grouped = Object.values(componentRegistry).reduce((acc, comp) => {
@@ -97,14 +97,14 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
 
         {filteredGuides.length > 0 && (
           <div className="space-y-1.5">
-            <p className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest font-mono pb-1">
+            <p className="text-[10px] font-medium text-gray-400 dark:text-gray-500 uppercase tracking-widest pb-1">
               Guides
             </p>
             {filteredGuides.map((guide) => (
               <Link
                 key={guide.id}
                 to={guide.to}
-                className={`block text-xs font-medium ${
+                className={`block text-sm font-normal ${
                   resolvedActiveId === guide.id ? activeStyle : inactiveStyle
                 }`}
               >
@@ -116,14 +116,14 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
 
         {categoriesWithMatches.map((cat) => (
           <div key={cat.label} className="space-y-1.5">
-            <p className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-widest font-mono pb-1">
+            <p className="text-[10px] font-medium text-gray-400 dark:text-gray-500 uppercase tracking-widest pb-1">
               {cat.label}
             </p>
             {cat.components.map((item) => (
               <Link
                 key={item.id}
                 to={`/${item.id}`}
-                className={`block text-xs font-medium ${
+                className={`block text-sm font-normal ${
                   resolvedActiveId === item.id ? activeStyle : inactiveStyle
                 }`}
               >

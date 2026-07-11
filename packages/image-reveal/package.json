@@ -1,0 +1,90 @@
+{
+  "name": "@uibit/image-reveal",
+  "version": "0.1.0",
+  "description": "A floating circular lens that follows the cursor or touch point, revealing a synchronized secondary image exactly where the user looks. Built for luxury and high-tech product storytelling.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./custom-elements.json": "./custom-elements.json",
+    "./react": "./dist/frameworks/react/index.d.ts",
+    "./vue": "./dist/frameworks/vue/index.ts",
+    "./svelte": "./dist/frameworks/svelte/index.svelte",
+    "./angular": "./dist/frameworks/angular/index.ts",
+    "./solid": "./dist/frameworks/solid/index.d.ts",
+    "./astro": "./dist/frameworks/astro/index.astro",
+    "./qwik": "./dist/frameworks/qwik/index.tsx",
+    "./nuxt": "./dist/frameworks/nuxt/index.ts",
+    "./preact": "./dist/frameworks/preact/index.d.ts",
+    "./stencil": "./dist/frameworks/stencil/index.d.ts"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "custom-elements.json"
+  ],
+  "scripts": {
+    "build": "npm run analyze && uibit-codegen --package . && tsc",
+    "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
+  },
+  "keywords": [
+    "xray",
+    "lens",
+    "loupe",
+    "image",
+    "reveal",
+    "web-component",
+    "lit"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/uibit.git",
+    "directory": "packages/image-reveal"
+  },
+  "dependencies": {
+    "@uibit/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "lit": "^3.3.3",
+    "typescript": "7.0.2",
+    "@uibit/codegen": "workspace:*"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0",
+    "react": ">=18",
+    "vue": ">=3",
+    "svelte": ">=4 || ^5",
+    "@angular/core": ">=14"
+  },
+  "customElements": "custom-elements.json",
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    },
+    "@angular/core": {
+      "optional": true
+    }
+  },
+  "uibit": {
+    "id": "image-reveal",
+    "title": "Image Reveal",
+    "category": "Media",
+    "tagName": "uibit-image-reveal"
+  }
+}

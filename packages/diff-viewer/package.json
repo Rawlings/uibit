@@ -81,7 +81,7 @@
   "uibit": {
     "id": "diff-viewer",
     "title": "Diff Viewer",
-    "category": "Data & Utilities",
+    "category": "Data",
     "tagName": "uibit-diff-viewer"
   }
 }

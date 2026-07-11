@@ -82,7 +82,7 @@
   "uibit": {
     "id": "text-rotator",
     "title": "Text Rotator",
-    "category": "Typography & Display",
+    "category": "Text",
     "tagName": "uibit-text-rotator"
   }
 }

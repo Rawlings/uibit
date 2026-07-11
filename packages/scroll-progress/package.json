@@ -83,7 +83,7 @@
   "uibit": {
     "id": "scroll-progress",
     "title": "Scroll Progress",
-    "category": "Data & Utilities",
+    "category": "Data",
     "tagName": "uibit-scroll-progress"
   }
 }

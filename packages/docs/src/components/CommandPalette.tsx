@@ -10,10 +10,11 @@ const GUIDES = [
 ];
 
 const COMPONENT_CATEGORIES = [
-  { label: 'Visual & Media', ids: ['carousel', 'viewer-360', 'hotspot', 'image-xray', 'effect-particles', 'comparison-curtain'] },
-  { label: 'Forms & Input', ids: ['signature-pad', 'sentiment-bar', 'consent-guard'] },
-  { label: 'Typography & Display', ids: ['text-typing', 'text-clamp', 'text-read-timer', 'text-rotator'] },
-  { label: 'Data & Utilities', ids: ['table', 'scroll-progress', 'number-ticker', 'countdown', 'effect-trigger', 'scratch-reveal', 'diff-viewer'] },
+  { label: 'Media', ids: ['360-viewer', 'image-comparison', 'hotspot', 'image-reveal', 'particles', 'effect-trigger', 'scratch-reveal', 'consent-guard'] },
+  { label: 'Forms', ids: ['signature', 'sentiment-selector'] },
+  { label: 'Text', ids: ['text-typing', 'text-rotator', 'read-time', 'text-clamp'] },
+  { label: 'Data', ids: ['table', 'diff-viewer', 'countdown', 'number-increment', 'scroll-progress'] },
+  { label: 'Layout', ids: ['carousel'] }
 ];
 
 interface CommandPaletteProps {

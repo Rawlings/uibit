@@ -7,7 +7,13 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
+      },
+      fontWeight: {
+        normal: '300',
+        medium: '300',
+        semibold: '400',
+        bold: '500',
       },
     },
   },

@@ -85,7 +85,7 @@
   "uibit": {
     "id": "carousel",
     "title": "Carousel",
-    "category": "Visual & Media",
+    "category": "Layout",
     "tagName": "uibit-carousel"
   }
 }

@@ -65,7 +65,7 @@ function getPublicProps(decl: CemDeclaration): CemMember[] {
 }
 
 const tdClass = 'px-4 py-3 text-left align-top text-gray-750 dark:text-gray-300';
-const thClass = 'px-4 py-3 text-left font-semibold text-gray-900 dark:text-white';
+const thClass = 'px-4 py-3 text-left font-medium text-gray-900 dark:text-white';
 
 function Table({
   headers,
@@ -113,7 +113,7 @@ function Code({ children }: { children: React.ReactNode }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-10">
-      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-4 uppercase tracking-wide">
+      <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-4 uppercase tracking-wide">
         {title}
       </h3>
       {children}
@@ -139,7 +139,7 @@ export function ApiDocs({
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200 dark:border-gray-800">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-8">API</h2>
+      <h2 className="text-xl font-medium text-gray-900 dark:text-white mb-8">API</h2>
 
       {props.length > 0 && (
         <Section title="Properties">

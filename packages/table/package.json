@@ -85,7 +85,7 @@
   "uibit": {
     "id": "table",
     "title": "Table",
-    "category": "Data & Utilities",
+    "category": "Data",
     "tagName": "uibit-table"
   }
 }

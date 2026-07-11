@@ -35,7 +35,7 @@ export default defineConfig({
       '@uibit/hotspot',
       '@uibit/scratch-reveal',
       '@uibit/scroll-progress',
-      '@uibit/signature-pad',
+      '@uibit/signature',
     ].map((pkg) => ({
       find: new RegExp(`^${pkg.replace('/', '\\/')}$`),
       replacement: resolve(packagesDir, pkg.replace('@uibit/', ''), 'src/index.ts'),
@@ -44,5 +44,9 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
+  },
+  test: {
+    environment: 'happy-dom',
+    globals: true,
   }
 });

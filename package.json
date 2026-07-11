@@ -15,7 +15,7 @@
     "preview": "pnpm -F docs run preview",
     "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze",
     "lint": "pnpm --filter './packages/**' --filter '!@uibit/docs' exec -- tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run && pnpm -F docs test"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",

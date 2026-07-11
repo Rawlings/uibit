@@ -83,7 +83,7 @@
   "uibit": {
     "id": "countdown",
     "title": "Countdown",
-    "category": "Data & Utilities",
+    "category": "Data",
     "tagName": "uibit-countdown"
   }
 }

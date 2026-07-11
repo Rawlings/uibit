@@ -82,9 +82,9 @@
     }
   },
   "uibit": {
-    "id": "viewer-360",
+    "id": "360-viewer",
     "title": "360-Viewer",
-    "category": "Visual & Media",
+    "category": "Media",
     "tagName": "uibit-360-viewer"
   }
 }
