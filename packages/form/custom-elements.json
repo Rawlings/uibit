@@ -1,0 +1,377 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/form.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A declarative form wrapper that wraps a native `<form>` and adds wizards,\nsubmit lifecycle states, and dirty checking.",
+          "name": "Form",
+          "slots": [
+            {
+              "description": "Default slot where the native `<form>` element is placed.",
+              "name": ""
+            },
+            {
+              "description": "Custom success template displayed upon successful submission.",
+              "name": "success"
+            },
+            {
+              "description": "Custom error template displayed upon failed submission.",
+              "name": "error"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "warnUnsaved",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Opt-in warning prompt if the user tries to leave the page with unsaved changes.",
+              "attribute": "warn-unsaved"
+            },
+            {
+              "kind": "field",
+              "name": "step",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "Active wizard step (1-indexed). Only active if multiple fieldsets exist.",
+              "attribute": "step",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "stepsCount",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "The total number of steps/fieldsets detected in the form.",
+              "attribute": "steps-count",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "dirty",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Tracks whether the form has unsaved changes.",
+              "attribute": "dirty",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "status",
+              "type": {
+                "text": "'idle' | 'pending' | 'success' | 'error'"
+              },
+              "default": "'idle'",
+              "description": "Submission state: 'idle', 'pending', 'success', or 'error'.",
+              "attribute": "status",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "_slottedFormEl",
+              "type": {
+                "text": "HTMLFormElement | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_initialValues",
+              "privacy": "private",
+              "default": "new Map<Element, any>()"
+            },
+            {
+              "kind": "field",
+              "name": "_observer",
+              "type": {
+                "text": "MutationObserver | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_formListenersCleanups",
+              "type": {
+                "text": "Array<() => void>"
+              },
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "method",
+              "name": "_cleanupFormListeners",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_initializeForm",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_detectSlottedForm",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_detectSteps",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_updateStepVisibility",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_getFormElements",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "Array<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>"
+                }
+              }
+            },
+            {
+              "kind": "method",
+              "name": "_captureInitialValues",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_getElementValue",
+              "privacy": "private",
+              "return": {
+                "type": {
+                  "text": "any"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "el",
+                  "type": {
+                    "text": "HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onFormInput",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_checkDirty",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_onBeforeUnload",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "BeforeUnloadEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onSlotChange",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "nextStep"
+            },
+            {
+              "kind": "method",
+              "name": "prevStep"
+            },
+            {
+              "kind": "field",
+              "name": "_isResetting",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "reset"
+            },
+            {
+              "kind": "method",
+              "name": "submit"
+            },
+            {
+              "kind": "method",
+              "name": "_onSubmit",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onFormClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "e",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "warn-unsaved",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Opt-in warning prompt if the user tries to leave the page with unsaved changes.",
+              "fieldName": "warnUnsaved"
+            },
+            {
+              "name": "step",
+              "type": {
+                "text": "number"
+              },
+              "default": "1",
+              "description": "Active wizard step (1-indexed). Only active if multiple fieldsets exist.",
+              "fieldName": "step"
+            },
+            {
+              "name": "steps-count",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "description": "The total number of steps/fieldsets detected in the form.",
+              "fieldName": "stepsCount"
+            },
+            {
+              "name": "dirty",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Tracks whether the form has unsaved changes.",
+              "fieldName": "dirty"
+            },
+            {
+              "name": "status",
+              "type": {
+                "text": "'idle' | 'pending' | 'success' | 'error'"
+              },
+              "default": "'idle'",
+              "description": "Submission state: 'idle', 'pending', 'success', or 'error'.",
+              "fieldName": "status"
+            }
+          ],
+          "superclass": {
+            "name": "UIBitElement",
+            "package": "@uibit/core"
+          },
+          "tagName": "uibit-form",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "Form",
+          "declaration": {
+            "name": "Form",
+            "module": "src/form.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "uibit-form",
+          "declaration": {
+            "name": "Form",
+            "module": "src/form.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/form"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/types"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/styles.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "styles",
+          "default": "css` :host { display: block; position: relative; font-size: var(--uibit-component-font-size, var(--uibit-font-size-base, 1rem)); font-weight: var(--uibit-component-font-weight, var(--uibit-font-weight-normal, 400)); line-height: var(--uibit-component-line-height, var(--uibit-line-height-relaxed, 1.625)); } /* Premium inline error banner */ .error-banner { padding: 1rem 0; font-size: var(--uibit-font-size-sm, 0.875rem); color: #111827; margin-bottom: 0.5rem; } /* State content wrappers */ .state-content { display: none; } :host([status=\"pending\"]) .state-content[data-state=\"pending\"] { display: block; } :host([status=\"success\"]) .state-content[data-state=\"success\"] { display: block; } /* Correctly hide the slotted form element on success and pending states */ :host([status=\"success\"]) ::slotted(form), :host([status=\"pending\"]) ::slotted(form) { display: none !important; } `"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "styles",
+          "declaration": {
+            "name": "styles",
+            "module": "src/styles.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/types.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

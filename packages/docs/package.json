@@ -20,6 +20,7 @@
     "@uibit/diff-viewer": "workspace:*",
     "@uibit/particles": "workspace:*",
     "@uibit/effect-trigger": "workspace:*",
+    "@uibit/form": "workspace:*",
     "@uibit/hotspot": "workspace:*",
     "@uibit/image-reveal": "workspace:*",
     "@uibit/number-increment": "workspace:*",
