@@ -61,12 +61,12 @@
           "members": [
             {
               "kind": "field",
-              "name": "target",
+              "name": "targetSelector",
               "type": {
                 "text": "string | undefined"
               },
               "description": "CSS selector of a custom scrollable container to track. Defaults to the page (`window`).",
-              "attribute": "target"
+              "attribute": "target-selector"
             },
             {
               "kind": "field",
@@ -124,12 +124,12 @@
           ],
           "attributes": [
             {
-              "name": "target",
+              "name": "target-selector",
               "type": {
                 "text": "string | undefined"
               },
               "description": "CSS selector of a custom scrollable container to track. Defaults to the page (`window`).",
-              "fieldName": "target"
+              "fieldName": "targetSelector"
             }
           ],
           "superclass": {

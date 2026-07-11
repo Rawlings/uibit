@@ -20,12 +20,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'sentiment-bar',
-  title: 'Sentiment Bar',
-  description:
-    'Micro-feedback widget with a sliding row of expressive emoji options. Selecting an option triggers a spring-curve scale animation, grays out alternatives, and fires scored events instantly on release.',
-  packageName: '@uibit/sentiment-bar',
-  tagName: 'uibit-sentiment-bar',
   manifest,
   Demo: SentimentBarDemo,
   demoCode: {

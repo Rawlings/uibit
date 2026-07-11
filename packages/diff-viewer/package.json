@@ -1,7 +1,7 @@
 {
   "name": "@uibit/diff-viewer",
   "version": "0.1.0",
-  "description": "Side-by-side or inline comparison block for two text or code snippets with color-coded diff highlighting",
+  "description": "Encapsulated side-by-side or inline comparison block for two text or code snippets. Computes a line-level diff internally using LCS and renders color-coded deleted/inserted/unchanged lines with optional line numbers.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -77,5 +77,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "diff-viewer",
+    "title": "Diff Viewer",
+    "category": "Data & Utilities",
+    "tagName": "uibit-diff-viewer"
   }
 }

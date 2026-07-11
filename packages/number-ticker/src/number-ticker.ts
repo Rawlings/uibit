@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { customElement, UIBitElement } from '@uibit/core';
+import { customElement, UIBitElement, ViewportController, LoopController } from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -47,29 +47,30 @@ export class NumberTicker extends UIBitElement {
 
   @state() private _display = '';
 
-  private _observer?: IntersectionObserver;
-  private _raf?: number;
+  private _viewport?: ViewportController;
+  private _loop = new LoopController(this, {
+    autoStart: false,
+    callback: (ts) => this._tick(ts),
+  });
+
   private _started = false;
+  private _startTime: number | null = null;
+  private _startVal = 0;
+  private _endVal = 0;
 
   connectedCallback() {
     super.connectedCallback();
     this._display = this._format(this.from);
-    this._observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry && entry.isIntersecting && (!this._started || this.repeat)) {
-          this._start();
-        }
-      },
-      { threshold: this.threshold }
-    );
-    this._observer.observe(this);
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this._observer?.disconnect();
-    if (this._raf) cancelAnimationFrame(this._raf);
+    if (!this._viewport) {
+      this._viewport = new ViewportController(this, {
+        threshold: this.threshold,
+        callback: (entry) => {
+          if (entry.isIntersecting && (!this._started || this.repeat)) {
+            this._start();
+          }
+        },
+      });
+    }
   }
 
   updated(changed: Map<string, unknown>) {
@@ -96,31 +97,27 @@ export class NumberTicker extends UIBitElement {
   }
 
   private _start() {
-    if (this._raf) cancelAnimationFrame(this._raf);
     this._started = true;
-    const startVal = this.from;
-    const endVal = this.value;
-    const duration = this.duration;
-    let startTime: number | null = null;
+    this._startVal = this.from;
+    this._endVal = this.value;
+    this._startTime = null;
 
     this.dispatchCustomEvent('ticker-start');
+    this._loop.start();
+  }
 
-    const step = (ts: number) => {
-      if (startTime === null) startTime = ts;
-      const elapsed = ts - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const current = startVal + (endVal - startVal) * this._ease(progress);
-      this._display = this._format(current);
+  private _tick(ts: number) {
+    if (this._startTime === null) this._startTime = ts;
+    const elapsed = ts - this._startTime;
+    const progress = Math.min(elapsed / this.duration, 1);
+    const current = this._startVal + (this._endVal - this._startVal) * this._ease(progress);
+    this._display = this._format(current);
 
-      if (progress < 1) {
-        this._raf = requestAnimationFrame(step);
-      } else {
-        this._display = this._format(endVal);
-        this.dispatchCustomEvent('ticker-end');
-      }
-    };
-
-    this._raf = requestAnimationFrame(step);
+    if (progress >= 1) {
+      this._display = this._format(this._endVal);
+      this._loop.stop();
+      this.dispatchCustomEvent('ticker-end');
+    }
   }
 
   render() {

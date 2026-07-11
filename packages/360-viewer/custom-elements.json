@@ -70,7 +70,7 @@
               },
               "default": "false",
               "description": "Automatically rotate through frames when no user interaction is occurring.",
-              "attribute": "autoRotate"
+              "attribute": "auto-rotate"
             },
             {
               "kind": "field",
@@ -80,7 +80,7 @@
               },
               "default": "150",
               "description": "Milliseconds between frames during auto-rotation. Lower values spin faster.",
-              "attribute": "rotationSpeed"
+              "attribute": "rotation-speed"
             },
             {
               "kind": "field",
@@ -90,7 +90,7 @@
               },
               "default": "15",
               "description": "Horizontal pixel distance a drag must travel before advancing one frame.",
-              "attribute": "dragSensitivity"
+              "attribute": "drag-sensitivity"
             },
             {
               "kind": "field",
@@ -100,7 +100,7 @@
               },
               "default": "true",
               "description": "Show the play/pause and directional control buttons.",
-              "attribute": "showControls"
+              "attribute": "show-controls"
             },
             {
               "kind": "field",
@@ -110,7 +110,7 @@
               },
               "default": "true",
               "description": "Show the frame progress bar at the bottom of the viewer.",
-              "attribute": "showProgressBar"
+              "attribute": "show-progress-bar"
             },
             {
               "kind": "field",
@@ -311,7 +311,7 @@
           ],
           "attributes": [
             {
-              "name": "autoRotate",
+              "name": "auto-rotate",
               "type": {
                 "text": "boolean"
               },
@@ -320,7 +320,7 @@
               "fieldName": "autoRotate"
             },
             {
-              "name": "rotationSpeed",
+              "name": "rotation-speed",
               "type": {
                 "text": "number"
               },
@@ -329,7 +329,7 @@
               "fieldName": "rotationSpeed"
             },
             {
-              "name": "dragSensitivity",
+              "name": "drag-sensitivity",
               "type": {
                 "text": "number"
               },
@@ -338,7 +338,7 @@
               "fieldName": "dragSensitivity"
             },
             {
-              "name": "showControls",
+              "name": "show-controls",
               "type": {
                 "text": "boolean"
               },
@@ -347,7 +347,7 @@
               "fieldName": "showControls"
             },
             {
-              "name": "showProgressBar",
+              "name": "show-progress-bar",
               "type": {
                 "text": "boolean"
               },

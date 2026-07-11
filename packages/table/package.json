@@ -1,7 +1,7 @@
 {
   "name": "@uibit/table",
   "version": "0.1.0",
-  "description": "Enhanced HTML table wrapper with global search, multi-column sorting, pagination, CSV export, and search-term highlighting",
+  "description": "Wraps any standard HTML <table> in the default slot and adds a full datagrid feature set — without touching the source markup. All features are individually opt-in via boolean attributes.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -81,5 +81,11 @@
       "optional": true
     }
   },
-  "customElements": "custom-elements.json"
+  "customElements": "custom-elements.json",
+  "uibit": {
+    "id": "table",
+    "title": "Table",
+    "category": "Data & Utilities",
+    "tagName": "uibit-table"
+  }
 }

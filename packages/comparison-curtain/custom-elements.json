@@ -76,7 +76,7 @@
               },
               "default": "false",
               "description": "If true, pointer movement tracks progress immediately without click-dragging",
-              "attribute": "hoverReveal"
+              "attribute": "hover-reveal"
             },
             {
               "kind": "field",
@@ -231,7 +231,7 @@
               "fieldName": "interactive"
             },
             {
-              "name": "hoverReveal",
+              "name": "hover-reveal",
               "type": {
                 "text": "boolean"
               },

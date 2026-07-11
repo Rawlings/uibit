@@ -68,12 +68,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'effect-particles',
-  title: 'Effect Particles',
-  description:
-    'Renders animated canvas backgrounds across thirteen distinct modes — from drifting particles and code rain to flow fields, aurora curtains, and pulsing grids. All modes react to mouse gestures and compose cleanly as hero backgrounds.',
-  packageName: '@uibit/effect-particles',
-  tagName: 'uibit-effect-particles',
   manifest,
   Demo: EffectParticlesDemo,
   demoCode: {

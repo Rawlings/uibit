@@ -1,7 +1,7 @@
 {
   "name": "@uibit/scroll-progress",
   "version": "0.1.0",
-  "description": "A web component that visualizes scroll progress on the page",
+  "description": "Lightweight, accessible scroll progress indicator. Tracks viewport scrolling by default, or can be targeting a specific scrollable element using selectors.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -79,5 +79,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "scroll-progress",
+    "title": "Scroll Progress",
+    "category": "Data & Utilities",
+    "tagName": "uibit-scroll-progress"
   }
 }

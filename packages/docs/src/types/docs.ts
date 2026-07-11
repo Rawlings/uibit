@@ -36,4 +36,5 @@ export interface ComponentDocData {
   usages?: CodeSnippet[];
   features?: string[];
   a11y?: AccessibilitySection;
+  category?: string;
 }

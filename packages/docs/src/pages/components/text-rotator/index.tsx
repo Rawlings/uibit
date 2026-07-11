@@ -27,12 +27,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'text-rotator',
-  title: 'Text Rotator',
-  description:
-    'Rotates a single word inside a static sentence block with smooth vertical slide or 3D flip transitions. Designed to pull attention to changing value propositions.',
-  packageName: '@uibit/text-rotator',
-  tagName: 'uibit-text-rotator',
   manifest,
   Demo: TextRotatorDemo,
   demoCode: {

@@ -221,12 +221,6 @@ function EffectTriggerDemo() {
 }
 
 const data: ComponentDocData = {
-  id: 'effect-trigger',
-  title: 'Effect Trigger',
-  description:
-    'A behavioral engine that intercepts user actions (click, hover, visible) on standard DOM elements to trigger custom particle animations, physics-based viewport crossings, or micro-feedback flows using slotted SVGs or markup templates.',
-  packageName: '@uibit/effect-trigger',
-  tagName: 'uibit-effect-trigger',
   manifest,
   Demo: EffectTriggerDemo,
   demoCode: {
@@ -261,8 +255,6 @@ const data: ComponentDocData = {
   },
   usages: [
     {
-      title: 'Lifecycle Interception for Dynamic Particle Content',
-      description: 'Hook into the uibit-particle-create event to mutate the cloned DOM before animation starts. This is ideal for tally increment values, random reward amounts, or changing emoji arrays.',
       code: `const trigger = document.querySelector('uibit-effect-trigger');
 trigger.addEventListener('uibit-particle-create', (e) => {
   const clone = e.detail.particle;
@@ -272,8 +264,6 @@ trigger.addEventListener('uibit-particle-create', (e) => {
 });`,
     },
     {
-      title: 'Inline Custom CSS Keyframes Override',
-      description: 'You can configure custom keyframe animations directly via the keyframes property, letting you override pre-baked motion curves.',
       code: `<uibit-effect-trigger
   trigger="click"
   keyframes='[{"transform": "translate(-50%, -50%) scale(1)"}, {"transform": "translate(-50%, -150px) scale(0)", "opacity": 0}]'
@@ -284,8 +274,6 @@ trigger.addEventListener('uibit-particle-create', (e) => {
 </uibit-effect-trigger>`,
     },
     {
-      title: 'Global Custom Behavior Registration',
-      description: 'Define custom coordinates or math calculations in JS using the static register API:',
       code: `import { EffectTrigger } from '@uibit/effect-trigger';
 
 // Register custom movement behavior

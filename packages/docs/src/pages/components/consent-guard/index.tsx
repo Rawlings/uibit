@@ -72,12 +72,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'consent-guard',
-  title: 'Consent Guard',
-  description:
-    'Gate any third-party content behind a consent prompt. The component manages show/hide state only — you provide both the placeholder UI and the content, keeping it composable and unbiased.',
-  packageName: '@uibit/consent-guard',
-  tagName: 'uibit-consent-guard',
   manifest,
   Demo: ConsentGuardDemo,
   demoCode: {

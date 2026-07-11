@@ -27,12 +27,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'text-typing',
-  title: 'Text Typing',
-  description:
-    'Headline text block that cycles through marketing phrases with a realistic typing and deleting animation. Includes speed variance, simulated auto-correcting typos, and a blinking cursor.',
-  packageName: '@uibit/text-typing',
-  tagName: 'uibit-text-typing',
   manifest,
   Demo: TextTypingDemo,
   demoCode: {

@@ -1,7 +1,7 @@
 {
   "name": "@uibit/sentiment-bar",
   "version": "0.1.0",
-  "description": "Micro-feedback widget with expressive sliding icons that blend between states and fire scored events on release",
+  "description": "Micro-feedback widget with a sliding row of expressive emoji options. Selecting an option triggers a spring-curve scale animation, grays out alternatives, and fires scored events instantly on release.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -81,5 +81,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "sentiment-bar",
+    "title": "Sentiment Bar",
+    "category": "Forms & Input",
+    "tagName": "uibit-sentiment-bar"
   }
 }

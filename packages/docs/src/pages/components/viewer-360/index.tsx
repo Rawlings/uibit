@@ -29,12 +29,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'viewer-360',
-  title: '360-Viewer',
-  description:
-    'Interactive 360-degree image viewer component. Display products and objects from every angle with smooth mouse/touch dragging, auto-rotation, and preloading.',
-  packageName: '@uibit/360-viewer',
-  tagName: 'uibit-360-viewer',
   manifest,
   Demo: Viewer360Demo,
   demoCode: {

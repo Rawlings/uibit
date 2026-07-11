@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { customElement, UIBitElement } from '@uibit/core';
+import { customElement, UIBitElement, ResizeController, LoopController } from '@uibit/core';
 import { property, query } from 'lit/decorators.js';
 import { styles } from './styles';
 import type { Particle, ParticleHoverEffect, ParticleMode, NetworkPulse } from './types';
@@ -47,8 +47,6 @@ export class EffectParticles extends UIBitElement {
 
   private _particles: Particle[] = [];
   private _pulses: NetworkPulse[] = [];
-  private _animationFrameId: number | null = null;
-  private _resizeObserver: ResizeObserver | null = null;
   private _mouse: { x: number | null; y: number | null } = { x: null, y: null };
   private _ctx: CanvasRenderingContext2D | null = null;
   private _lineColor = '#e5e7eb';
@@ -56,14 +54,25 @@ export class EffectParticles extends UIBitElement {
   private _matrixChars: string[] = [];
   private _time = 0;
 
+  protected _resize = new ResizeController(this, {
+    callback: (entry) => {
+      const { width, height } = entry.contentRect;
+      this._resizeCanvas(width, height);
+    }
+  });
+
+  protected _loop = new LoopController(this, {
+    autoStart: false,
+    callback: () => this._updateAndDraw()
+  });
+
   firstUpdated() {
     if (this._canvas && typeof this._canvas.getContext === 'function') {
       this._ctx = this._canvas.getContext('2d');
     }
-    this._setupResizeObserver();
     this._setupMouseListeners();
     this._initParticles();
-    this._startLoop();
+    this._loop.start();
   }
 
   updated(changedProperties: Map<PropertyKey, unknown>) {
@@ -71,16 +80,6 @@ export class EffectParticles extends UIBitElement {
     if (changedProperties.has('count') || changedProperties.has('mode')) {
       this._initParticles();
     }
-  }
-
-  private _setupResizeObserver() {
-    this._resizeObserver = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        const { width, height } = entry.contentRect;
-        this._resizeCanvas(width, height);
-      }
-    });
-    this._resizeObserver.observe(this);
   }
 
   private _resizeCanvas(width: number, height: number) {
@@ -267,18 +266,7 @@ export class EffectParticles extends UIBitElement {
     }
   }
 
-  private _startLoop() {
-    const loop = () => {
-      this._updateAndDraw();
-      this._animationFrameId = requestAnimationFrame(loop);
-    };
-    this._animationFrameId = requestAnimationFrame(loop);
 
-    this.registerDisposable(() => {
-      if (this._animationFrameId) cancelAnimationFrame(this._animationFrameId);
-      if (this._resizeObserver) this._resizeObserver.disconnect();
-    });
-  }
 
   private _updateAndDraw() {
     const ctx = this._ctx;

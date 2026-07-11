@@ -1,7 +1,7 @@
 {
   "name": "@uibit/number-ticker",
   "version": "0.1.0",
-  "description": "Intersection-aware numeric counter that animates to a target value with easing, formatting, and currency support",
+  "description": "Intersection-aware numeric counter that animates to a target value with easing curves, locale-aware formatting, and custom formatter function overrides. Triggers once the element scrolls into the viewport.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -80,5 +80,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "number-ticker",
+    "title": "Number Ticker",
+    "category": "Data & Utilities",
+    "tagName": "uibit-number-ticker"
   }
 }

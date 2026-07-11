@@ -71,12 +71,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'signature-pad',
-  title: 'Signature Pad',
-  description:
-    'A canvas drawing area that captures freehand signatures or messages using touch or mouse gestures, rendered immediately as smooth bezier-curved vector lines with simulated pen pressure.',
-  packageName: '@uibit/signature-pad',
-  tagName: 'uibit-signature-pad',
   manifest,
   Demo: SignaturePadDemo,
   demoCode: {

@@ -1,7 +1,7 @@
 {
   "name": "@uibit/text-rotator",
   "version": "0.1.0",
-  "description": "Rotates a single word inside a static sentence with smooth vertical slide or 3D flip transitions",
+  "description": "Rotates a single word inside a static sentence block with smooth vertical slide or 3D flip transitions. Designed to pull attention to changing value propositions.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -78,5 +78,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "text-rotator",
+    "title": "Text Rotator",
+    "category": "Typography & Display",
+    "tagName": "uibit-text-rotator"
   }
 }

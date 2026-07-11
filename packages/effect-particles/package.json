@@ -1,7 +1,7 @@
 {
   "name": "@uibit/effect-particles",
   "version": "0.1.0",
-  "description": "An interactive background particle canvas component",
+  "description": "Renders animated canvas backgrounds across thirteen distinct modes — from drifting particles and code rain to flow fields, aurora curtains, and pulsing grids. All modes react to mouse gestures and compose cleanly as hero backgrounds.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -80,5 +80,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "effect-particles",
+    "title": "Effect Particles",
+    "category": "Visual & Media",
+    "tagName": "uibit-effect-particles"
   }
 }

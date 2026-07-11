@@ -1,7 +1,7 @@
 {
   "name": "@uibit/image-xray",
   "version": "0.1.0",
-  "description": "Floating circular lens that reveals a synchronized secondary image as the cursor moves over a primary image",
+  "description": "A floating circular lens that follows the cursor or touch point, revealing a synchronized secondary image exactly where the user looks. Built for luxury and high-tech product storytelling.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -80,5 +80,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "image-xray",
+    "title": "Image Xray",
+    "category": "Visual & Media",
+    "tagName": "uibit-image-xray"
   }
 }

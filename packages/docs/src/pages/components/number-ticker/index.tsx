@@ -30,12 +30,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'number-ticker',
-  title: 'Number Ticker',
-  description:
-    'Intersection-aware numeric counter that animates to a target value with easing curves, locale-aware formatting, and custom formatter function overrides. Triggers once the element scrolls into the viewport.',
-  packageName: '@uibit/number-ticker',
-  tagName: 'uibit-number-ticker',
   manifest,
   Demo: NumberTickerDemo,
   demoCode: {

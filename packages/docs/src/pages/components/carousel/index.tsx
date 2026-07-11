@@ -27,11 +27,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'carousel',
-  title: 'Carousel',
-  description: 'Native, accessible carousel using CSS scroll-snap and scroll-driven animations. Perfect for image galleries, testimonials, and product showcases.',
-  packageName: '@uibit/carousel',
-  tagName: 'uibit-carousel',
   manifest,
   Demo: CarouselDemo,
   demoCode: {

@@ -21,12 +21,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'countdown',
-  title: 'Countdown',
-  description:
-    'Highly customizable countdown timer. Supports target date markers or set durations, reactive timers, and custom format templates.',
-  packageName: '@uibit/countdown',
-  tagName: 'uibit-countdown',
   manifest,
   Demo: CountdownDemo,
   demoCode: {

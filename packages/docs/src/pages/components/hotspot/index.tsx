@@ -9,29 +9,23 @@ import hoverTriggerRaw from './examples/hover-trigger?raw';
 function HotspotDemo() {
   const hotspots = [
     {
-      id: '1',
       x: 25,
       y: 35,
       label: 'High-Fidelity Drivers',
-      title: 'High-Fidelity Drivers',
       content:
         'Custom acoustic chambers deliver deep bass, ultra-low distortion, and crisp high frequencies.',
     },
     {
-      id: '2',
       x: 70,
       y: 45,
       label: 'Memory Foam Cushioning',
-      title: 'Memory Foam Cushioning',
       content:
         'Wrapped in breathable mesh and soft memory foam for all-day comfort without ear fatigue.',
     },
     {
-      id: '3',
       x: 48,
       y: 75,
       label: 'Adaptive ANC Microphone',
-      title: 'Adaptive ANC Microphone',
       content: 'Continuously monitors ambient noise to cancel sound or enable transparency mode.',
     },
   ];
@@ -54,12 +48,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'hotspot',
-  title: 'Hotspot',
-  description:
-    'Interactive hotspot annotations for images. Display contextual tooltip cards on click or hover with custom content overlays and animations.',
-  packageName: '@uibit/hotspot',
-  tagName: 'uibit-hotspot',
   manifest,
   Demo: HotspotDemo,
   demoCode: {

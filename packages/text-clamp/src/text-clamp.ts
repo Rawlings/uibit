@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { customElement, UIBitElement } from '@uibit/core';
+import { customElement, UIBitElement, ResizeController } from '@uibit/core';
 import { property, query, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -30,28 +30,15 @@ export class TextClamp extends UIBitElement {
   /** Maximum number of lines to show when collapsed. */
   @property({ type: Number }) lines = 3;
 
-
-
   @state() private _expanded = false;
   @state() private _overflows = false;
 
   @query('.content') private _contentEl!: HTMLElement;
 
-  private _ro?: ResizeObserver;
-
-  connectedCallback() {
-    super.connectedCallback();
-    this._ro = new ResizeObserver(() => this._measure());
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this._ro?.disconnect();
-  }
-
-  firstUpdated() {
-    if (this._contentEl) this._ro?.observe(this._contentEl);
-  }
+  protected _resize = new ResizeController(this, {
+    target: () => this._contentEl,
+    callback: () => this._measure(),
+  });
 
   updated(changed: Map<string, unknown>) {
     if (changed.has('lines')) this._measure();

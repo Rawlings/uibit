@@ -38,12 +38,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'diff-viewer',
-  title: 'Diff Viewer',
-  description:
-    'Encapsulated side-by-side or inline comparison block for two text or code snippets. Computes a line-level diff internally using LCS and renders color-coded deleted/inserted/unchanged lines with optional line numbers.',
-  packageName: '@uibit/diff-viewer',
-  tagName: 'uibit-diff-viewer',
   manifest,
   Demo: DiffViewerDemo,
   demoCode: {

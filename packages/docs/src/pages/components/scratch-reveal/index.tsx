@@ -48,12 +48,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'scratch-reveal',
-  title: 'Scratch Reveal',
-  description:
-    'A gamified, accessible scratch-off panel component that reveals hidden content. Users can scratch off the overlay canvas layer by dragging or touching.',
-  packageName: '@uibit/scratch-reveal',
-  tagName: 'uibit-scratch-reveal',
   manifest,
   Demo: ScratchRevealDemo,
   demoCode: {

@@ -31,12 +31,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'image-xray',
-  title: 'Image Xray',
-  description:
-    'A floating circular lens that follows the cursor or touch point, revealing a synchronized secondary image exactly where the user looks. Built for luxury and high-tech product storytelling.',
-  packageName: '@uibit/image-xray',
-  tagName: 'uibit-image-xray',
   manifest,
   Demo: ImageXrayDemo,
   demoCode: {

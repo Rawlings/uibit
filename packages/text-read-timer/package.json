@@ -1,7 +1,7 @@
 {
   "name": "@uibit/text-read-timer",
   "version": "0.1.0",
-  "description": "Text-analyzer badge that scans slotted content and outputs an estimated reading time string",
+  "description": "Text-analyzer badge that scans the word count of its slotted content and outputs an estimated reading time string. No backend metadata required — works directly in any CMS template.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -80,5 +80,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "text-read-timer",
+    "title": "Text Read Timer",
+    "category": "Typography & Display",
+    "tagName": "uibit-text-read-timer"
   }
 }

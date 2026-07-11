@@ -177,19 +177,17 @@
             },
             {
               "kind": "field",
-              "name": "_observer",
+              "name": "_viewport",
               "type": {
-                "text": "IntersectionObserver | undefined"
+                "text": "ViewportController | undefined"
               },
               "privacy": "private"
             },
             {
               "kind": "field",
-              "name": "_raf",
-              "type": {
-                "text": "number | undefined"
-              },
-              "privacy": "private"
+              "name": "_loop",
+              "privacy": "private",
+              "default": "new LoopController(this, { autoStart: false, callback: (ts) => this._tick(ts), })"
             },
             {
               "kind": "field",
@@ -199,6 +197,33 @@
               },
               "privacy": "private",
               "default": "false"
+            },
+            {
+              "kind": "field",
+              "name": "_startTime",
+              "type": {
+                "text": "number | null"
+              },
+              "privacy": "private",
+              "default": "null"
+            },
+            {
+              "kind": "field",
+              "name": "_startVal",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
+            },
+            {
+              "kind": "field",
+              "name": "_endVal",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private",
+              "default": "0"
             },
             {
               "kind": "method",
@@ -240,6 +265,19 @@
               "kind": "method",
               "name": "_start",
               "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_tick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "ts",
+                  "type": {
+                    "text": "number"
+                  }
+                }
+              ]
             }
           ],
           "events": [

@@ -1,7 +1,7 @@
 {
   "name": "@uibit/signature-pad",
   "version": "0.1.0",
-  "description": "A canvas-based signature pad web component that captures touch and mouse gestures as smooth bezier-curved vector lines",
+  "description": "A canvas drawing area that captures freehand signatures or messages using touch or mouse gestures, rendered immediately as smooth bezier-curved vector lines with simulated pen pressure.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -81,5 +81,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "signature-pad",
+    "title": "Signature Pad",
+    "category": "Forms & Input",
+    "tagName": "uibit-signature-pad"
   }
 }

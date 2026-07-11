@@ -149,11 +149,9 @@
             },
             {
               "kind": "field",
-              "name": "_ro",
-              "type": {
-                "text": "ResizeObserver | undefined"
-              },
-              "privacy": "private"
+              "name": "_resize",
+              "privacy": "protected",
+              "default": "new ResizeController(this, { target: () => this._contentEl, callback: () => this._measure(), })"
             },
             {
               "kind": "method",

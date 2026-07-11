@@ -86,7 +86,7 @@
               },
               "default": "100",
               "description": "Max distance for connecting lines",
-              "attribute": "connectDistance"
+              "attribute": "connect-distance"
             },
             {
               "kind": "field",
@@ -96,7 +96,7 @@
               },
               "default": "'repel'",
               "description": "Hover interaction: 'repel' | 'attract' | 'grab' | 'none'",
-              "attribute": "hoverEffect"
+              "attribute": "hover-effect"
             },
             {
               "kind": "field",
@@ -106,7 +106,7 @@
               },
               "default": "100",
               "description": "Radius of the mouse hover interaction zone",
-              "attribute": "interactiveRadius"
+              "attribute": "interactive-radius"
             },
             {
               "kind": "field",
@@ -133,24 +133,6 @@
               },
               "privacy": "private",
               "default": "[]"
-            },
-            {
-              "kind": "field",
-              "name": "_animationFrameId",
-              "type": {
-                "text": "number | null"
-              },
-              "privacy": "private",
-              "default": "null"
-            },
-            {
-              "kind": "field",
-              "name": "_resizeObserver",
-              "type": {
-                "text": "ResizeObserver | null"
-              },
-              "privacy": "private",
-              "default": "null"
             },
             {
               "kind": "field",
@@ -207,9 +189,16 @@
               "default": "0"
             },
             {
-              "kind": "method",
-              "name": "_setupResizeObserver",
-              "privacy": "private"
+              "kind": "field",
+              "name": "_resize",
+              "privacy": "protected",
+              "default": "new ResizeController(this, { callback: (entry) => { const { width, height } = entry.contentRect; this._resizeCanvas(width, height); } })"
+            },
+            {
+              "kind": "field",
+              "name": "_loop",
+              "privacy": "protected",
+              "default": "new LoopController(this, { autoStart: false, callback: () => this._updateAndDraw() })"
             },
             {
               "kind": "method",
@@ -276,11 +265,6 @@
             },
             {
               "kind": "method",
-              "name": "_startLoop",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
               "name": "_updateAndDraw",
               "privacy": "private"
             }
@@ -323,7 +307,7 @@
               "fieldName": "connect"
             },
             {
-              "name": "connectDistance",
+              "name": "connect-distance",
               "type": {
                 "text": "number"
               },
@@ -332,7 +316,7 @@
               "fieldName": "connectDistance"
             },
             {
-              "name": "hoverEffect",
+              "name": "hover-effect",
               "type": {
                 "text": "ParticleHoverEffect"
               },
@@ -341,7 +325,7 @@
               "fieldName": "hoverEffect"
             },
             {
-              "name": "interactiveRadius",
+              "name": "interactive-radius",
               "type": {
                 "text": "number"
               },

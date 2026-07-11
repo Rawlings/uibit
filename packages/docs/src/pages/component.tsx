@@ -1,8 +1,8 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { ApiDocs } from '../components/ApiDocs';
-import { Sidebar } from '../components/Sidebar';
 import { componentRegistry } from './components';
+import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
 import { DualCode } from '../types/docs';
 

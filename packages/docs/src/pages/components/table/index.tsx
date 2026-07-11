@@ -89,12 +89,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'table',
-  title: 'Table',
-  description:
-    'Wraps any standard HTML <table> in the default slot and adds a full datagrid feature set — without touching the source markup. All features are individually opt-in via boolean attributes.',
-  packageName: '@uibit/table',
-  tagName: 'uibit-table',
   manifest,
   Demo: TableDemo,
   demoCode: {

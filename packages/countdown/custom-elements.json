@@ -99,7 +99,7 @@
               },
               "default": "true",
               "description": "Automatically start the countdown on connect.",
-              "attribute": "autoStart"
+              "attribute": "auto-start"
             },
             {
               "kind": "field",
@@ -223,7 +223,7 @@
               "fieldName": "duration"
             },
             {
-              "name": "autoStart",
+              "name": "auto-start",
               "type": {
                 "text": "boolean"
               },

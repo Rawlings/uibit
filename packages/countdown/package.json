@@ -1,7 +1,7 @@
 {
   "name": "@uibit/countdown",
   "version": "0.1.0",
-  "description": "A web component for displaying countdown timers with customizable formatting",
+  "description": "Highly customizable countdown timer. Supports target date markers or set durations, reactive timers, and custom format templates.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -79,5 +79,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "countdown",
+    "title": "Countdown",
+    "category": "Data & Utilities",
+    "tagName": "uibit-countdown"
   }
 }

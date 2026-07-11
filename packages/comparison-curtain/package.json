@@ -1,7 +1,7 @@
 {
   "name": "@uibit/comparison-curtain",
   "version": "0.1.0",
-  "description": "An interactive diagonal, radial, vertical, or horizontal image comparison slider component",
+  "description": "Displays overlapping before/after content layers with interactive diagonal, radial, horizontal, or vertical splits.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -82,5 +82,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "comparison-curtain",
+    "title": "Comparison Curtain",
+    "category": "Visual & Media",
+    "tagName": "uibit-comparison-curtain"
   }
 }

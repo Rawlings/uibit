@@ -1,7 +1,7 @@
 {
   "name": "@uibit/360-viewer",
   "version": "0.1.0",
-  "description": "A web component for displaying 360-degree product views with image rotation and touch support",
+  "description": "Interactive 360-degree image viewer component. Display products and objects from every angle with smooth mouse/touch dragging, auto-rotation, and preloading.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -80,5 +80,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "viewer-360",
+    "title": "360-Viewer",
+    "category": "Visual & Media",
+    "tagName": "uibit-360-viewer"
   }
 }

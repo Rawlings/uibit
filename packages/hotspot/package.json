@@ -1,7 +1,7 @@
 {
   "name": "@uibit/hotspot",
   "version": "0.1.0",
-  "description": "A web component for creating interactive hotspots on images with popovers",
+  "description": "Interactive hotspot annotations for images. Display contextual tooltip cards on click or hover with custom content overlays and animations.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -80,5 +80,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "1",
+    "title": "High-Fidelity Drivers",
+    "category": "Visual & Media",
+    "tagName": "uibit-hotspot"
   }
 }

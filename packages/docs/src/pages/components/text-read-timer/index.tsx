@@ -42,12 +42,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'text-read-timer',
-  title: 'Text Read Timer',
-  description:
-    'Text-analyzer badge that scans the word count of its slotted content and outputs an estimated reading time string. No backend metadata required — works directly in any CMS template.',
-  packageName: '@uibit/text-read-timer',
-  tagName: 'uibit-text-read-timer',
   manifest,
   Demo: TextReadTimerDemo,
   demoCode: {

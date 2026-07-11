@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { customElement, UIBitElement } from '@uibit/core';
+import { customElement, UIBitElement, ViewportController } from '@uibit/core';
 import { property } from 'lit/decorators.js';
 import { styles } from './styles';
 import type { EffectTriggerType, EffectBehaviorType, BehaviorFn } from './types';
@@ -72,7 +72,7 @@ export class EffectTrigger extends UIBitElement {
   /** CSS selector of a destination element to animate particles towards */
   @property({ type: String, attribute: 'destination-selector' }) destinationSelector?: string;
 
-  private _observer?: IntersectionObserver;
+  private _viewport?: ViewportController;
   private _hasIntersections = false;
   private _boundEventsCleanups: Array<() => void> = [];
 
@@ -95,9 +95,10 @@ export class EffectTrigger extends UIBitElement {
   }
 
   private _cleanupObserver() {
-    if (this._observer) {
-      this._observer.disconnect();
-      this._observer = undefined;
+    if (this._viewport) {
+      this.removeController(this._viewport);
+      this._viewport.unobserve();
+      this._viewport = undefined;
     }
   }
 
@@ -151,22 +152,20 @@ export class EffectTrigger extends UIBitElement {
       const cleanup = this.listen(triggerEl, 'mouseenter', (e) => this.ignite(e));
       this._boundEventsCleanups.push(cleanup);
     } else if (this.trigger === 'visible') {
-      this._observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              if (!this._hasIntersections) {
-                this.ignite();
-                this._hasIntersections = true;
-              }
-            } else {
-              this._hasIntersections = false;
+      this._viewport = new ViewportController(this, {
+        target: triggerEl,
+        threshold: 0.1,
+        callback: (entry) => {
+          if (entry.isIntersecting) {
+            if (!this._hasIntersections) {
+              this.ignite();
+              this._hasIntersections = true;
             }
-          });
-        },
-        { threshold: 0.1 }
-      );
-      this._observer.observe(triggerEl);
+          } else {
+            this._hasIntersections = false;
+          }
+        }
+      });
     }
   }
 

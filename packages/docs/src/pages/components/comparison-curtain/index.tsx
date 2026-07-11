@@ -36,12 +36,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'comparison-curtain',
-  title: 'Comparison Curtain',
-  description:
-    'Displays overlapping before/after content layers with interactive diagonal, radial, horizontal, or vertical splits.',
-  packageName: '@uibit/comparison-curtain',
-  tagName: 'uibit-comparison-curtain',
   manifest,
   Demo: ComparisonCurtainDemo,
   demoCode: {

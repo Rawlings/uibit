@@ -162,9 +162,9 @@
             },
             {
               "kind": "field",
-              "name": "_observer",
+              "name": "_viewport",
               "type": {
-                "text": "IntersectionObserver | undefined"
+                "text": "ViewportController | undefined"
               },
               "privacy": "private"
             },

@@ -1,7 +1,7 @@
 {
   "name": "@uibit/text-clamp",
   "version": "0.1.0",
-  "description": "Text block that clamps multi-line content to an exact row count with a More/Less toggle that handles ResizeObserver-based reflow",
+  "description": "Clamps slotted text to an exact line count via a lines attribute. When content overflows, a More/Less toggle appears inline. A ResizeObserver recalculates overflow on every viewport resize so the clamp is always mathematically correct.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -79,5 +79,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "text-clamp",
+    "title": "Text Clamp",
+    "category": "Typography & Display",
+    "tagName": "uibit-text-clamp"
   }
 }

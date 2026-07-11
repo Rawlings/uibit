@@ -1,7 +1,7 @@
 {
   "name": "@uibit/carousel",
   "version": "0.1.0",
-  "description": "A native, accessible carousel web component with CSS scroll-snap and scroll-driven animations",
+  "description": "Native, accessible carousel using CSS scroll-snap and scroll-driven animations. Perfect for image galleries, testimonials, and product showcases.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -81,5 +81,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "carousel",
+    "title": "Carousel",
+    "category": "Visual & Media",
+    "tagName": "uibit-carousel"
   }
 }

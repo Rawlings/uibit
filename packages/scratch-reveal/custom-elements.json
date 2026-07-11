@@ -105,7 +105,7 @@
               },
               "default": "50",
               "description": "Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires.",
-              "attribute": "revealThreshold"
+              "attribute": "reveal-threshold"
             },
             {
               "kind": "field",
@@ -249,7 +249,7 @@
           ],
           "attributes": [
             {
-              "name": "revealThreshold",
+              "name": "reveal-threshold",
               "type": {
                 "text": "number"
               },

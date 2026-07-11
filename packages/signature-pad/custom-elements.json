@@ -122,7 +122,7 @@
               },
               "default": "false",
               "description": "Whether to hide the clear button.",
-              "attribute": "hideClear"
+              "attribute": "hide-clear"
             },
             {
               "kind": "field",
@@ -353,7 +353,7 @@
           ],
           "attributes": [
             {
-              "name": "hideClear",
+              "name": "hide-clear",
               "type": {
                 "text": "boolean"
               },

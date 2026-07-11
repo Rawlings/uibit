@@ -1,7 +1,7 @@
 {
   "name": "@uibit/scratch-reveal",
   "version": "0.1.0",
-  "description": "A gamified scratch-off panel web component that reveals hidden content by scratching away an opaque layer",
+  "description": "A gamified, accessible scratch-off panel component that reveals hidden content. Users can scratch off the overlay canvas layer by dragging or touching.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -82,5 +82,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "scratch-reveal",
+    "title": "Scratch Reveal",
+    "category": "Data & Utilities",
+    "tagName": "uibit-scratch-reveal"
   }
 }

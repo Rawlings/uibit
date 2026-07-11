@@ -118,7 +118,7 @@
               },
               "default": "false",
               "description": "Automatically advance slides on a timer.",
-              "attribute": "autoPlay"
+              "attribute": "auto-play"
             },
             {
               "kind": "field",
@@ -128,7 +128,7 @@
               },
               "default": "5000",
               "description": "Milliseconds between auto-play advances.",
-              "attribute": "autoPlayInterval"
+              "attribute": "auto-play-interval"
             },
             {
               "kind": "field",
@@ -393,7 +393,7 @@
           ],
           "attributes": [
             {
-              "name": "autoPlay",
+              "name": "auto-play",
               "type": {
                 "text": "boolean"
               },
@@ -402,7 +402,7 @@
               "fieldName": "autoPlay"
             },
             {
-              "name": "autoPlayInterval",
+              "name": "auto-play-interval",
               "type": {
                 "text": "number"
               },

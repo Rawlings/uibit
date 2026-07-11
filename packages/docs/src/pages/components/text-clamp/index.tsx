@@ -29,12 +29,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'text-clamp',
-  title: 'Text Clamp',
-  description:
-    'Clamps slotted text to an exact line count via a lines attribute. When content overflows, a More/Less toggle appears inline. A ResizeObserver recalculates overflow on every viewport resize so the clamp is always mathematically correct.',
-  packageName: '@uibit/text-clamp',
-  tagName: 'uibit-text-clamp',
   manifest,
   Demo: TextClampDemo,
   demoCode: {

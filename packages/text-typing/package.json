@@ -1,7 +1,7 @@
 {
   "name": "@uibit/text-typing",
   "version": "0.1.0",
-  "description": "Headline text block that cycles marketing phrases with a realistic typing/deleting animation, typo simulation, and blinking cursor",
+  "description": "Headline text block that cycles through marketing phrases with a realistic typing and deleting animation. Includes speed variance, simulated auto-correcting typos, and a blinking cursor.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -80,5 +80,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "text-typing",
+    "title": "Text Typing",
+    "category": "Typography & Display",
+    "tagName": "uibit-text-typing"
   }
 }

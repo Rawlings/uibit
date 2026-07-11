@@ -37,12 +37,6 @@ const processedExamples = [
 ];
 
 const data: ComponentDocData = {
-  id: 'scroll-progress',
-  title: 'Scroll Progress',
-  description:
-    'Lightweight, accessible scroll progress indicator. Tracks viewport scrolling by default, or can be targeting a specific scrollable element using selectors.',
-  packageName: '@uibit/scroll-progress',
-  tagName: 'uibit-scroll-progress',
   manifest,
   Demo: ScrollProgressDemo,
   demoCode: {

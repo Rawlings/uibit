@@ -1,7 +1,7 @@
 {
   "name": "@uibit/consent-guard",
   "version": "0.1.0",
-  "description": "Asset-level consent wrapper for privacy-invasive third-party scripts and iframes",
+  "description": "Gate any third-party content behind a consent prompt. The component manages show/hide state only — you provide both the placeholder UI and the content, keeping it composable and unbiased.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -81,5 +81,11 @@
     "@angular/core": {
       "optional": true
     }
+  },
+  "uibit": {
+    "id": "consent-guard",
+    "title": "Consent Guard",
+    "category": "Forms & Input",
+    "tagName": "uibit-consent-guard"
   }
 }

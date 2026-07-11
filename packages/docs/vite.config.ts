@@ -28,7 +28,6 @@ export default defineConfig({
   resolve: {
     alias: [
       '@uibit/360-viewer',
-      '@uibit/ab-test',
       '@uibit/carousel',
       '@uibit/consent-guard',
       '@uibit/core',
