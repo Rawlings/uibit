@@ -9,7 +9,7 @@ function ScrollContainerDemo() {
       style={{ scrollbarWidth: 'thin' }}
     >
       <uibit-scroll-progress
-        target="#demo-scroll-box"
+        target-selector="#demo-scroll-box"
         class="sticky top-0 z-10 block"
       ></uibit-scroll-progress>
 
@@ -28,7 +28,7 @@ function ScrollContainerDemo() {
 const scrollContainerExample: UsageExample = {
   title: 'Scroll Container',
   description:
-    'Track scroll progress within a specific scrollable element by passing a CSS selector to the `target` attribute. Place the component as the first child of the container with `sticky top-0` so it stays pinned to the top as you scroll.',
+    'Track scroll progress within a specific scrollable element by passing a CSS selector to the `target-selector` attribute. Place the component as the first child of the container with `sticky top-0` so it stays pinned to the top as you scroll.',
   Demo: ScrollContainerDemo,
 };
 

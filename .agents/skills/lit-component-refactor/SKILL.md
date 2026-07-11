@@ -63,7 +63,11 @@ claude --skill lit-component-refactor --args '{
 
 ## Refactoring Patterns
 
-### Property Optimization
+### Property Optimization & Naming Alignment
+
+- **Reactivity Optimization**: Avoid manual `requestUpdate()` calls in `updated()` for reactive properties. Lit handles this automatically.
+- **CamelCase to Kebab-Case Attribute Mapping**: Any camelCase property must map to an explicit kebab-case attribute (using the `attribute` property options) so it does not default to an all-lowercase name.
+- **Selector Suffix Alignment**: Any property referencing a CSS selector of a DOM element must be named with the `Selector` suffix (e.g. `targetSelector`) and mapped to its kebab-case attribute counterpart (e.g. `target-selector`).
 
 **Before:**
 ```typescript
@@ -71,6 +75,8 @@ export class MyButton extends LitElement {
   @property() label: string = '';
   @property() variant: string = 'primary';
   @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean }) autoPlay = false;
+  @property({ type: String }) target?: string; // CSS Selector
   
   updated(changedProperties: PropertyValues) {
     if (changedProperties.has('label')) {
@@ -86,6 +92,8 @@ export class MyButton extends LitElement {
   @property() label = '';
   @property() variant: 'primary' | 'secondary' = 'primary';
   @property({ type: Boolean }) disabled = false;
+  @property({ type: Boolean, attribute: 'auto-play' }) autoPlay = false;
+  @property({ type: String, attribute: 'target-selector' }) targetSelector?: string;
   
   // No manual updated() needed - Lit handles reactivity
 }

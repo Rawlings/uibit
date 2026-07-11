@@ -86,7 +86,10 @@ packages/<kebab-case>/
 
 ### Component Boilerplate
 - Lit class component with TypeScript
-- Reactive `@property` decorators (only for behavioral parameters and data; do not use properties for styling or setting text content)
+- Reactive `@property` decorators (only for behavioral parameters and data; do not use properties for styling or setting text content).
+- **Naming Conventions**:
+  - All camelCase properties must explicitly map to kebab-case attributes using the `attribute` option (e.g. `@property({ type: Boolean, attribute: 'auto-play' }) autoPlay = false;`). Without this, Lit defaults to lowercase names (e.g. `autoPlay` -> `autoplay`), which violates our design standards.
+  - Any property representing a CSS selector of a DOM element must end in `Selector` and map to a kebab-case attribute ending in `-selector` (e.g. `@property({ type: String, attribute: 'target-selector' }) targetSelector?: string;`).
 - Expose HTML `<slot>` components for rendering user-facing text, labels, or inner markup instead of properties. **This is mandatory** — any visible string that a consumer might want to change (hint text, button labels, titles, descriptions) must be a slot, not a string property. Use the property value as the slot's fallback content:
   ```typescript
   // ✅ correct — slot with fallback

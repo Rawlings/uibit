@@ -35,13 +35,13 @@ export class EffectParticles extends UIBitElement {
   @property({ type: Boolean }) connect = false;
 
   /** Max distance for connecting lines */
-  @property({ type: Number }) connectDistance = 100;
+  @property({ type: Number, attribute: 'connect-distance' }) connectDistance = 100;
 
   /** Hover interaction: 'repel' | 'attract' | 'grab' | 'none' */
-  @property({ type: String }) hoverEffect: ParticleHoverEffect = 'repel';
+  @property({ type: String, attribute: 'hover-effect' }) hoverEffect: ParticleHoverEffect = 'repel';
 
   /** Radius of the mouse hover interaction zone */
-  @property({ type: Number }) interactiveRadius = 100;
+  @property({ type: Number, attribute: 'interactive-radius' }) interactiveRadius = 100;
 
   @query('canvas') private _canvas!: HTMLCanvasElement;
 

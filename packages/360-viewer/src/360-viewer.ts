@@ -25,15 +25,15 @@ export class Viewer360 extends UIBitElement {
 
   @state() private images: string[] = [];
   /** Automatically rotate through frames when no user interaction is occurring. */
-  @property({ type: Boolean }) autoRotate = false;
+  @property({ type: Boolean, attribute: 'auto-rotate' }) autoRotate = false;
   /** Milliseconds between frames during auto-rotation. Lower values spin faster. */
-  @property({ type: Number }) rotationSpeed = 150;
+  @property({ type: Number, attribute: 'rotation-speed' }) rotationSpeed = 150;
   /** Horizontal pixel distance a drag must travel before advancing one frame. */
-  @property({ type: Number }) dragSensitivity = 15;
+  @property({ type: Number, attribute: 'drag-sensitivity' }) dragSensitivity = 15;
   /** Show the play/pause and directional control buttons. */
-  @property({ type: Boolean }) showControls = true;
+  @property({ type: Boolean, attribute: 'show-controls' }) showControls = true;
   /** Show the frame progress bar at the bottom of the viewer. */
-  @property({ type: Boolean }) showProgressBar = true;
+  @property({ type: Boolean, attribute: 'show-progress-bar' }) showProgressBar = true;
 
   @state() private currentIndex = 0;
   @state() private isDragging = false;

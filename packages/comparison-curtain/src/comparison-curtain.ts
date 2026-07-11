@@ -30,7 +30,7 @@ export class ComparisonCurtain extends UIBitElement {
   @property({ type: Boolean }) interactive = true;
 
   /** If true, pointer movement tracks progress immediately without click-dragging */
-  @property({ type: Boolean }) hoverReveal = false;
+  @property({ type: Boolean, attribute: 'hover-reveal' }) hoverReveal = false;
 
   @state() private _isDragging = false;
 

@@ -32,7 +32,7 @@ export class Countdown extends UIBitElement {
   /** Fixed countdown duration in milliseconds. Used when `target` is not set. */
   @property({ type: Number }) duration?: number;
   /** Automatically start the countdown on connect. */
-  @property({ type: Boolean }) autoStart = true;
+  @property({ type: Boolean, attribute: 'auto-start' }) autoStart = true;
   /** Display format. Tokens: `DD` days, `HH` hours, `MM` minutes, `SS` seconds. */
   @property({ type: String }) format = 'HH:MM:SS';
 

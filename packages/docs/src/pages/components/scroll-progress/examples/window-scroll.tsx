@@ -9,7 +9,7 @@ function WindowScrollDemo() {
       style={{ scrollbarWidth: 'thin' }}
     >
       <uibit-scroll-progress
-        target="#window-scroll-demo-box"
+        target-selector="#window-scroll-demo-box"
         class="sticky top-0 z-10 block"
       ></uibit-scroll-progress>
 
@@ -28,7 +28,7 @@ function WindowScrollDemo() {
 const windowScrollExample: UsageExample = {
   title: 'Window Scroll',
   description:
-    'Without a `target` attribute the component tracks the browser window scroll position. Place it once at the top of your page layout shell — typically as the first child of your outermost wrapper — so it persists across all page content.',
+    'Without a `target-selector` attribute the component tracks the browser window scroll position. Place it once at the top of your page layout shell — typically as the first child of your outermost wrapper — so it persists across all page content.',
   Demo: WindowScrollDemo,
 };
 

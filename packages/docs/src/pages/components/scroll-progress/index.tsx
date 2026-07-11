@@ -14,7 +14,7 @@ function ScrollProgressDemo() {
       style={{ scrollbarWidth: 'thin' }}
     >
       <uibit-scroll-progress
-        target="#demo-scroll-box"
+        target-selector="#demo-scroll-box"
         class="sticky top-0 z-10 block"
       ></uibit-scroll-progress>
 
@@ -48,7 +48,7 @@ const data: ComponentDocData = {
   demoCode: {
     html: `<div id="scrollable-block" style="height: 24rem; overflow-y: scroll; position: relative;">
   <uibit-scroll-progress
-    target="#scrollable-block"
+    target-selector="#scrollable-block"
     class="sticky top-0 z-10 block"
   ></uibit-scroll-progress>
   <div style="padding: 1.5rem;">
@@ -60,7 +60,7 @@ const data: ComponentDocData = {
   className="relative h-96 overflow-y-scroll"
 >
   <uibit-scroll-progress
-    target="#scrollable-block"
+    target-selector="#scrollable-block"
     class="sticky top-0 z-10 block"
   ></uibit-scroll-progress>
   <div className="p-6">

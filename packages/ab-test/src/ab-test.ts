@@ -14,9 +14,9 @@ import { property, state } from 'lit/decorators.js';
 @customElement('uibit-ab-test')
 export class ABTest extends UIBitElement {
   /** `localStorage` key used to persist the assigned variant across sessions. */
-  @property({ type: String }) storageKey = 'uibit-ab-test-variant';
+  @property({ type: String, attribute: 'storage-key' }) storageKey = 'uibit-ab-test-variant';
   /** Map of variant names to their relative traffic weights (e.g. `{ a: 70, b: 30 }`). */
-  @property({ type: Object }) variantDistribution: Record<string, number> = { 'a': 50, 'b': 50 };
+  @property({ type: Object, attribute: 'variant-distribution' }) variantDistribution: Record<string, number> = { 'a': 50, 'b': 50 };
 
   @state() private selectedVariant: string | null = null;
   @state() private isNewUser = true;

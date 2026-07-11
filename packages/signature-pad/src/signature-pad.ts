@@ -134,7 +134,7 @@ export class SignaturePad extends UIBitElement {
   `;
 
   /** Whether to hide the clear button. */
-  @property({ type: Boolean }) hideClear = false;
+  @property({ type: Boolean, attribute: 'hide-clear' }) hideClear = false;
 
   @state() private isEmpty = true;
 

@@ -14,11 +14,13 @@ describe('EffectTrigger Component', () => {
         finish: vi.fn(),
       };
     });
-    vi.stubGlobal('HTMLElement', class extends HTMLElement {
-      animate = animateSpy;
-    });
-    if (typeof window !== 'undefined' && window.HTMLElement) {
-      window.HTMLElement.prototype.animate = animateSpy;
+    if (typeof window !== 'undefined') {
+      if (window.Element) {
+        window.Element.prototype.animate = animateSpy;
+      }
+      if (window.HTMLElement) {
+        window.HTMLElement.prototype.animate = animateSpy;
+      }
     }
   });
 

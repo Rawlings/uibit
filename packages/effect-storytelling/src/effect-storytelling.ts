@@ -19,11 +19,11 @@ export class EffectStorytelling extends UIBitElement {
 
   @property({ type: String }) mode: StoryMode = 'sequence-fade';
 
-  @property({ type: String }) trackAlignment: TrackAlignment = 'right';
+  @property({ type: String, attribute: 'track-alignment' }) trackAlignment: TrackAlignment = 'right';
 
-  @property({ type: String }) timelineScope: TimelineScope = 'viewport';
+  @property({ type: String, attribute: 'timeline-scope' }) timelineScope: TimelineScope = 'viewport';
 
-  @property({ type: Boolean }) snapPoints = false;
+  @property({ type: Boolean, attribute: 'snap-points' }) snapPoints = false;
 
   @property({ type: Boolean, attribute: 'navigation' }) navigation = false;
 

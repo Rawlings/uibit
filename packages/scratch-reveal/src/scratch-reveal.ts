@@ -29,7 +29,7 @@ export class ScratchReveal extends UIBitElement {
   static styles = styles;
 
   /** Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires. */
-  @property({ type: Number }) revealThreshold = 50;
+  @property({ type: Number, attribute: 'reveal-threshold' }) revealThreshold = 50;
 
   @state() private _scratchProgress = 0;
 

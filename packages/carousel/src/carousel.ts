@@ -40,9 +40,9 @@ export class UIBitCarousel extends UIBitElement {
   static styles = styles;
 
   /** Automatically advance slides on a timer. */
-  @property({ type: Boolean }) autoPlay = false;
+  @property({ type: Boolean, attribute: 'auto-play' }) autoPlay = false;
   /** Milliseconds between auto-play advances. */
-  @property({ type: Number }) autoPlayInterval = 5000;
+  @property({ type: Number, attribute: 'auto-play-interval' }) autoPlayInterval = 5000;
   /** When `true`, the carousel wraps from the last slide back to the first. */
   @property({ type: Boolean }) loop = true;
 
