@@ -20,7 +20,6 @@ export const styles = css`
     overflow: hidden;
     background: var(--uibit-360-viewer-bg);
     border: 0.0625rem solid var(--uibit-360-viewer-border);
-    border-radius: 0.5rem;
     touch-action: none;
     user-select: none;
     -webkit-user-drag: none;
@@ -82,13 +81,13 @@ export const styles = css`
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--uibit-360-viewer-button-bg);
+    background: var(--uibit-360-viewer-button-bg, rgba(255, 255, 255, 0.75));
     backdrop-filter: blur(0.5rem);
     -webkit-backdrop-filter: blur(0.5rem);
-    border: 0.0625rem solid rgba(255, 255, 255, 0.25);
-    color: var(--uibit-360-viewer-button-color);
-    width: 2.5rem;
-    height: 2.5rem;
+    border: none;
+    color: var(--uibit-360-viewer-button-color, #111827);
+    width: 2.25rem;
+    height: 2.25rem;
     border-radius: 9999rem;
     display: flex;
     align-items: center;
@@ -96,11 +95,8 @@ export const styles = css`
     cursor: pointer;
     opacity: 0;
     z-index: 10;
-    box-shadow:
-      0 0.125rem 0.5rem rgba(0, 0, 0, 0.12),
-      0 0.25rem 1rem rgba(0, 0, 0, 0.1),
-      0 0 0 0.0625rem rgba(0, 0, 0, 0.06);
-    transition: opacity 200ms ease, background-color 150ms ease, box-shadow 150ms ease;
+    box-shadow: none;
+    transition: opacity 250ms ease, background-color 150ms ease, color 150ms ease, transform 150ms ease;
   }
 
   .viewer:hover .nav-button,
@@ -114,17 +110,21 @@ export const styles = css`
   }
 
   .nav-button:hover {
-    background: var(--uibit-360-viewer-button-bg-hover);
-    box-shadow:
-      0 0.25rem 0.75rem rgba(0, 0, 0, 0.16),
-      0 0.5rem 1.5rem rgba(0, 0, 0, 0.12),
-      0 0 0 0.0625rem rgba(0, 0, 0, 0.08);
+    background: var(--uibit-360-viewer-button-bg-hover, rgba(255, 255, 255, 0.95));
+    color: #000000;
+    box-shadow: none;
+  }
+
+  .nav-button-prev:hover {
+    transform: translateY(-50%) translateX(-0.125rem) scale(1.05);
+  }
+
+  .nav-button-next:hover {
+    transform: translateY(-50%) translateX(0.125rem) scale(1.05);
   }
 
   .nav-button:active {
-    box-shadow:
-      0 0 0 0.0625rem rgba(0, 0, 0, 0.06),
-      inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12);
+    transform: translateY(-50%) scale(0.95);
   }
 
   .nav-button-prev {
@@ -136,9 +136,8 @@ export const styles = css`
   }
 
   .nav-button svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    fill: currentColor;
+    width: 1.125rem;
+    height: 1.125rem;
   }
 
   .drag-hint {
@@ -146,7 +145,7 @@ export const styles = css`
     bottom: 0.75rem;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--uibit-360-viewer-hint-bg);
+    background: var(--uibit-360-viewer-hint-bg, rgba(17, 24, 39, 0.65));
     color: #ffffff;
     padding: 0.375rem 0.75rem;
     border-radius: 9999rem;
@@ -172,13 +171,13 @@ export const styles = css`
     left: 0;
     width: 100%;
     height: 0.1875rem;
-    background: var(--uibit-360-viewer-progress-track-bg);
+    background: var(--uibit-360-viewer-progress-track-bg, rgba(0, 0, 0, 0.08));
     z-index: 5;
   }
 
   .progress-bar {
     height: 100%;
-    background: var(--uibit-360-viewer-focus-color);
+    background: var(--uibit-360-viewer-focus-color, #000000);
     transition: width 100ms ease;
   }
 

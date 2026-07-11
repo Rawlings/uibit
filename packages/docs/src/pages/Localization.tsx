@@ -16,32 +16,21 @@ export default function LocalizationGuide() {
 
         {/* Main Documentation Area */}
         <div className="flex-1 min-w-0">
-          {/* Breadcrumb */}
-          <nav className="mb-6">
-            <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-              <Link to="/" className="hover:text-gray-900 dark:hover:text-white transition-colors">
-                Home
-              </Link>
-              <span className="text-gray-400">/</span>
-              <span className="text-gray-900 dark:text-white font-medium">Localization</span>
-            </p>
-          </nav>
-
           {/* Page Header */}
-          <div className="mb-10">
-            <h1 className="text-3xl font-semibold text-gray-900 dark:text-white mb-3 tracking-tight">
+          <header className="mb-10">
+            <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
               Localization
             </h1>
-            <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+            <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
               UIBit ships with <code className="text-sm bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">en-US</code> (English, United States) as the default locale. All user-visible strings — aria-labels,
               UI text, and time unit labels — are wrapped with{' '}
               <code className="text-sm bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">@lit/localize</code>{' '}
               so they can be translated without modifying component source code.
             </p>
-          </div>
+          </header>
 
           {/* Section: How it works */}
-          <section className="mb-12">
+          <section className="py-10 scroll-mt-20">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">How it works</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
               Every component imports <code className="text-sm bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">msg</code> and{' '}
@@ -60,7 +49,7 @@ export default function LocalizationGuide() {
           </section>
 
           {/* Section: Zero-config default */}
-          <section className="mb-12">
+          <section className="py-10 scroll-mt-20">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Zero-config default</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
               If you never call <code className="text-sm bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">configureUIBitLocalization</code>, components render
@@ -73,7 +62,7 @@ export default function LocalizationGuide() {
           </section>
 
           {/* Section: Adding translations */}
-          <section className="mb-12">
+          <section className="py-10 scroll-mt-20">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Adding translations</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               To support additional locales, call{' '}
@@ -122,7 +111,7 @@ npx lit-localize build     # compiles to src/locales/fr.js, …`}</pre>
           </section>
 
           {/* Section: Writing a translation file manually */}
-          <section className="mb-12">
+          <section className="py-10 scroll-mt-20">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Writing translations manually</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
               For small projects, you can skip the XLIFF toolchain and write locale modules directly.
@@ -157,28 +146,28 @@ export const templates = {
           </section>
 
           {/* Section: Localized strings per component */}
-          <section className="mb-12">
+          <section className="py-10 scroll-mt-20">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Strings by component</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               The following table lists every localizable string currently used across UIBit components.
               All strings are in <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">en-US</code> by default.
             </p>
 
-            <div className="overflow-x-auto border border-gray-200 dark:border-gray-800 rounded-lg">
+            <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300">
-                  <tr>
-                    <th className="text-left px-4 py-3 font-semibold border-b border-gray-200 dark:border-gray-800">Component</th>
-                    <th className="text-left px-4 py-3 font-semibold border-b border-gray-200 dark:border-gray-800">String (en-US)</th>
-                    <th className="text-left px-4 py-3 font-semibold border-b border-gray-200 dark:border-gray-800">Context</th>
+                <thead>
+                  <tr className="border-b border-gray-200 dark:border-gray-800">
+                    <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Component</th>
+                    <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">String (en-US)</th>
+                    <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Context</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100 dark:divide-gray-800 font-mono">
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-900">
                   {localizedStrings.map((row, i) => (
-                    <tr key={i} className={i % 2 === 0 ? 'bg-white dark:bg-gray-950' : 'bg-gray-50/50 dark:bg-gray-900/30'}>
-                      <td className="px-4 py-2.5 text-gray-700 dark:text-gray-300 font-sans font-medium text-xs">{row.component}</td>
-                      <td className="px-4 py-2.5 text-gray-900 dark:text-white text-xs">{row.string}</td>
-                      <td className="px-4 py-2.5 text-gray-500 dark:text-gray-400 font-sans text-xs">{row.context}</td>
+                    <tr key={i} className="bg-transparent">
+                      <td className="py-3 text-gray-900 dark:text-white text-sm font-medium pr-4 last:pr-0">{row.component}</td>
+                      <td className="py-3 text-gray-600 dark:text-gray-350 text-sm font-mono pr-4 last:pr-0">{row.string}</td>
+                      <td className="py-3 text-gray-550 dark:text-gray-450 text-sm pr-4 last:pr-0">{row.context}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -187,7 +176,7 @@ export const templates = {
           </section>
 
           {/* Section: RTL */}
-          <section className="mb-12">
+          <section className="py-10 scroll-mt-20">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Right-to-left (RTL) support</h2>
             <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
               UIBit components respect the document's text direction. Set{' '}
@@ -203,7 +192,7 @@ export const templates = {
           </section>
 
           {/* Section: API reference */}
-          <section className="mb-12">
+          <section className="py-10 scroll-mt-20">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">API reference</h2>
 
             <div className="space-y-6">

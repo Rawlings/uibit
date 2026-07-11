@@ -97,6 +97,7 @@ packages/<kebab-case>/
 - **Focus Rings:** Must be black. Standard ring outline: `outline: 0.125rem solid #000000; outline-offset: 0.125rem;`.
 - **CSS Shadow Parts:** Attach `part="..."` attributes to sub-elements to allow theme styling from outside the shadow root (e.g., `<button part="button">`).
 - **Encapsulation:** Define CSS variable defaults in `:host {}`. All custom variables must be prefixed: `--uibit-[component-name]-[variable]`.
+- **Minimalist Overlay Controls & Buttons:** All control, toggle, drag handle, and close buttons must be circular, borderless, shadowless, and use solid `#ffffff` or translucent background with backdrop-filter blur. Hover states must be extremely subtle (bg `#f3f4f6`, border-color `#d1d5db`), avoiding thick black borders or heavy drop shadows. Use soft transitions (hover `scale(1.05)` or direction slide shifts, active click `scale(0.95)`).
 
 ### 3. Vitest Testing (`src/component-name.test.ts`)
 - All tests run under **Vitest** in the workspace root with Happy DOM.

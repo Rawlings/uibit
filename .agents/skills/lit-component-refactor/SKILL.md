@@ -123,7 +123,7 @@ export const styles = css`
     border-radius: var(--uibit-button-radius, 0.25rem); /* rem units matching radius scale */
     background: var(--uibit-button-bg, #000000); /* Grayscale palette only */
     color: var(--uibit-button-color, #ffffff);
-    border: 0.0625rem solid var(--uibit-button-border, #e5e7eb); /* 0.0625rem = 1px */
+    border: 0.0625rem solid var(--uibit-button-border, #e5e7eb); /* rem unit for border */
     transition: background-color 150ms ease;
   }
 
@@ -209,11 +209,12 @@ private _fireEvent() {
 
 - [ ] Component inherits from `UIBitElement` from `@uibit/core`.
 - [ ] Registered via `@customElement` from `@uibit/core`.
-- [ ] No `px` values are used in `styles.ts` (use `rem` equivalents, e.g. `0.0625rem` for 1px).
+- [ ] No `px` values are used in `styles.ts` (use `rem` equivalents, e.g. `0.0625rem`).
 - [ ] Colors are grayscale-only (no chromatic colors in default styles).
 - [ ] Focus rings are black (`#000000`).
 - [ ] Custom CSS variables default in `:host` and are prefixed with `--uibit-[component-name]-*`.
 - [ ] Sub-elements exposed for style overrides via `part="..."` attributes.
+- [ ] Buttons, toggle controls, drag handles, and close buttons are minimalist: circular, borderless, shadowless, and use solid `#ffffff` or translucent background with backdrop blur. Hover states are subtle (bg `#f3f4f6`, border-color `#d1d5db` instead of black/colored borders or heavy shadows).
 - [ ] Properties referencing selectors end in `Selector` and map to `*-selector` attributes.
 - [ ] Visual labels, titles, and body content use slots instead of static string properties.
 - [ ] User-facing default strings are localized using `msg(...)` from `@uibit/core`.

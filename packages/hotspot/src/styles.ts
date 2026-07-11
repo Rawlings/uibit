@@ -5,6 +5,17 @@ export const styles = css`
     display: block;
     position: relative;
     width: 100%;
+    --uibit-hotspot-trigger-size: 1.75rem;
+    --uibit-hotspot-trigger-bg: #ffffff;
+    --uibit-hotspot-trigger-bg-hover: #f3f4f6;
+    --uibit-hotspot-trigger-border: 0.0625rem solid #e5e7eb;
+    --uibit-hotspot-trigger-color: #111827;
+    --uibit-hotspot-popover-bg: rgba(255, 255, 255, 0.96);
+    --uibit-hotspot-popover-color: #111827;
+    --uibit-hotspot-popover-content-color: #4b5563;
+    --uibit-hotspot-popover-border-radius: 0.5rem;
+    --uibit-hotspot-popover-border: 0.0625rem solid #e5e7eb;
+    --uibit-hotspot-popover-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.04);
   }
 
   .hotspot-container {
@@ -19,18 +30,18 @@ export const styles = css`
   }
 
   .hotspot-trigger {
-    width: var(--uibit-hotspot-trigger-size, 2rem);
-    height: var(--uibit-hotspot-trigger-size, 2rem);
-    background: var(--uibit-hotspot-trigger-bg, rgba(0, 0, 0, 0.65));
-    border: var(--uibit-hotspot-trigger-border, 0.125rem solid #ffffff);
+    width: var(--uibit-hotspot-trigger-size, 1.75rem);
+    height: var(--uibit-hotspot-trigger-size, 1.75rem);
+    background: var(--uibit-hotspot-trigger-bg, #ffffff);
+    border: var(--uibit-hotspot-trigger-border, 0.0625rem solid #e5e7eb);
     border-radius: 9999rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
+    box-shadow: none;
     position: relative;
-    transition: transform 150ms ease, background-color 150ms ease, box-shadow 100ms ease;
+    transition: transform 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease;
     outline: none;
     padding: 0;
   }
@@ -38,10 +49,10 @@ export const styles = css`
   .hotspot-trigger::before {
     content: '';
     position: absolute;
-    width: 100%;
-    height: 100%;
+    inset: -0.0625rem;
     border-radius: 9999rem;
-    background: inherit;
+    border: 0.0625rem solid var(--uibit-hotspot-trigger-border-color-actual, #e5e7eb);
+    background: transparent;
     animation: pulse 2.5s ease-out infinite;
     z-index: -1;
     opacity: 0;
@@ -50,38 +61,38 @@ export const styles = css`
   @keyframes pulse {
     0% {
       transform: scale(1);
-      opacity: 0.35;
+      opacity: 0.8;
     }
     70% {
-      transform: scale(1.7);
+      transform: scale(1.6);
       opacity: 0;
     }
     100% {
-      transform: scale(1.7);
+      transform: scale(1.6);
       opacity: 0;
     }
   }
 
   .hotspot-trigger:hover,
   .hotspot-trigger.active {
-    background: var(--uibit-hotspot-trigger-bg-hover, rgba(0, 0, 0, 0.9));
-    transform: scale(1.1);
+    background: var(--uibit-hotspot-trigger-bg-hover, #f3f4f6);
+    border-color: #d1d5db;
+    transform: scale(1.06);
   }
 
   .hotspot-trigger:active {
-    box-shadow:
-      0 0 0.125rem rgba(0, 0, 0, 0.2),
-      inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
   }
 
   .hotspot-trigger:focus-visible {
-    box-shadow:
-      0 0 0 0.125rem #000000,
-      0 0.25rem 0.75rem rgba(0, 0, 0, 0.25);
+    outline: 0.125rem solid #000000;
+    outline-offset: 0.125rem;
   }
 
   .hotspot-trigger svg {
-    color: var(--uibit-hotspot-trigger-color, #ffffff);
+    width: 0.875rem;
+    height: 0.875rem;
+    color: var(--uibit-hotspot-trigger-color, #111827);
     pointer-events: none;
   }
 
@@ -172,16 +183,13 @@ export const styles = css`
     border: none;
     color: #9ca3af;
     cursor: pointer;
-    font-size: 1rem;
-    padding: 0;
-    line-height: 1;
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 9999rem;
-    transition: background-color 150ms ease, color 150ms ease, box-shadow 100ms ease;
+    transition: background-color 150ms ease, color 150ms ease, transform 150ms ease;
   }
 
   .popover-close:hover {
@@ -190,8 +198,7 @@ export const styles = css`
   }
 
   .popover-close:active {
-    background-color: #e5e7eb;
-    box-shadow: inset 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.1);
+    transform: scale(0.92);
   }
 
   .popover-close:focus-visible {

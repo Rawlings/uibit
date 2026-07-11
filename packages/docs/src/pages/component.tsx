@@ -24,30 +24,30 @@ function CodePanel({ code }: { code: DualCode }) {
   };
 
   return (
-    <div className="border border-gray-200 dark:border-gray-800 rounded-b-lg overflow-hidden -mt-px transition-colors duration-200">
+    <div className="mt-3">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between px-4 py-2.5 bg-white hover:bg-gray-50 dark:bg-gray-950 dark:hover:bg-gray-900 transition-colors text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 dark:bg-gray-900/30 dark:hover:bg-gray-900/60 rounded-lg text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all cursor-pointer font-medium"
       >
-        <span className="font-medium">{open ? 'Hide code' : 'Show code'}</span>
+        <span>{open ? 'Hide code' : 'Show code'}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="14"
-          height="14"
+          width="12"
+          height="12"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          strokeWidth="2"
+          strokeWidth="2.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className={`transition-transform ${open ? 'rotate-180' : ''}`}
+          className={`transition-transform duration-150 ${open ? 'rotate-180' : ''}`}
         >
           <polyline points="6 9 12 15 18 9" />
         </svg>
       </button>
       {open && (
-        <div className="bg-gray-900 relative group">
-          <div className="flex items-center justify-between px-4 pt-3 pb-1 border-b border-gray-800/60">
+        <div className="bg-gray-900 dark:bg-gray-900/60 rounded-xl mt-3 overflow-hidden">
+          <div className="flex items-center justify-between px-4 pt-3 pb-1 border-b border-gray-800/40">
             <div className="flex items-center gap-1">
               {(['react', 'html'] as CodeTab[]).map((t) => (
                 <button
@@ -55,7 +55,7 @@ function CodePanel({ code }: { code: DualCode }) {
                   onClick={() => setTab(t)}
                   className={`px-2.5 py-1 rounded text-xs font-medium transition-colors cursor-pointer ${
                     tab === t
-                      ? 'bg-white/15 text-white'
+                      ? 'bg-white/10 text-white'
                       : 'text-gray-400 hover:text-gray-200'
                   }`}
                 >
@@ -140,7 +140,7 @@ function ExampleBlock({ example }: { example: any }) {
       {example.description && (
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{example.description}</p>
       )}
-      <div ref={ref} className="bg-white dark:bg-gray-950 rounded-t-lg p-6 border border-gray-200 dark:border-gray-800 border-b-0">
+      <div ref={ref}>
         <example.Demo />
       </div>
       <CodePanel code={code} />
@@ -215,53 +215,37 @@ export default function ComponentDocs() {
 
         {/* Main Documentation Area */}
         <div className="flex-1 min-w-0">
-          {/* Breadcrumb */}
-          <nav className="mb-6">
-            <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-              <Link to="/" className="hover:text-gray-900 dark:hover:text-white transition-colors">
-                Home
-              </Link>
-              <span className="text-gray-400">/</span>
-              <span className="text-gray-900 dark:text-white font-medium">{title}</span>
-            </p>
-          </nav>
-
           {/* Header */}
           <header className="mb-10">
             <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
               {title}
             </h1>
-            <p className="text-base text-gray-600 dark:text-gray-450 mb-6 leading-relaxed max-w-3xl">
+            <p className="text-base text-gray-600 dark:text-gray-455 mb-6 leading-relaxed max-w-3xl">
               {description}
             </p>
-            <div className="flex items-center gap-4">
-              <code className="inline-block bg-gray-100 dark:bg-gray-900 px-3 py-2 rounded text-sm font-mono text-gray-700 dark:text-gray-300">
-                npm install {packageName}
-              </code>
-              <code className="text-sm font-mono text-gray-400 dark:text-gray-500">
-                {'<'}{tagName}{'>'}
-              </code>
-            </div>
+            <code className="inline-block bg-gray-100 dark:bg-gray-900 px-3 py-2 rounded text-sm font-mono text-gray-700 dark:text-gray-300">
+              npm install {packageName}
+            </code>
           </header>
 
           {/* Live Demo */}
-          <section id="demo" className="mb-12 scroll-mt-20">
+          <section id="demo" className="py-10 scroll-mt-20">
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Demo</h2>
-            <div className={`bg-white dark:bg-gray-950 p-6 border border-gray-200 dark:border-gray-800 ${demoCode ? 'rounded-t-lg' : 'rounded-lg mb-4'}`}>
+            <div>
               <Demo />
             </div>
             {demoCode && <CodePanel code={demoCode} />}
           </section>
 
           {/* API Reference */}
-          <section id="api-reference" className="mb-12 scroll-mt-20">
+          <section id="api-reference" className="py-10 scroll-mt-20">
             <ApiDocs manifest={manifest} tagName={tagName} />
           </section>
 
           {/* Rich examples (new format) */}
           {examples && examples.length > 0 && (
-            <section id="examples" className="mb-12 scroll-mt-20">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-8">Examples</h2>
+            <section id="examples" className="py-10 scroll-mt-20">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Examples</h2>
               <div className="space-y-12">
                 {examples.map((example, index) => (
                   <ExampleBlock key={index} example={example} />
@@ -272,12 +256,12 @@ export default function ComponentDocs() {
 
           {/* Legacy usage snippets (old format fallback) */}
           {!examples && usages && usages.length > 0 && (
-            <section id="usage" className="mb-12 scroll-mt-20">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Usage</h2>
+            <section id="usage" className="py-10 scroll-mt-20">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Usage</h2>
               <div className="space-y-8">
                 {usages.map((usage, index) => (
                   <div key={index}>
-                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 uppercase tracking-wide">
+                    <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
                       {usage.title}
                     </h3>
                     {usage.description && (
@@ -294,44 +278,49 @@ export default function ComponentDocs() {
 
           {/* Accessibility (A11y) Guide */}
           {comp.a11y && (
-            <section id="accessibility" className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8 scroll-mt-20">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Accessibility & WCAG Compliance</h2>
-              <div className="bg-gray-50 dark:bg-gray-900/40 border border-gray-200 dark:border-gray-800 rounded-lg p-5">
-                <div className="flex items-center gap-2 mb-4">
-                  <span className="px-2 py-0.5 bg-black dark:bg-white text-white dark:text-black rounded text-xs font-bold uppercase tracking-wider">
-                    WCAG {comp.a11y.wcagLevel} Compliance
-                  </span>
+            <section id="accessibility" className="py-10 scroll-mt-20">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Accessibility</h2>
+
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
+                    Key Requirements
+                  </h3>
+                  <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray-600 dark:text-gray-350">
+                    {comp.a11y.requirements.map((req, index) => (
+                      <li key={index}>{req}</li>
+                    ))}
+                  </ul>
                 </div>
-                
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Key Requirements:</h3>
-                <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray-750 dark:text-gray-300 mb-5">
-                  {comp.a11y.requirements.map((req, index) => (
-                    <li key={index}>{req}</li>
-                  ))}
-                </ul>
 
                 {comp.a11y.keyboardNav && comp.a11y.keyboardNav.length > 0 && (
-                  <>
-                    <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Keyboard Interaction:</h3>
-                    <div className="border border-gray-200 dark:border-gray-800 rounded-md overflow-hidden bg-white dark:bg-gray-950">
-                      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-800 text-sm">
-                        <thead className="bg-gray-50 dark:bg-gray-900">
-                          <tr>
-                            <th className="px-4 py-2 text-left font-semibold text-gray-500 dark:text-gray-400">Key</th>
-                            <th className="px-4 py-2 text-left font-semibold text-gray-500 dark:text-gray-400">Function</th>
+                  <div>
+                    <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
+                      Keyboard Interaction
+                    </h3>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b border-gray-200 dark:border-gray-800">
+                            <th className="py-2.5 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Key</th>
+                            <th className="py-2.5 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Function</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+                        <tbody className="divide-y divide-gray-100 dark:divide-gray-900">
                           {comp.a11y.keyboardNav.map((kb, index) => (
-                            <tr key={index}>
-                              <td className="px-4 py-2 font-mono text-xs font-bold text-gray-900 dark:text-white bg-gray-50/50 dark:bg-gray-900/20">{kb.key}</td>
-                              <td className="px-4 py-2 text-gray-700 dark:text-gray-300">{kb.description}</td>
+                            <tr key={index} className="bg-transparent">
+                              <td className="py-3 text-left align-top text-gray-600 dark:text-gray-350 text-xs pr-4 last:pr-0">
+                                <code className="font-mono text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded text-gray-800 dark:text-gray-200">
+                                  {kb.key}
+                                </code>
+                              </td>
+                              <td className="py-3 text-left align-top text-gray-600 dark:text-gray-350 text-sm pr-4 last:pr-0">{kb.description}</td>
                             </tr>
                           ))}
                         </tbody>
                       </table>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             </section>
@@ -339,8 +328,8 @@ export default function ComponentDocs() {
 
           {/* Key Features */}
           {features && features.length > 0 && (
-            <section id="features" className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8 scroll-mt-20">
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Features</h2>
+            <section id="features" className="py-10 scroll-mt-20">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Features</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {features.map((feature, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -355,8 +344,8 @@ export default function ComponentDocs() {
 
         {/* Right Sidebar (Table of Contents) */}
         {tocItems.length > 0 && (
-          <aside className="hidden lg:block w-48 shrink-0 pl-6 border-l border-gray-200 dark:border-gray-800 sticky top-24 self-start">
-            <h2 className="text-xs font-medium text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-4">
+          <aside className="hidden lg:block w-48 shrink-0 pl-6 sticky top-24 self-start">
+            <h2 className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
               On this page
             </h2>
             <nav className="space-y-2">
@@ -370,10 +359,10 @@ export default function ComponentDocs() {
                       e.preventDefault();
                       document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
                     }}
-                    className={`block text-sm font-normal transition-all ${
+                    className={`block text-sm transition-all duration-150 ${
                       isActive
-                        ? 'text-gray-950 dark:text-white border-l-2 border-gray-900 dark:border-white pl-2 -ml-2'
-                        : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                        ? 'text-gray-950 dark:text-white font-medium'
+                        : 'text-gray-500 dark:text-gray-400 hover:text-gray-950 dark:hover:text-white'
                     }`}
                   >
                     {item.label}

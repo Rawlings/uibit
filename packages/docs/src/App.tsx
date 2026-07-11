@@ -168,7 +168,7 @@ function App() {
 
             {/* Resources */}
             <div className="space-y-3">
-              <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Guides</h4>
+              <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Guides</h4>
               <ul className="space-y-2">
                 <li>
                   <Link to="/styling" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
@@ -195,7 +195,7 @@ function App() {
 
             {/* Community */}
             <div className="space-y-3">
-              <h4 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Project</h4>
+              <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Project</h4>
               <ul className="space-y-2">
                 <li>
                   <a

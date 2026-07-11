@@ -161,6 +161,7 @@ The full design system is defined in [DESIGN.md](./DESIGN.md). All component sty
 5. **Avoid Style Properties**: Do not expose visual layout/styling configuration via public reactive properties (`@property()`). Use CSS variables and Shadow Parts instead.
 6. **Prefixed CSS Variables**: All CSS variables exposed by a component must be prefixed with `--uibit-[component-name]-[variable-name]`.
 7. **CSS Shadow Parts**: Ensure sub-elements within templates are decorated with `part="..."` attributes to allow external styling using `::part()`.
+8. **Minimalist Overlay Controls & Buttons**: All control/navigation buttons and draggable handles (e.g. prev/next overlays, slide indicators, and close/play actions) must be circular, borderless, shadowless, and use a solid `#ffffff` or translucent `rgba(255, 255, 255, 0.75)` background with a `0.5rem` backdrop-filter blur for clarity. Hover states must be highly subtle: shift background to `#f3f4f6` and border-color to `#d1d5db` (never use thick black `#000000` or colored borders). Use soft transition scales (hover `scale(1.05)` or direction shifts, active `scale(0.95)`) for micro-interactions.
 
 ## Composability Guidelines
 

@@ -32,6 +32,7 @@
     "@uibit/text-clamp": "workspace:*",
     "@uibit/text-rotator": "workspace:*",
     "@uibit/text-typing": "workspace:*",
+    "@uibit/video": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.18.1"

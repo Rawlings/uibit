@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig, defaultExclude } from 'vitest/config';
 import { resolve } from 'path';
 import { readdirSync } from 'fs';
 import react from '@vitejs/plugin-react';
@@ -29,6 +29,7 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     globals: true,
-    include: ['packages/!(docs)/**/*.{test,spec}.{ts,tsx}'],
+    include: ['packages/**/*.{test,spec}.{ts,tsx}'],
+    exclude: [...defaultExclude, 'packages/docs/**'],
   },
 });

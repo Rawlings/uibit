@@ -11,10 +11,10 @@ export const styles = css`
     outline: none;
     border-radius: 0.5rem;
 
-    --uibit-image-comparison-handle-size: 2.75rem;
+    --uibit-image-comparison-handle-size: 2.25rem;
     --uibit-image-comparison-handle-bg: #ffffff;
-    --uibit-image-comparison-handle-border-color: transparent;
-    --uibit-image-comparison-handle-inner-color: #111111;
+    --uibit-image-comparison-handle-border-color: #e5e7eb;
+    --uibit-image-comparison-handle-inner-color: #111827;
     --uibit-image-comparison-border-color: #ffffff;
   }
 
@@ -89,30 +89,25 @@ export const styles = css`
     border-radius: 9999px;
     background-color: var(--uibit-image-comparison-handle-bg);
     border: 0.0625rem solid var(--uibit-image-comparison-handle-border-color);
-    box-shadow:
-      0 0.125rem 0.5rem rgba(0, 0, 0, 0.14),
-      0 0.5rem 1.5rem rgba(0, 0, 0, 0.18),
-      0 0 0 0.0625rem rgba(0, 0, 0, 0.06);
+    box-shadow: none;
     display: flex;
     align-items: center;
     justify-content: center;
     transform: translate(-50%, -50%);
     cursor: grab;
-    transition: box-shadow 0.15s ease;
+    transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease;
   }
 
   .handle:hover {
-    box-shadow:
-      0 0.25rem 0.75rem rgba(0, 0, 0, 0.18),
-      0 0.75rem 2rem rgba(0, 0, 0, 0.22),
-      0 0 0 0.0625rem rgba(0, 0, 0, 0.08);
+    background-color: #f3f4f6;
+    border-color: #d1d5db;
+    box-shadow: none;
+    transform: translate(-50%, -50%) scale(1.06);
   }
 
   .handle:active {
     cursor: grabbing;
-    box-shadow:
-      0 0 0 0.0625rem rgba(0, 0, 0, 0.08),
-      inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1);
+    transform: translate(-50%, -50%) scale(0.95);
   }
 
   .handle-icon {

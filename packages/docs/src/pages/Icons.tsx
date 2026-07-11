@@ -61,17 +61,6 @@ export default function IconsGuide() {
 
         {/* Main Content */}
         <div className="flex-1 min-w-0">
-          {/* Breadcrumb */}
-          <nav className="mb-6">
-            <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-              <Link to="/" className="hover:text-gray-900 dark:hover:text-white transition-colors">
-                Home
-              </Link>
-              <span className="text-gray-400 dark:text-gray-600">/</span>
-              <span className="text-gray-900 dark:text-white font-medium">Icons</span>
-            </p>
-          </nav>
-
           {/* Header */}
           <header className="mb-10">
             <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
@@ -83,8 +72,8 @@ export default function IconsGuide() {
           </header>
 
           {/* Built-in icons */}
-          <section className="mb-12 border-t border-gray-100 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-2">Built-in Icons</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Built-in Icons</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               Click any icon name to copy it to your clipboard.
             </p>
@@ -108,8 +97,8 @@ export default function IconsGuide() {
           </section>
 
           {/* Custom icons */}
-          <section className="mb-12 border-t border-gray-100 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Custom Icons</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Custom Icons</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               Call <code>registerIcons</code> once at application startup to override built-in icons or add your own. Each value is either a raw SVG string or a function that receives a <code>size</code> number and returns an SVG string.
             </p>
@@ -192,32 +181,32 @@ registerIcons({
           </section>
 
           {/* API */}
-          <section className="mb-12 border-t border-gray-100 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">API Reference</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">API Reference</h2>
             <div className="overflow-x-auto">
-              <table className="w-full text-sm border-collapse">
+              <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-200 dark:border-gray-800">
-                    <th className="text-left py-3 pr-6 font-semibold text-gray-900 dark:text-white">Export</th>
-                    <th className="text-left py-3 pr-6 font-semibold text-gray-900 dark:text-white">Signature</th>
-                    <th className="text-left py-3 font-semibold text-gray-900 dark:text-white">Description</th>
+                    <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Export</th>
+                    <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Signature</th>
+                    <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Description</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-                  <tr>
-                    <td className="py-3 pr-6 font-mono text-xs text-gray-700 dark:text-gray-300 align-top">registerIcons</td>
-                    <td className="py-3 pr-6 font-mono text-xs text-gray-500 dark:text-gray-400 align-top whitespace-nowrap">(icons: Record&lt;string, IconDefinition&gt;) =&gt; void</td>
-                    <td className="py-3 text-gray-600 dark:text-gray-400 align-top">Registers one or more icons by name. Call once before components mount. Overrides existing entries.</td>
+                  <tr className="bg-transparent">
+                    <td className="py-3 font-mono text-xs text-gray-700 dark:text-gray-300 align-top pr-4 last:pr-0">registerIcons</td>
+                    <td className="py-3 font-mono text-xs text-gray-650 dark:text-gray-400 align-top whitespace-nowrap pr-4 last:pr-0">(icons: Record&lt;string, IconDefinition&gt;) =&gt; void</td>
+                    <td className="py-3 text-gray-600 dark:text-gray-350 text-sm align-top pr-4 last:pr-0">Registers one or more icons by name. Call once before components mount. Overrides existing entries.</td>
                   </tr>
-                  <tr>
-                    <td className="py-3 pr-6 font-mono text-xs text-gray-700 dark:text-gray-300 align-top">getIcon</td>
-                    <td className="py-3 pr-6 font-mono text-xs text-gray-500 dark:text-gray-400 align-top whitespace-nowrap">(name: string, size?: number) =&gt; TemplateResult | string</td>
-                    <td className="py-3 text-gray-600 dark:text-gray-400 align-top">Returns a Lit <code>unsafeHTML</code> template result for use in Lit components. Falls back to built-in Lucide set, then an empty string.</td>
+                  <tr className="bg-transparent">
+                    <td className="py-3 font-mono text-xs text-gray-700 dark:text-gray-300 align-top pr-4 last:pr-0">getIcon</td>
+                    <td className="py-3 font-mono text-xs text-gray-650 dark:text-gray-400 align-top whitespace-nowrap pr-4 last:pr-0">(name: string, size?: number) =&gt; TemplateResult | string</td>
+                    <td className="py-3 text-gray-600 dark:text-gray-350 text-sm align-top pr-4 last:pr-0">Returns a Lit <code>unsafeHTML</code> template result for use in Lit components. Falls back to built-in Lucide set, then an empty string.</td>
                   </tr>
-                  <tr>
-                    <td className="py-3 pr-6 font-mono text-xs text-gray-700 dark:text-gray-300 align-top">IconDefinition</td>
-                    <td className="py-3 pr-6 font-mono text-xs text-gray-500 dark:text-gray-400 align-top whitespace-nowrap">string | ((size: number) =&gt; string)</td>
-                    <td className="py-3 text-gray-600 dark:text-gray-400 align-top">An icon is either a static SVG string or a size-aware factory function.</td>
+                  <tr className="bg-transparent">
+                    <td className="py-3 font-mono text-xs text-gray-700 dark:text-gray-300 align-top pr-4 last:pr-0">IconDefinition</td>
+                    <td className="py-3 font-mono text-xs text-gray-650 dark:text-gray-400 align-top whitespace-nowrap pr-4 last:pr-0">string | ((size: number) =&gt; string)</td>
+                    <td className="py-3 text-gray-600 dark:text-gray-350 text-sm align-top pr-4 last:pr-0">An icon is either a static SVG string or a size-aware factory function.</td>
                   </tr>
                 </tbody>
               </table>

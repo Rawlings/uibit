@@ -3,11 +3,13 @@ import { css } from 'lit';
 export const styles = css`
   :host {
     --uibit-carousel-gap: var(--uibit-spacing-4, 1rem);
+    --uibit-carousel-padding: 0;
     --uibit-carousel-duration: 300ms;
     --uibit-carousel-items-per-view: 1;
     --uibit-carousel-border-color: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb));
     --uibit-carousel-button-bg: var(--uibit-bg-surface, var(--uibit-color-white, #ffffff));
     --uibit-carousel-button-bg-hover: var(--uibit-focus-color, var(--uibit-color-black, #000000));
+    --uibit-carousel-button-color-hover: var(--uibit-color-white, #ffffff);
     --uibit-carousel-indicator-bg: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb));
     --uibit-carousel-indicator-active-bg: var(--uibit-focus-color, var(--uibit-color-black, #000000));
     --uibit-carousel-focus-color: var(--uibit-focus-color, var(--uibit-color-black, #000000));
@@ -36,7 +38,7 @@ export const styles = css`
     overflow-x: auto;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
-    padding: 1rem;
+    padding: var(--uibit-carousel-padding, 0);
     width: 100%;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -50,7 +52,8 @@ export const styles = css`
     display: contents;
   }
 
-  ::slotted([slot='item']) {
+  ::slotted([slot='item']),
+  ::slotted(:not([slot])) {
     scroll-snap-align: start;
     scroll-snap-stop: always;
     width: calc(
@@ -74,29 +77,30 @@ export const styles = css`
   }
 
   .carousel-button {
-    padding: var(--uibit-spacing-2, 0.5rem) var(--uibit-spacing-4, 1rem);
-    background-color: var(--uibit-carousel-button-bg);
-    border: 0.0625rem solid var(--uibit-carousel-border-color);
-    border-radius: var(--uibit-radius-lg, 0.375rem);
+    width: 2.25rem;
+    height: 2.25rem;
+    background-color: var(--uibit-carousel-button-bg, #ffffff);
+    border: 0.0625rem solid var(--uibit-carousel-border-color, #e5e7eb);
+    border-radius: 9999rem;
     cursor: pointer;
-    font-weight: var(--uibit-font-weight-medium, 500);
-    font-size: var(--uibit-font-size-sm, 0.875rem);
-    color: var(--uibit-text-primary, var(--uibit-color-gray-900, #111827));
-    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, opacity 100ms ease, box-shadow 100ms ease;
+    color: var(--uibit-text-primary, #111827);
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, opacity 100ms ease, transform 150ms ease;
     display: inline-flex;
     align-items: center;
-    gap: var(--uibit-spacing-1, 0.25rem);
+    justify-content: center;
+    box-shadow: none;
   }
 
   .carousel-button:hover:not(:disabled) {
-    background-color: var(--uibit-carousel-button-bg-hover);
-    color: var(--uibit-bg-surface, var(--uibit-color-white, #ffffff));
-    border-color: var(--uibit-carousel-button-bg-hover);
+    background-color: var(--uibit-carousel-button-bg-hover, #f3f4f6);
+    color: var(--uibit-carousel-button-color-hover, #ffffff);
+    border-color: var(--uibit-carousel-button-bg-hover, #000000);
+    box-shadow: none;
+    transform: scale(1.06);
   }
 
   .carousel-button:active:not(:disabled) {
-    box-shadow: inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12);
-    opacity: 0.8;
+    transform: scale(0.95);
   }
 
   .carousel-button:disabled {
@@ -152,11 +156,8 @@ export const styles = css`
     }
 
     .carousel-content {
-      padding: 0.75rem;
-    }
-
-    .carousel-button {
-      padding: 0.375rem 0.75rem;
+      padding: var(--uibit-carousel-padding, 0);
     }
   }
+
 `;

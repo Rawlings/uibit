@@ -1,7 +1,7 @@
 {
-  "name": "@uibit/carousel",
+  "name": "@uibit/video",
   "version": "0.1.0",
-  "description": "Native, accessible carousel using CSS scroll-snap and scroll-driven animations. Perfect for image galleries, testimonials, and product showcases.",
+  "description": "Custom premium customizable wrapper for native video elements and iframe video embeds",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -10,7 +10,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./carousel.css": "./dist/carousel.css",
     "./custom-elements.json": "./custom-elements.json",
     "./react": "./dist/frameworks/react/index.d.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
@@ -36,19 +35,18 @@
     "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
   },
   "keywords": [
-    "carousel",
+    "video",
+    "player",
+    "custom-video",
     "web-component",
-    "lit",
-    "scroll-snap",
-    "accessible",
-    "a11y"
+    "lit"
   ],
   "author": "Your Name",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/yourusername/uibit.git",
-    "directory": "packages/carousel"
+    "directory": "packages/video"
   },
   "dependencies": {
     "@uibit/core": "workspace:*",
@@ -56,9 +54,9 @@
   },
   "devDependencies": {
     "@types/node": "^20.19.43",
+    "@uibit/codegen": "workspace:*",
     "lit": "^3.3.3",
-    "typescript": "7.0.2",
-    "@uibit/codegen": "workspace:*"
+    "typescript": "7.0.2"
   },
   "peerDependencies": {
     "lit": "^3.0.0",
@@ -67,7 +65,6 @@
     "svelte": ">=4 || ^5",
     "@angular/core": ">=14"
   },
-  "customElements": "custom-elements.json",
   "peerDependenciesMeta": {
     "react": {
       "optional": true
@@ -82,10 +79,11 @@
       "optional": true
     }
   },
+  "customElements": "custom-elements.json",
   "uibit": {
-    "id": "carousel",
-    "title": "Carousel",
+    "id": "video",
+    "title": "Video",
     "category": "Media",
-    "tagName": "uibit-carousel"
+    "tagName": "uibit-video"
   }
 }

@@ -14,14 +14,6 @@ export default function StylingGuide() {
         <Sidebar activeId="styling" className="hidden md:block" />
 
         <div className="flex-1 min-w-0">
-          <nav className="mb-6">
-            <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-              <Link to="/" className="hover:text-gray-900 dark:hover:text-white transition-colors">Home</Link>
-              <span className="text-gray-400">/</span>
-              <span className="text-gray-900 dark:text-white font-medium">Styling & Theming</span>
-            </p>
-          </nav>
-
           <header className="mb-10">
             <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
               Styling & Theming
@@ -32,8 +24,8 @@ export default function StylingGuide() {
           </header>
 
           {/* Setup */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Setup</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Setup</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
               Import the theme file once in your root stylesheet. This sets all default tokens on <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">:root</code> — components will inherit them automatically.
             </p>
@@ -43,55 +35,48 @@ export default function StylingGuide() {
           </section>
 
           {/* Token hierarchy */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Token hierarchy</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Token hierarchy</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               Tokens are layered. Override at the highest level that makes sense — changing a palette variable ripples down through everything that references it.
             </p>
 
-            <div className="space-y-3 mb-8">
-              <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-800">
-                <div className="flex items-start gap-4">
-                  <span className="text-xs font-mono text-gray-400 dark:text-gray-500 pt-0.5 shrink-0">Tier 1</span>
-                  <div>
-                    <h3 className="font-semibold text-sm text-gray-900 dark:text-white mb-1">Palette</h3>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Raw color values. These are the ground truth — nothing below this tier defines a hex.</p>
-                    <code className="text-xs font-mono text-gray-500 dark:text-gray-400">--uibit-color-gray-100, --uibit-color-gray-900, …</code>
-                  </div>
-                </div>
+            <div className="space-y-6 mt-6">
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Palette (Tier 1)</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 leading-relaxed">
+                  Raw color values. These are the ground truth — nothing below this tier defines a hex value directly.
+                </p>
+                <code className="inline-block text-xs font-mono text-gray-500 dark:text-gray-405 bg-gray-50 dark:bg-gray-900/30 px-2 py-1 rounded">
+                  --uibit-color-gray-100, --uibit-color-gray-900
+                </code>
               </div>
-              <div className="flex items-center gap-2 px-4">
-                <div className="w-px h-4 bg-gray-200 dark:bg-gray-800 ml-[3.25rem]"></div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Semantic (Tier 2)</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 leading-relaxed">
+                  Contextual tokens shared across all components. This is where most overrides happen.
+                </p>
+                <code className="inline-block text-xs font-mono text-gray-500 dark:text-gray-405 bg-gray-50 dark:bg-gray-900/30 px-2 py-1 rounded">
+                  --uibit-border-color, --uibit-radius-lg, --uibit-text-primary
+                </code>
               </div>
-              <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-800">
-                <div className="flex items-start gap-4">
-                  <span className="text-xs font-mono text-gray-400 dark:text-gray-500 pt-0.5 shrink-0">Tier 2</span>
-                  <div>
-                    <h3 className="font-semibold text-sm text-gray-900 dark:text-white mb-1">Semantic</h3>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Contextual tokens shared across all components. This is where most overrides happen.</p>
-                    <code className="text-xs font-mono text-gray-500 dark:text-gray-400">--uibit-border-color, --uibit-radius-lg, --uibit-text-primary, …</code>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-2 px-4">
-                <div className="w-px h-4 bg-gray-200 dark:bg-gray-800 ml-[3.25rem]"></div>
-              </div>
-              <div className="p-4 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-800">
-                <div className="flex items-start gap-4">
-                  <span className="text-xs font-mono text-gray-400 dark:text-gray-500 pt-0.5 shrink-0">Tier 3</span>
-                  <div>
-                    <h3 className="font-semibold text-sm text-gray-900 dark:text-white mb-1">Component</h3>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">Scoped per component. Fall back to semantic tokens by default.</p>
-                    <code className="text-xs font-mono text-gray-500 dark:text-gray-400">--uibit-carousel-border-color, --uibit-table-max-height, …</code>
-                  </div>
-                </div>
+
+              <div>
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2">Component (Tier 3)</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 leading-relaxed">
+                  Scoped per component. Automatically fall back to semantic tokens by default.
+                </p>
+                <code className="inline-block text-xs font-mono text-gray-500 dark:text-gray-405 bg-gray-50 dark:bg-gray-900/30 px-2 py-1 rounded">
+                  --uibit-carousel-border-color, --uibit-table-max-height
+                </code>
               </div>
             </div>
           </section>
 
           {/* Token reference */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Token reference</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Token reference</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
               These are the semantic tokens you'll override most often. All are defined in <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">@uibit/core/theme.css</code> and have dark mode counterparts.
             </p>
@@ -142,23 +127,23 @@ export default function StylingGuide() {
             ].map(({ group, rows }) => (
               <div key={group} className="mb-8">
                 <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">{group}</h3>
-                <div className="overflow-x-auto border border-gray-200 dark:border-gray-800 rounded-lg">
+                <div className="overflow-x-auto">
                   <table className="w-full text-xs">
-                    <thead className="bg-gray-50 dark:bg-gray-900 text-gray-600 dark:text-gray-400">
-                      <tr>
-                        <th className="text-left px-4 py-2.5 font-semibold border-b border-gray-200 dark:border-gray-800 font-mono">Variable</th>
-                        <th className="text-left px-4 py-2.5 font-semibold border-b border-gray-200 dark:border-gray-800">Light default</th>
-                        <th className="text-left px-4 py-2.5 font-semibold border-b border-gray-200 dark:border-gray-800">Dark default</th>
-                        <th className="text-left px-4 py-2.5 font-semibold border-b border-gray-200 dark:border-gray-800">Used for</th>
+                    <thead>
+                      <tr className="border-b border-gray-200 dark:border-gray-800">
+                        <th className="text-left py-2 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0 font-mono">Variable</th>
+                        <th className="text-left py-2 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Light default</th>
+                        <th className="text-left py-2 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Dark default</th>
+                        <th className="text-left py-2 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Used for</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                    <tbody className="divide-y divide-gray-100 dark:divide-gray-900">
                       {rows.map((row) => (
-                        <tr key={row.name} className="bg-white dark:bg-gray-950">
-                          <td className="px-4 py-2.5 font-mono text-gray-700 dark:text-gray-300 whitespace-nowrap">{row.name}</td>
-                          <td className="px-4 py-2.5 text-gray-500 dark:text-gray-400 font-mono whitespace-nowrap">{row.light}</td>
-                          <td className="px-4 py-2.5 text-gray-500 dark:text-gray-400 font-mono whitespace-nowrap">{row.dark === '—' ? <span className="text-gray-300 dark:text-gray-700">—</span> : row.dark}</td>
-                          <td className="px-4 py-2.5 text-gray-500 dark:text-gray-400">{row.usage}</td>
+                        <tr key={row.name} className="bg-transparent">
+                          <td className="py-2.5 font-mono text-gray-750 dark:text-gray-300 whitespace-nowrap pr-4 last:pr-0">{row.name}</td>
+                          <td className="py-2.5 text-gray-500 dark:text-gray-400 font-mono whitespace-nowrap pr-4 last:pr-0">{row.light}</td>
+                          <td className="py-2.5 text-gray-500 dark:text-gray-400 font-mono whitespace-nowrap pr-4 last:pr-0">{row.dark === '—' ? <span className="text-gray-300 dark:text-gray-700">—</span> : row.dark}</td>
+                          <td className="py-2.5 text-gray-600 dark:text-gray-350 text-sm pr-4 last:pr-0">{row.usage}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -169,8 +154,8 @@ export default function StylingGuide() {
           </section>
 
           {/* Density */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Density</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Density</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
               Set <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">data-density</code> on <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">:root</code> to scale all component spacing and font sizes proportionally. Compact works well for data-dense interfaces; spacious suits content-heavy or marketing contexts.
             </p>
@@ -210,8 +195,8 @@ export default function StylingGuide() {
           </section>
 
           {/* Dark mode */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Dark mode</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Dark mode</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
               All semantic tokens have dark mode counterparts declared in <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">theme.css</code>. Dark mode activates via two mechanisms — you can use either or both.
             </p>
@@ -246,8 +231,8 @@ export default function StylingGuide() {
           </section>
 
           {/* Font inheritance */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Font inheritance</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Font inheritance</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
               Both <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">--uibit-font-sans</code> and <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">--uibit-font-mono</code> default to <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">inherit</code>, so whatever font your host app sets is adopted automatically. Override them explicitly if you need components to differ from the surrounding page.
             </p>
@@ -260,8 +245,8 @@ export default function StylingGuide() {
           </section>
 
           {/* Customisation examples */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Customisation examples</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Customisation examples</h2>
             <div className="space-y-8">
               <div>
                 <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Global overrides</h3>

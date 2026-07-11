@@ -14,11 +14,13 @@ import { styles } from './styles';
  * @slot item - One or more slide elements (add `slot="item"` to each child)
  *
  * @cssprop [--uibit-carousel-gap=1rem] - Gap between slides
+ * @cssprop [--uibit-carousel-padding=0] - Padding inside the viewport around slides
  * @cssprop [--uibit-carousel-duration=300ms] - Scroll animation duration
  * @cssprop [--uibit-carousel-items-per-view=1] - Number of slides visible at once
  * @cssprop [--uibit-carousel-border-color=#e5e7eb] - Border color of the viewport
  * @cssprop [--uibit-carousel-button-bg=#f9fafb] - Background of prev/next buttons
  * @cssprop [--uibit-carousel-button-bg-hover=#f3f4f6] - Hover background of prev/next buttons
+ * @cssprop [--uibit-carousel-button-color-hover=#ffffff] - Hover text/icon color of prev/next buttons
  * @cssprop [--uibit-carousel-indicator-bg=#e5e7eb] - Background of inactive indicator dots
  * @cssprop [--uibit-carousel-indicator-active-bg=#000000] - Background of the active indicator dot
  * @cssprop [--uibit-carousel-focus-color=#000000] - Color of the focus outline on buttons

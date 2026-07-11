@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { customElement, fromLucide, getIcon, msg, UIBitElement } from '@uibit/core';
-import { ChevronLeft, ChevronRight, Move } from 'lucide';
+import { Move, ChevronLeft, ChevronRight } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 

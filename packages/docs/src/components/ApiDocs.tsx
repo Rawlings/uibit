@@ -64,8 +64,8 @@ function getPublicProps(decl: CemDeclaration): CemMember[] {
   );
 }
 
-const tdClass = 'px-4 py-3 text-left align-top text-gray-750 dark:text-gray-300';
-const thClass = 'px-4 py-3 text-left font-medium text-gray-900 dark:text-white';
+const tdClass = 'px-0 py-3 text-left align-top text-gray-600 dark:text-gray-350 text-sm pr-4 last:pr-0';
+const thClass = 'px-0 py-2.5 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0';
 
 function Table({
   headers,
@@ -75,10 +75,10 @@ function Table({
   rows: React.ReactNode[][];
 }) {
   return (
-    <div className="overflow-x-auto border border-gray-200 dark:border-gray-800 rounded-lg">
+    <div className="overflow-x-auto">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+          <tr className="border-b border-gray-200 dark:border-gray-800">
             {headers.map((h) => (
               <th key={h} className={thClass}>
                 {h}
@@ -86,9 +86,9 @@ function Table({
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className="divide-y divide-gray-100 dark:divide-gray-900">
           {rows.map((cells, i) => (
-            <tr key={i} className="border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950">
+            <tr key={i} className="bg-transparent">
               {cells.map((cell, j) => (
                 <td key={j} className={tdClass}>
                   {cell}
@@ -113,7 +113,7 @@ function Code({ children }: { children: React.ReactNode }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="mb-10">
-      <h3 className="text-sm font-medium text-gray-900 dark:text-white mb-4 uppercase tracking-wide">
+      <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
         {title}
       </h3>
       {children}
@@ -138,8 +138,8 @@ export function ApiDocs({
   const cssParts = decl.cssParts ?? [];
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-12 border-b border-gray-200 dark:border-gray-800">
-      <h2 className="text-xl font-medium text-gray-900 dark:text-white mb-8">API</h2>
+    <div className="space-y-10">
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">API Reference</h2>
 
       {props.length > 0 && (
         <Section title="Properties">
@@ -205,6 +205,6 @@ export function ApiDocs({
           />
         </Section>
       )}
-    </section>
+    </div>
   );
 }

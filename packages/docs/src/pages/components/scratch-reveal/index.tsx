@@ -87,6 +87,13 @@ function ScratchRevealDemo() {
 }`,
   },
   examples: processedExamples,
+  features: [
+    'Canvas-based scratching layer',
+    'Customizable brush size and cover configuration',
+    'Completion percentage threshold events',
+    'Responsive canvas resizing',
+    'Custom scratch cursor styling support'
+  ],
   a11y: {
     wcagLevel: 'AA',
     requirements: [

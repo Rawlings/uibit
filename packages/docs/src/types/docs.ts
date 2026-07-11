@@ -31,7 +31,7 @@ export interface ComponentDocData {
   tagName: string;
   manifest: any;
   Demo: ComponentType;
-  demoCode?: DualCode;
+  demoCode: DualCode;
   examples?: UsageExample[];
   usages?: CodeSnippet[];
   features?: string[];

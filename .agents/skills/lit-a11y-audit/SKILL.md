@@ -17,7 +17,7 @@ Audits components for:
 - **ARIA Semantics:** Valid role declarations, matching attributes (e.g. `aria-expanded`, `aria-checked`), and custom element labels.
 - **Keyboard Access:** Tab navigation order, arrow-key layouts, activation states (Enter/Space key handlers), and modal focus traps.
 - **Screen Reader Support:** Announcement of dynamic state changes, screen-reader-only labels, and **localization** (ensuring all user-facing fallback text is localized via `msg` from `@uibit/core`).
-- **Visual Design (DESIGN.md):** Focus ring presence and size (defined in `rem` only: `0.125rem` solid black, with offset), color contrast (4.5:1 ratio for text, 3:1 for graphical objects), and target click sizes (minimum 2.75rem or 44px equivalent).
+- **Visual Design (DESIGN.md):** Focus ring presence and size (defined in `rem` only: `0.125rem` solid black, with offset), color contrast (4.5:1 ratio for text, 3:1 for graphical objects), and target click sizes (minimum `2.75rem`).
 
 ## Input Parameters
 
@@ -49,7 +49,7 @@ claude --skill lit-a11y-audit --args '{
 
 ### 1. Semantic Elements & Click Targets
 - **Interactive elements:** Use native `<button>` or `<a href="...">` instead of styling `<div>` or `<span>` with click handlers.
-- **Click targets:** Ensure touch targets are at least `2.75rem` (44px equivalent) or declare CSS variables to let consumers scale them.
+- **Click targets:** Ensure touch targets are at least `2.75rem` or declare CSS variables to let consumers scale them.
 
 ### 2. Keyboard & Focus Management
 - **Focus Ring:** Every interactive element must display a visible outline when focused. Outline sizes must be in `rem` (e.g. `outline: 0.125rem solid #000000; outline-offset: 0.125rem;`). Never hide outlines with `outline: none;` without providing a focus ring equivalent.

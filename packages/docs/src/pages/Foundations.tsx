@@ -96,14 +96,6 @@ const table = document.createElement('uibit-table');
         <Sidebar activeId="frameworks" className="hidden md:block" />
 
         <div className="flex-1 min-w-0">
-          <nav className="mb-6">
-            <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-2">
-              <Link to="/" className="hover:text-gray-900 dark:hover:text-white transition-colors">Home</Link>
-              <span className="text-gray-400">/</span>
-              <span className="text-gray-900 dark:text-white font-medium">Framework Integrations</span>
-            </p>
-          </nav>
-
           <header className="mb-10">
             <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
               Framework Integrations
@@ -114,23 +106,23 @@ const table = document.createElement('uibit-table');
           </header>
 
           {/* Compatibility matrix */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Compatibility matrix</h2>
-            <div className="overflow-x-auto border border-gray-200 dark:border-gray-800 rounded-lg">
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Compatibility matrix</h2>
+            <div className="overflow-x-auto">
               <table className="w-full text-sm">
-                <thead className="bg-gray-50 dark:bg-gray-900">
-                  <tr>
-                    <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-800">Framework</th>
-                    <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-800">Subpath</th>
-                    <th className="text-left px-4 py-3 font-semibold text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-800">Approach</th>
+                <thead>
+                  <tr className="border-b border-gray-200 dark:border-gray-800">
+                    <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Framework</th>
+                    <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Subpath</th>
+                    <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Approach</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                   {frameworks.map((fw) => (
-                    <tr key={fw.name} className="bg-white dark:bg-gray-950 hover:bg-gray-50 dark:hover:bg-gray-900/40 transition-colors">
-                      <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">{fw.name}</td>
-                      <td className="px-4 py-3 font-mono text-xs text-gray-500 dark:text-gray-400">{fw.subpath}</td>
-                      <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{fw.approach}</td>
+                    <tr key={fw.name} className="bg-transparent hover:bg-gray-50 dark:hover:bg-gray-900/40 transition-colors">
+                      <td className="py-3 font-medium text-gray-900 dark:text-white text-sm pr-4 last:pr-0">{fw.name}</td>
+                      <td className="py-3 font-mono text-xs text-gray-650 dark:text-gray-400 pr-4 last:pr-0">{fw.subpath}</td>
+                      <td className="py-3 text-gray-600 dark:text-gray-350 text-sm pr-4 last:pr-0">{fw.approach}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -139,8 +131,8 @@ const table = document.createElement('uibit-table');
           </section>
 
           {/* Per-framework sections */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-8">Usage by framework</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Usage by framework</h2>
             <div className="space-y-10">
               {frameworks.map((fw) => (
                 <div key={fw.name} className="scroll-mt-20">
@@ -158,8 +150,8 @@ const table = document.createElement('uibit-table');
           </section>
 
           {/* Codegen */}
-          <section className="mb-12 border-t border-gray-200 dark:border-gray-800 pt-8">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">Generating wrappers for your own components</h2>
+          <section className="py-10 scroll-mt-20">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Generating wrappers for your own components</h2>
             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
               <code className="text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded font-mono text-gray-800 dark:text-gray-200">@uibit/codegen</code> is a standalone tool you can add to any web component package to generate per-framework type declaration files automatically — no hand-written wrapper code to maintain.
             </p>

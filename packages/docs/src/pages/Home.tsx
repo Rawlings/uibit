@@ -43,12 +43,6 @@ function Home() {
           A curated library of beautiful, interactive, and high-performance components designed to engage users and elevate your product's user interface.
         </p>
 
-        {/* Quick install */}
-        <div className="inline-flex items-center gap-3 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg px-4 py-2.5 mb-8 font-mono text-sm text-gray-700 dark:text-gray-300">
-          <span className="text-gray-400 dark:text-gray-500 select-none">$</span>
-          npm install @uibit/core
-        </div>
-
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             to="/styling"
@@ -100,7 +94,7 @@ function Home() {
 
       {/* Guides Section */}
       <section className="max-w-5xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-900">
-        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-5">Guides</h2>
+        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-5">Guides</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             {
@@ -142,7 +136,7 @@ function Home() {
 
       {/* Components Section */}
       <section id="components" className="max-w-5xl mx-auto px-6 py-12 border-t border-gray-100 dark:border-gray-900 scroll-mt-20">
-        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-8">
+        <h2 className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-8">
           Components
         </h2>
 
@@ -160,10 +154,10 @@ function Home() {
                 {comp.description}
               </p>
               <div className="flex items-center justify-between">
-                <span className="text-[10px] text-gray-400 dark:text-gray-500 font-mono">
+                <span className="text-[0.625rem] text-gray-400 dark:text-gray-500 font-mono">
                   {comp.packageName}
                 </span>
-                <span className="text-[10px] text-gray-300 dark:text-gray-700 font-mono">
+                <span className="text-[0.625rem] text-gray-300 dark:text-gray-700 font-mono">
                   {'<'}{comp.tagName}{'>'}
                 </span>
               </div>
