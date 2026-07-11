@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { componentRegistry } from '../pages/components';
 
-const GUIDES = [
-  { id: 'styling', title: 'Styling & Theming', to: '/styling', category: 'Guides' },
-  { id: 'localization', title: 'Localization', to: '/localization', category: 'Guides' },
-  { id: 'icons', title: 'Icons', to: '/icons', category: 'Guides' },
-  { id: 'frameworks', title: 'Framework Integrations', to: '/foundations', category: 'Guides' },
+const FOUNDATIONS = [
+  { id: 'styling', title: 'Styling & Theming', to: '/foundations/styling', category: 'Foundations' },
+  { id: 'localization', title: 'Localization', to: '/foundations/localization', category: 'Foundations' },
+  { id: 'icons', title: 'Icons', to: '/foundations/icons', category: 'Foundations' },
+  { id: 'frameworks', title: 'Framework Integrations', to: '/foundations/frameworks', category: 'Foundations' },
 ];
 
 const COMPONENT_CATEGORIES = [
@@ -41,13 +41,13 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   // Compile all search items
   const items: CommandItem[] = [];
 
-  // Add guides
-  GUIDES.forEach(g => {
+  // Add foundations
+  FOUNDATIONS.forEach(g => {
     items.push({
       id: g.id,
       title: g.title,
       to: g.to,
-      category: 'Guides'
+      category: 'Foundations'
     });
   });
 
@@ -60,7 +60,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
           id: comp.id,
           title: comp.title,
           description: comp.description,
-          to: `/${comp.id}`,
+          to: `/components/${comp.id}`,
           category: cat.label
         });
       }

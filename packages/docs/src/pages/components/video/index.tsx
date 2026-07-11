@@ -9,10 +9,14 @@ import vimeoRaw from './examples/vimeo?raw';
 function VideoDemo() {
   return (
     <uibit-video 
-      poster="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
       class="block w-full max-w-2xl border border-gray-200 dark:border-gray-800"
     >
-      <video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" loop playsinline></video>
+      <video 
+        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" 
+        poster="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" 
+        loop 
+        playsinline
+      ></video>
     </uibit-video>
   );
 }
@@ -32,18 +36,22 @@ const data: ComponentDocData = {
   manifest,
   Demo: VideoDemo,
   demoCode: {
-    html: `<uibit-video poster="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg">
-  <video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" loop playsinline></video>
+    html: `<uibit-video>
+  <video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" poster="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" loop playsinline></video>
 </uibit-video>`,
     react: `import '@uibit/video';
 
 function VideoDemo() {
   return (
     <uibit-video 
-      poster="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
       class="block w-full max-w-2xl border border-gray-200 dark:border-gray-800"
     >
-      <video src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" loop playsinline></video>
+      <video 
+        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" 
+        poster="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" 
+        loop 
+        playsinline
+      ></video>
     </uibit-video>
   );
 }`

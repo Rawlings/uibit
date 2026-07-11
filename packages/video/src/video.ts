@@ -83,11 +83,6 @@ export class Video extends UIBitElement {
   private _setupVideoListeners() {
     if (!this._videoEl) return;
 
-    // Inherit poster if not defined on host
-    if (!this.poster && this._videoEl.poster) {
-      this.poster = this._videoEl.poster;
-    }
-    
     // Hide default controls
     this._videoEl.controls = false;
     

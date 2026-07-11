@@ -2,11 +2,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { componentRegistry } from '../pages/components';
 
-const GUIDES = [
-  { id: 'styling', title: 'Styling & Theming', to: '/styling' },
-  { id: 'localization', title: 'Localization', to: '/localization' },
-  { id: 'icons', title: 'Icons', to: '/icons' },
-  { id: 'frameworks', title: 'Framework Integrations', to: '/foundations' },
+const FOUNDATIONS = [
+  { id: 'styling', title: 'Styling & Theming', to: '/foundations/styling' },
+  { id: 'localization', title: 'Localization', to: '/foundations/localization' },
+  { id: 'icons', title: 'Icons', to: '/foundations/icons' },
+  { id: 'frameworks', title: 'Framework Integrations', to: '/foundations/frameworks' },
 ];
 
 const CATEGORY_ORDER = [
@@ -23,11 +23,13 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
 
   let resolvedActiveId = activeId;
   if (!resolvedActiveId) {
-    if (currentPath === '/styling') resolvedActiveId = 'styling';
-    else if (currentPath === '/localization') resolvedActiveId = 'localization';
-    else if (currentPath === '/icons') resolvedActiveId = 'icons';
-    else if (currentPath === '/foundations') resolvedActiveId = 'frameworks';
-    else {
+    if (currentPath === '/foundations/styling') resolvedActiveId = 'styling';
+    else if (currentPath === '/foundations/localization') resolvedActiveId = 'localization';
+    else if (currentPath === '/foundations/icons') resolvedActiveId = 'icons';
+    else if (currentPath === '/foundations/frameworks') resolvedActiveId = 'frameworks';
+    else if (currentPath.startsWith('/components/')) {
+      resolvedActiveId = currentPath.substring('/components/'.length);
+    } else {
       resolvedActiveId = currentPath.substring(1);
     }
   }
@@ -35,9 +37,9 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
   const [searchQuery, setSearchQuery] = useState('');
   const q = searchQuery.toLowerCase();
 
-  const filteredGuides = searchQuery
-    ? GUIDES.filter((g) => g.title.toLowerCase().includes(q))
-    : GUIDES;
+  const filteredFoundations = searchQuery
+    ? FOUNDATIONS.filter((g) => g.title.toLowerCase().includes(q))
+    : FOUNDATIONS;
 
   const isSearching = searchQuery.length > 0;
 
@@ -65,7 +67,7 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
     };
   }).filter((cat) => cat.components.length > 0);
 
-  const hasResults = filteredGuides.length > 0 || categoriesWithMatches.length > 0;
+  const hasResults = filteredFoundations.length > 0 || categoriesWithMatches.length > 0;
 
   return (
     <aside className={`w-full md:w-56 shrink-0 md:pr-6 ${className}`}>
@@ -92,12 +94,12 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
           <p className="text-xs text-gray-400 dark:text-gray-550 italic py-2">No results</p>
         )}
 
-        {filteredGuides.length > 0 && (
+        {filteredFoundations.length > 0 && (
           <div className="space-y-1.5">
             <p className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
-              Guides
+              Foundations
             </p>
-            {filteredGuides.map((guide) => (
+            {filteredFoundations.map((guide) => (
               <Link
                 key={guide.id}
                 to={guide.to}
@@ -119,7 +121,7 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
             {cat.components.map((item) => (
               <Link
                 key={item.id}
-                to={`/${item.id}`}
+                to={`/components/${item.id}`}
                 className={`block text-sm ${
                   resolvedActiveId === item.id ? activeStyle : inactiveStyle
                 }`}

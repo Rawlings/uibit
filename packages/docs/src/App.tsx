@@ -5,7 +5,7 @@ import ComponentDocs from './pages/component';
 import StylingGuide from './pages/Styling';
 import LocalizationGuide from './pages/Localization';
 import IconsGuide from './pages/Icons';
-import FoundationsGuide from './pages/Foundations';
+import FrameworksGuide from './pages/Frameworks';
 import ScrollToTop from './components/ScrollToTop';
 import { CommandPalette } from './components/CommandPalette';
 import { NavigationDock } from './components/NavigationDock';
@@ -90,11 +90,10 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200 relative">
       <ScrollToTop />
       {/* Header */}
-      <header className="sticky top-0 z-50 transition-colors duration-200">
-        <div className="absolute inset-0 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md -z-10 [mask-image:linear-gradient(to_bottom,black_60%,transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_60%,transparent)]" />
+      <header className="relative z-50 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
           {renderLogo()}
 
@@ -114,14 +113,14 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 pb-24">
+      <main className="flex-1 pb-24 relative z-10">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/styling" element={<StylingGuide />} />
-          <Route path="/localization" element={<LocalizationGuide />} />
-          <Route path="/icons" element={<IconsGuide />} />
-          <Route path="/foundations" element={<FoundationsGuide />} />
-          <Route path="/:componentId" element={<ComponentDocs />} />
+          <Route path="/foundations/styling" element={<StylingGuide />} />
+          <Route path="/foundations/localization" element={<LocalizationGuide />} />
+          <Route path="/foundations/icons" element={<IconsGuide />} />
+          <Route path="/foundations/frameworks" element={<FrameworksGuide />} />
+          <Route path="/components/:componentId" element={<ComponentDocs />} />
           <Route
             path="*"
             element={
@@ -168,25 +167,25 @@ function App() {
 
             {/* Resources */}
             <div className="space-y-3">
-              <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Guides</h4>
+              <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Foundations</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/styling" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  <Link to="/foundations/styling" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                     Styling
                   </Link>
                 </li>
                 <li>
-                  <Link to="/localization" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  <Link to="/foundations/localization" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                     Localization
                   </Link>
                 </li>
                 <li>
-                  <Link to="/icons" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  <Link to="/foundations/icons" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                     Icons
                   </Link>
                 </li>
                 <li>
-                  <Link to="/foundations" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  <Link to="/foundations/frameworks" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                     Framework Integrations
                   </Link>
                 </li>

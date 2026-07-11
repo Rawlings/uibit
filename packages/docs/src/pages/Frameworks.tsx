@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
 
-export default function FoundationsGuide() {
+export default function FrameworksGuide() {
   useHead({
     title: 'Framework Integrations – UIBit',
     description: 'Use UIBit components in React, Vue, Svelte, Angular, Astro, Preact, Stencil, and vanilla TypeScript with auto-generated type wrappers.',
