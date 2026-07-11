@@ -89,6 +89,13 @@ function SignaturePadDemo() {
 }`,
   },
   examples: processedExamples,
+  features: [
+    'Smooth vector stroke drawing and smoothing',
+    'Responsive canvas with automatic scale adjustments',
+    'Customizable brush thickness and line colors',
+    'Built-in data URI export methods',
+    'Drawing start/change/end event callbacks'
+  ],
   a11y: {
     wcagLevel: 'AA',
     requirements: [
