@@ -42,10 +42,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rawlings/uibit.git"
+    "url": "https://github.com/Rawlings/uibit"
   },
   "bugs": {
-    "url": "https://github.com/rawlings/uibit/issues"
+    "url": "https://github.com/Rawlings/uibit/issues"
   },
   "homepage": "https://github.com/rawlings/uibit#readme"
 }
