@@ -30,11 +30,11 @@
     "custom-elements.json"
   ],
   "scripts": {
-    "build": "cem analyze --config ../custom-elements-manifest.config.js && uibit-codegen --package . && tsc",
+    "build": "concurrently \"cem analyze --config ../custom-elements-manifest.config.js && uibit-codegen --package .\" \"tsc\"",
     "dev": "concurrently \"cem analyze --config ../custom-elements-manifest.config.js --watch\" \"tsc --watch\"",
     "analyze": "cem analyze --config ../custom-elements-manifest.config.js",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run -c ../../../vitest.config.ts --passWithNoTests"
+    "test": "vitest run -c ../../../vitest.config.ts src/ --passWithNoTests"
   },
   "keywords": [
     "effect-trigger",

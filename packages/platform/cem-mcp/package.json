@@ -22,7 +22,7 @@
     "test:local": "node ./dist/test-client.js"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.1"
+    "@modelcontextprotocol/sdk": "^1.29.0"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",

@@ -1,18 +1,38 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": [
+    "tsconfig.base.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+    "oxlint.config.ts",
+    "packages/components/custom-elements-manifest.config.js"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**", "tsconfig.json", "tsconfig.*.json", "package.json"],
+      "inputs": [
+        "src/**",
+        "tsconfig.json",
+        "tsconfig.*.json",
+        "package.json",
+        "vite.config.*",
+        "tailwind.config.*",
+        "postcss.config.*",
+        "index.html"
+      ],
       "outputs": ["dist/**", "custom-elements.json"]
     },
     "analyze": {
-      "inputs": ["src/**", "package.json"],
+      "inputs": [
+        "src/**",
+        "package.json",
+        "//packages/components/custom-elements-manifest.config.js"
+      ],
       "outputs": ["custom-elements.json"]
     },
     "typecheck": {
       "dependsOn": ["^build"],
-      "inputs": ["src/**", "tsconfig.json", "package.json"]
+      "inputs": ["src/**", "tsconfig.json", "tsconfig.*.json", "package.json"]
     },
     "dev": {
       "dependsOn": ["^build"],
@@ -22,6 +42,14 @@
     "test": {
       "dependsOn": ["build"],
       "inputs": ["src/**", "tsconfig.json", "package.json", "vitest.config.*", "vitest.workspace.*"],
+      "outputs": []
+    },
+    "//#lint:oxlint": {
+      "inputs": [
+        "packages/*/src/**",
+        "packages/*/*/src/**",
+        "oxlint.config.ts"
+      ],
       "outputs": []
     }
   }
