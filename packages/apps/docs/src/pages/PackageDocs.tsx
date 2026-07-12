@@ -38,7 +38,7 @@ const packagesRegistry: Record<string, PackageData> = {
   },
   hmr: {
     title: 'Vite Plugin WC HMR',
-    description: 'True Hot Module Replacement for custom elements. Swaps updated classes and styles in-place without a page reload, preserving component state. Works with Lit, vanilla CE, and any framework that exposes hotReplacedCallback().',
+    description: 'True Hot Module Replacement for custom elements. Swaps updated classes and styles in-place without a page reload, preserving component state. Works with Lit, vanilla CE, FAST, Stencil, and more.',
     packageName: '@uibit/vite-plugin-wc-hmr',
     readme: hmrReadme,
   },
