@@ -240,11 +240,6 @@
               ]
             },
             {
-              "kind": "field",
-              "name": "validationAnchor",
-              "readonly": true
-            },
-            {
               "kind": "method",
               "name": "onPointerUp",
               "privacy": "private",
@@ -338,6 +333,10 @@
               "kind": "method",
               "name": "clear",
               "description": "Clears all strokes from the pad."
+            },
+            {
+              "kind": "method",
+              "name": "formResetCallback"
             }
           ],
           "events": [

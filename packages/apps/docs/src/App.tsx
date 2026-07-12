@@ -1,12 +1,13 @@
 import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import Home from './pages/Home';
-import ComponentDocs from './pages/component';
-import MarkdownPage from './pages/MarkdownPage';
-import PackageDocs from './pages/PackageDocs';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import ScrollToTop from './components/ScrollToTop';
 import { CommandPalette } from './components/CommandPalette';
 import { NavigationDock } from './components/NavigationDock';
+
+const Home = lazy(() => import('./pages/Home'));
+const ComponentDocs = lazy(() => import('./pages/component'));
+const MarkdownPage = lazy(() => import('./pages/MarkdownPage'));
+const PackageDocs = lazy(() => import('./pages/PackageDocs'));
 
 function renderLogo() {
   return (
@@ -112,29 +113,35 @@ function App() {
 
       {/* Main Content */}
       <main className="flex-1 pb-24 relative z-10">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/foundations/frameworks" element={<Navigate to="/packages/frameworks" replace />} />
-          <Route path="/foundations/:pageId" element={<MarkdownPage />} />
-          <Route path="/resources/:pageId" element={<MarkdownPage />} />
-          <Route path="/components/:componentId" element={<ComponentDocs />} />
-          <Route path="/packages/:packageId" element={<PackageDocs />} />
-          <Route
-            path="*"
-            element={
-              <div className="max-w-7xl mx-auto px-4 py-24 text-center bg-white dark:bg-gray-950">
-                <h1 className="text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">404</h1>
-                <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">Page not found. The page you are looking for does not exist.</p>
-                <Link
-                  to="/"
-                  className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 dark:bg-gray-100 dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
-                >
-                  Return Home
-                </Link>
-              </div>
-            }
-          />
-        </Routes>
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="w-6 h-6 border-2 border-gray-900 border-t-transparent dark:border-white rounded-full animate-spin" />
+          </div>
+        }>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/foundations/frameworks" element={<Navigate to="/packages/frameworks" replace />} />
+            <Route path="/foundations/:pageId" element={<MarkdownPage />} />
+            <Route path="/resources/:pageId" element={<MarkdownPage />} />
+            <Route path="/components/:componentId" element={<ComponentDocs />} />
+            <Route path="/packages/:packageId" element={<PackageDocs />} />
+            <Route
+              path="*"
+              element={
+                <div className="max-w-7xl mx-auto px-4 py-24 text-center bg-white dark:bg-gray-950">
+                  <h1 className="text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">404</h1>
+                  <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">Page not found. The page you are looking for does not exist.</p>
+                  <Link
+                    to="/"
+                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-900 dark:bg-gray-100 dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+                  >
+                    Return Home
+                  </Link>
+                </div>
+              }
+            />
+          </Routes>
+        </Suspense>
       </main>
 
       {/* Navigation Dock */}

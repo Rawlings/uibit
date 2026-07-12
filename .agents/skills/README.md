@@ -19,6 +19,10 @@ This directory contains skill definitions for AI-assisted development of Lit web
 - **[lit-docs-generator](./lit-docs-generator/SKILL.md)** - Auto-generate component documentation
 - **[lit-build-optimizer](./lit-build-optimizer/SKILL.md)** - Optimize build configuration and bundle size
 
+### Agent Harness & Meta
+
+- **[agentic-harness-optimizer](./agentic-harness-optimizer/SKILL.md)** - Audit, optimize, and continuously upgrade agentic guidelines, skills, and templates
+
 ## How Skills Work
 
 ### Discovery

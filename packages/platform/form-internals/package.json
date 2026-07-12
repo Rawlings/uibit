@@ -32,8 +32,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.19.43",
-    "lit": "^3.3.3",
-    "typescript": "7.0.2"
+    "lit": "^3.3.3"
   },
   "peerDependencies": {
     "lit": "^3.0.0"

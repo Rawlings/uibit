@@ -5,7 +5,7 @@ import { componentRegistry } from './components';
 import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
 import { DualCode } from '../types/docs';
-import { renderMarkdownInline } from '../utils/markdown';
+import { renderMarkdownInline, renderMarkdownBlocks } from '../utils/markdown';
 import { parseChangelog } from '../utils/changelog';
 import { ComponentPlayground } from '../components/ComponentPlayground';
 
@@ -181,6 +181,7 @@ export default function ComponentDocs() {
 
   const tocItems = [
     { id: 'demo', label: 'Demo', show: !!Demo },
+    { id: 'readme', label: 'Readme', show: !Demo && !!comp.readme },
     { id: 'api-reference', label: 'API Reference', show: !!manifest },
     { id: 'examples', label: 'Examples', show: !!(examples && examples.length > 0) },
     { id: 'usage', label: 'Usage', show: !examples && !!(usages && usages.length > 0) },
@@ -248,15 +249,26 @@ export default function ComponentDocs() {
           </header>
 
           {/* Live Demo & Playground */}
-          <section id="demo" className="py-10 scroll-mt-20">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Demo & Playground</h2>
-            <ComponentPlayground tagName={tagName} manifest={manifest} Demo={Demo} />
-          </section>
+          {Demo && manifest && (
+            <section id="demo" className="py-10 scroll-mt-20">
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Demo & Playground</h2>
+              <ComponentPlayground tagName={tagName} manifest={manifest} Demo={Demo} />
+            </section>
+          )}
+
+          {/* Fallback Readme */}
+          {!Demo && comp.readme && (
+            <section id="readme" className="py-10 scroll-mt-20 prose dark:prose-invert max-w-none">
+              {renderMarkdownBlocks(comp.readme)}
+            </section>
+          )}
 
           {/* API Reference */}
-          <section id="api-reference" className="py-10 scroll-mt-20">
-            <ApiDocs manifest={manifest} tagName={tagName} />
-          </section>
+          {manifest && (
+            <section id="api-reference" className="py-10 scroll-mt-20">
+              <ApiDocs manifest={manifest} tagName={tagName} />
+            </section>
+          )}
 
           {/* Rich examples (new format) */}
           {examples && examples.length > 0 && (

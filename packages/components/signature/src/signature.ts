@@ -207,10 +207,6 @@ export class Signature extends FormAssociatedMixin(UIBitElement) {
     }
   }
 
-  get validationAnchor() {
-    return this.shadowRoot?.querySelector('canvas') as HTMLElement || undefined;
-  }
-
   private onPointerUp(_e: PointerEvent) {
     if (!this.isPointerDown) return;
     this.isPointerDown = false;
@@ -348,6 +344,18 @@ export class Signature extends FormAssociatedMixin(UIBitElement) {
     this.value = '';
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.dispatchCustomEvent('signature-clear', { previouslyEmpty: wasEmpty });
+  }
+
+  override formResetCallback() {
+    super.formResetCallback();
+    if (this.defaultValue) {
+      this.strokes = [];
+      this.currentStroke = [];
+      this.isEmpty = false;
+      this.restoreFromDataUrl(this.defaultValue);
+    } else {
+      this.clear();
+    }
   }
 
   render() {

@@ -40,5 +40,6 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true
-  }
+  },
+  "exclude": ["**/*.test.ts", "**/test-helper.ts", "dist", "build"]
 }

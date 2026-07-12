@@ -39,4 +39,23 @@ describe('Signature Form Integration', () => {
     await element.updateComplete;
     expect(element.validity.valueMissing).toBe(false);
   });
+
+  it('should reset drawing and state when form resets', async () => {
+    container.innerHTML = `
+      <form id="test-form">
+        <uibit-signature name="sig" value="initial-signature"></uibit-signature>
+      </form>
+    `;
+    const form = container.querySelector('form') as HTMLFormElement;
+    const element = container.querySelector('uibit-signature') as Signature;
+    await element.updateComplete;
+
+    element.value = 'modified-signature';
+    await element.updateComplete;
+    expect(element.value).toBe('modified-signature');
+
+    element.formResetCallback();
+    await element.updateComplete;
+    expect(element.value).toBe('initial-signature');
+  });
 });

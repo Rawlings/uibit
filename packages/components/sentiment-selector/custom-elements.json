@@ -171,11 +171,6 @@
               }
             },
             {
-              "kind": "field",
-              "name": "validationAnchor",
-              "readonly": true
-            },
-            {
               "kind": "method",
               "name": "_select",
               "privacy": "private",

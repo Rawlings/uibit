@@ -80,13 +80,14 @@ export interface ComponentDocData {
   description: string;
   packageName: string;
   tagName: string;
-  manifest: CemManifest;
-  Demo: ComponentType;
-  demoCode: DualCode;
+  manifest?: CemManifest;
+  Demo?: ComponentType;
+  demoCode?: DualCode;
   examples?: UsageExample[];
   usages?: CodeSnippet[];
   features?: string[];
   a11y?: AccessibilitySection;
   category?: string;
   changelog?: string;
+  readme?: string;
 }

@@ -19,7 +19,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
         min: { type: String, reflect: true },
         max: { type: String, reflect: true },
         step: { type: String, reflect: true },
-        type: { type: String, reflect: true }
+        type: { type: String, reflect: true },
+        readOnly: { type: Boolean, attribute: 'readonly', reflect: true },
+        checked: { type: Boolean, reflect: true },
+        multiple: { type: Boolean, reflect: true },
+        placeholder: { type: String, reflect: true },
+        autofocus: { type: Boolean, reflect: true }
       };
     }
 
@@ -34,6 +39,11 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
     max!: string;
     step!: string;
     type!: string;
+    readOnly!: boolean;
+    checked!: boolean;
+    multiple!: boolean;
+    placeholder!: string;
+    autofocus!: boolean;
 
     get defaultValue() {
       return this.getAttribute('value') || '';
@@ -41,6 +51,18 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
 
     set defaultValue(newValue: string) {
       this.setAttribute('value', newValue);
+    }
+
+    get defaultChecked() {
+      return this.hasAttribute('checked');
+    }
+
+    set defaultChecked(newValue: boolean) {
+      if (newValue) {
+        this.setAttribute('checked', '');
+      } else {
+        this.removeAttribute('checked');
+      }
     }
 
     get files(): FileList | null {
@@ -133,11 +155,35 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
         }
       }
       
+      if (changedProperties.has('readOnly')) {
+        if (this.internals.states) {
+          if (this.readOnly) {
+            this.internals.states.add('readonly');
+            this.internals.ariaReadOnly = 'true';
+          } else {
+            this.internals.states.delete('readonly');
+            this.internals.ariaReadOnly = 'false';
+          }
+        }
+      }
+
+      if (changedProperties.has('checked')) {
+        if (this.internals.states) {
+          if (this.checked) {
+            this.internals.states.add('checked');
+            this.internals.ariaChecked = 'true';
+          } else {
+            this.internals.states.delete('checked');
+            this.internals.ariaChecked = 'false';
+          }
+        }
+      }
+
       if (changedProperties.has('required')) {
         this.internals.ariaRequired = this.required ? 'true' : 'false';
       }
 
-      if (changedProperties.has('value')) {
+      if (changedProperties.has('value') || changedProperties.has('checked')) {
         this._syncFormValue();
       } else if (
         changedProperties.has('required') ||
@@ -156,6 +202,7 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
     // Native ElementInternals Form Association lifecycle methods
     formResetCallback() {
       this.value = this.defaultValue;
+      this.checked = this.defaultChecked;
       this._customValidityMessage = '';
       this._interactionController.reset();
       this._syncFormValue();
@@ -219,7 +266,11 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
     }
 
     private _syncFormValue() {
-      const formValue: any = this.value !== undefined ? this.value : (this.getAttribute('value') || '');
+      const isToggle = this.type === 'checkbox' || this.type === 'radio';
+      let formValue: any = null;
+      if (!isToggle || this.checked) {
+        formValue = this.value !== undefined ? this.value : (this.getAttribute('value') || '');
+      }
       this.internals.setFormValue(formValue);
       this.validate();
     }

@@ -6,6 +6,12 @@ export interface FormAssociatedInterface {
   disabled: boolean;
   required: boolean;
   defaultValue: string;
+  readOnly: boolean;
+  checked: boolean;
+  defaultChecked: boolean;
+  multiple: boolean;
+  placeholder: string;
+  autofocus: boolean;
   
   readonly internals: ElementInternals;
   readonly validity: ValidityState;

@@ -10,7 +10,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./hotspot.css": "./dist/hotspot.css",
     "./custom-elements.json": "./custom-elements.json",
     "./react": "./dist/frameworks/react/index.d.ts",
     "./vue": "./dist/frameworks/vue/index.ts",

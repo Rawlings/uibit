@@ -15,6 +15,14 @@ To ensure efficient development and minimize interactive approval prompts:
 3. **Minimize Approval Fatigue**: Use commands that require explicit user approval (like shell execution via `run_command`) only when necessary.
 4. **Deferred Verification**: Focus primarily on writing and editing code. Defer testing and builds (e.g., running tests, linting, or production builds) to the final stages of the task, rather than executing them after every minor change.
 
+## Self-Improving Agentic Harness
+
+To ensure the AI environment stays aligned with architectural goals and developer practices, agents must proactively optimize their own context:
+
+1. **Observe and Codify**: Identify opportunities to capture reusable patterns, architectural constraints, and recurring instructions.
+2. **Evolve Skills**: Automatically create new agentic skills or refine existing ones (such as scaffolding templates, testing checklists, and quality audits) to systematically prevent future regressions.
+3. **Keep Rules Relevant**: Keep `AGENTS.md` and related config files updated as library architectures and frameworks evolve.
+
 ## Available Skills
 
 ### 1. **lit-component-generator**
@@ -113,6 +121,20 @@ Optimize build configuration and output.
 claude --skill lit-build-optimizer --args '{"packageName":"@uibit/button"}'
 ```
 
+### 7. **agentic-harness-optimizer**
+Audit, optimize, and continuously upgrade agentic guidelines, skills, and templates.
+
+**Capabilities:**
+- Scan guidelines for alignment with current code architectures
+- Audit existing skills for consistency and completeness
+- Scaffold new skills and optimize configuration files
+- Refactor templates to align with style rules
+
+**Trigger:** Use when identifying reusable architectural patterns or optimization opportunities in the agentic harness
+```bash
+claude --skill agentic-harness-optimizer --args '{"action":"audit"}'
+```
+
 ## How to Use Skills
 
 Skills are available through:
@@ -181,12 +203,14 @@ To ensure custom inputs participate in native forms seamlessly with zero custom 
 
 ## Integration with Development
 
-These skills integrate with the standard UIBit development workflow:
+These skills and rules integrate with the standard UIBit development workflow:
 
-- **pnpm workspaces:** Skills respect package boundaries
-- **TypeScript:** Full type support in generated code
-- **Testing:** Generated tests follow Web Component standards
-- **Documentation:** Generated docs follow Markdown conventions
+- **pnpm workspaces:** Skills respect package boundaries.
+- **TypeScript:** Full type support in generated code.
+- **Testing:** Generated tests follow Web Component standards.
+- **Documentation:** Generated docs follow Markdown conventions.
+- **ESLint (v9 Flat Config):** Checks code quality, Lit html templates, and WCAG accessibility standards (`eslint-plugin-lit`, `eslint-plugin-lit-a11y`).
+- **Stylelint (v16+):** Enforces styling guidelines directly in CSS template literals (`postcss-lit`), including enforcing `rem`-only units.
 
 ## Adding Custom Skills
 

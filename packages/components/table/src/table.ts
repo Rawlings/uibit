@@ -774,10 +774,10 @@ export class Table extends UIBitElement {
       <svg class="sort-icon" viewBox="0 0 10 14" fill="none" aria-hidden="true">
         <path d="M5 1v12M2 4l3-3 3 3" stroke="currentColor" stroke-width="1.4"
           stroke-linecap="round" stroke-linejoin="round"
-          opacity=${asc ? '1' : entry ? '0.25' : '0.35'}/>
+          opacity=${asc ? '1' : entry ? '0.25' : '0.35'} />
         <path d="M5 13V1M2 10l3 3 3-3" stroke="currentColor" stroke-width="1.4"
           stroke-linecap="round" stroke-linejoin="round"
-          opacity=${desc ? '1' : entry ? '0.25' : '0.35'}/>
+          opacity=${desc ? '1' : entry ? '0.25' : '0.35'} />
       </svg>
       ${this._sorts.length > 1 && sortIdx >= 0
         ? html`<span class="sort-badge">${sortIdx + 1}</span>`
