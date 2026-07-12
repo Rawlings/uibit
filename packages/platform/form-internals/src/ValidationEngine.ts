@@ -59,7 +59,7 @@ export function validateValue(value: any, constraints: ValidationConstraints): V
         if (!regex.test(value)) {
           flags.patternMismatch = true;
         }
-      } catch (e) {
+      } catch {
         // Safe regex failure fallback
       }
     }
@@ -73,7 +73,7 @@ export function validateValue(value: any, constraints: ValidationConstraints): V
     } else if (constraints.type === 'url') {
       try {
         new URL(value);
-      } catch (e) {
+      } catch {
         flags.typeMismatch = true;
       }
     }

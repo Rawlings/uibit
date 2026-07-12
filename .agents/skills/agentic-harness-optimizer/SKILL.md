@@ -30,14 +30,14 @@ This skill helps maintain a highly effective and self-improving AI development c
 
 ### Audit the Harness for Gaps and Architecture Drift
 ```bash
-claude --skill agentic-harness-optimizer --args '{
+agent --skill agentic-harness-optimizer --args '{
   "action": "audit"
 }'
 ```
 
 ### Apply Styling and Theming Enhancements to Generator Templates
 ```bash
-claude --skill agentic-harness-optimizer --args '{
+agent --skill agentic-harness-optimizer --args '{
   "action": "apply",
   "focusArea": "styling",
   "updateTarget": "lit-component-generator"

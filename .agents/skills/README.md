@@ -29,20 +29,20 @@ This directory contains skill definitions for AI-assisted development of Lit web
 Skills are automatically discovered from `.agents/skills/[name]/SKILL.md` files.
 
 ### Invocation
-Via Claude Code CLI:
+Via Agent CLI or interface:
 ```bash
-claude --skill <skill-name> --args '{...}'
+agent --skill <skill-name> --args '{...}'
 ```
 
-Via Claude Code in IDE/Web:
-- Open Command Palette
-- Search "Claude: Run Skill"
+Via Agent Runner in IDE/Web:
+- Open Command Palette / Agent Panel
+- Search/Select "Run Skill"
 - Select skill and configure args
 
 ### Args Format
 Pass arguments as JSON objects:
 ```bash
-claude --skill lit-component-generator --args '{
+agent --skill lit-component-generator --args '{
   "componentName": "MyButton",
   "category": "forms",
   "description": "A button component"
@@ -66,8 +66,8 @@ Copy [SKILL-TEMPLATE.md](./SKILL-TEMPLATE.md) and fill in:
 - Implementation details
 - Next steps and verification
 
-### Step 3: Register in Configuration
-Add to `.claude/settings.json`:
+### Step 3: Register in Configuration (if using non-standard path)
+Add to `.agents/settings.local.json`:
 ```json
 {
   "skills": {
@@ -87,7 +87,7 @@ touch .agents/skills/my-skill/handler.js
 
 ### Step 5: Test
 ```bash
-claude --skill my-skill --args '{}'
+agent --skill my-skill --args '{}'
 ```
 
 ## Skill Structure
@@ -224,7 +224,7 @@ Optional sections:
 
 ## Configuration
 
-Skills are configured in `.claude/settings.json`:
+Skills are configured in `.agents/settings.local.json`:
 
 ```json
 {
@@ -248,13 +248,13 @@ Skills are configured in `.claude/settings.json`:
 1. Check `.agents/skills/[name]/SKILL.md` exists
 2. Verify frontmatter format (valid YAML)
 3. Check `name:` field is unique
-4. Run `claude --refresh` to reload
+4. Refresh workspace agent context to reload
 
 ### Skill Failing
 1. Check input parameters match expected types
 2. Review error message carefully
 3. Try simple example first
-4. Check `.claude/settings.json` configuration
+4. Check `.agents/settings.local.json` configuration
 
 ### Skill Output Issues
 1. Review generated output carefully
@@ -270,15 +270,13 @@ To contribute a new skill:
 2. Write comprehensive SKILL.md
 3. Test thoroughly with examples
 4. Add to this README's available skills
-5. Update `.claude/settings.json`
+5. Update `.agents/settings.local.json` if necessary
 6. Create PR for review
 
 ## Resources
 
 - [Skill Template](./SKILL-TEMPLATE.md) - Start here for new skills
-- [AGENTS.md](../AGENTS.md) - Overview of AI agent architecture
-- [Contributing Guide](../../CONTRIBUTING.md) - Contribution guidelines
-- [Claude Code Documentation](https://github.com/anthropics/claude-code) - Main Claude Code docs
+- [Agent Architecture Guide](../AGENTS.md) - Overview of workspace AI agent architecture
 
 ## Questions?
 

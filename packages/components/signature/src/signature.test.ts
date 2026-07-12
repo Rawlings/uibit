@@ -46,7 +46,6 @@ describe('Signature Form Integration', () => {
         <uibit-signature name="sig" value="initial-signature"></uibit-signature>
       </form>
     `;
-    const form = container.querySelector('form') as HTMLFormElement;
     const element = container.querySelector('uibit-signature') as Signature;
     await element.updateComplete;
 

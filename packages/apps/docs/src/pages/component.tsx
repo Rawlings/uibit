@@ -102,7 +102,7 @@ function formatHTML(html: string): string {
   let cleaned = html.replace(/<!--.*?-->/g, '').trim();
   let result = '';
   let indent = 0;
-  const tokens = cleaned.split(/(<\/?[a-zA-Z0-9\-]+(?:\s+[^>]*?)?>)/g).filter(Boolean);
+  const tokens = cleaned.split(/(<\/?[a-zA-Z0-9-]+(?:\s+[^>]*?)?>)/g).filter(Boolean);
   
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i].trim();
@@ -175,7 +175,7 @@ export default function ComponentDocs() {
     );
   }
 
-  const { title, description, packageName, tagName, manifest, Demo, demoCode, examples, usages, features } = comp;
+  const { title, description, packageName, tagName, manifest, Demo, examples, usages, features } = comp;
 
   const [activeSection, setActiveSection] = useState<string>('');
 

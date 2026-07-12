@@ -162,7 +162,7 @@ export class Viewer360 extends UIBitElement {
     try {
       const viewer = e.currentTarget as HTMLElement;
       viewer.releasePointerCapture(e.pointerId);
-    } catch (err) {
+    } catch {
       // Ignore pointer capture release exceptions if target unmounted
     }
     this.scheduleAutoRotateResume();

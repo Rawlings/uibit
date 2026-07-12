@@ -29,7 +29,7 @@ This skill analyzes a component package and generates/updates:
 
 ### Generate Component Docs & React Pages
 ```bash
-claude --skill lit-docs-generator --args '{
+agent --skill lit-docs-generator --args '{
   "componentPath": "components/scroll-progress"
 }'
 ```

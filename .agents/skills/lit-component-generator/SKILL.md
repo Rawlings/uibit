@@ -35,7 +35,7 @@ This skill scaffolds a new component package inside `components/<component-name>
 
 ### Scaffold a Sentiment Selector Component
 ```bash
-claude --skill lit-component-generator --args '{
+agent --skill lit-component-generator --args '{
   "componentName": "SentimentSelector",
   "category": "Feedback",
   "description": "Interactive feedback bar tracking sentiment ratings"
@@ -44,7 +44,7 @@ claude --skill lit-component-generator --args '{
 
 ### Scaffold a Custom Video Player
 ```bash
-claude --skill lit-component-generator --args '{
+agent --skill lit-component-generator --args '{
   "componentName": "VideoPlayer",
   "category": "Media",
   "description": "Scandinavian minimalist video player wrapping native video elements",

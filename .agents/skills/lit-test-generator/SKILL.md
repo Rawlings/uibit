@@ -31,14 +31,14 @@ Generates standard tests for UIBit components, located directly in `src/<compone
 
 ### Generate Standard Component Tests
 ```bash
-claude --skill lit-test-generator --args '{
+agent --skill lit-test-generator --args '{
   "componentPath": "components/scroll-progress"
 }'
 ```
 
 ### Generate Complete Coverage Unit/Interaction Tests
 ```bash
-claude --skill lit-test-generator --args '{
+agent --skill lit-test-generator --args '{
   "componentPath": "components/sentiment-bar",
   "coverage": "complete"
 }'

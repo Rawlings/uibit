@@ -31,14 +31,14 @@ Analyzes and suggests optimizations for:
 
 ### Audit Package Configuration & Imports
 ```bash
-claude --skill lit-build-optimizer --args '{
+agent --skill lit-build-optimizer --args '{
   "packageName": "components/scroll-progress"
 }'
 ```
 
 ### Audit Docs Application Vite Config
 ```bash
-claude --skill lit-build-optimizer --args '{
+agent --skill lit-build-optimizer --args '{
   "packageName": "apps/docs"
 }'
 ```

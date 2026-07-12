@@ -14,14 +14,17 @@
     "build:docs": "pnpm -F docs run build",
     "preview": "pnpm -F docs run preview",
     "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze",
-    "lint": "pnpm --filter './packages/components/**' --filter './packages/platform/**' --filter '!@uibit/docs' exec -- tsc -p tsconfig.json --noEmit",
+    "lint": "oxlint && pnpm --filter './packages/components/**' --filter './packages/platform/**' --filter '!@uibit/docs' exec -- tsc -p tsconfig.json --noEmit",
     "test": "vitest run && pnpm -F docs test"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",
     "@vitejs/plugin-react": "^4.7.0",
     "concurrently": "^9.2.3",
+    "eslint-plugin-lit": "^1.15.0",
+    "eslint-plugin-lit-a11y": "^2.2.0",
     "happy-dom": "^14.12.3",
+    "oxlint": "^0.15.0",
     "typescript": "7.0.2",
     "vite": "^5.4.21",
     "vitest": "^1.6.1"

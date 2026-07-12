@@ -4,7 +4,7 @@ This document describes the AI agents and skills configured for the UIBit web co
 
 ## Overview
 
-UIBit uses Claude Code agents and skills to accelerate development of accessible, production-ready web components built with Lit.js. These skills provide AI-assisted workflows for common component development tasks.
+UIBit uses AI agents and skills to accelerate development of accessible, production-ready web components built with Lit.js. These skills provide AI-assisted workflows for common component development tasks.
 
 ## Agent Workflow and Tool Usage Guidelines
 
@@ -14,6 +14,7 @@ To ensure efficient development and minimize interactive approval prompts:
 2. **Prioritize Native File Tools**: Use specific file-manipulation tools (`view_file`, `write_to_file`, `replace_file_content`, `multi_replace_file_content`, `list_dir`, `grep_search`) directly instead of running shell equivalents (e.g. `cat`, `ls`, `grep`, `mkdir`, `touch`).
 3. **Minimize Approval Fatigue**: Use commands that require explicit user approval (like shell execution via `run_command`) only when necessary.
 4. **Deferred Verification**: Focus primarily on writing and editing code. Defer testing and builds (e.g., running tests, linting, or production builds) to the final stages of the task, rather than executing them after every minor change.
+5. **Architectural Leadership**: Act as a Senior Web Architect specialized in web components. Lead and drive tasks proactively, and always conclude every response/task execution with a structured "Next Steps Plan".
 
 ## Self-Improving Agentic Harness
 
@@ -38,7 +39,7 @@ Generate new Lit web components with full scaffolding.
 
 **Trigger:** Use when starting a new component from scratch
 ```bash
-claude --skill lit-component-generator --args '{"componentName":"MyButton","category":"forms"}'
+agent --skill lit-component-generator --args '{"componentName":"MyButton","category":"forms"}'
 ```
 
 ### 2. **lit-a11y-audit**
@@ -54,7 +55,7 @@ Audit Lit components for accessibility compliance.
 
 **Trigger:** Use when reviewing component accessibility
 ```bash
-claude --skill lit-a11y-audit --args '{"componentPath":"components/button"}'
+agent --skill lit-a11y-audit --args '{"componentPath":"components/button"}'
 ```
 
 ### 3. **lit-component-refactor**
@@ -70,7 +71,7 @@ Refactor and optimize existing Lit components.
 
 **Trigger:** Use when improving component quality
 ```bash
-claude --skill lit-component-refactor --args '{"componentPath":"components/button"}'
+agent --skill lit-component-refactor --args '{"componentPath":"components/button"}'
 ```
 
 ### 4. **lit-docs-generator**
@@ -86,7 +87,7 @@ Auto-generate component documentation.
 
 **Trigger:** Use when documenting components
 ```bash
-claude --skill lit-docs-generator --args '{"componentPath":"components/button"}'
+agent --skill lit-docs-generator --args '{"componentPath":"components/button"}'
 ```
 
 ### 5. **lit-test-generator**
@@ -102,7 +103,7 @@ Generate comprehensive test suites for Lit components.
 
 **Trigger:** Use for test-driven development
 ```bash
-claude --skill lit-test-generator --args '{"componentPath":"components/button"}'
+agent --skill lit-test-generator --args '{"componentPath":"components/button"}'
 ```
 
 ### 6. **lit-build-optimizer**
@@ -118,7 +119,7 @@ Optimize build configuration and output.
 
 **Trigger:** Use for production build preparation
 ```bash
-claude --skill lit-build-optimizer --args '{"packageName":"@uibit/button"}'
+agent --skill lit-build-optimizer --args '{"packageName":"@uibit/button"}'
 ```
 
 ### 7. **agentic-harness-optimizer**
@@ -132,34 +133,34 @@ Audit, optimize, and continuously upgrade agentic guidelines, skills, and templa
 
 **Trigger:** Use when identifying reusable architectural patterns or optimization opportunities in the agentic harness
 ```bash
-claude --skill agentic-harness-optimizer --args '{"action":"audit"}'
+agent --skill agentic-harness-optimizer --args '{"action":"audit"}'
+```
+
+### 8. **web-architect**
+Senior Web Architect persona for leading tasks and planning next steps.
+
+**Capabilities:**
+- Proactively lead development tasks and architectural designs
+- Enforce Web Component best practices and DESIGN.md constraints
+- Always generate structured Next Steps plans upon task completion
+
+**Trigger:** Use to align development mindset, perform design review, or structure roadmap planning
+```bash
+agent --skill web-architect --args '{"action":"align","componentPath":"packages/components/button"}'
 ```
 
 ## How to Use Skills
 
-Skills are available through:
+Skills are available through the agent interface:
 
-1. **Claude Code CLI:**
-   ```bash
-   claude skill list
-   claude --skill <skill-name>
-   ```
-
-2. **Claude Code in VSCode/JetBrains:**
-   - Open Command Palette
-   - Search "Claude: Run Skill"
-   - Select skill and provide args
-
-3. **Claude Code Web (claude.ai/code):**
-   - Open Skills panel
-   - Browse and run skills directly
+1. **Direct Ask**: Simply instruct the agent to run a specific skill (e.g., *"Run lit-a11y-audit on packages/components/button"*).
+2. **Context-Aware Triggering**: The agent will automatically detect and apply the instructions from the relevant `SKILL.md` when you ask it to perform tasks of that nature (e.g. generating a component, refactoring, or optimizing builds).
 
 ## Project Configuration
 
-Skills are configured in `.claude/` directory:
+Skills and settings are configured in the `.agents/` directory:
 
-- `.claude/settings.json` - Global skill settings
-- `.claude/settings.local.json` - Local overrides
+- `.agents/settings.local.json` - Permissions and command execution settings
 - `.agents/skills/` - Skill implementations
 
 ## Best Practices
@@ -219,18 +220,18 @@ To add custom skills for your team:
 1. Create a new directory in `.agents/skills/<skill-name>/`
 2. Add `SKILL.md` with skill documentation
 3. Add implementation files (handlers, templates, etc.)
-4. Register in `.claude/settings.json`
+4. Automatically discovered if placed under `.agents/skills/`
 
 See [SKILL.md template](.agents/skills/SKILL-TEMPLATE.md) for structure.
 
 ## Troubleshooting
 
-If skills don't appear in Claude Code:
+If skills don't appear in the agent interface:
 
 1. Verify `.agents/` directory exists
 2. Check `SKILL.md` format and `name:` field
-3. Run `claude --refresh` to reload configuration
-4. Check `.claude/settings.json` for registration errors
+3. Refresh the agent workspace context
+4. Check `.agents/settings.local.json` for registration errors
 
 ---
 

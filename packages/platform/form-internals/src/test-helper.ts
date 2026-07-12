@@ -3,6 +3,7 @@
 if (typeof window !== 'undefined') {
   Object.defineProperty(HTMLElement.prototype, 'attachInternals', {
     value: function(this: HTMLElement) {
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
       const host = this;
       const states = new Set<string>();
       const validity = {

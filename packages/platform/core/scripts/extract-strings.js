@@ -165,7 +165,7 @@ function walkDir(dir) {
   return results;
 }
 
-function guessContext(content, index, strVal) {
+function guessContext(content, index, _strVal) {
   // Simple heuristic: look at the surrounding 100 characters before the match to see if it's inside an attribute
   const before = content.slice(Math.max(0, index - 100), index);
   if (before.includes('aria-label=')) {

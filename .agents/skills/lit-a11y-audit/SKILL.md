@@ -28,20 +28,13 @@ Audits components for:
 
 ## Usage Examples
 
-### Run Accessibility Audit
-```bash
-claude --skill lit-a11y-audit --args '{
-  "componentPath": "components/hotspot"
-}'
-```
+To trigger this skill, instruct the agent in the chat window:
 
-### Run Strict WCAG AAA Compliance Audit
-```bash
-claude --skill lit-a11y-audit --args '{
-  "componentPath": "components/consent-guard",
-  "wcagLevel": "AAA"
-}'
-```
+### Example 1: Run Accessibility Audit
+> "Audit the accessibility of packages/components/hotspot"
+
+### Example 2: Run AAA Compliance Audit
+> "Audit packages/components/consent-guard for strict WCAG AAA compliance"
 
 ---
 

@@ -10,17 +10,7 @@ function Home() {
       'A curated library of high-quality web components built on native browser standards. Encapsulated, accessible, and designed to last.',
   });
 
-  const componentsMap = Object.keys(componentRegistry).reduce((acc, key) => {
-    const comp = componentRegistry[key]!;
-    acc[key] = {
-      id: comp.id,
-      name: comp.title,
-      description: comp.description,
-      packageName: comp.packageName,
-      tagName: comp.tagName,
-    };
-    return acc;
-  }, {} as Record<string, { id: string; name: string; description: string; packageName: string; tagName: string }>);
+
 
   const allComponents = Object.keys(componentRegistry)
     .map((key) => componentRegistry[key]!)

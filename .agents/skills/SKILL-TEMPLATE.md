@@ -40,7 +40,7 @@ Provide 2-3 concrete examples of how to use the skill:
 
 ### Example 1: Basic Usage
 ```bash
-claude --skill your-skill-name --args '{
+agent --skill your-skill-name --args '{
   "param1": "value1",
   "param2": true
 }'
@@ -48,7 +48,7 @@ claude --skill your-skill-name --args '{
 
 ### Example 2: Advanced Usage
 ```bash
-claude --skill your-skill-name --args '{
+agent --skill your-skill-name --args '{
   "param1": "value1",
   "param2": false,
   "param3": 42

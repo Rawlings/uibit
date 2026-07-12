@@ -38,7 +38,6 @@ function EffectTriggerDemo() {
   const [density, setDensity] = useState(8);
   const [velocity, setVelocity] = useState('1s');
   const [randomize, setRandomize] = useState(true);
-  const [stagger, setStagger] = useState('50ms');
   const [customRegistered, setCustomRegistered] = useState(false);
 
   useEffect(() => {

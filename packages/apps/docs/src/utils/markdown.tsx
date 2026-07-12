@@ -20,7 +20,6 @@ export function renderMarkdownBlocks(markdown: string, customRenderers?: Record<
   const nodes: React.ReactNode[] = [];
   let inCodeBlock = false;
   let codeContent: string[] = [];
-  let codeLang = '';
   let inList = false;
   let listItems: string[] = [];
   let inTable = false;
@@ -87,7 +86,6 @@ export function renderMarkdownBlocks(markdown: string, customRenderers?: Record<
         flushList(i);
         flushTable(i);
         inCodeBlock = true;
-        codeLang = line.trim().substring(3).trim();
       }
       continue;
     }

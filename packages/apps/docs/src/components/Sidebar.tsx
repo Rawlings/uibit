@@ -29,7 +29,7 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
     }
   }
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery] = useState('');
   const q = searchQuery.toLowerCase();
 
   const filteredFoundations = searchQuery

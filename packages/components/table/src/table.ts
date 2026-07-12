@@ -378,7 +378,7 @@ export class Table extends UIBitElement {
         const av = a.row[ci] ?? '';
         const bv = b.row[ci] ?? '';
         const cmp = numeric
-          ? parseFloat(av.replace(/[^0-9.\-]/g, '')) - parseFloat(bv.replace(/[^0-9.\-]/g, ''))
+          ? parseFloat(av.replace(/[^0-9.-]/g, '')) - parseFloat(bv.replace(/[^0-9.-]/g, ''))
           : av.localeCompare(bv, undefined, { sensitivity: 'base' });
         if (cmp !== 0) return dir === 'asc' ? cmp : -cmp;
       }

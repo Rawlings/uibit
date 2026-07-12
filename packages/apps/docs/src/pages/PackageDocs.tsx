@@ -173,7 +173,6 @@ export default function PackageDocs() {
     let currentList: React.ReactNode[] = [];
     let inCodeBlock = false;
     let codeBlockLines: string[] = [];
-    let codeBlockLang = '';
 
     const flushList = () => {
       if (currentList.length > 0) {
@@ -209,7 +208,6 @@ export default function PackageDocs() {
         } else {
           flushList();
           inCodeBlock = true;
-          codeBlockLang = line.replace('```', '').trim();
         }
         continue;
       }

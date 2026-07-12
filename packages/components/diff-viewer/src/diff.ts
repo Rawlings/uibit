@@ -5,7 +5,7 @@ function lcs(a: string[], b: string[]): number[][] {
   const n = b.length;
   const dp: number[][] = [];
   for (let i = 0; i <= m; i++) {
-    dp[i] = new Array<number>(n + 1).fill(0);
+    dp[i] = Array.from<number>({ length: n + 1 }).fill(0);
   }
   for (let i = 1; i <= m; i++) {
     for (let j = 1; j <= n; j++) {

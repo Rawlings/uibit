@@ -32,7 +32,7 @@ Analyzes and refactors existing components to:
 
 ### Scaffold/Run a Full Component Refactoring
 ```bash
-claude --skill lit-component-refactor --args '{
+agent --skill lit-component-refactor --args '{
   "componentPath": "components/text-clamp",
   "focus": "all"
 }'
@@ -40,7 +40,7 @@ claude --skill lit-component-refactor --args '{
 
 ### Refactor Style Declarations to follow DESIGN.md
 ```bash
-claude --skill lit-component-refactor --args '{
+agent --skill lit-component-refactor --args '{
   "componentPath": "components/carousel",
   "focus": "styling"
 }'

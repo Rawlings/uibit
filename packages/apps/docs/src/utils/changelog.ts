@@ -30,7 +30,7 @@ export function parseChangelog(md: string): ParsedRelease[] {
     line = line.trim();
     if (!line) continue;
 
-    const versionMatch = line.match(/^##\s+\[?([0-9a-zA-Z\.\-]+)\]?\s*-\s*([0-9\-]+)/);
+    const versionMatch = line.match(/^##\s+\[?([0-9a-zA-Z.-]+)\]?\s*-\s*([0-9-]+)/);
     if (versionMatch) {
       currentRelease = {
         version: versionMatch[1],

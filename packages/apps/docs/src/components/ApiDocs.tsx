@@ -98,11 +98,11 @@ export function ApiDocs({
           <Table
             headers={['Property', 'Attribute', 'Type', 'Default', 'Description']}
             rows={props.map((p) => [
-              <Code>{p.name}</Code>,
-              p.attribute ? <Code>{p.attribute}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
-              p.type?.text ? <Code>{p.type.text}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
-              p.default !== undefined ? <Code>{p.default}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
-              <span className="text-gray-650 dark:text-gray-400">{p.description ?? ''}</span>,
+              <Code key="name">{p.name}</Code>,
+              p.attribute ? <Code key="attr">{p.attribute}</Code> : <span key="attr" className="text-gray-400 dark:text-gray-500">—</span>,
+              p.type?.text ? <Code key="type">{p.type.text}</Code> : <span key="type" className="text-gray-400 dark:text-gray-500">—</span>,
+              p.default !== undefined ? <Code key="default">{p.default}</Code> : <span key="default" className="text-gray-400 dark:text-gray-500">—</span>,
+              <span key="desc" className="text-gray-650 dark:text-gray-400">{p.description ?? ''}</span>,
             ])}
           />
         </Section>
@@ -113,9 +113,9 @@ export function ApiDocs({
           <Table
             headers={['Event', 'Detail type', 'Description']}
             rows={events.map((e) => [
-              <Code>{e.name}</Code>,
-              e.type?.text ? <Code>{e.type.text}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
-              <span className="text-gray-650 dark:text-gray-400">{e.description ?? ''}</span>,
+              <Code key="name">{e.name}</Code>,
+              e.type?.text ? <Code key="type">{e.type.text}</Code> : <span key="type" className="text-gray-400 dark:text-gray-500">—</span>,
+              <span key="desc" className="text-gray-650 dark:text-gray-400">{e.description ?? ''}</span>,
             ])}
           />
         </Section>
@@ -126,8 +126,8 @@ export function ApiDocs({
           <Table
             headers={['Slot', 'Description']}
             rows={slots.map((s) => [
-              s.name ? <Code>{s.name}</Code> : <span className="text-gray-500 dark:text-gray-450 italic">default</span>,
-              <span className="text-gray-650 dark:text-gray-400">{s.description ?? ''}</span>,
+              s.name ? <Code key="name">{s.name}</Code> : <span key="name" className="text-gray-500 dark:text-gray-450 italic">default</span>,
+              <span key="desc" className="text-gray-650 dark:text-gray-400">{s.description ?? ''}</span>,
             ])}
           />
         </Section>
@@ -138,9 +138,9 @@ export function ApiDocs({
           <Table
             headers={['Property', 'Default', 'Description']}
             rows={cssProps.map((c) => [
-              <Code>{c.name}</Code>,
-              c.default ? <Code>{c.default}</Code> : <span className="text-gray-400 dark:text-gray-500">—</span>,
-              <span className="text-gray-650 dark:text-gray-400">{c.description ?? ''}</span>,
+              <Code key="name">{c.name}</Code>,
+              c.default ? <Code key="default">{c.default}</Code> : <span key="default" className="text-gray-400 dark:text-gray-500">—</span>,
+              <span key="desc" className="text-gray-650 dark:text-gray-400">{c.description ?? ''}</span>,
             ])}
           />
         </Section>
@@ -151,8 +151,8 @@ export function ApiDocs({
           <Table
             headers={['Part', 'Description']}
             rows={cssParts.map((p) => [
-              <Code>{p.name}</Code>,
-              <span className="text-gray-650 dark:text-gray-400">{p.description ?? ''}</span>,
+              <Code key="name">{p.name}</Code>,
+              <span key="desc" className="text-gray-650 dark:text-gray-400">{p.description ?? ''}</span>,
             ])}
           />
         </Section>
