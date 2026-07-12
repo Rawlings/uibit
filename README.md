@@ -18,7 +18,6 @@ Rather than recreating styles and behaviors for every framework, UIBit uses nati
 
 * **Framework Independence** – Built using native Web Components and Lit, UIBit elements integrate into React, Vue, Angular, Svelte, or vanilla HTML applications.
 * **Accessibility Compliance** – Designed from the ground up to support keyboard navigation, screen readers, and proper ARIA semantics to meet WCAG standards.
-* **Scandinavian Design Philosophy** – Focused on clarity, purpose, and utility. The neutral grayscale design system acts as a clean canvas, adapting to any brand using CSS custom properties.
 * **Performance Focus** – Engineered for fast rendering cycles, low layout shift, and minimal bundle sizes to maintain excellent Core Web Vitals.
 
 ---
@@ -36,9 +35,9 @@ Our visual catalog of web components spans several core categories:
 
 ### 2. Platform & Developer Tooling
 Underneath the components, UIBit includes native systems to streamline integration and optimization:
-* [Framework Codegen](https://rawlings.github.io/uibit/packages/codegen) ([Source](file:///Users/rawlings/uibit/packages/platform/codegen)) – Generates native wrapper packages for React, Vue, Angular, and Svelte.
+* [Framework Codegen](https://rawlings.github.io/uibit/packages/frameworks) ([Source](file:///Users/rawlings/uibit/packages/platform/codegen)) – Generates native wrapper packages for React, Vue, Angular, and Svelte.
 * [Form Internals](https://rawlings.github.io/uibit/packages/form-internals) ([Source](file:///Users/rawlings/uibit/packages/platform/form-internals)) – Integration layers for native element form participation.
-* [Vite WC HMR Plugin](https://rawlings.github.io/uibit/packages/vite-plugin-wc-hmr) ([Source](file:///Users/rawlings/uibit/packages/platform/vite-plugin-wc-hmr)) – Custom Vite plugin for hot reloading custom elements.
+* [Vite WC HMR Plugin](https://rawlings.github.io/uibit/packages/hmr) ([Source](file:///Users/rawlings/uibit/packages/platform/vite-plugin-wc-hmr)) – Custom Vite plugin for hot reloading custom elements.
 * [CEM Extended Analyzer](https://rawlings.github.io/uibit/packages/cem-extended) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-extended)) – Tooling for extracting detailed Custom Elements Manifests.
 * [CEM MCP Server](https://rawlings.github.io/uibit/packages/cem-mcp) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-mcp)) – Exposes component specifications directly to AI coding agents.
 

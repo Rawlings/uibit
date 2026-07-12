@@ -7,7 +7,7 @@ Thank you for using UIBit. We are committed to providing a reliable, performant,
 Before submitting a support request or opening a new issue, please consult the following resources:
 
 1. **Documentation Site** – Explore guidelines, code examples, API interfaces, and browser support details at [rawlings.github.io/uibit](https://rawlings.github.io/uibit/).
-2. **Troubleshooting Guide** – Review common build/framework issues in our [Troubleshooting Guide](https://rawlings.github.io/uibit/#/foundations/troubleshooting).
+2. **Troubleshooting Guide** – Review common build/framework issues in our [Troubleshooting Guide](https://rawlings.github.io/uibit/foundations/troubleshooting).
 3. **GitHub Issues** – Search existing bug reports and feature requests on the [GitHub repository](https://github.com/rawlings/uibit/issues).
 
 ## Support Channels

@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@uibit/sentiment-selector.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/sentiment-selector)
 
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/sentiment-bar)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/sentiment-selector)
 
 ## Installation
 

@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@uibit/image-reveal.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/image-reveal)
 
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/image-xray)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/image-reveal)
 
 ## Installation
 

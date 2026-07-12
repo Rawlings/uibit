@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@uibit/360-viewer.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/360-viewer)
 
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/viewer-360)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/360-viewer)
 
 ## Installation
 

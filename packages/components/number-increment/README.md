@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@uibit/number-increment.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/number-increment)
 
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/number-ticker)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/number-increment)
 
 ## Installation
 

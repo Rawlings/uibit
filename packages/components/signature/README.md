@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@uibit/signature.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/signature)
 
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/signature-pad)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/signature)
 
 ## Installation
 

@@ -12,8 +12,8 @@ export interface ParsedRelease {
 
 function getCategory(title: string): ParsedReleaseSection['category'] {
   const t = title.toLowerCase().trim();
-  if (t.includes('add') || t.includes('feat') || t.includes('new')) return 'Added';
-  if (t.includes('fix') || t.includes('bug')) return 'Fixed';
+  if (t.includes('major') || t.includes('minor') || t.includes('add') || t.includes('feat') || t.includes('new')) return 'Added';
+  if (t.includes('patch') || t.includes('fix') || t.includes('bug')) return 'Fixed';
   if (t.includes('sec')) return 'Security';
   if (t.includes('change') || t.includes('refactor') || t.includes('improv') || t.includes('updat')) return 'Changed';
   if (t.includes('deprecat')) return 'Deprecated';
@@ -26,15 +26,15 @@ export function parseChangelog(md: string): ParsedRelease[] {
   let currentSection: ParsedReleaseSection | null = null;
 
   const lines = md.split('\n');
-  for (let line of lines) {
-    line = line.trim();
-    if (!line) continue;
+  for (const rawLine of lines) {
+    const trimmed = rawLine.trim();
+    if (!trimmed) continue;
 
-    const versionMatch = line.match(/^##\s+\[?([0-9a-zA-Z.-]+)\]?\s*-\s*([0-9-]+)/);
+    const versionMatch = trimmed.match(/^##\s+\[?([0-9a-zA-Z.-]+)\]?(?:\s*-\s*([0-9-]+))?/);
     if (versionMatch) {
       currentRelease = {
         version: versionMatch[1],
-        date: versionMatch[2],
+        date: versionMatch[2] || '',
         sections: []
       };
       releases.push(currentRelease);
@@ -43,7 +43,7 @@ export function parseChangelog(md: string): ParsedRelease[] {
     }
 
     if (currentRelease) {
-      const sectionMatch = line.match(/^###\s+(.+)$/);
+      const sectionMatch = trimmed.match(/^###\s+(.+)$/);
       if (sectionMatch) {
         const title = sectionMatch[1].trim();
         currentSection = {
@@ -55,9 +55,24 @@ export function parseChangelog(md: string): ParsedRelease[] {
         continue;
       }
 
-      if (currentSection && line.startsWith('-')) {
-        const itemText = line.substring(1).trim();
-        currentSection.items.push(itemText);
+      if (currentSection) {
+        if (trimmed.startsWith('-') || trimmed.startsWith('*')) {
+          const hasIndentation = /^\s+[-*]/.test(rawLine);
+          if (hasIndentation && currentSection.items.length > 0) {
+            const lastIdx = currentSection.items.length - 1;
+            const subText = trimmed.substring(1).trim();
+            if (currentSection.items[lastIdx] === 'Updated dependencies') {
+              currentSection.items[lastIdx] = `Updated dependencies: ${subText}`;
+            } else if (currentSection.items[lastIdx].startsWith('Updated dependencies:')) {
+              currentSection.items[lastIdx] = `${currentSection.items[lastIdx]}, ${subText}`;
+            } else {
+              currentSection.items[lastIdx] = `${currentSection.items[lastIdx]} (${subText})`;
+            }
+          } else {
+            const itemText = trimmed.substring(1).trim();
+            currentSection.items.push(itemText);
+          }
+        }
       }
     }
   }

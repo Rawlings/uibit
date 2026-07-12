@@ -3,7 +3,7 @@
 [![NPM Version](https://img.shields.io/npm/v/@uibit/read-time.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/read-time)
 
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/text-read-timer)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/read-time)
 
 ## Installation
 
