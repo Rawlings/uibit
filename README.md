@@ -1,41 +1,47 @@
 # UIBit
 
-[Live Documentation](https://rawlings.github.io/uibit/)
+UIBit is a professional, framework-agnostic collection of interactive web components. Built on modern web standards and Lit, these elements provide performant, accessible, and customizable experiences that integrate into any web application or technology stack.
 
-UIBit is a professional collection of framework-agnostic web components designed to elevate digital products. Built with Lit, these components deliver performant, accessible, and highly customizable interactive experiences for web applications.
+Inspired by Scandinavian design principles—clean lines, generous spacing, and a pure grayscale color palette—UIBit components prioritize functionality and visual clarity.
 
-Instead of developing complex user interface elements from scratch, UIBit provides a catalog of optimized components that integrate into any technology stack.
+---
 
-## The Catalog
+## Component Catalog
 
 Our component library spans several core categories:
 
-- **Media & Visualization** – Dynamic carousels, 360-degree product viewers, interactive hotspots, and image comparative viewers that drive visual engagement.
-- **Forms & Feedback** – Signature pads, interactive sentiment feedback selectors, and privacy consent guards designed to streamline user input.
-- **Typography & Display** – Polished typing effects, text clamping, read time calculators, and countdown timers that draw attention to key content.
-- **Data & Utilities** – Responsive tables, scroll progress indicators, and self-contained A/B testing controllers that optimize interface performance.
+- **Media & Visualization** – Interactive carousels, 360-degree product viewers, image comparison sliders, hot-spots, and custom media players designed to drive user engagement.
+- **Forms & Feedback** – Signature capture fields, sentiment selectors, and privacy consent guards designed to streamline user input while respecting compliance standards.
+- **Typography & Display** – Typing effects, text rotators, line clamping, reading time calculators, and countdown timers that draw attention to key content.
+- **Data & Utilities** – Responsive, accessible tables, scroll progress indicators, and self-contained A/B testing controllers.
 
-## Key Value Drivers
+---
 
-- **Framework Agnostic** – Built on modern web standards, UIBit components operate seamlessly with React, Vue, Svelte, Angular, or vanilla HTML/JavaScript.
+## Core Values
+
+- **Framework Agnostic** – Built on standard Web Components APIs, UIBit elements run natively in any browser and connect seamlessly with React, Vue, Svelte, Angular, or vanilla HTML/JavaScript.
 - **Performance First** – Optimized rendering cycles and minimal bundle sizes ensure fast page load times and excellent Core Web Vitals.
-- **Accessibility Compliance** – Built with keyboard navigation and proper ARIA semantics as default design criteria.
-- **Flexible Customization** – Style components easily using standardized CSS custom properties and shadow parts to match any brand identity.
+- **Accessibility Compliance** – Every component is built with keyboard navigation and proper ARIA semantics as default design criteria to meet WCAG standards.
+- **Visual Flexibility** – Style components easily using standardized CSS custom properties and shadow parts to match any brand guidelines.
 
-## Explore the Library
+---
 
-Interactive demonstrations, design specifications, and implementation guidelines for all components are available on the [UIBit Documentation Site](https://rawlings.github.io/uibit/).
+## Getting Started
+
+To explore interactive demonstrations, design specifications, and implementation guidelines for all components, please visit the [UIBit Documentation Site](https://rawlings.github.io/uibit/).
+
+---
 
 ## Community & Resources
 
-To support a healthy and active development community, please refer to the following documents:
+- **[Changelog](CHANGELOG.md)** – View updates, additions, and history for each release.
+- **[Contributing Guide](CONTRIBUTING.md)** – Learn how to propose features, report bugs, or submit code.
+- **[Support Guide](SUPPORT.md)** – Find resources and support channels for help.
+- **[Security Policy](SECURITY.md)** – Report vulnerabilities safely.
+- **[Code of Conduct](CODE_OF_CONDUCT.md)** – Read our community behavior guidelines.
 
-* **[Changelog](CHANGELOG.md)** – View updates, additions, and history for each release.
-* **[Contributing Guide](CONTRIBUTING.md)** – Learn how to propose features, report bugs, or submit code.
-* **[Support Guide](SUPPORT.md)** – Find resources and support channels for help.
-* **[Security Policy](SECURITY.md)** – Report vulnerabilities safely.
-* **[Code of Conduct](CODE_OF_CONDUCT.md)** – Read our community behavior guidelines.
+---
 
-## Licensing
+## License
 
 Licensed under the [MIT License](LICENSE).

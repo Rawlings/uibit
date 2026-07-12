@@ -1,74 +1,25 @@
-# @uibit/video
+# Video
 
-A premium, customizable, and accessible web component wrapper for native `<video>` elements and `<iframe>` video embeds. 
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/video)
 
-Designed with Scandinavian minimal aesthetics, `@uibit/video` automatically replaces standard browser video player interfaces with a sleek, grayscale-themed control bar containing play/pause toggles, timeline scrubbing, volume controls, and fullscreen actions.
+Video provides a customizable web component wrapper for native `<video>` elements and `<iframe>` video embeds. It replaces standard browser control interfaces with a sleek grayscale control bar featuring timeline scrubbing, volume controls, and fullscreen actions.
 
-## Installation
+## Value Delivery
 
-```bash
-npm install @uibit/video
-# or
-pnpm add @uibit/video
-```
+- **Unified Aesthetics** – Wraps both native video files and third-party iframe embeds (e.g. YouTube or Vimeo) under a single, cohesive design style.
+- **Enhanced Overlay Interaction** – Displays a custom poster preview and circular play button that transitions to live playback on user interaction.
+- **Accessible Controls** – Implements responsive keyboard navigation for playback control, volume adjusting, and fullscreen triggers.
 
-## Usage
+## Ideal Applications
 
-### Native Video Element Wrapper
+- **Product Showcases** – High-resolution feature clips, animations, and video hero slots.
+- **Case Studies & Testimonials** – Client interviews or background reviews hosted on third-party video networks.
+- **Tutorials & Guides** – Embedded step-by-step videos inside help files or documentation articles.
 
-Simply wrap a standard HTML5 `<video>` element with `<uibit-video>`:
+## Further Information
 
-```html
-<uibit-video poster="https://example.com/poster.jpg">
-  <video src="https://example.com/video.mp4" loop muted></video>
-</uibit-video>
-```
+Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
-### Video Iframe Wrapper (YouTube, Vimeo, etc.)
+## Changelog
 
-Wrap a video embed `<iframe>`. The component displays the premium poster overlay and play button, and switches to the active iframe on user play interaction:
-
-```html
-<uibit-video poster="https://example.com/youtube-poster.jpg">
-  <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
-</uibit-video>
-```
-
-## API Reference
-
-### Properties / Attributes
-
-| Property | Attribute | Type | Default | Description |
-|---|---|---|---|---|
-| `poster` | `poster` | `string` | `""` | URL of the video poster/preview image. |
-| `autoPlay` | `auto-play` | `boolean` | `false` | Automatically starts playback on load. |
-| `loop` | `loop` | `boolean` | `false` | Loop the video playback. |
-| `muted` | `muted` | `boolean` | `false` | Mutes audio by default. |
-| `playsInline` | `plays-inline` | `boolean` | `false` | Allows inline video playback on mobile devices. |
-| `controls` | `controls` | `boolean` | `true` | Show custom interactive controls bar. |
-
-### Slots
-
-| Slot Name | Description |
-|---|---|
-| (default) | The slotted native `<video>` or `<iframe>` element. |
-
-### CSS Custom Properties
-
-| Custom Property | Default | Description |
-|---|---|---|
-| `--uibit-video-radius` | `0.5rem` | Border radius of the video player player container. |
-| `--uibit-video-bg` | `#000000` | Background of the video container. |
-| `--uibit-video-control-bg` | `rgba(17, 24, 39, 0.85)` | Background of the control bar. |
-| `--uibit-video-control-color` | `#ffffff` | Text and icon color inside the controls. |
-| `--uibit-video-primary-btn-bg` | `#ffffff` | Background of the center play button. |
-
-### Accessibility (A11y)
-
-- All custom controls include accessible labels (`aria-label`) and appropriate focus rings.
-- Supports keyboard controls:
-  - `Space` or `k`: Toggle play/pause.
-  - `m`: Toggle mute.
-  - `f`: Toggle fullscreen.
-  - `ArrowLeft` / `ArrowRight`: Seek backward/forward 5 seconds.
-  - `ArrowUp` / `ArrowDown`: Increase/decrease volume.
+Please see the [Changelog](CHANGELOG.md) for version history.

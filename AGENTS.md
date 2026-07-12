@@ -157,9 +157,18 @@ Audit, refine, and enforce multi-framework wrapper code-generation standards (An
 - Implement modern, framework-specific reactive bindings (e.g., Signal-based inputs/outputs).
 - Ensure proper form integration via native form adapters (like ControlValueAccessor or v-model).
 
-**Trigger:** Use when auditing, refactoring, or updating multi-framework codegen components
+### 10. **lit-copy-reviewer**
+Audit and refine UX writing, copywriting, and technical writing for tone, accessibility, and consistency.
+
+**Capabilities:**
+- Scan UI templates for user-facing copy, labels, and error messages
+- Audit README files, landing pages, and marketing copy for hype/buzzwords
+- Audit codebase comments and developer JSDoc annotations for patronizing language
+- Align written tone with the three target audiences (End Users, Evaluators, Implementing Engineers)
+
+**Trigger:** Use when reviewing, editing, or writing UI text, documentation, comments, or marketing copy
 ```bash
-agent --skill framework-wrapper-generator --args '{"action":"audit","framework":"angular"}'
+agent --skill lit-copy-reviewer --args '{"componentPath":"components/button"}'
 ```
 
 ## How to Use Skills
@@ -214,6 +223,15 @@ To ensure custom inputs participate in native forms seamlessly with zero custom 
 2. **Pure Native APIs**: Rely strictly on standard HTML5 form APIs. Do not expose custom non-native attributes, properties, or validation hooks (e.g. no custom hooks like `validationAnchor` or `performCustomValidation`).
 3. **Internal Focus Delegation**: Instead of inventing custom focus target configurations, custom elements must override the browser's standard `.focus(options?: FocusOptions)` method to delegate focus internally to their primary interactive sub-element (e.g., input, canvas, button) within the shadow root.
 4. **Standard Validation Lifecycle**: Use standard `setCustomValidity()` to perform custom constraints checks, and listen to standard native events (like `invalid`) when reacting to form submission states.
+
+## Writing and Copywriting Guidelines
+
+All user-facing copy, developer comments, JSDoc annotations, and documentation must conform strictly to UIBit's writing standards specified in [WRITING.md](file:///Users/rawlings/uibit/WRITING.md). Key rules:
+
+1. **Tone alignment:** Match target audiences (End Users are reassured; Evaluators get factual, high-signal copy; Implementers get precise technical explanations).
+2. **No marketing fluff:** Do not use hype words like "revolutionary", "game-changing", "next-generation".
+3. **No patronizing language:** Do not use words like "simply", "just", "obviously", "easy" in technical docs.
+4. **Sentence case:** Labels, button text, and error messages use sentence case. Error messages must follow the [Reason] + [Actionable Next Step] pattern.
 
 ## Integration with Development
 
