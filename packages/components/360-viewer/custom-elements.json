@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "360° product viewer driven by an array of sequential images.\nSupports drag, touch, auto-rotation, and keyboard controls.",
+          "description": "360° product viewer driven by an array of sequential images.",
           "name": "Viewer360",
           "cssProperties": [
             {
@@ -223,11 +223,13 @@
             },
             {
               "kind": "method",
-              "name": "next"
+              "name": "next",
+              "description": "\n\nAdvances the viewer to the next frame in the image sequence."
             },
             {
               "kind": "method",
-              "name": "prev"
+              "name": "prev",
+              "description": "\n\nReturns the viewer to the previous frame in the image sequence."
             },
             {
               "kind": "method",
@@ -356,10 +358,21 @@
               "fieldName": "showProgressBar"
             }
           ],
+          "cssStates": [
+            {
+              "name": "dragging",
+              "description": "Active when the user is dragging the image sequence."
+            },
+            {
+              "name": "rotating",
+              "description": "Active when auto-rotation is running."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "An interactive 360° product image sequence viewer component.\nSupports drag, touch, auto-rotation, and keyboard controls.",
           "tagName": "uibit-360-viewer",
           "customElement": true
         }

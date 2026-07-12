@@ -39,7 +39,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Analyzes the word count of its slotted content and renders a reading-time\nbadge. The calculation happens inside the shadow DOM via a slot\nchange observer — no backend metadata required.\n\nPlace your HTML content in the default slot. The component counts only text\nnodes, ignoring markup and hidden elements.",
+          "description": "Analyzes the word count of its slotted content and renders a reading-time",
           "name": "ReadTime",
           "cssProperties": [
             {
@@ -182,6 +182,7 @@
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A shadow DOM slotted text length reading time estimation indicator.\nbadge. The calculation happens inside the shadow DOM via a slot\nchange observer — no backend metadata required.\n\nPlace your HTML content in the default slot. The component counts only text\nnodes, ignoring markup and hidden elements.",
           "tagName": "uibit-read-time",
           "customElement": true
         }

@@ -4,12 +4,12 @@ import { UsageExample } from '../../../../types/docs';
 function ScrollContainerDemo() {
   return (
     <div
-      id="demo-scroll-box"
+      id="example-scroll-container"
       className="relative h-64 overflow-y-scroll"
       style={{ scrollbarWidth: 'thin' }}
     >
       <uibit-scroll-progress
-        target-selector="#demo-scroll-box"
+        target-selector="#example-scroll-container"
         className="sticky top-0 z-10 block"
       ></uibit-scroll-progress>
 

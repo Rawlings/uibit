@@ -7,6 +7,8 @@ import { styles } from './styles';
 
 /**
  * Interactive hotspot annotations for images. Display contextual tooltip
+
+ * @summary An interactive image hotspot component with animated markers and popovers.
  * cards on click or hover with custom content overlays and animations.
  *
  * @fires {HotspotItem} hotspot-click - Fired when a hotspot trigger is activated
@@ -33,7 +35,8 @@ import { styles } from './styles';
  * @csspart popover - The popover card
  * @csspart popover-content - The content area inside the popover
  * @csspart popover-close - The close button inside the popover
- */
+ 
+ * @cssstate active - Active when the hotspot popover is expanded.*/
 @customElement('uibit-hotspot')
 export class Hotspot extends UIBitElement {
   static styles = styles;

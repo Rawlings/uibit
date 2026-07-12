@@ -5,6 +5,8 @@ import { styles } from './styles';
 
 /**
  * Animates a numeric value from zero (or a custom start) up to the `value`
+
+ * @summary A scroll-triggered animated numeric counter component.
  * attribute once the element scrolls into the viewport. Supports easing,
  * decimal places, and custom formatting functions.
  *
@@ -19,7 +21,8 @@ import { styles } from './styles';
  * @cssprop [--uibit-number-increment-color=inherit] - Text color
  * @cssprop [--uibit-number-increment-font-family=inherit] - Font family
  * @cssprop [--uibit-number-increment-line-height=inherit] - Line height
- */
+ 
+ * @cssstate animating - Active when the count animation is running.*/
 @customElement('uibit-number-increment')
 export class NumberIncrement extends UIBitElement {
   static styles = styles;
@@ -32,8 +35,7 @@ export class NumberIncrement extends UIBitElement {
   @property({ type: Number }) duration = 1800;
   /** Number of decimal places to display. Used only if no custom formatter is provided. */
   @property({ type: Number }) decimals = 0;
-  /** BCP 47 locale string for number formatting (e.g. "en-US"). Defaults to browser locale if options is set. */
-  @property({ type: String }) locale = '';
+
   /** Options for Intl.NumberFormat. */
   @property({ type: Object }) options?: Intl.NumberFormatOptions;
   /** Custom formatter function to format the number for display. Overrides locale and options. */
@@ -90,10 +92,14 @@ export class NumberIncrement extends UIBitElement {
     if (this.formatter) {
       return this.formatter(n);
     }
+    const locale = this.resolvedLocale;
     if (this.options || this.locale) {
-      return new Intl.NumberFormat(this.locale || undefined, this.options).format(n);
+      return new Intl.NumberFormat(locale, this.options || undefined).format(n);
     }
-    return n.toFixed(this.decimals);
+    return new Intl.NumberFormat(locale, {
+      minimumFractionDigits: this.decimals,
+      maximumFractionDigits: this.decimals,
+    }).format(n);
   }
 
   private _start() {

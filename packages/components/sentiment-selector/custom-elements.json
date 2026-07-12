@@ -47,7 +47,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Micro-feedback widget displaying a horizontal row of expressive face icons.\nTapping or clicking an option scales it up with a spring animation and fires\na scored event. Unselected options are dimmed to focus attention on the\ncurrent selection.\n\nCustomize the option set by setting the `options` property programmatically\nor by passing a JSON array string on the `options` attribute. Each option\nreferences an icon name from the UIBit icon registry.",
+          "description": "Micro-feedback widget displaying a horizontal row of expressive face icons.",
           "name": "SentimentSelector",
           "cssProperties": [
             {
@@ -254,6 +254,12 @@
               "fieldName": "showLabel"
             }
           ],
+          "cssStates": [
+            {
+              "name": "selected",
+              "description": "Active when a rating value has been selected."
+            }
+          ],
           "mixins": [
             {
               "name": "FormAssociatedMixin",
@@ -264,6 +270,7 @@
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A modern, accessible user rating and sentiment scale selector component.\nTapping or clicking an option scales it up with a spring animation and fires\na scored event. Unselected options are dimmed to focus attention on the\ncurrent selection.\n\nCustomize the option set by setting the `options` property programmatically\nor by passing a JSON array string on the `options` attribute. Each option\nreferences an icon name from the UIBit icon registry.",
           "tagName": "uibit-sentiment-selector",
           "customElement": true
         }

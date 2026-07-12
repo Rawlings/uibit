@@ -6,6 +6,8 @@ import { styles } from './styles';
 
 /**
  * Reveals a synchronized secondary "xray" image through a circular lens that
+
+ * @summary A scroll-triggered overlay image reveal effect component.
  * follows the user's cursor or touch point over the primary image.
  *
  * Place the primary image in the default slot and the reveal image in the
@@ -19,7 +21,8 @@ import { styles } from './styles';
  *
  * @cssprop [--uibit-image-reveal-lens-size=12rem] - Diameter of the circular lens
  * @cssprop [--uibit-image-reveal-lens-shadow=0 0 0 0.1875rem #ffffff, 0 0.5rem 2rem rgba(0,0,0,0.35)] - Box shadow of the lens ring
- */
+ 
+ * @cssstate revealed - Active when the image has completed its reveal transition.*/
 @customElement('uibit-image-reveal')
 export class ImageReveal extends UIBitElement {
   static styles = styles;

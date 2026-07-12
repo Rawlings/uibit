@@ -1,6 +1,6 @@
 {
   "name": "@uibit/particles",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Renders animated canvas backgrounds across thirteen distinct modes — from drifting particles and code rain to flow fields, aurora curtains, and pulsing grids. All modes react to mouse gestures and compose cleanly as hero backgrounds.",
   "type": "module",
   "main": "./dist/index.js",
@@ -31,9 +31,9 @@
     "custom-elements.json"
   ],
   "scripts": {
-    "build": "cem analyze --globs 'src/**/*.ts' --litelement && uibit-codegen --package . && tsc",
-    "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
-    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement",
+    "build": "cem analyze --config ../custom-elements-manifest.config.js && uibit-codegen --package . && tsc",
+    "dev": "concurrently \"cem analyze --config ../custom-elements-manifest.config.js --watch\" \"tsc --watch\"",
+    "analyze": "cem analyze --config ../custom-elements-manifest.config.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run -c ../../../vitest.config.ts --passWithNoTests"
   },

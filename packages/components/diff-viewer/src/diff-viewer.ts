@@ -7,6 +7,8 @@ import type { DiffOp } from './diff';
 
 /**
  * Side-by-side or inline comparison block for two blocks of text or code.
+
+ * @summary A high-performance side-by-side or inline code diff viewer component.
  * Computes a line-level diff internally using LCS — no external libraries needed.
  * Deleted lines are highlighted red, inserted lines green, in the familiar
  * code-review style.
@@ -31,7 +33,9 @@ import type { DiffOp } from './diff';
  * @cssprop [--uibit-diff-viewer-insert-color=#166534] - Inserted-line text color
  * @cssprop [--uibit-diff-viewer-insert-gutter-bg=#dcfce7] - Inserted-line gutter background
  * @cssprop [--uibit-diff-viewer-equal-color=var(--uibit-text-secondary)] - Unchanged-line text color
- */
+ 
+ * @cssstate split - Active when in split-pane side-by-side view.
+ * @cssstate unified - Active when in unified inline view.*/
 @customElement('uibit-diff-viewer')
 export class DiffViewer extends UIBitElement {
   static styles = styles;

@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Side-by-side or inline comparison block for two blocks of text or code.\nComputes a line-level diff internally using LCS — no external libraries needed.\nDeleted lines are highlighted red, inserted lines green, in the familiar\ncode-review style.\n\nSupply the two texts via the `old` and `new` properties (or `old-text` /\n`new-text` attributes for HTML usage). Switch between layouts with the\n`mode` attribute.",
+          "description": "Side-by-side or inline comparison block for two blocks of text or code.",
           "name": "DiffViewer",
           "cssProperties": [
             {
@@ -230,10 +230,21 @@
               "fieldName": "showLineNumbers"
             }
           ],
+          "cssStates": [
+            {
+              "name": "split",
+              "description": "Active when in split-pane side-by-side view."
+            },
+            {
+              "name": "unified",
+              "description": "Active when in unified inline view."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A high-performance side-by-side or inline code diff viewer component.\nComputes a line-level diff internally using LCS — no external libraries needed.\nDeleted lines are highlighted red, inserted lines green, in the familiar\ncode-review style.\n\nSupply the two texts via the `old` and `new` properties (or `old-text` /\n`new-text` attributes for HTML usage). Switch between layouts with the\n`mode` attribute.",
           "tagName": "uibit-diff-viewer",
           "customElement": true
         }

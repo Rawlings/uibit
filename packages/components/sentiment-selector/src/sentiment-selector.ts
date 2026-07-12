@@ -29,6 +29,8 @@ const DEFAULT_OPTIONS: SentimentOption[] = [
 
 /**
  * Micro-feedback widget displaying a horizontal row of expressive face icons.
+
+ * @summary A modern, accessible user rating and sentiment scale selector component.
  * Tapping or clicking an option scales it up with a spring animation and fires
  * a scored event. Unselected options are dimmed to focus attention on the
  * current selection.
@@ -55,7 +57,8 @@ const DEFAULT_OPTIONS: SentimentOption[] = [
  * @cssprop [--uibit-sentiment-selector-label-font-weight=500] - Label font weight
  * @cssprop [--uibit-sentiment-selector-label-color=#6b7280] - Label color
  * @cssprop [--uibit-sentiment-selector-gap=0.625rem] - Gap between track and label
- */
+ 
+ * @cssstate selected - Active when a rating value has been selected.*/
 @customElement('uibit-sentiment-selector')
 export class SentimentSelector extends FormAssociatedMixin(UIBitElement) {
   static styles = styles;

@@ -39,7 +39,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Thin progress bar that tracks scroll position — either the page or a\ncustom scrollable element — and fills as the user scrolls down.",
+          "description": "Thin progress bar that tracks scroll position — either the page or a",
           "name": "ScrollProgress",
           "cssProperties": [
             {
@@ -136,6 +136,7 @@
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A responsive viewport or container scroll progress indicator bar.\ncustom scrollable element — and fills as the user scrolls down.",
           "tagName": "uibit-scroll-progress",
           "customElement": true
         }

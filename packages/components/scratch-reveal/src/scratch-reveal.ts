@@ -5,6 +5,8 @@ import { styles } from './styles';
 
 /**
  * Canvas-based scratch card that reveals slotted content as the user
+
+ * @summary An interactive canvas-based scratch card reveal overlay component.
  * scratches over a configurable overlay layer.
  *
  * @fires {{ percentage: number }} scratch-progress - Fired as the user scratches; `detail.percentage` is 0–100
@@ -23,7 +25,8 @@ import { styles } from './styles';
  * @cssprop [--uibit-scratch-reveal-overlay-color=#d1d5db] - Fill color of the scratchable overlay
  * @cssprop [--uibit-scratch-reveal-instructions-color=rgba(0,0,0,0.4)] - Color of the scratch instruction hint
  * @cssprop [--uibit-scratch-reveal-instructions-font-size=0.875rem] - Font size of the scratch instruction hint
- */
+ 
+ * @cssstate revealed - Active when the scratch card has reached the reveal threshold.*/
 @customElement('uibit-scratch-reveal')
 export class ScratchReveal extends UIBitElement {
   static styles = styles;
@@ -181,6 +184,15 @@ export class ScratchReveal extends UIBitElement {
       this._rafId = undefined;
     }
   }
+
+  /**
+
+
+   * Resets the scratch card canvas overlay to its fully obscured state.
+
+
+   */
+
 
   reset() {
     this.isRevealed = false;

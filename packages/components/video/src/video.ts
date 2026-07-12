@@ -9,6 +9,14 @@ import { styles } from './styles';
  * Enhanced custom video component that wraps a native `<video>` or `<iframe>` element.
  * Provides custom interactive player controls with Scandinavian design aesthetics.
  *
+ * @summary A custom element wrapper for native video and iframe elements, providing a consistent, customizable, and premium player controls experience.
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video
+ * @cssstate playing - Fired when the video is actively playing.
+ * @cssstate fullscreen - Active when in fullscreen mode.
+ * @csspart controls - The custom controls bar.
+ * @fires play - Emitted when playback starts.
+ * @fires pause - Emitted when playback pauses.
+ *
  * @slot - The default slot where the native `<video>` or `<iframe>` element is placed.
  *
  * @cssprop [--uibit-video-radius=0.5rem] - Border radius of the video player.
@@ -22,10 +30,15 @@ import { styles } from './styles';
 export class Video extends UIBitElement {
   static styles = styles;
 
-  /** Poster image URL. Also used as background for iframes before playing. */
+  /**
+   * Poster image URL. Also used as background for iframes before playing.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#poster
+   */
   @property({ type: String }) poster = '';
 
-  /** Show player controls. */
+  /**
+   * Show player controls.
+   */
   @property({ type: Boolean }) controls = true;
 
   @state() private _isPlaying = false;
@@ -127,8 +140,10 @@ export class Video extends UIBitElement {
     this._detectSlottedElements();
   }
 
-  // ── Actions ────────────────────────────────────────────────────
-
+  /**
+   * Toggles the playback state of the video between play and pause.
+   * @see toggleMute
+   */
   togglePlay() {
     if (this._isIframeMode) {
       this._playIframe();
@@ -157,6 +172,9 @@ export class Video extends UIBitElement {
     }
   }
 
+  /**
+   * Toggles the audio mute state.
+   */
   toggleMute() {
     if (!this._videoEl) return;
     this._videoEl.muted = !this._videoEl.muted;

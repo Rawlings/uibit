@@ -1,6 +1,6 @@
 {
   "name": "@uibit/carousel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Native, accessible carousel using CSS scroll-snap and scroll-driven animations. Perfect for image galleries, testimonials, and product showcases.",
   "type": "module",
   "main": "./dist/index.js",
@@ -31,9 +31,9 @@
     "custom-elements.json"
   ],
   "scripts": {
-    "build": "cem analyze --globs 'src/**/*.ts' --litelement && uibit-codegen --package . && tsc",
-    "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
-    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement",
+    "build": "cem analyze --config ../custom-elements-manifest.config.js && uibit-codegen --package . && tsc",
+    "dev": "concurrently \"cem analyze --config ../custom-elements-manifest.config.js --watch\" \"tsc --watch\"",
+    "analyze": "cem analyze --config ../custom-elements-manifest.config.js",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [

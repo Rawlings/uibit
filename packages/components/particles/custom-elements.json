@@ -55,7 +55,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An interactive canvas effect element. Creates dynamic background visuals\nacross many modes: particles, abstract art, grids, flow fields, and more.",
+          "description": "An interactive canvas effect element. Creates dynamic background visuals",
           "name": "Particles",
           "cssProperties": [
             {
@@ -381,10 +381,17 @@
               "fieldName": "interactiveRadius"
             }
           ],
+          "cssStates": [
+            {
+              "name": "paused",
+              "description": "Active when particle animations are suspended."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A lightweight canvas-based interactive particle background effect.\nacross many modes: particles, abstract art, grids, flow fields, and more.",
           "tagName": "uibit-particles",
           "customElement": true
         }

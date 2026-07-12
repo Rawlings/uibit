@@ -31,20 +31,41 @@ export function ComponentPlayground({ tagName, manifest, Demo }: ComponentPlaygr
     (m: any) => m.kind === 'field' && m.attribute && m.privacy !== 'private' && m.privacy !== 'protected'
   );
 
-  // Initialize controls state with default values from CEM
+  // Initialize controls state from the rendered DOM element's attributes/properties if available, falling back to CEM defaults
   useEffect(() => {
     const initial: Record<string, any> = {};
+    const customElement = wrapperRef.current?.querySelector(tagName) as any;
+
     configurableAttrs.forEach((attr) => {
       const name = attr.attribute!;
       const isBool = attr.type?.text?.includes('boolean') || attr.default === 'true' || attr.default === 'false';
       const isNum = attr.type?.text?.includes('number') || !isNaN(Number(attr.default));
 
-      if (isBool) {
-        initial[name] = attr.default === 'true';
-      } else if (isNum) {
-        initial[name] = attr.default !== undefined ? Number(attr.default) : 0;
+      let initialVal: any = undefined;
+      if (customElement) {
+        if (customElement.hasAttribute(name)) {
+          initialVal = customElement.getAttribute(name);
+        } else if (customElement[name] !== undefined && customElement[name] !== null) {
+          initialVal = customElement[name];
+        }
+      }
+
+      if (initialVal !== undefined && initialVal !== null) {
+        if (isBool) {
+          initial[name] = initialVal === 'true' || initialVal === true;
+        } else if (isNum) {
+          initial[name] = Number(initialVal);
+        } else {
+          initial[name] = typeof initialVal === 'object' ? JSON.stringify(initialVal) : String(initialVal);
+        }
       } else {
-        initial[name] = attr.default ? attr.default.replace(/['"]/g, '') : '';
+        if (isBool) {
+          initial[name] = attr.default === 'true';
+        } else if (isNum) {
+          initial[name] = attr.default !== undefined ? Number(attr.default) : 0;
+        } else {
+          initial[name] = attr.default ? attr.default.replace(/['"]/g, '') : '';
+        }
       }
     });
     setControls(initial);

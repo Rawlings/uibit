@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Interactive hotspot annotations for images. Display contextual tooltip\ncards on click or hover with custom content overlays and animations.",
+          "description": "Interactive hotspot annotations for images. Display contextual tooltip",
           "name": "Hotspot",
           "cssProperties": [
             {
@@ -285,10 +285,17 @@
               "fieldName": "trigger"
             }
           ],
+          "cssStates": [
+            {
+              "name": "active",
+              "description": "Active when the hotspot popover is expanded."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "An interactive image hotspot component with animated markers and popovers.\ncards on click or hover with custom content overlays and animations.",
           "tagName": "uibit-hotspot",
           "customElement": true
         }

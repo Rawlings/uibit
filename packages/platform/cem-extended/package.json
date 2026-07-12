@@ -1,0 +1,37 @@
+{
+  "name": "@uibit/cem-extended",
+  "version": "0.2.0",
+  "description": "Extended Custom Elements Manifest generator plugin for UIBit components",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "compile": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "typescript": "7.0.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0 || ^7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rawlings/uibit",
+    "directory": "packages/platform/cem-extended"
+  }
+}

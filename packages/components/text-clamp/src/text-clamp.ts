@@ -5,6 +5,8 @@ import { styles } from './styles';
 
 /**
  * Clamps slotted content to an exact line count. When content overflows the
+
+ * @summary A multi-line text truncation and clamping component with a dynamic "Read More" button.
  * clamped height a "More" toggle appears inline at the truncation point.
  * Clicking it expands the block; clicking "Less" collapses it again.
  *
@@ -22,7 +24,9 @@ import { styles } from './styles';
  * @cssprop [--uibit-text-clamp-toggle-color=currentColor] - Toggle button color
  * @cssprop [--uibit-text-clamp-toggle-font-weight=600] - Toggle button font weight
  * @cssprop [--uibit-text-clamp-toggle-decoration=underline] - Toggle button text decoration
- */
+ 
+ * @cssstate clamped - Active when the text content is currently truncated.
+ * @cssstate expanded - Active when the full text content is visible.*/
 @customElement('uibit-text-clamp')
 export class TextClamp extends UIBitElement {
   static styles = styles;

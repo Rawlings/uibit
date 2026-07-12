@@ -1,6 +1,6 @@
 {
   "name": "@uibit/effect-trigger",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A behavioral engine that intercepts user actions (click, hover, visible) on standard DOM elements to trigger custom particle animations, physics-based viewport crossings, or micro-feedback flows using slotted SVGs or markup templates.",
   "type": "module",
   "main": "./dist/index.js",
@@ -30,9 +30,9 @@
     "custom-elements.json"
   ],
   "scripts": {
-    "build": "cem analyze --globs 'src/**/*.ts' --litelement && uibit-codegen --package . && tsc",
-    "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
-    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement",
+    "build": "cem analyze --config ../custom-elements-manifest.config.js && uibit-codegen --package . && tsc",
+    "dev": "concurrently \"cem analyze --config ../custom-elements-manifest.config.js --watch\" \"tsc --watch\"",
+    "analyze": "cem analyze --config ../custom-elements-manifest.config.js",
     "typecheck": "tsc --noEmit",
     "test": "vitest run -c ../../../vitest.config.ts --passWithNoTests"
   },

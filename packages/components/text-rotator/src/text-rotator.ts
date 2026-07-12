@@ -6,6 +6,8 @@ import { styles } from './styles';
 
 /**
  * Cycles through an array of phrases inside a static sentence by animating between
+
+ * @summary A rotating text carousel component with smooth CSS animation transitions.
  * items with a vertical slide or 3D flip transition. Designed to highlight changing
  * value propositions without motion outside the component boundary.
  *
@@ -20,7 +22,8 @@ import { styles } from './styles';
  * @cssprop [--uibit-text-rotator-font-family=inherit] - Font family
  * @cssprop [--uibit-text-rotator-line-height=inherit] - Line height
  * @cssprop [--uibit-text-rotator-duration=0.4s] - Transition animation duration
- */
+ 
+ * @cssstate rotating - Active when the text transition is in progress.*/
 @customElement('uibit-text-rotator')
 export class TextRotator extends UIBitElement {
   static styles = styles;

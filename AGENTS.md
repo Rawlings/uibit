@@ -37,10 +37,8 @@ Generate new Lit web components with full scaffolding.
 - Create corresponding test files
 - Generate documentation stubs
 
-**Trigger:** Use when starting a new component from scratch
-```bash
-agent --skill lit-component-generator --args '{"componentName":"MyButton","category":"forms"}'
-```
+**Trigger:** Use when starting a new component from scratch:
+> "Generate a new Lit component named MyButton in the forms category."
 
 ### 2. **lit-a11y-audit**
 Audit Lit components for accessibility compliance.
@@ -53,10 +51,8 @@ Audit Lit components for accessibility compliance.
 - Suggest fixes for accessibility violations
 - Generate accessibility test cases
 
-**Trigger:** Use when reviewing component accessibility
-```bash
-agent --skill lit-a11y-audit --args '{"componentPath":"components/button"}'
-```
+**Trigger:** Use when reviewing component accessibility:
+> "Run a lit-a11y-audit on packages/components/button."
 
 ### 3. **lit-component-refactor**
 Refactor and optimize existing Lit components.
@@ -69,10 +65,8 @@ Refactor and optimize existing Lit components.
 - Improve TypeScript typing
 - Enhance performance
 
-**Trigger:** Use when improving component quality
-```bash
-agent --skill lit-component-refactor --args '{"componentPath":"components/button"}'
-```
+**Trigger:** Use when improving component quality:
+> "Refactor the Lit component at packages/components/button to improve performance and code quality."
 
 ### 4. **lit-docs-generator**
 Auto-generate component documentation.
@@ -85,10 +79,8 @@ Auto-generate component documentation.
 - Create accessibility guidelines
 - Generate TypeScript prop definitions table
 
-**Trigger:** Use when documenting components
-```bash
-agent --skill lit-docs-generator --args '{"componentPath":"components/button"}'
-```
+**Trigger:** Use when documenting components:
+> "Generate component documentation for packages/components/button."
 
 ### 5. **lit-test-generator**
 Generate comprehensive test suites for Lit components.
@@ -101,10 +93,8 @@ Generate comprehensive test suites for Lit components.
 - Create prop validation tests
 - Mock Lit testing utilities
 
-**Trigger:** Use for test-driven development
-```bash
-agent --skill lit-test-generator --args '{"componentPath":"components/button"}'
-```
+**Trigger:** Use for test-driven development:
+> "Create a comprehensive test suite for packages/components/button."
 
 ### 6. **lit-build-optimizer**
 Optimize build configuration and output.
@@ -117,10 +107,8 @@ Optimize build configuration and output.
 - Generate build performance report
 - Suggest optimization strategies
 
-**Trigger:** Use for production build preparation
-```bash
-agent --skill lit-build-optimizer --args '{"packageName":"@uibit/button"}'
-```
+**Trigger:** Use for production build preparation:
+> "Audit and optimize the build configuration for @uibit/button."
 
 ### 7. **agentic-harness-optimizer**
 Audit, optimize, and continuously upgrade agentic guidelines, skills, and templates.
@@ -131,10 +119,8 @@ Audit, optimize, and continuously upgrade agentic guidelines, skills, and templa
 - Scaffold new skills and optimize configuration files
 - Refactor templates to align with style rules
 
-**Trigger:** Use when identifying reusable architectural patterns or optimization opportunities in the agentic harness
-```bash
-agent --skill agentic-harness-optimizer --args '{"action":"audit"}'
-```
+**Trigger:** Use when identifying reusable architectural patterns or optimization opportunities in the agentic harness:
+> "Audit and optimize our agentic guidelines and skills."
 
 ### 8. **web-architect**
 Senior Web Architect persona for leading tasks and planning next steps.
@@ -144,10 +130,8 @@ Senior Web Architect persona for leading tasks and planning next steps.
 - Enforce Web Component best practices and DESIGN.md constraints
 - Always generate structured Next Steps plans upon task completion
 
-**Trigger:** Use to align development mindset, perform design review, or structure roadmap planning
-```bash
-agent --skill web-architect --args '{"action":"align","componentPath":"packages/components/button"}'
-```
+**Trigger:** Use to align development mindset, perform design review, or structure roadmap planning:
+> "Act as a web architect and align packages/components/button with best practices."
 
 ### 9. **framework-wrapper-generator**
 Audit, refine, and enforce multi-framework wrapper code-generation standards (Angular, React, Vue, Svelte).
@@ -166,10 +150,20 @@ Audit and refine UX writing, copywriting, and technical writing for tone, access
 - Audit codebase comments and developer JSDoc annotations for patronizing language
 - Align written tone with the three target audiences (End Users, Evaluators, Implementing Engineers)
 
-**Trigger:** Use when reviewing, editing, or writing UI text, documentation, comments, or marketing copy
-```bash
-agent --skill lit-copy-reviewer --args '{"componentPath":"components/button"}'
-```
+**Trigger:** Use when reviewing, editing, or writing UI text, documentation, comments, or marketing copy:
+> "Review and refine copy in packages/components/button for tone and clarity."
+
+### 11. **agentic-release-manager**
+Audit pending changes and generate changeset files autonomously.
+
+**Capabilities:**
+- Scan local modifications or git commits relative to base branches.
+- Automatically determine appropriate SemVer type (patch, minor, major).
+- Draft changelog descriptions matching WRITING.md standards.
+- Write changeset markdown files directly to `.changeset/`.
+
+**Trigger:** Use when auditing pending changes or generating release changesets:
+> "Run the agentic-release-manager skill to generate the required changeset files for our recent changes."
 
 ## How to Use Skills
 

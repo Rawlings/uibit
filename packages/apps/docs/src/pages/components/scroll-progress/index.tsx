@@ -8,18 +8,16 @@ import windowScrollRaw from './examples/window-scroll?raw';
 
 function ScrollProgressDemo() {
   return (
-    <div
-      id="demo-scroll-box"
-      className="relative h-64 overflow-y-scroll"
-      style={{ scrollbarWidth: 'thin' }}
-    >
+    <div>
       <uibit-scroll-progress
-        target-selector="#demo-scroll-box"
-        className="sticky top-0 z-10 block"
+        className="fixed top-0 left-0 right-0 z-50 block"
       ></uibit-scroll-progress>
 
       <div className="space-y-4 py-2">
-        {Array.from({ length: 10 }).map((_, i) => (
+        <p className="text-xs text-gray-500 italic">
+          Note: By default, the progress bar tracks the browser window scroll position. Scroll the page to see it fill at the very top of the screen.
+        </p>
+        {Array.from({ length: 4 }).map((_, i) => (
           <p key={i} className="text-sm text-gray-600 leading-relaxed">
             Paragraph {i + 1} — Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
@@ -40,27 +38,8 @@ const data: ComponentDocData = {
   manifest,
   Demo: ScrollProgressDemo,
   demoCode: {
-    html: `<div id="scrollable-block" style="height: 24rem; overflow-y: scroll; position: relative;">
-  <uibit-scroll-progress
-    target-selector="#scrollable-block"
-    class="sticky top-0 z-10 block"
-  ></uibit-scroll-progress>
-  <div style="padding: 1.5rem;">
-    <!-- scrollable content -->
-  </div>
-</div>`,
-    react: `<div
-  id="scrollable-block"
-  className="relative h-96 overflow-y-scroll"
->
-  <uibit-scroll-progress
-    target-selector="#scrollable-block"
-    class="sticky top-0 z-10 block"
-  ></uibit-scroll-progress>
-  <div className="p-6">
-    {/* scrollable content */}
-  </div>
-</div>`,
+    html: `<uibit-scroll-progress class="fixed top-0 left-0 right-0 z-50 block"></uibit-scroll-progress>`,
+    react: `<uibit-scroll-progress className="fixed top-0 left-0 right-0 z-50 block" />`,
   },
   examples: processedExamples,
   a11y: {

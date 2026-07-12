@@ -1,5 +1,6 @@
 import { LitElement, css } from 'lit';
 import type { CSSResultGroup, PropertyDeclaration } from 'lit';
+import { property } from 'lit/decorators.js';
 
 /**
  * Utility to convert camelCase to kebab-case.
@@ -14,6 +15,19 @@ function camelToKebab(str: string): string {
  * automatic cleanup/disposable tracking, and auto-injected reset styles.
  */
 export class UIBitElement extends LitElement {
+  /** BCP 47 locale string for formatting and localization. Defaults to inherited document language. */
+  @property({ type: String }) locale = '';
+
+  /**
+   * Resolves the active locale for formatting and localization.
+   * Checks the `locale` property first, then traverses up the DOM to find
+   * the nearest ancestor with a `lang` attribute, and finally falls back
+   * to undefined (which defaults to browser locale).
+   */
+  get resolvedLocale(): string | undefined {
+    return this.locale || this.closest('[lang]')?.getAttribute('lang') || undefined;
+  }
+
   private _disposables: Set<() => void> = new Set();
 
   /**

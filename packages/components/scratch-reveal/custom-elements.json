@@ -31,7 +31,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Canvas-based scratch card that reveals slotted content as the user\nscratches over a configurable overlay layer.",
+          "description": "Canvas-based scratch card that reveals slotted content as the user",
           "name": "ScratchReveal",
           "cssProperties": [
             {
@@ -228,7 +228,8 @@
             },
             {
               "kind": "method",
-              "name": "reset"
+              "name": "reset",
+              "description": "\n\nResets the scratch card canvas overlay to its fully obscured state."
             }
           ],
           "events": [
@@ -258,10 +259,17 @@
               "fieldName": "revealThreshold"
             }
           ],
+          "cssStates": [
+            {
+              "name": "revealed",
+              "description": "Active when the scratch card has reached the reveal threshold."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "An interactive canvas-based scratch card reveal overlay component.\nscratches over a configurable overlay layer.",
           "tagName": "uibit-scratch-reveal",
           "customElement": true
         }

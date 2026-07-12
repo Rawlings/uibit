@@ -26,6 +26,8 @@ export const ECOSYSTEM: NavigationItem[] = [
   { id: 'base-class', title: 'Base Class', to: '/packages/base-class', category: 'Ecosystem' },
   { id: 'form-internals', title: 'Form Internals', to: '/packages/form-internals', category: 'Ecosystem' },
   { id: 'hmr', title: 'Vite Plugin WC HMR', to: '/packages/hmr', category: 'Ecosystem' },
+  { id: 'cem-extended', title: 'CEM Extended', to: '/packages/cem-extended', category: 'Ecosystem' },
+  { id: 'cem-mcp', title: 'CEM MCP Server', to: '/packages/cem-mcp', category: 'Ecosystem' },
 ];
 
 export const CATEGORY_ORDER = [

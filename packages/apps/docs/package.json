@@ -1,6 +1,6 @@
 {
   "name": "@uibit/docs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Documentation site for UIBit components",
   "type": "module",
   "private": true,
@@ -37,15 +37,17 @@
     "@uibit/video": "workspace:*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.18.1"
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.18.1",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
-    "@uibit/vite-plugin-wc-hmr": "workspace:*",
     "@tailwindcss/vite": "^4.3.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
+    "@uibit/vite-plugin-wc-hmr": "workspace:*",
     "@vitejs/plugin-react": "^4.7.0",
     "@vitejs/plugin-react-swc": "^3.11.0",
     "postcss": "^8.5.17",

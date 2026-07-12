@@ -100,6 +100,12 @@
               "default": "#ffffff"
             }
           ],
+          "cssParts": [
+            {
+              "description": "The custom controls bar.",
+              "name": "controls"
+            }
+          ],
           "slots": [
             {
               "description": "The default slot where the native `<video>` or `<iframe>` element is placed.",
@@ -115,7 +121,8 @@
               },
               "default": "''",
               "description": "Poster image URL. Also used as background for iframes before playing.",
-              "attribute": "poster"
+              "attribute": "poster",
+              "see": "://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#poster"
             },
             {
               "kind": "field",
@@ -260,7 +267,8 @@
             },
             {
               "kind": "method",
-              "name": "togglePlay"
+              "name": "togglePlay",
+              "description": "Toggles the playback state of the video between play and pause."
             },
             {
               "kind": "method",
@@ -269,7 +277,8 @@
             },
             {
               "kind": "method",
-              "name": "toggleMute"
+              "name": "toggleMute",
+              "description": "Toggles the audio mute state."
             },
             {
               "kind": "method",
@@ -429,6 +438,16 @@
               ]
             }
           ],
+          "events": [
+            {
+              "description": "Emitted when playback starts.",
+              "name": "play"
+            },
+            {
+              "description": "Emitted when playback pauses.",
+              "name": "pause"
+            }
+          ],
           "attributes": [
             {
               "name": "poster",
@@ -449,10 +468,22 @@
               "fieldName": "controls"
             }
           ],
+          "cssStates": [
+            {
+              "name": "playing",
+              "description": "Fired when the video is actively playing."
+            },
+            {
+              "name": "fullscreen",
+              "description": "Active when in fullscreen mode."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A custom element wrapper for native video and iframe elements, providing a consistent, customizable, and premium player controls experience.",
+          "see": "://developer.mozilla.org/en-US/docs/Web/HTML/Element/video",
           "tagName": "uibit-video",
           "customElement": true
         }

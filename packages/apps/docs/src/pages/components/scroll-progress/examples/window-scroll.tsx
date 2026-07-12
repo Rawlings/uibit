@@ -3,18 +3,16 @@ import { UsageExample } from '../../../../types/docs';
 
 function WindowScrollDemo() {
   return (
-    <div
-      id="window-scroll-demo-box"
-      className="relative h-64 overflow-y-scroll"
-      style={{ scrollbarWidth: 'thin' }}
-    >
+    <div>
       <uibit-scroll-progress
-        target-selector="#window-scroll-demo-box"
-        className="sticky top-0 z-10 block"
+        className="fixed top-0 left-0 right-0 z-50 block"
       ></uibit-scroll-progress>
 
       <div className="space-y-4 py-2">
-        {Array.from({ length: 8 }).map((_, i) => (
+        <p className="text-xs text-gray-500 italic">
+          Note: Scroll the browser window to see the progress bar filled at the very top of the viewport.
+        </p>
+        {Array.from({ length: 4 }).map((_, i) => (
           <p key={i} className="text-sm text-gray-600 leading-relaxed">
             Paragraph {i + 1} — Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua.

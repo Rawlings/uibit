@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Accessible, scroll-driven carousel with keyboard navigation, auto-play,\nand configurable items-per-view via CSS custom properties.",
+          "description": "Accessible, scroll-driven carousel with keyboard navigation, auto-play,",
           "name": "UIBitCarousel",
           "cssProperties": [
             {
@@ -350,11 +350,13 @@
             },
             {
               "kind": "method",
-              "name": "prev"
+              "name": "prev",
+              "description": "\n\nReturns the carousel to the previous slide."
             },
             {
               "kind": "method",
-              "name": "next"
+              "name": "next",
+              "description": "\n\nAdvances the carousel to the next slide."
             },
             {
               "kind": "method",
@@ -366,7 +368,8 @@
                     "text": "number"
                   }
                 }
-              ]
+              ],
+              "description": "\n\nNavigates the carousel to a specific slide index."
             },
             {
               "kind": "method",
@@ -430,10 +433,21 @@
               "fieldName": "loop"
             }
           ],
+          "cssStates": [
+            {
+              "name": "playing",
+              "description": "Active when auto-play is running."
+            },
+            {
+              "name": "dragging",
+              "description": "Active when dragging viewport."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A premium, scroll-driven carousel component with full accessibility controls.\nand configurable items-per-view via CSS custom properties.",
           "tagName": "uibit-carousel",
           "customElement": true
         }

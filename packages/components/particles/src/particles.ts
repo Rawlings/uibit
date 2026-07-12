@@ -6,6 +6,8 @@ import type { Particle, ParticleHoverEffect, ParticleMode, NetworkPulse } from '
 
 /**
  * An interactive canvas effect element. Creates dynamic background visuals
+
+ * @summary A lightweight canvas-based interactive particle background effect.
  * across many modes: particles, abstract art, grids, flow fields, and more.
  *
  * @cssprop [--uibit-particles-color=#6b7280] - Space or comma-separated list of colors
@@ -13,7 +15,8 @@ import type { Particle, ParticleHoverEffect, ParticleMode, NetworkPulse } from '
  * @cssprop [--uibit-particles-opacity=1] - Opacity of the canvas overlay
  * @cssprop [--uibit-particles-min-size=0.0625rem] - Minimum particle size
  * @cssprop [--uibit-particles-max-size=0.1875rem] - Maximum particle size
- */
+ 
+ * @cssstate paused - Active when particle animations are suspended.*/
 @customElement('uibit-particles')
 export class Particles extends UIBitElement {
   static styles = styles;

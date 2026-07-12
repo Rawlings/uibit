@@ -4,6 +4,8 @@ import { state } from 'lit/decorators.js';
 
 /**
  * Gate any content behind a consent prompt. Shows the `placeholder` slot until
+
+ * @summary A cookie and privacy consent guard wrapping third-party embedded resources.
  * the user grants consent, then reveals the default slot.
  *
  * Consent is triggered by clicking any element with `[data-consent-accept]`
@@ -20,7 +22,8 @@ import { state } from 'lit/decorators.js';
  *
  * @csspart placeholder - Wrapper around the placeholder slot
  * @csspart content - Wrapper around the default slot
- */
+ 
+ * @cssstate accepted - Active when the user has accepted cookie/tracking terms.*/
 @customElement('uibit-consent-guard')
 export class ConsentGuard extends UIBitElement {
   static styles = css`

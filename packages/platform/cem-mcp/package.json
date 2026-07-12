@@ -1,0 +1,36 @@
+{
+  "name": "@uibit/cem-mcp",
+  "version": "0.2.0",
+  "description": "Local MCP Server exposing Custom Elements Manifest (CEM) schemas to AI agents",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "uibit-cem-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "compile": "tsc",
+    "start": "node ./dist/index.js",
+    "test:local": "node ./dist/test-client.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "typescript": "7.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rawlings/uibit",
+    "directory": "packages/platform/cem-mcp"
+  }
+}

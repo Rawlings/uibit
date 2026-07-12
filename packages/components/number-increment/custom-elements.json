@@ -39,7 +39,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Animates a numeric value from zero (or a custom start) up to the `value`\nattribute once the element scrolls into the viewport. Supports easing,\ndecimal places, and custom formatting functions.\n\nThe animation runs entirely in the shadow DOM on a rAF loop so it never\nblocks the main thread via layout thrashing.",
+          "description": "Animates a numeric value from zero (or a custom start) up to the `value`",
           "name": "NumberIncrement",
           "cssProperties": [
             {
@@ -108,16 +108,6 @@
               "default": "0",
               "description": "Number of decimal places to display. Used only if no custom formatter is provided.",
               "attribute": "decimals"
-            },
-            {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for number formatting (e.g. \"en-US\"). Defaults to browser locale if options is set.",
-              "attribute": "locale"
             },
             {
               "kind": "field",
@@ -324,15 +314,6 @@
               "fieldName": "decimals"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for number formatting (e.g. \"en-US\"). Defaults to browser locale if options is set.",
-              "fieldName": "locale"
-            },
-            {
               "name": "options",
               "type": {
                 "text": "Intl.NumberFormatOptions | undefined"
@@ -368,10 +349,17 @@
               "fieldName": "repeat"
             }
           ],
+          "cssStates": [
+            {
+              "name": "animating",
+              "description": "Active when the count animation is running."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A scroll-triggered animated numeric counter component.\nattribute once the element scrolls into the viewport. Supports easing,\ndecimal places, and custom formatting functions.\n\nThe animation runs entirely in the shadow DOM on a rAF loop so it never\nblocks the main thread via layout thrashing.",
           "tagName": "uibit-number-increment",
           "customElement": true
         }

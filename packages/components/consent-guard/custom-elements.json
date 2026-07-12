@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Gate any content behind a consent prompt. Shows the `placeholder` slot until\nthe user grants consent, then reveals the default slot.\n\nConsent is triggered by clicking any element with `[data-consent-accept]`\ninside the placeholder slot, or by calling the `accept()` method programmatically.\n\nContent in the default slot is kept `display:none` until consent is granted,\nso iframes with `loading=\"lazy\"` will not make network requests beforehand.",
+          "description": "Gate any content behind a consent prompt. Shows the `placeholder` slot until",
           "name": "ConsentGuard",
           "cssParts": [
             {
@@ -65,10 +65,17 @@
               "name": "consent-accepted"
             }
           ],
+          "cssStates": [
+            {
+              "name": "accepted",
+              "description": "Active when the user has accepted cookie/tracking terms."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A cookie and privacy consent guard wrapping third-party embedded resources.\nthe user grants consent, then reveals the default slot.\n\nConsent is triggered by clicking any element with `[data-consent-accept]`\ninside the placeholder slot, or by calling the `accept()` method programmatically.\n\nContent in the default slot is kept `display:none` until consent is granted,\nso iframes with `loading=\"lazy\"` will not make network requests beforehand.",
           "tagName": "uibit-consent-guard",
           "customElement": true
         }

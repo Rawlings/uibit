@@ -6,6 +6,8 @@ import type { ComparisonMode } from './types';
 
 /**
  * An interactive visual comparison curtain component. Displays before and after states
+
+ * @summary An interactive slider component for comparing two overlaying images side-by-side.
  * and allows users to peel them back horizontally, vertically, diagonally, or radially.
  *
  * @fires { progress: number } comparison-progress - Fired when the curtain progress updates
@@ -15,7 +17,8 @@ import type { ComparisonMode } from './types';
  * @cssprop [--uibit-image-comparison-handle-border-color=transparent] - Border outline color of the handle
  * @cssprop [--uibit-image-comparison-handle-inner-color=#111111] - Color of the arrows/icons inside the handle
  * @cssprop [--uibit-image-comparison-border-color=#ffffff] - Separation line border color
- */
+ 
+ * @cssstate dragging - Active when the comparison slider bar is being dragged.*/
 @customElement('uibit-image-comparison')
 export class ImageComparison extends UIBitElement {
   static styles = styles;

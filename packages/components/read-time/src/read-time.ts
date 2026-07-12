@@ -6,6 +6,8 @@ import { styles } from './styles';
 
 /**
  * Analyzes the word count of its slotted content and renders a reading-time
+
+ * @summary A shadow DOM slotted text length reading time estimation indicator.
  * badge. The calculation happens inside the shadow DOM via a slot
  * change observer — no backend metadata required.
  *

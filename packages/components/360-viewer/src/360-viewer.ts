@@ -6,6 +6,8 @@ import { styles } from './styles';
 
 /**
  * 360° product viewer driven by an array of sequential images.
+
+ * @summary An interactive 360° product image sequence viewer component.
  * Supports drag, touch, auto-rotation, and keyboard controls.
  *
  * @fires {{ index: number, total: number }} change - Fired each time the displayed frame changes
@@ -18,7 +20,9 @@ import { styles } from './styles';
  * @cssprop [--uibit-360-viewer-focus-color=#000000] - Focus outline color for interactive elements
  * @cssprop [--uibit-360-viewer-progress-track-bg=rgba(0,0,0,0.08)] - Background of the progress bar track
  * @cssprop [--uibit-360-viewer-hint-bg=rgba(17,24,39,0.65)] - Background of the drag hint overlay
- */
+ 
+ * @cssstate dragging - Active when the user is dragging the image sequence.
+ * @cssstate rotating - Active when auto-rotation is running.*/
 @customElement('uibit-360-viewer')
 export class Viewer360 extends UIBitElement {
   static styles = styles;
@@ -111,11 +115,29 @@ export class Viewer360 extends UIBitElement {
     }
   }
 
+  /**
+
+
+   * Advances the viewer to the next frame in the image sequence.
+
+
+   */
+
+
   next() {
     if (this.images.length === 0) return;
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
     this.emitChange();
   }
+
+  /**
+
+
+   * Returns the viewer to the previous frame in the image sequence.
+
+
+   */
+
 
   prev() {
     if (this.images.length === 0) return;

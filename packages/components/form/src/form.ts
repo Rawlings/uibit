@@ -6,12 +6,16 @@ import { styles } from './styles';
 
 /**
  * A declarative form wrapper that wraps a native `<form>` and adds wizards,
+
+ * @summary A standard native form element wrapper supporting auto-validation and state tracking.
  * submit lifecycle states, and dirty checking.
  *
  * @slot - Default slot where the native `<form>` element is placed.
  * @slot success - Custom success template displayed upon successful submission.
  * @slot error - Custom error template displayed upon failed submission.
- */
+ 
+ * @cssstate submitting - Active when form submission is in progress.
+ * @cssstate invalid - Active when one or more form inputs fail validation checks.*/
 @customElement('uibit-form')
 export class Form extends UIBitElement {
   static styles = styles;
@@ -285,6 +289,15 @@ export class Form extends UIBitElement {
 
   private _isResetting = false;
 
+  /**
+
+
+   * Resets all form fields to their initial values.
+
+
+   */
+
+
   reset() {
     if (this._isResetting) return;
     this._isResetting = true;
@@ -318,6 +331,9 @@ export class Form extends UIBitElement {
     }
   }
 
+  /**
+   * Submits the form programmatically after validation.
+   */
   async submit() {
     if (!this._slottedFormEl) return;
 

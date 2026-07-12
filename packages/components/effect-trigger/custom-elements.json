@@ -467,10 +467,17 @@
               "fieldName": "destinationSelector"
             }
           ],
+          "cssStates": [
+            {
+              "name": "triggered",
+              "description": "Active when the micro-animation is currently running."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A viewport scroll, hover, or click reactive trigger for visual micro-animations.",
           "tagName": "uibit-effect-trigger",
           "customElement": true
         }

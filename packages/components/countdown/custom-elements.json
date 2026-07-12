@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Countdown timer to a target date/time or a fixed duration. Supports\nconfigurable display formats and fires events on each tick and on completion.",
+          "description": "Countdown timer to a target date/time or a fixed duration. Supports",
           "name": "Countdown",
           "cssProperties": [
             {
@@ -175,7 +175,8 @@
             },
             {
               "kind": "method",
-              "name": "start"
+              "name": "start",
+              "description": "\n\nStarts or resumes the countdown timer."
             },
             {
               "kind": "method",
@@ -241,10 +242,17 @@
               "fieldName": "format"
             }
           ],
+          "cssStates": [
+            {
+              "name": "finished",
+              "description": "Active when the countdown timer reaches zero."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A responsive and customizable digital timer and countdown clock component.\nconfigurable display formats and fires events on each tick and on completion.",
           "tagName": "uibit-countdown",
           "customElement": true
         }

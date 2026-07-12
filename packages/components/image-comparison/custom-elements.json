@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An interactive visual comparison curtain component. Displays before and after states\nand allows users to peel them back horizontally, vertically, diagonally, or radially.",
+          "description": "An interactive visual comparison curtain component. Displays before and after states",
           "name": "ImageComparison",
           "cssProperties": [
             {
@@ -240,10 +240,17 @@
               "fieldName": "hoverReveal"
             }
           ],
+          "cssStates": [
+            {
+              "name": "dragging",
+              "description": "Active when the comparison slider bar is being dragged."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "An interactive slider component for comparing two overlaying images side-by-side.\nand allows users to peel them back horizontally, vertically, diagonally, or radially.",
           "tagName": "uibit-image-comparison",
           "customElement": true
         }

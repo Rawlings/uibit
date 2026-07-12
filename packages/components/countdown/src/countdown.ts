@@ -5,6 +5,8 @@ import { styles } from './styles';
 
 /**
  * Countdown timer to a target date/time or a fixed duration. Supports
+
+ * @summary A responsive and customizable digital timer and countdown clock component.
  * configurable display formats and fires events on each tick and on completion.
  *
  * @fires {{ days: number, hours: number, minutes: number, seconds: number, remaining: number }} countdown-tick - Fired every second while the countdown is running
@@ -22,7 +24,8 @@ import { styles } from './styles';
  * @cssprop [--uibit-countdown-label-color=#6b7280] - Color for unit labels
  * @cssprop [--uibit-countdown-separator-font-size=2.25rem] - Font size of the colon separator
  * @cssprop [--uibit-countdown-separator-color=#d1d5db] - Color of the colon separator
- */
+ 
+ * @cssstate finished - Active when the countdown timer reaches zero.*/
 @customElement('uibit-countdown')
 export class Countdown extends UIBitElement {
   static styles = styles;
@@ -70,6 +73,15 @@ export class Countdown extends UIBitElement {
       }
     }
   }
+
+  /**
+
+
+   * Starts or resumes the countdown timer.
+
+
+   */
+
 
   start() {
     this.stop();

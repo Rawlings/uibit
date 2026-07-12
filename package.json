@@ -16,7 +16,10 @@
     "preview": "pnpm -F docs run preview",
     "analyze": "turbo analyze",
     "lint": "oxlint && turbo typecheck",
-    "test": "turbo test"
+    "test": "turbo test",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",

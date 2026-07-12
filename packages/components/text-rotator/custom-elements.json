@@ -60,7 +60,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Cycles through an array of phrases inside a static sentence by animating between\nitems with a vertical slide or 3D flip transition. Designed to highlight changing\nvalue propositions without motion outside the component boundary.\n\nPass static prefix or wrapper text inside the default slot, and phrases to cycle through\ninside elements with `slot=\"text\"` (e.g. `<span slot=\"text\">phrase</span>`).",
+          "description": "Cycles through an array of phrases inside a static sentence by animating between",
           "name": "TextRotator",
           "cssProperties": [
             {
@@ -258,10 +258,17 @@
               "fieldName": "loop"
             }
           ],
+          "cssStates": [
+            {
+              "name": "rotating",
+              "description": "Active when the text transition is in progress."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A rotating text carousel component with smooth CSS animation transitions.\nitems with a vertical slide or 3D flip transition. Designed to highlight changing\nvalue propositions without motion outside the component boundary.\n\nPass static prefix or wrapper text inside the default slot, and phrases to cycle through\ninside elements with `slot=\"text\"` (e.g. `<span slot=\"text\">phrase</span>`).",
           "tagName": "uibit-text-rotator",
           "customElement": true
         }

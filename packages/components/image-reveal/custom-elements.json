@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Reveals a synchronized secondary \"xray\" image through a circular lens that\nfollows the user's cursor or touch point over the primary image.\n\nPlace the primary image in the default slot and the reveal image in the\n`xray` named slot. Both images are pixel-aligned so the lens shows exactly\nwhat lies beneath the cursor on the xray layer.",
+          "description": "Reveals a synchronized secondary \"xray\" image through a circular lens that",
           "name": "ImageReveal",
           "cssProperties": [
             {
@@ -157,10 +157,17 @@
               "fieldName": "size"
             }
           ],
+          "cssStates": [
+            {
+              "name": "revealed",
+              "description": "Active when the image has completed its reveal transition."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A scroll-triggered overlay image reveal effect component.\nfollows the user's cursor or touch point over the primary image.\n\nPlace the primary image in the default slot and the reveal image in the\n`xray` named slot. Both images are pixel-aligned so the lens shows exactly\nwhat lies beneath the cursor on the xray layer.",
           "tagName": "uibit-image-reveal",
           "customElement": true
         }

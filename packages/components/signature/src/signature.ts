@@ -7,6 +7,8 @@ import { FormAssociatedMixin } from '@uibit/form-internals';
 
 /**
  * Canvas area for capturing freehand signatures or drawings using touch or
+
+ * @summary A canvas-based signature pad drawing component with smooth strokes.
  * mouse gestures, rendered immediately as smooth bezier-curved vector lines
  * with simulated pen pressure.
  *
@@ -31,7 +33,9 @@ import { FormAssociatedMixin } from '@uibit/form-internals';
  * @csspart canvas - The drawing canvas element
  * @csspart hint - The "Sign here" placeholder hint
  * @csspart clear-button - The clear button
- */
+ 
+ * @cssstate empty - Active when the signature pad has no drawing inputs.
+ * @cssstate drawing - Active when the user is drawing on the canvas.*/
 @customElement('uibit-signature')
 export class Signature extends FormAssociatedMixin(UIBitElement) {
   static styles = css`

@@ -31,7 +31,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Canvas area for capturing freehand signatures or drawings using touch or\nmouse gestures, rendered immediately as smooth bezier-curved vector lines\nwith simulated pen pressure.",
+          "description": "Canvas area for capturing freehand signatures or drawings using touch or",
           "name": "Signature",
           "cssProperties": [
             {
@@ -366,6 +366,16 @@
               "fieldName": "hideClear"
             }
           ],
+          "cssStates": [
+            {
+              "name": "empty",
+              "description": "Active when the signature pad has no drawing inputs."
+            },
+            {
+              "name": "drawing",
+              "description": "Active when the user is drawing on the canvas."
+            }
+          ],
           "mixins": [
             {
               "name": "FormAssociatedMixin",
@@ -376,6 +386,7 @@
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A canvas-based signature pad drawing component with smooth strokes.\nmouse gestures, rendered immediately as smooth bezier-curved vector lines\nwith simulated pen pressure.",
           "tagName": "uibit-signature",
           "customElement": true
         }

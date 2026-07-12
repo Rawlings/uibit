@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A declarative form wrapper that wraps a native `<form>` and adds wizards,\nsubmit lifecycle states, and dirty checking.",
+          "description": "A declarative form wrapper that wraps a native `<form>` and adds wizards,",
           "name": "Form",
           "slots": [
             {
@@ -246,11 +246,13 @@
             },
             {
               "kind": "method",
-              "name": "reset"
+              "name": "reset",
+              "description": "\n\nResets all form fields to their initial values."
             },
             {
               "kind": "method",
-              "name": "submit"
+              "name": "submit",
+              "description": "Submits the form programmatically after validation."
             },
             {
               "kind": "method",
@@ -326,10 +328,21 @@
               "fieldName": "status"
             }
           ],
+          "cssStates": [
+            {
+              "name": "submitting",
+              "description": "Active when form submission is in progress."
+            },
+            {
+              "name": "invalid",
+              "description": "Active when one or more form inputs fail validation checks."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A standard native form element wrapper supporting auto-validation and state tracking.\nsubmit lifecycle states, and dirty checking.",
           "tagName": "uibit-form",
           "customElement": true
         }

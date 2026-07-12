@@ -60,7 +60,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Clamps slotted content to an exact line count. When content overflows the\nclamped height a \"More\" toggle appears inline at the truncation point.\nClicking it expands the block; clicking \"Less\" collapses it again.\n\nUses a ResizeObserver to recalculate on every container-width change.",
+          "description": "Clamps slotted content to an exact line count. When content overflows the",
           "name": "TextClamp",
           "cssProperties": [
             {
@@ -194,10 +194,21 @@
               "fieldName": "lines"
             }
           ],
+          "cssStates": [
+            {
+              "name": "clamped",
+              "description": "Active when the text content is currently truncated."
+            },
+            {
+              "name": "expanded",
+              "description": "Active when the full text content is visible."
+            }
+          ],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
           },
+          "summary": "A multi-line text truncation and clamping component with a dynamic \"Read More\" button.\nclamped height a \"More\" toggle appears inline at the truncation point.\nClicking it expands the block; clicking \"Less\" collapses it again.\n\nUses a ResizeObserver to recalculate on every container-width change.",
           "tagName": "uibit-text-clamp",
           "customElement": true
         }

@@ -20,9 +20,12 @@ function getGlobalContainer(): HTMLElement {
 
 /**
  * Trigger visual effects like particles or vortex attractions.
+
+ * @summary A viewport scroll, hover, or click reactive trigger for visual micro-animations.
  *
  * @fires {{ particle: HTMLElement, index: number, trigger: string }} uibit-particle-create - Fired when a particle is created
- */
+ 
+ * @cssstate triggered - Active when the micro-animation is currently running.*/
 @customElement('uibit-effect-trigger')
 export class EffectTrigger extends UIBitElement {
   static styles = styles;

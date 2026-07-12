@@ -2,19 +2,21 @@ import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
-import { renderMarkdownInline, slugify } from '../utils/markdown';
+import { renderMarkdownBlocks, slugify } from '../utils/markdown';
 
 // Raw import of package README markdown files
 import codegenReadme from '../../../../platform/codegen/README.md?raw';
 import coreReadme from '../../../../platform/core/README.md?raw';
 import formInternalsReadme from '../../../../platform/form-internals/README.md?raw';
 import hmrReadme from '../../../../platform/vite-plugin-wc-hmr/README.md?raw';
-
+import cemExtendedReadme from '../../../../platform/cem-extended/README.md?raw';
+import cemMcpReadme from '../../../../platform/cem-mcp/README.md?raw';
 interface PackageData {
   title: string;
   description: string;
   packageName: string;
   readme: string;
+  githubUrl?: string;
 }
 
 const packagesRegistry: Record<string, PackageData> = {
@@ -23,24 +25,42 @@ const packagesRegistry: Record<string, PackageData> = {
     description: 'Shared foundation, optimizations, event dispatch, and performance decorators for UIBit components.',
     packageName: '@uibit/core',
     readme: coreReadme,
+    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/core',
   },
   frameworks: {
     title: 'Framework Integrations',
     description: 'Use UIBit components in React, Vue, Svelte, Angular, Astro, Preact, Stencil, and vanilla TypeScript with auto-generated type wrappers.',
     packageName: '@uibit/codegen',
     readme: codegenReadme,
+    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/codegen',
   },
   'form-internals': {
     title: 'Form Internals',
     description: 'Polyfilled and standardized wrapper around ElementInternals for robust form participation, CSS validation states, and constraint validation.',
     packageName: '@uibit/form-internals',
     readme: formInternalsReadme,
+    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/form-internals',
   },
   hmr: {
     title: 'Vite Plugin WC HMR',
     description: 'True Hot Module Replacement for custom elements. Swaps updated classes and styles in-place without a page reload, preserving component state. Works with Lit, vanilla CE, FAST, Stencil, and more.',
     packageName: '@uibit/vite-plugin-wc-hmr',
     readme: hmrReadme,
+    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/vite-plugin-wc-hmr',
+  },
+  'cem-extended': {
+    title: 'CEM Extended',
+    description: 'Extended Custom Elements Manifest generator plugin. Adds JSDoc method parameter/return descriptions, custom CSS states, mixin field heritage, and deprecation/since metadata.',
+    packageName: '@uibit/cem-extended',
+    readme: cemExtendedReadme,
+    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-extended',
+  },
+  'cem-mcp': {
+    title: 'CEM MCP Server',
+    description: 'Local Model Context Protocol (MCP) server exposing UIBit Custom Elements Manifest (CEM) schemas to AI agents.',
+    packageName: '@uibit/cem-mcp',
+    readme: cemMcpReadme,
+    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-mcp',
   },
 };
 
@@ -175,106 +195,7 @@ export default function PackageDocs() {
   }
 
   const renderContent = (md: string, skipHeaderPrefix = '') => {
-    const lines = md.split('\n');
-    const elements: React.ReactNode[] = [];
-    let currentList: React.ReactNode[] = [];
-    let inCodeBlock = false;
-    let codeBlockLines: string[] = [];
-
-    const flushList = () => {
-      if (currentList.length > 0) {
-        elements.push(
-          <ul key={`list-${elements.length}`} className="list-disc pl-5 space-y-2 text-sm text-gray-650 dark:text-gray-400 mb-6 leading-relaxed">
-            {currentList}
-          </ul>
-        );
-        currentList = [];
-      }
-    };
-
-    const flushCodeBlock = () => {
-      if (inCodeBlock) {
-        const code = codeBlockLines.join('\n');
-        elements.push(
-          <pre key={`code-${elements.length}`} className="code-block bg-gray-900 text-gray-100 p-4 rounded-xl overflow-x-auto text-sm leading-relaxed mb-6 font-mono">
-            <code>{code}</code>
-          </pre>
-        );
-        codeBlockLines = [];
-        inCodeBlock = false;
-      }
-    };
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-
-      // Handle Code Blocks
-      if (line.trim().startsWith('```')) {
-        if (inCodeBlock) {
-          flushCodeBlock();
-        } else {
-          flushList();
-          inCodeBlock = true;
-        }
-        continue;
-      }
-
-      if (inCodeBlock) {
-        codeBlockLines.push(line);
-        continue;
-      }
-
-      const trimmed = line.trim();
-      if (!trimmed) {
-        flushList();
-        continue;
-      }
-
-      // Handle main title (skip if it's the main H1, as we render custom header)
-      if (trimmed.startsWith('# ')) {
-        flushList();
-        continue;
-      }
-
-      // Handle Headings
-      if (trimmed.startsWith('## ')) {
-        flushList();
-        const text = trimmed.substring(3).trim();
-        const elementId = skipHeaderPrefix ? `${skipHeaderPrefix}-${slugify(text)}` : slugify(text);
-        elements.push(
-          <h2 id={elementId} key={`h2-${i}`} className="text-xl font-semibold text-gray-900 dark:text-white mb-4 mt-8 pb-2 border-b border-gray-100 dark:border-gray-900 scroll-mt-20">
-            {renderMarkdownInline(text)}
-          </h2>
-        );
-      } else if (trimmed.startsWith('### ')) {
-        flushList();
-        const text = trimmed.substring(4).trim();
-        elements.push(
-          <h3 key={`h3-${i}`} className="text-base font-semibold text-gray-900 dark:text-white mb-3 mt-6">
-            {renderMarkdownInline(text)}
-          </h3>
-        );
-      } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-        const text = trimmed.substring(2);
-        currentList.push(
-          <li key={`li-${i}`}>
-            {renderMarkdownInline(text)}
-          </li>
-        );
-      } else {
-        flushList();
-        elements.push(
-          <p key={`p-${i}`} className="text-sm text-gray-650 dark:text-gray-455 mb-4 leading-relaxed">
-            {renderMarkdownInline(trimmed)}
-          </p>
-        );
-      }
-    }
-
-    flushList();
-    flushCodeBlock();
-
-    return elements;
+    return renderMarkdownBlocks(md, undefined, skipHeaderPrefix);
   };
 
   return (
@@ -296,11 +217,7 @@ export default function PackageDocs() {
                 npm install {pkg.packageName}
               </code>
               <a
-                href={
-                  packageId === 'frameworks'
-                    ? 'https://github.com/rawlings/uibit/tree/main/packages/platform/codegen'
-                    : 'https://github.com/rawlings/uibit/tree/main/packages/platform/core'
-                }
+                href={pkg.githubUrl || 'https://github.com/rawlings/uibit'}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-2 border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all cursor-pointer font-medium"

@@ -5,6 +5,8 @@ import { styles } from './styles';
 
 /**
  * Thin progress bar that tracks scroll position — either the page or a
+
+ * @summary A responsive viewport or container scroll progress indicator bar.
  * custom scrollable element — and fills as the user scrolls down.
  *
  * @cssprop [--uibit-scroll-progress-height=0.1875rem] - Height of the progress bar

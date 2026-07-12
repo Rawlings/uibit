@@ -1,47 +1,56 @@
 # UIBit
 
-UIBit is a professional, framework-agnostic collection of interactive web components. Built on modern web standards and Lit, these elements provide performant, accessible, and customizable experiences that integrate into any web application or technology stack.
-
-Inspired by Scandinavian design principles—clean lines, generous spacing, and a pure grayscale color palette—UIBit components prioritize functionality and visual clarity.
+UIBit is a collection of framework-agnostic interactive web components built on native standards. Designed with a Scandinavian aesthetic—characterized by clean lines, functional minimalism, generous spacing, and a pure grayscale palette—UIBit provides beautiful, performant, and accessible user interface elements.
 
 ---
 
-## Component Catalog
+## The Vision
 
-Our component library spans several core categories:
+Modern web development often requires choosing between visual quality, performance, and accessibility. UIBit eliminates these trade-offs by delivering elements that are optimized, compliant, and visually polished by default. 
 
-- **Media & Visualization** – Interactive carousels, 360-degree product viewers, image comparison sliders, hot-spots, and custom media players designed to drive user engagement.
-- **Forms & Feedback** – Signature capture fields, sentiment selectors, and privacy consent guards designed to streamline user input while respecting compliance standards.
-- **Typography & Display** – Typing effects, text rotators, line clamping, reading time calculators, and countdown timers that draw attention to key content.
-- **Data & Utilities** – Responsive, accessible tables, scroll progress indicators, and self-contained A/B testing controllers.
+Rather than recreating styles and behaviors for every framework, UIBit uses native web standards to provide a single, consistent set of components that function everywhere.
 
 ---
 
-## Core Values
+## Core Pillars
 
-- **Framework Agnostic** – Built on standard Web Components APIs, UIBit elements run natively in any browser and connect seamlessly with React, Vue, Svelte, Angular, or vanilla HTML/JavaScript.
-- **Performance First** – Optimized rendering cycles and minimal bundle sizes ensure fast page load times and excellent Core Web Vitals.
-- **Accessibility Compliance** – Every component is built with keyboard navigation and proper ARIA semantics as default design criteria to meet WCAG standards.
-- **Visual Flexibility** – Style components easily using standardized CSS custom properties and shadow parts to match any brand guidelines.
-
----
-
-## Getting Started
-
-To explore interactive demonstrations, design specifications, and implementation guidelines for all components, please visit the [UIBit Documentation Site](https://rawlings.github.io/uibit/).
+* **Framework Independence** – Built using native Web Components and Lit, UIBit elements integrate into React, Vue, Angular, Svelte, or vanilla HTML applications.
+* **Accessibility Compliance** – Designed from the ground up to support keyboard navigation, screen readers, and proper ARIA semantics to meet WCAG standards.
+* **Scandinavian Design Philosophy** – Focused on clarity, purpose, and utility. The neutral grayscale design system acts as a clean canvas, adapting to any brand using CSS custom properties.
+* **Performance Focus** – Engineered for fast rendering cycles, low layout shift, and minimal bundle sizes to maintain excellent Core Web Vitals.
 
 ---
 
-## Community & Resources
+## The UIBit Ecosystem
 
-- **[Changelog](CHANGELOG.md)** – View updates, additions, and history for each release.
-- **[Contributing Guide](CONTRIBUTING.md)** – Learn how to propose features, report bugs, or submit code.
-- **[Support Guide](SUPPORT.md)** – Find resources and support channels for help.
-- **[Security Policy](SECURITY.md)** – Report vulnerabilities safely.
-- **[Code of Conduct](CODE_OF_CONDUCT.md)** – Read our community behavior guidelines.
+UIBit is organized as a unified monorepo comprising component libraries and developer tooling:
+
+### 1. Interactive Components
+Our visual catalog of web components spans several core categories:
+* **Media & Engagement** – Elements like 360-degree product viewers, interactive carousels, and image comparison sliders designed to highlight visual content.
+* **Input & Feedback** – Signature fields, sentiment selectors, and privacy guards that respect user consent and streamline form interaction.
+* **Display & Timing** – Dynamic typography components, countdown timers, and read-time indicators that guide user attention.
+* **Data & Flow** – Responsive tables, A/B testing controllers, and scroll progress tracking elements.
+
+### 2. Platform & Developer Tooling
+Underneath the components, UIBit includes native systems to streamline integration and optimization:
+* [Framework Codegen](https://rawlings.github.io/uibit/packages/codegen) ([Source](file:///Users/rawlings/uibit/packages/platform/codegen)) – Generates native wrapper packages for React, Vue, Angular, and Svelte.
+* [Form Internals](https://rawlings.github.io/uibit/packages/form-internals) ([Source](file:///Users/rawlings/uibit/packages/platform/form-internals)) – Integration layers for native element form participation.
+* [Vite WC HMR Plugin](https://rawlings.github.io/uibit/packages/vite-plugin-wc-hmr) ([Source](file:///Users/rawlings/uibit/packages/platform/vite-plugin-wc-hmr)) – Custom Vite plugin for hot reloading custom elements.
+* [CEM Extended Analyzer](https://rawlings.github.io/uibit/packages/cem-extended) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-extended)) – Tooling for extracting detailed Custom Elements Manifests.
+* [CEM MCP Server](https://rawlings.github.io/uibit/packages/cem-mcp) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-mcp)) – Exposes component specifications directly to AI coding agents.
 
 ---
 
-## License
+## Explore UIBit
 
-Licensed under the [MIT License](LICENSE).
+To view live interactive examples, design tokens, and integration details, visit the [UIBit Documentation Site](https://rawlings.github.io/uibit/).
+
+---
+
+## Project Resources
+
+* **[Contributing Guide](CONTRIBUTING.md)** – Learn how to report bugs, suggest features, or submit code.
+* **[Code of Conduct](CODE_OF_CONDUCT.md)** – Review our community guidelines.
+* **[Changelog](CHANGELOG.md)** – See history and details of releases.
+* **[License](LICENSE)** – Released under the MIT License.

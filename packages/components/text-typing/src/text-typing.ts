@@ -5,6 +5,8 @@ import { styles } from './styles';
 
 /**
  * Cycles through an array of phrases by simulating realistic keystroke
+
+ * @summary A typewriter effect animation component with looping backspacing features.
  * typing and backspace deletion. Includes subtle speed variance, randomized
  * simulated typos that auto-correct, and a blinking cursor node.
  *
@@ -22,7 +24,9 @@ import { styles } from './styles';
  * @cssprop [--uibit-text-typing-cursor-width=0.125rem] - Cursor bar width
  * @cssprop [--uibit-text-typing-cursor-radius=0.0625rem] - Cursor bar border radius
  * @cssprop [--uibit-text-typing-cursor-blink=0.75s] - Cursor blink interval
- */
+ 
+ * @cssstate typing - Active when text is actively typing out.
+ * @cssstate deleting - Active when text is actively backspacing.*/
 @customElement('uibit-text-typing')
 export class TextTyping extends UIBitElement {
   static styles = styles;

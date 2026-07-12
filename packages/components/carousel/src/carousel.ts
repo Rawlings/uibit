@@ -7,6 +7,8 @@ import { styles } from './styles';
 
 /**
  * Accessible, scroll-driven carousel with keyboard navigation, auto-play,
+
+ * @summary A premium, scroll-driven carousel component with full accessibility controls.
  * and configurable items-per-view via CSS custom properties.
  *
  * @fires {{ index: number, totalSlides: number }} slide-change - Fired when the active slide changes
@@ -36,7 +38,9 @@ import { styles } from './styles';
  * @csspart indicators - The indicator dot group
  * @csspart indicator - Each indicator dot
  * @csspart indicator-active - Added to the active indicator dot
- */
+ 
+ * @cssstate playing - Active when auto-play is running.
+ * @cssstate dragging - Active when dragging viewport.*/
 @customElement('uibit-carousel')
 export class UIBitCarousel extends UIBitElement {
   static styles = styles;
@@ -282,6 +286,15 @@ export class UIBitCarousel extends UIBitElement {
     this.canNext = this.currentIndex < this.totalSlides - 1 || this.loop;
   }
 
+  /**
+
+
+   * Returns the carousel to the previous slide.
+
+
+   */
+
+
   prev() {
     if (this.currentIndex > 0) {
       this.scrollToSlide(this.currentIndex - 1);
@@ -290,6 +303,15 @@ export class UIBitCarousel extends UIBitElement {
     }
   }
 
+  /**
+
+
+   * Advances the carousel to the next slide.
+
+
+   */
+
+
   next() {
     if (this.currentIndex < this.totalSlides - 1) {
       this.scrollToSlide(this.currentIndex + 1);
@@ -297,6 +319,15 @@ export class UIBitCarousel extends UIBitElement {
       this.scrollToSlide(0);
     }
   }
+
+  /**
+
+
+   * Navigates the carousel to a specific slide index.
+
+
+   */
+
 
   goToSlide(index: number) {
     if (index >= 0 && index < this.totalSlides) {
