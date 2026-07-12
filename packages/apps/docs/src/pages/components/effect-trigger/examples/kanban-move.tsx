@@ -22,9 +22,11 @@ function KanbanMoveDemo() {
         stagger="60ms"
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
-        <svg slot="asset" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#111827" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ display: 'block' }}>
-          <polyline points="9 18 15 12 9 6" />
-        </svg>
+        <span slot="asset">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#111827" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </span>
       </uibit-effect-trigger>
 
       <div className="grid grid-cols-2 gap-4">

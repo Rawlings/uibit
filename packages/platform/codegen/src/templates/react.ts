@@ -28,7 +28,7 @@ ${generateTypeImports(referencedTypes, importPath)}`);
   namespace React {
     namespace JSX {
       interface IntrinsicElements {
-        '${tagName}': HTMLElementClass & HTMLAttributes<HTMLElementClass> & {
+        '${tagName}': Omit<HTMLElementClass, 'children'> & HTMLAttributes<HTMLElementClass> & {
 ${propTypes}
         };
       }

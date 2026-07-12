@@ -29,10 +29,12 @@ function InviteMemberDemo() {
         randomize
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
-        <svg slot="asset" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#374151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style={{ display: 'block' }}>
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-          <circle cx="12" cy="7" r="4" />
-        </svg>
+        <span slot="asset">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#374151" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+            <circle cx="12" cy="7" r="4" />
+          </svg>
+        </span>
       </uibit-effect-trigger>
 
       <h4 className="text-sm font-bold text-gray-900 mb-1">Invite Collaborators</h4>

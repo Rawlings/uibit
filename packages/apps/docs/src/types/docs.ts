@@ -1,3 +1,26 @@
+/// <reference types="@uibit/360-viewer/react" />
+/// <reference types="@uibit/carousel/react" />
+/// <reference types="@uibit/consent-guard/react" />
+/// <reference types="@uibit/countdown/react" />
+/// <reference types="@uibit/diff-viewer/react" />
+/// <reference types="@uibit/effect-trigger/react" />
+/// <reference types="@uibit/form/react" />
+/// <reference types="@uibit/hotspot/react" />
+/// <reference types="@uibit/image-comparison/react" />
+/// <reference types="@uibit/image-reveal/react" />
+/// <reference types="@uibit/number-increment/react" />
+/// <reference types="@uibit/particles/react" />
+/// <reference types="@uibit/read-time/react" />
+/// <reference types="@uibit/scratch-reveal/react" />
+/// <reference types="@uibit/scroll-progress/react" />
+/// <reference types="@uibit/sentiment-selector/react" />
+/// <reference types="@uibit/signature/react" />
+/// <reference types="@uibit/table/react" />
+/// <reference types="@uibit/text-clamp/react" />
+/// <reference types="@uibit/text-rotator/react" />
+/// <reference types="@uibit/text-typing/react" />
+/// <reference types="@uibit/video/react" />
+
 import { ComponentType } from 'react';
 
 export interface CodeSnippet {
@@ -69,9 +92,10 @@ export interface CemDeclaration {
 
 export interface CemManifest {
   modules: Array<{
-    declarations?: Array<CemDeclaration>;
+    declarations?: Array<any>;
     exports?: Array<{ name: string; declaration: { name: string } }>;
   }>;
+  [key: string]: any;
 }
 
 export interface ComponentDocData {
@@ -80,7 +104,7 @@ export interface ComponentDocData {
   description: string;
   packageName: string;
   tagName: string;
-  manifest?: CemManifest;
+  manifest?: any;
   Demo?: ComponentType;
   demoCode?: DualCode;
   examples?: UsageExample[];

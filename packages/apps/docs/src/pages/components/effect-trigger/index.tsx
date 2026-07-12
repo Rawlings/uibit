@@ -22,14 +22,14 @@ import systemUpgradeRaw from './examples/system-upgrade?raw';
 
 // Map raw file contents to the react code panel dynamically
 const processedExamples = [
-  { ...starRatingExample, code: { ...starRatingExample.code, react: starRatingRaw } },
-  { ...flyToCartExample, code: { ...flyToCartExample.code, react: flyToCartRaw } },
-  { ...newsletterSignupExample, code: { ...newsletterSignupExample.code, react: newsletterSignupRaw } },
-  { ...paymentSuccessExample, code: { ...paymentSuccessExample.code, react: paymentSuccessRaw } },
-  { ...fileUploadExample, code: { ...fileUploadExample.code, react: fileUploadRaw } },
-  { ...inviteMemberExample, code: { ...inviteMemberExample.code, react: inviteMemberRaw } },
-  { ...kanbanMoveExample, code: { ...kanbanMoveExample.code, react: kanbanMoveRaw } },
-  { ...systemUpgradeExample, code: { ...systemUpgradeExample.code, react: systemUpgradeRaw } },
+  { ...starRatingExample, code: { react: starRatingRaw } },
+  { ...flyToCartExample, code: { react: flyToCartRaw } },
+  { ...newsletterSignupExample, code: { react: newsletterSignupRaw } },
+  { ...paymentSuccessExample, code: { react: paymentSuccessRaw } },
+  { ...fileUploadExample, code: { react: fileUploadRaw } },
+  { ...inviteMemberExample, code: { react: inviteMemberRaw } },
+  { ...kanbanMoveExample, code: { react: kanbanMoveRaw } },
+  { ...systemUpgradeExample, code: { react: systemUpgradeRaw } },
 ];
 
 function EffectTriggerDemo() {
@@ -254,6 +254,7 @@ const data: ComponentDocData = {
   },
   usages: [
     {
+      title: 'Custom Particle Mutation',
       code: `const trigger = document.querySelector('uibit-effect-trigger');
 trigger.addEventListener('uibit-particle-create', (e) => {
   const clone = e.detail.particle;
@@ -263,6 +264,7 @@ trigger.addEventListener('uibit-particle-create', (e) => {
 });`,
     },
     {
+      title: 'Keyframe Override',
       code: `<uibit-effect-trigger
   trigger="click"
   keyframes='[{"transform": "translate(-50%, -50%) scale(1)"}, {"transform": "translate(-50%, -150px) scale(0)", "opacity": 0}]'
@@ -273,6 +275,7 @@ trigger.addEventListener('uibit-particle-create', (e) => {
 </uibit-effect-trigger>`,
     },
     {
+      title: 'Custom Behavior Registry',
       code: `import { EffectTrigger } from '@uibit/effect-trigger';
 
 // Register custom movement behavior

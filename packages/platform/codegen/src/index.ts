@@ -57,7 +57,7 @@ function run() {
       if (pkgJson.name) {
         detectedImportPath = pkgJson.name;
       }
-    } catch (e) {}
+    } catch {}
   }
 
   const importPathIndex = args.indexOf('--import-path');

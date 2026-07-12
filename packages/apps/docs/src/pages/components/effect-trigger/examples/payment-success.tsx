@@ -24,9 +24,11 @@ function PaymentSuccessDemo() {
         velocity="1.4s"
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
-        <svg slot="asset" viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#111827" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style={{ display: 'block' }}>
-          <path d="M20 6L9 17l-5-5" />
-        </svg>
+        <span slot="asset">
+          <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#111827" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
+            <path d="M20 6L9 17l-5-5" />
+          </svg>
+        </span>
       </uibit-effect-trigger>
 
       <div className="mb-4">

@@ -28,9 +28,11 @@ function NewsletterSignupDemo() {
         randomize
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
-        <svg slot="asset" viewBox="0 0 6 6" width="5" height="5" fill="#111827" style={{ display: 'block' }}>
-          <circle cx="3" cy="3" r="3" />
-        </svg>
+        <span slot="asset">
+          <svg viewBox="0 0 6 6" width="5" height="5" fill="#111827" style={{ display: 'block' }}>
+            <circle cx="3" cy="3" r="3" />
+          </svg>
+        </span>
       </uibit-effect-trigger>
 
       <h4 className="text-sm font-bold text-gray-900 mb-1">Weekly Design Digest</h4>
