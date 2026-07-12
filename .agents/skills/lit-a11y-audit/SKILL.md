@@ -23,7 +23,7 @@ Audits components for:
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `componentPath` | string | ✓ | Path to component package (e.g., "packages/scroll-progress") |
+| `componentPath` | string | ✓ | Path to component package (e.g., "components/scroll-progress") |
 | `wcagLevel` | string | | Compliance level: "A", "AA" (default), "AAA" |
 
 ## Usage Examples
@@ -31,14 +31,14 @@ Audits components for:
 ### Run Accessibility Audit
 ```bash
 claude --skill lit-a11y-audit --args '{
-  "componentPath": "packages/hotspot"
+  "componentPath": "components/hotspot"
 }'
 ```
 
 ### Run Strict WCAG AAA Compliance Audit
 ```bash
 claude --skill lit-a11y-audit --args '{
-  "componentPath": "packages/consent-guard",
+  "componentPath": "components/consent-guard",
   "wcagLevel": "AAA"
 }'
 ```

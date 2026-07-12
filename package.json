@@ -14,7 +14,7 @@
     "build:docs": "pnpm -F docs run build",
     "preview": "pnpm -F docs run preview",
     "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze",
-    "lint": "pnpm --filter './packages/**' --filter '!@uibit/docs' exec -- tsc -p tsconfig.json --noEmit",
+    "lint": "pnpm --filter './packages/components/**' --filter './packages/platform/**' --filter '!@uibit/docs' exec -- tsc -p tsconfig.json --noEmit",
     "test": "vitest run && pnpm -F docs test"
   },
   "devDependencies": {

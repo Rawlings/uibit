@@ -24,7 +24,7 @@ Generates standard tests for UIBit components, located directly in `src/<compone
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `componentPath` | string | ✓ | Path to component package (e.g., "packages/scroll-progress") |
+| `componentPath` | string | ✓ | Path to component package (e.g., "components/scroll-progress") |
 | `coverage` | string | | Target coverage detail: "basic" (default), "complete" (covers all inputs/events) |
 
 ## Usage Examples
@@ -32,14 +32,14 @@ Generates standard tests for UIBit components, located directly in `src/<compone
 ### Generate Standard Component Tests
 ```bash
 claude --skill lit-test-generator --args '{
-  "componentPath": "packages/scroll-progress"
+  "componentPath": "components/scroll-progress"
 }'
 ```
 
 ### Generate Complete Coverage Unit/Interaction Tests
 ```bash
 claude --skill lit-test-generator --args '{
-  "componentPath": "packages/sentiment-bar",
+  "componentPath": "components/sentiment-bar",
   "coverage": "complete"
 }'
 ```
@@ -138,5 +138,5 @@ pnpm test
 npx vitest
 
 # Run tests for a specific component
-npx vitest packages/scroll-progress
+npx vitest components/scroll-progress
 ```

@@ -25,7 +25,7 @@ Analyzes and refactors existing components to:
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `componentPath` | string | ✓ | Path to component package (e.g., "packages/button") |
+| `componentPath` | string | ✓ | Path to component package (e.g., "components/button") |
 | `focus` | string | | Refactor focus: "all" (default), "performance", "accessibility", "styling", "types" |
 
 ## Usage Examples
@@ -33,7 +33,7 @@ Analyzes and refactors existing components to:
 ### Scaffold/Run a Full Component Refactoring
 ```bash
 claude --skill lit-component-refactor --args '{
-  "componentPath": "packages/text-clamp",
+  "componentPath": "components/text-clamp",
   "focus": "all"
 }'
 ```
@@ -41,7 +41,7 @@ claude --skill lit-component-refactor --args '{
 ### Refactor Style Declarations to follow DESIGN.md
 ```bash
 claude --skill lit-component-refactor --args '{
-  "componentPath": "packages/carousel",
+  "componentPath": "components/carousel",
   "focus": "styling"
 }'
 ```

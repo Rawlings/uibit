@@ -3,23 +3,27 @@ import { resolve } from 'path';
 import { readdirSync } from 'fs';
 import react from '@vitejs/plugin-react';
 
-const packagesDir = resolve(__dirname, 'packages');
+const componentsDir = resolve(__dirname, 'packages/components');
+const platformDir = resolve(__dirname, 'packages/platform');
 
-// Dynamically generate aliases for all packages in the monorepo
-const packageNames = readdirSync(packagesDir).filter(
-  (file) => !file.startsWith('.') && file !== 'docs'
+// Dynamically generate aliases for all packages in components/ and platform/
+const componentNames = readdirSync(componentsDir).filter(
+  (file) => !file.startsWith('.')
+);
+const platformNames = readdirSync(platformDir).filter(
+  (file) => !file.startsWith('.')
 );
 
-const aliases = packageNames.map((pkg) => ({
-  find: new RegExp(`^@uibit\\/${pkg}$`),
-  replacement: resolve(packagesDir, pkg, 'src/index.ts'),
-}));
-
-// Also map @uibit/core core decorators and utilities
-aliases.push({
-  find: /^@uibit\/core$/,
-  replacement: resolve(packagesDir, 'core', 'src/index.ts'),
-});
+const aliases = [
+  ...componentNames.map((pkg) => ({
+    find: new RegExp(`^@uibit\\/${pkg}$`),
+    replacement: resolve(componentsDir, pkg, 'src/index.ts'),
+  })),
+  ...platformNames.map((pkg) => ({
+    find: new RegExp(`^@uibit\\/${pkg}$`),
+    replacement: resolve(platformDir, pkg, 'src/index.ts'),
+  }))
+];
 
 export default defineConfig({
   plugins: [react()],
@@ -29,7 +33,10 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
     globals: true,
-    include: ['packages/**/*.{test,spec}.{ts,tsx}'],
-    exclude: [...defaultExclude, 'packages/docs/**'],
+    include: [
+      'packages/components/**/*.{test,spec}.{ts,tsx}',
+      'packages/platform/**/*.{test,spec}.{ts,tsx}',
+    ],
+    exclude: [...defaultExclude, 'packages/apps/docs/**'],
   },
 });

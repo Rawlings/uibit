@@ -25,21 +25,21 @@ Analyzes and suggests optimizations for:
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `packageName` | string | ✓ | Package folder path or name (e.g. "packages/scroll-progress") |
+| `packageName` | string | ✓ | Package folder path or name (e.g. "components/scroll-progress") |
 
 ## Usage Examples
 
 ### Audit Package Configuration & Imports
 ```bash
 claude --skill lit-build-optimizer --args '{
-  "packageName": "packages/scroll-progress"
+  "packageName": "components/scroll-progress"
 }'
 ```
 
 ### Audit Docs Application Vite Config
 ```bash
 claude --skill lit-build-optimizer --args '{
-  "packageName": "packages/docs"
+  "packageName": "apps/docs"
 }'
 ```
 
@@ -66,7 +66,7 @@ To avoid duplicate copies of libraries loading in client browsers:
   }
   ```
 
-### 4. Docs App Vite Optimizations (`packages/docs/vite.config.ts`)
+### 4. Docs App Vite Optimizations (`apps/docs/vite.config.ts`)
 For the main `@uibit/docs` application, verify:
 - Production source maps are disabled (`sourcemap: false`).
 - Manual chunks are enabled to separate vendors:

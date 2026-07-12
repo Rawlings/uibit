@@ -46,7 +46,7 @@ Audit Lit components for accessibility compliance.
 
 **Trigger:** Use when reviewing component accessibility
 ```bash
-claude --skill lit-a11y-audit --args '{"componentPath":"packages/button"}'
+claude --skill lit-a11y-audit --args '{"componentPath":"components/button"}'
 ```
 
 ### 3. **lit-component-refactor**
@@ -62,7 +62,7 @@ Refactor and optimize existing Lit components.
 
 **Trigger:** Use when improving component quality
 ```bash
-claude --skill lit-component-refactor --args '{"componentPath":"packages/button"}'
+claude --skill lit-component-refactor --args '{"componentPath":"components/button"}'
 ```
 
 ### 4. **lit-docs-generator**
@@ -78,7 +78,7 @@ Auto-generate component documentation.
 
 **Trigger:** Use when documenting components
 ```bash
-claude --skill lit-docs-generator --args '{"componentPath":"packages/button"}'
+claude --skill lit-docs-generator --args '{"componentPath":"components/button"}'
 ```
 
 ### 5. **lit-test-generator**
@@ -94,7 +94,7 @@ Generate comprehensive test suites for Lit components.
 
 **Trigger:** Use for test-driven development
 ```bash
-claude --skill lit-test-generator --args '{"componentPath":"packages/button"}'
+claude --skill lit-test-generator --args '{"componentPath":"components/button"}'
 ```
 
 ### 6. **lit-build-optimizer**

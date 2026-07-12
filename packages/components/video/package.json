@@ -1,0 +1,89 @@
+{
+  "name": "@uibit/video",
+  "version": "0.1.0",
+  "description": "Custom premium customizable wrapper for native video elements and iframe video embeds",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./custom-elements.json": "./custom-elements.json",
+    "./react": "./dist/frameworks/react/index.d.ts",
+    "./vue": "./dist/frameworks/vue/index.ts",
+    "./svelte": "./dist/frameworks/svelte/index.svelte",
+    "./angular": "./dist/frameworks/angular/index.ts",
+    "./solid": "./dist/frameworks/solid/index.d.ts",
+    "./astro": "./dist/frameworks/astro/index.astro",
+    "./qwik": "./dist/frameworks/qwik/index.tsx",
+    "./nuxt": "./dist/frameworks/nuxt/index.ts",
+    "./preact": "./dist/frameworks/preact/index.d.ts",
+    "./stencil": "./dist/frameworks/stencil/index.d.ts"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "custom-elements.json"
+  ],
+  "scripts": {
+    "build": "npm run analyze && uibit-codegen --package . && tsc",
+    "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
+  },
+  "keywords": [
+    "video",
+    "player",
+    "custom-video",
+    "web-component",
+    "lit"
+  ],
+  "author": "Jonathan Rawlings",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rawlings/uibit.git",
+    "directory": "packages/components/video"
+  },
+  "dependencies": {
+    "@uibit/core": "workspace:*",
+    "lucide": "^1.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@uibit/codegen": "workspace:*",
+    "lit": "^3.3.3",
+    "typescript": "7.0.2"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0",
+    "react": ">=18",
+    "vue": ">=3",
+    "svelte": ">=4 || ^5",
+    "@angular/core": ">=14"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "vue": {
+      "optional": true
+    },
+    "svelte": {
+      "optional": true
+    },
+    "@angular/core": {
+      "optional": true
+    }
+  },
+  "customElements": "custom-elements.json",
+  "uibit": {
+    "id": "video",
+    "title": "Video",
+    "category": "Media",
+    "tagName": "uibit-video"
+  }
+}

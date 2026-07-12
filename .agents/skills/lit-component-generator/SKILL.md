@@ -12,7 +12,7 @@ Generates a complete, production-ready Lit web component package within the mono
 
 ## What It Does
 
-This skill scaffolds a new component package inside `packages/<component-name>/` with:
+This skill scaffolds a new component package inside `components/<component-name>/` with:
 
 - **Component file** (`src/<component-name>.ts`) extending `UIBitElement` from `@uibit/core` and using `@customElement` and `msg` from `@uibit/core`
 - **Styles** (`src/styles.ts`) using Lit CSS tagged template (rem units only, grayscale palette, no chromatic colors)
@@ -55,7 +55,7 @@ claude --skill lit-component-generator --args '{
 ## Generated Structure
 
 ```
-packages/<kebab-case>/
+components/<kebab-case>/
 ├── src/
 │   ├── component-name.ts          # Main component class extending UIBitElement
 │   ├── styles.ts                  # Lit CSS styles (rem units, grayscale)

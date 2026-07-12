@@ -1,6 +1,7 @@
 packages:
-  - 'packages/*'
-  - '!packages/.gitkeep'
+  - 'packages/components/*'
+  - 'packages/platform/*'
+  - 'packages/apps/*'
 
 shared-workspace-lockfile: true
 
