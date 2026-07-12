@@ -34,7 +34,7 @@ function HotspotDemo() {
   ];
 
   return (
-    <uibit-hotspot hotspots={hotspots} trigger="click">
+    <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="click">
       <img
         src="https://picsum.photos/seed/headphones/800/450"
         alt="Premium over-ear headphones on a minimal surface"

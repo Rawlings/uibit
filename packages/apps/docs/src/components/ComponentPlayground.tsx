@@ -43,10 +43,18 @@ export function ComponentPlayground({ tagName, manifest, Demo }: ComponentPlaygr
 
       let initialVal: any = undefined;
       if (customElement) {
-        if (customElement.hasAttribute(name)) {
-          initialVal = customElement.getAttribute(name);
-        } else if (customElement[name] !== undefined && customElement[name] !== null) {
-          initialVal = customElement[name];
+        const propVal = customElement[name];
+        const attrVal = customElement.getAttribute(name);
+        
+        if (propVal !== undefined && propVal !== null && typeof propVal === 'object') {
+          initialVal = propVal;
+        } else if (customElement.hasAttribute(name)) {
+          initialVal = attrVal;
+          if (typeof initialVal === 'string' && initialVal.includes('[object Object]') && propVal !== undefined && propVal !== null) {
+            initialVal = propVal;
+          }
+        } else if (propVal !== undefined && propVal !== null) {
+          initialVal = propVal;
         }
       }
 
@@ -82,7 +90,20 @@ export function ComponentPlayground({ tagName, manifest, Demo }: ComponentPlaygr
       } else if (value === false) {
         customElement.removeAttribute(name);
       } else if (value !== undefined && value !== '') {
-        customElement.setAttribute(name, String(value));
+        const isObject = typeof (customElement as any)[name] === 'object' || 
+          String(value).trim().startsWith('[') || 
+          String(value).trim().startsWith('{');
+          
+        if (isObject) {
+          try {
+            (customElement as any)[name] = JSON.parse(String(value));
+            customElement.setAttribute(name, String(value));
+          } catch {
+            customElement.setAttribute(name, String(value));
+          }
+        } else {
+          customElement.setAttribute(name, String(value));
+        }
       } else {
         customElement.removeAttribute(name);
       }

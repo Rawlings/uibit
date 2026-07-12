@@ -17,7 +17,7 @@ function Demo() {
               name="firstName"
               type="text"
               required
-              value="Alexander"
+              defaultValue="Alexander"
               className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
@@ -30,7 +30,7 @@ function Demo() {
               name="lastName"
               type="text"
               required
-              value="Smith"
+              defaultValue="Smith"
               className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
@@ -43,7 +43,7 @@ function Demo() {
               name="email"
               type="email"
               required
-              value="alexander@example.com"
+              defaultValue="alexander@example.com"
               className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
@@ -69,7 +69,7 @@ function Demo() {
               name="username"
               type="text"
               required
-              value="asmith"
+              defaultValue="asmith"
               className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
@@ -80,8 +80,9 @@ function Demo() {
             <textarea
               id="bio"
               name="bio"
+              defaultValue="Creative developer and designer."
               className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
-            >Creative developer and designer.</textarea>
+            />
           </div>
           <div className="flex gap-4 pt-2">
             <button
@@ -112,7 +113,7 @@ function Demo() {
               name="city"
               type="text"
               required
-              value="Copenhagen"
+              defaultValue="Copenhagen"
               className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
@@ -125,7 +126,7 @@ function Demo() {
               name="country"
               type="text"
               required
-              value="Denmark"
+              defaultValue="Denmark"
               className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
@@ -155,7 +156,7 @@ function Demo() {
                 id="newsletter"
                 name="newsletter"
                 type="checkbox"
-                checked
+                defaultChecked
                 className="focus:ring-black h-4 w-4 text-black border-gray-300 rounded bg-white"
               />
             </div>
@@ -171,7 +172,7 @@ function Demo() {
                 name="terms"
                 type="checkbox"
                 required
-                checked
+                defaultChecked
                 className="focus:ring-black h-4 w-4 text-black border-gray-300 rounded bg-white"
               />
             </div>

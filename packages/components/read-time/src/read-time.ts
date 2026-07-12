@@ -44,7 +44,6 @@ export class ReadTime extends UIBitElement {
     this._slot?.addEventListener('slotchange', () => this._calculate());
 
     this._timerSlot = this.shadowRoot?.querySelector('slot[name="timer"]') as HTMLSlotElement;
-    this._timerSlot?.addEventListener('slotchange', () => this._calculate());
 
     this._calculate();
   }
@@ -65,7 +64,7 @@ export class ReadTime extends UIBitElement {
 
     // Update any slotted elements inside slot="timer"
     if (this._timerSlot) {
-      const assignedTimer = this._timerSlot.assignedElements({ flatten: true });
+      const assignedTimer = this._timerSlot.assignedElements();
       for (const el of assignedTimer) {
         let template = el.getAttribute('data-template');
         if (template === null) {
@@ -80,9 +79,14 @@ export class ReadTime extends UIBitElement {
         }
 
         if (template) {
-          el.textContent = template.replace('{time}', timeStr);
+          const newText = template.replace('{time}', timeStr);
+          if (el.textContent !== newText) {
+            el.textContent = newText;
+          }
         } else if (!el.textContent || el.textContent.trim() === '' || el.hasAttribute('data-auto-update')) {
-          el.textContent = this._label;
+          if (el.textContent !== this._label) {
+            el.textContent = this._label;
+          }
           el.setAttribute('data-auto-update', '');
         }
       }

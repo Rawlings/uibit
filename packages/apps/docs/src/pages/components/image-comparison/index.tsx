@@ -10,7 +10,7 @@ import radialRaw from './examples/radial?raw';
 
 function ComparisonCurtainDemo() {
   return (
-    <div style={{ height: '350px', maxWidth: '600px', margin: '0 auto' }}>
+    <div style={{ width: '100%', height: '350px', maxWidth: '600px', margin: '0 auto' }}>
       <uibit-image-comparison mode="horizontal" progress={50}>
         <img
           slot="before"

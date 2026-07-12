@@ -38,7 +38,9 @@ const useTypeOfLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : 
   }
 
   const propTypes = Array.from(propMap.entries()).map(([propName, propType]) => {
-    return `  ${propName}?: ${propType};`;
+    const isComplex = propType.includes('[]') || propType.includes('Array') || propType.includes('Record') || propType.includes('Object') || propType.startsWith('{');
+    const typeStr = isComplex ? `${propType} | string` : propType;
+    return `  ${propName}?: ${typeStr};`;
   }).join('\n');
 
   const eventTypes = Array.from(reactProps.entries()).map(([reactPropName, eventNames]) => {
@@ -132,7 +134,11 @@ declare global {
         '${tagName}': React.ClassAttributes<HTMLElementClass> & React.HTMLAttributes<HTMLElementClass> & {
           children?: React.ReactNode;
           class?: string;
-${Array.from(propMap.entries()).map(([name, type]) => `          ${name}?: ${type};`).join('\n')}
+${Array.from(propMap.entries()).map(([name, type]) => {
+  const isComplex = type.includes('[]') || type.includes('Array') || type.includes('Record') || type.includes('Object') || type.startsWith('{');
+  const typeStr = isComplex ? `${type} | string` : type;
+  return `          ${name}?: ${typeStr};`;
+}).join('\n')}
 ${Array.from(reactProps.entries()).map(([reactPropName, eventNames]) => {
   const unionTypes = eventNames.map(eventName => {
     const e = events.find(event => event.name === eventName)!;

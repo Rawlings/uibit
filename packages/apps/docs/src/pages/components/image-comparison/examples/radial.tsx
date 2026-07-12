@@ -3,7 +3,7 @@ import { UsageExample } from '../../../../types/docs';
 
 function RadialDemo() {
   return (
-    <div style={{ height: '350px', maxWidth: '600px', margin: '0 auto' }}>
+    <div style={{ width: '100%', height: '350px', maxWidth: '600px', margin: '0 auto' }}>
       <uibit-image-comparison mode="radial" progress={30} hover-reveal>
         <img
           slot="before"

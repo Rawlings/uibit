@@ -42,7 +42,21 @@ export class Hotspot extends UIBitElement {
   static styles = styles;
 
   /** Array of hotspot items. Each item requires `id`, `x` (%), `y` (%), `label`, and optionally `title` and `content`. */
-  @property({ type: Array }) hotspots: HotspotItem[] = [];
+  @property({
+    type: Array,
+    converter: {
+      fromAttribute: (value) => {
+        if (!value) return [];
+        try {
+          return JSON.parse(value);
+        } catch {
+          return [];
+        }
+      },
+      toAttribute: (value) => JSON.stringify(value),
+    },
+  })
+  hotspots: HotspotItem[] = [];
   /** When `false`, hotspots are rendered but not clickable or hoverable. */
   @property({ type: Boolean }) interactive = true;
   /** Interaction mode for showing the popover. */
@@ -141,7 +155,7 @@ export class Hotspot extends UIBitElement {
     return html`
       <div part="container" class="hotspot-container">
         <slot></slot>
-        ${this.hotspots.map((spot, index) => {
+        ${(this.hotspots || []).map((spot, index) => {
           const spotId = spot.id || String(index);
           const isOpened = this.activeHotspotId === spotId;
           
