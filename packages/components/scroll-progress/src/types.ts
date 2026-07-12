@@ -8,12 +8,7 @@ export interface ScrollProgressConfig {
 }
 
 declare global {
-  interface HTMLElementTagNameMap {
+interface HTMLElementTagNameMap {
     'uibit-scroll-progress': ScrollProgress;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-scroll-progress': ScrollProgress;
-    }
-  }
+}
 }

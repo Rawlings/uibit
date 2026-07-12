@@ -8,7 +8,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
+          "description": "Trigger visual effects like particles or vortex attractions.",
           "name": "EffectTrigger",
           "members": [
             {
@@ -358,6 +358,15 @@
                   }
                 }
               ]
+            }
+          ],
+          "events": [
+            {
+              "type": {
+                "text": "{ particle: HTMLElement, index: number, trigger: string }"
+              },
+              "description": "Fired when a particle is created",
+              "name": "uibit-particle-create"
             }
           ],
           "attributes": [

@@ -44,5 +44,10 @@
   "dependencies": {
     "@lit/localize": "^0.12.2",
     "lucide": "^1.24.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rawlings/uibit.git",
+    "directory": "packages/platform/core"
   }
 }

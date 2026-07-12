@@ -9,6 +9,7 @@ import hoverTriggerRaw from './examples/hover-trigger?raw';
 function HotspotDemo() {
   const hotspots = [
     {
+      id: '1',
       x: 25,
       y: 35,
       label: 'High-Fidelity Drivers',
@@ -16,6 +17,7 @@ function HotspotDemo() {
         'Custom acoustic chambers deliver deep bass, ultra-low distortion, and crisp high frequencies.',
     },
     {
+      id: '2',
       x: 70,
       y: 45,
       label: 'Memory Foam Cushioning',
@@ -23,6 +25,7 @@ function HotspotDemo() {
         'Wrapped in breathable mesh and soft memory foam for all-day comfort without ear fatigue.',
     },
     {
+      id: '3',
       x: 48,
       y: 75,
       label: 'Adaptive ANC Microphone',
@@ -31,7 +34,7 @@ function HotspotDemo() {
   ];
 
   return (
-    <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="click">
+    <uibit-hotspot hotspots={hotspots} trigger="click">
       <img
         src="https://picsum.photos/seed/headphones/800/450"
         alt="Premium over-ear headphones on a minimal surface"

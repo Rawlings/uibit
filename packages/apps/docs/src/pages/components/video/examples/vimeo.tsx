@@ -5,9 +5,9 @@ function VimeoDemo() {
   return (
     <uibit-video 
       poster="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1200&auto=format&fit=crop"
-      class="block w-full max-w-2xl border border-gray-200 dark:border-gray-800"
+      className="block w-full max-w-2xl border border-gray-200 dark:border-gray-800"
     >
-      <iframe src="https://player.vimeo.com/video/76979871" allowfullscreen></iframe>
+      <iframe src="https://player.vimeo.com/video/76979871" allowFullScreen></iframe>
     </uibit-video>
   );
 }

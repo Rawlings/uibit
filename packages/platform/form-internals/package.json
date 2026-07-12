@@ -38,5 +38,10 @@
   },
   "peerDependencies": {
     "lit": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rawlings/uibit.git",
+    "directory": "packages/platform/form-internals"
   }
 }

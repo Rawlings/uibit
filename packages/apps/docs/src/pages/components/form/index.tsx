@@ -11,7 +11,7 @@ function FormDemo() {
     >
       <form action="https://httpbin.org/post" method="POST" className="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="name">
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="name">
             Full Name *
           </label>
           <input
@@ -19,13 +19,13 @@ function FormDemo() {
             name="name"
             type="text"
             required
-            class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+            className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             placeholder="John Doe"
           />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
             Email Address *
           </label>
           <input
@@ -33,34 +33,34 @@ function FormDemo() {
             name="email"
             type="email"
             required
-            class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+            className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             placeholder="john@example.com"
           />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="comments">
+          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="comments">
             Comments
           </label>
           <textarea
             id="comments"
             name="comments"
             rows={3}
-            class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+            className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             placeholder="Leave a message..."
           ></textarea>
         </div>
 
-        <div class="flex gap-4 pt-2">
+        <div className="flex gap-4 pt-2">
           <button
             type="submit"
-            class="px-4 py-2 bg-black text-white rounded-md text-sm font-medium hover:bg-gray-800 cursor-pointer"
+            className="px-4 py-2 bg-black text-white rounded-md text-sm font-medium hover:bg-gray-800 cursor-pointer"
           >
             Submit Form
           </button>
           <button
             type="reset"
-            class="px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 cursor-pointer"
+            className="px-4 py-2 border border-gray-300 bg-white text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 cursor-pointer"
           >
             Reset
           </button>

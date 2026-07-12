@@ -101,16 +101,6 @@
             },
             {
               "kind": "field",
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "default": "'{time} read'",
-              "description": "Template for the label. Use `{time}` as a placeholder for the calculated duration.",
-              "attribute": "template"
-            },
-            {
-              "kind": "field",
               "name": "showIcon",
               "type": {
                 "text": "boolean"
@@ -177,15 +167,6 @@
               "default": "238",
               "description": "Average reading speed in words per minute.",
               "fieldName": "wpm"
-            },
-            {
-              "name": "template",
-              "type": {
-                "text": "string"
-              },
-              "default": "'{time} read'",
-              "description": "Template for the label. Use `{time}` as a placeholder for the calculated duration.",
-              "fieldName": "template"
             },
             {
               "name": "show-icon",

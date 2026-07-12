@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { UsageExample } from '../../../../types/docs';
 
 function EventHandlingDemo() {
-  const barRef = useRef<HTMLElement>(null);
+  const barRef = useRef<any>(null);
   const [lastEvent, setLastEvent] = useState<{ type: string; detail: { value: number; label: string } } | null>(null);
 
   useEffect(() => {

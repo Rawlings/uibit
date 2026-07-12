@@ -77,7 +77,7 @@ const data: ComponentDocData = {
     'SlotChange observer re-calculates automatically when content updates',
     'Walks the full DOM tree of slotted content, skipping hidden elements and the timer slot itself',
     'Configurable WPM rate for different audience reading speeds',
-    'Customizable label template with {time} placeholder',
+    'Customizable label template using {time} placeholder in the timer slot',
     'Built-in SVG clock icon, independently toggleable',
     'Fires read-time-change with word count and minute estimate for analytics',
   ],

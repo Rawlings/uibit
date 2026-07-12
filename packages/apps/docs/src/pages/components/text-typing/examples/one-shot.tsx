@@ -4,7 +4,7 @@ import { UsageExample } from '../../../../types/docs';
 function OneShotDemo() {
   return (
     <p className="text-2xl font-medium text-gray-900 tracking-tight">
-      <uibit-text-typing loop="false" pause-after="2000" type-speed="80">
+      <uibit-text-typing loop={false} pause-after={2000} type-speed={80}>
         <span slot="text">Loading complete.</span>
         <span slot="text">Welcome back.</span>
       </uibit-text-typing>

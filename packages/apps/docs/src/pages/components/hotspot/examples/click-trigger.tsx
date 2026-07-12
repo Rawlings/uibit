@@ -30,7 +30,7 @@ function ClickTriggerDemo() {
   ];
 
   return (
-    <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="click">
+    <uibit-hotspot hotspots={hotspots} trigger="click">
       <img
         src="https://picsum.photos/seed/smartphone/600/400"
         alt="Smartphone product shot"

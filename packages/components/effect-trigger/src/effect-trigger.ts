@@ -18,6 +18,11 @@ function getGlobalContainer(): HTMLElement {
   return globalContainer;
 }
 
+/**
+ * Trigger visual effects like particles or vortex attractions.
+ *
+ * @fires {{ particle: HTMLElement, index: number, trigger: string }} uibit-particle-create - Fired when a particle is created
+ */
 @customElement('uibit-effect-trigger')
 export class EffectTrigger extends UIBitElement {
   static styles = styles;

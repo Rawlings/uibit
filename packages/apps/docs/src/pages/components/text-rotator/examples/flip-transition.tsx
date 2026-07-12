@@ -4,7 +4,7 @@ import { UsageExample } from '../../../../types/docs';
 function FlipTransitionDemo() {
   return (
     <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
-      <uibit-text-rotator interval="2500" transition="flip">
+      <uibit-text-rotator interval={2500} transition="flip">
         Ship code with{' '}
         <span slot="text">confidence</span>
         <span slot="text">clarity</span>

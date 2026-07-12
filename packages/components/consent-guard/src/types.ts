@@ -24,12 +24,7 @@ export interface ConsentGuard {
 }
 
 declare global {
-  interface HTMLElementTagNameMap {
+interface HTMLElementTagNameMap {
     'uibit-consent-guard': ConsentGuardClass;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-consent-guard': ConsentGuardClass;
-    }
-  }
+}
 }

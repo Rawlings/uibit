@@ -99,11 +99,11 @@ export interface CemManifest {
 }
 
 export interface ComponentDocData {
-  id: string;
-  title: string;
-  description: string;
-  packageName: string;
-  tagName: string;
+  id?: string;
+  title?: string;
+  description?: string;
+  packageName?: string;
+  tagName?: string;
   manifest?: any;
   Demo?: ComponentType;
   demoCode?: DualCode;
@@ -114,4 +114,12 @@ export interface ComponentDocData {
   category?: string;
   changelog?: string;
   readme?: string;
+}
+
+export interface RegisteredComponentDocData extends ComponentDocData {
+  id: string;
+  title: string;
+  description: string;
+  packageName: string;
+  tagName: string;
 }

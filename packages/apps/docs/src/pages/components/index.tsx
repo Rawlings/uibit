@@ -1,4 +1,4 @@
-import { ComponentDocData } from '../../types/docs';
+import { ComponentDocData, RegisteredComponentDocData } from '../../types/docs';
 
 const flatModules = import.meta.glob('./*.tsx', { eager: true }) as Record<
   string,
@@ -42,7 +42,7 @@ const manifestModules = import.meta.glob('../../../../../components/*/custom-ele
   eager: true,
 }) as Record<string, { default: any }>;
 
-export const componentRegistry: Record<string, ComponentDocData> = {};
+export const componentRegistry: Record<string, RegisteredComponentDocData> = {};
 
 for (const path in packageModules) {
   const pkg = packageModules[path].default;
@@ -70,6 +70,6 @@ for (const path in packageModules) {
       changelog,
       readme,
       manifest,
-    } as ComponentDocData;
+    } as RegisteredComponentDocData;
   }
 }

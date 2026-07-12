@@ -10,7 +10,7 @@ function WindowScrollDemo() {
     >
       <uibit-scroll-progress
         target-selector="#window-scroll-demo-box"
-        class="sticky top-0 z-10 block"
+        className="sticky top-0 z-10 block"
       ></uibit-scroll-progress>
 
       <div className="space-y-4 py-2">

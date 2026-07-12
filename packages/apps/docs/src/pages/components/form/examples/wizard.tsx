@@ -6,10 +6,10 @@ function Demo() {
     <uibit-form class="block bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
       <form action="https://httpbin.org/post" method="POST" className="space-y-6">
         {/* Step 1 */}
-        <fieldset class="space-y-4">
-          <legend class="sr-only">Step 1: Contact Details</legend>
+        <fieldset className="space-y-4">
+          <legend className="sr-only">Step 1: Contact Details</legend>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="first-name">
+            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="first-name">
               First Name *
             </label>
             <input
@@ -18,11 +18,11 @@ function Demo() {
               type="text"
               required
               value="Alexander"
-              class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+              className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="last-name">
+            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="last-name">
               Last Name *
             </label>
             <input
@@ -31,11 +31,11 @@ function Demo() {
               type="text"
               required
               value="Smith"
-              class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+              className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
               Email Address *
             </label>
             <input
@@ -44,7 +44,7 @@ function Demo() {
               type="email"
               required
               value="alexander@example.com"
-              class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+              className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
           <div className="flex gap-4 pt-2">
@@ -58,10 +58,10 @@ function Demo() {
         </fieldset>
 
         {/* Step 2 */}
-        <fieldset class="space-y-4">
-          <legend class="sr-only">Step 2: Profile Settings</legend>
+        <fieldset className="space-y-4">
+          <legend className="sr-only">Step 2: Profile Settings</legend>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="username">
+            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="username">
               Username *
             </label>
             <input
@@ -70,17 +70,17 @@ function Demo() {
               type="text"
               required
               value="asmith"
-              class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+              className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="bio">
+            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="bio">
               Short Bio
             </label>
             <textarea
               id="bio"
               name="bio"
-              class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+              className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             >Creative developer and designer.</textarea>
           </div>
           <div className="flex gap-4 pt-2">
@@ -101,10 +101,10 @@ function Demo() {
         </fieldset>
 
         {/* Step 3 */}
-        <fieldset class="space-y-4">
-          <legend class="sr-only">Step 3: Location Details</legend>
+        <fieldset className="space-y-4">
+          <legend className="sr-only">Step 3: Location Details</legend>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="city">
+            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="city">
               City *
             </label>
             <input
@@ -113,11 +113,11 @@ function Demo() {
               type="text"
               required
               value="Copenhagen"
-              class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+              className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1" htmlFor="country">
+            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="country">
               Country *
             </label>
             <input
@@ -126,7 +126,7 @@ function Demo() {
               type="text"
               required
               value="Denmark"
-              class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
+              className="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
           <div className="flex gap-4 pt-2">
@@ -147,36 +147,36 @@ function Demo() {
         </fieldset>
 
         {/* Step 4 */}
-        <fieldset class="space-y-4">
-          <legend class="sr-only">Step 4: Confirmation</legend>
-          <div class="flex items-start">
-            <div class="flex items-center h-5">
+        <fieldset className="space-y-4">
+          <legend className="sr-only">Step 4: Confirmation</legend>
+          <div className="flex items-start">
+            <div className="flex items-center h-5">
               <input
                 id="newsletter"
                 name="newsletter"
                 type="checkbox"
                 checked
-                class="focus:ring-black h-4 w-4 text-black border-gray-300 rounded bg-white"
+                className="focus:ring-black h-4 w-4 text-black border-gray-300 rounded bg-white"
               />
             </div>
-            <div class="ml-3 text-sm">
-              <label htmlFor="newsletter" class="font-medium text-gray-700">Subscribe to updates</label>
-              <p class="text-gray-500">Get monthly announcements about features.</p>
+            <div className="ml-3 text-sm">
+              <label htmlFor="newsletter" className="font-medium text-gray-700">Subscribe to updates</label>
+              <p className="text-gray-500">Get monthly announcements about features.</p>
             </div>
           </div>
-          <div class="flex items-start">
-            <div class="flex items-center h-5">
+          <div className="flex items-start">
+            <div className="flex items-center h-5">
               <input
                 id="terms"
                 name="terms"
                 type="checkbox"
                 required
                 checked
-                class="focus:ring-black h-4 w-4 text-black border-gray-300 rounded bg-white"
+                className="focus:ring-black h-4 w-4 text-black border-gray-300 rounded bg-white"
               />
             </div>
-            <div class="ml-3 text-sm">
-              <label htmlFor="terms" class="font-medium text-gray-700">Accept Terms & Conditions *</label>
+            <div className="ml-3 text-sm">
+              <label htmlFor="terms" className="font-medium text-gray-700">Accept Terms & Conditions *</label>
             </div>
           </div>
           <div className="flex gap-4 pt-2">

@@ -19,12 +19,7 @@ export interface CountdownTickEvent extends CustomEvent {
 }
 
 declare global {
-  interface HTMLElementTagNameMap {
+interface HTMLElementTagNameMap {
     'uibit-countdown': Countdown;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-countdown': Countdown;
-    }
-  }
+}
 }

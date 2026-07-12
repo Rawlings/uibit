@@ -40,5 +40,10 @@
   },
   "peerDependencies": {
     "vite": "^5.0.0 || ^6.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rawlings/uibit.git",
+    "directory": "packages/platform/vite-plugin-wc-hmr"
   }
 }

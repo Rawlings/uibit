@@ -31,12 +31,7 @@ export type BehaviorFn = (ctx: BehaviorContext) => void;
 import type { EffectTrigger } from './effect-trigger';
 
 declare global {
-  interface HTMLElementTagNameMap {
+interface HTMLElementTagNameMap {
     'uibit-effect-trigger': EffectTrigger;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-effect-trigger': EffectTrigger;
-    }
-  }
+}
 }

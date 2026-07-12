@@ -4,11 +4,11 @@ import { UsageExample } from '../../../../types/docs';
 function CustomOptionsDemo() {
   return (
     <uibit-sentiment-selector show-label>
-      <div value="1" icon="angry" label="Not helpful"></div>
-      <div value="2" icon="frown" label="Okay"></div>
-      <div value="3" icon="meh" label="Helpful"></div>
-      <div value="4" icon="smile" label="Very helpful"></div>
-      <div value="5" icon="laugh" label="Essential"></div>
+      <div data-value="1" data-icon="angry" data-label="Not helpful"></div>
+      <div data-value="2" data-icon="frown" data-label="Okay"></div>
+      <div data-value="3" data-icon="meh" data-label="Helpful"></div>
+      <div data-value="4" data-icon="smile" data-label="Very helpful"></div>
+      <div data-value="5" data-icon="laugh" data-label="Essential"></div>
     </uibit-sentiment-selector>
   );
 }

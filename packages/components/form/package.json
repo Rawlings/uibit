@@ -82,5 +82,10 @@
     "title": "Form",
     "category": "Forms",
     "tagName": "uibit-form"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rawlings/uibit.git",
+    "directory": "packages/components/form"
   }
 }

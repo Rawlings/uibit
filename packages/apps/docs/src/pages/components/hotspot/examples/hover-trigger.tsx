@@ -22,7 +22,7 @@ function HoverTriggerDemo() {
   ];
 
   return (
-    <uibit-hotspot hotspots={JSON.stringify(hotspots)} trigger="hover">
+    <uibit-hotspot hotspots={hotspots} trigger="hover">
       <img
         src="https://picsum.photos/seed/bicycle/600/400"
         alt="Bicycle product shot"

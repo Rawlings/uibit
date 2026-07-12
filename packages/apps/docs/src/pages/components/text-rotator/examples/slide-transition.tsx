@@ -4,7 +4,7 @@ import { UsageExample } from '../../../../types/docs';
 function SlideTransitionDemo() {
   return (
     <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
-      <uibit-text-rotator interval="2000" transition="slide">
+      <uibit-text-rotator interval={2000} transition="slide">
         Build websites{' '}
         <span slot="text">faster</span>
         <span slot="text">better</span>

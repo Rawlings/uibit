@@ -11,10 +11,10 @@ const technicalText = `
 
 function Demo() {
   return (
-    <uibit-read-time wpm="100" template="{time} to read" show-icon>
+    <uibit-read-time wpm={100} show-icon>
       <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
         <span className="text-xs text-gray-500 font-medium uppercase tracking-wide">Technical Documentation</span>
-        <span slot="timer" className="text-xs text-gray-500 font-medium"></span>
+        <span slot="timer" className="text-xs text-gray-500 font-medium">{"{time}"} to read</span>
       </div>
       <h3 className="text-base font-semibold text-gray-900 mb-2">Binary Search Trees</h3>
       <p className="text-sm text-gray-600 leading-relaxed line-clamp-3">{technicalText.trim()}</p>
@@ -24,7 +24,7 @@ function Demo() {
 
 const example: UsageExample = {
   title: 'Custom WPM for technical content',
-  description: 'Override the default 238 WPM for audiences reading dense documentation. The template attribute customises the label string using the {time} placeholder.',
+  description: 'Override the default 238 WPM for audiences reading dense documentation. The custom template is passed in the slot element using the {time} placeholder.',
   Demo,
 };
 

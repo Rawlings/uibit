@@ -12,7 +12,7 @@ const ROWS: [string, string, string, string][] = [
 ];
 
 function RowSelectionDemo() {
-  const tableRef = useRef<HTMLElement>(null);
+  const tableRef = useRef<any>(null);
   const [selectedCount, setSelectedCount] = useState(0);
 
   useEffect(() => {

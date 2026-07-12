@@ -82,5 +82,10 @@
     "title": "Effect Trigger",
     "category": "Media",
     "tagName": "uibit-effect-trigger"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rawlings/uibit.git",
+    "directory": "packages/components/effect-trigger"
   }
 }

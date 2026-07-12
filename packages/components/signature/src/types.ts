@@ -21,12 +21,7 @@ export interface SignatureClearDetail {
 }
 
 declare global {
-  interface HTMLElementTagNameMap {
+interface HTMLElementTagNameMap {
     'uibit-signature': Signature;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'uibit-signature': Signature;
-    }
-  }
+}
 }

@@ -23,5 +23,10 @@
   },
   "dependencies": {
     "oxc-parser": "^0.139.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rawlings/uibit.git",
+    "directory": "packages/platform/codegen"
   }
 }

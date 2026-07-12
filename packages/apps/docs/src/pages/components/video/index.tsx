@@ -9,13 +9,13 @@ import vimeoRaw from './examples/vimeo?raw';
 function VideoDemo() {
   return (
     <uibit-video 
-      class="block w-full max-w-2xl border border-gray-200 dark:border-gray-800"
+      className="block w-full max-w-2xl border border-gray-200 dark:border-gray-800"
     >
       <video 
         src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" 
         poster="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" 
         loop 
-        playsinline
+        playsInline
       ></video>
     </uibit-video>
   );
