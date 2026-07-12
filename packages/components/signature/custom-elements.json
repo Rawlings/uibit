@@ -240,6 +240,11 @@
               ]
             },
             {
+              "kind": "field",
+              "name": "validationAnchor",
+              "readonly": true
+            },
+            {
               "kind": "method",
               "name": "onPointerUp",
               "privacy": "private",
@@ -360,6 +365,12 @@
               "default": "false",
               "description": "Whether to hide the clear button.",
               "fieldName": "hideClear"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormAssociatedMixin",
+              "package": "@uibit/form-internals"
             }
           ],
           "superclass": {

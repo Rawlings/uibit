@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { customElement, fromLucide, getIcon, msg, UIBitElement, type IconDefinition } from '@uibit/core';
 import { Angry, Frown, Laugh, Meh, Smile } from 'lucide';
+import { FormAssociatedMixin } from '@uibit/form-internals';
 
 const ICON_FALLBACKS: Record<string, IconDefinition> = {
   angry: fromLucide(Angry),
@@ -56,23 +57,33 @@ const DEFAULT_OPTIONS: SentimentOption[] = [
  * @cssprop [--uibit-sentiment-selector-gap=0.625rem] - Gap between track and label
  */
 @customElement('uibit-sentiment-selector')
-export class SentimentSelector extends UIBitElement {
+export class SentimentSelector extends FormAssociatedMixin(UIBitElement) {
   static styles = styles;
 
   @state() private options: SentimentOption[] = DEFAULT_OPTIONS;
 
-  /** Currently selected value. Reflected as an attribute. */
-  @property({ type: Number, reflect: true }) value?: number;
+  @property({ type: String, reflect: true }) declare value: string;
 
   /** Show the label text for the selected option below the track. */
   @property({ type: Boolean, attribute: 'show-label' }) showLabel = true;
 
   @state() private _hoverValue?: number;
 
+  get valueAsNumber(): number | undefined {
+    return this.value ? Number(this.value) : undefined;
+  }
+
+  set valueAsNumber(newValue: number | undefined) {
+    this.value = newValue !== undefined ? String(newValue) : '';
+  }
+
+  get validationAnchor() {
+    return this.shadowRoot?.querySelector('.item') as HTMLElement || undefined;
+  }
+
   private _select(option: SentimentOption) {
-    const isReselect = this.value === option.value;
-    this.value = option.value;
-    this.setAttribute('value', String(option.value));
+    const isReselect = this.valueAsNumber === option.value;
+    this.valueAsNumber = option.value;
 
     this.dispatchCustomEvent('sentiment-change', { value: option.value, label: option.label });
 
@@ -85,8 +96,8 @@ export class SentimentSelector extends UIBitElement {
     const hovered = this._hoverValue !== undefined
       ? this.options.find(o => o.value === this._hoverValue)
       : undefined;
-    const selected = this.value !== undefined
-      ? this.options.find(o => o.value === this.value)
+    const selected = this.valueAsNumber !== undefined
+      ? this.options.find(o => o.value === this.valueAsNumber)
       : undefined;
     return (hovered ?? selected)?.label ?? '';
   }
@@ -110,7 +121,7 @@ export class SentimentSelector extends UIBitElement {
   private _onKeyDown(e: KeyboardEvent) {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       e.preventDefault();
-      const currentIndex = this.options.findIndex(o => o.value === this.value);
+      const currentIndex = this.options.findIndex(o => o.value === this.valueAsNumber);
       let nextIndex = currentIndex;
       if (e.key === 'ArrowLeft') {
         nextIndex = currentIndex <= 0 ? this.options.length - 1 : currentIndex - 1;
@@ -134,12 +145,12 @@ export class SentimentSelector extends UIBitElement {
       <div class="track" part="track" role="radiogroup" aria-label=${msg('Sentiment rating')}>
         ${this.options.map(option => html`
           <button
-            class="item ${this.value !== undefined && this.value !== option.value ? 'dimmed' : ''}"
+            class="item ${this.valueAsNumber !== undefined && this.valueAsNumber !== option.value ? 'dimmed' : ''}"
             part="item"
             role="radio"
-            aria-checked=${this.value === option.value ? 'true' : 'false'}
+            aria-checked=${this.valueAsNumber === option.value ? 'true' : 'false'}
             aria-label=${option.label}
-            ?data-selected=${this.value === option.value}
+            ?data-selected=${this.valueAsNumber === option.value}
             @click=${() => this._select(option)}
             @mouseenter=${() => { this._hoverValue = option.value; }}
             @mouseleave=${() => { this._hoverValue = undefined; }}

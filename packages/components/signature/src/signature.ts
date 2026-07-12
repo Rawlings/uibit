@@ -3,6 +3,7 @@ import { customElement, fromLucide, getIcon, UIBitElement } from '@uibit/core';
 import { RotateCcw } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import type { SignaturePoint, SignatureStroke } from './types.js';
+import { FormAssociatedMixin } from '@uibit/form-internals';
 
 /**
  * Canvas area for capturing freehand signatures or drawings using touch or
@@ -32,7 +33,7 @@ import type { SignaturePoint, SignatureStroke } from './types.js';
  * @csspart clear-button - The clear button
  */
 @customElement('uibit-signature')
-export class Signature extends UIBitElement {
+export class Signature extends FormAssociatedMixin(UIBitElement) {
   static styles = css`
     :host {
       display: block;
@@ -206,6 +207,10 @@ export class Signature extends UIBitElement {
     }
   }
 
+  get validationAnchor() {
+    return this.shadowRoot?.querySelector('canvas') as HTMLElement || undefined;
+  }
+
   private onPointerUp(_e: PointerEvent) {
     if (!this.isPointerDown) return;
     this.isPointerDown = false;
@@ -213,7 +218,9 @@ export class Signature extends UIBitElement {
     if (this.currentStroke.length > 0) {
       this.strokes.push({ points: [...this.currentStroke] });
       this.currentStroke = [];
-      this.dispatchCustomEvent('signature-change', { isEmpty: this.isEmpty, dataUrl: this.toDataURL() });
+      const dataUrl = this.toDataURL();
+      this.value = dataUrl;
+      this.dispatchCustomEvent('signature-change', { isEmpty: this.isEmpty, dataUrl });
     }
   }
 
@@ -338,6 +345,7 @@ export class Signature extends UIBitElement {
     this.strokes = [];
     this.currentStroke = [];
     this.isEmpty = true;
+    this.value = '';
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.dispatchCustomEvent('signature-clear', { previouslyEmpty: wasEmpty });
   }

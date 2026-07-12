@@ -1,0 +1,92 @@
+import type { ReactiveController, ReactiveControllerHost } from 'lit';
+
+export class InteractionController implements ReactiveController {
+  host: ReactiveControllerHost & HTMLElement;
+  private _internals: ElementInternals;
+  
+  private _touched = false;
+  private _dirty = false;
+  
+  constructor(host: ReactiveControllerHost & HTMLElement, internals: ElementInternals) {
+    this.host = host;
+    this._internals = internals;
+    this.host.addController(this);
+  }
+
+  hostConnected() {
+    this.host.addEventListener('blur', this.handleBlur, { capture: true });
+    this.host.addEventListener('input', this.handleInput, { capture: true });
+    this.host.addEventListener('change', this.handleChange, { capture: true });
+  }
+
+  hostDisconnected() {
+    this.host.removeEventListener('blur', this.handleBlur, { capture: true });
+    this.host.removeEventListener('input', this.handleInput, { capture: true });
+    this.host.removeEventListener('change', this.handleChange, { capture: true });
+  }
+
+  get touched() {
+    return this._touched;
+  }
+
+  get dirty() {
+    return this._dirty;
+  }
+
+  reset() {
+    this._touched = false;
+    this._dirty = false;
+    if (this._internals.states) {
+      this._internals.states.delete('touched');
+      this._internals.states.delete('dirty');
+      this._internals.states.delete('user-invalid');
+      this._internals.states.delete('user-valid');
+    }
+    this.host.requestUpdate();
+  }
+
+  private handleBlur = () => {
+    if (this._touched) return;
+    this._touched = true;
+    if (this._internals.states) {
+      this._internals.states.add('touched');
+    }
+    this.updateUserValidity();
+    this.host.requestUpdate();
+  };
+
+  private handleInput = () => {
+    if (this._dirty) return;
+    this._dirty = true;
+    if (this._internals.states) {
+      this._internals.states.add('dirty');
+    }
+    this.updateUserValidity();
+    this.host.requestUpdate();
+  };
+
+  private handleChange = () => {
+    if (this._dirty) return;
+    this._dirty = true;
+    if (this._internals.states) {
+      this._internals.states.add('dirty');
+    }
+    this.updateUserValidity();
+    this.host.requestUpdate();
+  };
+
+  updateUserValidity() {
+    if (!this._internals.states) return;
+    
+    if (this._touched || this._dirty) {
+      const isValid = this._internals.checkValidity();
+      if (isValid) {
+        this._internals.states.add('user-valid');
+        this._internals.states.delete('user-invalid');
+      } else {
+        this._internals.states.add('user-invalid');
+        this._internals.states.delete('user-valid');
+      }
+    }
+  }
+}

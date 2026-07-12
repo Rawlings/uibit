@@ -170,6 +170,15 @@ To ensure components are robust and reusable, prioritize HTML slots over data/re
 1. **Avoid Content Properties**: Do not use public properties (e.g. `content`, `label`, `title`) to pass text or markup into elements. Allow consumers to pass nested DOM elements inside standard or named `<slot>` elements.
 2. **Backward-Compatible Fallbacks**: When property-based APIs must be maintained for backward compatibility, wrap the property-based rendering inside slot tags (e.g. `<slot name="title">${this.title}</slot>`). This allows slots to gracefully override property defaults if provided.
 
+## Form Associated Component Guidelines
+
+To ensure custom inputs participate in native forms seamlessly with zero custom systems:
+
+1. **Inherit FormAssociatedMixin**: All components acting as form controls (inputs, toggles, selectors) must extend `FormAssociatedMixin` from `@uibit/form-internals`.
+2. **Pure Native APIs**: Rely strictly on standard HTML5 form APIs. Do not expose custom non-native attributes, properties, or validation hooks (e.g. no custom hooks like `validationAnchor` or `performCustomValidation`).
+3. **Internal Focus Delegation**: Instead of inventing custom focus target configurations, custom elements must override the browser's standard `.focus(options?: FocusOptions)` method to delegate focus internally to their primary interactive sub-element (e.g., input, canvas, button) within the shadow root.
+4. **Standard Validation Lifecycle**: Use standard `setCustomValidity()` to perform custom constraints checks, and listen to standard native events (like `invalid`) when reacting to form submission states.
+
 ## Integration with Development
 
 These skills integrate with the standard UIBit development workflow:

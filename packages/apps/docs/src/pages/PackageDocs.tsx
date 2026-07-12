@@ -2,10 +2,12 @@ import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
+import { renderMarkdownInline, slugify } from '../utils/markdown';
 
 // Raw import of package README markdown files
 import codegenReadme from '../../../../platform/codegen/README.md?raw';
 import coreReadme from '../../../../platform/core/README.md?raw';
+import formInternalsReadme from '../../../../platform/form-internals/README.md?raw';
 
 interface PackageData {
   title: string;
@@ -26,6 +28,12 @@ const packagesRegistry: Record<string, PackageData> = {
     description: 'Use UIBit components in React, Vue, Svelte, Angular, Astro, Preact, Stencil, and vanilla TypeScript with auto-generated type wrappers.',
     packageName: '@uibit/codegen',
     readme: codegenReadme,
+  },
+  'form-internals': {
+    title: 'Form Internals',
+    description: 'Polyfilled and standardized wrapper around ElementInternals for robust form participation, CSS validation states, and constraint validation.',
+    packageName: '@uibit/form-internals',
+    readme: formInternalsReadme,
   },
 };
 
@@ -88,20 +96,7 @@ const frameworks = [
   },
 ];
 
-function renderMarkdownInline(text: string) {
-  const html = text
-    .replace(/`([^`]+)`/g, '<code class="font-mono bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded text-xs text-gray-800 dark:text-gray-250">$1</code>')
-    .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900 dark:text-white">$1</strong>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-gray-900 dark:text-white underline hover:text-gray-600">$1</a>');
-  return <span dangerouslySetInnerHTML={{ __html: html }} />;
-}
 
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-');
-}
 
 export default function PackageDocs() {
   const { packageId } = useParams<{ packageId: string }>();

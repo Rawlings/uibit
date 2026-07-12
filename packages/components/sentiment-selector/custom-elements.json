@@ -140,9 +140,8 @@
               "kind": "field",
               "name": "value",
               "type": {
-                "text": "number | undefined"
+                "text": "string"
               },
-              "description": "Currently selected value. Reflected as an attribute.",
               "attribute": "value",
               "reflects": true
             },
@@ -163,6 +162,18 @@
                 "text": "number | undefined"
               },
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "valueAsNumber",
+              "type": {
+                "text": "number | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "validationAnchor",
+              "readonly": true
             },
             {
               "kind": "method",
@@ -234,9 +245,8 @@
             {
               "name": "value",
               "type": {
-                "text": "number | undefined"
+                "text": "string"
               },
-              "description": "Currently selected value. Reflected as an attribute.",
               "fieldName": "value"
             },
             {
@@ -247,6 +257,12 @@
               "default": "true",
               "description": "Show the label text for the selected option below the track.",
               "fieldName": "showLabel"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "FormAssociatedMixin",
+              "package": "@uibit/form-internals"
             }
           ],
           "superclass": {

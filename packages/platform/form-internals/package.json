@@ -1,0 +1,41 @@
+{
+  "name": "@uibit/form-internals",
+  "version": "0.1.0",
+  "description": "Form participation and ElementInternals utilities for UIBit components",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "keywords": [
+    "uibit",
+    "form",
+    "element-internals",
+    "validation",
+    "web-components",
+    "lit"
+  ],
+  "author": "Jonathan Rawlings",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "lit": "^3.3.3",
+    "typescript": "7.0.2"
+  },
+  "peerDependencies": {
+    "lit": "^3.0.0"
+  }
+}

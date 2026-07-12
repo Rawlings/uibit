@@ -1,31 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { componentRegistry } from '../pages/components';
-
-const FOUNDATIONS = [
-  { id: 'getting-started', title: 'Installation & Setup', to: '/foundations/getting-started', category: 'Foundations' },
-  { id: 'accessibility', title: 'Accessibility', to: '/foundations/accessibility', category: 'Foundations' },
-  { id: 'styling', title: 'Styling & Theming', to: '/foundations/styling', category: 'Foundations' },
-  { id: 'localization', title: 'Localization', to: '/foundations/localization', category: 'Foundations' },
-  { id: 'icons', title: 'Icons', to: '/foundations/icons', category: 'Foundations' },
-  { id: 'frameworks', title: 'Framework Integrations', to: '/foundations/frameworks', category: 'Foundations' },
-  { id: 'browser-support', title: 'Browser Support', to: '/foundations/browser-support', category: 'Foundations' },
-  { id: 'troubleshooting', title: 'Troubleshooting & FAQ', to: '/foundations/troubleshooting', category: 'Foundations' },
-];
-
-const RESOURCES = [
-  { id: 'contributing', title: 'Contributing', to: '/resources/contributing', category: 'Resources' },
-  { id: 'security', title: 'Security', to: '/resources/security', category: 'Resources' },
-  { id: 'coc', title: 'Code of Conduct', to: '/resources/coc', category: 'Resources' },
-];
-
-const COMPONENT_CATEGORIES = [
-  { label: 'Media', ids: ['360-viewer', 'image-comparison', 'hotspot', 'image-reveal', 'particles', 'effect-trigger', 'scratch-reveal', 'consent-guard'] },
-  { label: 'Forms', ids: ['signature', 'sentiment-selector'] },
-  { label: 'Text', ids: ['text-typing', 'text-rotator', 'read-time', 'text-clamp'] },
-  { label: 'Data', ids: ['table', 'diff-viewer', 'countdown', 'number-increment', 'scroll-progress'] },
-  { label: 'Layout', ids: ['carousel'] }
-];
+import { FOUNDATIONS, RESOURCES, ECOSYSTEM } from '../config/navigation';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -61,6 +37,16 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     });
   });
 
+  // Add ecosystem
+  ECOSYSTEM.forEach(g => {
+    items.push({
+      id: g.id,
+      title: g.title,
+      to: g.to,
+      category: 'Ecosystem'
+    });
+  });
+
   // Add resources
   RESOURCES.forEach(g => {
     items.push({
@@ -72,18 +58,13 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   });
 
   // Add components
-  COMPONENT_CATEGORIES.forEach(cat => {
-    cat.ids.forEach(id => {
-      const comp = componentRegistry[id];
-      if (comp) {
-        items.push({
-          id: comp.id,
-          title: comp.title,
-          description: comp.description,
-          to: `/components/${comp.id}`,
-          category: cat.label
-        });
-      }
+  Object.values(componentRegistry).forEach(comp => {
+    items.push({
+      id: comp.id,
+      title: comp.title,
+      description: comp.description,
+      to: `/components/${comp.id}`,
+      category: comp.category || 'Other'
     });
   });
 

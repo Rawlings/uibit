@@ -5,6 +5,9 @@ import { componentRegistry } from './components';
 import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
 import { DualCode } from '../types/docs';
+import { renderMarkdownInline } from '../utils/markdown';
+import { parseChangelog } from '../utils/changelog';
+import { ComponentPlayground } from '../components/ComponentPlayground';
 
 type CodeTab = 'html' | 'react';
 
@@ -148,62 +151,6 @@ function ExampleBlock({ example }: { example: any }) {
   );
 }
 
-interface ParsedRelease {
-  version: string;
-  date: string;
-  sections: { title: string; items: string[] }[];
-}
-
-function parseChangelog(md: string): ParsedRelease[] {
-  const releases: ParsedRelease[] = [];
-  let currentRelease: ParsedRelease | null = null;
-  let currentSection: { title: string; items: string[] } | null = null;
-
-  const lines = md.split('\n');
-  for (let line of lines) {
-    line = line.trim();
-    if (!line) continue;
-
-    const versionMatch = line.match(/^##\s+\[?([0-9a-zA-Z\.\-]+)\]?\s*-\s*([0-9\-]+)/);
-    if (versionMatch) {
-      currentRelease = {
-        version: versionMatch[1],
-        date: versionMatch[2],
-        sections: []
-      };
-      releases.push(currentRelease);
-      currentSection = null;
-      continue;
-    }
-
-    if (currentRelease) {
-      const sectionMatch = line.match(/^###\s+(.+)$/);
-      if (sectionMatch) {
-        currentSection = {
-          title: sectionMatch[1],
-          items: []
-        };
-        currentRelease.sections.push(currentSection);
-        continue;
-      }
-
-      if (currentSection && line.startsWith('-')) {
-        const itemText = line.substring(1).trim();
-        currentSection.items.push(itemText);
-      }
-    }
-  }
-
-  return releases;
-}
-
-function renderMarkdownInline(text: string) {
-  const html = text
-    .replace(/`([^`]+)`/g, '<code class="font-mono bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded text-xs text-gray-800 dark:text-gray-200">$1</code>')
-    .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900 dark:text-white">$1</strong>')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer" class="text-gray-900 dark:text-white underline hover:text-gray-600">$1</a>');
-  return <span dangerouslySetInnerHTML={{ __html: html }} />;
-}
 
 export default function ComponentDocs() {
   const { componentId } = useParams<{ componentId: string }>();
@@ -300,13 +247,10 @@ export default function ComponentDocs() {
             </div>
           </header>
 
-          {/* Live Demo */}
+          {/* Live Demo & Playground */}
           <section id="demo" className="py-10 scroll-mt-20">
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Demo</h2>
-            <div>
-              <Demo />
-            </div>
-            {demoCode && <CodePanel code={demoCode} />}
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Demo & Playground</h2>
+            <ComponentPlayground tagName={tagName} manifest={manifest} Demo={Demo} />
           </section>
 
           {/* API Reference */}
@@ -417,35 +361,56 @@ export default function ComponentDocs() {
           {comp.changelog && (
             <section id="changelog" className="py-10 scroll-mt-20 border-t border-gray-100 dark:border-gray-900">
               <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Changelog</h2>
-              <div className="relative pl-6 border-l border-gray-250 dark:border-gray-800 space-y-8 ml-4">
-                {parseChangelog(comp.changelog).map((release, rIdx) => (
-                  <div key={rIdx} className="relative">
-                    {/* Timeline Node */}
-                    <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-4 border-white dark:border-gray-950 bg-gray-900 dark:bg-white" />
-                    
-                    <div className="flex flex-wrap items-baseline gap-3 mb-3">
-                      <h3 className="text-base font-semibold text-gray-900 dark:text-white">v{release.version}</h3>
-                      <span className="text-xs text-gray-400 dark:text-gray-500 font-mono">{release.date}</span>
-                    </div>
+              <div className="relative pl-6 border-l border-gray-200 dark:border-gray-800 space-y-8 ml-4 font-sans">
+                {parseChangelog(comp.changelog).map((release, rIdx) => {
+                  const categoryBadgeStyles: Record<string, string> = {
+                    Added: 'bg-green-50 text-green-700 border-green-200/50 dark:bg-green-950/20 dark:text-green-400 dark:border-green-900/30',
+                    Fixed: 'bg-blue-50 text-blue-700 border-blue-200/50 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/30',
+                    Security: 'bg-red-50 text-red-700 border-red-200/50 dark:bg-red-950/20 dark:text-red-400 dark:border-red-900/30',
+                    Changed: 'bg-gray-50 text-gray-700 border-gray-200/50 dark:bg-gray-900/30 dark:text-gray-305 dark:border-gray-805/50',
+                    Deprecated: 'bg-amber-50 text-amber-700 border-amber-200/50 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/30',
+                    Other: 'bg-gray-50 text-gray-600 border-gray-150 dark:bg-gray-900/20 dark:text-gray-400 dark:border-gray-800'
+                  };
 
-                    <div className="space-y-4">
-                      {release.sections.map((section, sIdx) => (
-                        <div key={sIdx}>
-                          <h4 className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-1.5">
-                            {section.title}
-                          </h4>
-                          <ul className="list-disc pl-5 space-y-1 text-xs text-gray-600 dark:text-gray-400">
-                            {section.items.map((item, iIdx) => (
-                              <li key={iIdx}>
-                                {renderMarkdownInline(item)}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
+                  return (
+                    <div key={rIdx} className="relative">
+                      {/* Timeline Node */}
+                      <div className="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-4 border-white dark:border-gray-950 bg-gray-900 dark:bg-white" />
+                      
+                      <div className="flex flex-wrap items-baseline gap-3 mb-3">
+                        <h3 className="text-base font-semibold text-gray-900 dark:text-white">v{release.version}</h3>
+                        <span className="text-xs text-gray-400 dark:text-gray-550 font-mono">{release.date}</span>
+                      </div>
+
+                      <div className="space-y-5">
+                        {release.sections.map((section, sIdx) => {
+                          const badgeStyle = categoryBadgeStyles[section.category] || categoryBadgeStyles.Other;
+                          return (
+                            <div key={sIdx} className="space-y-2">
+                              <div className="flex items-center gap-2">
+                                <span className={`px-2 py-0.5 rounded text-[10px] font-semibold border ${badgeStyle}`}>
+                                  {section.category}
+                                </span>
+                                {section.title.toLowerCase() !== section.category.toLowerCase() && (
+                                  <span className="text-xs font-semibold text-gray-500 dark:text-gray-405">
+                                    {section.title}
+                                  </span>
+                                )}
+                              </div>
+                              <ul className="list-disc pl-5 space-y-1.5 text-xs text-gray-650 dark:text-gray-400">
+                                {section.items.map((item, iIdx) => (
+                                  <li key={iIdx}>
+                                    {renderMarkdownInline(item)}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </section>
           )}

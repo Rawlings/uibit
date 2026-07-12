@@ -2,16 +2,7 @@ import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Home from './pages/Home';
 import ComponentDocs from './pages/component';
-import StylingGuide from './pages/Styling';
-import LocalizationGuide from './pages/Localization';
-import IconsGuide from './pages/Icons';
-import InstallationGuide from './pages/Installation';
-import A11yOverview from './pages/A11yOverview';
-import BrowserSupport from './pages/BrowserSupport';
-import Troubleshooting from './pages/Troubleshooting';
-import Contributing from './pages/Contributing';
-import Security from './pages/Security';
-import CodeOfConduct from './pages/CodeOfConduct';
+import MarkdownPage from './pages/MarkdownPage';
 import PackageDocs from './pages/PackageDocs';
 import ScrollToTop from './components/ScrollToTop';
 import { CommandPalette } from './components/CommandPalette';
@@ -123,18 +114,10 @@ function App() {
       <main className="flex-1 pb-24 relative z-10">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/foundations/styling" element={<StylingGuide />} />
-          <Route path="/foundations/localization" element={<LocalizationGuide />} />
-          <Route path="/foundations/icons" element={<IconsGuide />} />
           <Route path="/foundations/frameworks" element={<Navigate to="/packages/frameworks" replace />} />
-          <Route path="/foundations/getting-started" element={<InstallationGuide />} />
-          <Route path="/foundations/accessibility" element={<A11yOverview />} />
-          <Route path="/foundations/browser-support" element={<BrowserSupport />} />
-          <Route path="/foundations/troubleshooting" element={<Troubleshooting />} />
+          <Route path="/foundations/:pageId" element={<MarkdownPage />} />
+          <Route path="/resources/:pageId" element={<MarkdownPage />} />
           <Route path="/components/:componentId" element={<ComponentDocs />} />
-          <Route path="/resources/contributing" element={<Contributing />} />
-          <Route path="/resources/security" element={<Security />} />
-          <Route path="/resources/coc" element={<CodeOfConduct />} />
           <Route path="/packages/:packageId" element={<PackageDocs />} />
           <Route
             path="*"

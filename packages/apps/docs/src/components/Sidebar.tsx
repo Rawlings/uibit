@@ -1,35 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { componentRegistry } from '../pages/components';
-
-const FOUNDATIONS = [
-  { id: 'getting-started', title: 'Installation & Setup', to: '/foundations/getting-started' },
-  { id: 'accessibility', title: 'Accessibility', to: '/foundations/accessibility' },
-  { id: 'styling', title: 'Styling & Theming', to: '/foundations/styling' },
-  { id: 'localization', title: 'Localization', to: '/foundations/localization' },
-  { id: 'icons', title: 'Icons', to: '/foundations/icons' },
-  { id: 'browser-support', title: 'Browser Support', to: '/foundations/browser-support' },
-  { id: 'troubleshooting', title: 'Troubleshooting & FAQ', to: '/foundations/troubleshooting' },
-];
-
-const RESOURCES = [
-  { id: 'contributing', title: 'Contributing', to: '/resources/contributing' },
-  { id: 'security', title: 'Security', to: '/resources/security' },
-  { id: 'coc', title: 'Code of Conduct', to: '/resources/coc' },
-];
-
-const ECOSYSTEM = [
-  { id: 'frameworks', title: 'Framework Integrations', to: '/packages/frameworks' },
-  { id: 'base-class', title: 'Base Class', to: '/packages/base-class' },
-];
-
-const CATEGORY_ORDER = [
-  'Layout',
-  'Media',
-  'Text',
-  'Data',
-  'Forms'
-];
+import { FOUNDATIONS, RESOURCES, ECOSYSTEM, CATEGORY_ORDER } from '../config/navigation';
 
 export function Sidebar({ activeId, className = '' }: { activeId?: string; className?: string }) {
   const location = useLocation();

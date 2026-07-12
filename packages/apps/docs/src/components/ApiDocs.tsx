@@ -1,53 +1,5 @@
-type CemManifest = {
-  modules: Array<{
-    declarations?: Array<CemDeclaration>;
-    exports?: Array<{ name: string; declaration: { name: string } }>;
-  }>;
-};
+import { CemManifest, CemDeclaration, CemMember } from '../types/docs';
 
-type CemDeclaration = {
-  kind: string;
-  name: string;
-  tagName?: string;
-  description?: string;
-  members?: Array<CemMember>;
-  events?: Array<CemEvent>;
-  slots?: Array<CemSlot>;
-  cssProperties?: Array<CemCssProp>;
-  cssParts?: Array<CemCssPart>;
-};
-
-type CemMember = {
-  kind: 'field' | 'method';
-  name: string;
-  description?: string;
-  type?: { text: string };
-  default?: string;
-  privacy?: string;
-  attribute?: string;
-};
-
-type CemEvent = {
-  name: string;
-  description?: string;
-  type?: { text: string };
-};
-
-type CemSlot = {
-  name: string;
-  description?: string;
-};
-
-type CemCssProp = {
-  name: string;
-  description?: string;
-  default?: string;
-};
-
-type CemCssPart = {
-  name: string;
-  description?: string;
-};
 
 function findDeclaration(manifest: CemManifest, tagName: string): CemDeclaration | null {
   for (const mod of manifest.modules) {
