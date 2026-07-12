@@ -101,4 +101,4 @@ Use a standard random string generator (e.g., two hyphenated words like `cool-br
 - ✓ Verify the description is exactly 1-2 sentences and under 150 characters where possible.
 - ✓ Verify the description starts with a past-tense action verb (e.g., `Added`, `Fixed`, `Refactored`).
 - ✓ Verify the description reads clearly and follows writing standards.
-- ✓ Run `pnpm changeset status` or `pnpm build` to verify configuration integrity.
+- ✓ Run `npx --package=@changesets/cli changeset status` or `pnpm build` to verify configuration integrity.

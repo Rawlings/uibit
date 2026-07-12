@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { CemManifest, CemDeclaration, CemMember } from '../types/docs';
 
 
@@ -13,6 +14,12 @@ function findDeclaration(manifest: CemManifest, tagName: string): CemDeclaration
 function getPublicProps(decl: CemDeclaration): CemMember[] {
   return (decl.members ?? []).filter(
     (m) => m.kind === 'field' && m.privacy !== 'private' && m.privacy !== 'protected'
+  );
+}
+
+function getPublicMethods(decl: CemDeclaration): CemMember[] {
+  return (decl.members ?? []).filter(
+    (m) => m.kind === 'method' && m.privacy !== 'private' && m.privacy !== 'protected'
   );
 }
 
@@ -62,13 +69,46 @@ function Code({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  count,
+  children,
+}: {
+  title: string;
+  count: number;
+  children: React.ReactNode;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <div className="mb-10">
-      <h3 className="text-xs font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
-        {title}
-      </h3>
-      {children}
+    <div className="border-b border-gray-100 dark:border-gray-900 last:border-none py-4">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full flex items-center justify-between text-left focus:outline-none group cursor-pointer"
+        aria-expanded={isOpen}
+      >
+        <span className="text-sm font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2">
+          {title}
+          <span className="text-[10px] font-mono text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-950 px-2 py-0.5 rounded-full">
+            {count}
+          </span>
+        </span>
+        <svg
+          className={`w-4 h-4 text-gray-450 group-hover:text-gray-650 dark:group-hover:text-gray-300 transition-transform duration-200 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {isOpen && (
+        <div className="mt-4">
+          {children}
+        </div>
+      )}
     </div>
   );
 }
@@ -84,17 +124,18 @@ export function ApiDocs({
   if (!decl) return <p className="text-sm text-red-500">No manifest found for {tagName}</p>;
 
   const props = getPublicProps(decl);
+  const methods = getPublicMethods(decl);
   const events = decl.events ?? [];
   const slots = decl.slots ?? [];
   const cssProps = decl.cssProperties ?? [];
   const cssParts = decl.cssParts ?? [];
 
   return (
-    <div className="space-y-10">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">API Reference</h2>
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">API Reference</h2>
 
       {props.length > 0 && (
-        <Section title="Properties">
+        <Section title="Properties" count={props.length}>
           <Table
             headers={['Property', 'Attribute', 'Type', 'Default', 'Description']}
             rows={props.map((p) => [
@@ -108,8 +149,41 @@ export function ApiDocs({
         </Section>
       )}
 
+      {methods.length > 0 && (
+        <Section title="Methods" count={methods.length}>
+          <Table
+            headers={['Method', 'Parameters', 'Return Type', 'Description']}
+            rows={methods.map((m) => {
+              const paramSignature = (m.parameters ?? []).map((p) => `${p.name}${p.type?.text ? `: ${p.type.text}` : ''}`).join(', ');
+              const methodSignature = `${m.name}(${paramSignature})`;
+              return [
+                <Code key="name">{methodSignature}</Code>,
+                m.parameters && m.parameters.length > 0 ? (
+                  <div key="params" className="space-y-1">
+                    {m.parameters.map((p) => (
+                      <div key={p.name} className="text-xs">
+                        <Code>{p.name}</Code>
+                        {p.type?.text && <span className="text-gray-400 dark:text-gray-500 font-mono text-xs"> : {p.type.text}</span>}
+                        {p.description && <div className="text-gray-500 dark:text-gray-450 mt-0.5">{p.description}</div>}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <span key="params" className="text-gray-400 dark:text-gray-500">—</span>
+                ),
+                <span key="return">
+                  {m.return?.type?.text ? <Code>{m.return.type.text}</Code> : <Code>void</Code>}
+                  {m.return?.description && <div className="text-xs text-gray-500 dark:text-gray-450 mt-0.5">{m.return.description}</div>}
+                </span>,
+                <span key="desc" className="text-gray-650 dark:text-gray-400">{m.description ?? ''}</span>,
+              ];
+            })}
+          />
+        </Section>
+      )}
+
       {events.length > 0 && (
-        <Section title="Events">
+        <Section title="Events" count={events.length}>
           <Table
             headers={['Event', 'Detail type', 'Description']}
             rows={events.map((e) => [
@@ -122,7 +196,7 @@ export function ApiDocs({
       )}
 
       {slots.length > 0 && (
-        <Section title="Slots">
+        <Section title="Slots" count={slots.length}>
           <Table
             headers={['Slot', 'Description']}
             rows={slots.map((s) => [
@@ -134,7 +208,7 @@ export function ApiDocs({
       )}
 
       {cssProps.length > 0 && (
-        <Section title="CSS Custom Properties">
+        <Section title="CSS Custom Properties" count={cssProps.length}>
           <Table
             headers={['Property', 'Default', 'Description']}
             rows={cssProps.map((c) => [
@@ -147,7 +221,7 @@ export function ApiDocs({
       )}
 
       {cssParts.length > 0 && (
-        <Section title="CSS Parts">
+        <Section title="CSS Parts" count={cssParts.length}>
           <Table
             headers={['Part', 'Description']}
             rows={cssParts.map((p) => [

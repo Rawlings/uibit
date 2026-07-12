@@ -12,6 +12,7 @@ export function ComponentPlayground({ tagName, manifest, Demo }: ComponentPlaygr
   const [controls, setControls] = useState<Record<string, any>>({});
   const [generatedHtml, setGeneratedHtml] = useState('');
   const [showCode, setShowCode] = useState(false);
+  const [showControls, setShowControls] = useState(false);
   const [copied, setCopied] = useState(false);
 
   // Find declaration for this tag in CEM
@@ -161,20 +162,67 @@ export function ComponentPlayground({ tagName, manifest, Demo }: ComponentPlaygr
         <Demo />
       </div>
 
+      {/* Toggle buttons for Interactive Controls and HTML code */}
+      <div className="flex flex-wrap items-center gap-2.5 pt-2">
+        {configurableAttrs.length > 0 && (
+          <button
+            onClick={() => setShowControls(!showControls)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 dark:bg-gray-900/30 dark:hover:bg-gray-900/60 rounded-lg text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all cursor-pointer font-medium"
+          >
+            <span>{showControls ? 'Hide Interactive Controls' : 'Show Interactive Controls'}</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="12"
+              height="12"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className={`transition-transform duration-150 ${showControls ? 'rotate-180' : ''}`}
+            >
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </button>
+        )}
+
+        <button
+          onClick={() => setShowCode(!showCode)}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 dark:bg-gray-900/30 dark:hover:bg-gray-900/60 rounded-lg text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all cursor-pointer font-medium"
+        >
+          <span>{showCode ? 'Hide HTML code' : 'Show HTML code'}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="12"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={`transition-transform duration-150 ${showCode ? 'rotate-180' : ''}`}
+          >
+            <polyline points="6 9 12 15 18 9" />
+          </svg>
+        </button>
+      </div>
+
       {/* Controls table below the preview */}
-      {configurableAttrs.length > 0 && (
-        <div className="pt-2">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-550 mb-2.5 block">
+      {configurableAttrs.length > 0 && showControls && (
+        <div className="pt-4">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-550 mb-3.5 block">
             Interactive Controls
           </span>
           <div className="overflow-x-auto">
             <table className="w-full text-sm text-left">
               <thead>
                 <tr className="border-b border-gray-200 dark:border-gray-800">
-                  <th className="py-2.5 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4">Attribute</th>
-                  <th className="py-2.5 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4">Description</th>
-                  <th className="py-2.5 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4">Type</th>
-                  <th className="py-2.5 font-semibold text-gray-400 dark:text-gray-500 text-xs text-right">Value</th>
+                  <th className="px-0 py-2.5 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4">Attribute</th>
+                  <th className="px-0 py-2.5 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4">Description</th>
+                  <th className="px-0 py-2.5 font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4">Type</th>
+                  <th className="px-0 py-2.5 font-semibold text-gray-400 dark:text-gray-500 text-xs text-right last:pr-0">Value</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-900">
@@ -187,19 +235,23 @@ export function ComponentPlayground({ tagName, manifest, Demo }: ComponentPlaygr
                   return (
                     <tr key={name} className="bg-transparent">
                       {/* Name */}
-                      <td className="py-3 font-mono text-xs text-gray-900 dark:text-white font-medium pr-4 align-middle">
-                        {name}
+                      <td className="px-0 py-3 pr-4 align-top">
+                        <code className="font-mono text-xs bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded text-gray-800 dark:text-gray-200">
+                          {name}
+                        </code>
                       </td>
                       {/* Description */}
-                      <td className="py-3 text-gray-500 dark:text-gray-450 text-xs pr-4 max-w-sm align-middle leading-relaxed">
+                      <td className="px-0 py-3 text-gray-650 dark:text-gray-400 text-sm pr-4 max-w-sm align-top leading-relaxed">
                         {attr.description ?? <span className="text-gray-300 dark:text-gray-700">—</span>}
                       </td>
                       {/* Type */}
-                      <td className="py-3 font-mono text-[10px] text-gray-400 dark:text-gray-550 pr-4 align-middle">
-                        {attr.type?.text || 'string'}
+                      <td className="px-0 py-3 pr-4 align-top">
+                        <code className="font-mono text-[10px] bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded text-gray-500 dark:text-gray-450">
+                          {attr.type?.text || 'string'}
+                        </code>
                       </td>
                       {/* Control input aligned to the right */}
-                      <td className="py-3 text-right align-middle">
+                      <td className="px-0 py-3 text-right align-top last:pr-0">
                         {isBool ? (
                           <input
                             type="checkbox"
@@ -233,61 +285,38 @@ export function ComponentPlayground({ tagName, manifest, Demo }: ComponentPlaygr
       )}
 
       {/* HTML code view toggle */}
-      <div className="pt-2">
-        <button
-          onClick={() => setShowCode(!showCode)}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 hover:bg-gray-100 dark:bg-gray-900/30 dark:hover:bg-gray-900/60 rounded-lg text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all cursor-pointer font-medium"
-        >
-          <span>{showCode ? 'Hide HTML code' : 'Show HTML code'}</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={`transition-transform duration-150 ${showCode ? 'rotate-180' : ''}`}
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </button>
-
-        {showCode && (
-          <div className="bg-gray-900 dark:bg-gray-900/60 rounded-xl mt-3 overflow-hidden">
-            <div className="flex items-center justify-between px-4 pt-3 pb-1 border-b border-gray-800/40">
-              <span className="text-xs font-semibold text-gray-400">HTML Code</span>
-              <button
-                onClick={handleCopy}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
-                aria-label="Copy code to clipboard"
-              >
-                {copied ? (
-                  <>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-green-400">
-                      <polyline points="20 6 9 17 4 12" />
-                    </svg>
-                    <span className="text-green-400 font-semibold">Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
-                      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
-                    </svg>
-                    <span>Copy</span>
-                  </>
-                )}
-              </button>
-            </div>
-            <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed !bg-transparent !rounded-none">
-              <code>{generatedHtml}</code>
-            </pre>
+      {showCode && (
+        <div className="bg-gray-900 dark:bg-gray-900/60 rounded-xl mt-3 overflow-hidden">
+          <div className="flex items-center justify-between px-4 pt-3 pb-1 border-b border-gray-800/40">
+            <span className="text-xs font-semibold text-gray-400">HTML Code</span>
+            <button
+              onClick={handleCopy}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-medium text-gray-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              aria-label="Copy code to clipboard"
+            >
+              {copied ? (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-green-400">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span className="text-green-400 font-semibold">Copied!</span>
+                </>
+              ) : (
+                <>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                    <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+                  </svg>
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
           </div>
-        )}
-      </div>
+          <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed !bg-transparent !rounded-none">
+            <code>{generatedHtml}</code>
+          </pre>
+        </div>
+      )}
     </div>
   );
 }

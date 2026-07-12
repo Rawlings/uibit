@@ -1,5 +1,11 @@
 # @uibit/form
 
+## 0.2.1
+
+### Patch Changes
+
+- Removed unused lucide dependency from @uibit/form.
+
 ## 0.2.0
 
 ### Minor Changes

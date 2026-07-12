@@ -1,6 +1,6 @@
 {
   "name": "@uibit/read-time",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Text-analyzer badge that scans the word count of its slotted content and outputs an estimated reading time string. No backend metadata required — works directly in any CMS template.",
   "type": "module",
   "main": "./dist/index.js",

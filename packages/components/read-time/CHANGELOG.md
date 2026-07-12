@@ -1,5 +1,11 @@
 # @uibit/read-time
 
+## 0.2.1
+
+### Patch Changes
+
+- a3b54ae: Fixed a ChildPart crash in @uibit/read-time caused by recursive slotchange feedback loops and fallback content manipulation.
+
 ## 0.2.0
 
 ### Minor Changes

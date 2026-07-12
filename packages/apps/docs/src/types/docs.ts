@@ -55,6 +55,15 @@ export interface CemMember {
   default?: string;
   privacy?: string;
   attribute?: string;
+  parameters?: Array<{
+    name: string;
+    type?: { text: string };
+    description?: string;
+  }>;
+  return?: {
+    type?: { text: string };
+    description?: string;
+  };
 }
 
 export interface CemEvent {

@@ -1,6 +1,6 @@
 {
   "name": "@uibit/codegen",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Generic multi-framework component wrapper generator based on Custom Elements Manifest",
   "type": "module",
   "main": "./dist/index.js",

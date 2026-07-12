@@ -1,5 +1,11 @@
 # @uibit/hotspot
 
+## 0.2.1
+
+### Patch Changes
+
+- a3b54ae: Fixed a TypeError crash in @uibit/hotspot when parsing null or invalid hotspots data formats.
+
 ## 0.2.0
 
 ### Minor Changes

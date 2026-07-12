@@ -1,6 +1,6 @@
 {
   "name": "@uibit/form",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A composable, declarative wrapper around native HTML form elements with validation, submit lifecycle states, and wizard navigation support.",
   "type": "module",
   "main": "./dist/index.js",
@@ -46,8 +46,7 @@
   "author": "Jonathan Rawlings",
   "license": "MIT",
   "dependencies": {
-    "@uibit/core": "workspace:*",
-    "lucide": "^1.24.0"
+    "@uibit/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",

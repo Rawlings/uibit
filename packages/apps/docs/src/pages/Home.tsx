@@ -179,6 +179,67 @@ function Home() {
           </div>
         </div>
       </section>
+
+      {/* Ecosystem Section */}
+      <section className="max-w-5xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="md:col-span-1">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Ecosystem</h2>
+          </div>
+          <div className="md:col-span-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
+              {[
+                {
+                  to: '/packages/base-class',
+                  label: 'Base Class',
+                  description: 'Shared foundation, optimizations, event dispatch, and performance decorators for UIBit components.',
+                },
+                {
+                  to: '/packages/codegen',
+                  label: 'Codegen',
+                  description: 'Wrapper generator to build React, Vue 3, Svelte 5, Angular, SolidJS, Astro, Preact, and Vanilla TS wrappers.',
+                },
+                {
+                  to: '/packages/form-internals',
+                  label: 'Form Internals',
+                  description: 'Standardized wrapper around ElementInternals for form participation, CSS validation states, and constraint validation.',
+                },
+                {
+                  to: '/packages/hmr',
+                  label: 'Vite Plugin WC HMR',
+                  description: 'Swaps updated Custom Element classes and styles in-place without page reload, preserving state.',
+                },
+                {
+                  to: '/packages/cem-extended',
+                  label: 'CEM Extended',
+                  description: 'Custom Elements Manifest generator plugin adding JSDoc method parameter/return details, custom states, and heritage.',
+                },
+                {
+                  to: '/packages/cem-mcp',
+                  label: 'CEM MCP Server',
+                  description: 'Local Model Context Protocol (MCP) server exposing UIBit Custom Elements Manifest schemas to AI coding agents.',
+                },
+              ].map(({ to, label, description }) => (
+                <Link
+                  key={to}
+                  to={to}
+                  className="group block"
+                >
+                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors flex items-center gap-1">
+                    {label}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                      <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                  </h3>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-normal">
+                    {description}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

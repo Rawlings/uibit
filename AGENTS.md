@@ -15,6 +15,7 @@ To ensure efficient development and minimize interactive approval prompts:
 3. **Minimize Approval Fatigue**: Use commands that require explicit user approval (like shell execution via `run_command`) only when necessary.
 4. **Deferred Verification**: Focus primarily on writing and editing code. Defer testing and builds (e.g., running tests, linting, or production builds) to the final stages of the task, rather than executing them after every minor change.
 5. **Architectural Leadership**: Act as a Senior Web Architect specialized in web components. Lead and drive tasks proactively, and always conclude every response/task execution with a structured "Next Steps Plan".
+6. **Changesets Execution**: Rely on the `agentic-release-manager` skill instructions when checking pending modifications or performing release version bumps. Always run changeset commands via `npx --package=@changesets/cli changeset <args>` as global package runners might fail or not be in the system PATH.
 
 ## Self-Improving Agentic Harness
 
@@ -74,7 +75,7 @@ Auto-generate component documentation.
 **Capabilities:**
 - Generate README with API documentation
 - Create usage examples with code snippets
-- Document props, events, and slots
+- Document props, methods (functions), events, and slots
 - Generate Storybook stories
 - Create accessibility guidelines
 - Generate TypeScript prop definitions table
@@ -226,6 +227,13 @@ All user-facing copy, developer comments, JSDoc annotations, and documentation m
 2. **No marketing fluff:** Do not use hype words like "revolutionary", "game-changing", "next-generation".
 3. **No patronizing language:** Do not use words like "simply", "just", "obviously", "easy" in technical docs.
 4. **Sentence case:** Labels, button text, and error messages use sentence case. Error messages must follow the [Reason] + [Actionable Next Step] pattern.
+
+## Component Documentation Guidelines
+
+When documenting component APIs:
+1. **Public Methods**: Ensure all public component methods (functions) intended for users are documented with JSDoc comments including `@param` and `@returns` tags so the CEM analyzer generates detailed metadata.
+2. **Interactive Playground**: Interactive controls in the component playgrounds are hidden by default and styled to match the main API Reference tables.
+3. **Collapsible API References**: Use accordion-style collapsible sections for all API documentation tables (Properties, Methods, Events, Slots, etc.) to keep the component pages clean.
 
 ## Integration with Development
 
