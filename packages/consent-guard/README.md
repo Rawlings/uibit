@@ -1,6 +1,6 @@
 # Consent Guard
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/consent-guard)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/consent-guard)
 
 Consent Guard provides a polished, content-specific consent interface that respects user privacy without interrupting the user experience. By replacing third-party embeddings with clear, informative placeholders, it gives users control over which services load, building trust and meeting compliance requirements.
 
@@ -20,3 +20,8 @@ Consent Guard provides a polished, content-specific consent interface that respe
 ## Further Information
 
 Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
+
+
+## Changelog
+
+Please see the [Changelog](CHANGELOG.md) for version history.

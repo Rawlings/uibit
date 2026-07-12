@@ -42,7 +42,7 @@
     "lit",
     "particles"
   ],
-  "author": "Your Name",
+  "author": "Jonathan Rawlings",
   "license": "MIT",
   "dependencies": {
     "@uibit/core": "workspace:*"

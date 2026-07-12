@@ -33,10 +33,14 @@
     "lit",
     "accessible"
   ],
-  "author": "Your Name",
+  "author": "Jonathan Rawlings",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/uibit.git"
-  }
+    "url": "git+https://github.com/rawlings/uibit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rawlings/uibit/issues"
+  },
+  "homepage": "https://github.com/rawlings/uibit#readme"
 }

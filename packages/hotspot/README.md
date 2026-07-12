@@ -1,6 +1,6 @@
 # Hotspot
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/hotspot)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/hotspot)
 
 Hotspot enables interactive image exploration by overlaying contextual annotations on top of specific regions of an image. It transforms static diagrams, product mockups, and photographs into interactive guides that reveal rich details on demand, reducing clutter.
 
@@ -20,3 +20,8 @@ Hotspot enables interactive image exploration by overlaying contextual annotatio
 ## Further Information
 
 Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
+
+
+## Changelog
+
+Please see the [Changelog](CHANGELOG.md) for version history.

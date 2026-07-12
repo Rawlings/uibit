@@ -3,10 +3,21 @@ import { useState } from 'react';
 import { componentRegistry } from '../pages/components';
 
 const FOUNDATIONS = [
+  { id: 'getting-started', title: 'Installation & Setup', to: '/foundations/getting-started' },
+  { id: 'accessibility', title: 'Accessibility', to: '/foundations/accessibility' },
   { id: 'styling', title: 'Styling & Theming', to: '/foundations/styling' },
   { id: 'localization', title: 'Localization', to: '/foundations/localization' },
   { id: 'icons', title: 'Icons', to: '/foundations/icons' },
   { id: 'frameworks', title: 'Framework Integrations', to: '/foundations/frameworks' },
+  { id: 'browser-support', title: 'Browser Support', to: '/foundations/browser-support' },
+  { id: 'troubleshooting', title: 'Troubleshooting & FAQ', to: '/foundations/troubleshooting' },
+];
+
+const RESOURCES = [
+  { id: 'changelog', title: 'Changelog', to: '/resources/changelog' },
+  { id: 'contributing', title: 'Contributing', to: '/resources/contributing' },
+  { id: 'security', title: 'Security', to: '/resources/security' },
+  { id: 'coc', title: 'Code of Conduct', to: '/resources/coc' },
 ];
 
 const CATEGORY_ORDER = [
@@ -23,10 +34,18 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
 
   let resolvedActiveId = activeId;
   if (!resolvedActiveId) {
-    if (currentPath === '/foundations/styling') resolvedActiveId = 'styling';
+    if (currentPath === '/foundations/getting-started') resolvedActiveId = 'getting-started';
+    else if (currentPath === '/foundations/accessibility') resolvedActiveId = 'accessibility';
+    else if (currentPath === '/foundations/styling') resolvedActiveId = 'styling';
     else if (currentPath === '/foundations/localization') resolvedActiveId = 'localization';
     else if (currentPath === '/foundations/icons') resolvedActiveId = 'icons';
     else if (currentPath === '/foundations/frameworks') resolvedActiveId = 'frameworks';
+    else if (currentPath === '/foundations/browser-support') resolvedActiveId = 'browser-support';
+    else if (currentPath === '/foundations/troubleshooting') resolvedActiveId = 'troubleshooting';
+    else if (currentPath === '/resources/changelog') resolvedActiveId = 'changelog';
+    else if (currentPath === '/resources/contributing') resolvedActiveId = 'contributing';
+    else if (currentPath === '/resources/security') resolvedActiveId = 'security';
+    else if (currentPath === '/resources/coc') resolvedActiveId = 'coc';
     else if (currentPath.startsWith('/components/')) {
       resolvedActiveId = currentPath.substring('/components/'.length);
     } else {
@@ -40,6 +59,10 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
   const filteredFoundations = searchQuery
     ? FOUNDATIONS.filter((g) => g.title.toLowerCase().includes(q))
     : FOUNDATIONS;
+
+  const filteredResources = searchQuery
+    ? RESOURCES.filter((g) => g.title.toLowerCase().includes(q))
+    : RESOURCES;
 
   const isSearching = searchQuery.length > 0;
 
@@ -67,7 +90,7 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
     };
   }).filter((cat) => cat.components.length > 0);
 
-  const hasResults = filteredFoundations.length > 0 || categoriesWithMatches.length > 0;
+  const hasResults = filteredFoundations.length > 0 || categoriesWithMatches.length > 0 || filteredResources.length > 0;
 
   return (
     <aside className={`w-full md:w-56 shrink-0 md:pr-6 ${className}`}>
@@ -113,24 +136,50 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
           </div>
         )}
 
-        {categoriesWithMatches.map((cat) => (
-          <div key={cat.label} className="space-y-1.5">
-            <p className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
-              {cat.label}
+        {categoriesWithMatches.length > 0 && (
+          <div className="space-y-4 mt-6">
+            <p className="text-[11px] font-semibold text-gray-900 dark:text-white mb-1 tracking-wide uppercase">
+              Components
             </p>
-            {cat.components.map((item) => (
+            {categoriesWithMatches.map((cat) => (
+              <div key={cat.label} className="space-y-1.5 border-l-2 border-gray-100 dark:border-gray-800 pl-3 ml-[3px]">
+                <p className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5 mt-2 uppercase tracking-wider">
+                  {cat.label}
+                </p>
+                {cat.components.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={`/components/${item.id}`}
+                    className={`block text-sm ${
+                      resolvedActiveId === item.id ? activeStyle : inactiveStyle
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {filteredResources.length > 0 && (
+          <div className="space-y-1.5 mt-6 border-t border-gray-100 dark:border-gray-800 pt-4">
+            <p className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
+              Resources
+            </p>
+            {filteredResources.map((guide) => (
               <Link
-                key={item.id}
-                to={`/components/${item.id}`}
+                key={guide.id}
+                to={guide.to}
                 className={`block text-sm ${
-                  resolvedActiveId === item.id ? activeStyle : inactiveStyle
+                  resolvedActiveId === guide.id ? activeStyle : inactiveStyle
                 }`}
               >
-                {item.title}
+                {guide.title}
               </Link>
             ))}
           </div>
-        ))}
+        )}
       </nav>
     </aside>
   );

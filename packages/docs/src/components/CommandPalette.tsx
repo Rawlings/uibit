@@ -3,10 +3,21 @@ import { useNavigate } from 'react-router-dom';
 import { componentRegistry } from '../pages/components';
 
 const FOUNDATIONS = [
+  { id: 'getting-started', title: 'Installation & Setup', to: '/foundations/getting-started', category: 'Foundations' },
+  { id: 'accessibility', title: 'Accessibility', to: '/foundations/accessibility', category: 'Foundations' },
   { id: 'styling', title: 'Styling & Theming', to: '/foundations/styling', category: 'Foundations' },
   { id: 'localization', title: 'Localization', to: '/foundations/localization', category: 'Foundations' },
   { id: 'icons', title: 'Icons', to: '/foundations/icons', category: 'Foundations' },
   { id: 'frameworks', title: 'Framework Integrations', to: '/foundations/frameworks', category: 'Foundations' },
+  { id: 'browser-support', title: 'Browser Support', to: '/foundations/browser-support', category: 'Foundations' },
+  { id: 'troubleshooting', title: 'Troubleshooting & FAQ', to: '/foundations/troubleshooting', category: 'Foundations' },
+];
+
+const RESOURCES = [
+  { id: 'changelog', title: 'Changelog', to: '/resources/changelog', category: 'Resources' },
+  { id: 'contributing', title: 'Contributing', to: '/resources/contributing', category: 'Resources' },
+  { id: 'security', title: 'Security', to: '/resources/security', category: 'Resources' },
+  { id: 'coc', title: 'Code of Conduct', to: '/resources/coc', category: 'Resources' },
 ];
 
 const COMPONENT_CATEGORIES = [
@@ -48,6 +59,16 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
       title: g.title,
       to: g.to,
       category: 'Foundations'
+    });
+  });
+
+  // Add resources
+  RESOURCES.forEach(g => {
+    items.push({
+      id: g.id,
+      title: g.title,
+      to: g.to,
+      category: 'Resources'
     });
   });
 

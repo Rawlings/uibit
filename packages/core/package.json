@@ -29,7 +29,7 @@
     "web-components",
     "lit"
   ],
-  "author": "Your Name",
+  "author": "Jonathan Rawlings",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.19.43",

@@ -1,6 +1,6 @@
 # Signature Pad
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/signature-pad)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/signature-pad)
 
 Signature Pad is a signature capture component that allows users to write signatures on digital forms. By providing smooth, high-fidelity stroke tracking for mouse, touch, and stylus inputs, it streamlines document workflows and digital authorization processes.
 
@@ -20,3 +20,8 @@ Signature Pad is a signature capture component that allows users to write signat
 ## Further Information
 
 Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
+
+
+## Changelog
+
+Please see the [Changelog](CHANGELOG.md) for version history.

@@ -1,7 +1,7 @@
 import { html, nothing } from 'lit';
 import type { PropertyValues } from 'lit';
 import { customElement, fromLucide, getIcon, msg, UIBitElement } from '@uibit/core';
-import { Play, Pause, Volume2, VolumeX, Maximize, Minimize } from 'lucide';
+import { Play, Pause, Volume1, Volume2, VolumeX, Maximize, Minimize } from 'lucide';
 import { property, state, query } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -35,6 +35,7 @@ export class Video extends UIBitElement {
   @state() private _isMuted = false;
   @state() private _isFullscreen = false;
   @state() private _isSeeking = false;
+  @state() private _isVolumeSeeking = false;
   @state() private _isIframeMode = false;
   @state() private _iframePlaying = false;
 
@@ -67,6 +68,9 @@ export class Video extends UIBitElement {
       this._videoEl = video;
       this._isIframeMode = false;
       this._setupVideoListeners();
+      if (!this.poster && video.hasAttribute('poster')) {
+        this.poster = video.getAttribute('poster') || '';
+      }
       return;
     }
 
@@ -159,16 +163,36 @@ export class Video extends UIBitElement {
     this._isMuted = this._videoEl.muted;
   }
 
-  private _onVolumeInput(e: Event) {
-    if (!this._videoEl) return;
-    const input = e.target as HTMLInputElement;
-    const val = parseFloat(input.value);
-    this._videoEl.volume = val;
-    this._volume = val;
-    if (val > 0 && this._videoEl.muted) {
-      this._videoEl.muted = false;
-      this._isMuted = false;
+  private _onVolumePointerDown(e: PointerEvent) {
+    this._isVolumeSeeking = true;
+    this._updateVolumeFromEvent(e);
+    const container = e.currentTarget as HTMLElement;
+    container.setPointerCapture(e.pointerId);
+  }
+
+  private _onVolumePointerMove(e: PointerEvent) {
+    if (!this._isVolumeSeeking) return;
+    this._updateVolumeFromEvent(e);
+  }
+
+  private _onVolumePointerUp(e: PointerEvent) {
+    if (!this._isVolumeSeeking) return;
+    this._isVolumeSeeking = false;
+    this._updateVolumeFromEvent(e);
+    const container = e.currentTarget as HTMLElement;
+    container.releasePointerCapture(e.pointerId);
+  }
+
+  private _updateVolumeFromEvent(e: PointerEvent) {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const offsetX = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
+    const pct = Math.max(0, Math.min(offsetX / rect.width, 1));
+    this._volume = pct;
+    if (this._videoEl) {
+      this._videoEl.volume = pct;
+      this._videoEl.muted = pct === 0;
     }
+    this._isMuted = pct === 0;
   }
 
   toggleFullscreen() {
@@ -272,7 +296,7 @@ export class Video extends UIBitElement {
 
   render() {
     const progressPct = this._duration ? (this._currentTime / this._duration) * 100 : 0;
-    const showPoster = this.poster && (!this._isPlaying && this._currentTime === 0) && !this._iframePlaying;
+    const showOverlay = (!this._isPlaying && this._currentTime === 0) && !this._iframePlaying;
     const isPaused = !this._isPlaying;
 
     return html`
@@ -288,28 +312,18 @@ export class Video extends UIBitElement {
         <slot @slotchange=${this._onSlotChange}></slot>
 
         <!-- Premium Iframe / Native Poster Overlay -->
-        ${(this._isIframeMode && !this._iframePlaying) || showPoster ? html`
+        ${(this._isIframeMode && !this._iframePlaying) || showOverlay ? html`
           <div 
             class="poster-overlay" 
             part="poster" 
-            style="background-image: url('${this.poster}');"
+            style=${this.poster ? `background-image: url('${this.poster}');` : ''}
           >
             <button 
               class="center-play-btn" 
               part="center-play-btn"
               @click=${this.togglePlay}
               aria-label=${msg('Play Video')}
-            >
-              <svg viewBox="0 0 100 100" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <defs>
-                  <mask id="play-mask">
-                    <rect x="0" y="0" width="100" height="100" fill="white" />
-                    <polygon points="40,32 70,50 40,68" fill="black" />
-                  </mask>
-                </defs>
-                <circle cx="50" cy="50" r="50" fill="currentColor" mask="url(#play-mask)" />
-              </svg>
-            </button>
+            ></button>
           </div>
         ` : nothing}
 
@@ -366,20 +380,29 @@ export class Video extends UIBitElement {
               >
                 ${this._isMuted || this._volume === 0
                   ? getIcon('volume-x', 18, fromLucide(VolumeX))
+                  : this._volume < 0.5
+                  ? getIcon('volume-1', 18, fromLucide(Volume1))
                   : getIcon('volume-2', 18, fromLucide(Volume2))}
               </button>
               <div class="volume-slider-wrap">
-                <input 
-                  type="range" 
-                  min="0" 
-                  max="1" 
-                  step="0.05" 
-                  .value=${this._isMuted ? 0 : this._volume}
-                  @input=${this._onVolumeInput}
-                  class="volume-slider"
-                  part="volume-slider"
+                <div 
+                  class="volume-slider-container" 
+                  part="volume-slider-container"
+                  @pointerdown=${this._onVolumePointerDown}
+                  @pointermove=${this._onVolumePointerMove}
+                  @pointerup=${this._onVolumePointerUp}
+                  role="slider"
                   aria-label=${msg('Volume level')}
-                />
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  aria-valuenow=${Math.round((this._isMuted ? 0 : this._volume) * 100)}
+                  tabindex="0"
+                >
+                  <div class="volume-slider-bar" part="volume-slider-bar">
+                    <div class="volume-slider-progress" part="volume-slider-progress" style="width: ${(this._isMuted ? 0 : this._volume) * 100}%;"></div>
+                    <div class="volume-slider-handle" part="volume-slider-handle" style="left: ${(this._isMuted ? 0 : this._volume) * 100}%;"></div>
+                  </div>
+                </div>
               </div>
             </div>
 

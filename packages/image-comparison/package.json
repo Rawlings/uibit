@@ -45,11 +45,11 @@
     "lit",
     "effect"
   ],
-  "author": "Your Name",
+  "author": "Jonathan Rawlings",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/uibit.git",
+    "url": "https://github.com/rawlings/uibit.git",
     "directory": "packages/image-comparison"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 # Countdown
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/countdown)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/countdown)
 
 Countdown provides a highly customizable visual timer designed to communicate time sensitivity and build anticipation. Whether highlighting a product launch, event deadline, or limited-time campaign, it offers clear, real-time feedback that drives user action.
 
@@ -20,3 +20,8 @@ Countdown provides a highly customizable visual timer designed to communicate ti
 ## Further Information
 
 Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
+
+
+## Changelog
+
+Please see the [Changelog](CHANGELOG.md) for version history.

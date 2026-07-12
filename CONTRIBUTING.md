@@ -27,4 +27,9 @@ All contributions are expected to meet our standards for:
 - **Performance** – Logic and styles should be structured to minimize package footprints and avoid unnecessary DOM re-renders.
 - **Design System Alignment** – Visual details should conform to our established design tokens, ensuring cohesive presentation across the entire catalog.
 
+## Community Standards
+
+By participating in this project, you agree to abide by our **[Code of Conduct](CODE_OF_CONDUCT.md)**. To report security vulnerabilities, please refer to our **[Security Policy](SECURITY.md)**. For general questions, see our **[Support Guide](SUPPORT.md)**.
+
 We look forward to collaborating with you to build a better component library.
+

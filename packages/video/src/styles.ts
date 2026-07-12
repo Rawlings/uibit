@@ -61,37 +61,37 @@ export const styles = css`
     transition: opacity 0.3s ease;
   }
 
-  /* Premium play button - circular, transparent, white border and white icon */
+  /* Premium play button - circular, translucent white background with blur and cut-out see-through play icon */
   .center-play-btn {
     position: relative;
     z-index: 11;
     width: 4.5rem;
     height: 4.5rem;
     border-radius: 9999px;
-    background: transparent;
-    color: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: none;
-    transition: transform 0.2s ease, color 0.2s ease;
+    opacity: 0.9;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+    
+    /* Mask out the play icon so it is see-through */
+    mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><mask id='m'><rect x='0' y='0' width='100' height='100' fill='white'/><polygon points='38,28 75,50 38,72' fill='black'/></mask><circle cx='50' cy='50' r='50' fill='white' mask='url(%23m)'/></svg>") no-repeat center / contain;
+    -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><mask id='m'><rect x='0' y='0' width='100' height='100' fill='white'/><polygon points='38,28 75,50 38,72' fill='black'/></mask><circle cx='50' cy='50' r='50' fill='white' mask='url(%23m)'/></svg>") no-repeat center / contain;
   }
 
   .center-play-btn:hover {
-    color: #f3f4f6; /* Shift mask to light grey on hover */
-    transform: scale(1.05);
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.9);
   }
 
   .center-play-btn:active {
-    transform: scale(0.95);
-  }
-
-  .center-play-btn svg {
-    width: 100%;
-    height: 100%;
-    display: block;
+    opacity: 0.8;
   }
 
   /* ── Minimal Single-Row Controls Bar ────────────────────────── */
@@ -128,8 +128,8 @@ export const styles = css`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 2.5rem; /* Larger hit target (40px) */
+    height: 2.5rem; /* Larger hit target (40px) */
     padding: 0;
     opacity: 0.8;
     transition: transform 0.2s ease, opacity 0.2s ease;
@@ -165,7 +165,7 @@ export const styles = css`
 
   .timeline-container {
     flex-grow: 1;
-    height: 1rem;
+    height: 2rem; /* Larger hit target (32px height) */
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -222,58 +222,64 @@ export const styles = css`
   .volume-slider-wrap {
     width: 0;
     overflow: hidden;
-    height: 1.25rem;
+    height: 2rem; /* Matches button height for hit alignment */
     display: flex;
     align-items: center;
     transition: width 0.2s ease;
   }
 
-  .volume-container:hover .volume-slider-wrap,
-  .volume-slider-wrap:focus-within {
+  .volume-container:hover .volume-slider-wrap {
     width: 3.5rem;
   }
 
-  .volume-slider {
-    -webkit-appearance: none;
-    appearance: none;
+  .volume-slider-container {
     width: 100%;
-    height: 0.125rem;
-    background: rgba(255, 255, 255, 0.25);
+    height: 2rem; /* Larger hit target (32px height) */
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
     outline: none;
-    cursor: pointer;
+    padding: 0 0.3125rem; /* Inset track slightly so the handle does not clip on the edges */
+    box-sizing: border-box;
   }
 
-  .volume-slider::-webkit-slider-runnable-track {
+  .volume-slider-bar {
     width: 100%;
-    height: 0.125rem;
-    cursor: pointer;
+    height: 0.125rem; /* Ultra thin line */
     background: rgba(255, 255, 255, 0.25);
+    position: relative;
+    transition: height 0.15s ease;
   }
 
-  .volume-slider::-webkit-slider-thumb {
-    height: 0.5rem;
-    width: 0.5rem;
+  .volume-container:hover .volume-slider-bar,
+  .volume-slider-container:hover .volume-slider-bar {
+    height: 0.25rem;
+  }
+
+  .volume-slider-progress {
+    height: 100%;
+    background: #ffffff;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .volume-slider-handle {
+    width: 0.625rem;
+    height: 0.625rem;
     border-radius: 9999px;
     background: #ffffff;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -0.1875rem;
-  }
-
-  .volume-slider::-moz-range-track {
-    width: 100%;
-    height: 0.125rem;
-    cursor: pointer;
-    background: rgba(255, 255, 255, 0.25);
-  }
-
-  .volume-slider::-moz-range-thumb {
-    height: 0.5rem;
-    width: 0.5rem;
-    border-radius: 9999px;
-    background: #ffffff;
-    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.15s ease;
+    box-shadow: none;
     border: none;
+  }
+
+  .volume-container:hover .volume-slider-handle {
+    transform: translate(-50%, -50%) scale(1);
   }
 
   /* Hide raw slots */

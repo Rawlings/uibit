@@ -30,7 +30,7 @@ function Demo() {
               name="lastName"
               type="text"
               required
-              value="Rawlings"
+              value="Smith"
               class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>
@@ -69,7 +69,7 @@ function Demo() {
               name="username"
               type="text"
               required
-              value="arawlings"
+              value="asmith"
               class="w-full px-3 py-2 border border-gray-200 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-black"
             />
           </div>

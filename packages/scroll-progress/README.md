@@ -1,6 +1,6 @@
 # Scroll Progress
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/scroll-progress)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/scroll-progress)
 
 Scroll Progress is a reading indicator component that displays content navigation progress. As users scroll through long-form articles, documentation, or reports, a subtle progress indicator shows their position, providing context and encouraging reading completion.
 
@@ -20,3 +20,8 @@ Scroll Progress is a reading indicator component that displays content navigatio
 ## Further Information
 
 Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
+
+
+## Changelog
+
+Please see the [Changelog](CHANGELOG.md) for version history.

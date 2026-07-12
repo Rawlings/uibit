@@ -6,6 +6,14 @@ import StylingGuide from './pages/Styling';
 import LocalizationGuide from './pages/Localization';
 import IconsGuide from './pages/Icons';
 import FrameworksGuide from './pages/Frameworks';
+import InstallationGuide from './pages/Installation';
+import A11yOverview from './pages/A11yOverview';
+import BrowserSupport from './pages/BrowserSupport';
+import Troubleshooting from './pages/Troubleshooting';
+import Changelog from './pages/Changelog';
+import Contributing from './pages/Contributing';
+import Security from './pages/Security';
+import CodeOfConduct from './pages/CodeOfConduct';
 import ScrollToTop from './components/ScrollToTop';
 import { CommandPalette } from './components/CommandPalette';
 import { NavigationDock } from './components/NavigationDock';
@@ -120,6 +128,15 @@ function App() {
           <Route path="/foundations/localization" element={<LocalizationGuide />} />
           <Route path="/foundations/icons" element={<IconsGuide />} />
           <Route path="/foundations/frameworks" element={<FrameworksGuide />} />
+          <Route path="/foundations/getting-started" element={<InstallationGuide />} />
+          <Route path="/foundations/accessibility" element={<A11yOverview />} />
+          <Route path="/foundations/browser-support" element={<BrowserSupport />} />
+          <Route path="/foundations/troubleshooting" element={<Troubleshooting />} />
+          <Route path="/components/:componentId" element={<ComponentDocs />} />
+          <Route path="/resources/changelog" element={<Changelog />} />
+          <Route path="/resources/contributing" element={<Contributing />} />
+          <Route path="/resources/security" element={<Security />} />
+          <Route path="/resources/coc" element={<CodeOfConduct />} />
           <Route path="/components/:componentId" element={<ComponentDocs />} />
           <Route
             path="*"
@@ -154,7 +171,7 @@ function App() {
       {/* Footer */}
       <footer className="border-t border-gray-200 dark:border-gray-800 mt-24 bg-gray-50/10 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
             {/* Branding */}
             <div className="md:col-span-2 space-y-4">
               <Link to="/" className="text-base font-bold text-gray-900 dark:text-white">
@@ -165,28 +182,55 @@ function App() {
               </p>
             </div>
 
-            {/* Resources */}
+            {/* Foundations */}
             <div className="space-y-3">
               <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Foundations</h4>
               <ul className="space-y-2">
+                <li>
+                  <Link to="/foundations/getting-started" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Installation
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/foundations/accessibility" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Accessibility
+                  </Link>
+                </li>
                 <li>
                   <Link to="/foundations/styling" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                     Styling
                   </Link>
                 </li>
                 <li>
-                  <Link to="/foundations/localization" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-                    Localization
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/foundations/icons" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-                    Icons
-                  </Link>
-                </li>
-                <li>
                   <Link to="/foundations/frameworks" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
-                    Framework Integrations
+                    Frameworks
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            {/* Resources */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Resources</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link to="/resources/changelog" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Changelog
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/resources/contributing" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Contributing
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/resources/security" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Security
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/resources/coc" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    Code of Conduct
                   </Link>
                 </li>
               </ul>

@@ -1,6 +1,6 @@
 # Effect Trigger
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/effect-trigger)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/effect-trigger)
 
 Effect Trigger is an interactive animation wrapper that orchestrates visual reactions based on user inputs. By separating interactive triggers from animation assets, it allows product teams to easily add spatial transitions, particle bursts, and motion paths to standard controls, enhancing visual feedback and celebration states.
 
@@ -20,3 +20,8 @@ Effect Trigger is an interactive animation wrapper that orchestrates visual reac
 ## Further Information
 
 Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
+
+
+## Changelog
+
+Please see the [Changelog](CHANGELOG.md) for version history.

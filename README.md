@@ -24,8 +24,18 @@ Our component library spans several core categories:
 
 ## Explore the Library
 
-Interactive demonstrations, design specifications, and implementation guidelines for all components are available on our documentation site.
+Interactive demonstrations, design specifications, and implementation guidelines for all components are available on the [UIBit Documentation Site](https://rawlings.github.io/uibit/).
+
+## Community & Resources
+
+To support a healthy and active development community, please refer to the following documents:
+
+* **[Changelog](CHANGELOG.md)** – View updates, additions, and history for each release.
+* **[Contributing Guide](CONTRIBUTING.md)** – Learn how to propose features, report bugs, or submit code.
+* **[Support Guide](SUPPORT.md)** – Find resources and support channels for help.
+* **[Security Policy](SECURITY.md)** – Report vulnerabilities safely.
+* **[Code of Conduct](CODE_OF_CONDUCT.md)** – Read our community behavior guidelines.
 
 ## Licensing
 
-Licensed under the MIT License.
+Licensed under the [MIT License](LICENSE).

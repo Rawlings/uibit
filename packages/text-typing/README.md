@@ -1,6 +1,6 @@
 # Text Typing
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/text-typing)
+[Interactive Demonstration](https://rawlings.github.io/uibit/components/text-typing)
 
 Text Typing is an animated display component that cycles through multiple phrases with a typing motion. By simulating speed variations, pauses, and corrections, it creates dynamic visual interest, making it ideal for landing page headlines and key value propositions.
 
@@ -20,3 +20,8 @@ Text Typing is an animated display component that cycles through multiple phrase
 ## Further Information
 
 Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
+
+
+## Changelog
+
+Please see the [Changelog](CHANGELOG.md) for version history.
