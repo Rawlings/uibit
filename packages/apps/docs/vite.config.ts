@@ -72,19 +72,6 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: false,
     rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react') || id.includes('scheduler')) {
-              return 'vendor-react';
-            }
-            if (id.includes('lucide-react') || id.includes('lucide')) {
-              return 'vendor-lucide';
-            }
-            return 'vendor-others';
-          }
-        }
-      }
     }
   },
   test: {
