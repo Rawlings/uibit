@@ -1,6 +1,7 @@
-import { defineConfig, type Plugin } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import { uibitHmr } from '@uibit/vite-plugin-wc-hmr';
 import { resolve } from 'path';
 import { readdirSync, existsSync, readFileSync } from 'fs';
 
@@ -37,40 +38,35 @@ const getWorkspaceAliases = () => {
   return aliases;
 };
 
-function watchComponentPackages(): Plugin {
-  let timeout: NodeJS.Timeout | null = null;
-  return {
-    name: 'watch-component-packages',
-    configureServer(server) {
-      server.watcher.add(resolve(componentsDir, '*/src/**'));
-      server.watcher.add(resolve(platformDir, '*/src/**'));
-      server.watcher.on('change', (file) => {
-        // Filter changes to source files that affect browser runtime
-        // and ignore tests or test outputs.
-        if (
-          (file.includes('/packages/components/') || file.includes('/packages/platform/')) &&
-          /\.(ts|tsx|css|json)$/.test(file) &&
-          !file.endsWith('.test.ts') &&
-          !file.endsWith('.spec.ts')
-        ) {
-          if (timeout) clearTimeout(timeout);
-          timeout = setTimeout(() => {
-            server.ws.send({ type: 'full-reload' });
-          }, 150);
-        }
-      });
-    },
-  };
-}
-
 export default defineConfig({
   base: process.env.GITHUB_ACTIONS ? '/uibit/' : '/',
   css: {
     postcss: null,
   },
-  plugins: [tailwindcss(), react(), watchComponentPackages()],
+  plugins: [
+    tailwindcss(),
+    react(),
+    uibitHmr(),
+  ],
   resolve: {
     alias: getWorkspaceAliases(),
+  },
+  optimizeDeps: {
+    exclude: ['@uibit/vite-plugin-wc-hmr'],
+    esbuildOptions: {
+      tsconfigRaw: {
+        compilerOptions: {
+          experimentalDecorators: true,
+        },
+      },
+    },
+  },
+  esbuild: {
+    tsconfigRaw: {
+      compilerOptions: {
+        experimentalDecorators: true,
+      },
+    },
   },
   build: {
     outDir: 'dist',

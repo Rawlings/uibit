@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@uibit/360-viewer": "workspace:*",
@@ -39,6 +40,7 @@
     "react-router-dom": "^7.18.1"
   },
   "devDependencies": {
+    "@uibit/vite-plugin-wc-hmr": "workspace:*",
     "@tailwindcss/vite": "^4.3.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",

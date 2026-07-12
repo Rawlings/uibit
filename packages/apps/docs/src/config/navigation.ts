@@ -25,6 +25,7 @@ export const ECOSYSTEM: NavigationItem[] = [
   { id: 'frameworks', title: 'Framework Integrations', to: '/packages/frameworks', category: 'Ecosystem' },
   { id: 'base-class', title: 'Base Class', to: '/packages/base-class', category: 'Ecosystem' },
   { id: 'form-internals', title: 'Form Internals', to: '/packages/form-internals', category: 'Ecosystem' },
+  { id: 'hmr', title: 'Vite Plugin WC HMR', to: '/packages/hmr', category: 'Ecosystem' },
 ];
 
 export const CATEGORY_ORDER = [

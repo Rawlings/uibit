@@ -3,9 +3,9 @@ import { SourceBuilder } from '../core/utils.js';
 
 export const nuxtPlugin = {
   name: 'nuxt',
-  generate(_component: ComponentMetadata) {
+  generate(component: ComponentMetadata) {
     return {
-      'index.ts': buildTS()
+      'index.ts': buildTS(component)
     };
   }
 };
@@ -14,17 +14,18 @@ function renderNuxtImports(): string {
   return `import { defineNuxtPlugin } from '#app';`;
 }
 
-function renderNuxtPlugin(): string {
+function renderNuxtPlugin(importPath: string): string {
   return `export default defineNuxtPlugin(() => {
   if (process.client) {
-    import('../../index.js');
+    import('${importPath}');
   }
 });`;
 }
 
-function buildTS(): string {
+function buildTS(component: ComponentMetadata): string {
+  const importPath = component.importPath || '../../index.js';
   return new SourceBuilder()
     .append(renderNuxtImports())
-    .append(renderNuxtPlugin())
+    .append(renderNuxtPlugin(importPath))
     .toString();
 }

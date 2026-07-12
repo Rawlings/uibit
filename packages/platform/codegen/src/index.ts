@@ -49,6 +49,20 @@ function run() {
   const manifest = JSON.parse(fs.readFileSync(cemPath, 'utf-8'));
   const components: ComponentMetadata[] = [];
 
+  const pkgJsonPath = path.join(absolutePkgDir, 'package.json');
+  let detectedImportPath = '';
+  if (fs.existsSync(pkgJsonPath)) {
+    try {
+      const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath, 'utf-8'));
+      if (pkgJson.name) {
+        detectedImportPath = pkgJson.name;
+      }
+    } catch (e) {}
+  }
+
+  const importPathIndex = args.indexOf('--import-path');
+  const importPath = importPathIndex !== -1 ? args[importPathIndex + 1] : (detectedImportPath || '../../index.js');
+
   // Extract exported types using TypeScript compiler AST parsing
   const srcDir = path.join(absolutePkgDir, 'src');
   const exportedTypes = resolveExportedTypes(srcDir);
@@ -69,11 +83,14 @@ function run() {
         const attributes = declaration.attributes || [];
         const events = declaration.events || [];
         const slots = declaration.slots || [];
+        const mixins = declaration.mixins || [];
+        const formAssociated = declaration.formAssociated === true || mixins.some((m: any) => m.name === 'FormAssociatedMixin');
 
-        // Identify which exported types are actually used by properties/attributes
+        // Identify which exported types are actually used by properties/attributes/events
         const referencedTypes = Array.from(exportedTypes).filter(typeName => {
           const usesType = properties.some((p: any) => p.type?.text?.includes(typeName)) ||
-                           attributes.some((a: any) => a.type?.text?.includes(typeName));
+                           attributes.some((a: any) => a.type?.text?.includes(typeName)) ||
+                           events.some((e: any) => e.type?.text?.includes(typeName));
           // Make sure we don't import the class name itself!
           return usesType && typeName !== declaration.name;
         });
@@ -85,7 +102,10 @@ function run() {
           events,
           attributes,
           slots,
-          referencedTypes
+          referencedTypes,
+          mixins,
+          formAssociated,
+          importPath
         });
       }
     }

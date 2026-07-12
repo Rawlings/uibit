@@ -8,6 +8,7 @@ import { renderMarkdownInline, slugify } from '../utils/markdown';
 import codegenReadme from '../../../../platform/codegen/README.md?raw';
 import coreReadme from '../../../../platform/core/README.md?raw';
 import formInternalsReadme from '../../../../platform/form-internals/README.md?raw';
+import hmrReadme from '../../../../platform/vite-plugin-wc-hmr/README.md?raw';
 
 interface PackageData {
   title: string;
@@ -34,6 +35,12 @@ const packagesRegistry: Record<string, PackageData> = {
     description: 'Polyfilled and standardized wrapper around ElementInternals for robust form participation, CSS validation states, and constraint validation.',
     packageName: '@uibit/form-internals',
     readme: formInternalsReadme,
+  },
+  hmr: {
+    title: 'Vite Plugin WC HMR',
+    description: 'True Hot Module Replacement for custom elements. Swaps updated classes and styles in-place without a page reload, preserving component state. Works with Lit, vanilla CE, and any framework that exposes hotReplacedCallback().',
+    packageName: '@uibit/vite-plugin-wc-hmr',
+    readme: hmrReadme,
   },
 };
 

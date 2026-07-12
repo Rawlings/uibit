@@ -11,13 +11,13 @@ export const reactPlugin = {
 };
 
 function buildDTS(component: ComponentMetadata): string {
-  const { name, tagName, properties, attributes, referencedTypes } = component;
+  const { name, tagName, properties, attributes, referencedTypes, importPath = '../../index.js' } = component;
   const builder = new SourceBuilder();
 
   builder.append(`import type { HTMLAttributes } from 'react';
-import type { ${name} as HTMLElementClass } from '../../index.js';
-import '../../index.js';
-${generateTypeImports(referencedTypes)}`);
+import type { ${name} as HTMLElementClass } from '${importPath}';
+import '${importPath}';
+${generateTypeImports(referencedTypes, importPath)}`);
 
   const propMap = mergePropertiesAndAttributes(properties, attributes);
   const propTypes = Array.from(propMap.entries()).map(([propName, propType]) => {

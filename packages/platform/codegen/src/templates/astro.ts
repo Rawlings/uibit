@@ -10,10 +10,10 @@ export const astroPlugin = {
   }
 };
 
-function renderAstroImports(name: string): string {
+function renderAstroImports(name: string, importPath: string): string {
   return [
-    `import type { ${name} as HTMLElementClass } from '../../index.js';`,
-    `import '../../index.js';`
+    `import type { ${name} as HTMLElementClass } from '${importPath}';`,
+    `import '${importPath}';`
   ].join('\n');
 }
 
@@ -28,8 +28,9 @@ function renderAstroGlobalDeclaration(tagName: string): string {
 }
 
 function buildDTS(component: ComponentMetadata): string {
+  const importPath = component.importPath || '../../index.js';
   return new SourceBuilder()
-    .append(renderAstroImports(component.name))
+    .append(renderAstroImports(component.name, importPath))
     .append(renderAstroGlobalDeclaration(component.tagName))
     .toString();
 }

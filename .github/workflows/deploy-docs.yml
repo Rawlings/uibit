@@ -47,14 +47,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
+      - name: Cache turbo build
+        uses: actions/cache@d4323d4df104b026a6aa633fdb11d772146be0bf # v4.2.2
+        with:
+          path: node_modules/.cache/turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build packages
-        run: pnpm -r --filter '!@uibit/docs' run build
-
-      - name: Build documentation
-        run: pnpm build:docs
+      - name: Build all packages
+        run: pnpm build
 
       - name: Setup Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
@@ -62,7 +67,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
         with:
-          path: 'packages/docs/dist'
+          path: 'packages/apps/docs/dist'
 
       - name: Deploy to GitHub Pages
         id: deployment

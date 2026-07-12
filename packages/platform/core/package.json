@@ -20,7 +20,9 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run -c ../../../vitest.config.ts --passWithNoTests"
   },
   "keywords": [
     "uibit",

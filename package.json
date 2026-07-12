@@ -4,18 +4,19 @@
   "description": "A collection of accessible, production-ready UI web components",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@11.11.0",
   "engines": {
     "pnpm": ">=11.0.0",
     "node": ">=22.0.0"
   },
   "scripts": {
     "dev": "pnpm -F docs run dev",
-    "build": "pnpm -r --filter '!@uibit/docs' run build && pnpm -F docs run build",
+    "build": "turbo build",
     "build:docs": "pnpm -F docs run build",
     "preview": "pnpm -F docs run preview",
-    "analyze": "pnpm -r --filter '!@uibit/docs' --filter '!@uibit/core' run analyze",
-    "lint": "oxlint && pnpm --filter './packages/components/**' --filter './packages/platform/**' --filter '!@uibit/docs' exec -- tsc -p tsconfig.json --noEmit",
-    "test": "vitest run && pnpm -F docs test"
+    "analyze": "turbo analyze",
+    "lint": "oxlint && turbo typecheck",
+    "test": "turbo test"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.11.0",
@@ -25,6 +26,7 @@
     "eslint-plugin-lit-a11y": "^2.2.0",
     "happy-dom": "^14.12.3",
     "oxlint": "^0.15.0",
+    "turbo": "^2.10.4",
     "typescript": "7.0.2",
     "vite": "^5.4.21",
     "vitest": "^1.6.1"

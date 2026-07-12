@@ -149,6 +149,19 @@ Senior Web Architect persona for leading tasks and planning next steps.
 agent --skill web-architect --args '{"action":"align","componentPath":"packages/components/button"}'
 ```
 
+### 9. **framework-wrapper-generator**
+Audit, refine, and enforce multi-framework wrapper code-generation standards (Angular, React, Vue, Svelte).
+
+**Capabilities:**
+- Enforce standard, native primitives for component wrappers (no custom runtime hacks).
+- Implement modern, framework-specific reactive bindings (e.g., Signal-based inputs/outputs).
+- Ensure proper form integration via native form adapters (like ControlValueAccessor or v-model).
+
+**Trigger:** Use when auditing, refactoring, or updating multi-framework codegen components
+```bash
+agent --skill framework-wrapper-generator --args '{"action":"audit","framework":"angular"}'
+```
+
 ## How to Use Skills
 
 Skills are available through the agent interface:

@@ -30,9 +30,10 @@
     "custom-elements.json"
   ],
   "scripts": {
-    "build": "npm run analyze && uibit-codegen --package . && tsc",
+    "build": "cem analyze --globs 'src/**/*.ts' --litelement && uibit-codegen --package . && tsc",
     "dev": "concurrently \"cem analyze --globs 'src/**/*.ts' --litelement --watch\" \"tsc --watch\"",
-    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement"
+    "analyze": "cem analyze --globs 'src/**/*.ts' --litelement",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "reading-time",

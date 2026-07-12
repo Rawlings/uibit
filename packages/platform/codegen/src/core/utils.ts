@@ -56,7 +56,22 @@ export function mergePropertiesAndAttributes(properties: Property[], attributes:
 /**
  * Generates type imports for any custom referenced types.
  */
-export function generateTypeImports(referencedTypes: string[]): string {
+export function generateTypeImports(referencedTypes: string[], importPath: string = '../../index.js'): string {
   if (referencedTypes.length === 0) return '';
-  return `import type { ${referencedTypes.join(', ')} } from '../../index.js';`;
+  return `import type { ${referencedTypes.join(', ')} } from '${importPath}';`;
+}
+
+/**
+ * Converts a kebab-case or snake-case string to camelCase.
+ */
+export function toCamelCase(str: string): string {
+  return str.replace(/[-_]([a-z])/g, (g) => g[1]!.toUpperCase());
+}
+
+/**
+ * Capitalizes the first letter of a string.
+ */
+export function capitalize(str: string): string {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

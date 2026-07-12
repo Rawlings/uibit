@@ -1,7 +1,7 @@
 {
-  "name": "@uibit/form-internals",
+  "name": "@uibit/vite-plugin-wc-hmr",
   "version": "0.1.0",
-  "description": "Form participation and ElementInternals utilities for UIBit components",
+  "description": "Vite plugin for true Hot Module Replacement of custom elements",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -19,24 +19,26 @@
   ],
   "scripts": {
     "build": "tsc",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run -c ../../../vitest.config.ts --passWithNoTests"
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "uibit",
-    "form",
-    "element-internals",
-    "validation",
+    "hmr",
+    "vite",
     "web-components",
-    "lit"
+    "custom-elements",
+    "lit",
+    "hot-module-replacement",
+    "shadow-dom"
   ],
   "author": "Jonathan Rawlings",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.19.43",
+    "vite": "^6.3.5",
     "lit": "^3.3.3"
   },
   "peerDependencies": {
-    "lit": "^3.0.0"
+    "vite": "^5.0.0 || ^6.0.0"
   }
 }

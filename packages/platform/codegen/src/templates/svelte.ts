@@ -10,11 +10,11 @@ export const sveltePlugin = {
   }
 };
 
-function renderSvelteScriptImports(name: string, referencedTypes: string[]): string {
+function renderSvelteScriptImports(name: string, referencedTypes: string[], importPath: string): string {
   return [
-    `import '../../index.js';`,
-    `import type { ${name} as HTMLElementClass } from '../../index.js';`,
-    generateTypeImports(referencedTypes)
+    `import '${importPath}';`,
+    `import type { ${name} as HTMLElementClass } from '${importPath}';`,
+    generateTypeImports(referencedTypes, importPath)
   ].filter(Boolean).join('\n');
 }
 
@@ -53,12 +53,12 @@ ${svelteEffects}
 }
 
 function renderSvelteScriptBlock(component: ComponentMetadata): string {
-  const { name, properties, attributes, slots, referencedTypes } = component;
+  const { name, properties, attributes, slots, referencedTypes, importPath = '../../index.js' } = component;
   const propMap = mergePropertiesAndAttributes(properties, attributes);
   const namedSlots = slots.filter(s => s.name && s.name !== '');
 
   const scriptContent = new SourceBuilder()
-    .append(renderSvelteScriptImports(name, referencedTypes))
+    .append(renderSvelteScriptImports(name, referencedTypes, importPath))
     .append(renderSveltePropsDeclaration(propMap, namedSlots))
     .append(renderSvelteEffects(propMap))
     .toString();

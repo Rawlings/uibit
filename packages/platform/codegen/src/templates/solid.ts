@@ -10,12 +10,12 @@ export const solidPlugin = {
   }
 };
 
-function renderSolidImports(name: string, referencedTypes: string[]): string {
+function renderSolidImports(name: string, referencedTypes: string[], importPath: string): string {
   return [
     `import type { JSX } from 'solid-js';`,
-    `import type { ${name} as HTMLElementClass } from '../../index.js';`,
-    `import '../../index.js';`,
-    generateTypeImports(referencedTypes)
+    `import type { ${name} as HTMLElementClass } from '${importPath}';`,
+    `import '${importPath}';`,
+    generateTypeImports(referencedTypes, importPath)
   ].filter(Boolean).join('\n');
 }
 
@@ -35,7 +35,7 @@ function renderSolidModuleDeclaration(component: ComponentMetadata): string {
   namespace JSX {
     interface IntrinsicElements {
       '${tagName}': Partial<HTMLElementClass> & JSX.HTMLAttributes<HTMLElementClass> & {
-${propTypes}
+        ${propTypes}
 ${eventTypes}
       };
     }
@@ -44,8 +44,9 @@ ${eventTypes}
 }
 
 function buildDTS(component: ComponentMetadata): string {
+  const importPath = component.importPath || '../../index.js';
   return new SourceBuilder()
-    .append(renderSolidImports(component.name, component.referencedTypes))
+    .append(renderSolidImports(component.name, component.referencedTypes, importPath))
     .append(renderSolidModuleDeclaration(component))
     .toString();
 }

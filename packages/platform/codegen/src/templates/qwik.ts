@@ -10,10 +10,10 @@ export const qwikPlugin = {
   }
 };
 
-function renderQwikImports(): string {
+function renderQwikImports(importPath: string): string {
   return [
     `import { component$, Slot } from '@builder.io/qwik';`,
-    `import '../../index.js';`
+    `import '${importPath}';`
   ].join('\n');
 }
 
@@ -28,8 +28,9 @@ function renderQwikComponent(name: string, tagName: string): string {
 }
 
 function buildTSX(component: ComponentMetadata): string {
+  const importPath = component.importPath || '../../index.js';
   return new SourceBuilder()
-    .append(renderQwikImports())
+    .append(renderQwikImports(importPath))
     .append(renderQwikComponent(component.name, component.tagName))
     .toString();
 }

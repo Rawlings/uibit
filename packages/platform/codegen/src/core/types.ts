@@ -9,6 +9,7 @@ export interface Property {
 export interface Event {
   name: string;
   description?: string;
+  type?: { text: string };
 }
 
 export interface Attribute {
@@ -23,6 +24,11 @@ export interface Slot {
   description?: string;
 }
 
+export interface Mixin {
+  name: string;
+  package?: string;
+}
+
 export interface ComponentMetadata {
   name: string;
   tagName: string;
@@ -31,6 +37,9 @@ export interface ComponentMetadata {
   attributes: Attribute[];
   slots: Slot[];
   referencedTypes: string[];
+  mixins?: Mixin[];
+  formAssociated?: boolean;
+  importPath?: string;
 }
 
 export interface Plugin {

@@ -10,12 +10,12 @@ export const vuePlugin = {
   }
 };
 
-function renderVueImports(name: string, referencedTypes: string[]): string {
+function renderVueImports(name: string, referencedTypes: string[], importPath: string): string {
   return [
     `import { defineComponent, h } from 'vue';`,
-    `import type { ${name} as HTMLElementClass } from '../../index.js';`,
-    `import '../../index.js';`,
-    generateTypeImports(referencedTypes)
+    `import type { ${name} as HTMLElementClass } from '${importPath}';`,
+    `import '${importPath}';`,
+    generateTypeImports(referencedTypes, importPath)
   ].filter(Boolean).join('\n');
 }
 
@@ -57,8 +57,9 @@ ${eventBindings}
 }
 
 function buildTS(component: ComponentMetadata): string {
+  const importPath = component.importPath || '../../index.js';
   return new SourceBuilder()
-    .append(renderVueImports(component.name, component.referencedTypes))
+    .append(renderVueImports(component.name, component.referencedTypes, importPath))
     .append(renderVueComponent(component))
     .toString();
 }
