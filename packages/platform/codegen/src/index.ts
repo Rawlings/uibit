@@ -69,7 +69,7 @@ function run() {
 
   for (const module of manifest.modules || []) {
     for (const declaration of module.declarations || []) {
-      if (declaration.customElement) {
+      if (declaration.customElement && declaration.tagName) {
         const properties = (declaration.members || [])
           .filter((m: any) => m.kind === 'field' && m.privacy !== 'private' && !m.static && !m.readonly)
           .map((m: any) => ({

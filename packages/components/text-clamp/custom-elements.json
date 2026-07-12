@@ -172,6 +172,211 @@
               "kind": "method",
               "name": "_toggle",
               "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "locale",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "attribute": "locale",
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "resolvedLocale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "readonly": true,
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "_disposables",
+              "type": {
+                "text": "Set<() => void>"
+              },
+              "privacy": "private",
+              "default": "new Set()",
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "createProperty",
+              "static": true,
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "PropertyKey"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "PropertyDeclaration"
+                  }
+                }
+              ],
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "finalizeStyles",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Array<any>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "styles",
+                  "optional": true,
+                  "type": {
+                    "text": "CSSResultGroup"
+                  }
+                }
+              ],
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "dispatchCustomEvent",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "detail",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "Omit<CustomEventInit<T>, 'detail'>"
+                  }
+                }
+              ],
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "getCssPropertyValue",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "propertyName",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "registerDisposable",
+              "parameters": [
+                {
+                  "name": "cleanup",
+                  "type": {
+                    "text": "() => void"
+                  }
+                }
+              ],
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "EventTarget"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ],
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
             }
           ],
           "events": [
@@ -192,6 +397,19 @@
               "default": "3",
               "description": "Maximum number of lines to show when collapsed.",
               "fieldName": "lines"
+            },
+            {
+              "name": "locale",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "fieldName": "locale",
+              "inheritedFrom": {
+                "name": "UIBitElement",
+                "module": "../../platform/core/src/element.ts"
+              }
             }
           ],
           "cssStates": [
@@ -245,6 +463,250 @@
       "path": "src/types.ts",
       "declarations": [],
       "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "../../platform/core/src/element.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
+          "name": "UIBitElement",
+          "members": [
+            {
+              "kind": "field",
+              "name": "locale",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "attribute": "locale"
+            },
+            {
+              "kind": "field",
+              "name": "resolvedLocale",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "readonly": true
+            },
+            {
+              "kind": "field",
+              "name": "_disposables",
+              "type": {
+                "text": "Set<() => void>"
+              },
+              "privacy": "private",
+              "default": "new Set()"
+            },
+            {
+              "kind": "method",
+              "name": "createProperty",
+              "static": true,
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "PropertyKey"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "PropertyDeclaration"
+                  }
+                }
+              ],
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+            },
+            {
+              "kind": "method",
+              "name": "finalizeStyles",
+              "static": true,
+              "return": {
+                "type": {
+                  "text": "Array<any>"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "styles",
+                  "optional": true,
+                  "type": {
+                    "text": "CSSResultGroup"
+                  }
+                }
+              ],
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+            },
+            {
+              "kind": "method",
+              "name": "dispatchCustomEvent",
+              "return": {
+                "type": {
+                  "text": "boolean"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "name",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "detail",
+                  "optional": true,
+                  "type": {
+                    "text": "T"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "Omit<CustomEventInit<T>, 'detail'>"
+                  }
+                }
+              ],
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
+            },
+            {
+              "kind": "method",
+              "name": "getCssPropertyValue",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "propertyName",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "Helper to retrieve a computed CSS custom property value from the element."
+            },
+            {
+              "kind": "method",
+              "name": "registerDisposable",
+              "parameters": [
+                {
+                  "name": "cleanup",
+                  "type": {
+                    "text": "() => void"
+                  }
+                }
+              ],
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "EventTarget"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "K"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ],
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
+            },
+            {
+              "kind": "method",
+              "name": "listen",
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "target",
+                  "type": {
+                    "text": "EventTarget"
+                  }
+                },
+                {
+                  "name": "type",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "listener",
+                  "type": {
+                    "text": "EventListenerOrEventListenerObject"
+                  }
+                },
+                {
+                  "name": "options",
+                  "optional": true,
+                  "type": {
+                    "text": "boolean | AddEventListenerOptions"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "locale",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "fieldName": "locale"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "UIBitElement",
+          "declaration": {
+            "name": "UIBitElement",
+            "module": "../../platform/core/src/element.ts"
+          }
+        }
+      ]
     }
   ]
 }
