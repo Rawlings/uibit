@@ -1,6 +1,16 @@
 # Text Clamp
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/text-clamp.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/text-clamp)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/text-clamp)
+
+## Installation
+
+```bash
+npm install @uibit/text-clamp
+```
+
 
 Text Clamp constrains long, multi-line text blocks to a designated maximum line count. When the text exceeds the boundary, the component inserts an inline ellipsis and an interactive toggle (e.g. "More" / "Less") to expand or collapse the content dynamically without page navigation.
 

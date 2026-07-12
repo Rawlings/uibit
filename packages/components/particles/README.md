@@ -1,6 +1,16 @@
 # Particles
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/particles.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/particles)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/particles)
+
+## Installation
+
+```bash
+npm install @uibit/particles
+```
+
 
 Particles provides an interactive canvas-based animation element. It renders dynamic background visuals across multiple presets—including floating nodes, snowfall, rainfall, matrix streams, vortexes, and connection grids—and supports interactive mouse proximity effects.
 

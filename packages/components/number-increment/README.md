@@ -1,6 +1,16 @@
 # Number Ticker
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/number-increment.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/number-increment)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/number-ticker)
+
+## Installation
+
+```bash
+npm install @uibit/number-increment
+```
+
 
 Number Ticker is a visual performance indicator component that animates numerical statistics, percentages, and currencies when they enter the user's viewport. By displaying numbers with a smooth counting motion rather than as static values, it highlights milestones and growth metrics.
 

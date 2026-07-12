@@ -1,6 +1,16 @@
 # Table
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/table.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/table)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/table)
+
+## Installation
+
+```bash
+npm install @uibit/table
+```
+
 
 Table wraps standard HTML `<table>` elements and layers on a full data grid feature set including searching, pagination, sorting, row selection, column resizing, filtering, and CSV export. The source markup is parsed once on slot assignment and never mutated, rendering the enhanced interface entirely inside the shadow DOM.
 

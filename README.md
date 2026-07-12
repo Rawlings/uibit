@@ -1,6 +1,11 @@
 # UIBit
 
-UIBit is a collection of framework-agnostic interactive web components built on native standards. Designed with a Scandinavian aesthetic—characterized by clean lines, functional minimalism, generous spacing, and a pure grayscale palette—UIBit provides beautiful, performant, and accessible user interface elements.
+[![NPM Core Version](https://img.shields.io/npm/v/@uibit/core.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/core)
+[![NPM Form Version](https://img.shields.io/npm/v/@uibit/form.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/form)
+[![pnpm](https://img.shields.io/badge/maintained%20with-pnpm-black?style=flat-square)](https://pnpm.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-black.svg?style=flat-square)](LICENSE)
+
+UIBit is a professional, framework-agnostic collection of interactive web components. Built on modern web standards and Lit, these elements provide performant, accessible, and customizable experiences that integrate into any web application or technology stack.
 
 ---
 

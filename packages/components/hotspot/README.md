@@ -1,6 +1,16 @@
 # Hotspot
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/hotspot.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/hotspot)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/hotspot)
+
+## Installation
+
+```bash
+npm install @uibit/hotspot
+```
+
 
 Hotspot enables interactive image exploration by overlaying contextual annotations on top of specific regions of an image. It transforms static diagrams, product mockups, and photographs into interactive guides that reveal rich details on demand, reducing clutter.
 

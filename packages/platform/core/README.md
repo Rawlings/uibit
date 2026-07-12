@@ -1,5 +1,8 @@
 # @uibit/core
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/core.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/core)
+
+
 The `@uibit/core` package provides the shared foundation, lifecycle utilities, and reactive controllers for all UIBit components. 
 
 ## Features

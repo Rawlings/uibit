@@ -1,6 +1,16 @@
 # Carousel
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/carousel.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/carousel)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/carousel)
+
+## Installation
+
+```bash
+npm install @uibit/carousel
+```
+
 
 Carousel provides a fluid and responsive content presentation display that invites exploration. With smooth transitions, touch responsiveness, and elegant pagination control, it showcases visual content without cluttering the interface structure.
 

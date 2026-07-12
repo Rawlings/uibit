@@ -1,6 +1,16 @@
 # Signature Pad
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/signature.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/signature)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/signature-pad)
+
+## Installation
+
+```bash
+npm install @uibit/signature
+```
+
 
 Signature Pad is a signature capture component that allows users to write signatures on digital forms. By providing smooth, high-fidelity stroke tracking for mouse, touch, and stylus inputs, it streamlines document workflows and digital authorization processes.
 

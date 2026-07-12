@@ -1,6 +1,16 @@
 # 360 Viewer
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/360-viewer.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/360-viewer)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/viewer-360)
+
+## Installation
+
+```bash
+npm install @uibit/360-viewer
+```
+
 
 The 360 Viewer allows customers to explore products with tactile, interactive control. By converting a series of static images into an immersive, rotatable object, it provides a comprehensive look at physical products, building customer confidence and increasing conversion rates.
 

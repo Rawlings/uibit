@@ -1,6 +1,16 @@
 # Text Rotator
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/text-rotator.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/text-rotator)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/text-rotator)
+
+## Installation
+
+```bash
+npm install @uibit/text-rotator
+```
+
 
 Text Rotator cycles through an array of phrases inside a static sentence. It transitions between list items using vertical slide or 3D perspective flip animations, designed to highlight shifting value propositions within a compact, responsive boundary.
 

@@ -1,6 +1,16 @@
 # Text Typing
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/text-typing.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/text-typing)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/text-typing)
+
+## Installation
+
+```bash
+npm install @uibit/text-typing
+```
+
 
 Text Typing is an animated display component that cycles through multiple phrases with a typing motion. By simulating speed variations, pauses, and corrections, it creates dynamic visual interest, making it ideal for landing page headlines and key value propositions.
 

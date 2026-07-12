@@ -1,5 +1,8 @@
 # @uibit/form-internals
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/form-internals.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/form-internals)
+
+
 A robust, enterprise-grade package that abstracts the `ElementInternals` API for Lit components, making form association and custom validation seamless.
 
 ## Installation

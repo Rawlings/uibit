@@ -1,6 +1,16 @@
 # Countdown
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/countdown.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/countdown)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/countdown)
+
+## Installation
+
+```bash
+npm install @uibit/countdown
+```
+
 
 Countdown provides a highly customizable visual timer designed to communicate time sensitivity and build anticipation. Whether highlighting a product launch, event deadline, or limited-time campaign, it offers clear, real-time feedback that drives user action.
 

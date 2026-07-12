@@ -1,5 +1,8 @@
 # @uibit/codegen
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/codegen.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/codegen)
+
+
 A generic, high-performance web component wrapper generator for multiple frontend frameworks. It reads a standard Custom Elements Manifest (`custom-elements.json`) and generates native-feeling, tree-shakable wrappers for React, Vue 3, Svelte 5, Angular, SolidJS, Astro, Qwik, and Nuxt 3.
 
 ## Features

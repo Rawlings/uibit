@@ -1,6 +1,16 @@
 # Consent Guard
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/consent-guard.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/consent-guard)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/consent-guard)
+
+## Installation
+
+```bash
+npm install @uibit/consent-guard
+```
+
 
 Consent Guard provides a polished, content-specific consent interface that respects user privacy without interrupting the user experience. By replacing third-party embeddings with clear, informative placeholders, it gives users control over which services load, building trust and meeting compliance requirements.
 

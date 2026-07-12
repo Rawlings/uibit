@@ -1,6 +1,16 @@
 # Sentiment Bar
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/sentiment-selector.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/sentiment-selector)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/sentiment-bar)
+
+## Installation
+
+```bash
+npm install @uibit/sentiment-selector
+```
+
 
 Sentiment Bar is an interactive feedback collector component that makes user ratings engaging. By utilizing smooth spring scale animations, visual focus shifts, and double-tap confirmations, it lowers user friction and increases response rates.
 

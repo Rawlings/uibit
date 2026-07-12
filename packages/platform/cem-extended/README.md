@@ -1,5 +1,8 @@
 # @uibit/cem-extended
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/cem-extended.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/cem-extended)
+
+
 A custom Custom Elements Manifest (CEM) Analyzer plugin that extends the standard analyzer to extract undocumented public APIs and custom JSDoc metadata.
 
 ## Features

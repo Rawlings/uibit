@@ -249,6 +249,16 @@ function App() {
                   </a>
                 </li>
                 <li>
+                  <a
+                    href="https://www.npmjs.com/org/uibit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors inline-flex items-center gap-1.5"
+                  >
+                    npm Registry
+                  </a>
+                </li>
+                <li>
                   <span className="text-sm text-gray-500 dark:text-gray-500">
                     MIT License
                   </span>

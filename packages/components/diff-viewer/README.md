@@ -1,6 +1,16 @@
 # Diff Viewer
 
+[![NPM Version](https://img.shields.io/npm/v/@uibit/diff-viewer.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/diff-viewer)
+
+
 [Interactive Demonstration](https://rawlings.github.io/uibit/components/diff-viewer)
+
+## Installation
+
+```bash
+npm install @uibit/diff-viewer
+```
+
 
 Diff Viewer provides a comparison block for reviewing differences between two sets of text or code. It computes a line-level diff internally using the Longest Common Subsequence (LCS) algorithm, displaying additions and removals in a side-by-side (split) or inline format.
 
