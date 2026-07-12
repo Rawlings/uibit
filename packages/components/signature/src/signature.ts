@@ -12,7 +12,7 @@ import { FormAssociatedMixin } from '@uibit/form-internals';
  * mouse gestures, rendered immediately as smooth bezier-curved vector lines
  * with simulated pen pressure.
  *
- * @fires {{ isEmpty: boolean; dataUrl: string }} signature-change - Fired after each stroke ends
+ * @fires {{ isEmpty: boolean; dataUrl: string }} signature-change - Dispatched when value changes
  * @fires {{ previouslyEmpty: boolean }} signature-clear - Fired when the canvas is cleared
  *
  * @slot hint - Placeholder text shown when the pad is empty. Defaults to "Sign here".
@@ -137,6 +137,13 @@ export class Signature extends FormAssociatedMixin(UIBitElement) {
       outline-offset: 0.125rem;
     }
   `;
+
+  /**
+   * The signature image data URL.
+   * @modelEvent signature-change
+   */
+  @property({ type: String })
+  declare value: string;
 
   /** Whether to hide the clear button. */
   @property({ type: Boolean, attribute: 'hide-clear' }) hideClear = false;

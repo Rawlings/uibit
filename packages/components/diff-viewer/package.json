@@ -1,6 +1,6 @@
 {
   "name": "@uibit/diff-viewer",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Encapsulated side-by-side or inline comparison block for two text or code snippets. Computes a line-level diff internally using LCS and renders color-coded deleted/inserted/unchanged lines with optional line numbers.",
   "type": "module",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
       "import": "./dist/index.js"
     },
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": "./dist/frameworks/react/index.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

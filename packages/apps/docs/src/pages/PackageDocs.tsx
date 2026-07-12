@@ -27,9 +27,9 @@ const packagesRegistry: Record<string, PackageData> = {
     readme: coreReadme,
     githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/core',
   },
-  frameworks: {
-    title: 'Framework Integrations',
-    description: 'Use UIBit components in React, Vue, Svelte, Angular, Astro, Preact, Stencil, and vanilla TypeScript with auto-generated type wrappers.',
+  codegen: {
+    title: 'Codegen',
+    description: 'Use the wrapper generator to build React, Vue 3, Svelte 5, Angular, SolidJS, Astro, Preact, and Vanilla TS wrappers for Lit components.',
     packageName: '@uibit/codegen',
     readme: codegenReadme,
     githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/codegen',
@@ -60,70 +60,8 @@ const packagesRegistry: Record<string, PackageData> = {
     description: 'Local Model Context Protocol (MCP) server exposing UIBit Custom Elements Manifest (CEM) schemas to AI agents.',
     packageName: '@uibit/cem-mcp',
     readme: cemMcpReadme,
-    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-mcp',
   },
 };
-
-const frameworks = [
-  {
-    name: 'React 19',
-    subpath: '/react',
-    approach: 'JSX types',
-    detail: 'Extends React.JSX.IntrinsicElements so you write the custom element tag directly in JSX with full prop autocomplete.',
-    code: `import '@uibit/table/react';\n\n// The custom element tag is now typed natively\n<uibit-table searchable={true} />`,
-  },
-  {
-    name: 'Vue 3',
-    subpath: '/vue',
-    approach: 'SFC component',
-    detail: 'Exports a named Vue component wrapper that handles v-model, event listeners, and prop binding in standard SFC syntax.',
-    code: `import { Table } from '@uibit/table/vue';\n\n<Table :searchable="true" @change="onChange" />`,
-  },
-  {
-    name: 'Svelte 5',
-    subpath: '/svelte',
-    approach: 'Svelte component',
-    detail: 'Exports a Svelte component using runes and Snippets for slot projection.',
-    code: `<script>\n  import Table from '@uibit/table/svelte';\n</script>\n\n<Table searchable={true} />`,
-  },
-  {
-    name: 'Angular',
-    subpath: '/angular',
-    approach: 'Standalone directive',
-    detail: 'Exports a standalone Angular component directive you can import directly into any NgModule or standalone component.',
-    code: `import { NgxTable } from '@uibit/table/angular';\n\n@Component({\n  imports: [NgxTable],\n  template: '<uibit-table [searchable]="true"></uibit-table>'\n})`,
-  },
-  {
-    name: 'Astro',
-    subpath: '/astro',
-    approach: 'JSX types',
-    detail: 'Extends global JSX types for Astro templates, preserving client hydration directives.',
-    code: `import '@uibit/table/astro';\n\n<uibit-table searchable client:load />`,
-  },
-  {
-    name: 'Preact',
-    subpath: '/preact',
-    approach: 'JSX types',
-    detail: "Extends Preact's JSX.IntrinsicElements namespace — no runtime wrapper, pure type augmentation.",
-    code: `import '@uibit/table/preact';\n\n<uibit-table searchable={true} />`,
-  },
-  {
-    name: 'Vanilla TS',
-    subpath: '/vanilla',
-    approach: 'DOM types',
-    detail: 'Registers the element in HTMLElementTagNameMap so document.createElement and querySelector calls return the correct typed instance.',
-    code: `import '@uibit/table/vanilla';\n\nconst table = document.createElement('uibit-table');\n// typed as Table, not HTMLElement`,
-  },
-  {
-    name: 'Stencil',
-    subpath: '/stencil',
-    approach: 'JSX types',
-    detail: "Maps custom element typings directly into Stencil's JSX namespace for clean composition inside Stencil components.",
-    code: `import '@uibit/table/stencil';\n\n<uibit-table searchable={true} />`,
-  },
-];
-
-
 
 export default function PackageDocs() {
   const { packageId } = useParams<{ packageId: string }>();
@@ -137,25 +75,18 @@ export default function PackageDocs() {
   const [activeSection, setActiveSection] = useState<string>('');
 
   // Extract headings for Table of Contents
-  let tocItems: { id: string; label: string }[] = [];
-  if (packageId === 'frameworks') {
-    tocItems = [
-      { id: 'compatibility-matrix', label: 'Compatibility Matrix' },
-      { id: 'usage-by-framework', label: 'Usage by Framework' },
-      { id: 'automatic-wrapper-generation', label: 'Automatic Wrapper Generation' },
-    ];
-  } else if (pkg) {
-    tocItems = pkg.readme
-      .split('\n')
-      .filter((line) => line.startsWith('## '))
-      .map((line) => {
-        const text = line.substring(3).trim();
-        return {
-          id: slugify(text),
-          label: text,
-        };
-      });
-  }
+  const tocItems = pkg
+    ? pkg.readme
+        .split('\n')
+        .filter((line) => line.startsWith('## '))
+        .map((line) => {
+          const text = line.substring(3).trim();
+          return {
+            id: slugify(text),
+            label: text,
+          };
+        })
+    : [];
 
   useEffect(() => {
     if (tocItems.length === 0) return;
@@ -243,69 +174,8 @@ export default function PackageDocs() {
               </a>
             </div>
           </header>
-
           <section className="py-2 text-gray-700 dark:text-gray-350">
-            {packageId === 'frameworks' ? (
-              <>
-                {/* Compatibility Matrix (from Frameworks.tsx) */}
-                <section id="compatibility-matrix" className="pb-10 scroll-mt-20">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-100 dark:border-gray-900 pb-2">
-                    Compatibility Matrix
-                  </h2>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-sm">
-                      <thead>
-                        <tr className="border-b border-gray-200 dark:border-gray-800">
-                          <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Framework</th>
-                          <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Subpath</th>
-                          <th className="py-2 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Approach</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-                        {frameworks.map((fw) => (
-                          <tr key={fw.name} className="bg-transparent hover:bg-gray-50 dark:hover:bg-gray-900/40 transition-colors">
-                            <td className="py-3 font-medium text-gray-900 dark:text-white text-sm pr-4 last:pr-0">{fw.name}</td>
-                            <td className="py-3 font-mono text-xs text-gray-650 dark:text-gray-400 pr-4 last:pr-0">{fw.subpath}</td>
-                            <td className="py-3 text-gray-600 dark:text-gray-350 text-sm pr-4 last:pr-0">{fw.approach}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </section>
-
-                {/* Usage by Framework (from Frameworks.tsx) */}
-                <section id="usage-by-framework" className="py-10 scroll-mt-20">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-100 dark:border-gray-900 pb-2">
-                    Usage by Framework
-                  </h2>
-                  <div className="space-y-10">
-                    {frameworks.map((fw) => (
-                      <div key={fw.name} className="scroll-mt-20">
-                        <div className="flex items-baseline gap-3 mb-2">
-                          <h3 className="text-base font-semibold text-gray-900 dark:text-white">{fw.name}</h3>
-                          <code className="text-xs font-mono text-gray-400 dark:text-gray-500">@uibit/[package]{fw.subpath}</code>
-                        </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{fw.detail}</p>
-                        <pre className="code-block text-gray-100 p-4 overflow-x-auto text-sm leading-relaxed">
-                          <code>{fw.code}</code>
-                        </pre>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                {/* Automatic Wrapper Generation (@uibit/codegen details) */}
-                <section id="automatic-wrapper-generation" className="py-10 scroll-mt-20">
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b border-gray-100 dark:border-gray-900 pb-2">
-                    Automatic Wrapper Generation
-                  </h2>
-                  {renderContent(pkg.readme, 'codegen')}
-                </section>
-              </>
-            ) : (
-              renderContent(pkg.readme)
-            )}
+            {renderContent(pkg.readme)}
           </section>
         </div>
 

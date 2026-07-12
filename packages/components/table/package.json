@@ -1,6 +1,6 @@
 {
   "name": "@uibit/table",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Wraps any standard HTML <table> in the default slot and adds a full datagrid feature set — without touching the source markup. All features are individually opt-in via boolean attributes.",
   "type": "module",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
       "import": "./dist/index.js"
     },
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": "./dist/frameworks/react/index.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

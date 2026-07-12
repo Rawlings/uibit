@@ -7,7 +7,7 @@ A generic, high-performance web component wrapper generator for multiple fronten
 
 ## Features
 
-- **Zero Runtime Dependencies**: The generated wrapper files are written as raw source code or lightweight wrappers (using standard utilities like `@lit/react`), requiring no compilation or heavy libraries in your library's repo.
+- **Zero Runtime Dependencies**: The generated wrappers are written as raw, standalone source code using standard native framework primitives (e.g., standard React Hooks, Vue's `h` render function, or Svelte 5 runes) with no external library dependencies.
 - **Tree Shakable**: Generates individual files per component and framework, enabling modern bundlers to optimize your bundle sizes.
 - **Strictly Typed**: Outputs precise TypeScript declarations (`.d.ts`) matching your components' properties, attributes, and custom events.
 - **Svelte 5 Runes**: Automatically templates wrappers using Svelte 5's new `$props()`, `$state()`, and `$effect()` runes.

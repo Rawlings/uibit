@@ -1,2 +1,2 @@
 export { default, Particles } from './particles';
-export type { Particle, ParticleHoverEffect, EffectParticlesConfig } from './types';
+export type { Particle, ParticleHoverEffect, ParticleMode, EffectParticlesConfig } from './types';

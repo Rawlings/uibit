@@ -10,6 +10,7 @@ import gettingStartedMd from '../../content/getting-started.md?raw';
 import accessibilityMd from '../../content/accessibility.md?raw';
 import stylingMd from '../../content/styling.md?raw';
 import localizationMd from '../../content/localization.md?raw';
+import frameworksMd from '../../content/frameworks.md?raw';
 import iconsMd from '../../content/icons.md?raw';
 import browserSupportMd from '../../content/browser-support.md?raw';
 import troubleshootingMd from '../../content/troubleshooting.md?raw';
@@ -44,6 +45,11 @@ const contentRegistry: Record<string, PageMetadata> = {
     title: 'Localization – UIBit',
     description: 'Learn how to localize UIBit web components using @lit/localize.',
     markdown: localizationMd
+  },
+  'frameworks': {
+    title: 'Framework Integrations – UIBit',
+    description: 'Use UIBit components in React, Vue, Svelte, Angular, Astro, Preact, Stencil, and vanilla TypeScript with auto-generated type wrappers.',
+    markdown: frameworksMd
   },
   'icons': {
     title: 'Icons – UIBit',
@@ -169,6 +175,109 @@ function LocalizedStringsTable() {
   );
 }
 
+const frameworks = [
+  {
+    name: 'React 19',
+    subpath: '/react',
+    approach: 'React component',
+    detail: 'Exports a named React component wrapper that maps properties, attributes, and events natively in React JSX, with full TypeScript typing.',
+    code: `import { Table } from '@uibit/table/react';\n\n// Render the wrapper component with full type support and React event props\n<Table searchable={true} onChange={(e) => console.log(e.detail)} />`,
+  },
+  {
+    name: 'Vue 3',
+    subpath: '/vue',
+    approach: 'SFC component',
+    detail: 'Exports a named Vue component wrapper that handles v-model, event listeners, and prop binding in standard SFC syntax.',
+    code: `import { Table } from '@uibit/table/vue';\n\n<Table :searchable="true" @change="onChange" />`,
+  },
+  {
+    name: 'Svelte 5',
+    subpath: '/svelte',
+    approach: 'Svelte component',
+    detail: 'Exports a Svelte component using runes and Snippets for slot projection.',
+    code: `<script>\n  import Table from '@uibit/table/svelte';\n</script>\n\n<Table searchable={true} />`,
+  },
+  {
+    name: 'Angular',
+    subpath: '/angular',
+    approach: 'Standalone directive',
+    detail: 'Exports a standalone Angular component directive you can import directly into any NgModule or standalone component.',
+    code: `import { NgxTable } from '@uibit/table/angular';\n\n@Component({\n  imports: [NgxTable],\n  template: '<uibit-table [searchable]="true"></uibit-table>'\n})`,
+  },
+  {
+    name: 'Astro',
+    subpath: '/astro',
+    approach: 'JSX types',
+    detail: 'Extends global JSX types for Astro templates, preserving client hydration directives.',
+    code: `import '@uibit/table/astro';\n\n<uibit-table searchable client:load />`,
+  },
+  {
+    name: 'Preact',
+    subpath: '/preact',
+    approach: 'JSX types',
+    detail: "Extends Preact's JSX.IntrinsicElements namespace — no runtime wrapper, pure type augmentation.",
+    code: `import '@uibit/table/preact';\n\n<uibit-table searchable={true} />`,
+  },
+  {
+    name: 'Vanilla TS',
+    subpath: '/vanilla',
+    approach: 'DOM types',
+    detail: 'Registers the element in HTMLElementTagNameMap so document.createElement and querySelector calls return the correct typed instance.',
+    code: `import '@uibit/table/vanilla';\n\nconst table = document.createElement('uibit-table');\n// typed as Table, not HTMLElement`,
+  },
+  {
+    name: 'Stencil',
+    subpath: '/stencil',
+    approach: 'JSX types',
+    detail: "Maps custom element typings directly into Stencil's JSX namespace for clean composition inside Stencil components.",
+    code: `import '@uibit/table/stencil';\n\n<uibit-table searchable={true} />`,
+  },
+];
+
+function FrameworksMatrix() {
+  return (
+    <div className="overflow-x-auto my-6">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-gray-200 dark:border-gray-800">
+            <th className="px-0 py-2.5 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Framework</th>
+            <th className="px-0 py-2.5 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Subpath</th>
+            <th className="px-0 py-2.5 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">Approach</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-100 dark:divide-gray-900">
+          {frameworks.map((fw) => (
+            <tr key={fw.name} className="bg-transparent">
+              <td className="px-0 py-3 text-left align-top text-gray-655 dark:text-gray-350 text-sm pr-4 last:pr-0">{fw.name}</td>
+              <td className="px-0 py-3 text-left align-top font-mono text-xs text-gray-600 dark:text-gray-400 pr-4 last:pr-0">{fw.subpath}</td>
+              <td className="px-0 py-3 text-left align-top text-gray-500 dark:text-gray-400 pr-4 last:pr-0">{fw.approach}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function FrameworksUsage() {
+  return (
+    <div className="space-y-10 my-6">
+      {frameworks.map((fw) => (
+        <div key={fw.name} className="scroll-mt-20">
+          <div className="flex items-baseline gap-3 mb-2">
+            <h3 className="text-base font-semibold text-gray-900 dark:text-white">{fw.name}</h3>
+            <code className="text-xs font-mono text-gray-400 dark:text-gray-500">@uibit/[package]{fw.subpath}</code>
+          </div>
+          <p className="text-sm text-gray-650 dark:text-gray-400 mb-3 leading-relaxed">{fw.detail}</p>
+          <pre className="code-block bg-gray-900 text-gray-100 p-4 rounded-xl overflow-x-auto text-sm leading-relaxed font-mono">
+            <code>{fw.code}</code>
+          </pre>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function MarkdownPage() {
   const { pageId } = useParams<{ pageId: string }>();
   const page = pageId ? contentRegistry[pageId] : undefined;
@@ -229,7 +338,9 @@ export default function MarkdownPage() {
 
   const customRenderers = {
     'strings-table-placeholder': () => <LocalizedStringsTable />,
-    'icons-grid-placeholder': () => <IconsGrid />
+    'icons-grid-placeholder': () => <IconsGrid />,
+    'frameworks-matrix-placeholder': () => <FrameworksMatrix />,
+    'frameworks-usage-placeholder': () => <FrameworksUsage />
   };
 
   return (

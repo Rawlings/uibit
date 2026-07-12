@@ -10,73 +10,84 @@ export const sveltePlugin = {
   }
 };
 
-function renderSvelteScriptImports(name: string, referencedTypes: string[], importPath: string): string {
-  return [
-    `import '${importPath}';`,
-    `import type { ${name} as HTMLElementClass } from '${importPath}';`,
-    generateTypeImports(referencedTypes, importPath)
-  ].filter(Boolean).join('\n');
-}
-
-function renderSveltePropsDeclaration(propMap: Map<string, string>, namedSlots: any[]): string {
-  const svelteProps = Array.from(propMap.keys()).map(name => `${name} = undefined`).join(',\n    ');
-  const slotProps = namedSlots.map(s => `${s.name} = undefined`).join(',\n    ');
-  const allProps = [svelteProps, slotProps, 'children'].filter(Boolean).join(',\n    ');
-
-  const svelteTypes = Array.from(propMap.entries()).map(([propName, propType]) => {
-    return `  ${propName}?: ${propType};`;
-  }).join('\n');
-
-  const slotTypes = namedSlots.map(s => `  ${s.name}?: import('svelte').Snippet;`).join('\n');
-
-  return `let {
-  ${allProps}
-} = $props<{
-  children?: any;
-${svelteTypes}
-${slotTypes}
-}>();`;
-}
-
-function renderSvelteEffects(propMap: Map<string, string>): string {
-  const svelteEffects = Array.from(propMap.keys()).map(propName => {
-    return `  if (elementRef && ${propName} !== undefined) {
-    elementRef.${propName} = ${propName};
-  }`;
-  }).join('\n');
-
-  return `let elementRef: HTMLElementClass | null = $state(null);
-
-$effect(() => {
-${svelteEffects}
-});`;
-}
-
-function renderSvelteScriptBlock(component: ComponentMetadata): string {
-  const { name, properties, attributes, slots, referencedTypes, importPath = '../../index.js' } = component;
+function buildSvelte(component: ComponentMetadata): string {
+  const { name, tagName, properties, attributes, events = [], slots, referencedTypes, importPath = '../../index.js' } = component;
   const propMap = mergePropertiesAndAttributes(properties, attributes);
   const namedSlots = slots.filter(s => s.name && s.name !== '');
 
-  const scriptContent = new SourceBuilder()
-    .append(renderSvelteScriptImports(name, referencedTypes, importPath))
-    .append(renderSveltePropsDeclaration(propMap, namedSlots))
-    .append(renderSvelteEffects(propMap))
-    .toString();
+  const builder = new SourceBuilder();
 
-  const indentedContent = scriptContent
-    .split('\n')
-    .map(line => '  ' + line)
-    .join('\n');
+  // Imports
+  builder.append(`<script lang="ts">
+  import '${importPath}';
+  import type { ${name} as HTMLElementClass } from '${importPath}';
+  ${generateTypeImports(referencedTypes, importPath)}`);
 
-  return `<script lang="ts">
-${indentedContent}
-</script>`;
-}
+  // Props declaration using Svelte 5 $bindable() and restProps
+  const svelteProps = Array.from(propMap.keys()).map(name => `    ${name} = $bindable()`).join(',\n');
+  const slotProps = namedSlots.map(s => `    ${s.name} = undefined`).join(',\n');
+  const allProps = [svelteProps, slotProps, '    children', '    ...restProps'].filter(Boolean).join(',\n');
 
-function renderSvelteTemplate(component: ComponentMetadata): string {
-  const { tagName, slots } = component;
-  const namedSlots = slots.filter(s => s.name && s.name !== '');
+  const svelteTypes = Array.from(propMap.entries()).map(([propName, propType]) => {
+    return `    ${propName}?: ${propType};`;
+  }).join('\n');
 
+  const slotTypes = namedSlots.map(s => `    ${s.name}?: import('svelte').Snippet;`).join('\n');
+
+  builder.append(`  let {
+${allProps}
+  } = $props<{
+    children?: import('svelte').Snippet;
+${svelteTypes}
+${slotTypes}
+    [key: string]: any;
+  }>();`);
+
+  // Element ref
+  builder.append(`  let elementRef: HTMLElementClass | null = $state(null);`);
+
+  // Effect to sync properties from Svelte to Web Component
+  const syncToElement = Array.from(propMap.keys()).map(propName => {
+    return `    if (elementRef && ${propName} !== undefined && elementRef.${propName} !== ${propName}) {
+      elementRef.${propName} = ${propName};
+    }`;
+  }).join('\n');
+
+  builder.append(`  $effect(() => {
+${syncToElement}
+  });`);
+
+  // Effect to sync properties from Web Component back to Svelte when events fire
+  const syncToSvelte = Array.from(propMap.keys()).map(propName => {
+    return `      if (${propName} !== element.${propName}) {
+        ${propName} = element.${propName} as any;
+      }`;
+  }).join('\n');
+
+  const eventsList = Array.from(new Set(['change', 'input', ...events.map(e => e.name)]));
+
+  builder.append(`  $effect(() => {
+    const element = elementRef;
+    if (!element) return;
+
+    const handleEvent = () => {
+${syncToSvelte}
+    };
+
+    const events = [${eventsList.map(e => `'${e}'`).join(', ')}];
+    for (const event of events) {
+      element.addEventListener(event, handleEvent);
+    }
+    return () => {
+      for (const event of events) {
+        element.removeEventListener(event, handleEvent);
+      }
+    };
+  });`);
+
+  builder.append(`</script>`);
+
+  // Template section
   const projectedSlots = namedSlots.map(s => {
     return `  {#if ${s.name}}
     <div slot="${s.name}">
@@ -85,19 +96,15 @@ function renderSvelteTemplate(component: ComponentMetadata): string {
   {/if}`;
   }).join('\n');
 
-  return `<${tagName} bind:this={elementRef} {...$$restProps}>
+  builder.append(`<${tagName} bind:this={elementRef} {...restProps}>
 ${projectedSlots}
   {#if children}
     {@render children()}
   {:else}
     <slot />
   {/if}
-</${tagName}>`;
+</${tagName}>`);
+
+  return builder.toString();
 }
 
-function buildSvelte(component: ComponentMetadata): string {
-  return new SourceBuilder()
-    .append(renderSvelteScriptBlock(component))
-    .append(renderSvelteTemplate(component))
-    .toString();
-}

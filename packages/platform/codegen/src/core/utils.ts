@@ -75,3 +75,44 @@ export function capitalize(str: string): string {
   if (!str) return '';
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+/**
+ * Sanitizes event type text from CEM, wrapping key-value listings in object braces if needed.
+ */
+export function sanitizeEventType(typeText: string | undefined): string {
+  if (!typeText) return 'any';
+  const trimmed = typeText.trim();
+  if (trimmed.includes(':') && !trimmed.startsWith('{') && !trimmed.endsWith('}')) {
+    return `{ ${trimmed} }`;
+  }
+  return trimmed;
+}
+
+/**
+ * Checks if a component event is associated with a given property based on payload keys, suffix conventions, or DOM defaults.
+ */
+export function isEventAssociatedWithProp(component: any, eventName: string, propName: string): boolean {
+  const event = component.events?.find((e: any) => e.name === eventName);
+  if (event?.payloadKeys?.includes(propName)) {
+    return true;
+  }
+
+  const normalizedProp = propName.toLowerCase();
+  const normalizedEvent = eventName.toLowerCase();
+
+  // Suffix mapping (e.g. slide-change maps to slide)
+  if (normalizedEvent === `${normalizedProp}change` || normalizedEvent === `${normalizedProp}-change`) {
+    return true;
+  }
+
+  // Standard form value fallbacks
+  if (propName === 'value' && (eventName === 'change' || eventName === 'input' || eventName.endsWith('-change'))) {
+    return true;
+  }
+  if (propName === 'checked' && eventName === 'change') {
+    return true;
+  }
+
+  return false;
+}
+

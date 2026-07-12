@@ -1,6 +1,6 @@
 {
   "name": "@uibit/carousel",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Native, accessible carousel using CSS scroll-snap and scroll-driven animations. Perfect for image galleries, testimonials, and product showcases.",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,10 @@
     },
     "./carousel.css": "./dist/carousel.css",
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": {
+      "types": "./dist/frameworks/react/index.ts",
+      "import": "./dist/frameworks/react/index.ts"
+    },
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

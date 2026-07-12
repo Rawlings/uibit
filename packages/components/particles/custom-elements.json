@@ -41,6 +41,14 @@
         },
         {
           "kind": "js",
+          "name": "ParticleMode",
+          "declaration": {
+            "name": "ParticleMode",
+            "module": "./types"
+          }
+        },
+        {
+          "kind": "js",
           "name": "EffectParticlesConfig",
           "declaration": {
             "name": "EffectParticlesConfig",

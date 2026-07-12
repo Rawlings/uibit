@@ -4,6 +4,8 @@
 
 UIBit is a professional, framework-agnostic collection of interactive web components. Built on modern web standards and Lit, these elements provide performant, accessible, and customizable experiences that integrate into any web application or technology stack.
 
+To see UIBit in action, explore the interactive examples, design tokens, and integration guides at [rawlings.github.io/uibit](https://rawlings.github.io/uibit/).
+
 ---
 
 ## The Vision
@@ -28,10 +30,10 @@ UIBit is organized as a unified monorepo comprising component libraries and deve
 
 ### 1. Interactive Components
 Our visual catalog of web components spans several core categories:
-* **Media & Engagement** – Elements like 360-degree product viewers, interactive carousels, and image comparison sliders designed to highlight visual content.
-* **Input & Feedback** – Signature fields, sentiment selectors, and privacy guards that respect user consent and streamline form interaction.
-* **Display & Timing** – Dynamic typography components, countdown timers, and read-time indicators that guide user attention.
-* **Data & Flow** – Responsive tables, A/B testing controllers, and scroll progress tracking elements.
+* **Media & Engagement** – Elements like 360-degree product viewers, interactive carousels, image hotspots, scratch reveals, and comparison sliders designed to highlight visual content.
+* **Input & Feedback** – Canvas-based signature fields, sentiment selectors, and consent guards that respect user privacy and streamline form interaction.
+* **Display & Timing** – Animated text rotators, typewriter effects, countdown timers, and read-time indicators that guide user attention.
+* **Data & Flow** – Responsive tables, visual diff-viewers, and scroll progress indicators.
 
 ### 2. Platform & Developer Tooling
 Underneath the components, UIBit includes native systems to streamline integration and optimization:
@@ -41,11 +43,6 @@ Underneath the components, UIBit includes native systems to streamline integrati
 * [CEM Extended Analyzer](https://rawlings.github.io/uibit/packages/cem-extended) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-extended)) – Tooling for extracting detailed Custom Elements Manifests.
 * [CEM MCP Server](https://rawlings.github.io/uibit/packages/cem-mcp) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-mcp)) – Exposes component specifications directly to AI coding agents.
 
----
-
-## Explore UIBit
-
-To view live interactive examples, design tokens, and integration details, visit the [UIBit Documentation Site](https://rawlings.github.io/uibit/).
 
 ---
 

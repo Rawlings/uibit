@@ -712,6 +712,14 @@
         },
         {
           "kind": "js",
+          "name": "UIBitCarousel",
+          "declaration": {
+            "name": "UIBitCarousel",
+            "module": "./carousel"
+          }
+        },
+        {
+          "kind": "js",
           "name": "CarouselConfig",
           "declaration": {
             "name": "CarouselConfig",

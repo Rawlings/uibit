@@ -1,6 +1,6 @@
 {
   "name": "@uibit/360-viewer",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Interactive 360-degree image viewer component. Display products and objects from every angle with smooth mouse/touch dragging, auto-rotation, and preloading.",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,10 @@
     },
     "./360-viewer.css": "./dist/360-viewer.css",
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": {
+      "types": "./dist/frameworks/react/index.ts",
+      "import": "./dist/frameworks/react/index.ts"
+    },
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@uibit/number-increment",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Intersection-aware numeric counter that animates to a target value with easing curves, locale-aware formatting, and custom formatter function overrides. Triggers once the element scrolls into the viewport.",
   "type": "module",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
       "import": "./dist/index.js"
     },
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": "./dist/frameworks/react/index.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

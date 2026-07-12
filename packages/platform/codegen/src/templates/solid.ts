@@ -1,5 +1,5 @@
 import type { ComponentMetadata } from '../core/types.js';
-import { SourceBuilder, mergePropertiesAndAttributes, generateTypeImports } from '../core/utils.js';
+import { SourceBuilder, mergePropertiesAndAttributes, generateTypeImports, sanitizeEventType } from '../core/utils.js';
 
 export const solidPlugin = {
   name: 'solid',
@@ -20,7 +20,7 @@ function renderSolidImports(name: string, referencedTypes: string[], importPath:
 }
 
 function renderSolidModuleDeclaration(component: ComponentMetadata): string {
-  const { tagName, properties, attributes, events } = component;
+  const { tagName, properties, attributes, events = [] } = component;
   const propMap = mergePropertiesAndAttributes(properties, attributes);
   
   const propTypes = Array.from(propMap.entries())
@@ -28,7 +28,10 @@ function renderSolidModuleDeclaration(component: ComponentMetadata): string {
     .join('\n');
 
   const eventTypes = events
-    .map(e => `      "on:${e.name}"?: (event: CustomEvent) => void;`)
+    .map(e => {
+      const detailType = e.type?.text ? `CustomEvent<${sanitizeEventType(e.type.text)}>` : `Event`;
+      return `      "on:${e.name}"?: (event: ${detailType}) => void;`;
+    })
     .join('\n');
 
   return `declare module 'solid-js' {

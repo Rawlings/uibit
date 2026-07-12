@@ -20,11 +20,11 @@ export interface SentimentOption {
 }
 
 const DEFAULT_OPTIONS: SentimentOption[] = [
-  { value: 1, icon: 'angry',  label: 'Terrible' },
-  { value: 2, icon: 'frown',  label: 'Bad' },
-  { value: 3, icon: 'meh',    label: 'Okay' },
-  { value: 4, icon: 'smile',  label: 'Good' },
-  { value: 5, icon: 'laugh',  label: 'Excellent' },
+  { value: 1, icon: 'angry', label: 'Terrible' },
+  { value: 2, icon: 'frown', label: 'Bad' },
+  { value: 3, icon: 'meh', label: 'Okay' },
+  { value: 4, icon: 'smile', label: 'Good' },
+  { value: 5, icon: 'laugh', label: 'Excellent' },
 ];
 
 /**
@@ -65,6 +65,9 @@ export class SentimentSelector extends FormAssociatedMixin(UIBitElement) {
 
   @state() private options: SentimentOption[] = DEFAULT_OPTIONS;
 
+  /**
+   * The selected rating value.
+   */
   @property({ type: String, reflect: true }) declare value: string;
 
   /** Show the label text for the selected option below the track. */

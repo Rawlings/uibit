@@ -1,6 +1,6 @@
 {
   "name": "@uibit/effect-trigger",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A behavioral engine that intercepts user actions (click, hover, visible) on standard DOM elements to trigger custom particle animations, physics-based viewport crossings, or micro-feedback flows using slotted SVGs or markup templates.",
   "type": "module",
   "main": "./dist/index.js",
@@ -11,7 +11,7 @@
       "import": "./dist/index.js"
     },
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": "./dist/frameworks/react/index.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

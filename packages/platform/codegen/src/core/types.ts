@@ -10,6 +10,7 @@ export interface Event {
   name: string;
   description?: string;
   type?: { text: string };
+  payloadKeys?: string[];
 }
 
 export interface Attribute {

@@ -14,7 +14,7 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
     else if (currentPath === '/foundations/styling') resolvedActiveId = 'styling';
     else if (currentPath === '/foundations/localization') resolvedActiveId = 'localization';
     else if (currentPath === '/foundations/icons') resolvedActiveId = 'icons';
-    else if (currentPath === '/packages/frameworks') resolvedActiveId = 'frameworks';
+    else if (currentPath === '/foundations/frameworks') resolvedActiveId = 'frameworks';
     else if (currentPath === '/foundations/browser-support') resolvedActiveId = 'browser-support';
     else if (currentPath === '/foundations/troubleshooting') resolvedActiveId = 'troubleshooting';
     else if (currentPath === '/resources/contributing') resolvedActiveId = 'contributing';

@@ -120,7 +120,7 @@ function App() {
         }>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/foundations/frameworks" element={<Navigate to="/packages/frameworks" replace />} />
+            <Route path="/packages/frameworks" element={<Navigate to="/foundations/frameworks" replace />} />
             <Route path="/foundations/:pageId" element={<MarkdownPage />} />
             <Route path="/resources/:pageId" element={<MarkdownPage />} />
             <Route path="/components/:componentId" element={<ComponentDocs />} />

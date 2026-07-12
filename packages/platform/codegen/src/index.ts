@@ -13,7 +13,7 @@ import { preactPlugin } from './templates/preact.js';
 import { stencilPlugin } from './templates/stencil.js';
 
 import type { ComponentMetadata } from './core/types.js';
-import { resolveExportedTypes } from './core/parser.js';
+import { resolveExportedTypes, resolveSourceDefaults } from './core/parser.js';
 
 const plugins = [
   reactPlugin,
@@ -27,6 +27,18 @@ const plugins = [
   preactPlugin,
   stencilPlugin
 ];
+
+function extractKeysFromTypeText(typeText: string): string[] {
+  if (!typeText) return [];
+  const keys: string[] = [];
+  const matches = typeText.matchAll(/\b(\w+)\s*:/g);
+  for (const match of matches) {
+    if (match[1]) {
+      keys.push(match[1]);
+    }
+  }
+  return keys;
+}
 
 function run() {
   const args = process.argv.slice(2);
@@ -63,25 +75,35 @@ function run() {
   const importPathIndex = args.indexOf('--import-path');
   const importPath = importPathIndex !== -1 ? args[importPathIndex + 1] : (detectedImportPath || '../../index.js');
 
-  // Extract exported types using TypeScript compiler AST parsing
+  // Extract exported types and property defaults using AST parsing
   const srcDir = path.join(absolutePkgDir, 'src');
   const exportedTypes = resolveExportedTypes(srcDir);
+  const sourceDefaults = resolveSourceDefaults(srcDir);
 
   for (const module of manifest.modules || []) {
     for (const declaration of module.declarations || []) {
       if (declaration.customElement && declaration.tagName) {
+        const componentDefaults = sourceDefaults[declaration.name] || {};
         const properties = (declaration.members || [])
           .filter((m: any) => m.kind === 'field' && m.privacy !== 'private' && !m.static && !m.readonly)
-          .map((m: any) => ({
-            name: m.name,
-            type: m.type,
-            description: m.description,
-            default: m.default,
-            readonly: m.readonly
-          }));
+          .map((m: any) => {
+            const astDefault = componentDefaults[m.name];
+            return {
+              name: m.name,
+              type: m.type,
+              description: m.description,
+              default: astDefault !== undefined ? astDefault : m.default,
+              readonly: m.readonly
+            };
+          });
         
         const attributes = declaration.attributes || [];
-        const events = declaration.events || [];
+        const events = (declaration.events || []).map((e: any) => ({
+          name: e.name,
+          description: e.description,
+          type: e.type,
+          payloadKeys: extractKeysFromTypeText(e.type?.text || '')
+        }));
         const slots = declaration.slots || [];
         const mixins = declaration.mixins || [];
         const formAssociated = declaration.formAssociated === true || mixins.some((m: any) => m.name === 'FormAssociatedMixin');

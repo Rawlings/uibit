@@ -1,6 +1,6 @@
 {
   "name": "@uibit/particles",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Renders animated canvas backgrounds across thirteen distinct modes — from drifting particles and code rain to flow fields, aurora curtains, and pulsing grids. All modes react to mouse gestures and compose cleanly as hero backgrounds.",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
     },
     "./particles.css": "./dist/particles.css",
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": "./dist/frameworks/react/index.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

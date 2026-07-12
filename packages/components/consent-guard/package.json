@@ -1,6 +1,6 @@
 {
   "name": "@uibit/consent-guard",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Gate any third-party content behind a consent prompt. The component manages show/hide state only — you provide both the placeholder UI and the content, keeping it composable and unbiased.",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
     },
     "./consent-guard.css": "./dist/consent-guard.css",
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": "./dist/frameworks/react/index.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

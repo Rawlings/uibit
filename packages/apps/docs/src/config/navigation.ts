@@ -10,6 +10,7 @@ export const FOUNDATIONS: NavigationItem[] = [
   { id: 'accessibility', title: 'Accessibility', to: '/foundations/accessibility', category: 'Foundations' },
   { id: 'styling', title: 'Styling & Theming', to: '/foundations/styling', category: 'Foundations' },
   { id: 'localization', title: 'Localization', to: '/foundations/localization', category: 'Foundations' },
+  { id: 'frameworks', title: 'Framework Integrations', to: '/foundations/frameworks', category: 'Foundations' },
   { id: 'icons', title: 'Icons', to: '/foundations/icons', category: 'Foundations' },
   { id: 'browser-support', title: 'Browser Support', to: '/foundations/browser-support', category: 'Foundations' },
   { id: 'troubleshooting', title: 'Troubleshooting & FAQ', to: '/foundations/troubleshooting', category: 'Foundations' },
@@ -22,7 +23,7 @@ export const RESOURCES: NavigationItem[] = [
 ];
 
 export const ECOSYSTEM: NavigationItem[] = [
-  { id: 'frameworks', title: 'Framework Integrations', to: '/packages/frameworks', category: 'Ecosystem' },
+  { id: 'codegen', title: 'Codegen', to: '/packages/codegen', category: 'Ecosystem' },
   { id: 'base-class', title: 'Base Class', to: '/packages/base-class', category: 'Ecosystem' },
   { id: 'form-internals', title: 'Form Internals', to: '/packages/form-internals', category: 'Ecosystem' },
   { id: 'hmr', title: 'Vite Plugin WC HMR', to: '/packages/hmr', category: 'Ecosystem' },

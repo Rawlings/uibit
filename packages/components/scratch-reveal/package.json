@@ -1,6 +1,6 @@
 {
   "name": "@uibit/scratch-reveal",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A gamified, accessible scratch-off panel component that reveals hidden content. Users can scratch off the overlay canvas layer by dragging or touching.",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
     },
     "./scratch-reveal.css": "./dist/scratch-reveal.css",
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": "./dist/frameworks/react/index.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

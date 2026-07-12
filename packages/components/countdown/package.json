@@ -1,6 +1,6 @@
 {
   "name": "@uibit/countdown",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Highly customizable countdown timer. Supports target date markers or set durations, reactive timers, and custom format templates.",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
     },
     "./countdown.css": "./dist/countdown.css",
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": "./dist/frameworks/react/index.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

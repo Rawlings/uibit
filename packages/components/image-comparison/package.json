@@ -1,6 +1,6 @@
 {
   "name": "@uibit/image-comparison",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Displays overlapping before/after content layers with interactive diagonal, radial, horizontal, or vertical splits.",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
     },
     "./image-comparison.css": "./dist/image-comparison.css",
     "./custom-elements.json": "./custom-elements.json",
-    "./react": "./dist/frameworks/react/index.d.ts",
+    "./react": "./dist/frameworks/react/index.ts",
     "./vue": "./dist/frameworks/vue/index.ts",
     "./svelte": "./dist/frameworks/svelte/index.svelte",
     "./angular": "./dist/frameworks/angular/index.ts",

@@ -1,6 +1,6 @@
 {
   "name": "@uibit/codegen",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Generic multi-framework component wrapper generator based on Custom Elements Manifest",
   "type": "module",
   "main": "./dist/index.js",
@@ -22,7 +22,7 @@
     "typescript": "7.0.2"
   },
   "dependencies": {
-    "oxc-parser": "^0.139.0"
+    "@swc/core": "^1.3.100"
   },
   "repository": {
     "type": "git",
