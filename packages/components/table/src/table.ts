@@ -14,7 +14,7 @@ interface Col {
   numeric: boolean;
 }
 
-interface SortEntry {
+export interface SortEntry {
   key: string;
   dir: SortDir;
 }

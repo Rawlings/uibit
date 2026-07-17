@@ -97,7 +97,25 @@ function run() {
             };
           });
         
-        const attributes = declaration.attributes || [];
+        const attributes = [...(declaration.attributes || [])];
+        if (!properties.some((p: any) => p.name === 'locale')) {
+          properties.push({
+            name: 'locale',
+            type: { text: 'string' },
+            description: 'BCP 47 locale string for formatting and localization. Defaults to inherited document language.',
+            default: "''",
+            readonly: false
+          });
+        }
+        if (!attributes.some((a: any) => a.name === 'locale')) {
+          attributes.push({
+            name: 'locale',
+            description: 'BCP 47 locale string for formatting and localization. Defaults to inherited document language.',
+            type: { text: 'string' },
+            fieldName: 'locale',
+            default: "''"
+          });
+        }
         const events = (declaration.events || []).map((e: any) => ({
           name: e.name,
           description: e.description,
