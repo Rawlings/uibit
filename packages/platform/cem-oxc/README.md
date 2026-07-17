@@ -8,7 +8,7 @@
 
 ## Value Delivery
 
-- **Blazing Fast Performance:** Parses files and generates manifests **up to 88x faster** than the original TSC-based analyzer. Programmatic in-memory parse completes in **under 2 milliseconds**.
+- **Blazing Fast Performance:** Parses files and generates manifests **up to 123x faster** than the original TSC-based analyzer. Programmatic in-memory parse completes in **under 2 milliseconds**.
 - **Zero-Dependency Footprint:** Written entirely with Node.js 22+ native modules (native globbing, argument parsing, file watching, and dynamic loaders).
 - **Parity Out-of-the-Box:** Supports the exact same CLI args (`--globs`, `--exclude`, `--outdir`, `--watch`, `--dev`, `--quiet`, `--packagejson`), config formats (`custom-elements-manifest.config.js`), and programmatic JS entry points (`create` and `cli`).
 
@@ -16,15 +16,15 @@
 
 ## Benchmarks
 
-Benchmarked on CLI execution speed (total process runtime):
+Benchmarked on CLI execution speed (total process runtime) across all packages in this monorepo:
 
 | Parser | Average Time | Speedup |
 | :--- | :--- | :--- |
-| **Original CEM Parser** (TSC-based) | **352 ms** | *Baseline* |
-| **`@uibit/cem-oxc` (Hybrid/JS Fallback)** | **60 ms** | **~6x faster** 🚀 |
-| **`@uibit/cem-oxc` (Pure Native CLI)** | **42 ms** | **~8.4x faster** 🚀 |
+| **Original CEM Parser** (TSC-based) | **3,460 ms** | *Baseline* |
+| **`@uibit/cem-oxc` (Hybrid/JS Fallback)** | **100 ms** | **~34x faster** 🚀 |
+| **`@uibit/cem-oxc` (Pure Native CLI)** | **28 ms** | **~123x faster** 🚀 |
 
-*Note: In-memory core traversal and AST extraction takes **under 2 milliseconds** inside the Rust core (up to 400x faster than the original TS compiler resolver).*
+*Note: In-memory core traversal and AST extraction takes **under 2 milliseconds** inside the Rust core (up to 1,700x faster than the original TS compiler resolver).*
 
 ---
 

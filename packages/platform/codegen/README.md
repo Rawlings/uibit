@@ -26,7 +26,7 @@ pnpm add -D @uibit/codegen
 Ensure you have run the Custom Elements Manifest analyzer first:
 
 ```bash
-# Generate the manifest first (runs up to 88x faster using our binary)
+# Generate the manifest first (runs up to 123x faster using our binary)
 npx @uibit/cem-oxc analyze --globs "src/**/*.ts" --litelement
 ```
 

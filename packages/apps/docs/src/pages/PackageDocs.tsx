@@ -64,7 +64,7 @@ const packagesRegistry: Record<string, PackageData> = {
   },
   'cem-oxc': {
     title: 'CEM OXC',
-    description: 'Ultra-fast, zero-dependency Custom Elements Manifest (CEM) generator powered by OXC and Rust. Drop-in replacement for the native analyzer that runs up to 88x faster.',
+    description: 'Ultra-fast, zero-dependency Custom Elements Manifest (CEM) generator powered by OXC and Rust. Drop-in replacement for the native analyzer that runs up to 123x faster.',
     packageName: '@uibit/cem-oxc',
     readme: cemOxcReadme,
     githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-oxc',
