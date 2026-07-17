@@ -23,14 +23,14 @@
     "release": "changeset publish"
   },
   "devDependencies": {
-    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "@uibit/cem-oxc": "workspace:*",
     "@vitejs/plugin-react": "^4.7.0",
     "concurrently": "^9.2.4",
     "eslint-plugin-lit": "^1.15.0",
     "eslint-plugin-lit-a11y": "^2.4.1",
     "happy-dom": "^14.12.3",
     "oxlint": "^0.15.15",
-    "turbo": "^2.10.4",
+    "turbo": "^2.10.5",
     "typescript": "7.0.2",
     "vite": "^5.4.21",
     "vitest": "^1.6.1"
@@ -51,5 +51,6 @@
   "bugs": {
     "url": "https://github.com/Rawlings/uibit/issues"
   },
-  "homepage": "https://github.com/rawlings/uibit#readme"
+  "homepage": "https://github.com/rawlings/uibit#readme",
+  "customElements": "dist/custom-elements.json"
 }

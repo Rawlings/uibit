@@ -42,7 +42,7 @@
     "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.3.2",
+    "@tailwindcss/vite": "^4.3.3",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@types/react": "^18.3.31",
@@ -50,8 +50,8 @@
     "@uibit/vite-plugin-wc-hmr": "workspace:*",
     "@vitejs/plugin-react": "^4.7.0",
     "@vitejs/plugin-react-swc": "^3.11.0",
-    "postcss": "^8.5.17",
-    "tailwindcss": "^4.3.2",
+    "postcss": "^8.5.19",
+    "tailwindcss": "^4.3.3",
     "typescript": "7.0.2",
     "vite": "^5.4.21"
   }

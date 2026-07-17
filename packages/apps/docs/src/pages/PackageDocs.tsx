@@ -11,6 +11,7 @@ import formInternalsReadme from '../../../../platform/form-internals/README.md?r
 import hmrReadme from '../../../../platform/vite-plugin-wc-hmr/README.md?raw';
 import cemExtendedReadme from '../../../../platform/cem-extended/README.md?raw';
 import cemMcpReadme from '../../../../platform/cem-mcp/README.md?raw';
+import cemOxcReadme from '../../../../platform/cem-oxc/README.md?raw';
 interface PackageData {
   title: string;
   description: string;
@@ -60,6 +61,13 @@ const packagesRegistry: Record<string, PackageData> = {
     description: 'Local Model Context Protocol (MCP) server exposing UIBit Custom Elements Manifest (CEM) schemas to AI agents.',
     packageName: '@uibit/cem-mcp',
     readme: cemMcpReadme,
+  },
+  'cem-oxc': {
+    title: 'CEM OXC',
+    description: 'Ultra-fast, zero-dependency Custom Elements Manifest (CEM) generator powered by OXC and Rust. Drop-in replacement for the native analyzer that runs up to 88x faster.',
+    packageName: '@uibit/cem-oxc',
+    readme: cemOxcReadme,
+    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-oxc',
   },
 };
 

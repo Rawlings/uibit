@@ -26,7 +26,8 @@ pnpm add -D @uibit/codegen
 Ensure you have run the Custom Elements Manifest analyzer first:
 
 ```bash
-npx @custom-elements-manifest/analyzer analyze --globs "src/**/*.ts" --litelement
+# Generate the manifest first (runs up to 88x faster using our binary)
+npx @uibit/cem-oxc analyze --globs "src/**/*.ts" --litelement
 ```
 
 Then run the wrapper generator:

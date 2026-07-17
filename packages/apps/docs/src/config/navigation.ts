@@ -29,6 +29,7 @@ export const ECOSYSTEM: NavigationItem[] = [
   { id: 'hmr', title: 'Vite Plugin WC HMR', to: '/packages/hmr', category: 'Ecosystem' },
   { id: 'cem-extended', title: 'CEM Extended', to: '/packages/cem-extended', category: 'Ecosystem' },
   { id: 'cem-mcp', title: 'CEM MCP Server', to: '/packages/cem-mcp', category: 'Ecosystem' },
+  { id: 'cem-oxc', title: 'CEM OXC', to: '/packages/cem-oxc', category: 'Ecosystem' },
 ];
 
 export const CATEGORY_ORDER = [
