@@ -22,6 +22,21 @@
       ],
       "outputs": ["dist/**", "custom-elements.json"]
     },
+    "@uibit/cem-oxc#build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "src/**",
+        "Cargo.toml",
+        "Cargo.lock",
+        "build.rs",
+        "package.json"
+      ],
+      "outputs": [
+        "cem-oxc.*.node",
+        "bin/cem-oxc-bin",
+        "index.d.ts"
+      ]
+    },
     "analyze": {
       "inputs": [
         "src/**",
