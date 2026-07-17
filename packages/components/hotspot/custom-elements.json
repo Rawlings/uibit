@@ -8,166 +8,92 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Interactive hotspot annotations for images. Display contextual tooltip",
           "name": "Hotspot",
-          "cssProperties": [
-            {
-              "description": "Width and height of the trigger button",
-              "name": "--uibit-hotspot-trigger-size",
-              "default": "2rem"
-            },
-            {
-              "description": "Background color of the trigger button",
-              "name": "--uibit-hotspot-trigger-bg",
-              "default": "rgba(0,0,0,0.65)"
-            },
-            {
-              "description": "Background color of the trigger on hover/active",
-              "name": "--uibit-hotspot-trigger-bg-hover",
-              "default": "rgba(0,0,0,0.9)"
-            },
-            {
-              "description": "Border of the trigger button",
-              "name": "--uibit-hotspot-trigger-border",
-              "default": "0.125rem solid #ffffff"
-            },
-            {
-              "description": "Icon color inside the trigger button",
-              "name": "--uibit-hotspot-trigger-color",
-              "default": "#ffffff"
-            },
-            {
-              "description": "Background of the popover card",
-              "name": "--uibit-hotspot-popover-bg",
-              "default": "rgba(255,255,255,0.96)"
-            },
-            {
-              "description": "Primary text color inside the popover",
-              "name": "--uibit-hotspot-popover-color",
-              "default": "#111827"
-            },
-            {
-              "description": "Secondary content text color inside the popover",
-              "name": "--uibit-hotspot-popover-content-color",
-              "default": "#4b5563"
-            },
-            {
-              "description": "Border radius of the popover card",
-              "name": "--uibit-hotspot-popover-border-radius",
-              "default": "0.75rem"
-            },
-            {
-              "description": "Box shadow of the popover card",
-              "name": "--uibit-hotspot-popover-shadow",
-              "default": "0 0.625rem 1.5rem rgba(0,0,0,0.1)"
-            },
-            {
-              "description": "Border of the popover card",
-              "name": "--uibit-hotspot-popover-border",
-              "default": "0.0625rem solid rgba(0,0,0,0.08)"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The root container wrapping image and all hotspots",
-              "name": "container"
-            },
-            {
-              "description": "The positioning wrapper for each hotspot",
-              "name": "wrapper"
-            },
-            {
-              "description": "The circular trigger button",
-              "name": "trigger"
-            },
-            {
-              "description": "Added to the trigger when the popover is open",
-              "name": "trigger-active"
-            },
-            {
-              "description": "The popover card",
-              "name": "popover"
-            },
-            {
-              "description": "The content area inside the popover",
-              "name": "popover-content"
-            },
-            {
-              "description": "The close button inside the popover",
-              "name": "popover-close"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Default slot for the background image or content",
-              "name": ""
-            },
-            {
-              "description": "Custom content for the popover of a specific hotspot (by id)",
-              "name": "popover-{id}"
-            }
-          ],
+          "tagName": "uibit-hotspot",
+          "customElement": true,
+          "description": "Interactive hotspot annotations for images. Display contextual tooltip",
+          "summary": "An interactive image hotspot component with animated markers and popovers.\ncards on click or hover with custom content overlays and animations.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "hotspots",
+              "kind": "field",
+              "description": "Array of hotspot items. Each item requires `id`, `x` (%), `y` (%), `label`, and optionally `title` and `content`.",
               "type": {
                 "text": "HotspotItem[]"
               },
               "default": "[]",
-              "description": "Array of hotspot items. Each item requires `id`, `x` (%), `y` (%), `label`, and optionally `title` and `content`.",
+              "static": false,
+              "privacy": "public",
               "attribute": "hotspots"
             },
             {
-              "kind": "field",
               "name": "interactive",
+              "kind": "field",
+              "description": "When `false`, hotspots are rendered but not clickable or hoverable.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "When `false`, hotspots are rendered but not clickable or hoverable.",
+              "static": false,
+              "privacy": "public",
               "attribute": "interactive"
             },
             {
-              "kind": "field",
               "name": "trigger",
+              "kind": "field",
+              "description": "Interaction mode for showing the popover.",
               "type": {
                 "text": "'click' | 'hover'"
               },
               "default": "'click'",
-              "description": "Interaction mode for showing the popover.",
+              "static": false,
+              "privacy": "public",
               "attribute": "trigger"
             },
             {
-              "kind": "field",
               "name": "activeHotspotId",
+              "kind": "field",
               "type": {
                 "text": "string | null"
               },
-              "privacy": "private",
-              "default": "null"
+              "default": "null",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "hoverTimeout",
+              "kind": "field",
               "type": {
-                "text": "number | undefined"
+                "text": "number"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "handleDocumentKeyDown",
-              "privacy": "private"
-            },
-            {
               "kind": "field",
-              "name": "handleDocumentClick",
+              "default": "(e: KeyboardEvent) => {\n    if (e.key === 'Escape') {\n      this.closePopover();\n    }\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
+              "name": "handleDocumentClick",
+              "kind": "field",
+              "default": "(e: MouseEvent) => {\n    if (this.trigger !== 'click') return;\n    const path = e.composedPath();\n    if (!path.includes(this)) {\n      this.closePopover();\n    }\n  }",
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "handleTriggerClick",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -191,8 +117,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "handleTriggerMouseEnter",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -204,38 +131,45 @@
               ]
             },
             {
-              "kind": "method",
               "name": "handleTriggerMouseLeave",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "handlePopoverMouseEnter",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "handlePopoverMouseLeave",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "scheduleClose",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "clearHoverTimeout",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "closePopover",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "onHotspotClick",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -247,260 +181,142 @@
               ]
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "HotspotItem"
-              },
-              "description": "Fired when a hotspot trigger is activated",
-              "name": "hotspot-click"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "hotspots",
+              "description": "Array of hotspot items. Each item requires `id`, `x` (%), `y` (%), `label`, and optionally `title` and `content`.",
               "type": {
                 "text": "HotspotItem[]"
               },
-              "default": "[]",
-              "description": "Array of hotspot items. Each item requires `id`, `x` (%), `y` (%), `label`, and optionally `title` and `content`.",
-              "fieldName": "hotspots"
+              "fieldName": "hotspots",
+              "default": "[]"
             },
             {
               "name": "interactive",
+              "description": "When `false`, hotspots are rendered but not clickable or hoverable.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "When `false`, hotspots are rendered but not clickable or hoverable.",
-              "fieldName": "interactive"
+              "fieldName": "interactive",
+              "default": "true"
             },
             {
               "name": "trigger",
+              "description": "Interaction mode for showing the popover.",
               "type": {
                 "text": "'click' | 'hover'"
               },
-              "default": "'click'",
-              "description": "Interaction mode for showing the popover.",
-              "fieldName": "trigger"
+              "fieldName": "trigger",
+              "default": "'click'"
+            }
+          ],
+          "events": [
+            {
+              "name": "hotspot-click",
+              "description": "Fired when a hotspot trigger is activated",
+              "type": {
+                "text": "HotspotItem"
+              }
+            }
+          ],
+          "slots": [
+            {
+              "name": "-",
+              "description": "Default slot for the background image or content"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "popover-{id}",
+              "description": "Custom content for the popover of a specific hotspot (by id)"
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "container",
+              "description": "The root container wrapping image and all hotspots"
+            },
+            {
+              "name": "wrapper",
+              "description": "The positioning wrapper for each hotspot"
+            },
+            {
+              "name": "trigger",
+              "description": "The circular trigger button"
+            },
+            {
+              "name": "trigger-active",
+              "description": "Added to the trigger when the popover is open"
+            },
+            {
+              "name": "popover",
+              "description": "The popover card"
+            },
+            {
+              "name": "popover-content",
+              "description": "The content area inside the popover"
+            },
+            {
+              "name": "popover-close",
+              "description": "The close button inside the popover"
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--uibit-hotspot-trigger-size",
+              "description": "Width and height of the trigger button",
+              "default": "2rem"
+            },
+            {
+              "name": "--uibit-hotspot-trigger-bg",
+              "description": "Background color of the trigger button",
+              "default": "rgba(0,0,0,0.65)"
+            },
+            {
+              "name": "--uibit-hotspot-trigger-bg-hover",
+              "description": "Background color of the trigger on hover/active",
+              "default": "rgba(0,0,0,0.9)"
+            },
+            {
+              "name": "[--uibit-hotspot-trigger-border=0.125rem",
+              "description": "solid #ffffff] - Border of the trigger button"
+            },
+            {
+              "name": "--uibit-hotspot-trigger-color",
+              "description": "Icon color inside the trigger button",
+              "default": "#ffffff"
+            },
+            {
+              "name": "--uibit-hotspot-popover-bg",
+              "description": "Background of the popover card",
+              "default": "rgba(255,255,255,0.96)"
+            },
+            {
+              "name": "--uibit-hotspot-popover-color",
+              "description": "Primary text color inside the popover",
+              "default": "#111827"
+            },
+            {
+              "name": "--uibit-hotspot-popover-content-color",
+              "description": "Secondary content text color inside the popover",
+              "default": "#4b5563"
+            },
+            {
+              "name": "--uibit-hotspot-popover-border-radius",
+              "description": "Border radius of the popover card",
+              "default": "0.75rem"
+            },
+            {
+              "name": "[--uibit-hotspot-popover-shadow=0",
+              "description": "0.625rem 1.5rem rgba(0,0,0,0.1)] - Box shadow of the popover card"
+            },
+            {
+              "name": "[--uibit-hotspot-popover-border=0.0625rem",
+              "description": "solid rgba(0,0,0,0.08)] - Border of the popover card"
             }
           ],
           "cssStates": [
@@ -512,10 +328,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "An interactive image hotspot component with animated markers and popovers.\ncards on click or hover with custom content overlays and animations.",
-          "tagName": "uibit-hotspot",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -524,23 +337,7 @@
           "name": "Hotspot",
           "declaration": {
             "name": "Hotspot",
-            "module": "src/hotspot.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-hotspot",
-          "declaration": {
-            "name": "Hotspot",
-            "module": "src/hotspot.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "Hotspot",
-            "module": "src/hotspot.ts"
+            "module": "./src/hotspot.ts"
           }
         }
       ]
@@ -549,61 +346,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./hotspot"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Hotspot",
-          "declaration": {
-            "name": "Hotspot",
-            "module": "./hotspot"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "HotspotItem",
-          "declaration": {
-            "name": "HotspotItem",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "HotspotConfig",
-          "declaration": {
-            "name": "HotspotConfig",
-            "module": "./types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: block; position: relative; width: 100%; --uibit-hotspot-trigger-size: 1.75rem; --uibit-hotspot-trigger-bg: #ffffff; --uibit-hotspot-trigger-bg-hover: #f3f4f6; --uibit-hotspot-trigger-border: 0.0625rem solid #e5e7eb; --uibit-hotspot-trigger-color: #111827; --uibit-hotspot-popover-bg: rgba(255, 255, 255, 0.96); --uibit-hotspot-popover-color: #111827; --uibit-hotspot-popover-content-color: #4b5563; --uibit-hotspot-popover-border-radius: 0.5rem; --uibit-hotspot-popover-border: 0.0625rem solid #e5e7eb; --uibit-hotspot-popover-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.04); } .hotspot-container { position: relative; width: 100%; } .hotspot-wrapper { position: absolute; transform: translate(-50%, -50%); z-index: 10; } .hotspot-trigger { width: var(--uibit-hotspot-trigger-size, 1.75rem); height: var(--uibit-hotspot-trigger-size, 1.75rem); background: var(--uibit-hotspot-trigger-bg, #ffffff); border: var(--uibit-hotspot-trigger-border, 0.0625rem solid #e5e7eb); border-radius: 9999rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: none; position: relative; transition: transform 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease; outline: none; padding: 0; } .hotspot-trigger::before { content: ''; position: absolute; inset: -0.0625rem; border-radius: 9999rem; border: 0.0625rem solid var(--uibit-hotspot-trigger-border-color-actual, #e5e7eb); background: transparent; animation: pulse 2.5s ease-out infinite; z-index: -1; opacity: 0; } @keyframes pulse { 0% { transform: scale(1); opacity: 0.8; } 70% { transform: scale(1.6); opacity: 0; } 100% { transform: scale(1.6); opacity: 0; } } .hotspot-trigger:hover, .hotspot-trigger.active { background: var(--uibit-hotspot-trigger-bg-hover, #f3f4f6); border-color: #d1d5db; transform: scale(1.06); } .hotspot-trigger:active { transform: scale(0.95); } .hotspot-trigger:focus-visible { outline: 0.125rem solid #000000; outline-offset: 0.125rem; } .hotspot-trigger svg { width: 0.875rem; height: 0.875rem; color: var(--uibit-hotspot-trigger-color, #111827); pointer-events: none; } .hotspot-popover { position: absolute; width: 15rem; background: var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.96)); backdrop-filter: blur(0.75rem); -webkit-backdrop-filter: blur(0.75rem); color: var(--uibit-hotspot-popover-color, #111827); padding: 0.875rem 1rem; border-radius: var(--uibit-hotspot-popover-border-radius, 0.75rem); box-shadow: var( --uibit-hotspot-popover-shadow, 0 0.625rem 1.5rem rgba(0, 0, 0, 0.1), 0 0.25rem 0.5rem rgba(0, 0, 0, 0.06) ); border: var(--uibit-hotspot-popover-border, 0.0625rem solid rgba(0, 0, 0, 0.08)); z-index: 20; display: flex; flex-direction: column; animation: fadeIn 200ms ease; } @keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 0.5rem); } to { opacity: 1; transform: translate(-50%, 0); } } .hotspot-popover.position-above { bottom: 1.5rem; left: 50%; transform: translateX(-50%); } .hotspot-popover.position-below { top: 1.5rem; left: 50%; transform: translateX(-50%); } .hotspot-popover::after { content: ''; position: absolute; border-style: solid; left: 50%; transform: translateX(-50%); } .hotspot-popover.position-above::after { top: 100%; border-width: 0.375rem 0.375rem 0 0.375rem; border-color: var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.96)) transparent transparent transparent; } .hotspot-popover.position-below::after { bottom: 100%; border-width: 0 0.375rem 0.375rem 0.375rem; border-color: transparent transparent var(--uibit-hotspot-popover-bg, rgba(255, 255, 255, 0.96)) transparent; } .popover-content h3 { margin: 0 0 0.375rem 0; font-size: var(--uibit-font-size-base, 0.9375rem); font-weight: var(--uibit-font-weight-semibold, 600); letter-spacing: var(--uibit-letter-spacing-tight, -0.01em); color: var(--uibit-hotspot-popover-color, #111827); } .popover-content p { margin: 0; font-size: var(--uibit-font-size-sm, 0.8125rem); line-height: var(--uibit-line-height-relaxed, 1.625); color: var(--uibit-hotspot-popover-content-color, #4b5563); } .popover-close { position: absolute; top: 0.5rem; right: 0.5rem; background: transparent; border: none; color: #9ca3af; cursor: pointer; width: 1.5rem; height: 1.5rem; display: flex; align-items: center; justify-content: center; border-radius: 9999rem; transition: background-color 150ms ease, color 150ms ease, transform 150ms ease; } .popover-close:hover { background-color: #f3f4f6; color: #111827; } .popover-close:active { transform: scale(0.92); } .popover-close:focus-visible { outline: 0.125rem solid #000000; outline-offset: 0.125rem; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -617,41 +366,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -661,42 +418,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -706,29 +461,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -737,11 +494,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -749,17 +513,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -781,22 +542,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -818,30 +580,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

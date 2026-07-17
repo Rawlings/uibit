@@ -4,28 +4,46 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "src/effect-trigger.test.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/effect-trigger.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Trigger visual effects like particles or vortex attractions.",
           "name": "EffectTrigger",
+          "tagName": "uibit-effect-trigger",
+          "customElement": true,
+          "description": "Trigger visual effects like particles or vortex attractions.",
+          "summary": "A viewport scroll, hover, or click reactive trigger for visual micro-animations.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "_customBehaviors",
+              "kind": "field",
+              "description": "Registry of custom behaviors",
               "type": {
                 "text": "Map<string, BehaviorFn>"
               },
-              "privacy": "private",
-              "static": true,
               "default": "new Map()",
-              "description": "Registry of custom behaviors"
+              "static": true,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "registerBehavior",
+              "kind": "method",
+              "description": "Register a custom behavior that content authors can use by setting the behavior attribute.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -39,166 +57,205 @@
                     "text": "BehaviorFn"
                   }
                 }
-              ],
-              "description": "Register a custom behavior that content authors can use by setting the behavior attribute."
+              ]
             },
             {
-              "kind": "method",
               "name": "getRegisteredBehaviors",
+              "kind": "method",
+              "description": "Get all registered custom behaviors.",
               "static": true,
+              "privacy": "public",
               "return": {
                 "type": {
                   "text": "Map<string, BehaviorFn>"
                 }
-              },
-              "description": "Get all registered custom behaviors."
+              }
             },
             {
-              "kind": "field",
               "name": "trigger",
+              "kind": "field",
+              "description": "The trigger action to listen for",
               "type": {
                 "text": "EffectTriggerType"
               },
               "default": "'click'",
-              "description": "The trigger action to listen for",
+              "static": false,
+              "privacy": "public",
               "attribute": "trigger"
             },
             {
-              "kind": "field",
               "name": "behavior",
+              "kind": "field",
+              "description": "The movement behavior/vector path to execute",
               "type": {
                 "text": "EffectBehaviorType"
               },
               "default": "'float-displace'",
-              "description": "The movement behavior/vector path to execute",
+              "static": false,
+              "privacy": "public",
               "attribute": "behavior"
             },
             {
-              "kind": "field",
               "name": "density",
+              "kind": "field",
+              "description": "Number of dynamic asset clones generated for particle-based behaviors",
               "type": {
                 "text": "number"
               },
               "default": "1",
-              "description": "Number of dynamic asset clones generated for particle-based behaviors",
+              "static": false,
+              "privacy": "public",
               "attribute": "density"
             },
             {
-              "kind": "field",
               "name": "velocity",
+              "kind": "field",
+              "description": "Duration/velocity bound of the movement (e.g. \"600ms\", \"2.5s\")",
               "type": {
                 "text": "string"
               },
               "default": "'1s'",
-              "description": "Duration/velocity bound of the movement (e.g. \"600ms\", \"2.5s\")",
+              "static": false,
+              "privacy": "public",
               "attribute": "velocity"
             },
             {
-              "kind": "field",
               "name": "randomize",
+              "kind": "field",
+              "description": "Applies real-time visual variations (scale, drift, rotation) to each clone",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Applies real-time visual variations (scale, drift, rotation) to each clone",
+              "static": false,
+              "privacy": "public",
               "attribute": "randomize"
             },
             {
-              "kind": "field",
               "name": "stagger",
+              "kind": "field",
+              "description": "Stagger delay between spawning each particle (e.g., \"50ms\", \"0.1s\")",
               "type": {
                 "text": "string"
               },
               "default": "'0ms'",
-              "description": "Stagger delay between spawning each particle (e.g., \"50ms\", \"0.1s\")",
+              "static": false,
+              "privacy": "public",
               "attribute": "stagger"
             },
             {
-              "kind": "field",
               "name": "scaleRange",
+              "kind": "field",
+              "description": "Min,Max range scale bounds for randomization (e.g., \"0.5,1.5\")",
               "type": {
                 "text": "string"
               },
               "default": "'0.5,1.5'",
-              "description": "Min,Max range scale bounds for randomization (e.g., \"0.5,1.5\")",
+              "static": false,
+              "privacy": "public",
               "attribute": "scale-range"
             },
             {
-              "kind": "field",
               "name": "rotationRange",
+              "kind": "field",
+              "description": "Min,Max range rotation degrees for randomization (e.g., \"-180,180\")",
               "type": {
                 "text": "string"
               },
               "default": "'-180,180'",
-              "description": "Min,Max range rotation degrees for randomization (e.g., \"-180,180\")",
+              "static": false,
+              "privacy": "public",
               "attribute": "rotation-range"
             },
             {
-              "kind": "field",
               "name": "keyframes",
-              "type": {
-                "text": "string | undefined"
-              },
+              "kind": "field",
               "description": "Custom keyframe definition in JSON string format to override behavior",
+              "type": {
+                "text": "string"
+              },
+              "static": false,
+              "privacy": "public",
               "attribute": "keyframes"
             },
             {
-              "kind": "field",
               "name": "targetSelector",
-              "type": {
-                "text": "string | undefined"
-              },
+              "kind": "field",
               "description": "CSS selector of an external element to bind trigger events to",
+              "type": {
+                "text": "string"
+              },
+              "static": false,
+              "privacy": "public",
               "attribute": "target-selector"
             },
             {
-              "kind": "field",
               "name": "destinationSelector",
-              "type": {
-                "text": "string | undefined"
-              },
+              "kind": "field",
               "description": "CSS selector of a destination element to animate particles towards",
+              "type": {
+                "text": "string"
+              },
+              "static": false,
+              "privacy": "public",
               "attribute": "destination-selector"
             },
             {
-              "kind": "field",
               "name": "_viewport",
+              "kind": "field",
               "type": {
-                "text": "ViewportController | undefined"
+                "text": "ViewportController"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_hasIntersections",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_boundEventsCleanups",
+              "kind": "field",
               "type": {
                 "text": "Array<() => void>"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
+              "name": "updated",
               "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "Map<string, unknown>"
+                  }
+                }
+              ]
+            },
+            {
               "name": "_cleanupObserver",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_cleanupBoundEvents",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_getTriggerElement",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -207,8 +264,9 @@
               }
             },
             {
-              "kind": "method",
               "name": "_getAssetTemplate",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -217,27 +275,31 @@
               }
             },
             {
-              "kind": "method",
               "name": "_setupListeners",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "ignite",
+              "kind": "method",
+              "description": "Launch/Ignite the visual effect. Can be called programmatically.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "event",
-                  "optional": true,
                   "type": {
                     "text": "Event"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Launch/Ignite the visual effect. Can be called programmatically."
+              ]
             },
             {
-              "kind": "method",
               "name": "_spawnParticle",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -266,22 +328,18 @@
                 },
                 {
                   "name": "event",
-                  "optional": true,
                   "type": {
                     "text": "Event"
-                  }
+                  },
+                  "optional": true
                 }
               ]
             },
             {
-              "kind": "method",
               "name": "_getRandomFromRange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              },
               "parameters": [
                 {
                   "name": "rangeStr",
@@ -289,17 +347,18 @@
                     "text": "string"
                   }
                 }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_parseDuration",
-              "privacy": "private",
+              ],
               "return": {
                 "type": {
                   "text": "number"
                 }
-              },
+              }
+            },
+            {
+              "name": "_parseDuration",
+              "kind": "method",
+              "static": false,
+              "privacy": "private",
               "parameters": [
                 {
                   "name": "v",
@@ -307,17 +366,18 @@
                     "text": "string"
                   }
                 }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_createClone",
-              "privacy": "private",
+              ],
               "return": {
                 "type": {
-                  "text": "HTMLElement"
+                  "text": "number"
                 }
-              },
+              }
+            },
+            {
+              "name": "_createClone",
+              "kind": "method",
+              "static": false,
+              "privacy": "private",
               "parameters": [
                 {
                   "name": "template",
@@ -325,11 +385,17 @@
                     "text": "HTMLElement"
                   }
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "HTMLElement"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "_executeBakedBehavior",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -352,339 +418,130 @@
                 },
                 {
                   "name": "event",
-                  "optional": true,
                   "type": {
                     "text": "Event"
-                  }
+                  },
+                  "optional": true
                 }
               ]
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "{ particle: HTMLElement, index: number, trigger: string }"
-              },
-              "description": "Fired when a particle is created",
-              "name": "uibit-particle-create"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "trigger",
+              "description": "The trigger action to listen for",
               "type": {
                 "text": "EffectTriggerType"
               },
-              "default": "'click'",
-              "description": "The trigger action to listen for",
-              "fieldName": "trigger"
+              "fieldName": "trigger",
+              "default": "'click'"
             },
             {
               "name": "behavior",
+              "description": "The movement behavior/vector path to execute",
               "type": {
                 "text": "EffectBehaviorType"
               },
-              "default": "'float-displace'",
-              "description": "The movement behavior/vector path to execute",
-              "fieldName": "behavior"
+              "fieldName": "behavior",
+              "default": "'float-displace'"
             },
             {
               "name": "density",
+              "description": "Number of dynamic asset clones generated for particle-based behaviors",
               "type": {
                 "text": "number"
               },
-              "default": "1",
-              "description": "Number of dynamic asset clones generated for particle-based behaviors",
-              "fieldName": "density"
+              "fieldName": "density",
+              "default": "1"
             },
             {
               "name": "velocity",
+              "description": "Duration/velocity bound of the movement (e.g. \"600ms\", \"2.5s\")",
               "type": {
                 "text": "string"
               },
-              "default": "'1s'",
-              "description": "Duration/velocity bound of the movement (e.g. \"600ms\", \"2.5s\")",
-              "fieldName": "velocity"
+              "fieldName": "velocity",
+              "default": "'1s'"
             },
             {
               "name": "randomize",
+              "description": "Applies real-time visual variations (scale, drift, rotation) to each clone",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Applies real-time visual variations (scale, drift, rotation) to each clone",
-              "fieldName": "randomize"
+              "fieldName": "randomize",
+              "default": "false"
             },
             {
               "name": "stagger",
+              "description": "Stagger delay between spawning each particle (e.g., \"50ms\", \"0.1s\")",
               "type": {
                 "text": "string"
               },
-              "default": "'0ms'",
-              "description": "Stagger delay between spawning each particle (e.g., \"50ms\", \"0.1s\")",
-              "fieldName": "stagger"
+              "fieldName": "stagger",
+              "default": "'0ms'"
             },
             {
               "name": "scale-range",
+              "description": "Min,Max range scale bounds for randomization (e.g., \"0.5,1.5\")",
               "type": {
                 "text": "string"
               },
-              "default": "'0.5,1.5'",
-              "description": "Min,Max range scale bounds for randomization (e.g., \"0.5,1.5\")",
-              "fieldName": "scaleRange"
+              "fieldName": "scaleRange",
+              "default": "'0.5,1.5'"
             },
             {
               "name": "rotation-range",
+              "description": "Min,Max range rotation degrees for randomization (e.g., \"-180,180\")",
               "type": {
                 "text": "string"
               },
-              "default": "'-180,180'",
-              "description": "Min,Max range rotation degrees for randomization (e.g., \"-180,180\")",
-              "fieldName": "rotationRange"
+              "fieldName": "rotationRange",
+              "default": "'-180,180'"
             },
             {
               "name": "keyframes",
-              "type": {
-                "text": "string | undefined"
-              },
               "description": "Custom keyframe definition in JSON string format to override behavior",
+              "type": {
+                "text": "string"
+              },
               "fieldName": "keyframes"
             },
             {
               "name": "target-selector",
-              "type": {
-                "text": "string | undefined"
-              },
               "description": "CSS selector of an external element to bind trigger events to",
+              "type": {
+                "text": "string"
+              },
               "fieldName": "targetSelector"
             },
             {
               "name": "destination-selector",
-              "type": {
-                "text": "string | undefined"
-              },
               "description": "CSS selector of a destination element to animate particles towards",
-              "fieldName": "destinationSelector"
-            },
-            {
-              "name": "locale",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
+              "fieldName": "destinationSelector"
+            }
+          ],
+          "events": [
+            {
+              "name": "uibit-particle-create",
+              "description": "Fired when a particle is created",
+              "type": {
+                "text": "{ particle: HTMLElement, index: number, trigger: string }"
               }
             }
           ],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
           "cssStates": [
             {
               "name": "triggered",
@@ -694,10 +551,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A viewport scroll, hover, or click reactive trigger for visual micro-animations.",
-          "tagName": "uibit-effect-trigger",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -706,23 +560,7 @@
           "name": "EffectTrigger",
           "declaration": {
             "name": "EffectTrigger",
-            "module": "src/effect-trigger.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-effect-trigger",
-          "declaration": {
-            "name": "EffectTrigger",
-            "module": "src/effect-trigger.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "EffectTrigger",
-            "module": "src/effect-trigger.ts"
+            "module": "./src/effect-trigger.ts"
           }
         }
       ]
@@ -731,77 +569,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./effect-trigger"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EffectTrigger",
-          "declaration": {
-            "name": "EffectTrigger",
-            "module": "./effect-trigger"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EffectTriggerType",
-          "declaration": {
-            "name": "EffectTriggerType",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EffectBehaviorType",
-          "declaration": {
-            "name": "EffectBehaviorType",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BehaviorContext",
-          "declaration": {
-            "name": "BehaviorContext",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "BehaviorFn",
-          "declaration": {
-            "name": "BehaviorFn",
-            "module": "./types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: inline-block; position: relative; } ::slotted([slot=\"trigger\"]) { display: inline-block; } /* Hide the template asset from standard layout */ slot[name=\"asset\"] { display: none !important; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -815,41 +589,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -859,42 +641,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -904,29 +684,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -935,11 +717,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -947,17 +736,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -979,22 +765,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -1016,30 +803,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

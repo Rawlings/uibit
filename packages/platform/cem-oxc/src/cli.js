@@ -13,7 +13,7 @@ export async function cli(argv = process.argv.slice(2), cwd = process.cwd()) {
       config: { type: 'string' },
       globs: { type: 'string', multiple: true },
       exclude: { type: 'string', multiple: true },
-      outdir: { type: 'string', default: 'dist' },
+      outdir: { type: 'string', default: '.' },
       watch: { type: 'boolean' },
       quiet: { type: 'boolean' },
       dev: { type: 'boolean' },
@@ -36,7 +36,7 @@ export async function cli(argv = process.argv.slice(2), cwd = process.cwd()) {
 
   const globs = args.globs || userConfig.globs || ['**/*.{js,ts}'];
   const exclude = args.exclude || userConfig.exclude || ['**/node_modules/**', '**/dist/**', '**/build/**'];
-  const outdir = args.outdir || userConfig.outdir || 'dist';
+  const outdir = args.outdir || userConfig.outdir || '.';
   const dev = args.dev || userConfig.dev || false;
   const quiet = args.quiet || userConfig.quiet || false;
   const packagejson = args.packagejson !== undefined ? args.packagejson : (userConfig.packagejson !== undefined ? userConfig.packagejson : true);

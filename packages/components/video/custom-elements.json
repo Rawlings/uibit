@@ -6,53 +6,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./video"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Video",
-          "declaration": {
-            "name": "Video",
-            "module": "./video"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: block; width: 100%; font-size: var(--uibit-video-font-size, var(--uibit-font-size-sm, 0.875rem)); font-family: var(--uibit-video-font-family, inherit); --uibit-video-radius: 0; --uibit-video-bg: #000000; --uibit-video-focus-color: #ffffff; --uibit-video-control-color: #ffffff; } .player-container { position: relative; width: 100%; overflow: hidden; background-color: var(--uibit-video-bg); border-radius: var(--uibit-video-radius); aspect-ratio: 16 / 9; user-select: none; outline: none; } .player-container:focus-visible { outline: 0.125rem solid var(--uibit-video-focus-color); outline-offset: 0.125rem; } ::slotted(video) { width: 100%; height: 100%; object-fit: contain; display: block; } ::slotted(iframe) { width: 100%; height: 100%; border: 0; display: block; } .iframe-container { width: 100%; height: 100%; } /* ── Overlay / Poster ────────────────────────────────────────── */ .poster-overlay { position: absolute; inset: 0; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; z-index: 10; transition: opacity 0.3s ease; } /* Premium play button - circular, translucent white background with blur and cut-out see-through play icon */ .center-play-btn { position: relative; z-index: 11; width: 4.5rem; height: 4.5rem; border-radius: 9999px; background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(0.5rem); -webkit-backdrop-filter: blur(0.5rem); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: none; opacity: 0.9; transition: opacity 0.2s ease, background-color 0.2s ease; /* Mask out the play icon so it is see-through */ mask: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><mask id='m'><rect x='0' y='0' width='100' height='100' fill='white'/><polygon points='38,28 75,50 38,72' fill='black'/></mask><circle cx='50' cy='50' r='50' fill='white' mask='url(%23m)'/></svg>\") no-repeat center / contain; -webkit-mask: url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><mask id='m'><rect x='0' y='0' width='100' height='100' fill='white'/><polygon points='38,28 75,50 38,72' fill='black'/></mask><circle cx='50' cy='50' r='50' fill='white' mask='url(%23m)'/></svg>\") no-repeat center / contain; } .center-play-btn:hover { opacity: 1; background: rgba(255, 255, 255, 0.9); } .center-play-btn:active { opacity: 0.8; } /* ── Minimal Single-Row Controls Bar ────────────────────────── */ .controls-bar { position: absolute; bottom: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; gap: 1rem; background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent); /* Vignette gradient */ padding: 1.25rem 1.5rem; color: var(--uibit-video-control-color); opacity: 0; transition: opacity 0.2s ease; } /* Show controls on hover, focus, or when paused */ .player-container:hover .controls-bar, .player-container:focus-within .controls-bar, .player-container.paused .controls-bar, .player-container.seeking .controls-bar { opacity: 1; } .control-btn { background: transparent; border: none; color: inherit; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 2.5rem; /* Larger hit target (40px) */ height: 2.5rem; /* Larger hit target (40px) */ padding: 0; opacity: 0.8; transition: transform 0.2s ease, opacity 0.2s ease; } .control-btn:hover { opacity: 1; transform: scale(1.05); } .control-btn:active { transform: scale(0.95); } .control-btn:focus-visible { outline: 0.125rem solid #ffffff; } .control-btn svg { width: 1.125rem; height: 1.125rem; } .time-display { font-size: 0.75rem; font-variant-numeric: tabular-nums; font-weight: 500; opacity: 0.9; white-space: nowrap; } /* ── Timeline (Flex-Grow) ────────────────────────────────────── */ .timeline-container { flex-grow: 1; height: 2rem; /* Larger hit target (32px height) */ display: flex; align-items: center; cursor: pointer; position: relative; } .timeline-bar { width: 100%; height: 0.125rem; /* Ultra thin line */ background: rgba(255, 255, 255, 0.25); position: relative; transition: height 0.15s ease; } .timeline-container:hover .timeline-bar { height: 0.25rem; } .timeline-progress { height: 100%; background: #ffffff; position: absolute; left: 0; top: 0; } /* Handle is circular, borderless, shadowless */ .timeline-handle { width: 0.625rem; height: 0.625rem; border-radius: 9999px; background: #ffffff; position: absolute; top: 50%; transform: translate(-50%, -50%) scale(0); transition: transform 0.15s ease; box-shadow: none; border: none; } .timeline-container:hover .timeline-handle, .timeline-container:active .timeline-handle { transform: translate(-50%, -50%) scale(1); } /* ── Volume Slider ───────────────────────────────────────────── */ .volume-container { display: flex; align-items: center; gap: 0.5rem; } .volume-slider-wrap { width: 0; overflow: hidden; height: 2rem; /* Matches button height for hit alignment */ display: flex; align-items: center; transition: width 0.2s ease; } .volume-container:hover .volume-slider-wrap { width: 3.5rem; } .volume-slider-container { width: 100%; height: 2rem; /* Larger hit target (32px height) */ display: flex; align-items: center; cursor: pointer; position: relative; outline: none; padding: 0 0.3125rem; /* Inset track slightly so the handle does not clip on the edges */ box-sizing: border-box; } .volume-slider-bar { width: 100%; height: 0.125rem; /* Ultra thin line */ background: rgba(255, 255, 255, 0.25); position: relative; transition: height 0.15s ease; } .volume-container:hover .volume-slider-bar, .volume-slider-container:hover .volume-slider-bar { height: 0.25rem; } .volume-slider-progress { height: 100%; background: #ffffff; position: absolute; left: 0; top: 0; } .volume-slider-handle { width: 0.625rem; height: 0.625rem; border-radius: 9999px; background: #ffffff; position: absolute; top: 50%; transform: translate(-50%, -50%) scale(0); transition: transform 0.15s ease; box-shadow: none; border: none; } .volume-container:hover .volume-slider-handle { transform: translate(-50%, -50%) scale(1); } /* Hide raw slots */ .hidden-slot-wrap { display: none; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -62,227 +22,208 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/video.test.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/video.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "Enhanced custom video component that wraps a native `<video>` or `<iframe>` element.\nProvides custom interactive player controls with Scandinavian design aesthetics.",
           "name": "Video",
-          "cssProperties": [
-            {
-              "description": "Border radius of the video player.",
-              "name": "--uibit-video-radius",
-              "default": "0.5rem"
-            },
-            {
-              "description": "Background color of the video player.",
-              "name": "--uibit-video-bg",
-              "default": "#000000"
-            },
-            {
-              "description": "Focus outline color.",
-              "name": "--uibit-video-focus-color",
-              "default": "#000000"
-            },
-            {
-              "description": "Background of the control bar.",
-              "name": "--uibit-video-control-bg",
-              "default": "rgba(17, 24, 39, 0.85)"
-            },
-            {
-              "description": "Border of the control bar.",
-              "name": "--uibit-video-control-border",
-              "default": "rgba(255, 255, 255, 0.1)"
-            },
-            {
-              "description": "Color of icons and text.",
-              "name": "--uibit-video-control-color",
-              "default": "#ffffff"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The custom controls bar.",
-              "name": "controls"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The default slot where the native `<video>` or `<iframe>` element is placed.",
-              "name": ""
-            }
-          ],
+          "tagName": "uibit-video",
+          "customElement": true,
+          "description": "Enhanced custom video component that wraps a native `<video>` or `<iframe>` element.\nProvides custom interactive player controls with Scandinavian design aesthetics.",
+          "summary": "A custom element wrapper for native video and iframe elements, providing a consistent, customizable, and premium player controls experience.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "poster",
+              "kind": "field",
+              "description": "Poster image URL. Also used as background for iframes before playing.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "Poster image URL. Also used as background for iframes before playing.",
-              "attribute": "poster",
-              "see": "://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#poster"
+              "static": false,
+              "privacy": "public",
+              "attribute": "poster"
             },
             {
-              "kind": "field",
               "name": "controls",
+              "kind": "field",
+              "description": "Show player controls.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Show player controls.",
+              "static": false,
+              "privacy": "public",
               "attribute": "controls"
             },
             {
-              "kind": "field",
               "name": "_isPlaying",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
               "kind": "field",
-              "name": "_currentTime",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "_duration",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "_volume",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "1"
-            },
-            {
-              "kind": "field",
-              "name": "_isMuted",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_isFullscreen",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_isSeeking",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_isVolumeSeeking",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_isIframeMode",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_iframePlaying",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "_containerEl",
-              "type": {
-                "text": "HTMLElement | undefined"
-              },
+              "default": "false",
+              "static": false,
               "privacy": "private"
             },
             {
+              "name": "_currentTime",
               "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_duration",
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_volume",
+              "kind": "field",
+              "default": "1",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_isMuted",
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_isFullscreen",
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_isSeeking",
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_isVolumeSeeking",
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_isIframeMode",
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_iframePlaying",
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_containerEl",
+              "kind": "field",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "_videoEl",
+              "kind": "field",
               "type": {
                 "text": "HTMLVideoElement | null"
               },
-              "privacy": "private",
-              "default": "null"
+              "default": "null",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_iframeEl",
+              "kind": "field",
               "type": {
                 "text": "HTMLIFrameElement | null"
               },
-              "privacy": "private",
-              "default": "null"
+              "default": "null",
+              "static": false,
+              "privacy": "private"
             },
             {
+              "name": "firstUpdated",
               "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "PropertyValues"
+                  }
+                }
+              ]
+            },
+            {
               "name": "_detectSlottedElements",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_setupVideoListeners",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_onSlotChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "togglePlay",
-              "description": "Toggles the playback state of the video between play and pause."
+              "kind": "method",
+              "description": "Toggles the playback state of the video between play and pause.",
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "method",
               "name": "_playIframe",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "toggleMute",
-              "description": "Toggles the audio mute state."
+              "kind": "method",
+              "description": "Toggles the audio mute state.",
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "method",
               "name": "_onVolumePointerDown",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -294,8 +235,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onVolumePointerMove",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -307,8 +249,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onVolumePointerUp",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -320,8 +263,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_updateVolumeFromEvent",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -333,17 +277,21 @@
               ]
             },
             {
+              "name": "toggleFullscreen",
               "kind": "method",
-              "name": "toggleFullscreen"
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "method",
               "name": "_onFullscreenChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_onTimelinePointerDown",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -355,8 +303,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onTimelinePointerMove",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -368,8 +317,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onTimelinePointerUp",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -381,8 +331,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_updateTimelineFromEvent",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -394,8 +345,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onKeyDown",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -407,14 +359,10 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_formatTime",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
               "parameters": [
                 {
                   "name": "sec",
@@ -422,11 +370,17 @@
                     "text": "number"
                   }
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "_onPlayerClick",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -438,252 +392,82 @@
               ]
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "description": "Emitted when playback starts.",
-              "name": "play"
-            },
-            {
-              "description": "Emitted when playback pauses.",
-              "name": "pause"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "poster",
+              "description": "Poster image URL. Also used as background for iframes before playing.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "Poster image URL. Also used as background for iframes before playing.",
-              "fieldName": "poster"
+              "fieldName": "poster",
+              "default": "''"
             },
             {
               "name": "controls",
+              "description": "Show player controls.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Show player controls.",
-              "fieldName": "controls"
+              "fieldName": "controls",
+              "default": "true"
+            }
+          ],
+          "events": [
+            {
+              "name": "play",
+              "description": "Emitted when playback starts."
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "pause",
+              "description": "Emitted when playback pauses."
+            }
+          ],
+          "slots": [
+            {
+              "name": "-",
+              "description": "The default slot where the native `<video>` or `<iframe>` element is placed."
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "controls",
+              "description": "The custom controls bar."
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--uibit-video-radius",
+              "description": "Border radius of the video player.",
+              "default": "0.5rem"
+            },
+            {
+              "name": "--uibit-video-bg",
+              "description": "Background color of the video player.",
+              "default": "#000000"
+            },
+            {
+              "name": "--uibit-video-focus-color",
+              "description": "Focus outline color.",
+              "default": "#000000"
+            },
+            {
+              "name": "[--uibit-video-control-bg=rgba(17,",
+              "description": "24, 39, 0.85)] - Background of the control bar."
+            },
+            {
+              "name": "[--uibit-video-control-border=rgba(255,",
+              "description": "255, 255, 0.1)] - Border of the control bar."
+            },
+            {
+              "name": "--uibit-video-control-color",
+              "description": "Color of icons and text.",
+              "default": "#ffffff"
             }
           ],
           "cssStates": [
@@ -699,11 +483,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A custom element wrapper for native video and iframe elements, providing a consistent, customizable, and premium player controls experience.",
-          "see": "://developer.mozilla.org/en-US/docs/Web/HTML/Element/video",
-          "tagName": "uibit-video",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -712,23 +492,7 @@
           "name": "Video",
           "declaration": {
             "name": "Video",
-            "module": "src/video.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-video",
-          "declaration": {
-            "name": "Video",
-            "module": "src/video.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "Video",
-            "module": "src/video.ts"
+            "module": "./src/video.ts"
           }
         }
       ]
@@ -739,41 +503,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -783,42 +555,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -828,29 +598,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -859,11 +631,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -871,17 +650,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -903,22 +679,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -940,30 +717,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

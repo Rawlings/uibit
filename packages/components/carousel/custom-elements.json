@@ -8,334 +8,300 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Accessible, scroll-driven carousel with keyboard navigation, auto-play,",
           "name": "UIBitCarousel",
-          "cssProperties": [
-            {
-              "description": "Gap between slides",
-              "name": "--uibit-carousel-gap",
-              "default": "1rem"
-            },
-            {
-              "description": "Padding inside the viewport around slides",
-              "name": "--uibit-carousel-padding",
-              "default": "0"
-            },
-            {
-              "description": "Scroll animation duration",
-              "name": "--uibit-carousel-duration",
-              "default": "300ms"
-            },
-            {
-              "description": "Number of slides visible at once",
-              "name": "--uibit-carousel-items-per-view",
-              "default": "1"
-            },
-            {
-              "description": "Border color of the viewport",
-              "name": "--uibit-carousel-border-color",
-              "default": "#e5e7eb"
-            },
-            {
-              "description": "Background of prev/next buttons",
-              "name": "--uibit-carousel-button-bg",
-              "default": "#f9fafb"
-            },
-            {
-              "description": "Hover background of prev/next buttons",
-              "name": "--uibit-carousel-button-bg-hover",
-              "default": "#f3f4f6"
-            },
-            {
-              "description": "Hover text/icon color of prev/next buttons",
-              "name": "--uibit-carousel-button-color-hover",
-              "default": "#ffffff"
-            },
-            {
-              "description": "Background of inactive indicator dots",
-              "name": "--uibit-carousel-indicator-bg",
-              "default": "#e5e7eb"
-            },
-            {
-              "description": "Background of the active indicator dot",
-              "name": "--uibit-carousel-indicator-active-bg",
-              "default": "#000000"
-            },
-            {
-              "description": "Color of the focus outline on buttons",
-              "name": "--uibit-carousel-focus-color",
-              "default": "#000000"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "The root carousel container",
-              "name": "carousel"
-            },
-            {
-              "description": "The overflow-hidden viewport",
-              "name": "viewport"
-            },
-            {
-              "description": "The scrollable slides row",
-              "name": "content"
-            },
-            {
-              "description": "The control bar below the viewport",
-              "name": "controls"
-            },
-            {
-              "description": "The prev/next button group",
-              "name": "buttons"
-            },
-            {
-              "description": "Each navigation button",
-              "name": "button"
-            },
-            {
-              "description": "The previous slide button",
-              "name": "button-prev"
-            },
-            {
-              "description": "The next slide button",
-              "name": "button-next"
-            },
-            {
-              "description": "The indicator dot group",
-              "name": "indicators"
-            },
-            {
-              "description": "Each indicator dot",
-              "name": "indicator"
-            },
-            {
-              "description": "Added to the active indicator dot",
-              "name": "indicator-active"
-            }
-          ],
-          "slots": [
-            {
-              "description": "One or more slide elements (add `slot=\"item\"` to each child)",
-              "name": "item"
-            }
-          ],
+          "tagName": "uibit-carousel",
+          "customElement": true,
+          "description": "Accessible, scroll-driven carousel with keyboard navigation, auto-play,",
+          "summary": "A premium, scroll-driven carousel component with full accessibility controls.\nand configurable items-per-view via CSS custom properties.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "autoPlay",
+              "kind": "field",
+              "description": "Automatically advance slides on a timer.",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Automatically advance slides on a timer.",
+              "static": false,
+              "privacy": "public",
               "attribute": "auto-play"
             },
             {
-              "kind": "field",
               "name": "autoPlayInterval",
+              "kind": "field",
+              "description": "Milliseconds between auto-play advances.",
               "type": {
                 "text": "number"
               },
               "default": "5000",
-              "description": "Milliseconds between auto-play advances.",
+              "static": false,
+              "privacy": "public",
               "attribute": "auto-play-interval"
             },
             {
-              "kind": "field",
               "name": "loop",
+              "kind": "field",
+              "description": "When `true`, the carousel wraps from the last slide back to the first.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "When `true`, the carousel wraps from the last slide back to the first.",
+              "static": false,
+              "privacy": "public",
               "attribute": "loop"
             },
             {
-              "kind": "field",
               "name": "itemsPerView",
+              "kind": "field",
               "type": {
                 "text": "number"
               },
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "gap",
+              "kind": "field",
               "type": {
                 "text": "number"
               },
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "duration",
+              "kind": "field",
               "type": {
                 "text": "number"
               },
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "content",
+              "kind": "field",
               "type": {
-                "text": "HTMLElement | undefined"
-              }
+                "text": "HTMLElement"
+              },
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "field",
               "name": "viewport",
+              "kind": "field",
               "type": {
-                "text": "HTMLElement | undefined"
-              }
+                "text": "HTMLElement"
+              },
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "field",
               "name": "slotElement",
+              "kind": "field",
               "type": {
-                "text": "HTMLSlotElement | undefined"
-              }
+                "text": "HTMLSlotElement"
+              },
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "field",
               "name": "currentIndex",
-              "type": {
-                "text": "number"
-              },
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "field",
               "name": "totalSlides",
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "public"
+            },
+            {
+              "name": "canPrev",
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "public"
+            },
+            {
+              "name": "canNext",
+              "kind": "field",
+              "default": "true",
+              "static": false,
+              "privacy": "public"
+            },
+            {
+              "name": "autoPlayTimer",
+              "kind": "field",
               "type": {
                 "text": "number"
               },
-              "default": "0"
-            },
-            {
-              "kind": "field",
-              "name": "canPrev",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false"
-            },
-            {
-              "kind": "field",
-              "name": "canNext",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true"
-            },
-            {
-              "kind": "field",
-              "name": "autoPlayTimer",
-              "type": {
-                "text": "number | undefined"
-              },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "resizeObserver",
+              "kind": "field",
               "type": {
-                "text": "ResizeObserver | undefined"
+                "text": "ResizeObserver"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "slideObserver",
+              "kind": "field",
               "type": {
-                "text": "IntersectionObserver | undefined"
+                "text": "IntersectionObserver"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "slideIntersectionRatios",
-              "privacy": "private",
-              "default": "new Map<Element, number>()"
+              "kind": "field",
+              "default": "new Map<Element, number>()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "isProgrammaticScroll",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "programmaticScrollTimeout",
+              "kind": "field",
               "type": {
-                "text": "number | undefined"
+                "text": "number"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "isPausedByInteraction",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "handlePointerEnter",
+              "kind": "field",
+              "default": "() => {\n    this.isPausedByInteraction = true;\n    this.stopAutoPlay();\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "handlePointerLeave",
+              "kind": "field",
+              "default": "() => {\n    this.isPausedByInteraction = false;\n    if (this.autoPlay) {\n      this.setupAutoPlay();\n    }\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "handleFocusIn",
-              "privacy": "private"
-            },
-            {
               "kind": "field",
+              "default": "() => {\n    this.isPausedByInteraction = true;\n    this.stopAutoPlay();\n  }",
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "handleFocusOut",
+              "kind": "field",
+              "default": "() => {\n    this.isPausedByInteraction = false;\n    if (this.autoPlay) {\n      this.setupAutoPlay();\n    }\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
+              "name": "constructor",
               "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "config",
+                  "type": {
+                    "text": "CarouselConfig"
+                  },
+                  "optional": true
+                }
+              ]
+            },
+            {
+              "name": "firstUpdated",
+              "kind": "method",
+              "static": false,
+              "privacy": "protected"
+            },
+            {
+              "name": "updated",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "Map<string, unknown>"
+                  }
+                }
+              ]
+            },
+            {
               "name": "setupCarousel",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "setupSlideObserver",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "setupResizeObserver",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "setupKeyboardNavigation",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "setupAutoPlay",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "stopAutoPlay",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "getSlides",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -344,23 +310,31 @@
               }
             },
             {
-              "kind": "method",
               "name": "updateNavigationState",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "prev",
-              "description": "\n\nReturns the carousel to the previous slide."
+              "kind": "method",
+              "description": "Returns the carousel to the previous slide.",
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "method",
               "name": "next",
-              "description": "\n\nAdvances the carousel to the next slide."
+              "kind": "method",
+              "description": "Advances the carousel to the next slide.",
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "method",
               "name": "goToSlide",
+              "kind": "method",
+              "description": "Navigates the carousel to a specific slide index.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "index",
@@ -368,12 +342,12 @@
                     "text": "number"
                   }
                 }
-              ],
-              "description": "\n\nNavigates the carousel to a specific slide index."
+              ]
             },
             {
-              "kind": "method",
               "name": "scrollToSlide",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -385,270 +359,169 @@
               ]
             },
             {
-              "kind": "method",
               "name": "emitSlideChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "handleSlotChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "{ index: number, totalSlides: number }"
-              },
-              "description": "Fired when the active slide changes",
-              "name": "slide-change"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "auto-play",
+              "description": "Automatically advance slides on a timer.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Automatically advance slides on a timer.",
-              "fieldName": "autoPlay"
+              "fieldName": "autoPlay",
+              "default": "false"
             },
             {
               "name": "auto-play-interval",
+              "description": "Milliseconds between auto-play advances.",
               "type": {
                 "text": "number"
               },
-              "default": "5000",
-              "description": "Milliseconds between auto-play advances.",
-              "fieldName": "autoPlayInterval"
+              "fieldName": "autoPlayInterval",
+              "default": "5000"
             },
             {
               "name": "loop",
+              "description": "When `true`, the carousel wraps from the last slide back to the first.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "When `true`, the carousel wraps from the last slide back to the first.",
-              "fieldName": "loop"
+              "fieldName": "loop",
+              "default": "true"
+            }
+          ],
+          "events": [
+            {
+              "name": "slide-change",
+              "description": "Fired when the active slide changes",
+              "type": {
+                "text": "{ index: number, totalSlides: number }"
+              }
+            }
+          ],
+          "slots": [
+            {
+              "name": "item",
+              "description": "One or more slide elements (add `slot=\"item\"` to each child)"
+            }
+          ],
+          "cssParts": [
+            {
+              "name": "carousel",
+              "description": "The root carousel container"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "viewport",
+              "description": "The overflow-hidden viewport"
+            },
+            {
+              "name": "content",
+              "description": "The scrollable slides row"
+            },
+            {
+              "name": "controls",
+              "description": "The control bar below the viewport"
+            },
+            {
+              "name": "buttons",
+              "description": "The prev/next button group"
+            },
+            {
+              "name": "button",
+              "description": "Each navigation button"
+            },
+            {
+              "name": "button-prev",
+              "description": "The previous slide button"
+            },
+            {
+              "name": "button-next",
+              "description": "The next slide button"
+            },
+            {
+              "name": "indicators",
+              "description": "The indicator dot group"
+            },
+            {
+              "name": "indicator",
+              "description": "Each indicator dot"
+            },
+            {
+              "name": "indicator-active",
+              "description": "Added to the active indicator dot"
+            }
+          ],
+          "cssProperties": [
+            {
+              "name": "--uibit-carousel-gap",
+              "description": "Gap between slides",
+              "default": "1rem"
+            },
+            {
+              "name": "--uibit-carousel-padding",
+              "description": "Padding inside the viewport around slides",
+              "default": "0"
+            },
+            {
+              "name": "--uibit-carousel-duration",
+              "description": "Scroll animation duration",
+              "default": "300ms"
+            },
+            {
+              "name": "--uibit-carousel-items-per-view",
+              "description": "Number of slides visible at once",
+              "default": "1"
+            },
+            {
+              "name": "--uibit-carousel-border-color",
+              "description": "Border color of the viewport",
+              "default": "#e5e7eb"
+            },
+            {
+              "name": "--uibit-carousel-button-bg",
+              "description": "Background of prev/next buttons",
+              "default": "#f9fafb"
+            },
+            {
+              "name": "--uibit-carousel-button-bg-hover",
+              "description": "Hover background of prev/next buttons",
+              "default": "#f3f4f6"
+            },
+            {
+              "name": "--uibit-carousel-button-color-hover",
+              "description": "Hover text/icon color of prev/next buttons",
+              "default": "#ffffff"
+            },
+            {
+              "name": "--uibit-carousel-indicator-bg",
+              "description": "Background of inactive indicator dots",
+              "default": "#e5e7eb"
+            },
+            {
+              "name": "--uibit-carousel-indicator-active-bg",
+              "description": "Background of the active indicator dot",
+              "default": "#000000"
+            },
+            {
+              "name": "--uibit-carousel-focus-color",
+              "description": "Color of the focus outline on buttons",
+              "default": "#000000"
             }
           ],
           "cssStates": [
@@ -664,10 +537,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A premium, scroll-driven carousel component with full accessibility controls.\nand configurable items-per-view via CSS custom properties.",
-          "tagName": "uibit-carousel",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -676,23 +546,7 @@
           "name": "UIBitCarousel",
           "declaration": {
             "name": "UIBitCarousel",
-            "module": "src/carousel.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-carousel",
-          "declaration": {
-            "name": "UIBitCarousel",
-            "module": "src/carousel.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "UIBitCarousel",
-            "module": "src/carousel.ts"
+            "module": "./src/carousel.ts"
           }
         }
       ]
@@ -701,61 +555,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "UIBitCarousel",
-            "module": "./carousel"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "UIBitCarousel",
-          "declaration": {
-            "name": "UIBitCarousel",
-            "module": "./carousel"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CarouselConfig",
-          "declaration": {
-            "name": "CarouselConfig",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "SlideChangeEvent",
-          "declaration": {
-            "name": "SlideChangeEvent",
-            "module": "./types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { --uibit-carousel-gap: var(--uibit-spacing-4, 1rem); --uibit-carousel-padding: 0; --uibit-carousel-duration: 300ms; --uibit-carousel-items-per-view: 1; --uibit-carousel-border-color: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb)); --uibit-carousel-button-bg: var(--uibit-bg-surface, var(--uibit-color-white, #ffffff)); --uibit-carousel-button-bg-hover: var(--uibit-focus-color, var(--uibit-color-black, #000000)); --uibit-carousel-button-color-hover: var(--uibit-color-white, #ffffff); --uibit-carousel-indicator-bg: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb)); --uibit-carousel-indicator-active-bg: var(--uibit-focus-color, var(--uibit-color-black, #000000)); --uibit-carousel-focus-color: var(--uibit-focus-color, var(--uibit-color-black, #000000)); display: block; width: 100%; } .carousel { display: flex; flex-direction: column; gap: var(--uibit-spacing-4, 1rem); width: 100%; } .carousel-viewport { position: relative; overflow: hidden; border: 0.0625rem solid var(--uibit-carousel-border-color); border-radius: var(--uibit-radius-2xl, 0.75rem); background-color: var(--uibit-bg-surface, var(--uibit-color-white, #ffffff)); } .carousel-content { display: flex; gap: var(--uibit-carousel-gap); overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory; padding: var(--uibit-carousel-padding, 0); width: 100%; scrollbar-width: none; -ms-overflow-style: none; } .carousel-content::-webkit-scrollbar { display: none; } slot[name='item'] { display: contents; } ::slotted([slot='item']), ::slotted(:not([slot])) { scroll-snap-align: start; scroll-snap-stop: always; width: calc( (100% - (var(--uibit-carousel-items-per-view, 1) - 1) * var(--uibit-carousel-gap, 1rem)) / var(--uibit-carousel-items-per-view, 1) ); flex-shrink: 0; min-width: 0; } .carousel-controls { display: flex; align-items: center; justify-content: space-between; gap: var(--uibit-spacing-4, 1rem); } .carousel-buttons { display: flex; gap: 0.5rem; } .carousel-button { width: 2.25rem; height: 2.25rem; background-color: var(--uibit-carousel-button-bg, #ffffff); border: 0.0625rem solid var(--uibit-carousel-border-color, #e5e7eb); border-radius: 9999rem; cursor: pointer; color: var(--uibit-text-primary, #111827); transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease, opacity 100ms ease, transform 150ms ease; display: inline-flex; align-items: center; justify-content: center; box-shadow: none; } .carousel-button:hover:not(:disabled) { background-color: var(--uibit-carousel-button-bg-hover, #f3f4f6); color: var(--uibit-carousel-button-color-hover, #ffffff); border-color: var(--uibit-carousel-button-bg-hover, #000000); box-shadow: none; transform: scale(1.06); } .carousel-button:active:not(:disabled) { transform: scale(0.95); } .carousel-button:disabled { opacity: 0.3; cursor: not-allowed; } .carousel-button:focus-visible { outline: 0.125rem solid var(--uibit-carousel-focus-color); outline-offset: 0.125rem; } .carousel-indicators { display: flex; gap: 0.5rem; align-items: center; justify-content: center; } .carousel-indicator { width: 0.5rem; height: 0.5rem; border-radius: 9999rem; background-color: var(--uibit-carousel-indicator-bg); cursor: pointer; border: none; padding: 0; transition: background-color 150ms ease, width 150ms ease, border-radius 150ms ease, opacity 100ms ease; } .carousel-indicator:hover { background-color: var(--uibit-carousel-indicator-active-bg); } .carousel-indicator:active { opacity: 0.6; } .carousel-indicator.active { width: 1.25rem; border-radius: 0.25rem; background-color: var(--uibit-carousel-indicator-active-bg); } .carousel-indicator:focus-visible { outline: 0.125rem solid var(--uibit-carousel-focus-color); outline-offset: 0.125rem; } @media (max-width: 40rem) { .carousel-controls { flex-wrap: wrap; } .carousel-content { padding: var(--uibit-carousel-padding, 0); } } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -769,41 +575,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -813,42 +627,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -858,29 +670,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -889,11 +703,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -901,17 +722,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -933,22 +751,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -970,30 +789,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

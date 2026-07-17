@@ -8,133 +8,62 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Side-by-side or inline comparison block for two blocks of text or code.",
           "name": "DiffViewer",
-          "cssProperties": [
-            {
-              "description": "Code font stack",
-              "name": "--uibit-diff-viewer-font-family",
-              "default": "var(--uibit-font-mono)"
-            },
-            {
-              "description": "Font size",
-              "name": "--uibit-diff-viewer-font-size",
-              "default": "0.8125rem"
-            },
-            {
-              "description": "Line height",
-              "name": "--uibit-diff-viewer-line-height",
-              "default": "1.6"
-            },
-            {
-              "description": "Border and divider color",
-              "name": "--uibit-diff-viewer-border-color",
-              "default": "var(--uibit-border-color)"
-            },
-            {
-              "description": "Corner radius",
-              "name": "--uibit-diff-viewer-radius",
-              "default": "var(--uibit-radius-2xl)"
-            },
-            {
-              "description": "Header background",
-              "name": "--uibit-diff-viewer-header-bg",
-              "default": "var(--uibit-bg-subtle)"
-            },
-            {
-              "description": "Header label text color",
-              "name": "--uibit-diff-viewer-label-color",
-              "default": "var(--uibit-text-muted)"
-            },
-            {
-              "description": "Line-number gutter background",
-              "name": "--uibit-diff-viewer-gutter-bg",
-              "default": "var(--uibit-bg-subtle)"
-            },
-            {
-              "description": "Line-number gutter text color",
-              "name": "--uibit-diff-viewer-gutter-color",
-              "default": "var(--uibit-color-gray-400)"
-            },
-            {
-              "description": "Deleted-line background",
-              "name": "--uibit-diff-viewer-delete-bg",
-              "default": "#fef2f2"
-            },
-            {
-              "description": "Deleted-line text color",
-              "name": "--uibit-diff-viewer-delete-color",
-              "default": "#991b1b"
-            },
-            {
-              "description": "Deleted-line gutter background",
-              "name": "--uibit-diff-viewer-delete-gutter-bg",
-              "default": "#fee2e2"
-            },
-            {
-              "description": "Inserted-line background",
-              "name": "--uibit-diff-viewer-insert-bg",
-              "default": "#f0fdf4"
-            },
-            {
-              "description": "Inserted-line text color",
-              "name": "--uibit-diff-viewer-insert-color",
-              "default": "#166534"
-            },
-            {
-              "description": "Inserted-line gutter background",
-              "name": "--uibit-diff-viewer-insert-gutter-bg",
-              "default": "#dcfce7"
-            },
-            {
-              "description": "Unchanged-line text color",
-              "name": "--uibit-diff-viewer-equal-color",
-              "default": "var(--uibit-text-secondary)"
-            }
-          ],
+          "tagName": "uibit-diff-viewer",
+          "customElement": true,
+          "description": "Side-by-side or inline comparison block for two blocks of text or code.",
+          "summary": "A high-performance side-by-side or inline code diff viewer component.\nComputes a line-level diff internally using LCS — no external libraries needed.\nDeleted lines are highlighted red, inserted lines green, in the familiar\ncode-review style.\nSupply the two texts via the `old` and `new` properties (or `old-text` /\n`new-text` attributes for HTML usage). Switch between layouts with the\n`mode` attribute.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "oldText",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "''"
+              "kind": "field",
+              "default": "''",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "newText",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "''"
+              "kind": "field",
+              "default": "''",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "mode",
+              "kind": "field",
+              "description": "Layout mode: 'split' shows two panes side by side, 'inline' shows a single unified view.",
               "type": {
                 "text": "'split' | 'inline'"
               },
               "default": "'split'",
-              "description": "Layout mode: 'split' shows two panes side by side, 'inline' shows a single unified view.",
-              "attribute": "mode",
-              "reflects": true
+              "static": false,
+              "privacy": "public",
+              "reflects": true,
+              "attribute": "mode"
             },
             {
-              "kind": "field",
               "name": "showLineNumbers",
+              "kind": "field",
+              "description": "Show line numbers in the gutter.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Show line numbers in the gutter.",
+              "static": false,
+              "privacy": "public",
               "attribute": "show-line-numbers"
             },
             {
-              "kind": "method",
               "name": "_renderLine",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -158,8 +87,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_renderSplit",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -171,8 +101,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_renderInline",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -184,8 +115,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_handleOldChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -197,8 +129,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_handleNewChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -210,242 +143,115 @@
               ]
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "mode",
+              "description": "Layout mode: 'split' shows two panes side by side, 'inline' shows a single unified view.",
               "type": {
                 "text": "'split' | 'inline'"
               },
-              "default": "'split'",
-              "description": "Layout mode: 'split' shows two panes side by side, 'inline' shows a single unified view.",
-              "fieldName": "mode"
+              "fieldName": "mode",
+              "default": "'split'"
             },
             {
               "name": "show-line-numbers",
+              "description": "Show line numbers in the gutter.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Show line numbers in the gutter.",
-              "fieldName": "showLineNumbers"
+              "fieldName": "showLineNumbers",
+              "default": "true"
+            }
+          ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-diff-viewer-font-family",
+              "description": "Code font stack",
+              "default": "var(--uibit-font-mono)"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "--uibit-diff-viewer-font-size",
+              "description": "Font size",
+              "default": "0.8125rem"
+            },
+            {
+              "name": "--uibit-diff-viewer-line-height",
+              "description": "Line height",
+              "default": "1.6"
+            },
+            {
+              "name": "--uibit-diff-viewer-border-color",
+              "description": "Border and divider color",
+              "default": "var(--uibit-border-color)"
+            },
+            {
+              "name": "--uibit-diff-viewer-radius",
+              "description": "Corner radius",
+              "default": "var(--uibit-radius-2xl)"
+            },
+            {
+              "name": "--uibit-diff-viewer-header-bg",
+              "description": "Header background",
+              "default": "var(--uibit-bg-subtle)"
+            },
+            {
+              "name": "--uibit-diff-viewer-label-color",
+              "description": "Header label text color",
+              "default": "var(--uibit-text-muted)"
+            },
+            {
+              "name": "--uibit-diff-viewer-gutter-bg",
+              "description": "Line-number gutter background",
+              "default": "var(--uibit-bg-subtle)"
+            },
+            {
+              "name": "--uibit-diff-viewer-gutter-color",
+              "description": "Line-number gutter text color",
+              "default": "var(--uibit-color-gray-400)"
+            },
+            {
+              "name": "--uibit-diff-viewer-delete-bg",
+              "description": "Deleted-line background",
+              "default": "#fef2f2"
+            },
+            {
+              "name": "--uibit-diff-viewer-delete-color",
+              "description": "Deleted-line text color",
+              "default": "#991b1b"
+            },
+            {
+              "name": "--uibit-diff-viewer-delete-gutter-bg",
+              "description": "Deleted-line gutter background",
+              "default": "#fee2e2"
+            },
+            {
+              "name": "--uibit-diff-viewer-insert-bg",
+              "description": "Inserted-line background",
+              "default": "#f0fdf4"
+            },
+            {
+              "name": "--uibit-diff-viewer-insert-color",
+              "description": "Inserted-line text color",
+              "default": "#166534"
+            },
+            {
+              "name": "--uibit-diff-viewer-insert-gutter-bg",
+              "description": "Inserted-line gutter background",
+              "default": "#dcfce7"
+            },
+            {
+              "name": "--uibit-diff-viewer-equal-color",
+              "description": "Unchanged-line text color",
+              "default": "var(--uibit-text-secondary)"
             }
           ],
           "cssStates": [
@@ -461,10 +267,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A high-performance side-by-side or inline code diff viewer component.\nComputes a line-level diff internally using LCS — no external libraries needed.\nDeleted lines are highlighted red, inserted lines green, in the familiar\ncode-review style.\n\nSupply the two texts via the `old` and `new` properties (or `old-text` /\n`new-text` attributes for HTML usage). Switch between layouts with the\n`mode` attribute.",
-          "tagName": "uibit-diff-viewer",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -473,23 +276,7 @@
           "name": "DiffViewer",
           "declaration": {
             "name": "DiffViewer",
-            "module": "src/diff-viewer.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-diff-viewer",
-          "declaration": {
-            "name": "DiffViewer",
-            "module": "src/diff-viewer.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "DiffViewer",
-            "module": "src/diff-viewer.ts"
+            "module": "./src/diff-viewer.ts"
           }
         }
       ]
@@ -497,101 +284,20 @@
     {
       "kind": "javascript-module",
       "path": "src/diff.ts",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "diffLines",
-          "return": {
-            "type": {
-              "text": "DiffOp[]"
-            }
-          },
-          "parameters": [
-            {
-              "name": "oldText",
-              "type": {
-                "text": "string"
-              }
-            },
-            {
-              "name": "newText",
-              "type": {
-                "text": "string"
-              }
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "diffLines",
-          "declaration": {
-            "name": "diffLines",
-            "module": "src/diff.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./diff-viewer"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "DiffViewer",
-          "declaration": {
-            "name": "DiffViewer",
-            "module": "./diff-viewer"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "DiffOp",
-          "declaration": {
-            "name": "DiffOp",
-            "module": "./diff"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { --uibit-diff-viewer-border-color: var(--uibit-border-color, var(--uibit-color-gray-200, #e5e7eb)); --uibit-diff-viewer-radius: var(--uibit-radius-2xl, 0.5rem); --uibit-diff-viewer-label-color: var(--uibit-text-muted, var(--uibit-color-gray-500, #6b7280)); --uibit-diff-viewer-gutter-color: var(--uibit-color-gray-400, #d1d5db); --uibit-diff-viewer-equal-color: var(--uibit-text-secondary, var(--uibit-color-gray-700, #374151)); display: block; font-family: var(--uibit-diff-viewer-font-family, var(--uibit-font-mono, ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace)); font-size: var(--uibit-diff-viewer-font-size, var(--uibit-font-size-sm, calc(0.8125rem * var(--uibit-font-scale-factor, 1)))); line-height: var(--uibit-diff-viewer-line-height, var(--uibit-line-height-normal, 1.5)); border: 0.0625rem solid var(--uibit-diff-viewer-border-color); border-radius: var(--uibit-diff-viewer-radius); overflow: hidden; } .header { display: grid; border-bottom: 0.0625rem solid var(--uibit-diff-viewer-border-color); } :host([mode=\"split\"]) .header { grid-template-columns: 1fr 1fr; } :host([mode=\"inline\"]) .header { grid-template-columns: 1fr; } .header-cell { padding: calc(0.5rem * var(--uibit-spacing-factor, 1)) calc(1rem * var(--uibit-spacing-factor, 1)); font-size: var(--uibit-font-size-xs, calc(0.75rem * var(--uibit-font-scale-factor, 1))); font-weight: var(--uibit-font-weight-medium, 500); color: var(--uibit-diff-viewer-label-color, #6b7280); font-family: var(--uibit-diff-viewer-font-family, inherit); border-right: 0.0625rem solid var(--uibit-diff-viewer-border-color, #e5e7eb); } .header-cell:last-child { border-right: none; } .body { display: grid; overflow: auto; } :host([mode=\"split\"]) .body { grid-template-columns: 1fr 1fr; } :host([mode=\"inline\"]) .body { grid-template-columns: 1fr; } .pane { overflow: auto; border-right: 0.0625rem solid var(--uibit-diff-viewer-border-color, #e5e7eb); } .pane:last-child { border-right: none; } .line { display: flex; min-width: max-content; } .gutter { user-select: none; min-width: calc(3rem * var(--uibit-spacing-factor, 1)); padding: 0 calc(0.75rem * var(--uibit-spacing-factor, 1)); text-align: right; color: var(--uibit-diff-viewer-gutter-color, #d1d5db); border-right: 0.0625rem solid var(--uibit-diff-viewer-border-color, #e5e7eb); flex-shrink: 0; } .content { padding: 0 calc(1rem * var(--uibit-spacing-factor, 1)); white-space: pre; flex: 1; } .line.delete { background: rgba(239, 68, 68, 0.06); color: var(--uibit-diff-delete-color, #991b1b); } .line.delete .gutter { color: rgba(153, 27, 27, 0.4); } .line.insert { background: rgba(34, 197, 94, 0.06); color: var(--uibit-diff-insert-color, #166534); } .line.insert .gutter { color: rgba(22, 101, 52, 0.4); } .line.equal { background: transparent; color: var(--uibit-diff-viewer-equal-color, #374151); } .sign { display: inline-block; width: 1rem; margin-right: 0.25rem; flex-shrink: 0; opacity: 0.5; } .divider { width: 0.0625rem; background: var(--uibit-diff-viewer-border-color, #e5e7eb); } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -605,41 +311,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -649,42 +363,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -694,29 +406,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -725,11 +439,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -737,17 +458,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -769,22 +487,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -806,30 +525,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

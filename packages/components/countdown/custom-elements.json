@@ -8,456 +8,272 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Countdown timer to a target date/time or a fixed duration. Supports",
           "name": "Countdown",
-          "cssProperties": [
-            {
-              "description": "Font family for the entire countdown",
-              "name": "--uibit-countdown-font-family",
-              "default": "ui-monospace,'SF Mono',Menlo,monospace"
-            },
-            {
-              "description": "Base font size",
-              "name": "--uibit-countdown-font-size",
-              "default": "1rem"
-            },
-            {
-              "description": "Font weight",
-              "name": "--uibit-countdown-font-weight",
-              "default": "600"
-            },
-            {
-              "description": "Text color for values",
-              "name": "--uibit-countdown-color",
-              "default": "#111827"
-            },
-            {
-              "description": "Gap between time units",
-              "name": "--uibit-countdown-gap",
-              "default": "1.5rem"
-            },
-            {
-              "description": "Gap between the value and label within a unit",
-              "name": "--uibit-countdown-unit-gap",
-              "default": "0.375rem"
-            },
-            {
-              "description": "Font size for the numeric value",
-              "name": "--uibit-countdown-value-font-size",
-              "default": "2.25rem"
-            },
-            {
-              "description": "Min width of each value block",
-              "name": "--uibit-countdown-value-min-width",
-              "default": "4rem"
-            },
-            {
-              "description": "Font size for unit labels (Days, Hours…)",
-              "name": "--uibit-countdown-label-font-size",
-              "default": "0.6875rem"
-            },
-            {
-              "description": "Color for unit labels",
-              "name": "--uibit-countdown-label-color",
-              "default": "#6b7280"
-            },
-            {
-              "description": "Font size of the colon separator",
-              "name": "--uibit-countdown-separator-font-size",
-              "default": "2.25rem"
-            },
-            {
-              "description": "Color of the colon separator",
-              "name": "--uibit-countdown-separator-color",
-              "default": "#d1d5db"
-            }
-          ],
+          "tagName": "uibit-countdown",
+          "customElement": true,
+          "description": "Countdown timer to a target date/time or a fixed duration. Supports",
+          "summary": "A responsive and customizable digital timer and countdown clock component.\nconfigurable display formats and fires events on each tick and on completion.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "target",
-              "type": {
-                "text": "string | undefined"
-              },
+              "kind": "field",
               "description": "ISO 8601 date/time string for the countdown target (e.g. `\"2025-12-31T00:00:00\"`). Takes precedence over `duration`.",
+              "type": {
+                "text": "string"
+              },
+              "static": false,
+              "privacy": "public",
               "attribute": "target"
             },
             {
-              "kind": "field",
               "name": "duration",
-              "type": {
-                "text": "number | undefined"
-              },
+              "kind": "field",
               "description": "Fixed countdown duration in milliseconds. Used when `target` is not set.",
+              "type": {
+                "text": "number"
+              },
+              "static": false,
+              "privacy": "public",
               "attribute": "duration"
             },
             {
-              "kind": "field",
               "name": "autoStart",
+              "kind": "field",
+              "description": "Automatically start the countdown on connect.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Automatically start the countdown on connect.",
+              "static": false,
+              "privacy": "public",
               "attribute": "auto-start"
             },
             {
-              "kind": "field",
               "name": "format",
+              "kind": "field",
+              "description": "Display format. Tokens: `DD` days, `HH` hours, `MM` minutes, `SS` seconds.",
               "type": {
                 "text": "string"
               },
               "default": "'HH:MM:SS'",
-              "description": "Display format. Tokens: `DD` days, `HH` hours, `MM` minutes, `SS` seconds.",
+              "static": false,
+              "privacy": "public",
               "attribute": "format"
             },
             {
-              "kind": "field",
               "name": "remaining",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "days",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "hours",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "minutes",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "seconds",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "timer",
-              "type": {
-                "text": "number | undefined"
-              },
-              "privacy": "private"
-            },
-            {
               "kind": "field",
-              "name": "resolvedTargetTime",
               "type": {
                 "text": "number"
               },
-              "privacy": "private",
-              "default": "0"
+              "static": false,
+              "privacy": "private"
             },
             {
+              "name": "resolvedTargetTime",
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "updated",
               "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "Map<string, unknown>"
+                  }
+                }
+              ]
+            },
+            {
               "name": "start",
-              "description": "\n\nStarts or resumes the countdown timer."
+              "kind": "method",
+              "description": "Starts or resumes the countdown timer.",
+              "static": false,
+              "privacy": "public"
             },
             {
+              "name": "stop",
               "kind": "method",
-              "name": "stop"
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "method",
               "name": "tick",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "getFormattedUnits",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "{ days: number, hours: number, minutes: number, seconds: number, remaining: number }"
-              },
-              "description": "Fired every second while the countdown is running",
-              "name": "countdown-tick"
-            },
-            {
-              "description": "countdown-complete - Fired when the countdown reaches zero",
-              "name": "void"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "target",
-              "type": {
-                "text": "string | undefined"
-              },
               "description": "ISO 8601 date/time string for the countdown target (e.g. `\"2025-12-31T00:00:00\"`). Takes precedence over `duration`.",
+              "type": {
+                "text": "string"
+              },
               "fieldName": "target"
             },
             {
               "name": "duration",
-              "type": {
-                "text": "number | undefined"
-              },
               "description": "Fixed countdown duration in milliseconds. Used when `target` is not set.",
+              "type": {
+                "text": "number"
+              },
               "fieldName": "duration"
             },
             {
               "name": "auto-start",
+              "description": "Automatically start the countdown on connect.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Automatically start the countdown on connect.",
-              "fieldName": "autoStart"
+              "fieldName": "autoStart",
+              "default": "true"
             },
             {
               "name": "format",
+              "description": "Display format. Tokens: `DD` days, `HH` hours, `MM` minutes, `SS` seconds.",
               "type": {
                 "text": "string"
               },
-              "default": "'HH:MM:SS'",
-              "description": "Display format. Tokens: `DD` days, `HH` hours, `MM` minutes, `SS` seconds.",
-              "fieldName": "format"
+              "fieldName": "format",
+              "default": "'HH:MM:SS'"
+            }
+          ],
+          "events": [
+            {
+              "name": "countdown-tick",
+              "description": "Fired every second while the countdown is running",
+              "type": {
+                "text": "{ days: number, hours: number, minutes: number, seconds: number, remaining: number }"
+              }
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "void",
+              "description": "countdown-complete - Fired when the countdown reaches zero"
+            }
+          ],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "[--uibit-countdown-font-family=ui-monospace,'SF",
+              "description": "Mono',Menlo,monospace] - Font family for the entire countdown"
+            },
+            {
+              "name": "--uibit-countdown-font-size",
+              "description": "Base font size",
+              "default": "1rem"
+            },
+            {
+              "name": "--uibit-countdown-font-weight",
+              "description": "Font weight",
+              "default": "600"
+            },
+            {
+              "name": "--uibit-countdown-color",
+              "description": "Text color for values",
+              "default": "#111827"
+            },
+            {
+              "name": "--uibit-countdown-gap",
+              "description": "Gap between time units",
+              "default": "1.5rem"
+            },
+            {
+              "name": "--uibit-countdown-unit-gap",
+              "description": "Gap between the value and label within a unit",
+              "default": "0.375rem"
+            },
+            {
+              "name": "--uibit-countdown-value-font-size",
+              "description": "Font size for the numeric value",
+              "default": "2.25rem"
+            },
+            {
+              "name": "--uibit-countdown-value-min-width",
+              "description": "Min width of each value block",
+              "default": "4rem"
+            },
+            {
+              "name": "--uibit-countdown-label-font-size",
+              "description": "Font size for unit labels (Days, Hours…)",
+              "default": "0.6875rem"
+            },
+            {
+              "name": "--uibit-countdown-label-color",
+              "description": "Color for unit labels",
+              "default": "#6b7280"
+            },
+            {
+              "name": "--uibit-countdown-separator-font-size",
+              "description": "Font size of the colon separator",
+              "default": "2.25rem"
+            },
+            {
+              "name": "--uibit-countdown-separator-color",
+              "description": "Color of the colon separator",
+              "default": "#d1d5db"
             }
           ],
           "cssStates": [
@@ -469,10 +285,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A responsive and customizable digital timer and countdown clock component.\nconfigurable display formats and fires events on each tick and on completion.",
-          "tagName": "uibit-countdown",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -481,23 +294,7 @@
           "name": "Countdown",
           "declaration": {
             "name": "Countdown",
-            "module": "src/countdown.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-countdown",
-          "declaration": {
-            "name": "Countdown",
-            "module": "src/countdown.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "Countdown",
-            "module": "src/countdown.ts"
+            "module": "./src/countdown.ts"
           }
         }
       ]
@@ -506,61 +303,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./countdown"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Countdown",
-          "declaration": {
-            "name": "Countdown",
-            "module": "./countdown"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CountdownConfig",
-          "declaration": {
-            "name": "CountdownConfig",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "CountdownTickEvent",
-          "declaration": {
-            "name": "CountdownTickEvent",
-            "module": "./types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: block; font-family: var(--uibit-countdown-font-family, inherit); font-size: var(--uibit-countdown-font-size, var(--uibit-font-size-base, 1rem)); font-weight: var(--uibit-countdown-font-weight, var(--uibit-font-weight-semibold, 600)); color: var(--uibit-countdown-color, #111827); text-align: center; } .countdown { display: flex; gap: var(--uibit-countdown-gap, 1.5rem); justify-content: center; align-items: center; } .unit { display: flex; flex-direction: column; align-items: center; gap: var(--uibit-countdown-unit-gap, 0.375rem); } .value { font-size: var(--uibit-countdown-value-font-size, var(--uibit-font-size-3xl, 2.25rem)); min-width: var(--uibit-countdown-value-min-width, 4rem); line-height: 1; letter-spacing: var(--uibit-letter-spacing-tight, -0.025em); font-variant-numeric: tabular-nums; } .label { font-size: var(--uibit-countdown-label-font-size, var(--uibit-font-size-xs, 0.6875rem)); text-transform: uppercase; letter-spacing: var(--uibit-letter-spacing-widest, 0.1em); color: var(--uibit-countdown-label-color, #6b7280); font-weight: var(--uibit-font-weight-medium, 500); } .separator { font-size: var(--uibit-countdown-separator-font-size, var(--uibit-font-size-3xl, 2.25rem)); align-self: flex-start; color: var(--uibit-countdown-separator-color, #d1d5db); line-height: 1; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -574,41 +323,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -618,42 +375,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -663,29 +418,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -694,11 +451,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -706,17 +470,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -738,22 +499,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -775,30 +537,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

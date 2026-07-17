@@ -6,53 +6,19 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./table"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Table",
-          "declaration": {
-            "name": "Table",
-            "module": "./table"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: block; font-size: var(--uibit-table-font-size, var(--uibit-font-size-sm, calc(0.875rem * var(--uibit-font-scale-factor, 1)))); font-family: var(--uibit-table-font-family, inherit); color: var(--uibit-table-color, var(--uibit-text-primary, #111827)); --uibit-table-bg: var(--uibit-bg-surface, #ffffff); --uibit-table-border-color: var(--uibit-border-color, #e5e7eb); --uibit-table-head-bg: var(--uibit-bg-subtle, #f9fafb); --uibit-table-head-color: var(--uibit-text-muted, #6b7280); --uibit-table-hover-bg: var(--uibit-bg-subtle, #f9fafb); --uibit-table-stripe-bg: var(--uibit-stripe-bg, #f9fafb); --uibit-table-selected-bg: var(--uibit-selected-bg, #eff6ff); --uibit-table-selected-hover-bg: var(--uibit-selected-hover-bg, #dbeafe); --uibit-table-focus-color: var(--uibit-focus-color, #6b7280); --uibit-table-radius: var(--uibit-radius-lg, 0.375rem); --uibit-table-cell-padding: var(--uibit-spacing-2, 0.5rem) var(--uibit-spacing-3, 0.75rem); } /* ── Toolbar ─────────────────────────────────────────────── */ .toolbar { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.75rem; } .search-wrap { position: relative; flex: 1 1 12rem; } .search-icon { position: absolute; left: 0.625rem; top: 50%; transform: translateY(-50%); width: 0.875rem; height: 0.875rem; color: var(--uibit-text-muted, #9ca3af); pointer-events: none; } .search { width: 100%; padding: 0.375rem 0.625rem 0.375rem 2rem; border: 1px solid var(--uibit-table-border-color, #e5e7eb); border-radius: var(--uibit-table-radius, 0.375rem); font: inherit; font-size: var(--uibit-font-size-xs, 0.8125rem); background: var(--uibit-table-bg, #ffffff); color: inherit; outline: none; transition: border-color 0.15s; } .search:focus { border-color: var(--uibit-table-focus-color, #6b7280); } .search::placeholder { color: var(--uibit-text-muted, #9ca3af); } .controls { display: flex; align-items: center; gap: 0.375rem; flex-shrink: 0; flex-wrap: wrap; } .toolbar-label { font-size: var(--uibit-font-size-xs, 0.75rem); color: var(--uibit-text-muted, #6b7280); white-space: nowrap; } .ctrl-select { padding: 0.3rem 0.5rem; border: 1px solid var(--uibit-table-border-color, #e5e7eb); border-radius: var(--uibit-table-radius, 0.375rem); font: inherit; font-size: var(--uibit-font-size-xs, 0.8125rem); background: var(--uibit-table-bg, #ffffff); color: inherit; cursor: pointer; outline: none; } .ctrl-select:focus { border-color: var(--uibit-table-focus-color, #6b7280); } .ctrl-btn { padding: 0.35rem 0.75rem; border: 1px solid var(--uibit-table-border-color, #e5e7eb); border-radius: var(--uibit-table-radius, 0.375rem); font: inherit; font-size: var(--uibit-font-size-xs, 0.8125rem); background: var(--uibit-table-bg, #ffffff); color: inherit; cursor: pointer; white-space: nowrap; transition: background 0.12s, border-color 0.12s, opacity 0.1s ease, box-shadow 0.1s ease; display: inline-flex; align-items: center; gap: 0.3rem; } .ctrl-btn:hover { background: var(--uibit-table-hover-bg, #f9fafb); border-color: var(--uibit-table-border-color, #d1d5db); } .ctrl-btn:active { box-shadow: inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1); opacity: 0.8; } .ctrl-btn:focus-visible { outline: 0.125rem solid var(--uibit-table-focus-color, currentColor); outline-offset: 0.125rem; } .ctrl-btn .chevron { font-size: 0.625rem; opacity: 0.6; } /* ── Column menu ─────────────────────────────────────────── */ .col-menu-wrap { position: relative; } .col-dropdown { position: absolute; right: 0; top: calc(100% + 0.25rem); z-index: 20; background: var(--uibit-table-bg, #ffffff); border: 1px solid var(--uibit-table-border-color, #e5e7eb); border-radius: var(--uibit-table-radius, 0.375rem); padding: 0.375rem; min-width: 10rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -2px rgba(0,0,0,0.06); } .col-dropdown-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.3rem 0.5rem; border-radius: 0.25rem; cursor: pointer; font-size: var(--uibit-font-size-xs, 0.8125rem); white-space: nowrap; user-select: none; } .col-dropdown-item:hover { background: var(--uibit-bg-subtle, #f3f4f6); } .col-dropdown-item input[type=\"checkbox\"] { width: 0.875rem; height: 0.875rem; cursor: pointer; flex-shrink: 0; margin: 0; accent-color: var(--uibit-focus-color, #111827); } /* Consolidated Options dropdown styles */ .options-dropdown { min-width: 12rem; } .dropdown-section-title { font-size: var(--uibit-font-size-xs, 0.6875rem); font-weight: var(--uibit-font-weight-bold, 700); text-transform: uppercase; letter-spacing: var(--uibit-letter-spacing-wide, 0.05em); color: var(--uibit-text-muted, #6b7280); padding: 0.375rem 0.5rem 0.25rem; } .dropdown-divider { height: 1px; background: var(--uibit-table-border-color, #e5e7eb); margin: 0.375rem 0; } .dropdown-btn { display: block; width: 100%; text-align: left; background: none; border: none; padding: 0.375rem 0.5rem; font: inherit; font-size: var(--uibit-font-size-xs, 0.8125rem); color: var(--uibit-text-primary, #111827); border-radius: 0.25rem; cursor: pointer; } .dropdown-btn:hover { background: var(--uibit-bg-subtle, #f3f4f6); } .dropdown-btn-danger { color: #b91c1c; } .dropdown-btn-danger:hover { background: #fef2f2; } /* ── Selection banner ────────────────────────────────────── */ .sel-banner { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; padding: 0.5rem 0.875rem; margin-bottom: 0.5rem; background: var(--uibit-selected-bg, #eff6ff); border: 1px solid var(--uibit-border-color, #bfdbfe); border-radius: var(--uibit-table-radius, 0.375rem); font-size: var(--uibit-font-size-xs, 0.8125rem); color: var(--uibit-text-primary, #1e40af); } .sel-banner-count { font-weight: 600; } .sel-banner-btn { background: none; border: none; padding: 0; font: inherit; font-size: var(--uibit-font-size-xs, 0.8125rem); color: var(--uibit-focus-color, #1d4ed8); cursor: pointer; text-decoration: underline; text-underline-offset: 0.15em; } .sel-banner-btn:focus-visible { outline: 0.125rem solid var(--uibit-focus-color, currentColor); outline-offset: 0.125rem; border-radius: 0.125rem; } .sel-banner-sep { color: var(--uibit-border-color, #93c5fd); } /* ── Table wrapper ───────────────────────────────────────── */ .table-wrap { width: 100%; overflow-x: auto; border: 1px solid var(--uibit-table-border-color, #e5e7eb); border-radius: var(--uibit-table-radius, 0.375rem); } :host([sticky-header]) .table-wrap { max-height: var(--uibit-table-max-height, 24rem); overflow-y: auto; } table { width: 100%; border-collapse: collapse; table-layout: auto; } /* ── Head ────────────────────────────────────────────────── */ thead { background: var(--uibit-table-head-bg, #f9fafb); } :host([sticky-header]) thead th { position: sticky; top: 0; z-index: 2; background: var(--uibit-table-head-bg, #f9fafb); } th { padding: var(--uibit-table-cell-padding, 0.5rem 0.75rem); text-align: left; font-weight: var(--uibit-font-weight-semibold, 600); font-size: var(--uibit-font-size-xs, 0.75rem); text-transform: uppercase; letter-spacing: var(--uibit-letter-spacing-wide, 0.04em); color: var(--uibit-table-head-color, #6b7280); border-bottom: 1px solid var(--uibit-table-border-color, #e5e7eb); user-select: none; position: relative; white-space: nowrap; } th.sortable { cursor: pointer; } th.sortable:hover { color: var(--uibit-table-color, #111827); } .th-inner { display: inline-flex; align-items: center; gap: 0.25rem; } /* ── Sort icon ───────────────────────────────────────────── */ .sort-icon { width: 0.75rem; height: 0.75rem; flex-shrink: 0; opacity: 0.35; } th.sort-asc .sort-icon, th.sort-desc .sort-icon { opacity: 1; } .sort-badge { display: inline-flex; align-items: center; justify-content: center; width: 1rem; width: 1rem; height: 1rem; border-radius: 50%; background: var(--uibit-focus-color, #374151); color: var(--uibit-bg-surface, #fff); font-size: var(--uibit-font-size-xs, 0.625rem); font-weight: var(--uibit-font-weight-bold, 700); line-height: 1; flex-shrink: 0; } /* ── Resize handle ───────────────────────────────────────── */ .resize-handle { position: absolute; right: 0; top: 0; bottom: 0; width: 5px; cursor: col-resize; z-index: 1; } .resize-handle::after { content: ''; position: absolute; right: 1px; top: 20%; bottom: 20%; width: 2px; background: transparent; border-radius: 1px; transition: background 0.15s; } .resize-handle:hover::after, .resizing .resize-handle::after { background: var(--uibit-table-focus-color, #6b7280); } /* ── Filter row ──────────────────────────────────────────── */ .filter-row th { padding: 0.3rem 0.5rem; background: var(--uibit-table-head-bg, #f9fafb); border-bottom: 1px solid var(--uibit-table-border-color, #e5e7eb); text-transform: none; letter-spacing: 0; font-weight: 400; } :host([sticky-header]) .filter-row th { position: sticky; top: var(--uibit-table-header-height, 2.5rem); z-index: 2; background: var(--uibit-table-head-bg, #f9fafb); } .filter-input { width: 100%; padding: 0.2rem 0.375rem; border: 1px solid var(--uibit-table-border-color, #e5e7eb); border-radius: 0.25rem; font: inherit; font-size: var(--uibit-font-size-xs, 0.75rem); background: var(--uibit-table-bg, #ffffff); color: inherit; outline: none; min-width: 0; box-sizing: border-box; } .filter-input:focus { border-color: var(--uibit-table-focus-color, #6b7280); } .filter-input::placeholder { color: var(--uibit-text-muted, #d1d5db); } .filter-input.active { border-color: var(--uibit-table-focus-color, #6b7280); background: var(--uibit-bg-subtle, #fafafa); } /* ── Checkbox column ─────────────────────────────────────── */ .col-check { width: 2.75rem; text-align: center; padding-left: 0.875rem; padding-right: 0; } td.col-check { padding-left: 0.875rem; padding-right: 0; } input[type=\"checkbox\"] { width: 0.875rem; height: 0.875rem; cursor: pointer; margin: 0; vertical-align: middle; accent-color: var(--uibit-focus-color, #111827); } /* ── Body rows ───────────────────────────────────────────── */ td { padding: var(--uibit-table-cell-padding, 0.5rem 0.75rem); border-bottom: 1px solid var(--uibit-table-border-color, #e5e7eb); color: var(--uibit-table-color, #111827); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20rem; } tr:last-child td { border-bottom: none; } tbody tr { transition: background 0.1s; } tbody tr:hover { background: var(--uibit-table-hover-bg, #f9fafb); } tbody tr.row-selected td { background: var(--uibit-table-selected-bg, #eff6ff); } tbody tr.row-selected:hover td { background: #dbeafe; } :host([striped]) tbody tr:nth-child(even):not(.row-selected) td { background: var(--uibit-table-stripe-bg, #f9fafb); } /* ── Misc ────────────────────────────────────────────────── */ .empty { padding: 2.5rem; text-align: center; color: var(--uibit-text-muted, #9ca3af); font-size: var(--uibit-font-size-sm, 0.875rem); } .highlight { background: var(--uibit-highlight-bg, #fef9c3); color: var(--uibit-highlight-text, #000000); border-radius: 0.125rem; padding: 0 0.1em; } .filter-highlight { background: var(--uibit-filter-highlight-bg, #dcfce7); color: var(--uibit-filter-highlight-text, #000000); border-radius: 0.125rem; padding: 0 0.1em; } /* ── Footer ──────────────────────────────────────────────── */ .footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; font-size: var(--uibit-font-size-xs, 0.75rem); color: #6b7280; } .footer-left { display: flex; align-items: center; gap: 0.5rem; } .footer-sep { color: var(--uibit-table-border-color, #e5e7eb); } .footer-label { color: var(--uibit-text-muted, #6b7280); } .footer-select { padding: 0.15rem 0.35rem; font-size: var(--uibit-font-size-xs, 0.75rem); } .pagination { display: flex; align-items: center; gap: 0.25rem; } .page-btn { min-width: 1.75rem; height: 1.75rem; padding: 0 0.375rem; border: 1px solid var(--uibit-table-border-color, #e5e7eb); border-radius: 0.25rem; font: inherit; font-size: var(--uibit-font-size-xs, 0.75rem); background: var(--uibit-table-bg, #ffffff); color: inherit; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background 0.12s, box-shadow 0.1s ease, opacity 0.1s ease; } .page-btn:hover:not(:disabled) { background: var(--uibit-bg-subtle, #f3f4f6); } .page-btn:active:not(:disabled) { box-shadow: inset 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.12); opacity: 0.8; } .page-btn.active { background: var(--uibit-focus-color, #111827); color: var(--uibit-bg-surface, #fff); border-color: var(--uibit-focus-color, #111827); font-weight: 600; } .page-btn:disabled { opacity: 0.4; cursor: default; } .page-btn:focus-visible { outline: 0.125rem solid var(--uibit-focus-color, currentColor); outline-offset: 0.125rem; } /* Loading Spinner */ .loading-spinner { font-size: var(--uibit-font-size-xs, 0.75rem); color: var(--uibit-text-muted, #6b7280); display: inline-flex; align-items: center; gap: 0.375rem; } .loading-spinner::before { content: ''; width: 0.75rem; height: 0.75rem; border: 1.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: uibit-spin 0.6s linear infinite; } @keyframes uibit-spin { to { transform: rotate(360deg); } } slot { display: none; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/table.test.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -60,392 +26,451 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "",
           "name": "Table",
+          "tagName": "uibit-table",
+          "customElement": true,
+          "description": "Wraps a standard HTML `<table>` in the default slot and layers on a full\ndatagrid feature set. The source table is parsed once on slot assignment and\nnever mutated; all rendering happens inside shadow DOM.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "searchable",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
+              "kind": "field",
               "description": "Show the global search input.",
+              "default": "true",
+              "static": false,
+              "privacy": "public",
               "attribute": "searchable"
             },
             {
-              "kind": "field",
               "name": "paginated",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
+              "kind": "field",
               "description": "Show pagination controls and per-page selector.",
+              "default": "true",
+              "static": false,
+              "privacy": "public",
               "attribute": "paginated"
             },
             {
-              "kind": "field",
               "name": "exportable",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
+              "kind": "field",
               "description": "Show CSV export button.",
+              "default": "true",
+              "static": false,
+              "privacy": "public",
               "attribute": "exportable"
             },
             {
-              "kind": "field",
               "name": "selectable",
+              "kind": "field",
+              "description": "Enable row-selection checkboxes.",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Enable row-selection checkboxes.",
+              "static": false,
+              "privacy": "public",
               "attribute": "selectable"
             },
             {
-              "kind": "field",
               "name": "filterable",
+              "kind": "field",
+              "description": "Show per-column filter row below the header.",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Show per-column filter row below the header.",
+              "static": false,
+              "privacy": "public",
               "attribute": "filterable"
             },
             {
-              "kind": "field",
               "name": "resizable",
+              "kind": "field",
+              "description": "Enable drag-to-resize column handles.",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Enable drag-to-resize column handles.",
+              "static": false,
+              "privacy": "public",
               "attribute": "resizable"
             },
             {
-              "kind": "field",
               "name": "columnChooser",
+              "kind": "field",
+              "description": "Show column visibility toggle in the toolbar.",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Show column visibility toggle in the toolbar.",
+              "static": false,
+              "privacy": "public",
               "attribute": "column-chooser"
             },
             {
-              "kind": "field",
               "name": "striped",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "false",
+              "kind": "field",
               "description": "Alternating row background.",
-              "attribute": "striped",
-              "reflects": true
-            },
-            {
-              "kind": "field",
-              "name": "stickyHeader",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Stick the header row when the table overflows vertically.",
-              "attribute": "sticky-header",
-              "reflects": true
+              "static": false,
+              "privacy": "public",
+              "reflects": true,
+              "attribute": "striped"
             },
             {
+              "name": "stickyHeader",
               "kind": "field",
-              "name": "pageSizes",
+              "description": "Stick the header row when the table overflows vertically.",
               "type": {
-                "text": "string"
+                "text": "boolean"
               },
-              "default": "'10,25,50,100'",
+              "default": "false",
+              "static": false,
+              "privacy": "public",
+              "reflects": true,
+              "attribute": "sticky-header"
+            },
+            {
+              "name": "pageSizes",
+              "kind": "field",
               "description": "Comma-separated rows-per-page options.",
+              "default": "'10,25,50,100'",
+              "static": false,
+              "privacy": "public",
               "attribute": "page-sizes"
             },
             {
-              "kind": "field",
               "name": "controlsLayout",
+              "kind": "field",
+              "description": "Controls layout: 'inline' or consolidated 'menu' under a dropdown.",
               "type": {
                 "text": "'inline' | 'menu'"
               },
               "default": "'inline'",
-              "description": "Controls layout: 'inline' or consolidated 'menu' under a dropdown.",
+              "static": false,
+              "privacy": "public",
               "attribute": "controls-layout"
             },
             {
-              "kind": "field",
               "name": "infiniteScroll",
+              "kind": "field",
+              "description": "Enable infinite scroll behavior instead of page pagination.",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Enable infinite scroll behavior instead of page pagination.",
+              "static": false,
+              "privacy": "public",
               "attribute": "infinite-scroll"
             },
             {
-              "kind": "field",
               "name": "loading",
+              "kind": "field",
+              "description": "Indicates the table is loading more items in infinite scroll mode.",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Indicates the table is loading more items in infinite scroll mode.",
+              "static": false,
+              "privacy": "public",
               "attribute": "loading"
             },
             {
-              "kind": "field",
               "name": "_cols",
+              "kind": "field",
               "type": {
                 "text": "Col[]"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_rows",
+              "kind": "field",
               "type": {
                 "text": "string[][]"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_query",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "''"
+              "kind": "field",
+              "default": "''",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_sorts",
+              "kind": "field",
               "type": {
                 "text": "SortEntry[]"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_page",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "1"
+              "kind": "field",
+              "default": "1",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_perPage",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "10"
+              "kind": "field",
+              "default": "10",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_selected",
-              "privacy": "private",
-              "default": "new Set<number>()"
+              "kind": "field",
+              "default": "new Set<number>()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_hiddenCols",
-              "privacy": "private",
-              "default": "new Set<string>()"
+              "kind": "field",
+              "default": "new Set<string>()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_colFilters",
-              "privacy": "private",
-              "default": "new Map<string, string>()"
+              "kind": "field",
+              "default": "new Map<string, string>()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_colMenuOpen",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_optionsMenuOpen",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_allFilteredSelected",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_searchPlaceholderText",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "''"
+              "kind": "field",
+              "default": "''",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_colWidths",
-              "privacy": "private",
-              "default": "new Map<string, number>()"
+              "kind": "field",
+              "default": "new Map<string, number>()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_resizing",
+              "kind": "field",
               "type": {
                 "text": "{ key: string; startX: number; startW: number } | null"
               },
-              "privacy": "private",
-              "default": "null"
+              "default": "null",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_rafId",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_closeMenuHandler",
+              "kind": "field",
               "type": {
-                "text": "(e: MouseEvent) => void | undefined"
+                "text": "(e: MouseEvent) => void"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_escMenuHandler",
+              "kind": "field",
               "type": {
-                "text": "(e: KeyboardEvent) => void | undefined"
+                "text": "(e: KeyboardEvent) => void"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
+              "name": "firstUpdated",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "PropertyValues"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "updated",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "PropertyValues"
+                  }
+                }
+              ]
+            },
+            {
               "name": "_pageSizeOptions",
+              "kind": "field",
               "type": {
                 "text": "number[]"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_visibleCols",
+              "kind": "field",
               "type": {
                 "text": "Col[]"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_indexed",
+              "kind": "field",
               "type": {
                 "text": "IndexedRow[]"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_colFiltered",
+              "kind": "field",
               "type": {
                 "text": "IndexedRow[]"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_searched",
+              "kind": "field",
               "type": {
                 "text": "IndexedRow[]"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_sortedRows",
+              "kind": "field",
               "type": {
                 "text": "IndexedRow[]"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_pageRows",
+              "kind": "field",
               "type": {
                 "text": "IndexedRow[]"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_totalPages",
+              "kind": "field",
               "type": {
                 "text": "number"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_allPageSelected",
+              "kind": "field",
               "type": {
                 "text": "boolean"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_somePageSelected",
+              "kind": "field",
               "type": {
                 "text": "boolean"
               },
+              "static": false,
               "privacy": "private",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_resizeHandler",
+              "kind": "field",
+              "default": "() => this._updateHeaderHeight()",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_updateHeaderHeight",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_onSlotChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -457,8 +482,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onSearchPlaceholderChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -470,8 +496,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onSearch",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -483,8 +510,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onSort",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -502,8 +530,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onPerPage",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -515,8 +544,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onColFilter",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -534,8 +564,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onSelectRow",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -547,8 +578,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onSelectAllPage",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -560,8 +592,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onTableClick",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -573,8 +606,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onTableChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -586,23 +620,27 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onSelectAllFiltered",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_clearSelection",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_emitSelect",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_onToggleCol",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -614,23 +652,27 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_openColMenu",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_openOptionsMenu",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_removeMenuListener",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_onScroll",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -642,8 +684,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onResizeStart",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -661,27 +704,26 @@
               ]
             },
             {
-              "kind": "field",
               "name": "_cleanupResizeListeners",
+              "kind": "field",
               "type": {
                 "text": "() => void"
               },
+              "default": "() => {}",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_exportCsv",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_highlight",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "unknown"
-                }
-              },
               "parameters": [
                 {
                   "name": "text",
@@ -695,17 +737,18 @@
                     "text": "string"
                   }
                 }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_applyHighlight",
-              "privacy": "private",
+              ],
               "return": {
                 "type": {
-                  "text": "TemplateResult | string"
+                  "text": "unknown"
                 }
-              },
+              }
+            },
+            {
+              "name": "_applyHighlight",
+              "kind": "method",
+              "static": false,
+              "privacy": "private",
               "parameters": [
                 {
                   "name": "text",
@@ -725,17 +768,18 @@
                     "text": "string"
                   }
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "TemplateResult | string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "_colStyle",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
               "parameters": [
                 {
                   "name": "col",
@@ -743,17 +787,18 @@
                     "text": "Col"
                   }
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "_renderSortIcon",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "TemplateResult | typeof nothing"
-                }
-              },
               "parameters": [
                 {
                   "name": "col",
@@ -761,11 +806,17 @@
                     "text": "Col"
                   }
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "TemplateResult | typeof nothing"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "_renderPagination",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -774,8 +825,9 @@
               }
             },
             {
-              "kind": "method",
               "name": "_renderSelectionBanner",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -784,8 +836,9 @@
               }
             },
             {
-              "kind": "method",
               "name": "_renderColMenu",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -794,8 +847,9 @@
               }
             },
             {
-              "kind": "method",
               "name": "_renderOptionsMenu",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -804,8 +858,9 @@
               }
             },
             {
-              "kind": "method",
               "name": "_renderFilterRow",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -814,349 +869,250 @@
               }
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "searchable",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
               "description": "Show the global search input.",
-              "fieldName": "searchable"
+              "fieldName": "searchable",
+              "default": "true"
             },
             {
               "name": "paginated",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
               "description": "Show pagination controls and per-page selector.",
-              "fieldName": "paginated"
+              "fieldName": "paginated",
+              "default": "true"
             },
             {
               "name": "exportable",
-              "type": {
-                "text": "boolean"
-              },
-              "default": "true",
               "description": "Show CSV export button.",
-              "fieldName": "exportable"
+              "fieldName": "exportable",
+              "default": "true"
             },
             {
               "name": "selectable",
+              "description": "Enable row-selection checkboxes.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Enable row-selection checkboxes.",
-              "fieldName": "selectable"
+              "fieldName": "selectable",
+              "default": "false"
             },
             {
               "name": "filterable",
+              "description": "Show per-column filter row below the header.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Show per-column filter row below the header.",
-              "fieldName": "filterable"
+              "fieldName": "filterable",
+              "default": "false"
             },
             {
               "name": "resizable",
+              "description": "Enable drag-to-resize column handles.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Enable drag-to-resize column handles.",
-              "fieldName": "resizable"
+              "fieldName": "resizable",
+              "default": "false"
             },
             {
               "name": "column-chooser",
+              "description": "Show column visibility toggle in the toolbar.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Show column visibility toggle in the toolbar.",
-              "fieldName": "columnChooser"
+              "fieldName": "columnChooser",
+              "default": "false"
             },
             {
               "name": "striped",
+              "description": "Alternating row background.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Alternating row background.",
-              "fieldName": "striped"
+              "fieldName": "striped",
+              "default": "false"
             },
             {
               "name": "sticky-header",
+              "description": "Stick the header row when the table overflows vertically.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Stick the header row when the table overflows vertically.",
-              "fieldName": "stickyHeader"
+              "fieldName": "stickyHeader",
+              "default": "false"
             },
             {
               "name": "page-sizes",
-              "type": {
-                "text": "string"
-              },
-              "default": "'10,25,50,100'",
               "description": "Comma-separated rows-per-page options.",
-              "fieldName": "pageSizes"
+              "fieldName": "pageSizes",
+              "default": "'10,25,50,100'"
             },
             {
               "name": "controls-layout",
+              "description": "Controls layout: 'inline' or consolidated 'menu' under a dropdown.",
               "type": {
                 "text": "'inline' | 'menu'"
               },
-              "default": "'inline'",
-              "description": "Controls layout: 'inline' or consolidated 'menu' under a dropdown.",
-              "fieldName": "controlsLayout"
+              "fieldName": "controlsLayout",
+              "default": "'inline'"
             },
             {
               "name": "infinite-scroll",
+              "description": "Enable infinite scroll behavior instead of page pagination.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Enable infinite scroll behavior instead of page pagination.",
-              "fieldName": "infiniteScroll"
+              "fieldName": "infiniteScroll",
+              "default": "false"
             },
             {
               "name": "loading",
+              "description": "Indicates the table is loading more items in infinite scroll mode.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Indicates the table is loading more items in infinite scroll mode.",
-              "fieldName": "loading"
-            },
-            {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "fieldName": "loading",
+              "default": "false"
             }
           ],
+          "events": [
+            {
+              "name": "search",
+              "description": "",
+              "type": {
+                "text": "{ query: string }"
+              }
+            },
+            {
+              "name": "sort",
+              "description": "",
+              "type": {
+                "text": "{ sorts: SortEntry[] }"
+              }
+            },
+            {
+              "name": "page-change",
+              "description": "",
+              "type": {
+                "text": "{ page: number }"
+              }
+            },
+            {
+              "name": "row-select",
+              "description": "",
+              "type": {
+                "text": "{ indices: number[], rows: string[][] }"
+              }
+            },
+            {
+              "name": "load-more",
+              "description": "Dispatched when infiniteScroll is enabled and scrolled near the bottom"
+            }
+          ],
+          "slots": [
+            {
+              "name": "-",
+              "description": "A standard `<table>` element"
+            },
+            {
+              "name": "search-placeholder",
+              "description": "A slot to customize/translate the search input placeholder"
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-table-font-size",
+              "description": "",
+              "default": "0.875rem"
+            },
+            {
+              "name": "--uibit-table-font-family",
+              "description": "",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-table-color",
+              "description": "",
+              "default": "#111827"
+            },
+            {
+              "name": "--uibit-table-border-color",
+              "description": "",
+              "default": "#e5e7eb"
+            },
+            {
+              "name": "--uibit-table-radius",
+              "description": "",
+              "default": "0.375rem"
+            },
+            {
+              "name": "--uibit-table-bg",
+              "description": "",
+              "default": "#ffffff"
+            },
+            {
+              "name": "--uibit-table-head-bg",
+              "description": "",
+              "default": "#f9fafb"
+            },
+            {
+              "name": "--uibit-table-head-color",
+              "description": "",
+              "default": "#6b7280"
+            },
+            {
+              "name": "--uibit-table-hover-bg",
+              "description": "",
+              "default": "#f9fafb"
+            },
+            {
+              "name": "--uibit-table-selected-bg",
+              "description": "",
+              "default": "#eff6ff"
+            },
+            {
+              "name": "--uibit-table-stripe-bg",
+              "description": "",
+              "default": "#f9fafb"
+            },
+            {
+              "name": "--uibit-table-highlight-bg",
+              "description": "",
+              "default": "#fef9c3"
+            },
+            {
+              "name": "--uibit-table-filter-highlight-bg",
+              "description": "",
+              "default": "#dcfce7"
+            },
+            {
+              "name": "--uibit-table-focus-color",
+              "description": "",
+              "default": "#6b7280"
+            },
+            {
+              "name": "[--uibit-table-cell-padding=0.625rem",
+              "description": "0.875rem]"
+            },
+            {
+              "name": "--uibit-table-max-height",
+              "description": "Max height when sticky-header is set",
+              "default": "24rem"
+            }
+          ],
+          "cssStates": [],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "tagName": "uibit-table",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -1165,23 +1121,7 @@
           "name": "Table",
           "declaration": {
             "name": "Table",
-            "module": "src/table.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-table",
-          "declaration": {
-            "name": "Table",
-            "module": "src/table.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "Table",
-            "module": "src/table.ts"
+            "module": "./src/table.ts"
           }
         }
       ]
@@ -1198,41 +1138,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -1242,42 +1190,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -1287,29 +1233,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -1318,11 +1266,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -1330,17 +1285,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -1362,22 +1314,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -1399,30 +1352,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

@@ -1,7 +1,8 @@
-use oxc_ast::ast::{Class, ClassElement, Expression};
+use oxc_ast::ast::{Class, ClassElement, Expression, TSAccessibility};
 use oxc_ast::Trivias;
 use oxc_ast::Visit;
-use crate::utils::types::{AttributeInfo, CustomElementInfo, EventInfo, MemberInfo, SuperclassInfo};
+use oxc_span::GetSpan;
+use crate::utils::types::{AttributeInfo, CustomElementInfo, EventInfo, MemberInfo, SuperclassInfo, TypeInfo, ParameterInfo, ReturnInfo};
 use crate::utils::ast_helpers::{get_comment_before_span, get_decorator_value, get_key_name, get_stencil_tag_name, has_decorator};
 use crate::features::analyse_phase::jsdoc::{parse_jsdoc, map_jsdoc_to_class};
 
@@ -24,7 +25,7 @@ impl<'a> Visit<'a> for EventVisitor {
                         self.events.push(EventInfo {
                           name: str_lit.value.to_string(),
                           description: None,
-                          r#type: Some(ident.name.to_string()),
+                          r#type: Some(TypeInfo { text: ident.name.to_string() }),
                         });
                       }
                     }
@@ -43,6 +44,16 @@ pub struct CemVisitor<'a> {
   pub elements: Vec<CustomElementInfo>,
   pub trivias: &'a Trivias,
   pub source_code: &'a str,
+  pub imports: std::collections::HashMap<String, (Option<String>, Option<String>)>,
+}
+
+fn get_privacy(accessibility: Option<TSAccessibility>) -> Option<String> {
+  match accessibility {
+    Some(TSAccessibility::Private) => Some("private".to_string()),
+    Some(TSAccessibility::Protected) => Some("protected".to_string()),
+    Some(TSAccessibility::Public) => Some("public".to_string()),
+    None => Some("public".to_string()),
+  }
 }
 
 fn camel_to_kebab(s: &str) -> String {
@@ -78,25 +89,35 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
     }
 
     let superclass = class.super_class.as_ref().and_then(|super_expr| {
-      if let Expression::Identifier(ident) = super_expr {
-        Some(SuperclassInfo {
-          name: ident.name.to_string(),
-          module: None,
-        })
+      let superclass_name = if let Expression::Identifier(ident) = super_expr {
+        ident.name.to_string()
       } else if let Some(member) = super_expr.as_member_expression() {
-        Some(SuperclassInfo {
-          name: member.static_property_name().unwrap_or_default().to_string(),
-          module: None,
-        })
+        member.static_property_name().unwrap_or_default().to_string()
       } else {
-        None
+        return None;
+      };
+
+      let mut package = None;
+      let mut module = None;
+      if let Some((pkg, mdl)) = self.imports.get(&superclass_name) {
+        package = pkg.clone();
+        module = mdl.clone();
       }
+
+      Some(SuperclassInfo {
+        name: superclass_name,
+        package,
+        module,
+      })
     });
 
+    let is_custom_element = tag_name.is_some()
+      || superclass.as_ref().map_or(false, |s| s.name == "LitElement" || s.name == "UIBitElement");
     let mut class_info = CustomElementInfo {
       kind: "class".to_string(),
       name: class_name,
       tag_name,
+      custom_element: if is_custom_element { Some(true) } else { None },
       description: None,
       summary: None,
       deprecated: None,
@@ -185,8 +206,9 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
                             class_info.attributes.push(AttributeInfo {
                               name: str_lit.value.to_string(),
                               description: None,
-                              r#type: Some("string".to_string()),
+                              r#type: Some(TypeInfo { text: "string".to_string() }),
                               field_name: None,
+                              default: None,
                             });
                           }
                         }
@@ -204,7 +226,72 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
           let parsed_jsdoc = raw_jsdoc.map(|raw| parse_jsdoc(&raw));
 
           let description = parsed_jsdoc.as_ref().map(|j| j.description.clone()).filter(|s| !s.is_empty());
+
+          if method.kind == oxc_ast::ast::MethodDefinitionKind::Get {
+            let mut prop_type = None;
+            if let Some(ret_type) = &method.value.return_type {
+              let ret_str = ret_type.type_annotation.span().source_text(self.source_code).trim().to_string();
+              prop_type = Some(TypeInfo { text: ret_str });
+            }
+
+            class_info.members.push(MemberInfo {
+              name,
+              kind: "field".to_string(),
+              description,
+              r#type: prop_type,
+              default: None,
+              r#static: Some(method.r#static),
+              privacy: get_privacy(method.accessibility),
+              readonly: Some(true),
+              reflects: None,
+              attribute: None,
+              parameters: None,
+              r#return: None,
+            });
+            last_member_end = element_span.end;
+            continue;
+          }
           
+          let method_fn = &method.value;
+          let mut parameters = Vec::new();
+          for param in &method_fn.params.items {
+            let mut param_name = String::new();
+            let mut optional = None;
+            let mut param_type = None;
+
+            match &param.pattern.kind {
+              oxc_ast::ast::BindingPatternKind::BindingIdentifier(ident) => {
+                param_name = ident.name.to_string();
+              }
+              _ => {}
+            }
+
+            if param.pattern.optional {
+              optional = Some(true);
+            }
+
+            if let Some(type_anno) = &param.pattern.type_annotation {
+              let type_str = type_anno.type_annotation.span().source_text(self.source_code).trim().to_string();
+              param_type = Some(TypeInfo { text: type_str });
+            }
+
+            parameters.push(ParameterInfo {
+              name: param_name,
+              r#type: param_type,
+              optional,
+              description: None,
+            });
+          }
+
+          let mut r#return = None;
+          if let Some(ret_type) = &method_fn.return_type {
+            let ret_str = ret_type.type_annotation.span().source_text(self.source_code).trim().to_string();
+            r#return = Some(ReturnInfo {
+              r#type: Some(TypeInfo { text: ret_str }),
+              description: None,
+            });
+          }
+
           class_info.members.push(MemberInfo {
             name,
             kind: "method".to_string(),
@@ -212,10 +299,12 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
             r#type: None,
             default: None,
             r#static: Some(method.r#static),
-            privacy: Some("public".to_string()),
+            privacy: get_privacy(method.accessibility),
             readonly: None,
             reflects: None,
             attribute: None,
+            parameters: if parameters.is_empty() { None } else { Some(parameters) },
+            r#return,
           });
 
           let mut event_visitor = EventVisitor { events: Vec::new() };
@@ -251,8 +340,9 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
                     class_info.attributes.push(AttributeInfo {
                       name: str_lit.value.to_string(),
                       description: None,
-                      r#type: Some("string".to_string()),
+                      r#type: Some(TypeInfo { text: "string".to_string() }),
                       field_name: None,
+                      default: None,
                     });
                   }
                 }
@@ -272,12 +362,15 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
           let mut is_stencil_event = false;
           let mut stencil_event_name = None;
 
+          let mut decorator_type = None;
           for decorator in &prop.decorators {
             if let Expression::CallExpression(call) = &decorator.expression {
               if let Expression::Identifier(ident) = &call.callee {
                 let d_name = ident.name.as_str();
                 if d_name == "property" || d_name == "state" || d_name == "attr" || d_name == "Prop" {
-                  is_element_property = true;
+                  if d_name != "state" {
+                    is_element_property = true;
+                  }
                   if let Some(first_arg) = call.arguments.first() {
                     if let Some(expr) = first_arg.as_expression() {
                       if let Expression::ObjectExpression(obj) = expr {
@@ -294,7 +387,11 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
                               }
                             } else if key_name == "reflect" || key_name == "reflects" {
                               if let Expression::BooleanLiteral(bool_lit) = &p.value {
-                                reflects = bool_lit.value;
+                                  reflects = bool_lit.value;
+                              }
+                            } else if key_name == "type" {
+                              if let Expression::Identifier(type_ident) = &p.value {
+                                decorator_type = Some(type_ident.name.to_string().to_lowercase());
                               }
                             }
                           }
@@ -324,16 +421,28 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
             }
           }
 
+          let mut type_anno_str = None;
+          if let Some(type_anno) = &prop.type_annotation {
+            type_anno_str = Some(type_anno.type_annotation.span().source_text(self.source_code).trim().to_string());
+          } else if let Some(d_type) = decorator_type {
+            type_anno_str = Some(d_type);
+          }
+          let prop_type = type_anno_str.map(|t| TypeInfo { text: t });
+
           if is_stencil_event {
             let event_name = stencil_event_name.unwrap_or_else(|| name.clone());
             class_info.events.push(EventInfo {
               name: event_name,
               description: description.clone(),
-              r#type: Some("CustomEvent".to_string()),
+              r#type: Some(TypeInfo { text: "CustomEvent".to_string() }),
             });
             last_member_end = element_span.end;
             continue;
           }
+
+          let default_val = prop.value.as_ref().map(|expr| {
+            expr.span().source_text(self.source_code).trim().to_string()
+          });
 
           if is_element_property {
             let attr = if attribute_name.as_deref() == Some("false") {
@@ -347,21 +456,13 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
                 class_info.attributes.push(AttributeInfo {
                   name: attr_name,
                   description: description.clone(),
-                  r#type: None,
+                  r#type: prop_type.clone(),
                   field_name: Some(name.clone()),
+                  default: default_val.clone(),
                 });
               }
             }
           }
-
-          let default_val = prop.value.as_ref().and_then(|expr| {
-            match expr {
-              Expression::StringLiteral(s) => Some(format!("'{}'", s.value)),
-              Expression::NumericLiteral(n) => Some(n.value.to_string()),
-              Expression::BooleanLiteral(b) => Some(b.value.to_string()),
-              _ => None,
-            }
-          });
 
           let attr_val = if is_element_property {
             if attribute_name.as_deref() == Some("false") {
@@ -377,13 +478,15 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
             name,
             kind: "field".to_string(),
             description,
-            r#type: None,
+            r#type: prop_type,
             default: default_val,
             r#static: Some(prop.r#static),
-            privacy: Some("public".to_string()),
+            privacy: get_privacy(prop.accessibility),
             readonly: None,
             reflects: if reflects { Some(true) } else { None },
             attribute: attr_val,
+            parameters: None,
+            r#return: None,
           });
         }
         _ => {}
@@ -393,5 +496,23 @@ impl<'a, 'b> Visit<'b> for CemVisitor<'a> {
     }
 
     self.elements.push(class_info);
+  }
+
+  fn visit_import_declaration(&mut self, decl: &oxc_ast::ast::ImportDeclaration<'b>) {
+    let source = decl.source.value.to_string();
+    let is_package = !source.starts_with('.') && !source.starts_with('/');
+
+    if let Some(specifiers) = &decl.specifiers {
+      for specifier in specifiers {
+        if let oxc_ast::ast::ImportDeclarationSpecifier::ImportSpecifier(spec) = specifier {
+          let local_name = spec.local.name.to_string();
+          if is_package {
+            self.imports.insert(local_name, (Some(source.clone()), None));
+          } else {
+            self.imports.insert(local_name, (None, Some(source.clone())));
+          }
+        }
+      }
+    }
   }
 }

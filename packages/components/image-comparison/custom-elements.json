@@ -4,97 +4,108 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "src/image-comparison.test.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/image-comparison.ts",
       "declarations": [
         {
           "kind": "class",
-          "description": "An interactive visual comparison curtain component. Displays before and after states",
           "name": "ImageComparison",
-          "cssProperties": [
-            {
-              "description": "Diameter of the handle knob",
-              "name": "--uibit-image-comparison-handle-size",
-              "default": "2.75rem"
-            },
-            {
-              "description": "Background color of the handle knob",
-              "name": "--uibit-image-comparison-handle-bg",
-              "default": "#ffffff"
-            },
-            {
-              "description": "Border outline color of the handle",
-              "name": "--uibit-image-comparison-handle-border-color",
-              "default": "transparent"
-            },
-            {
-              "description": "Color of the arrows/icons inside the handle",
-              "name": "--uibit-image-comparison-handle-inner-color",
-              "default": "#111111"
-            },
-            {
-              "description": "Separation line border color",
-              "name": "--uibit-image-comparison-border-color",
-              "default": "#ffffff"
-            }
-          ],
+          "tagName": "uibit-image-comparison",
+          "customElement": true,
+          "description": "An interactive visual comparison curtain component. Displays before and after states",
+          "summary": "An interactive slider component for comparing two overlaying images side-by-side.\nand allows users to peel them back horizontally, vertically, diagonally, or radially.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "mode",
+              "kind": "field",
+              "description": "Visual mode of reveal: 'horizontal' | 'vertical' | 'diagonal' | 'radial'",
               "type": {
                 "text": "ComparisonMode"
               },
               "default": "'horizontal'",
-              "description": "Visual mode of reveal: 'horizontal' | 'vertical' | 'diagonal' | 'radial'",
+              "static": false,
+              "privacy": "public",
               "attribute": "mode"
             },
             {
-              "kind": "field",
               "name": "progress",
+              "kind": "field",
+              "description": "Reveal progress percentage (0 to 100)",
               "type": {
                 "text": "number"
               },
               "default": "50",
-              "description": "Reveal progress percentage (0 to 100)",
+              "static": false,
+              "privacy": "public",
               "attribute": "progress"
             },
             {
-              "kind": "field",
               "name": "interactive",
+              "kind": "field",
+              "description": "Whether progress is interactive via dragging/touching",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Whether progress is interactive via dragging/touching",
+              "static": false,
+              "privacy": "public",
               "attribute": "interactive"
             },
             {
-              "kind": "field",
               "name": "hoverReveal",
+              "kind": "field",
+              "description": "If true, pointer movement tracks progress immediately without click-dragging",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "If true, pointer movement tracks progress immediately without click-dragging",
+              "static": false,
+              "privacy": "public",
               "attribute": "hover-reveal"
             },
             {
-              "kind": "field",
               "name": "_isDragging",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
-              "kind": "method",
-              "name": "_updateAria",
+              "kind": "field",
+              "default": "false",
+              "static": false,
               "privacy": "private"
             },
             {
+              "name": "updated",
               "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "Map<PropertyKey, unknown>"
+                  }
+                }
+              ]
+            },
+            {
+              "name": "_updateAria",
+              "kind": "method",
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "_onKeyDown",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -106,8 +117,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_updateProgressFromEvent",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -119,8 +131,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onPointerDown",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -132,8 +145,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onPointerMove",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -145,8 +159,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_onPointerUp",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -158,8 +173,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_getClipPath",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -168,8 +184,9 @@
               }
             },
             {
-              "kind": "method",
               "name": "_getHandleStyle",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -178,8 +195,9 @@
               }
             },
             {
-              "kind": "method",
               "name": "_getDividerStyle",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -188,274 +206,92 @@
               }
             },
             {
-              "kind": "method",
               "name": "_renderHandleIcon",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "progress: number"
-              },
-              "description": "Fired when the curtain progress updates",
-              "name": "comparison-progress"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "mode",
+              "description": "Visual mode of reveal: 'horizontal' | 'vertical' | 'diagonal' | 'radial'",
               "type": {
                 "text": "ComparisonMode"
               },
-              "default": "'horizontal'",
-              "description": "Visual mode of reveal: 'horizontal' | 'vertical' | 'diagonal' | 'radial'",
-              "fieldName": "mode"
+              "fieldName": "mode",
+              "default": "'horizontal'"
             },
             {
               "name": "progress",
+              "description": "Reveal progress percentage (0 to 100)",
               "type": {
                 "text": "number"
               },
-              "default": "50",
-              "description": "Reveal progress percentage (0 to 100)",
-              "fieldName": "progress"
+              "fieldName": "progress",
+              "default": "50"
             },
             {
               "name": "interactive",
+              "description": "Whether progress is interactive via dragging/touching",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Whether progress is interactive via dragging/touching",
-              "fieldName": "interactive"
+              "fieldName": "interactive",
+              "default": "true"
             },
             {
               "name": "hover-reveal",
+              "description": "If true, pointer movement tracks progress immediately without click-dragging",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "If true, pointer movement tracks progress immediately without click-dragging",
-              "fieldName": "hoverReveal"
+              "fieldName": "hoverReveal",
+              "default": "false"
+            }
+          ],
+          "events": [
+            {
+              "name": "comparison-progress",
+              "description": "Fired when the curtain progress updates",
+              "type": {
+                "text": " progress: number "
+              }
+            }
+          ],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-image-comparison-handle-size",
+              "description": "Diameter of the handle knob",
+              "default": "2.75rem"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "--uibit-image-comparison-handle-bg",
+              "description": "Background color of the handle knob",
+              "default": "#ffffff"
+            },
+            {
+              "name": "--uibit-image-comparison-handle-border-color",
+              "description": "Border outline color of the handle",
+              "default": "transparent"
+            },
+            {
+              "name": "--uibit-image-comparison-handle-inner-color",
+              "description": "Color of the arrows/icons inside the handle",
+              "default": "#111111"
+            },
+            {
+              "name": "--uibit-image-comparison-border-color",
+              "description": "Separation line border color",
+              "default": "#ffffff"
             }
           ],
           "cssStates": [
@@ -467,10 +303,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "An interactive slider component for comparing two overlaying images side-by-side.\nand allows users to peel them back horizontally, vertically, diagonally, or radially.",
-          "tagName": "uibit-image-comparison",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -479,23 +312,7 @@
           "name": "ImageComparison",
           "declaration": {
             "name": "ImageComparison",
-            "module": "src/image-comparison.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-image-comparison",
-          "declaration": {
-            "name": "ImageComparison",
-            "module": "src/image-comparison.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "ImageComparison",
-            "module": "src/image-comparison.ts"
+            "module": "./src/image-comparison.ts"
           }
         }
       ]
@@ -504,61 +321,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./image-comparison"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ImageComparison",
-          "declaration": {
-            "name": "ImageComparison",
-            "module": "./image-comparison"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ComparisonMode",
-          "declaration": {
-            "name": "ComparisonMode",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ImageComparisonConfig",
-          "declaration": {
-            "name": "ImageComparisonConfig",
-            "module": "./types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: block; position: relative; width: 100%; height: 100%; overflow: hidden; user-select: none; outline: none; border-radius: 0.5rem; --uibit-image-comparison-handle-size: 2.25rem; --uibit-image-comparison-handle-bg: #ffffff; --uibit-image-comparison-handle-border-color: #e5e7eb; --uibit-image-comparison-handle-inner-color: #111827; --uibit-image-comparison-border-color: #ffffff; } :host(:focus-visible) { box-shadow: 0 0 0 0.1875rem rgba(0, 0, 0, 0.35); } .container { position: relative; width: 100%; height: 100%; touch-action: none; } .container.dragging, .container.dragging .handle { cursor: grabbing !important; } .layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } .layer::slotted(*), .layer slot::slotted(*) { width: 100% !important; height: 100% !important; object-fit: cover; display: block; } .layer-after { z-index: 0; } .layer-before { z-index: 1; pointer-events: none; } .divider { position: absolute; z-index: 2; background-color: var(--uibit-image-comparison-border-color); pointer-events: none; opacity: 0.9; } .divider-horizontal { top: 0; bottom: 0; width: 0.125rem; transform: translateX(-50%); } .divider-vertical { left: 0; right: 0; height: 0.125rem; transform: translateY(-50%); } .handle { position: absolute; z-index: 3; width: var(--uibit-image-comparison-handle-size); height: var(--uibit-image-comparison-handle-size); border-radius: 9999px; background-color: var(--uibit-image-comparison-handle-bg); border: 0.0625rem solid var(--uibit-image-comparison-handle-border-color); box-shadow: none; display: flex; align-items: center; justify-content: center; transform: translate(-50%, -50%); cursor: grab; transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease; } .handle:hover { background-color: #f3f4f6; border-color: #d1d5db; box-shadow: none; transform: translate(-50%, -50%) scale(1.06); } .handle:active { cursor: grabbing; transform: translate(-50%, -50%) scale(0.95); } .handle-icon { width: 1.125rem; height: 1.125rem; color: var(--uibit-image-comparison-handle-inner-color); display: flex; align-items: center; justify-content: center; } .handle-icon svg { width: 100%; height: 100%; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -572,41 +341,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -616,42 +393,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -661,29 +436,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -692,11 +469,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -704,17 +488,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -736,22 +517,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -773,30 +555,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

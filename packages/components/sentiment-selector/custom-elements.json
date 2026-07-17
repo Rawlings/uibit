@@ -6,40 +6,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./sentiment-selector"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "SentimentSelector",
-          "declaration": {
-            "name": "SentimentSelector",
-            "module": "./sentiment-selector"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "SentimentOption",
-          "declaration": {
-            "name": "SentimentOption",
-            "module": "./sentiment-selector"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/sentiment-selector.test.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -47,133 +20,90 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Micro-feedback widget displaying a horizontal row of expressive face icons.",
           "name": "SentimentSelector",
-          "cssProperties": [
-            {
-              "description": "Track background color",
-              "name": "--uibit-sentiment-selector-bg",
-              "default": "#f3f4f6"
-            },
-            {
-              "description": "Track border",
-              "name": "--uibit-sentiment-selector-border",
-              "default": "0.0625rem solid #e5e7eb"
-            },
-            {
-              "description": "Track border radius",
-              "name": "--uibit-sentiment-selector-radius",
-              "default": "9999px"
-            },
-            {
-              "description": "Track padding",
-              "name": "--uibit-sentiment-selector-padding",
-              "default": "0.375rem"
-            },
-            {
-              "description": "Gap between items",
-              "name": "--uibit-sentiment-selector-item-gap",
-              "default": "0.25rem"
-            },
-            {
-              "description": "Width and height of each item button",
-              "name": "--uibit-sentiment-selector-item-size",
-              "default": "2.5rem"
-            },
-            {
-              "description": "Icon size (width and height)",
-              "name": "--uibit-sentiment-selector-icon-size",
-              "default": "1.25rem"
-            },
-            {
-              "description": "Item hover background",
-              "name": "--uibit-sentiment-selector-item-hover-bg",
-              "default": "rgba(0,0,0,0.06)"
-            },
-            {
-              "description": "Selected item background",
-              "name": "--uibit-sentiment-selector-item-selected-bg",
-              "default": "#ffffff"
-            },
-            {
-              "description": "Selected item shadow",
-              "name": "--uibit-sentiment-selector-item-selected-shadow",
-              "default": "0 0.125rem 0.5rem rgba(0,0,0,0.12)"
-            },
-            {
-              "description": "Opacity for unselected items",
-              "name": "--uibit-sentiment-selector-unselected-opacity",
-              "default": "0.35"
-            },
-            {
-              "description": "Label font size",
-              "name": "--uibit-sentiment-selector-label-font-size",
-              "default": "0.75rem"
-            },
-            {
-              "description": "Label font weight",
-              "name": "--uibit-sentiment-selector-label-font-weight",
-              "default": "500"
-            },
-            {
-              "description": "Label color",
-              "name": "--uibit-sentiment-selector-label-color",
-              "default": "#6b7280"
-            },
-            {
-              "description": "Gap between track and label",
-              "name": "--uibit-sentiment-selector-gap",
-              "default": "0.625rem"
-            }
-          ],
+          "tagName": "uibit-sentiment-selector",
+          "customElement": true,
+          "description": "Micro-feedback widget displaying a horizontal row of expressive face icons.",
+          "summary": "A modern, accessible user rating and sentiment scale selector component.\nTapping or clicking an option scales it up with a spring animation and fires\na scored event. Unselected options are dimmed to focus attention on the\ncurrent selection.\nCustomize the option set by setting the `options` property programmatically\nor by passing a JSON array string on the `options` attribute. Each option\nreferences an icon name from the UIBit icon registry.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "options",
+              "kind": "field",
               "type": {
                 "text": "SentimentOption[]"
               },
-              "privacy": "private",
-              "default": "[ { value: 1, icon: 'angry', label: 'Terrible' }, { value: 2, icon: 'frown', label: 'Bad' }, { value: 3, icon: 'meh', label: 'Okay' }, { value: 4, icon: 'smile', label: 'Good' }, { value: 5, icon: 'laugh', label: 'Excellent' }, ]"
+              "default": "DEFAULT_OPTIONS",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "value",
+              "kind": "field",
+              "description": "The selected rating value.",
               "type": {
                 "text": "string"
               },
-              "description": "The selected rating value.",
-              "attribute": "value",
-              "reflects": true
+              "static": false,
+              "privacy": "public",
+              "reflects": true,
+              "attribute": "value"
             },
             {
-              "kind": "field",
               "name": "showLabel",
+              "kind": "field",
+              "description": "Show the label text for the selected option below the track.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Show the label text for the selected option below the track.",
+              "static": false,
+              "privacy": "public",
               "attribute": "show-label"
             },
             {
-              "kind": "field",
               "name": "_hoverValue",
+              "kind": "field",
               "type": {
-                "text": "number | undefined"
+                "text": "number"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "valueAsNumber",
+              "kind": "field",
               "type": {
                 "text": "number | undefined"
-              }
+              },
+              "static": false,
+              "privacy": "public",
+              "readonly": true
             },
             {
+              "name": "valueAsNumber",
               "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "newValue",
+                  "type": {
+                    "text": "number | undefined"
+                  }
+                }
+              ]
+            },
+            {
               "name": "_select",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -185,8 +115,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_activeLabel",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -195,8 +126,9 @@
               }
             },
             {
-              "kind": "method",
               "name": "_onSlotChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -208,8 +140,15 @@
               ]
             },
             {
+              "name": "firstUpdated",
               "kind": "method",
+              "static": false,
+              "privacy": "public"
+            },
+            {
               "name": "_onKeyDown",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -221,257 +160,122 @@
               ]
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "{ value: number, label: string }"
-              },
-              "description": "Fired when the user selects an option",
-              "name": "sentiment-change"
-            },
-            {
-              "type": {
-                "text": "{ value: number, label: string }"
-              },
-              "description": "Fired when the user confirms (second tap)",
-              "name": "sentiment-submit"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "value",
+              "description": "The selected rating value.",
               "type": {
                 "text": "string"
               },
-              "description": "The selected rating value.",
               "fieldName": "value"
             },
             {
               "name": "show-label",
+              "description": "Show the label text for the selected option below the track.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Show the label text for the selected option below the track.",
-              "fieldName": "showLabel"
+              "fieldName": "showLabel",
+              "default": "true"
+            }
+          ],
+          "events": [
+            {
+              "name": "sentiment-change",
+              "description": "Fired when the user selects an option",
+              "type": {
+                "text": "{ value: number, label: string }"
+              }
             },
             {
-              "name": "locale",
+              "name": "sentiment-submit",
+              "description": "Fired when the user confirms (second tap)",
               "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
+                "text": "{ value: number, label: string }"
               }
+            }
+          ],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-sentiment-selector-bg",
+              "description": "Track background color",
+              "default": "#f3f4f6"
+            },
+            {
+              "name": "[--uibit-sentiment-selector-border=0.0625rem",
+              "description": "solid #e5e7eb] - Track border"
+            },
+            {
+              "name": "--uibit-sentiment-selector-radius",
+              "description": "Track border radius",
+              "default": "9999px"
+            },
+            {
+              "name": "--uibit-sentiment-selector-padding",
+              "description": "Track padding",
+              "default": "0.375rem"
+            },
+            {
+              "name": "--uibit-sentiment-selector-item-gap",
+              "description": "Gap between items",
+              "default": "0.25rem"
+            },
+            {
+              "name": "--uibit-sentiment-selector-item-size",
+              "description": "Width and height of each item button",
+              "default": "2.5rem"
+            },
+            {
+              "name": "--uibit-sentiment-selector-icon-size",
+              "description": "Icon size (width and height)",
+              "default": "1.25rem"
+            },
+            {
+              "name": "--uibit-sentiment-selector-item-hover-bg",
+              "description": "Item hover background",
+              "default": "rgba(0,0,0,0.06)"
+            },
+            {
+              "name": "--uibit-sentiment-selector-item-selected-bg",
+              "description": "Selected item background",
+              "default": "#ffffff"
+            },
+            {
+              "name": "[--uibit-sentiment-selector-item-selected-shadow=0",
+              "description": "0.125rem 0.5rem rgba(0,0,0,0.12)] - Selected item shadow"
+            },
+            {
+              "name": "--uibit-sentiment-selector-unselected-opacity",
+              "description": "Opacity for unselected items",
+              "default": "0.35"
+            },
+            {
+              "name": "--uibit-sentiment-selector-label-font-size",
+              "description": "Label font size",
+              "default": "0.75rem"
+            },
+            {
+              "name": "--uibit-sentiment-selector-label-font-weight",
+              "description": "Label font weight",
+              "default": "500"
+            },
+            {
+              "name": "--uibit-sentiment-selector-label-color",
+              "description": "Label color",
+              "default": "#6b7280"
+            },
+            {
+              "name": "--uibit-sentiment-selector-gap",
+              "description": "Gap between track and label",
+              "default": "0.625rem"
             }
           ],
           "cssStates": [
@@ -479,20 +283,7 @@
               "name": "selected",
               "description": "Active when a rating value has been selected."
             }
-          ],
-          "mixins": [
-            {
-              "name": "FormAssociatedMixin",
-              "package": "@uibit/form-internals"
-            }
-          ],
-          "superclass": {
-            "name": "UIBitElement",
-            "package": "@uibit/core"
-          },
-          "summary": "A modern, accessible user rating and sentiment scale selector component.\nTapping or clicking an option scales it up with a spring animation and fires\na scored event. Unselected options are dimmed to focus attention on the\ncurrent selection.\n\nCustomize the option set by setting the `options` property programmatically\nor by passing a JSON array string on the `options` attribute. Each option\nreferences an icon name from the UIBit icon registry.",
-          "tagName": "uibit-sentiment-selector",
-          "customElement": true
+          ]
         }
       ],
       "exports": [
@@ -501,23 +292,7 @@
           "name": "SentimentSelector",
           "declaration": {
             "name": "SentimentSelector",
-            "module": "src/sentiment-selector.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-sentiment-selector",
-          "declaration": {
-            "name": "SentimentSelector",
-            "module": "src/sentiment-selector.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "SentimentSelector",
-            "module": "src/sentiment-selector.ts"
+            "module": "./src/sentiment-selector.ts"
           }
         }
       ]
@@ -525,23 +300,8 @@
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: inline-flex; flex-direction: column; align-items: center; gap: var(--uibit-sentiment-selector-gap, calc(0.625rem * var(--uibit-spacing-factor, 1))); font-family: var(--uibit-sentiment-selector-font-family, inherit); -webkit-user-select: none; user-select: none; } .track { display: flex; align-items: center; gap: var(--uibit-sentiment-selector-item-gap, calc(0.25rem * var(--uibit-spacing-factor, 1))); padding: var(--uibit-sentiment-selector-padding, calc(0.375rem * var(--uibit-spacing-factor, 1))); background: var(--uibit-sentiment-selector-bg, var(--uibit-bg-subtle, #f3f4f6)); border-radius: var(--uibit-sentiment-selector-radius, 9999px); border: var(--uibit-sentiment-selector-border, 0.0625rem solid var(--uibit-border-color, #e5e7eb)); } .item { display: flex; align-items: center; justify-content: center; width: var(--uibit-sentiment-selector-item-size, calc(2.5rem * var(--uibit-spacing-factor, 1))); height: var(--uibit-sentiment-selector-item-size, calc(2.5rem * var(--uibit-spacing-factor, 1))); border-radius: 50%; cursor: pointer; border: none; background: transparent; outline: none; color: var(--uibit-text-secondary, #374151); transition: background 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease; } .item:hover, .item:focus-visible { background: var(--uibit-sentiment-selector-item-hover-bg, var(--uibit-bg-subtle, rgba(0, 0, 0, 0.06))); opacity: 1 !important; } .item:active { opacity: 0.7; } .item:focus-visible { outline: 0.125rem solid var(--uibit-sentiment-selector-focus-color, #000000); outline-offset: 0.125rem; } .item[data-selected] { background: var(--uibit-sentiment-selector-item-selected-bg, var(--uibit-bg-surface, #ffffff)); box-shadow: var(--uibit-sentiment-selector-item-selected-shadow, 0 0.125rem 0.5rem rgba(0, 0, 0, 0.12)); color: var(--uibit-text-primary, #111827); opacity: 1 !important; } .item.dimmed { opacity: var(--uibit-sentiment-selector-unselected-opacity, 0.35); } .icon { display: flex; align-items: center; justify-content: center; width: var(--uibit-sentiment-selector-icon-size, calc(1.25rem * var(--uibit-spacing-factor, 1))); height: var(--uibit-sentiment-selector-icon-size, calc(1.25rem * var(--uibit-spacing-factor, 1))); pointer-events: none; } .icon svg { width: 100%; height: 100%; } .label { font-size: var(--uibit-sentiment-selector-label-font-size, var(--uibit-font-size-xs, calc(0.75rem * var(--uibit-font-scale-factor, 1)))); font-weight: var(--uibit-sentiment-selector-label-font-weight, var(--uibit-font-weight-medium, 500)); color: var(--uibit-sentiment-selector-label-color, var(--uibit-text-muted, #6b7280)); min-height: 1em; min-width: 5rem; text-align: center; transition: opacity 0.2s ease, visibility 0.2s ease; opacity: 0; visibility: hidden; } .label.visible { opacity: 1; visibility: visible; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -555,41 +315,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -599,42 +367,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -644,29 +410,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -675,11 +443,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -687,17 +462,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -719,22 +491,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -756,30 +529,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

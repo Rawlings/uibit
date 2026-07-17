@@ -14,6 +14,7 @@ pub fn analyze_source(source_code: &str, file_path: &str) -> String {
     elements: Vec::new(),
     trivias: &parsed.trivias,
     source_code,
+    imports: std::collections::HashMap::new(),
   };
   visitor.visit_program(&parsed.program);
 

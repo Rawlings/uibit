@@ -8,203 +8,191 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "360° product viewer driven by an array of sequential images.",
           "name": "Viewer360",
-          "cssProperties": [
-            {
-              "description": "Background color of the viewer container",
-              "name": "--uibit-360-viewer-bg",
-              "default": "#f9fafb"
-            },
-            {
-              "description": "Border color of the viewer container",
-              "name": "--uibit-360-viewer-border",
-              "default": "#e5e7eb"
-            },
-            {
-              "description": "Background of control buttons",
-              "name": "--uibit-360-viewer-button-bg",
-              "default": "rgba(255,255,255,0.75)"
-            },
-            {
-              "description": "Hover background of control buttons",
-              "name": "--uibit-360-viewer-button-bg-hover",
-              "default": "rgba(255,255,255,0.95)"
-            },
-            {
-              "description": "Icon/text color of control buttons",
-              "name": "--uibit-360-viewer-button-color",
-              "default": "#374151"
-            },
-            {
-              "description": "Focus outline color for interactive elements",
-              "name": "--uibit-360-viewer-focus-color",
-              "default": "#000000"
-            },
-            {
-              "description": "Background of the progress bar track",
-              "name": "--uibit-360-viewer-progress-track-bg",
-              "default": "rgba(0,0,0,0.08)"
-            },
-            {
-              "description": "Background of the drag hint overlay",
-              "name": "--uibit-360-viewer-hint-bg",
-              "default": "rgba(17,24,39,0.65)"
-            }
-          ],
+          "tagName": "uibit-360-viewer",
+          "customElement": true,
+          "description": "360° product viewer driven by an array of sequential images.",
+          "summary": "An interactive 360° product image sequence viewer component.\nSupports drag, touch, auto-rotation, and keyboard controls.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "images",
+              "kind": "field",
               "type": {
                 "text": "string[]"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "autoRotate",
+              "kind": "field",
+              "description": "Automatically rotate through frames when no user interaction is occurring.",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Automatically rotate through frames when no user interaction is occurring.",
+              "static": false,
+              "privacy": "public",
               "attribute": "auto-rotate"
             },
             {
-              "kind": "field",
               "name": "rotationSpeed",
+              "kind": "field",
+              "description": "Milliseconds between frames during auto-rotation. Lower values spin faster.",
               "type": {
                 "text": "number"
               },
               "default": "150",
-              "description": "Milliseconds between frames during auto-rotation. Lower values spin faster.",
+              "static": false,
+              "privacy": "public",
               "attribute": "rotation-speed"
             },
             {
-              "kind": "field",
               "name": "dragSensitivity",
+              "kind": "field",
+              "description": "Horizontal pixel distance a drag must travel before advancing one frame.",
               "type": {
                 "text": "number"
               },
               "default": "15",
-              "description": "Horizontal pixel distance a drag must travel before advancing one frame.",
+              "static": false,
+              "privacy": "public",
               "attribute": "drag-sensitivity"
             },
             {
-              "kind": "field",
               "name": "showControls",
+              "kind": "field",
+              "description": "Show the play/pause and directional control buttons.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Show the play/pause and directional control buttons.",
+              "static": false,
+              "privacy": "public",
               "attribute": "show-controls"
             },
             {
-              "kind": "field",
               "name": "showProgressBar",
+              "kind": "field",
+              "description": "Show the frame progress bar at the bottom of the viewer.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Show the frame progress bar at the bottom of the viewer.",
+              "static": false,
+              "privacy": "public",
               "attribute": "show-progress-bar"
             },
             {
-              "kind": "field",
               "name": "currentIndex",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "isDragging",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "firstFrameReady",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "aspectRatio",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "'16 / 9'"
+              "kind": "field",
+              "default": "'16 / 9'",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "autoRotateTimer",
+              "kind": "field",
               "type": {
-                "text": "number | undefined"
+                "text": "number"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "resumeTimer",
+              "kind": "field",
               "type": {
-                "text": "number | undefined"
+                "text": "number"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "startX",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
               "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "startImageIndex",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
+              "name": "updated",
               "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "Map<string, unknown>"
+                  }
+                }
+              ]
+            },
+            {
               "name": "startAutoRotate",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "stopAutoRotate",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "scheduleAutoRotateResume",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "clearResumeTimer",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "handleFrameLoad",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -222,23 +210,29 @@
               ]
             },
             {
-              "kind": "method",
               "name": "next",
-              "description": "\n\nAdvances the viewer to the next frame in the image sequence."
+              "kind": "method",
+              "description": "Advances the viewer to the next frame in the image sequence.",
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "method",
               "name": "prev",
-              "description": "\n\nReturns the viewer to the previous frame in the image sequence."
+              "kind": "method",
+              "description": "Returns the viewer to the previous frame in the image sequence.",
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "method",
               "name": "emitChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "handlePointerDown",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -250,8 +244,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "handlePointerMove",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -263,8 +258,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "handlePointerUp",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -276,8 +272,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "handleKeyDown",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -289,8 +286,9 @@
               ]
             },
             {
-              "kind": "method",
               "name": "handleSlotChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -302,278 +300,110 @@
               ]
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "{ index: number, total: number }"
-              },
-              "description": "Fired each time the displayed frame changes",
-              "name": "change"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "auto-rotate",
+              "description": "Automatically rotate through frames when no user interaction is occurring.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Automatically rotate through frames when no user interaction is occurring.",
-              "fieldName": "autoRotate"
+              "fieldName": "autoRotate",
+              "default": "false"
             },
             {
               "name": "rotation-speed",
+              "description": "Milliseconds between frames during auto-rotation. Lower values spin faster.",
               "type": {
                 "text": "number"
               },
-              "default": "150",
-              "description": "Milliseconds between frames during auto-rotation. Lower values spin faster.",
-              "fieldName": "rotationSpeed"
+              "fieldName": "rotationSpeed",
+              "default": "150"
             },
             {
               "name": "drag-sensitivity",
+              "description": "Horizontal pixel distance a drag must travel before advancing one frame.",
               "type": {
                 "text": "number"
               },
-              "default": "15",
-              "description": "Horizontal pixel distance a drag must travel before advancing one frame.",
-              "fieldName": "dragSensitivity"
+              "fieldName": "dragSensitivity",
+              "default": "15"
             },
             {
               "name": "show-controls",
+              "description": "Show the play/pause and directional control buttons.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Show the play/pause and directional control buttons.",
-              "fieldName": "showControls"
+              "fieldName": "showControls",
+              "default": "true"
             },
             {
               "name": "show-progress-bar",
+              "description": "Show the frame progress bar at the bottom of the viewer.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Show the frame progress bar at the bottom of the viewer.",
-              "fieldName": "showProgressBar"
+              "fieldName": "showProgressBar",
+              "default": "true"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "description": "Fired each time the displayed frame changes",
+              "type": {
+                "text": "{ index: number, total: number }"
+              }
+            }
+          ],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-360-viewer-bg",
+              "description": "Background color of the viewer container",
+              "default": "#f9fafb"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "--uibit-360-viewer-border",
+              "description": "Border color of the viewer container",
+              "default": "#e5e7eb"
+            },
+            {
+              "name": "--uibit-360-viewer-button-bg",
+              "description": "Background of control buttons",
+              "default": "rgba(255,255,255,0.75)"
+            },
+            {
+              "name": "--uibit-360-viewer-button-bg-hover",
+              "description": "Hover background of control buttons",
+              "default": "rgba(255,255,255,0.95)"
+            },
+            {
+              "name": "--uibit-360-viewer-button-color",
+              "description": "Icon/text color of control buttons",
+              "default": "#374151"
+            },
+            {
+              "name": "--uibit-360-viewer-focus-color",
+              "description": "Focus outline color for interactive elements",
+              "default": "#000000"
+            },
+            {
+              "name": "--uibit-360-viewer-progress-track-bg",
+              "description": "Background of the progress bar track",
+              "default": "rgba(0,0,0,0.08)"
+            },
+            {
+              "name": "--uibit-360-viewer-hint-bg",
+              "description": "Background of the drag hint overlay",
+              "default": "rgba(17,24,39,0.65)"
             }
           ],
           "cssStates": [
@@ -589,10 +419,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "An interactive 360° product image sequence viewer component.\nSupports drag, touch, auto-rotation, and keyboard controls.",
-          "tagName": "uibit-360-viewer",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -601,23 +428,7 @@
           "name": "Viewer360",
           "declaration": {
             "name": "Viewer360",
-            "module": "src/360-viewer.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-360-viewer",
-          "declaration": {
-            "name": "Viewer360",
-            "module": "src/360-viewer.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "Viewer360",
-            "module": "src/360-viewer.ts"
+            "module": "./src/360-viewer.ts"
           }
         }
       ]
@@ -626,61 +437,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./360-viewer"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Viewer360",
-          "declaration": {
-            "name": "Viewer360",
-            "module": "./360-viewer"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Viewer360Config",
-          "declaration": {
-            "name": "Viewer360Config",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Hotspot360",
-          "declaration": {
-            "name": "Hotspot360",
-            "module": "./types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { --uibit-360-viewer-bg: #f9fafb; --uibit-360-viewer-border: #e5e7eb; --uibit-360-viewer-button-bg: rgba(255, 255, 255, 0.75); --uibit-360-viewer-button-bg-hover: rgba(255, 255, 255, 0.95); --uibit-360-viewer-button-color: #374151; --uibit-360-viewer-focus-color: #000000; --uibit-360-viewer-progress-track-bg: rgba(0, 0, 0, 0.08); --uibit-360-viewer-hint-bg: rgba(17, 24, 39, 0.65); display: block; width: 100%; } .viewer { position: relative; width: 100%; overflow: hidden; background: var(--uibit-360-viewer-bg); border: 0.0625rem solid var(--uibit-360-viewer-border); touch-action: none; user-select: none; -webkit-user-drag: none; outline: none; min-height: 4rem; } .viewer:focus-visible { box-shadow: 0 0 0 0.125rem var(--uibit-360-viewer-focus-color); } .frames { position: relative; width: 100%; overflow: hidden; } .frames:not(.ready) { visibility: hidden; } .frame { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none; user-select: none; -webkit-user-drag: none; opacity: 0; will-change: opacity; } .frame-active { opacity: 1; } @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } } .skeleton { position: absolute; inset: 0; background: linear-gradient( 90deg, var(--uibit-360-viewer-bg) 25%, rgba(0, 0, 0, 0.06) 50%, var(--uibit-360-viewer-bg) 75% ); background-size: 200% 100%; animation: shimmer 1.4s ease infinite; aspect-ratio: inherit; } .nav-button { position: absolute; top: 50%; transform: translateY(-50%); background: var(--uibit-360-viewer-button-bg, rgba(255, 255, 255, 0.75)); backdrop-filter: blur(0.5rem); -webkit-backdrop-filter: blur(0.5rem); border: none; color: var(--uibit-360-viewer-button-color, #111827); width: 2.25rem; height: 2.25rem; border-radius: 9999rem; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; z-index: 10; box-shadow: none; transition: opacity 250ms ease, background-color 150ms ease, color 150ms ease, transform 150ms ease; } .viewer:hover .nav-button, .nav-button:focus-visible { opacity: 1; } .nav-button:focus-visible { outline: 0.125rem solid var(--uibit-360-viewer-focus-color, #000000); outline-offset: 0.125rem; } .nav-button:hover { background: var(--uibit-360-viewer-button-bg-hover, rgba(255, 255, 255, 0.95)); color: #000000; box-shadow: none; } .nav-button-prev:hover { transform: translateY(-50%) translateX(-0.125rem) scale(1.05); } .nav-button-next:hover { transform: translateY(-50%) translateX(0.125rem) scale(1.05); } .nav-button:active { transform: translateY(-50%) scale(0.95); } .nav-button-prev { left: 0.75rem; } .nav-button-next { right: 0.75rem; } .nav-button svg { width: 1.125rem; height: 1.125rem; } .drag-hint { position: absolute; bottom: 0.75rem; left: 50%; transform: translateX(-50%); background: var(--uibit-360-viewer-hint-bg, rgba(17, 24, 39, 0.65)); color: #ffffff; padding: 0.375rem 0.75rem; border-radius: 9999rem; font-size: 0.75rem; pointer-events: none; opacity: 0.85; transition: opacity 300ms ease; display: flex; align-items: center; gap: 0.375rem; backdrop-filter: blur(0.25rem); -webkit-backdrop-filter: blur(0.25rem); z-index: 5; } .viewer.dragging .drag-hint { opacity: 0; } .progress-track { position: absolute; bottom: 0; left: 0; width: 100%; height: 0.1875rem; background: var(--uibit-360-viewer-progress-track-bg, rgba(0, 0, 0, 0.08)); z-index: 5; } .progress-bar { height: 100%; background: var(--uibit-360-viewer-focus-color, #000000); transition: width 100ms ease; } .sr-only { position: absolute; width: 0.0625rem; height: 0.0625rem; padding: 0; margin: -0.0625rem; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -694,41 +457,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -738,42 +509,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -783,29 +552,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -814,11 +585,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -826,17 +604,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -858,22 +633,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -895,30 +671,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

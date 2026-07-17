@@ -6,32 +6,7 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./read-time"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ReadTime",
-          "declaration": {
-            "name": "ReadTime",
-            "module": "./read-time"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -39,115 +14,85 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Analyzes the word count of its slotted content and renders a reading-time",
           "name": "ReadTime",
-          "cssProperties": [
-            {
-              "description": "Badge font size",
-              "name": "--uibit-read-time-font-size",
-              "default": "0.8125rem"
-            },
-            {
-              "description": "Badge font weight",
-              "name": "--uibit-read-time-font-weight",
-              "default": "500"
-            },
-            {
-              "description": "Badge text color",
-              "name": "--uibit-read-time-color",
-              "default": "#6b7280"
-            },
-            {
-              "description": "Badge font family",
-              "name": "--uibit-read-time-font-family",
-              "default": "inherit"
-            },
-            {
-              "description": "Gap between icon and label",
-              "name": "--uibit-read-time-gap",
-              "default": "0.375rem"
-            },
-            {
-              "description": "Size of the clock icon",
-              "name": "--uibit-read-time-icon-size",
-              "default": "0.875rem"
-            },
-            {
-              "description": "Color of the clock icon",
-              "name": "--uibit-read-time-icon-color",
-              "default": "currentColor"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The content whose text will be measured",
-              "name": ""
-            },
-            {
-              "description": "Optional named slot to position or override the read-time label/badge",
-              "name": "timer"
-            }
-          ],
+          "tagName": "uibit-read-time",
+          "customElement": true,
+          "description": "Analyzes the word count of its slotted content and renders a reading-time",
+          "summary": "A shadow DOM slotted text length reading time estimation indicator.\nbadge. The calculation happens inside the shadow DOM via a slot\nchange observer — no backend metadata required.\nPlace your HTML content in the default slot. The component counts only text\nnodes, ignoring markup and hidden elements.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "wpm",
+              "kind": "field",
+              "description": "Average reading speed in words per minute.",
               "type": {
                 "text": "number"
               },
               "default": "238",
-              "description": "Average reading speed in words per minute.",
+              "static": false,
+              "privacy": "public",
               "attribute": "wpm"
             },
             {
-              "kind": "field",
               "name": "showIcon",
+              "kind": "field",
+              "description": "Show the clock icon before the label.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Show the clock icon before the label.",
+              "static": false,
+              "privacy": "public",
               "attribute": "show-icon"
             },
             {
-              "kind": "field",
               "name": "_label",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "''"
+              "kind": "field",
+              "default": "''",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_slot",
-              "type": {
-                "text": "HTMLSlotElement | undefined"
-              },
-              "privacy": "private"
-            },
-            {
               "kind": "field",
-              "name": "_timerSlot",
               "type": {
-                "text": "HTMLSlotElement | undefined"
+                "text": "HTMLSlotElement"
               },
+              "static": false,
               "privacy": "private"
             },
             {
+              "name": "_timerSlot",
+              "kind": "field",
+              "type": {
+                "text": "HTMLSlotElement"
+              },
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "firstUpdated",
               "kind": "method",
+              "static": false,
+              "privacy": "public"
+            },
+            {
               "name": "_calculate",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_extractText",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
               "parameters": [
                 {
                   "name": "node",
@@ -155,254 +100,94 @@
                     "text": "Node"
                   }
                 }
-              ]
-            },
-            {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
               ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
                   "text": "string"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
               }
             },
             {
+              "name": "render",
               "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "wpm",
+              "description": "Average reading speed in words per minute.",
               "type": {
                 "text": "number"
               },
-              "default": "238",
-              "description": "Average reading speed in words per minute.",
-              "fieldName": "wpm"
+              "fieldName": "wpm",
+              "default": "238"
             },
             {
               "name": "show-icon",
+              "description": "Show the clock icon before the label.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Show the clock icon before the label.",
-              "fieldName": "showIcon"
-            },
-            {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "fieldName": "showIcon",
+              "default": "true"
             }
           ],
+          "events": [],
+          "slots": [
+            {
+              "name": "-",
+              "description": "The content whose text will be measured"
+            },
+            {
+              "name": "timer",
+              "description": "Optional named slot to position or override the read-time label/badge"
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-read-time-font-size",
+              "description": "Badge font size",
+              "default": "0.8125rem"
+            },
+            {
+              "name": "--uibit-read-time-font-weight",
+              "description": "Badge font weight",
+              "default": "500"
+            },
+            {
+              "name": "--uibit-read-time-color",
+              "description": "Badge text color",
+              "default": "#6b7280"
+            },
+            {
+              "name": "--uibit-read-time-font-family",
+              "description": "Badge font family",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-read-time-gap",
+              "description": "Gap between icon and label",
+              "default": "0.375rem"
+            },
+            {
+              "name": "--uibit-read-time-icon-size",
+              "description": "Size of the clock icon",
+              "default": "0.875rem"
+            },
+            {
+              "name": "--uibit-read-time-icon-color",
+              "description": "Color of the clock icon",
+              "default": "currentColor"
+            }
+          ],
+          "cssStates": [],
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A shadow DOM slotted text length reading time estimation indicator.\nbadge. The calculation happens inside the shadow DOM via a slot\nchange observer — no backend metadata required.\n\nPlace your HTML content in the default slot. The component counts only text\nnodes, ignoring markup and hidden elements.",
-          "tagName": "uibit-read-time",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -411,23 +196,7 @@
           "name": "ReadTime",
           "declaration": {
             "name": "ReadTime",
-            "module": "src/read-time.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-read-time",
-          "declaration": {
-            "name": "ReadTime",
-            "module": "src/read-time.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "ReadTime",
-            "module": "src/read-time.ts"
+            "module": "./src/read-time.ts"
           }
         }
       ]
@@ -435,23 +204,8 @@
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: block; font-family: var(--uibit-read-time-font-family, inherit); } .timer { display: inline-flex; align-items: center; gap: var(--uibit-read-time-gap, 0.375rem); font-size: var(--uibit-read-time-font-size, var(--uibit-font-size-sm, 0.8125rem)); font-weight: var(--uibit-read-time-font-weight, var(--uibit-font-weight-medium, 500)); color: var(--uibit-read-time-color, #6b7280); line-height: var(--uibit-line-height-normal, 1.5); } .icon { display: inline-flex; align-items: center; flex-shrink: 0; color: var(--uibit-read-time-icon-color, currentColor); width: var(--uibit-read-time-icon-size, 0.875rem); height: var(--uibit-read-time-icon-size, 0.875rem); } .icon svg { width: 100%; height: 100%; } .label { white-space: nowrap; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -465,41 +219,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -509,42 +271,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -554,29 +314,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -585,11 +347,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -597,17 +366,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -629,22 +395,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -666,30 +433,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

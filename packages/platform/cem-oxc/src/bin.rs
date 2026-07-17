@@ -13,7 +13,7 @@ fn main() {
 
   let mut globs = Vec::new();
   let mut exclude = Vec::new();
-  let mut outdir = "dist".to_string();
+  let mut outdir = ".".to_string();
   let mut quiet = false;
 
   let mut i = 1;

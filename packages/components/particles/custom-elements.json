@@ -6,56 +6,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./particles"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Particles",
-          "declaration": {
-            "name": "Particles",
-            "module": "./particles"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "Particle",
-          "declaration": {
-            "name": "Particle",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ParticleHoverEffect",
-          "declaration": {
-            "name": "ParticleHoverEffect",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ParticleMode",
-          "declaration": {
-            "name": "ParticleMode",
-            "module": "./types"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "EffectParticlesConfig",
-          "declaration": {
-            "name": "EffectParticlesConfig",
-            "module": "./types"
-          }
-        }
-      ]
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/particles.test.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -63,201 +20,221 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "An interactive canvas effect element. Creates dynamic background visuals",
           "name": "Particles",
-          "cssProperties": [
-            {
-              "description": "Space or comma-separated list of colors",
-              "name": "--uibit-particles-color",
-              "default": "#6b7280"
-            },
-            {
-              "description": "Color of connecting lines",
-              "name": "--uibit-particles-line-color",
-              "default": "#e5e7eb"
-            },
-            {
-              "description": "Opacity of the canvas overlay",
-              "name": "--uibit-particles-opacity",
-              "default": "1"
-            },
-            {
-              "description": "Minimum particle size",
-              "name": "--uibit-particles-min-size",
-              "default": "0.0625rem"
-            },
-            {
-              "description": "Maximum particle size",
-              "name": "--uibit-particles-max-size",
-              "default": "0.1875rem"
-            }
-          ],
+          "tagName": "uibit-particles",
+          "customElement": true,
+          "description": "An interactive canvas effect element. Creates dynamic background visuals",
+          "summary": "A lightweight canvas-based interactive particle background effect.\nacross many modes: particles, abstract art, grids, flow fields, and more.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "count",
+              "kind": "field",
+              "description": "Number of particles / elements in the field",
               "type": {
                 "text": "number"
               },
               "default": "50",
-              "description": "Number of particles / elements in the field",
+              "static": false,
+              "privacy": "public",
               "attribute": "count"
             },
             {
-              "kind": "field",
               "name": "speed",
+              "kind": "field",
+              "description": "Speed multiplier",
               "type": {
                 "text": "number"
               },
               "default": "1",
-              "description": "Speed multiplier",
+              "static": false,
+              "privacy": "public",
               "attribute": "speed"
             },
             {
-              "kind": "field",
               "name": "mode",
+              "kind": "field",
+              "description": "Animation mode.\n'float' | 'snow' | 'rain' | 'neural' | 'matrix' |\n'wave' | 'vortex' | 'smoke' | 'bubbles' | 'grid' | 'aurora' | 'noise' | 'rings'",
               "type": {
                 "text": "ParticleMode"
               },
               "default": "'float'",
-              "description": "Animation mode.\n'float' | 'snow' | 'rain' | 'neural' | 'matrix' |\n'wave' | 'vortex' | 'smoke' | 'bubbles' | 'grid' | 'aurora' | 'noise' | 'rings'",
+              "static": false,
+              "privacy": "public",
               "attribute": "mode"
             },
             {
-              "kind": "field",
               "name": "connect",
+              "kind": "field",
+              "description": "Draw constellation lines between nearby particles",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Draw constellation lines between nearby particles",
+              "static": false,
+              "privacy": "public",
               "attribute": "connect"
             },
             {
-              "kind": "field",
               "name": "connectDistance",
+              "kind": "field",
+              "description": "Max distance for connecting lines",
               "type": {
                 "text": "number"
               },
               "default": "100",
-              "description": "Max distance for connecting lines",
+              "static": false,
+              "privacy": "public",
               "attribute": "connect-distance"
             },
             {
-              "kind": "field",
               "name": "hoverEffect",
+              "kind": "field",
+              "description": "Hover interaction: 'repel' | 'attract' | 'grab' | 'none'",
               "type": {
                 "text": "ParticleHoverEffect"
               },
               "default": "'repel'",
-              "description": "Hover interaction: 'repel' | 'attract' | 'grab' | 'none'",
+              "static": false,
+              "privacy": "public",
               "attribute": "hover-effect"
             },
             {
-              "kind": "field",
               "name": "interactiveRadius",
+              "kind": "field",
+              "description": "Radius of the mouse hover interaction zone",
               "type": {
                 "text": "number"
               },
               "default": "100",
-              "description": "Radius of the mouse hover interaction zone",
+              "static": false,
+              "privacy": "public",
               "attribute": "interactive-radius"
             },
             {
-              "kind": "field",
               "name": "_canvas",
+              "kind": "field",
               "type": {
                 "text": "HTMLCanvasElement"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_particles",
+              "kind": "field",
               "type": {
                 "text": "Particle[]"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_pulses",
+              "kind": "field",
               "type": {
                 "text": "NetworkPulse[]"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_mouse",
+              "kind": "field",
               "type": {
                 "text": "{ x: number | null; y: number | null }"
               },
-              "privacy": "private",
-              "default": "{ x: null, y: null }"
+              "default": "{ x: null, y: null }",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_ctx",
+              "kind": "field",
               "type": {
                 "text": "CanvasRenderingContext2D | null"
               },
-              "privacy": "private",
-              "default": "null"
+              "default": "null",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_lineColor",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "'#e5e7eb'"
+              "kind": "field",
+              "default": "'#e5e7eb'",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_colorCheckTick",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_matrixChars",
+              "kind": "field",
               "type": {
                 "text": "string[]"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_time",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_resize",
-              "privacy": "protected",
-              "default": "new ResizeController(this, { callback: (entry) => { const { width, height } = entry.contentRect; this._resizeCanvas(width, height); } })"
-            },
-            {
               "kind": "field",
-              "name": "_loop",
-              "privacy": "protected",
-              "default": "new LoopController(this, { autoStart: false, callback: () => this._updateAndDraw() })"
+              "default": "new ResizeController(this, {\n    callback: (entry) => {\n      const { width, height } = entry.contentRect;\n      this._resizeCanvas(width, height);\n    }\n  })",
+              "static": false,
+              "privacy": "protected"
             },
             {
+              "name": "_loop",
+              "kind": "field",
+              "default": "new LoopController(this, {\n    autoStart: false,\n    callback: () => this._updateAndDraw()\n  })",
+              "static": false,
+              "privacy": "protected"
+            },
+            {
+              "name": "firstUpdated",
               "kind": "method",
+              "static": false,
+              "privacy": "public"
+            },
+            {
+              "name": "updated",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changedProperties",
+                  "type": {
+                    "text": "Map<PropertyKey, unknown>"
+                  }
+                }
+              ]
+            },
+            {
               "name": "_resizeCanvas",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -275,13 +252,15 @@
               ]
             },
             {
-              "kind": "method",
               "name": "_setupMouseListeners",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_parseColors",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -290,14 +269,10 @@
               }
             },
             {
-              "kind": "method",
               "name": "_parseSize",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
-                }
-              },
               "parameters": [
                 {
                   "name": "prop",
@@ -311,300 +286,125 @@
                     "text": "number"
                   }
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "_initParticles",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_updateAndDraw",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "count",
+              "description": "Number of particles / elements in the field",
               "type": {
                 "text": "number"
               },
-              "default": "50",
-              "description": "Number of particles / elements in the field",
-              "fieldName": "count"
+              "fieldName": "count",
+              "default": "50"
             },
             {
               "name": "speed",
+              "description": "Speed multiplier",
               "type": {
                 "text": "number"
               },
-              "default": "1",
-              "description": "Speed multiplier",
-              "fieldName": "speed"
+              "fieldName": "speed",
+              "default": "1"
             },
             {
               "name": "mode",
+              "description": "Animation mode.\n'float' | 'snow' | 'rain' | 'neural' | 'matrix' |\n'wave' | 'vortex' | 'smoke' | 'bubbles' | 'grid' | 'aurora' | 'noise' | 'rings'",
               "type": {
                 "text": "ParticleMode"
               },
-              "default": "'float'",
-              "description": "Animation mode.\n'float' | 'snow' | 'rain' | 'neural' | 'matrix' |\n'wave' | 'vortex' | 'smoke' | 'bubbles' | 'grid' | 'aurora' | 'noise' | 'rings'",
-              "fieldName": "mode"
+              "fieldName": "mode",
+              "default": "'float'"
             },
             {
               "name": "connect",
+              "description": "Draw constellation lines between nearby particles",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Draw constellation lines between nearby particles",
-              "fieldName": "connect"
+              "fieldName": "connect",
+              "default": "false"
             },
             {
               "name": "connect-distance",
+              "description": "Max distance for connecting lines",
               "type": {
                 "text": "number"
               },
-              "default": "100",
-              "description": "Max distance for connecting lines",
-              "fieldName": "connectDistance"
+              "fieldName": "connectDistance",
+              "default": "100"
             },
             {
               "name": "hover-effect",
+              "description": "Hover interaction: 'repel' | 'attract' | 'grab' | 'none'",
               "type": {
                 "text": "ParticleHoverEffect"
               },
-              "default": "'repel'",
-              "description": "Hover interaction: 'repel' | 'attract' | 'grab' | 'none'",
-              "fieldName": "hoverEffect"
+              "fieldName": "hoverEffect",
+              "default": "'repel'"
             },
             {
               "name": "interactive-radius",
+              "description": "Radius of the mouse hover interaction zone",
               "type": {
                 "text": "number"
               },
-              "default": "100",
-              "description": "Radius of the mouse hover interaction zone",
-              "fieldName": "interactiveRadius"
+              "fieldName": "interactiveRadius",
+              "default": "100"
+            }
+          ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-particles-color",
+              "description": "Space or comma-separated list of colors",
+              "default": "#6b7280"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "--uibit-particles-line-color",
+              "description": "Color of connecting lines",
+              "default": "#e5e7eb"
+            },
+            {
+              "name": "--uibit-particles-opacity",
+              "description": "Opacity of the canvas overlay",
+              "default": "1"
+            },
+            {
+              "name": "--uibit-particles-min-size",
+              "description": "Minimum particle size",
+              "default": "0.0625rem"
+            },
+            {
+              "name": "--uibit-particles-max-size",
+              "description": "Maximum particle size",
+              "default": "0.1875rem"
             }
           ],
           "cssStates": [
@@ -616,10 +416,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A lightweight canvas-based interactive particle background effect.\nacross many modes: particles, abstract art, grids, flow fields, and more.",
-          "tagName": "uibit-particles",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -628,23 +425,7 @@
           "name": "Particles",
           "declaration": {
             "name": "Particles",
-            "module": "src/particles.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-particles",
-          "declaration": {
-            "name": "Particles",
-            "module": "src/particles.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "Particles",
-            "module": "src/particles.ts"
+            "module": "./src/particles.ts"
           }
         }
       ]
@@ -652,23 +433,8 @@
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: block; position: relative; width: 100%; height: 100%; min-height: 9.375rem; /* 150px equivalent */ overflow: hidden; /* Custom CSS variables for visual defaults */ --uibit-particles-color: #6b7280; --uibit-particles-line-color: #e5e7eb; --uibit-particles-opacity: 1; } .container { position: relative; width: 100%; height: 100%; } canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: block; opacity: var(--uibit-particles-opacity); pointer-events: none; /* Let clicks/hovers pass through to the slot content */ } .content { position: relative; z-index: 1; width: 100%; height: 100%; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -682,41 +448,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -726,42 +500,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -771,29 +543,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -802,11 +576,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -814,17 +595,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -846,22 +624,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -883,30 +662,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

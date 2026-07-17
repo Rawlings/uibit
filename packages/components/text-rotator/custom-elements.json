@@ -6,53 +6,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./text-rotator"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TextRotator",
-          "declaration": {
-            "name": "TextRotator",
-            "module": "./text-rotator"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: inline-block; vertical-align: text-bottom; font-size: var(--uibit-text-rotator-font-size, inherit); font-weight: var(--uibit-text-rotator-font-weight, inherit); color: var(--uibit-text-rotator-color, inherit); font-family: var(--uibit-text-rotator-font-family, inherit); line-height: var(--uibit-text-rotator-line-height, inherit); /* Pad the host horizontally to prevent clipping of long words, pull back with margin */ padding: 0 4rem; margin: 0 -4rem; } .stage { display: inline-block; position: relative; width: max-content; min-width: 1ch; perspective: 20rem; transform-style: preserve-3d; /* Pad stage vertically to allow fade mask space above/below line box */ padding: 1em 0; margin: -1em 0; /* Mask only the rotating words inside the stage */ -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 1em, #000 calc(100% - 1em), transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 1em, #000 calc(100% - 1em), transparent 100%); -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; } .word { display: inline-block; position: absolute; top: 1em; /* Align absolute words to stage content-box */ left: 0; white-space: nowrap; transform-style: preserve-3d; } .word.active { position: relative; top: 0; } /* No animation on first render */ .word.initial { position: static; opacity: 1; } /* Slide */ .word.entering-slide { animation: slide-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; } .word.leaving-slide { animation: slide-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; } /* Flip */ .word.entering-flip { animation: flip-in var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; transform-origin: 50% 0; } .word.leaving-flip { animation: flip-out var(--uibit-text-rotator-duration, 0.4s) cubic-bezier(0.4, 0, 0.2, 1) forwards; transform-origin: 50% 100%; } @keyframes slide-in { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } } @keyframes slide-out { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100%); opacity: 0; } } @keyframes flip-in { from { transform: rotateX(-80deg); opacity: 0; } to { transform: rotateX(0deg); opacity: 1; } } @keyframes flip-out { from { transform: rotateX(0deg); opacity: 1; } to { transform: rotateX(80deg); opacity: 0; } } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -60,143 +20,139 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Cycles through an array of phrases inside a static sentence by animating between",
           "name": "TextRotator",
-          "cssProperties": [
-            {
-              "description": "Font size",
-              "name": "--uibit-text-rotator-font-size",
-              "default": "inherit"
-            },
-            {
-              "description": "Font weight",
-              "name": "--uibit-text-rotator-font-weight",
-              "default": "inherit"
-            },
-            {
-              "description": "Text color",
-              "name": "--uibit-text-rotator-color",
-              "default": "inherit"
-            },
-            {
-              "description": "Font family",
-              "name": "--uibit-text-rotator-font-family",
-              "default": "inherit"
-            },
-            {
-              "description": "Line height",
-              "name": "--uibit-text-rotator-line-height",
-              "default": "inherit"
-            },
-            {
-              "description": "Transition animation duration",
-              "name": "--uibit-text-rotator-duration",
-              "default": "0.4s"
-            }
-          ],
+          "tagName": "uibit-text-rotator",
+          "customElement": true,
+          "description": "Cycles through an array of phrases inside a static sentence by animating between",
+          "summary": "A rotating text carousel component with smooth CSS animation transitions.\nitems with a vertical slide or 3D flip transition. Designed to highlight changing\nvalue propositions without motion outside the component boundary.\nPass static prefix or wrapper text inside the default slot, and phrases to cycle through\ninside elements with `slot=\"text\"` (e.g. `<span slot=\"text\">phrase</span>`).",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "words",
+              "kind": "field",
               "type": {
                 "text": "string[]"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "interval",
+              "kind": "field",
+              "description": "Interval in ms between rotations.",
               "type": {
                 "text": "number"
               },
               "default": "2500",
-              "description": "Interval in ms between rotations.",
+              "static": false,
+              "privacy": "public",
               "attribute": "interval"
             },
             {
-              "kind": "field",
               "name": "transition",
+              "kind": "field",
+              "description": "Transition style: 'slide' for vertical slide, 'flip' for 3D perspective flip.",
               "type": {
                 "text": "'slide' | 'flip'"
               },
               "default": "'slide'",
-              "description": "Transition style: 'slide' for vertical slide, 'flip' for 3D perspective flip.",
+              "static": false,
+              "privacy": "public",
               "attribute": "transition"
             },
             {
-              "kind": "field",
               "name": "loop",
+              "kind": "field",
+              "description": "Loop indefinitely. Set to false to stop after the last word.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Loop indefinitely. Set to false to stop after the last word.",
+              "static": false,
+              "privacy": "public",
               "attribute": "loop"
             },
             {
-              "kind": "field",
               "name": "_activeIndex",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_prevIndex",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "-1"
+              "kind": "field",
+              "default": "-1",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_animating",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_mounted",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
               "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "_timer",
+              "kind": "field",
               "type": {
-                "text": "ReturnType<typeof setInterval> | undefined"
+                "text": "ReturnType<typeof setInterval>"
               },
+              "static": false,
               "privacy": "private"
             },
             {
+              "name": "firstUpdated",
               "kind": "method",
-              "name": "_start",
-              "privacy": "private"
+              "static": false,
+              "privacy": "public"
             },
             {
+              "name": "updated",
               "kind": "method",
-              "name": "_advance",
-              "privacy": "private"
-            },
-            {
-              "kind": "method",
-              "name": "_parseCssDuration",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changed",
+                  "type": {
+                    "text": "Map<string, unknown>"
+                  }
                 }
-              },
+              ]
+            },
+            {
+              "name": "_start",
+              "kind": "method",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_advance",
+              "kind": "method",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_parseCssDuration",
+              "kind": "method",
+              "static": false,
+              "privacy": "private",
               "parameters": [
                 {
                   "name": "val",
@@ -204,11 +160,17 @@
                     "text": "string"
                   }
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "_handleSlotChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -220,260 +182,82 @@
               ]
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "{ word: string, index: number }"
-              },
-              "description": "Fired when the active word changes",
-              "name": "word-change"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "interval",
+              "description": "Interval in ms between rotations.",
               "type": {
                 "text": "number"
               },
-              "default": "2500",
-              "description": "Interval in ms between rotations.",
-              "fieldName": "interval"
+              "fieldName": "interval",
+              "default": "2500"
             },
             {
               "name": "transition",
+              "description": "Transition style: 'slide' for vertical slide, 'flip' for 3D perspective flip.",
               "type": {
                 "text": "'slide' | 'flip'"
               },
-              "default": "'slide'",
-              "description": "Transition style: 'slide' for vertical slide, 'flip' for 3D perspective flip.",
-              "fieldName": "transition"
+              "fieldName": "transition",
+              "default": "'slide'"
             },
             {
               "name": "loop",
+              "description": "Loop indefinitely. Set to false to stop after the last word.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Loop indefinitely. Set to false to stop after the last word.",
-              "fieldName": "loop"
+              "fieldName": "loop",
+              "default": "true"
+            }
+          ],
+          "events": [
+            {
+              "name": "word-change",
+              "description": "Fired when the active word changes",
+              "type": {
+                "text": "{ word: string, index: number }"
+              }
+            }
+          ],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-text-rotator-font-size",
+              "description": "Font size",
+              "default": "inherit"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "--uibit-text-rotator-font-weight",
+              "description": "Font weight",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-text-rotator-color",
+              "description": "Text color",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-text-rotator-font-family",
+              "description": "Font family",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-text-rotator-line-height",
+              "description": "Line height",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-text-rotator-duration",
+              "description": "Transition animation duration",
+              "default": "0.4s"
             }
           ],
           "cssStates": [
@@ -485,10 +269,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A rotating text carousel component with smooth CSS animation transitions.\nitems with a vertical slide or 3D flip transition. Designed to highlight changing\nvalue propositions without motion outside the component boundary.\n\nPass static prefix or wrapper text inside the default slot, and phrases to cycle through\ninside elements with `slot=\"text\"` (e.g. `<span slot=\"text\">phrase</span>`).",
-          "tagName": "uibit-text-rotator",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -497,23 +278,7 @@
           "name": "TextRotator",
           "declaration": {
             "name": "TextRotator",
-            "module": "src/text-rotator.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-text-rotator",
-          "declaration": {
-            "name": "TextRotator",
-            "module": "src/text-rotator.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "TextRotator",
-            "module": "src/text-rotator.ts"
+            "module": "./src/text-rotator.ts"
           }
         }
       ]
@@ -530,41 +295,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -574,42 +347,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -619,29 +390,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -650,11 +423,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -662,17 +442,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -694,22 +471,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -731,30 +509,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

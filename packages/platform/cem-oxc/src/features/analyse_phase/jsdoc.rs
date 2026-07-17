@@ -1,4 +1,4 @@
-use crate::utils::types::{AttributeInfo, CssPartInfo, CssPropertyInfo, CssStateInfo, CustomElementInfo, EventInfo, MemberInfo, SlotInfo};
+use crate::utils::types::{AttributeInfo, CssPartInfo, CssPropertyInfo, CssStateInfo, CustomElementInfo, EventInfo, MemberInfo, SlotInfo, TypeInfo};
 
 pub struct JSDocTag {
   pub tag: String,
@@ -44,9 +44,22 @@ pub fn parse_jsdoc(comment: &str) -> ParsedJSDoc {
         let mut r#type = None;
         let mut rest = remaining;
         if remaining.starts_with('{') {
-          if let Some(end_idx) = remaining.find('}') {
-            r#type = Some(remaining[1..end_idx].to_string());
-            rest = remaining[end_idx + 1..].trim();
+          let mut brace_count = 0;
+          let mut end_idx = None;
+          for (i, c) in remaining.chars().enumerate() {
+            if c == '{' {
+              brace_count += 1;
+            } else if c == '}' {
+              brace_count -= 1;
+              if brace_count == 0 {
+                end_idx = Some(i);
+                break;
+              }
+            }
+          }
+          if let Some(idx) = end_idx {
+            r#type = Some(remaining[1..idx].to_string());
+            rest = remaining[idx + 1..].trim();
           }
         }
 
@@ -128,7 +141,7 @@ pub fn map_jsdoc_to_class(jsdoc: ParsedJSDoc, class_info: &mut CustomElementInfo
         class_info.events.push(EventInfo {
           name: tag.name,
           description: Some(tag.description),
-          r#type: tag.r#type,
+          r#type: tag.r#type.map(|t| TypeInfo { text: t }),
         });
       }
       "csspart" | "part" => {
@@ -154,7 +167,7 @@ pub fn map_jsdoc_to_class(jsdoc: ParsedJSDoc, class_info: &mut CustomElementInfo
         class_info.css_properties.push(CssPropertyInfo {
           name,
           description: Some(tag.description),
-          r#type: tag.r#type,
+          r#type: tag.r#type.map(|t| TypeInfo { text: t }),
           default: default_val,
         });
       }
@@ -168,8 +181,9 @@ pub fn map_jsdoc_to_class(jsdoc: ParsedJSDoc, class_info: &mut CustomElementInfo
         class_info.attributes.push(AttributeInfo {
           name: tag.name,
           description: Some(tag.description),
-          r#type: tag.r#type,
+          r#type: tag.r#type.map(|t| TypeInfo { text: t }),
           field_name: None,
+          default: None,
         });
       }
       "prop" | "property" => {
@@ -177,13 +191,15 @@ pub fn map_jsdoc_to_class(jsdoc: ParsedJSDoc, class_info: &mut CustomElementInfo
           name: tag.name,
           kind: "field".to_string(),
           description: Some(tag.description),
-          r#type: tag.r#type,
+          r#type: tag.r#type.map(|t| TypeInfo { text: t }),
           default: None,
           r#static: None,
           privacy: Some("public".to_string()),
           readonly: None,
           reflects: None,
           attribute: None,
+          parameters: None,
+          r#return: None,
         });
       }
       _ => {}

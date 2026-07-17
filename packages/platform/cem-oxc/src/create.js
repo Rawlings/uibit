@@ -48,7 +48,7 @@ export function create({ files = [], plugins = [], context = {} }) {
             name: decl.name,
             declaration: {
               name: decl.name,
-              module: `./${relativePath}`
+              module: relativePath.startsWith('.') || relativePath.startsWith('/') ? relativePath : `./${relativePath}`
             }
           });
         }

@@ -8,78 +8,67 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Reveals a synchronized secondary \"xray\" image through a circular lens that",
           "name": "ImageReveal",
-          "cssProperties": [
-            {
-              "description": "Diameter of the circular lens",
-              "name": "--uibit-image-reveal-lens-size",
-              "default": "12rem"
-            },
-            {
-              "description": "Box shadow of the lens ring",
-              "name": "--uibit-image-reveal-lens-shadow",
-              "default": "0 0 0 0.1875rem #ffffff, 0 0.5rem 2rem rgba(0,0,0,0.35)"
-            }
-          ],
-          "slots": [
-            {
-              "description": "Primary (outer) image",
-              "name": ""
-            },
-            {
-              "description": "Secondary image revealed through the lens",
-              "name": "xray"
-            }
-          ],
+          "tagName": "uibit-image-reveal",
+          "customElement": true,
+          "description": "Reveals a synchronized secondary \"xray\" image through a circular lens that",
+          "summary": "A scroll-triggered overlay image reveal effect component.\nfollows the user's cursor or touch point over the primary image.\nPlace the primary image in the default slot and the reveal image in the\n`xray` named slot. Both images are pixel-aligned so the lens shows exactly\nwhat lies beneath the cursor on the xray layer.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "size",
+              "kind": "field",
+              "description": "Diameter of the lens in any CSS unit. Overrides the CSS custom property.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "Diameter of the lens in any CSS unit. Overrides the CSS custom property.",
+              "static": false,
+              "privacy": "public",
               "attribute": "size"
             },
             {
-              "kind": "field",
               "name": "_x",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_y",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_base",
-              "type": {
-                "text": "HTMLElement"
-              },
-              "privacy": "private"
-            },
-            {
               "kind": "field",
-              "name": "_lensImg",
               "type": {
                 "text": "HTMLElement"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
+              "name": "_lensImg",
+              "kind": "field",
+              "type": {
+                "text": "HTMLElement"
+              },
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "_lensSize",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "return": {
                 "type": {
@@ -88,8 +77,9 @@
               }
             },
             {
-              "kind": "method",
               "name": "_updateLens",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -107,272 +97,100 @@
               ]
             },
             {
-              "kind": "field",
               "name": "_onMouseEnter",
+              "kind": "field",
+              "default": "(e: MouseEvent) => {\n    this.setAttribute('active', '');\n    this._updateLens(e.clientX, e.clientY);\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_onMouseMove",
+              "kind": "field",
+              "default": "(e: MouseEvent) => {\n    this._updateLens(e.clientX, e.clientY);\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_onMouseLeave",
+              "kind": "field",
+              "default": "() => {\n    this.removeAttribute('active');\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_onTouchStart",
+              "kind": "field",
+              "default": "(e: TouchEvent) => {\n    this.setAttribute('touch', '');\n    this.setAttribute('active', '');\n    const t = e.touches[0];\n    if (t) this._updateLens(t.clientX, t.clientY);\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_onTouchMove",
+              "kind": "field",
+              "default": "(e: TouchEvent) => {\n    if (e.cancelable) e.preventDefault();\n    const t = e.touches[0];\n    if (t) this._updateLens(t.clientX, t.clientY);\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_onTouchEnd",
+              "kind": "field",
+              "default": "() => {\n    this.removeAttribute('active');\n  }",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "firstUpdated",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "static": false,
+              "privacy": "public"
             },
             {
+              "name": "render",
               "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "{ x: number, y: number }"
-              },
-              "description": "Fired as the lens moves; `detail.x` and `detail.y` are percentages",
-              "name": "reveal-move"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "size",
+              "description": "Diameter of the lens in any CSS unit. Overrides the CSS custom property.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "Diameter of the lens in any CSS unit. Overrides the CSS custom property.",
-              "fieldName": "size"
+              "fieldName": "size",
+              "default": "''"
+            }
+          ],
+          "events": [
+            {
+              "name": "reveal-move",
+              "description": "Fired as the lens moves; `detail.x` and `detail.y` are percentages",
+              "type": {
+                "text": "{ x: number, y: number }"
+              }
+            }
+          ],
+          "slots": [
+            {
+              "name": "-",
+              "description": "Primary (outer) image"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "xray",
+              "description": "Secondary image revealed through the lens"
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-image-reveal-lens-size",
+              "description": "Diameter of the circular lens",
+              "default": "12rem"
+            },
+            {
+              "name": "[--uibit-image-reveal-lens-shadow=0",
+              "description": "0 0 0.1875rem #ffffff, 0 0.5rem 2rem rgba(0,0,0,0.35)] - Box shadow of the lens ring"
             }
           ],
           "cssStates": [
@@ -384,10 +202,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A scroll-triggered overlay image reveal effect component.\nfollows the user's cursor or touch point over the primary image.\n\nPlace the primary image in the default slot and the reveal image in the\n`xray` named slot. Both images are pixel-aligned so the lens shows exactly\nwhat lies beneath the cursor on the xray layer.",
-          "tagName": "uibit-image-reveal",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -396,23 +211,7 @@
           "name": "ImageReveal",
           "declaration": {
             "name": "ImageReveal",
-            "module": "src/image-reveal.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-image-reveal",
-          "declaration": {
-            "name": "ImageReveal",
-            "module": "src/image-reveal.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "ImageReveal",
-            "module": "src/image-reveal.ts"
+            "module": "./src/image-reveal.ts"
           }
         }
       ]
@@ -421,53 +220,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./image-reveal"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ImageReveal",
-          "declaration": {
-            "name": "ImageReveal",
-            "module": "./image-reveal"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: block; position: relative; overflow: hidden; cursor: none; -webkit-user-select: none; user-select: none; line-height: 0; } :host([touch]) { cursor: default; } .base { display: block; width: 100%; height: 100%; position: relative; } ::slotted(img), ::slotted(picture) { display: block; width: 100%; height: auto; pointer-events: none; } .xray-slot { position: absolute; inset: 0; pointer-events: none; } .xray-slot ::slotted(img), .xray-slot ::slotted(picture) { display: block; width: 100%; height: 100%; object-fit: cover; } .lens { position: absolute; top: 0; left: 0; border-radius: 50%; overflow: hidden; pointer-events: none; box-shadow: var( --uibit-image-reveal-lens-shadow, 0 0 0 0.0625rem rgba(0, 0, 0, 0.18), 0 0 0 0.1875rem rgba(255, 255, 255, 0.92), 0 0 0 0.25rem rgba(0, 0, 0, 0.1), 0 0.75rem 2.5rem rgba(0, 0, 0, 0.45) ); transform: translate(-50%, -50%); will-change: transform; transition: opacity 0.15s ease; opacity: 0; } :host([active]) .lens { opacity: 1; } .lens-inner { width: 100%; height: 100%; position: relative; overflow: hidden; } .lens-img { position: absolute; pointer-events: none; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -481,41 +240,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -525,42 +292,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -570,29 +335,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -601,11 +368,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -613,17 +387,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -645,22 +416,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -682,30 +454,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

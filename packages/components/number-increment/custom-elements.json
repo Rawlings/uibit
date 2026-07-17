@@ -6,32 +6,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./number-increment"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "NumberIncrement",
-          "declaration": {
-            "name": "NumberIncrement",
-            "module": "./number-increment"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/number-increment.test.ts",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -39,191 +20,197 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Animates a numeric value from zero (or a custom start) up to the `value`",
           "name": "NumberIncrement",
-          "cssProperties": [
-            {
-              "description": "Font size",
-              "name": "--uibit-number-increment-font-size",
-              "default": "inherit"
-            },
-            {
-              "description": "Font weight",
-              "name": "--uibit-number-increment-font-weight",
-              "default": "inherit"
-            },
-            {
-              "description": "Text color",
-              "name": "--uibit-number-increment-color",
-              "default": "inherit"
-            },
-            {
-              "description": "Font family",
-              "name": "--uibit-number-increment-font-family",
-              "default": "inherit"
-            },
-            {
-              "description": "Line height",
-              "name": "--uibit-number-increment-line-height",
-              "default": "inherit"
-            }
-          ],
+          "tagName": "uibit-number-increment",
+          "customElement": true,
+          "description": "Animates a numeric value from zero (or a custom start) up to the `value`",
+          "summary": "A scroll-triggered animated numeric counter component.\nattribute once the element scrolls into the viewport. Supports easing,\ndecimal places, and custom formatting functions.\nThe animation runs entirely in the shadow DOM on a rAF loop so it never\nblocks the main thread via layout thrashing.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "value",
+              "kind": "field",
+              "description": "Target numeric value to count up to.",
               "type": {
                 "text": "number"
               },
               "default": "0",
-              "description": "Target numeric value to count up to.",
+              "static": false,
+              "privacy": "public",
               "attribute": "value"
             },
             {
-              "kind": "field",
               "name": "from",
+              "kind": "field",
+              "description": "Starting value for the animation.",
               "type": {
                 "text": "number"
               },
               "default": "0",
-              "description": "Starting value for the animation.",
+              "static": false,
+              "privacy": "public",
               "attribute": "from"
             },
             {
-              "kind": "field",
               "name": "duration",
+              "kind": "field",
+              "description": "Duration of the count animation in milliseconds.",
               "type": {
                 "text": "number"
               },
               "default": "1800",
-              "description": "Duration of the count animation in milliseconds.",
+              "static": false,
+              "privacy": "public",
               "attribute": "duration"
             },
             {
-              "kind": "field",
               "name": "decimals",
+              "kind": "field",
+              "description": "Number of decimal places to display. Used only if no custom formatter is provided.",
               "type": {
                 "text": "number"
               },
               "default": "0",
-              "description": "Number of decimal places to display. Used only if no custom formatter is provided.",
+              "static": false,
+              "privacy": "public",
               "attribute": "decimals"
             },
             {
-              "kind": "field",
               "name": "options",
-              "type": {
-                "text": "Intl.NumberFormatOptions | undefined"
-              },
+              "kind": "field",
               "description": "Options for Intl.NumberFormat.",
+              "type": {
+                "text": "Intl.NumberFormatOptions"
+              },
+              "static": false,
+              "privacy": "public",
               "attribute": "options"
             },
             {
-              "kind": "field",
               "name": "formatter",
+              "kind": "field",
+              "description": "Custom formatter function to format the number for display. Overrides locale and options.",
               "type": {
-                "text": "(value: number) => string | undefined"
+                "text": "(value: number) => string"
               },
-              "description": "Custom formatter function to format the number for display. Overrides locale and options."
+              "static": false,
+              "privacy": "public"
             },
             {
-              "kind": "field",
               "name": "easing",
+              "kind": "field",
+              "description": "Easing curve: \"ease-out\" | \"ease-in-out\" | \"linear\".",
               "type": {
                 "text": "'ease-out' | 'ease-in-out' | 'linear'"
               },
               "default": "'ease-out'",
-              "description": "Easing curve: \"ease-out\" | \"ease-in-out\" | \"linear\".",
+              "static": false,
+              "privacy": "public",
               "attribute": "easing"
             },
             {
-              "kind": "field",
               "name": "threshold",
+              "kind": "field",
+              "description": "Intersection threshold (0–1) at which the animation triggers.",
               "type": {
                 "text": "number"
               },
               "default": "0.2",
-              "description": "Intersection threshold (0–1) at which the animation triggers.",
+              "static": false,
+              "privacy": "public",
               "attribute": "threshold"
             },
             {
-              "kind": "field",
               "name": "repeat",
+              "kind": "field",
+              "description": "Re-animate each time the element re-enters the viewport.",
               "type": {
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Re-animate each time the element re-enters the viewport.",
+              "static": false,
+              "privacy": "public",
               "attribute": "repeat"
             },
             {
-              "kind": "field",
               "name": "_display",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "''"
-            },
-            {
               "kind": "field",
-              "name": "_viewport",
-              "type": {
-                "text": "ViewportController | undefined"
-              },
+              "default": "''",
+              "static": false,
               "privacy": "private"
             },
             {
+              "name": "_viewport",
               "kind": "field",
-              "name": "_loop",
-              "privacy": "private",
-              "default": "new LoopController(this, { autoStart: false, callback: (ts) => this._tick(ts), })"
-            },
-            {
-              "kind": "field",
-              "name": "_started",
               "type": {
-                "text": "boolean"
+                "text": "ViewportController"
               },
-              "privacy": "private",
-              "default": "false"
+              "static": false,
+              "privacy": "private"
             },
             {
+              "name": "_loop",
               "kind": "field",
+              "default": "new LoopController(this, {\n    autoStart: false,\n    callback: (ts) => this._tick(ts),\n  })",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "_started",
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "_startTime",
+              "kind": "field",
               "type": {
                 "text": "number | null"
               },
-              "privacy": "private",
-              "default": "null"
+              "default": "null",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_startVal",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
-            },
-            {
               "kind": "field",
-              "name": "_endVal",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
+              "name": "_endVal",
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "updated",
               "kind": "method",
-              "name": "_ease",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changed",
+                  "type": {
+                    "text": "Map<string, unknown>"
+                  }
                 }
-              },
+              ]
+            },
+            {
+              "name": "_ease",
+              "kind": "method",
+              "static": false,
+              "privacy": "private",
               "parameters": [
                 {
                   "name": "t",
@@ -231,17 +218,18 @@
                     "text": "number"
                   }
                 }
-              ]
-            },
-            {
-              "kind": "method",
-              "name": "_format",
-              "privacy": "private",
+              ],
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "number"
                 }
-              },
+              }
+            },
+            {
+              "name": "_format",
+              "kind": "method",
+              "static": false,
+              "privacy": "private",
               "parameters": [
                 {
                   "name": "n",
@@ -249,16 +237,23 @@
                     "text": "number"
                   }
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "_start",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_tick",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -270,301 +265,122 @@
               ]
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "description": "ticker-end - Fired when the count animation completes",
-              "name": "void"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "value",
+              "description": "Target numeric value to count up to.",
               "type": {
                 "text": "number"
               },
-              "default": "0",
-              "description": "Target numeric value to count up to.",
-              "fieldName": "value"
+              "fieldName": "value",
+              "default": "0"
             },
             {
               "name": "from",
+              "description": "Starting value for the animation.",
               "type": {
                 "text": "number"
               },
-              "default": "0",
-              "description": "Starting value for the animation.",
-              "fieldName": "from"
+              "fieldName": "from",
+              "default": "0"
             },
             {
               "name": "duration",
+              "description": "Duration of the count animation in milliseconds.",
               "type": {
                 "text": "number"
               },
-              "default": "1800",
-              "description": "Duration of the count animation in milliseconds.",
-              "fieldName": "duration"
+              "fieldName": "duration",
+              "default": "1800"
             },
             {
               "name": "decimals",
+              "description": "Number of decimal places to display. Used only if no custom formatter is provided.",
               "type": {
                 "text": "number"
               },
-              "default": "0",
-              "description": "Number of decimal places to display. Used only if no custom formatter is provided.",
-              "fieldName": "decimals"
+              "fieldName": "decimals",
+              "default": "0"
             },
             {
               "name": "options",
-              "type": {
-                "text": "Intl.NumberFormatOptions | undefined"
-              },
               "description": "Options for Intl.NumberFormat.",
+              "type": {
+                "text": "Intl.NumberFormatOptions"
+              },
               "fieldName": "options"
             },
             {
               "name": "easing",
+              "description": "Easing curve: \"ease-out\" | \"ease-in-out\" | \"linear\".",
               "type": {
                 "text": "'ease-out' | 'ease-in-out' | 'linear'"
               },
-              "default": "'ease-out'",
-              "description": "Easing curve: \"ease-out\" | \"ease-in-out\" | \"linear\".",
-              "fieldName": "easing"
+              "fieldName": "easing",
+              "default": "'ease-out'"
             },
             {
               "name": "threshold",
+              "description": "Intersection threshold (0–1) at which the animation triggers.",
               "type": {
                 "text": "number"
               },
-              "default": "0.2",
-              "description": "Intersection threshold (0–1) at which the animation triggers.",
-              "fieldName": "threshold"
+              "fieldName": "threshold",
+              "default": "0.2"
             },
             {
               "name": "repeat",
+              "description": "Re-animate each time the element re-enters the viewport.",
               "type": {
                 "text": "boolean"
               },
-              "default": "false",
-              "description": "Re-animate each time the element re-enters the viewport.",
-              "fieldName": "repeat"
+              "fieldName": "repeat",
+              "default": "false"
+            }
+          ],
+          "events": [
+            {
+              "name": "void",
+              "description": "ticker-start - Fired when the count animation begins"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "void",
+              "description": "ticker-end - Fired when the count animation completes"
+            }
+          ],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-number-increment-font-size",
+              "description": "Font size",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-number-increment-font-weight",
+              "description": "Font weight",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-number-increment-color",
+              "description": "Text color",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-number-increment-font-family",
+              "description": "Font family",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-number-increment-line-height",
+              "description": "Line height",
+              "default": "inherit"
             }
           ],
           "cssStates": [
@@ -576,10 +392,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A scroll-triggered animated numeric counter component.\nattribute once the element scrolls into the viewport. Supports easing,\ndecimal places, and custom formatting functions.\n\nThe animation runs entirely in the shadow DOM on a rAF loop so it never\nblocks the main thread via layout thrashing.",
-          "tagName": "uibit-number-increment",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -588,23 +401,7 @@
           "name": "NumberIncrement",
           "declaration": {
             "name": "NumberIncrement",
-            "module": "src/number-increment.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-number-increment",
-          "declaration": {
-            "name": "NumberIncrement",
-            "module": "src/number-increment.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "NumberIncrement",
-            "module": "src/number-increment.ts"
+            "module": "./src/number-increment.ts"
           }
         }
       ]
@@ -612,23 +409,8 @@
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: inline-block; font-variant-numeric: tabular-nums; font-size: var(--uibit-number-increment-font-size, inherit); font-weight: var(--uibit-number-increment-font-weight, inherit); color: var(--uibit-number-increment-color, inherit); font-family: var(--uibit-number-increment-font-family, inherit); line-height: var(--uibit-number-increment-line-height, inherit); } .value { display: inline; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -642,41 +424,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -686,42 +476,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -731,29 +519,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -762,11 +552,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -774,17 +571,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -806,22 +600,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -843,30 +638,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

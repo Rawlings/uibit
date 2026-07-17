@@ -84,7 +84,7 @@
       "optional": true
     }
   },
-  "customElements": "dist/custom-elements.json",
+  "customElements": "custom-elements.json",
   "uibit": {
     "id": "table",
     "title": "Table",

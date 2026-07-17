@@ -6,24 +6,7 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ScratchReveal",
-          "declaration": {
-            "name": "ScratchReveal",
-            "module": "./scratch-reveal"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -31,168 +14,124 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Canvas-based scratch card that reveals slotted content as the user",
           "name": "ScratchReveal",
-          "cssProperties": [
-            {
-              "description": "Width of the scratch card",
-              "name": "--uibit-scratch-reveal-width",
-              "default": "25rem"
-            },
-            {
-              "description": "Height of the scratch card",
-              "name": "--uibit-scratch-reveal-height",
-              "default": "12.5rem"
-            },
-            {
-              "description": "Border radius of the card",
-              "name": "--uibit-scratch-reveal-border-radius",
-              "default": "0.5rem"
-            },
-            {
-              "description": "Background color of the revealed content area",
-              "name": "--uibit-scratch-reveal-background",
-              "default": "#f3f4f6"
-            },
-            {
-              "description": "Padding of the revealed content area",
-              "name": "--uibit-scratch-reveal-padding",
-              "default": "1rem"
-            },
-            {
-              "description": "Font size of the revealed content",
-              "name": "--uibit-scratch-reveal-font-size",
-              "default": "1rem"
-            },
-            {
-              "description": "Font weight of the revealed content",
-              "name": "--uibit-scratch-reveal-font-weight",
-              "default": "600"
-            },
-            {
-              "description": "Text color of the revealed content",
-              "name": "--uibit-scratch-reveal-color",
-              "default": "#111827"
-            },
-            {
-              "description": "Fill color of the scratchable overlay",
-              "name": "--uibit-scratch-reveal-overlay-color",
-              "default": "#d1d5db"
-            },
-            {
-              "description": "Color of the scratch instruction hint",
-              "name": "--uibit-scratch-reveal-instructions-color",
-              "default": "rgba(0,0,0,0.4)"
-            },
-            {
-              "description": "Font size of the scratch instruction hint",
-              "name": "--uibit-scratch-reveal-instructions-font-size",
-              "default": "0.875rem"
-            }
-          ],
-          "slots": [
-            {
-              "description": "The content revealed beneath the scratch overlay",
-              "name": ""
-            }
-          ],
+          "tagName": "uibit-scratch-reveal",
+          "customElement": true,
+          "description": "Canvas-based scratch card that reveals slotted content as the user",
+          "summary": "An interactive canvas-based scratch card reveal overlay component.\nscratches over a configurable overlay layer.",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "revealThreshold",
+              "kind": "field",
+              "description": "Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires.",
               "type": {
                 "text": "number"
               },
               "default": "50",
-              "description": "Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires.",
+              "static": false,
+              "privacy": "public",
               "attribute": "reveal-threshold"
             },
             {
-              "kind": "field",
               "name": "_scratchProgress",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "brushSize",
+              "kind": "field",
               "type": {
                 "text": "number"
               },
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "isRevealed",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
+              "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "showInstructions",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "true"
+              "kind": "field",
+              "default": "true",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "canvas",
+              "kind": "field",
               "type": {
-                "text": "HTMLCanvasElement | undefined"
+                "text": "HTMLCanvasElement"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "ctx",
+              "kind": "field",
               "type": {
-                "text": "CanvasRenderingContext2D | null | undefined"
+                "text": "CanvasRenderingContext2D | null"
               },
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "isDrawing",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
               "kind": "field",
+              "default": "false",
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "_rafId",
+              "kind": "field",
               "type": {
-                "text": "number | undefined"
+                "text": "number"
               },
+              "static": false,
               "privacy": "private"
             },
             {
+              "name": "firstUpdated",
               "kind": "method",
+              "static": false,
+              "privacy": "public"
+            },
+            {
               "name": "setupCanvas",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "drawOverlay",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "attachEventListeners",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "startScratching",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -204,13 +143,15 @@
               ]
             },
             {
-              "kind": "method",
               "name": "stopScratching",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "scratch",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -222,259 +163,114 @@
               ]
             },
             {
-              "kind": "method",
               "name": "calculateRevealPercentage",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "reset",
-              "description": "\n\nResets the scratch card canvas overlay to its fully obscured state."
-            },
-            {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "description": "Resets the scratch card canvas overlay to its fully obscured state.",
+              "static": false,
+              "privacy": "public"
             },
             {
+              "name": "render",
               "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "{ percentage: number }"
-              },
-              "description": "Fired as the user scratches; `detail.percentage` is 0–100",
-              "name": "scratch-progress"
-            },
-            {
-              "type": {
-                "text": "{ percentage: number }"
-              },
-              "description": "Fired once when the revealed area crosses `revealThreshold`",
-              "name": "scratch-reveal"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "reveal-threshold",
+              "description": "Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires.",
               "type": {
                 "text": "number"
               },
-              "default": "50",
-              "description": "Percentage (0–100) of the overlay that must be scratched before the `scratch-reveal` event fires.",
-              "fieldName": "revealThreshold"
+              "fieldName": "revealThreshold",
+              "default": "50"
+            }
+          ],
+          "events": [
+            {
+              "name": "scratch-progress",
+              "description": "Fired as the user scratches; `detail.percentage` is 0–100",
+              "type": {
+                "text": "{ percentage: number }"
+              }
             },
             {
-              "name": "locale",
+              "name": "scratch-reveal",
+              "description": "Fired once when the revealed area crosses `revealThreshold`",
               "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
+                "text": "{ percentage: number }"
               }
+            }
+          ],
+          "slots": [
+            {
+              "name": "-",
+              "description": "The content revealed beneath the scratch overlay"
+            }
+          ],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-scratch-reveal-width",
+              "description": "Width of the scratch card",
+              "default": "25rem"
+            },
+            {
+              "name": "--uibit-scratch-reveal-height",
+              "description": "Height of the scratch card",
+              "default": "12.5rem"
+            },
+            {
+              "name": "--uibit-scratch-reveal-border-radius",
+              "description": "Border radius of the card",
+              "default": "0.5rem"
+            },
+            {
+              "name": "--uibit-scratch-reveal-background",
+              "description": "Background color of the revealed content area",
+              "default": "#f3f4f6"
+            },
+            {
+              "name": "--uibit-scratch-reveal-padding",
+              "description": "Padding of the revealed content area",
+              "default": "1rem"
+            },
+            {
+              "name": "--uibit-scratch-reveal-font-size",
+              "description": "Font size of the revealed content",
+              "default": "1rem"
+            },
+            {
+              "name": "--uibit-scratch-reveal-font-weight",
+              "description": "Font weight of the revealed content",
+              "default": "600"
+            },
+            {
+              "name": "--uibit-scratch-reveal-color",
+              "description": "Text color of the revealed content",
+              "default": "#111827"
+            },
+            {
+              "name": "--uibit-scratch-reveal-overlay-color",
+              "description": "Fill color of the scratchable overlay",
+              "default": "#d1d5db"
+            },
+            {
+              "name": "--uibit-scratch-reveal-instructions-color",
+              "description": "Color of the scratch instruction hint",
+              "default": "rgba(0,0,0,0.4)"
+            },
+            {
+              "name": "--uibit-scratch-reveal-instructions-font-size",
+              "description": "Font size of the scratch instruction hint",
+              "default": "0.875rem"
             }
           ],
           "cssStates": [
@@ -486,10 +282,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "An interactive canvas-based scratch card reveal overlay component.\nscratches over a configurable overlay layer.",
-          "tagName": "uibit-scratch-reveal",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -498,23 +291,7 @@
           "name": "ScratchReveal",
           "declaration": {
             "name": "ScratchReveal",
-            "module": "src/scratch-reveal.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-scratch-reveal",
-          "declaration": {
-            "name": "ScratchReveal",
-            "module": "src/scratch-reveal.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "ScratchReveal",
-            "module": "src/scratch-reveal.ts"
+            "module": "./src/scratch-reveal.ts"
           }
         }
       ]
@@ -522,23 +299,8 @@
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: block; --uibit-scratch-reveal-width: 25rem; --uibit-scratch-reveal-height: 12.5rem; --uibit-scratch-reveal-overlay-color: #d1d5db; --uibit-scratch-reveal-cursor: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewBox=\"0 0 32 32\"><circle cx=\"16\" cy=\"16\" r=\"13\" fill=\"%23111\" opacity=\"0.5\"/><circle cx=\"16\" cy=\"16\" r=\"12\" fill=\"none\" stroke=\"white\" stroke-width=\"2\"/><circle cx=\"16\" cy=\"16\" r=\"4\" fill=\"white\"/></svg>') 16 16, crosshair; --uibit-scratch-reveal-brush-size: 3rem; } .scratch-container { position: relative; width: var(--uibit-scratch-reveal-width); height: var(--uibit-scratch-reveal-height); overflow: hidden; border-radius: var(--uibit-scratch-reveal-border-radius, 0.5rem); background: var(--uibit-scratch-reveal-background, #f3f4f6); user-select: none; touch-action: none; } .content { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: var(--uibit-scratch-reveal-padding, 1rem); font-size: var(--uibit-scratch-reveal-font-size, var(--uibit-font-size-base, 1rem)); font-weight: var(--uibit-scratch-reveal-font-weight, var(--uibit-font-weight-semibold, 600)); color: var(--uibit-scratch-reveal-color, #111827); text-align: center; word-break: break-word; z-index: 1; } canvas { position: absolute; inset: 0; cursor: var(--uibit-scratch-reveal-cursor); z-index: 2; display: block; } .instructions { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: var(--uibit-scratch-reveal-instructions-color, rgba(0, 0, 0, 0.4)); font-size: var(--uibit-scratch-reveal-instructions-font-size, var(--uibit-font-size-sm, 0.875rem)); pointer-events: none; z-index: 3; } .instructions-text { display: block; margin-bottom: 0.5rem; } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -552,41 +314,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -596,42 +366,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -641,29 +409,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -672,11 +442,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -684,17 +461,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -716,22 +490,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -753,30 +528,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

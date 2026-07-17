@@ -6,53 +6,13 @@
       "kind": "javascript-module",
       "path": "src/index.ts",
       "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "default",
-            "module": "./text-typing"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "TextTyping",
-          "declaration": {
-            "name": "TextTyping",
-            "module": "./text-typing"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "module": "src/types"
-          }
-        }
-      ]
+      "exports": []
     },
     {
       "kind": "javascript-module",
       "path": "src/styles.ts",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "styles",
-          "default": "css` :host { display: inline; font-size: var(--uibit-text-typing-font-size, inherit); font-weight: var(--uibit-text-typing-font-weight, inherit); color: var(--uibit-text-typing-color, inherit); font-family: var(--uibit-text-typing-font-family, inherit); line-height: var(--uibit-text-typing-line-height, inherit); } .text { display: inline; } .cursor { display: inline-block; width: var(--uibit-text-typing-cursor-width, 0.125rem); height: 1.1em; background: var(--uibit-text-typing-cursor-color, currentColor); margin-left: 0.05em; vertical-align: text-bottom; border-radius: var(--uibit-text-typing-cursor-radius, 0.0625rem); animation: blink var(--uibit-text-typing-cursor-blink, 0.75s) step-end infinite; } :host([paused]) .cursor { animation: none; opacity: 1; } @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } } `"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "styles",
-          "declaration": {
-            "name": "styles",
-            "module": "src/styles.ts"
-          }
-        }
-      ]
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
@@ -60,197 +20,176 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "Cycles through an array of phrases by simulating realistic keystroke",
           "name": "TextTyping",
-          "cssProperties": [
-            {
-              "description": "Font size",
-              "name": "--uibit-text-typing-font-size",
-              "default": "inherit"
-            },
-            {
-              "description": "Font weight",
-              "name": "--uibit-text-typing-font-weight",
-              "default": "inherit"
-            },
-            {
-              "description": "Text color",
-              "name": "--uibit-text-typing-color",
-              "default": "inherit"
-            },
-            {
-              "description": "Font family",
-              "name": "--uibit-text-typing-font-family",
-              "default": "inherit"
-            },
-            {
-              "description": "Line height",
-              "name": "--uibit-text-typing-line-height",
-              "default": "inherit"
-            },
-            {
-              "description": "Cursor bar color",
-              "name": "--uibit-text-typing-cursor-color",
-              "default": "currentColor"
-            },
-            {
-              "description": "Cursor bar width",
-              "name": "--uibit-text-typing-cursor-width",
-              "default": "0.125rem"
-            },
-            {
-              "description": "Cursor bar border radius",
-              "name": "--uibit-text-typing-cursor-radius",
-              "default": "0.0625rem"
-            },
-            {
-              "description": "Cursor blink interval",
-              "name": "--uibit-text-typing-cursor-blink",
-              "default": "0.75s"
-            }
-          ],
+          "tagName": "uibit-text-typing",
+          "customElement": true,
+          "description": "Cycles through an array of phrases by simulating realistic keystroke",
+          "summary": "A typewriter effect animation component with looping backspacing features.\ntyping and backspace deletion. Includes subtle speed variance, randomized\nsimulated typos that auto-correct, and a blinking cursor node.\nPass static prefix or wrapper text inside the default slot, and phrases to cycle through\ninside elements with `slot=\"text\"` (e.g. `<span slot=\"text\">phrase</span>`).",
           "members": [
             {
+              "name": "styles",
               "kind": "field",
+              "default": "styles",
+              "static": true,
+              "privacy": "public"
+            },
+            {
               "name": "phrases",
+              "kind": "field",
               "type": {
                 "text": "string[]"
               },
-              "privacy": "private",
-              "default": "[]"
+              "default": "[]",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "typeSpeed",
+              "kind": "field",
+              "description": "Base typing speed in ms per character. A small random variance is applied.",
               "type": {
                 "text": "number"
               },
               "default": "80",
-              "description": "Base typing speed in ms per character. A small random variance is applied.",
+              "static": false,
+              "privacy": "public",
               "attribute": "type-speed"
             },
             {
-              "kind": "field",
               "name": "deleteSpeed",
+              "kind": "field",
+              "description": "Base delete speed in ms per character.",
               "type": {
                 "text": "number"
               },
               "default": "40",
-              "description": "Base delete speed in ms per character.",
+              "static": false,
+              "privacy": "public",
               "attribute": "delete-speed"
             },
             {
-              "kind": "field",
               "name": "pauseAfter",
+              "kind": "field",
+              "description": "Pause in ms after finishing a phrase before starting to delete.",
               "type": {
                 "text": "number"
               },
               "default": "1800",
-              "description": "Pause in ms after finishing a phrase before starting to delete.",
+              "static": false,
+              "privacy": "public",
               "attribute": "pause-after"
             },
             {
-              "kind": "field",
               "name": "pauseBefore",
+              "kind": "field",
+              "description": "Pause in ms after fully deleting before typing the next phrase.",
               "type": {
                 "text": "number"
               },
               "default": "400",
-              "description": "Pause in ms after fully deleting before typing the next phrase.",
+              "static": false,
+              "privacy": "public",
               "attribute": "pause-before"
             },
             {
-              "kind": "field",
               "name": "typoRate",
+              "kind": "field",
+              "description": "Probability (0–1) that a character will be mis-typed and immediately corrected.",
               "type": {
                 "text": "number"
               },
               "default": "0.04",
-              "description": "Probability (0–1) that a character will be mis-typed and immediately corrected.",
+              "static": false,
+              "privacy": "public",
               "attribute": "typo-rate"
             },
             {
-              "kind": "field",
               "name": "showCursor",
+              "kind": "field",
+              "description": "Show the blinking cursor.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Show the blinking cursor.",
+              "static": false,
+              "privacy": "public",
               "attribute": "show-cursor"
             },
             {
-              "kind": "field",
               "name": "loop",
+              "kind": "field",
+              "description": "Loop indefinitely. Set to false to stop after the last phrase.",
               "type": {
                 "text": "boolean"
               },
               "default": "true",
-              "description": "Loop indefinitely. Set to false to stop after the last phrase.",
+              "static": false,
+              "privacy": "public",
               "attribute": "loop"
             },
             {
-              "kind": "field",
               "name": "_visible",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "''"
-            },
-            {
               "kind": "field",
-              "name": "_timer",
-              "type": {
-                "text": "ReturnType<typeof setTimeout> | undefined"
-              },
+              "default": "''",
+              "static": false,
               "privacy": "private"
             },
             {
+              "name": "_timer",
               "kind": "field",
+              "type": {
+                "text": "ReturnType<typeof setTimeout>"
+              },
+              "static": false,
+              "privacy": "private"
+            },
+            {
               "name": "_phraseIndex",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_charIndex",
-              "type": {
-                "text": "number"
-              },
-              "privacy": "private",
-              "default": "0"
+              "kind": "field",
+              "default": "0",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "field",
               "name": "_deleting",
-              "type": {
-                "text": "boolean"
-              },
-              "privacy": "private",
-              "default": "false"
-            },
-            {
               "kind": "field",
-              "name": "_typoChar",
-              "type": {
-                "text": "string"
-              },
-              "privacy": "private",
-              "default": "''"
+              "default": "false",
+              "static": false,
+              "privacy": "private"
             },
             {
+              "name": "_typoChar",
+              "kind": "field",
+              "default": "''",
+              "static": false,
+              "privacy": "private"
+            },
+            {
+              "name": "updated",
               "kind": "method",
-              "name": "_jitter",
-              "privacy": "private",
-              "return": {
-                "type": {
-                  "text": "number"
+              "static": false,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "changed",
+                  "type": {
+                    "text": "Map<string, unknown>"
+                  }
                 }
-              },
+              ]
+            },
+            {
+              "name": "_jitter",
+              "kind": "method",
+              "static": false,
+              "privacy": "private",
               "parameters": [
                 {
                   "name": "base",
@@ -259,19 +198,25 @@
                   }
                 },
                 {
-                  "name": "factor",
-                  "default": "0.4"
+                  "name": ""
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "number"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "_tick",
+              "kind": "method",
+              "static": false,
               "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "_handleSlotChange",
+              "kind": "method",
+              "static": false,
               "privacy": "private",
               "parameters": [
                 {
@@ -283,296 +228,133 @@
               ]
             },
             {
-              "kind": "field",
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "attribute": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "resolvedLocale",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
-              "readonly": true,
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "field",
-              "name": "_disposables",
-              "type": {
-                "text": "Set<() => void>"
-              },
-              "privacy": "private",
-              "default": "new Set()",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
+              "name": "render",
               "kind": "method",
-              "name": "createProperty",
-              "static": true,
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "PropertyKey"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "PropertyDeclaration"
-                  }
-                }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "finalizeStyles",
-              "static": true,
-              "return": {
-                "type": {
-                  "text": "Array<any>"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "name",
-                  "type": {
-                    "text": "string"
-                  }
-                },
-                {
-                  "name": "detail",
-                  "optional": true,
-                  "type": {
-                    "text": "T"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
-                }
-              ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
-              "return": {
-                "type": {
-                  "text": "string"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "propertyName",
-                  "type": {
-                    "text": "string"
-                  }
-                }
-              ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "registerDisposable",
-              "parameters": [
-                {
-                  "name": "cleanup",
-                  "type": {
-                    "text": "() => void"
-                  }
-                }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            },
-            {
-              "kind": "method",
-              "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
-              "parameters": [
-                {
-                  "name": "target",
-                  "type": {
-                    "text": "EventTarget"
-                  }
-                },
-                {
-                  "name": "type",
-                  "type": {
-                    "text": "K"
-                  }
-                },
-                {
-                  "name": "listener",
-                  "type": {
-                    "text": "(this: EventTarget, ev: HTMLElementEventMap[K]) => any"
-                  }
-                },
-                {
-                  "name": "options",
-                  "optional": true,
-                  "type": {
-                    "text": "boolean | AddEventListenerOptions"
-                  }
-                }
-              ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
-            }
-          ],
-          "events": [
-            {
-              "type": {
-                "text": "{ phrase: string, index: number }"
-              },
-              "description": "Fired when a new phrase begins typing",
-              "name": "phrase-change"
+              "static": false,
+              "privacy": "public"
             }
           ],
           "attributes": [
             {
               "name": "type-speed",
+              "description": "Base typing speed in ms per character. A small random variance is applied.",
               "type": {
                 "text": "number"
               },
-              "default": "80",
-              "description": "Base typing speed in ms per character. A small random variance is applied.",
-              "fieldName": "typeSpeed"
+              "fieldName": "typeSpeed",
+              "default": "80"
             },
             {
               "name": "delete-speed",
+              "description": "Base delete speed in ms per character.",
               "type": {
                 "text": "number"
               },
-              "default": "40",
-              "description": "Base delete speed in ms per character.",
-              "fieldName": "deleteSpeed"
+              "fieldName": "deleteSpeed",
+              "default": "40"
             },
             {
               "name": "pause-after",
+              "description": "Pause in ms after finishing a phrase before starting to delete.",
               "type": {
                 "text": "number"
               },
-              "default": "1800",
-              "description": "Pause in ms after finishing a phrase before starting to delete.",
-              "fieldName": "pauseAfter"
+              "fieldName": "pauseAfter",
+              "default": "1800"
             },
             {
               "name": "pause-before",
+              "description": "Pause in ms after fully deleting before typing the next phrase.",
               "type": {
                 "text": "number"
               },
-              "default": "400",
-              "description": "Pause in ms after fully deleting before typing the next phrase.",
-              "fieldName": "pauseBefore"
+              "fieldName": "pauseBefore",
+              "default": "400"
             },
             {
               "name": "typo-rate",
+              "description": "Probability (0–1) that a character will be mis-typed and immediately corrected.",
               "type": {
                 "text": "number"
               },
-              "default": "0.04",
-              "description": "Probability (0–1) that a character will be mis-typed and immediately corrected.",
-              "fieldName": "typoRate"
+              "fieldName": "typoRate",
+              "default": "0.04"
             },
             {
               "name": "show-cursor",
+              "description": "Show the blinking cursor.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Show the blinking cursor.",
-              "fieldName": "showCursor"
+              "fieldName": "showCursor",
+              "default": "true"
             },
             {
               "name": "loop",
+              "description": "Loop indefinitely. Set to false to stop after the last phrase.",
               "type": {
                 "text": "boolean"
               },
-              "default": "true",
-              "description": "Loop indefinitely. Set to false to stop after the last phrase.",
-              "fieldName": "loop"
+              "fieldName": "loop",
+              "default": "true"
+            }
+          ],
+          "events": [
+            {
+              "name": "phrase-change",
+              "description": "Fired when a new phrase begins typing",
+              "type": {
+                "text": "{ phrase: string, index: number }"
+              }
+            }
+          ],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [
+            {
+              "name": "--uibit-text-typing-font-size",
+              "description": "Font size",
+              "default": "inherit"
             },
             {
-              "name": "locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale",
-              "inheritedFrom": {
-                "name": "UIBitElement",
-                "module": "../../platform/core/src/element.ts"
-              }
+              "name": "--uibit-text-typing-font-weight",
+              "description": "Font weight",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-text-typing-color",
+              "description": "Text color",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-text-typing-font-family",
+              "description": "Font family",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-text-typing-line-height",
+              "description": "Line height",
+              "default": "inherit"
+            },
+            {
+              "name": "--uibit-text-typing-cursor-color",
+              "description": "Cursor bar color",
+              "default": "currentColor"
+            },
+            {
+              "name": "--uibit-text-typing-cursor-width",
+              "description": "Cursor bar width",
+              "default": "0.125rem"
+            },
+            {
+              "name": "--uibit-text-typing-cursor-radius",
+              "description": "Cursor bar border radius",
+              "default": "0.0625rem"
+            },
+            {
+              "name": "--uibit-text-typing-cursor-blink",
+              "description": "Cursor blink interval",
+              "default": "0.75s"
             }
           ],
           "cssStates": [
@@ -588,10 +370,7 @@
           "superclass": {
             "name": "UIBitElement",
             "package": "@uibit/core"
-          },
-          "summary": "A typewriter effect animation component with looping backspacing features.\ntyping and backspace deletion. Includes subtle speed variance, randomized\nsimulated typos that auto-correct, and a blinking cursor node.\n\nPass static prefix or wrapper text inside the default slot, and phrases to cycle through\ninside elements with `slot=\"text\"` (e.g. `<span slot=\"text\">phrase</span>`).",
-          "tagName": "uibit-text-typing",
-          "customElement": true
+          }
         }
       ],
       "exports": [
@@ -600,23 +379,7 @@
           "name": "TextTyping",
           "declaration": {
             "name": "TextTyping",
-            "module": "src/text-typing.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "uibit-text-typing",
-          "declaration": {
-            "name": "TextTyping",
-            "module": "src/text-typing.ts"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "default",
-          "declaration": {
-            "name": "TextTyping",
-            "module": "src/text-typing.ts"
+            "module": "./src/text-typing.ts"
           }
         }
       ]
@@ -633,41 +396,49 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "name": "UIBitElement",
+          "customElement": true,
+          "description": "A foundational base class for all UIBit web components.\nProvides custom event helpers, default kebab-case attribute mapping,\nautomatic cleanup/disposable tracking, and auto-injected reset styles.",
           "members": [
             {
-              "kind": "field",
               "name": "locale",
+              "kind": "field",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
               "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
+              "static": false,
+              "privacy": "public",
               "attribute": "locale"
             },
             {
-              "kind": "field",
               "name": "resolvedLocale",
+              "kind": "field",
+              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
               "type": {
                 "text": "string | undefined"
               },
-              "description": "Resolves the active locale for formatting and localization.\nChecks the `locale` property first, then traverses up the DOM to find\nthe nearest ancestor with a `lang` attribute, and finally falls back\nto undefined (which defaults to browser locale).",
+              "static": false,
+              "privacy": "public",
               "readonly": true
             },
             {
-              "kind": "field",
               "name": "_disposables",
+              "kind": "field",
               "type": {
                 "text": "Set<() => void>"
               },
-              "privacy": "private",
-              "default": "new Set()"
+              "default": "new Set()",
+              "static": false,
+              "privacy": "private"
             },
             {
-              "kind": "method",
               "name": "createProperty",
+              "kind": "method",
+              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default.",
               "static": true,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -677,42 +448,40 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "PropertyDeclaration"
-                  }
+                  },
+                  "optional": true
                 }
-              ],
-              "description": "Overrides createProperty to automatically map camelCase property names\nto kebab-case attribute names by default."
+              ]
             },
             {
-              "kind": "method",
               "name": "finalizeStyles",
+              "kind": "method",
+              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles.",
               "static": true,
+              "privacy": "public",
+              "parameters": [
+                {
+                  "name": "styles",
+                  "type": {
+                    "text": "CSSResultGroup"
+                  },
+                  "optional": true
+                }
+              ],
               "return": {
                 "type": {
                   "text": "Array<any>"
                 }
-              },
-              "parameters": [
-                {
-                  "name": "styles",
-                  "optional": true,
-                  "type": {
-                    "text": "CSSResultGroup"
-                  }
-                }
-              ],
-              "description": "Automatically prepends basic layout resets (border-box) to the\ncomponent's final styles."
+              }
             },
             {
-              "kind": "method",
               "name": "dispatchCustomEvent",
-              "return": {
-                "type": {
-                  "text": "boolean"
-                }
-              },
+              "kind": "method",
+              "description": "Helper to dispatch a custom event with standard bubbles and composed options.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "name",
@@ -722,29 +491,31 @@
                 },
                 {
                   "name": "detail",
-                  "optional": true,
                   "type": {
                     "text": "T"
-                  }
+                  },
+                  "optional": true
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "Omit<CustomEventInit<T>, 'detail'>"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Helper to dispatch a custom event with standard bubbles and composed options."
-            },
-            {
-              "kind": "method",
-              "name": "getCssPropertyValue",
               "return": {
                 "type": {
-                  "text": "string"
+                  "text": "boolean"
                 }
-              },
+              }
+            },
+            {
+              "name": "getCssPropertyValue",
+              "kind": "method",
+              "description": "Helper to retrieve a computed CSS custom property value from the element.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "propertyName",
@@ -753,11 +524,18 @@
                   }
                 }
               ],
-              "description": "Helper to retrieve a computed CSS custom property value from the element."
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              }
             },
             {
-              "kind": "method",
               "name": "registerDisposable",
+              "kind": "method",
+              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "cleanup",
@@ -765,17 +543,14 @@
                     "text": "() => void"
                   }
                 }
-              ],
-              "description": "Register a cleanup function to be executed when the element is disconnected from the DOM."
+              ]
             },
             {
-              "kind": "method",
               "name": "listen",
-              "return": {
-                "type": {
-                  "text": "() => void"
-                }
-              },
+              "kind": "method",
+              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected.",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -797,22 +572,23 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
               ],
-              "description": "Utility to add an event listener that is automatically cleaned up when the element is disconnected."
-            },
-            {
-              "kind": "method",
-              "name": "listen",
               "return": {
                 "type": {
                   "text": "() => void"
                 }
-              },
+              }
+            },
+            {
+              "name": "listen",
+              "kind": "method",
+              "static": false,
+              "privacy": "public",
               "parameters": [
                 {
                   "name": "target",
@@ -834,30 +610,39 @@
                 },
                 {
                   "name": "options",
-                  "optional": true,
                   "type": {
                     "text": "boolean | AddEventListenerOptions"
-                  }
+                  },
+                  "optional": true
                 }
-              ]
+              ],
+              "return": {
+                "type": {
+                  "text": "() => void"
+                }
+              }
             }
           ],
           "attributes": [
             {
               "name": "locale",
+              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
               "type": {
                 "text": "string"
               },
-              "default": "''",
-              "description": "BCP 47 locale string for formatting and localization. Defaults to inherited document language.",
-              "fieldName": "locale"
+              "fieldName": "locale",
+              "default": "''"
             }
           ],
+          "events": [],
+          "slots": [],
+          "cssParts": [],
+          "cssProperties": [],
+          "cssStates": [],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
-          },
-          "customElement": true
+          }
         }
       ],
       "exports": [

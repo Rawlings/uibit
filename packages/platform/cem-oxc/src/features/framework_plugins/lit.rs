@@ -1,5 +1,5 @@
 use oxc_ast::ast::{Expression, ObjectExpression};
-use crate::utils::types::{AttributeInfo, CustomElementInfo, MemberInfo};
+use crate::utils::types::{AttributeInfo, CustomElementInfo, MemberInfo, TypeInfo};
 use crate::utils::ast_helpers::get_key_name;
 
 fn camel_to_kebab(s: &str) -> String {
@@ -54,13 +54,15 @@ pub fn parse_lit_static_properties(obj: &ObjectExpression, class_info: &mut Cust
           name: prop_name.clone(),
           kind: "field".to_string(),
           description: None,
-          r#type: type_name,
+          r#type: type_name.map(|t| TypeInfo { text: t }),
           default: None,
           r#static: Some(false),
           privacy: Some("public".to_string()),
           readonly: None,
           reflects: None,
           attribute: None,
+          parameters: None,
+          r#return: None,
         });
       }
 
@@ -72,6 +74,7 @@ pub fn parse_lit_static_properties(obj: &ObjectExpression, class_info: &mut Cust
             description: None,
             r#type: None,
             field_name: Some(prop_name),
+            default: None,
           });
         }
       }
