@@ -1,5 +1,18 @@
 # @uibit/sentiment-selector
 
+## 0.2.2
+
+### Patch Changes
+
+- Refactored SentimentSelector to remove redundant valueAsNumber overrides, delegating property synchronization to FormAssociatedMixin.
+
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies
+  - @uibit/form-internals@0.2.0
+
 ## 0.2.0
 
 ### Minor Changes

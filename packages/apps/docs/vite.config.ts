@@ -75,7 +75,12 @@ export default defineConfig({
     }
   },
   test: {
-    environment: 'happy-dom',
+    browser: {
+      enabled: true,
+      name: 'chromium',
+      provider: 'playwright',
+      headless: true,
+    },
     globals: true,
   }
 });

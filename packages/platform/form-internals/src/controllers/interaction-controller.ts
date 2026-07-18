@@ -46,7 +46,8 @@ export class InteractionController implements ReactiveController {
   }
 
   private handleBlur = () => {
-    if (this._touched) return;
+    const host = this.host as any;
+    if (host.disabled || this._touched) return;
     this._touched = true;
     if (this._internals.states) {
       this._internals.states.add('touched');
@@ -56,7 +57,8 @@ export class InteractionController implements ReactiveController {
   };
 
   private handleInput = () => {
-    if (this._dirty) return;
+    const host = this.host as any;
+    if (host.disabled || host.readOnly || this._dirty) return;
     this._dirty = true;
     if (this._internals.states) {
       this._internals.states.add('dirty');
@@ -66,7 +68,8 @@ export class InteractionController implements ReactiveController {
   };
 
   private handleChange = () => {
-    if (this._dirty) return;
+    const host = this.host as any;
+    if (host.disabled || host.readOnly || this._dirty) return;
     this._dirty = true;
     if (this._internals.states) {
       this._internals.states.add('dirty');

@@ -77,30 +77,6 @@
               "privacy": "private"
             },
             {
-              "name": "valueAsNumber",
-              "kind": "field",
-              "type": {
-                "text": "number | undefined"
-              },
-              "static": false,
-              "privacy": "public",
-              "readonly": true
-            },
-            {
-              "name": "valueAsNumber",
-              "kind": "method",
-              "static": false,
-              "privacy": "public",
-              "parameters": [
-                {
-                  "name": "newValue",
-                  "type": {
-                    "text": "number | undefined"
-                  }
-                }
-              ]
-            },
-            {
               "name": "_select",
               "kind": "method",
               "static": false,

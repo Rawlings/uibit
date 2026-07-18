@@ -75,13 +75,7 @@ export class SentimentSelector extends FormAssociatedMixin(UIBitElement) {
 
   @state() private _hoverValue?: number;
 
-  get valueAsNumber(): number | undefined {
-    return this.value ? Number(this.value) : undefined;
-  }
 
-  set valueAsNumber(newValue: number | undefined) {
-    this.value = newValue !== undefined ? String(newValue) : '';
-  }
 
   private _select(option: SentimentOption) {
     const isReselect = this.valueAsNumber === option.value;

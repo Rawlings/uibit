@@ -1,4 +1,3 @@
-import '../../../platform/form-internals/src/test-helper.js';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import './signature.js';
 import { Signature } from './signature.js';
@@ -17,13 +16,17 @@ describe('Signature Form Integration', () => {
 
   it('should support default values and reflect in form', async () => {
     container.innerHTML = `
-      <uibit-signature name="sig" value="data:image/png;base64,123"></uibit-signature>
+      <form id="sig-form">
+        <uibit-signature name="sig" value="data:image/png;base64,123"></uibit-signature>
+      </form>
     `;
 
     const element = container.querySelector('uibit-signature') as Signature;
     await element.updateComplete;
     expect(element.value).toBe('data:image/png;base64,123');
-    expect((element.internals as any).formValue).toBe('data:image/png;base64,123');
+    const form = container.querySelector('form') as HTMLFormElement;
+    const formData = new FormData(form);
+    expect(formData.get('sig')).toBe('data:image/png;base64,123');
   });
 
   it('should support validation based on drawing data existence', async () => {

@@ -1,6 +1,6 @@
 {
   "name": "@uibit/sentiment-selector",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Micro-feedback widget with a sliding row of expressive emoji options. Selecting an option triggers a spring-curve scale animation, grays out alternatives, and fires scored events instantly on release.",
   "type": "module",
   "main": "./dist/index.js",

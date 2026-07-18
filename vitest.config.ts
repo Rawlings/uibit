@@ -32,7 +32,12 @@ export default defineConfig({
     alias: aliases,
   },
   test: {
-    environment: 'happy-dom',
+    browser: {
+      enabled: true,
+      name: 'chromium',
+      provider: 'playwright',
+      headless: true,
+    },
     globals: true,
     include: [
       'packages/components/**/*.{test,spec}.{ts,tsx}',

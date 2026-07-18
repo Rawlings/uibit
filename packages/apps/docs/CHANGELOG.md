@@ -1,5 +1,19 @@
 # @uibit/docs
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @uibit/sentiment-selector@0.2.2
+
+## 0.1.4
+
+### Patch Changes
+
+- @uibit/sentiment-selector@0.2.1
+- @uibit/signature@0.2.1
+
 ## 0.1.3
 
 ### Patch Changes

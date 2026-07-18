@@ -1,4 +1,3 @@
-import '../../../platform/form-internals/src/test-helper.js';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import './sentiment-selector.js';
 import { SentimentSelector } from './sentiment-selector.js';
@@ -26,7 +25,9 @@ describe('SentimentSelector Form Integration', () => {
     await element.updateComplete;
     expect(element.value).toBe('4');
     expect(element.valueAsNumber).toBe(4);
-    expect((element.internals as any).formValue).toBe('4');
+    const form = container.querySelector('form') as HTMLFormElement;
+    const formData = new FormData(form);
+    expect(formData.get('score')).toBe('4');
   });
 
   it('should support constraint validation requirements', async () => {
