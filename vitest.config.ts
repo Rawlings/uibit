@@ -31,6 +31,14 @@ export default defineConfig({
   resolve: {
     alias: aliases,
   },
+  esbuild: {
+    tsconfigRaw: {
+      compilerOptions: {
+        experimentalDecorators: true,
+        useDefineForClassFields: false,
+      },
+    },
+  },
   test: {
     browser: {
       enabled: true,

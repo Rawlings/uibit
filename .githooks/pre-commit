@@ -1,2 +1,14 @@
 #!/bin/sh
 npx @uibit/hoistlock check
+
+# Run Biome verification on staged files
+STAGED_FILES=$(git diff --name-only --cached --diff-filter=d | grep -E '\.(js|ts|jsx|tsx|css|json)$')
+if [ -n "$STAGED_FILES" ]; then
+  npx @biomejs/biome check --no-errors-on-unmatched $STAGED_FILES
+fi
+
+# Run build compilation verification
+pnpm build
+
+# Run unit tests
+pnpm test

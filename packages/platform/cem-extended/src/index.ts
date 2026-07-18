@@ -84,7 +84,7 @@ export default function uibitCemExtended() {
             if (match) {
               classInfo.cssStates.push({
                 name: match[1]!,
-                description: match[2]?.trim(),
+                description: match[2]?.trim() ?? '',
               });
             } else if (commentStr.trim()) {
               classInfo.cssStates.push({

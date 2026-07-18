@@ -48,9 +48,9 @@ export class UIBitElement extends LitElement {
       ) {
         mutableOptions.attribute = kebabName;
       }
-      LitElement.createProperty(name, mutableOptions);
+      super.createProperty(name, mutableOptions);
     } else {
-      LitElement.createProperty(name, options);
+      super.createProperty(name, options);
     }
   }
 

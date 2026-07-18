@@ -911,6 +911,10 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(
     }
   }
 
+  // Force Lit to finalize the mixin class immediately so subclass decorators
+  // correctly inherit the reactive properties metadata map.
+  (FormAssociatedClass as any).finalize();
+
   return FormAssociatedClass as unknown as Constructor<FormAssociatedInterface> &
     T;
 }
