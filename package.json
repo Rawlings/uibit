@@ -7,7 +7,7 @@
   "packageManager": "pnpm@11.11.0",
   "engines": {
     "pnpm": ">=11.0.0",
-    "node": ">=22.0.0"
+    "node": ">=24.0.0"
   },
   "scripts": {
     "dev": "pnpm -F docs run dev",
@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@uibit/cem-oxc": "workspace:*",
+    "@uibit/hoistlock": "workspace:*",
     "@vitejs/plugin-react": "^4.7.0",
     "@vitest/browser": "^1.6.1",
     "concurrently": "^9.2.4",
