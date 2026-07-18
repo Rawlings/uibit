@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import { CemManifest, CemDeclaration, CemMember } from '../types/docs';
+import type { CemManifest, CemDeclaration, CemMember } from '../types/docs';
 
-
-function findDeclaration(manifest: CemManifest, tagName: string): CemDeclaration | null {
+function findDeclaration(
+  manifest: CemManifest,
+  tagName: string,
+): CemDeclaration | null {
   for (const mod of manifest.modules) {
     for (const decl of mod.declarations ?? []) {
       if (decl.tagName === tagName) return decl;
@@ -13,18 +15,26 @@ function findDeclaration(manifest: CemManifest, tagName: string): CemDeclaration
 
 function getPublicProps(decl: CemDeclaration): CemMember[] {
   return (decl.members ?? []).filter(
-    (m) => m.kind === 'field' && m.privacy !== 'private' && m.privacy !== 'protected'
+    (m) =>
+      m.kind === 'field' &&
+      m.privacy !== 'private' &&
+      m.privacy !== 'protected',
   );
 }
 
 function getPublicMethods(decl: CemDeclaration): CemMember[] {
   return (decl.members ?? []).filter(
-    (m) => m.kind === 'method' && m.privacy !== 'private' && m.privacy !== 'protected'
+    (m) =>
+      m.kind === 'method' &&
+      m.privacy !== 'private' &&
+      m.privacy !== 'protected',
   );
 }
 
-const tdClass = 'px-0 py-3 text-left align-top text-gray-600 dark:text-gray-350 text-sm pr-4 last:pr-0';
-const thClass = 'px-0 py-2.5 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0';
+const tdClass =
+  'px-0 py-3 text-left align-top text-gray-600 dark:text-gray-350 text-sm pr-4 last:pr-0';
+const thClass =
+  'px-0 py-2.5 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0';
 
 function Table({
   headers,
@@ -83,6 +93,7 @@ function Section({
   return (
     <div className="border-b border-gray-100 dark:border-gray-900 last:border-none py-4">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="w-full flex items-center justify-between text-left focus:outline-none group cursor-pointer"
         aria-expanded={isOpen}
@@ -94,6 +105,7 @@ function Section({
           </span>
         </span>
         <svg
+          aria-hidden="true"
           className={`w-4 h-4 text-gray-450 group-hover:text-gray-650 dark:group-hover:text-gray-300 transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`}
@@ -101,14 +113,15 @@ function Section({
           viewBox="0 0 24 24"
           stroke="currentColor"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
-      {isOpen && (
-        <div className="mt-4">
-          {children}
-        </div>
-      )}
+      {isOpen && <div className="mt-4">{children}</div>}
     </div>
   );
 }
@@ -121,7 +134,10 @@ export function ApiDocs({
   tagName: string;
 }) {
   const decl = findDeclaration(manifest, tagName);
-  if (!decl) return <p className="text-sm text-red-500">No manifest found for {tagName}</p>;
+  if (!decl)
+    return (
+      <p className="text-sm text-red-500">No manifest found for {tagName}</p>
+    );
 
   const props = getPublicProps(decl);
   const methods = getPublicMethods(decl);
@@ -132,18 +148,49 @@ export function ApiDocs({
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">API Reference</h2>
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+        API Reference
+      </h2>
 
       {props.length > 0 && (
         <Section title="Properties" count={props.length}>
           <Table
-            headers={['Property', 'Attribute', 'Type', 'Default', 'Description']}
+            headers={[
+              'Property',
+              'Attribute',
+              'Type',
+              'Default',
+              'Description',
+            ]}
             rows={props.map((p) => [
               <Code key="name">{p.name}</Code>,
-              p.attribute ? <Code key="attr">{p.attribute}</Code> : <span key="attr" className="text-gray-400 dark:text-gray-500">—</span>,
-              p.type?.text ? <Code key="type">{p.type.text}</Code> : <span key="type" className="text-gray-400 dark:text-gray-500">—</span>,
-              p.default !== undefined ? <Code key="default">{p.default}</Code> : <span key="default" className="text-gray-400 dark:text-gray-500">—</span>,
-              <span key="desc" className="text-gray-650 dark:text-gray-400">{p.description ?? ''}</span>,
+              p.attribute ? (
+                <Code key="attr">{p.attribute}</Code>
+              ) : (
+                <span key="attr" className="text-gray-400 dark:text-gray-500">
+                  —
+                </span>
+              ),
+              p.type?.text ? (
+                <Code key="type">{p.type.text}</Code>
+              ) : (
+                <span key="type" className="text-gray-400 dark:text-gray-500">
+                  —
+                </span>
+              ),
+              p.default !== undefined ? (
+                <Code key="default">{p.default}</Code>
+              ) : (
+                <span
+                  key="default"
+                  className="text-gray-400 dark:text-gray-500"
+                >
+                  —
+                </span>
+              ),
+              <span key="desc" className="text-gray-650 dark:text-gray-400">
+                {p.description ?? ''}
+              </span>,
             ])}
           />
         </Section>
@@ -154,7 +201,11 @@ export function ApiDocs({
           <Table
             headers={['Method', 'Parameters', 'Return Type', 'Description']}
             rows={methods.map((m) => {
-              const paramSignature = (m.parameters ?? []).map((p) => `${p.name}${p.type?.text ? `: ${p.type.text}` : ''}`).join(', ');
+              const paramSignature = (m.parameters ?? [])
+                .map(
+                  (p) => `${p.name}${p.type?.text ? `: ${p.type.text}` : ''}`,
+                )
+                .join(', ');
               const methodSignature = `${m.name}(${paramSignature})`;
               return [
                 <Code key="name">{methodSignature}</Code>,
@@ -163,19 +214,43 @@ export function ApiDocs({
                     {m.parameters.map((p) => (
                       <div key={p.name} className="text-xs">
                         <Code>{p.name}</Code>
-                        {p.type?.text && <span className="text-gray-400 dark:text-gray-500 font-mono text-xs"> : {p.type.text}</span>}
-                        {p.description && <div className="text-gray-500 dark:text-gray-450 mt-0.5">{p.description}</div>}
+                        {p.type?.text && (
+                          <span className="text-gray-400 dark:text-gray-500 font-mono text-xs">
+                            {' '}
+                            : {p.type.text}
+                          </span>
+                        )}
+                        {p.description && (
+                          <div className="text-gray-500 dark:text-gray-450 mt-0.5">
+                            {p.description}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <span key="params" className="text-gray-400 dark:text-gray-500">—</span>
+                  <span
+                    key="params"
+                    className="text-gray-400 dark:text-gray-500"
+                  >
+                    —
+                  </span>
                 ),
                 <span key="return">
-                  {m.return?.type?.text ? <Code>{m.return.type.text}</Code> : <Code>void</Code>}
-                  {m.return?.description && <div className="text-xs text-gray-500 dark:text-gray-450 mt-0.5">{m.return.description}</div>}
+                  {m.return?.type?.text ? (
+                    <Code>{m.return.type.text}</Code>
+                  ) : (
+                    <Code>void</Code>
+                  )}
+                  {m.return?.description && (
+                    <div className="text-xs text-gray-500 dark:text-gray-450 mt-0.5">
+                      {m.return.description}
+                    </div>
+                  )}
                 </span>,
-                <span key="desc" className="text-gray-650 dark:text-gray-400">{m.description ?? ''}</span>,
+                <span key="desc" className="text-gray-650 dark:text-gray-400">
+                  {m.description ?? ''}
+                </span>,
               ];
             })}
           />
@@ -188,8 +263,16 @@ export function ApiDocs({
             headers={['Event', 'Detail type', 'Description']}
             rows={events.map((e) => [
               <Code key="name">{e.name}</Code>,
-              e.type?.text ? <Code key="type">{e.type.text}</Code> : <span key="type" className="text-gray-400 dark:text-gray-500">—</span>,
-              <span key="desc" className="text-gray-650 dark:text-gray-400">{e.description ?? ''}</span>,
+              e.type?.text ? (
+                <Code key="type">{e.type.text}</Code>
+              ) : (
+                <span key="type" className="text-gray-400 dark:text-gray-500">
+                  —
+                </span>
+              ),
+              <span key="desc" className="text-gray-650 dark:text-gray-400">
+                {e.description ?? ''}
+              </span>,
             ])}
           />
         </Section>
@@ -200,8 +283,19 @@ export function ApiDocs({
           <Table
             headers={['Slot', 'Description']}
             rows={slots.map((s) => [
-              s.name ? <Code key="name">{s.name}</Code> : <span key="name" className="text-gray-500 dark:text-gray-450 italic">default</span>,
-              <span key="desc" className="text-gray-650 dark:text-gray-400">{s.description ?? ''}</span>,
+              s.name ? (
+                <Code key="name">{s.name}</Code>
+              ) : (
+                <span
+                  key="name"
+                  className="text-gray-500 dark:text-gray-450 italic"
+                >
+                  default
+                </span>
+              ),
+              <span key="desc" className="text-gray-650 dark:text-gray-400">
+                {s.description ?? ''}
+              </span>,
             ])}
           />
         </Section>
@@ -213,8 +307,19 @@ export function ApiDocs({
             headers={['Property', 'Default', 'Description']}
             rows={cssProps.map((c) => [
               <Code key="name">{c.name}</Code>,
-              c.default ? <Code key="default">{c.default}</Code> : <span key="default" className="text-gray-400 dark:text-gray-500">—</span>,
-              <span key="desc" className="text-gray-650 dark:text-gray-400">{c.description ?? ''}</span>,
+              c.default ? (
+                <Code key="default">{c.default}</Code>
+              ) : (
+                <span
+                  key="default"
+                  className="text-gray-400 dark:text-gray-500"
+                >
+                  —
+                </span>
+              ),
+              <span key="desc" className="text-gray-650 dark:text-gray-400">
+                {c.description ?? ''}
+              </span>,
             ])}
           />
         </Section>
@@ -226,7 +331,9 @@ export function ApiDocs({
             headers={['Part', 'Description']}
             rows={cssParts.map((p) => [
               <Code key="name">{p.name}</Code>,
-              <span key="desc" className="text-gray-650 dark:text-gray-400">{p.description ?? ''}</span>,
+              <span key="desc" className="text-gray-650 dark:text-gray-400">
+                {p.description ?? ''}
+              </span>,
             ])}
           />
         </Section>

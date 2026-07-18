@@ -21,7 +21,7 @@ export class SourceBuilder {
    * Joins all blocks with a double newline for excellent readability.
    */
   toString(): string {
-    return this.blocks.join('\n\n') + '\n';
+    return `${this.blocks.join('\n\n')}\n`;
   }
 }
 
@@ -30,16 +30,22 @@ export class SourceBuilder {
  */
 export function toReactEventName(eventName: string): string {
   const cleanName = eventName.replace(/[^a-zA-Z0-9-]/g, '');
-  return 'on' + cleanName
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join('');
+  return (
+    'on' +
+    cleanName
+      .split('-')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join('')
+  );
 }
 
 /**
  * Merges properties and attributes into a unique map of names and their TS types.
  */
-export function mergePropertiesAndAttributes(properties: Property[], attributes: Attribute[]): Map<string, string> {
+export function mergePropertiesAndAttributes(
+  properties: Property[],
+  attributes: Attribute[],
+): Map<string, string> {
   const propMap = new Map<string, string>();
   for (const p of properties) {
     propMap.set(p.name, p.type?.text || 'any');
@@ -56,7 +62,10 @@ export function mergePropertiesAndAttributes(properties: Property[], attributes:
 /**
  * Generates type imports for any custom referenced types.
  */
-export function generateTypeImports(referencedTypes: string[], importPath: string = '../../index.js'): string {
+export function generateTypeImports(
+  referencedTypes: string[],
+  importPath: string = '../../index.js',
+): string {
   if (referencedTypes.length === 0) return '';
   return `import type { ${referencedTypes.join(', ')} } from '${importPath}';`;
 }
@@ -65,7 +74,7 @@ export function generateTypeImports(referencedTypes: string[], importPath: strin
  * Converts a kebab-case or snake-case string to camelCase.
  */
 export function toCamelCase(str: string): string {
-  return str.replace(/[-_]([a-z])/g, (g) => g[1]!.toUpperCase());
+  return str.replace(/[-_]([a-z])/g, (g) => g[1]?.toUpperCase());
 }
 
 /**
@@ -82,7 +91,11 @@ export function capitalize(str: string): string {
 export function sanitizeEventType(typeText: string | undefined): string {
   if (!typeText) return 'any';
   const trimmed = typeText.trim();
-  if (trimmed.includes(':') && !trimmed.startsWith('{') && !trimmed.endsWith('}')) {
+  if (
+    trimmed.includes(':') &&
+    !trimmed.startsWith('{') &&
+    !trimmed.endsWith('}')
+  ) {
     return `{ ${trimmed} }`;
   }
   return trimmed;
@@ -91,7 +104,11 @@ export function sanitizeEventType(typeText: string | undefined): string {
 /**
  * Checks if a component event is associated with a given property based on payload keys, suffix conventions, or DOM defaults.
  */
-export function isEventAssociatedWithProp(component: any, eventName: string, propName: string): boolean {
+export function isEventAssociatedWithProp(
+  component: any,
+  eventName: string,
+  propName: string,
+): boolean {
   const event = component.events?.find((e: any) => e.name === eventName);
   if (event?.payloadKeys?.includes(propName)) {
     return true;
@@ -101,12 +118,20 @@ export function isEventAssociatedWithProp(component: any, eventName: string, pro
   const normalizedEvent = eventName.toLowerCase();
 
   // Suffix mapping (e.g. slide-change maps to slide)
-  if (normalizedEvent === `${normalizedProp}change` || normalizedEvent === `${normalizedProp}-change`) {
+  if (
+    normalizedEvent === `${normalizedProp}change` ||
+    normalizedEvent === `${normalizedProp}-change`
+  ) {
     return true;
   }
 
   // Standard form value fallbacks
-  if (propName === 'value' && (eventName === 'change' || eventName === 'input' || eventName.endsWith('-change'))) {
+  if (
+    propName === 'value' &&
+    (eventName === 'change' ||
+      eventName === 'input' ||
+      eventName.endsWith('-change'))
+  ) {
     return true;
   }
   if (propName === 'checked' && eventName === 'change') {
@@ -115,4 +140,3 @@ export function isEventAssociatedWithProp(component: any, eventName: string, pro
 
   return false;
 }
-

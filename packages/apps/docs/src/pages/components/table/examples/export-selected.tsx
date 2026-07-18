@@ -1,5 +1,5 @@
 import '@uibit/table';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 const ROWS: [string, string, string, string, string][] = [
   ['Acme Corp', '1 240 000', 'North America', 'Active', 'Enterprise'],

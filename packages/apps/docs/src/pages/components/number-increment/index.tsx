@@ -1,6 +1,6 @@
 import '@uibit/number-increment';
 import manifest from '@uibit/number-increment/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import statsGrid from './examples/stats-grid';
 import statsGridRaw from './examples/stats-grid?raw';
 import withRepeat from './examples/with-repeat';

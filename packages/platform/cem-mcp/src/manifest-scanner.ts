@@ -1,5 +1,5 @@
-import { promises as fs } from 'fs';
-import * as path from 'path';
+import { promises as fs } from 'node:fs';
+import * as path from 'node:path';
 
 export interface ComponentApiInfo {
   tagName: string;
@@ -44,7 +44,10 @@ export class ManifestScanner {
   constructor(options: ScannerOptions = {}) {
     this.options = {
       memberFilter: (member) => {
-        const isPrivate = member.privacy === 'private' || member.privacy === 'protected' || member.name?.startsWith('_');
+        const isPrivate =
+          member.privacy === 'private' ||
+          member.privacy === 'protected' ||
+          member.name?.startsWith('_');
         return !isPrivate;
       },
       ...options,
@@ -71,7 +74,13 @@ export class ManifestScanner {
       for (const entry of entries) {
         const fullPath = path.join(dir, entry.name);
         if (entry.isDirectory()) {
-          if (entry.name === 'node_modules' || entry.name === '.git' || entry.name === '.turbo' || entry.name === 'dist' || entry.name === 'out') {
+          if (
+            entry.name === 'node_modules' ||
+            entry.name === '.git' ||
+            entry.name === '.turbo' ||
+            entry.name === 'dist' ||
+            entry.name === 'out'
+          ) {
             continue;
           }
           results.push(...(await this.findCustomElementsManifests(fullPath)));
@@ -79,7 +88,7 @@ export class ManifestScanner {
           results.push(fullPath);
         }
       }
-    } catch (e) {
+    } catch (_e) {
       // Ignore directory read errors (e.g. permission issues or broken symlinks)
     }
     return results;
@@ -101,11 +110,16 @@ export class ManifestScanner {
           for (const entry of entries) {
             if (entry.isDirectory()) {
               const componentDir = path.join(targetDir, entry.name);
-              manifestPaths.push(path.join(componentDir, 'custom-elements.json'));
+              manifestPaths.push(
+                path.join(componentDir, 'custom-elements.json'),
+              );
             }
           }
         } catch (e) {
-          console.error(`[CEM-MCP] Error reading directory at ${targetDir}:`, e);
+          console.error(
+            `[CEM-MCP] Error reading directory at ${targetDir}:`,
+            e,
+          );
         }
       }
     } else {
@@ -118,7 +132,7 @@ export class ManifestScanner {
       try {
         const manifestContent = await fs.readFile(manifestPath, 'utf-8');
         const manifest = JSON.parse(manifestContent);
-        
+
         // Resolve package name by reading sibling package.json or using parent directory name
         const componentDir = path.dirname(manifestPath);
         let packageName = path.basename(componentDir); // Fallback
@@ -129,12 +143,12 @@ export class ManifestScanner {
           if (pkg.name) {
             packageName = pkg.name;
           }
-        } catch (e) {
+        } catch (_e) {
           // package.json doesn't exist or is malformed, use fallback
         }
 
         this.processManifest(manifest, packageName);
-      } catch (e) {
+      } catch (_e) {
         // Manifest doesn't exist or is malformed; skip silently
       }
     }
@@ -187,10 +201,12 @@ export class ManifestScanner {
                     type: p.type?.text,
                     description: p.description,
                   })),
-                  return: member.return?.type?.text ? {
-                    type: member.return.type.text,
-                    description: member.return.description,
-                  } : undefined,
+                  return: member.return?.type?.text
+                    ? {
+                        type: member.return.type.text,
+                        description: member.return.description,
+                      }
+                    : undefined,
                   deprecated: member.deprecated,
                   since: member.since,
                   see: member.see,

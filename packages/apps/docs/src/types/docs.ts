@@ -21,8 +21,7 @@ import '@uibit/text-rotator/react';
 import '@uibit/text-typing/react';
 import '@uibit/video/react';
 
-
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
 
 export interface CodeSnippet {
   title: string;

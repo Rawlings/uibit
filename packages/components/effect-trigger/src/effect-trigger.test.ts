@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import './effect-trigger';
-import { EffectTrigger } from './effect-trigger';
+import type { EffectTrigger } from './effect-trigger';
 
 describe('EffectTrigger Component', () => {
   let element: EffectTrigger;
@@ -59,10 +59,13 @@ describe('EffectTrigger Component', () => {
     const createHandler = vi.fn().mockImplementation((e: CustomEvent) => {
       e.detail.particle.textContent = 'MUTATED';
     });
-    element.addEventListener('uibit-particle-create', createHandler as EventListener);
-    
+    element.addEventListener(
+      'uibit-particle-create',
+      createHandler as EventListener,
+    );
+
     element.ignite();
-    
+
     expect(createHandler).toHaveBeenCalled();
     const createdParticle = createHandler.mock.calls[0][0].detail.particle;
     expect(createdParticle.textContent).toBe('MUTATED');
@@ -76,7 +79,7 @@ describe('EffectTrigger Component', () => {
 
     expect(animateSpy).toHaveBeenCalledWith(
       [{ opacity: 0 }, { opacity: 1 }],
-      expect.objectContaining({ duration: 1000 })
+      expect.objectContaining({ duration: 1000 }),
     );
   });
 });

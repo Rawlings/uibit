@@ -1,7 +1,7 @@
 import type ImageReveal from './image-reveal';
 
 declare global {
-interface HTMLElementTagNameMap {
+  interface HTMLElementTagNameMap {
     'uibit-image-reveal': ImageReveal;
-}
+  }
 }

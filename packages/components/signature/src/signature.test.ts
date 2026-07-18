@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import './signature.js';
-import { Signature } from './signature.js';
+import type { Signature } from './signature.js';
 
 describe('Signature Form Integration', () => {
   let container: HTMLDivElement;

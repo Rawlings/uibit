@@ -1,9 +1,16 @@
 import '@uibit/image-comparison';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function HorizontalDemo() {
   return (
-    <div style={{ width: '100%', height: '350px', maxWidth: '600px', margin: '0 auto' }}>
+    <div
+      style={{
+        width: '100%',
+        height: '350px',
+        maxWidth: '600px',
+        margin: '0 auto',
+      }}
+    >
       <uibit-image-comparison mode="horizontal" progress={50}>
         <img
           slot="before"
@@ -24,7 +31,8 @@ function HorizontalDemo() {
 
 const example: UsageExample = {
   title: 'Horizontal Split',
-  description: 'A traditional left-to-right slider showing a transition between summer and winter views.',
+  description:
+    'A traditional left-to-right slider showing a transition between summer and winter views.',
   Demo: HorizontalDemo,
 };
 

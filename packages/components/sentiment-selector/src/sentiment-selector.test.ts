@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import './sentiment-selector.js';
-import { SentimentSelector } from './sentiment-selector.js';
+import type { SentimentSelector } from './sentiment-selector.js';
 
 describe('SentimentSelector Form Integration', () => {
   let container: HTMLDivElement;
@@ -21,7 +21,9 @@ describe('SentimentSelector Form Integration', () => {
       </form>
     `;
 
-    const element = container.querySelector('uibit-sentiment-selector') as SentimentSelector;
+    const element = container.querySelector(
+      'uibit-sentiment-selector',
+    ) as SentimentSelector;
     await element.updateComplete;
     expect(element.value).toBe('4');
     expect(element.valueAsNumber).toBe(4);
@@ -35,7 +37,9 @@ describe('SentimentSelector Form Integration', () => {
       <uibit-sentiment-selector name="score" required></uibit-sentiment-selector>
     `;
 
-    const element = container.querySelector('uibit-sentiment-selector') as SentimentSelector;
+    const element = container.querySelector(
+      'uibit-sentiment-selector',
+    ) as SentimentSelector;
     await element.updateComplete;
     expect(element.validity.valueMissing).toBe(true);
 

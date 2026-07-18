@@ -1,6 +1,9 @@
-import { LitElement } from 'lit';
+import type { LitElement } from 'lit';
 import type { Constructor, FormAssociatedInterface } from '../types.js';
-import { validateValue, getValidationMessage } from '../validation/validation-engine.js';
+import {
+  validateValue,
+  getValidationMessage,
+} from '../validation/validation-engine.js';
 import { InteractionController } from '../controllers/interaction-controller.js';
 
 /**
@@ -11,7 +14,9 @@ import { InteractionController } from '../controllers/interaction-controller.js'
  * @param Base - The LitElement base class.
  * @returns A class extending Base with form association capabilities.
  */
-export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) {
+export function FormAssociatedMixin<T extends Constructor<LitElement>>(
+  Base: T,
+) {
   /**
    * Internal class implementing the FormAssociatedInterface.
    */
@@ -43,8 +48,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
         formAction: { type: String, attribute: 'formaction', reflect: true },
         formEnctype: { type: String, attribute: 'formenctype', reflect: true },
         formMethod: { type: String, attribute: 'formmethod', reflect: true },
-        formNoValidate: { type: Boolean, attribute: 'formnovalidate', reflect: true },
-        formTarget: { type: String, attribute: 'formtarget', reflect: true }
+        formNoValidate: {
+          type: Boolean,
+          attribute: 'formnovalidate',
+          reflect: true,
+        },
+        formTarget: { type: String, attribute: 'formtarget', reflect: true },
       };
     }
 
@@ -55,7 +64,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
      */
     get value(): string | File | FormData | null {
       const isToggle = this.type === 'checkbox' || this.type === 'radio';
-      if (isToggle && (this._value === '' || this._value === undefined || this._value === null)) {
+      if (
+        isToggle &&
+        (this._value === '' ||
+          this._value === undefined ||
+          this._value === null)
+      ) {
         return 'on';
       }
       return this._value;
@@ -87,13 +101,13 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
     set disabled(value: boolean) {
       const oldValue = this._disabled;
       this._disabled = value;
-      
+
       if (value) {
         this.setAttribute('disabled', '');
       } else {
         this.removeAttribute('disabled');
       }
-      
+
       this.validate();
       this.requestUpdate('disabled', oldValue || this._fieldsetDisabled);
     }
@@ -179,7 +193,8 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       if (this._initialDefaultValue === null) {
         const isToggle = this.type === 'checkbox' || this.type === 'radio';
         const attrVal = this.getAttribute('value');
-        this._initialDefaultValue = attrVal !== null ? attrVal : (isToggle ? 'on' : '');
+        this._initialDefaultValue =
+          attrVal !== null ? attrVal : isToggle ? 'on' : '';
       }
       return this._initialDefaultValue;
     }
@@ -243,7 +258,7 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
         this.value = null;
       }
     }
-    
+
     /**
      * The ElementInternals interface associated with the control.
      */
@@ -254,7 +269,10 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
     constructor(...args: any[]) {
       super(...args);
       this.internals = this.attachInternals();
-      this._interactionController = new InteractionController(this, this.internals);
+      this._interactionController = new InteractionController(
+        this,
+        this.internals,
+      );
       this.value = '';
       this.name = '';
       this.type = 'text';
@@ -333,7 +351,7 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
     static get shadowRootOptions() {
       return {
         ...(Base as any).shadowRootOptions,
-        delegatesFocus: true
+        delegatesFocus: true,
       } as ShadowRootInit;
     }
 
@@ -350,10 +368,18 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
         return this.validationAnchor;
       }
       if (!this.shadowRoot) return undefined;
-      return this.shadowRoot.querySelector('input, textarea, select, button, [tabindex="0"]') as HTMLElement || undefined;
+      return (
+        (this.shadowRoot.querySelector(
+          'input, textarea, select, button, [tabindex="0"]',
+        ) as HTMLElement) || undefined
+      );
     }
 
-    attributeChangedCallback(name: string, old: string | null, value: string | null) {
+    attributeChangedCallback(
+      name: string,
+      old: string | null,
+      value: string | null,
+    ) {
       if (name === 'value' && this._interactionController?.dirty) {
         // Native parity: attribute changes do not overwrite the current value if the element is dirty
         return;
@@ -398,11 +424,13 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
     private _handleShadowEvent = (e: Event) => {
       if (e.target === this) return;
       e.stopPropagation();
-      this.dispatchEvent(new Event(e.type, {
-        bubbles: e.bubbles,
-        cancelable: e.cancelable,
-        composed: true
-      }));
+      this.dispatchEvent(
+        new Event(e.type, {
+          bubbles: e.bubbles,
+          cancelable: e.cancelable,
+          composed: true,
+        }),
+      );
     };
 
     willUpdate(changedProperties: Map<PropertyKey, unknown>) {
@@ -412,9 +440,9 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
         void this.defaultChecked;
         this._initialValueInitialized = true;
       }
-      
+
       super.willUpdate(changedProperties);
-      
+
       if (changedProperties.has('disabled')) {
         if (this.internals.states) {
           if (this.disabled) {
@@ -426,7 +454,7 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
           }
         }
       }
-      
+
       if (changedProperties.has('readOnly')) {
         if (this.internals.states) {
           if (this.readOnly) {
@@ -497,7 +525,10 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.requestUpdate('disabled', oldValue);
     }
 
-    formStateRestoreCallback(state: string | File | FormData | null, _mode: 'restore' | 'autocomplete') {
+    formStateRestoreCallback(
+      state: string | File | FormData | null,
+      _mode: 'restore' | 'autocomplete',
+    ) {
       const isToggle = this.type === 'checkbox' || this.type === 'radio';
       if (isToggle) {
         this.checked = state === 'checked';
@@ -517,18 +548,41 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
 
       // Evaluate constraints with fallback to attributes for synchronous validation during connection
       const constraints = {
-        required: this.required !== undefined ? this.required : this.hasAttribute('required'),
-        minlength: this.minlength !== undefined ? this.minlength : (this.hasAttribute('minlength') ? Number(this.getAttribute('minlength')) : undefined),
-        maxlength: this.maxlength !== undefined ? this.maxlength : (this.hasAttribute('maxlength') ? Number(this.getAttribute('maxlength')) : undefined),
-        pattern: this.pattern !== undefined ? this.pattern : (this.getAttribute('pattern') || ''),
-        min: this.min !== undefined ? this.min : (this.getAttribute('min') || ''),
-        max: this.max !== undefined ? this.max : (this.getAttribute('max') || ''),
-        step: this.step !== undefined ? this.step : (this.getAttribute('step') || ''),
-        type: this.type !== undefined ? this.type : (this.getAttribute('type') || 'text'),
+        required:
+          this.required !== undefined
+            ? this.required
+            : this.hasAttribute('required'),
+        minlength:
+          this.minlength !== undefined
+            ? this.minlength
+            : this.hasAttribute('minlength')
+              ? Number(this.getAttribute('minlength'))
+              : undefined,
+        maxlength:
+          this.maxlength !== undefined
+            ? this.maxlength
+            : this.hasAttribute('maxlength')
+              ? Number(this.getAttribute('maxlength'))
+              : undefined,
+        pattern:
+          this.pattern !== undefined
+            ? this.pattern
+            : this.getAttribute('pattern') || '',
+        min: this.min !== undefined ? this.min : this.getAttribute('min') || '',
+        max: this.max !== undefined ? this.max : this.getAttribute('max') || '',
+        step:
+          this.step !== undefined ? this.step : this.getAttribute('step') || '',
+        type:
+          this.type !== undefined
+            ? this.type
+            : this.getAttribute('type') || 'text',
         checked: this.checked,
       };
 
-      const val = this.value !== undefined ? this.value : (this.getAttribute('value') || '');
+      const val =
+        this.value !== undefined
+          ? this.value
+          : this.getAttribute('value') || '';
 
       let flags = validateValue(val, constraints);
       let message = getValidationMessage(flags, constraints);
@@ -541,10 +595,10 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
 
       // Update browser validation state, passing our default validation anchor element
       this.internals.setValidity(flags, message, this._defaultValidationAnchor);
-      
+
       // Update custom interactive states (user-valid, user-invalid)
       this._interactionController.updateUserValidity();
-      
+
       // Update AOM invalid attribute
       if (this.internals.states) {
         if (!flags.valueMissing && Object.values(flags).some(Boolean)) {
@@ -555,19 +609,23 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
 
-
-
     private _syncFormValue() {
       const isToggle = this.type === 'checkbox' || this.type === 'radio';
       let submissionValue: any = null;
       let stateValue: any = null;
 
       if (isToggle) {
-        const val = this.value !== undefined && this.value !== null && this.value !== '' ? this.value : (this.getAttribute('value') || 'on');
+        const val =
+          this.value !== undefined && this.value !== null && this.value !== ''
+            ? this.value
+            : this.getAttribute('value') || 'on';
         submissionValue = this.checked ? val : null;
         stateValue = this.checked ? 'checked' : 'unchecked';
       } else {
-        submissionValue = this.value !== undefined ? this.value : (this.getAttribute('value') || '');
+        submissionValue =
+          this.value !== undefined
+            ? this.value
+            : this.getAttribute('value') || '';
         stateValue = submissionValue;
       }
 
@@ -595,7 +653,7 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
         anchor.valueAsNumber = val;
         this.value = anchor.value;
       } else {
-        this.value = isNaN(val) ? '' : String(val);
+        this.value = Number.isNaN(val) ? '' : String(val);
       }
     }
 
@@ -612,7 +670,7 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
       if (!this.value) return null;
       const parsed = Date.parse(String(this.value));
-      return isNaN(parsed) ? null : new Date(parsed);
+      return Number.isNaN(parsed) ? null : new Date(parsed);
     }
 
     set valueAsDate(val: Date | null) {
@@ -780,7 +838,11 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
      * @param end - The 0-based index of the character after the last selected character.
      * @param direction - The direction of selection ('forward', 'backward', or 'none').
      */
-    setSelectionRange(start: number | null, end: number | null, direction?: 'forward' | 'backward' | 'none') {
+    setSelectionRange(
+      start: number | null,
+      end: number | null,
+      direction?: 'forward' | 'backward' | 'none',
+    ) {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && typeof anchor.setSelectionRange === 'function') {
         anchor.setSelectionRange(start, end, direction);
@@ -795,7 +857,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
      * @param end - The 0-based index of the end of the range to replace.
      * @param selectionMode - How the selection should be set after replacement.
      */
-    setRangeText(replacement: string, start?: number, end?: number, selectionMode?: 'select' | 'start' | 'end' | 'preserve') {
+    setRangeText(
+      replacement: string,
+      start?: number,
+      end?: number,
+      selectionMode?: 'select' | 'start' | 'end' | 'preserve',
+    ) {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && typeof anchor.setRangeText === 'function') {
         if (start !== undefined && end !== undefined) {
@@ -844,5 +911,6 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
     }
   }
 
-  return FormAssociatedClass as unknown as Constructor<FormAssociatedInterface> & T;
+  return FormAssociatedClass as unknown as Constructor<FormAssociatedInterface> &
+    T;
 }

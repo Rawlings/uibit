@@ -1,8 +1,10 @@
 import '@uibit/360-viewer';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
-const frames = Array.from({ length: 73 }, (_, i) =>
-  `https://scaleflex.cloudimg.io/v7/demo/suv-orange-car-360/orange-${i + 1}.jpg`
+const frames = Array.from(
+  { length: 73 },
+  (_, i) =>
+    `https://scaleflex.cloudimg.io/v7/demo/suv-orange-car-360/orange-${i + 1}.jpg`,
 );
 
 function ManualDemo() {
@@ -17,7 +19,8 @@ function ManualDemo() {
 
 const manualExample: UsageExample = {
   title: 'Manual / drag-only',
-  description: 'Without auto-rotate the viewer is fully driven by the user — drag, swipe, or use the arrow keys to spin.',
+  description:
+    'Without auto-rotate the viewer is fully driven by the user — drag, swipe, or use the arrow keys to spin.',
   Demo: ManualDemo,
 };
 

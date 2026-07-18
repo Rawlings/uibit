@@ -1,5 +1,5 @@
 import '@uibit/sentiment-selector';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function CustomOptionsDemo() {
   return (
@@ -15,7 +15,8 @@ function CustomOptionsDemo() {
 
 const example: UsageExample = {
   title: 'Custom Options',
-  description: 'Replace the default emoji set by nesting child elements with value, icon, and label attributes. Use any of the available icons: angry, frown, meh, smile, laugh.',
+  description:
+    'Replace the default emoji set by nesting child elements with value, icon, and label attributes. Use any of the available icons: angry, frown, meh, smile, laugh.',
   Demo: CustomOptionsDemo,
 };
 

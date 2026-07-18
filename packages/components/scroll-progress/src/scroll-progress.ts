@@ -18,7 +18,8 @@ export class ScrollProgress extends UIBitElement {
   static styles = styles;
 
   /** CSS selector of a custom scrollable container to track. Defaults to the page (`window`). */
-  @property({ type: String, attribute: 'target-selector' }) targetSelector?: string;
+  @property({ type: String, attribute: 'target-selector' })
+  targetSelector?: string;
 
   @state() private progressPercent = 0;
 
@@ -69,7 +70,9 @@ export class ScrollProgress extends UIBitElement {
         });
       }
     };
-    this._scrollUnlisten = this.listen(target, 'scroll', handler, { passive: true });
+    this._scrollUnlisten = this.listen(target, 'scroll', handler, {
+      passive: true,
+    });
   }
 
   private updateProgress() {

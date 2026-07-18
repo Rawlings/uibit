@@ -1,7 +1,21 @@
 import { html, nothing } from 'lit';
 import type { PropertyValues } from 'lit';
-import { customElement, fromLucide, getIcon, msg, UIBitElement } from '@uibit/core';
-import { Play, Pause, Volume1, Volume2, VolumeX, Maximize, Minimize } from 'lucide';
+import {
+  customElement,
+  fromLucide,
+  getIcon,
+  msg,
+  UIBitElement,
+} from '@uibit/core';
+import {
+  Play,
+  Pause,
+  Volume1,
+  Volume2,
+  VolumeX,
+  Maximize,
+  Minimize,
+} from 'lucide';
 import { property, state, query } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -59,7 +73,11 @@ export class Video extends UIBitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.listen(document, 'fullscreenchange', this._onFullscreenChange.bind(this));
+    this.listen(
+      document,
+      'fullscreenchange',
+      this._onFullscreenChange.bind(this),
+    );
   }
 
   firstUpdated(changedProperties: PropertyValues) {
@@ -68,15 +86,20 @@ export class Video extends UIBitElement {
   }
 
   private _detectSlottedElements() {
-    const slot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement | null;
+    const slot = this.shadowRoot?.querySelector(
+      'slot:not([name])',
+    ) as HTMLSlotElement | null;
     let assigned: Element[] = [];
     if (slot) {
       assigned = slot.assignedElements({ flatten: true });
     }
 
     // Fallback for environments where slot is not fully resolved yet
-    const video = (assigned.find(el => el.tagName === 'VIDEO') as HTMLVideoElement | undefined) || 
-                  (this.querySelector('video') as HTMLVideoElement | null);
+    const video =
+      (assigned.find((el) => el.tagName === 'VIDEO') as
+        | HTMLVideoElement
+        | undefined) ||
+      (this.querySelector('video') as HTMLVideoElement | null);
     if (video) {
       this._videoEl = video;
       this._isIframeMode = false;
@@ -87,8 +110,11 @@ export class Video extends UIBitElement {
       return;
     }
 
-    const iframe = (assigned.find(el => el.tagName === 'IFRAME') as HTMLIFrameElement | undefined) || 
-                   (this.querySelector('iframe') as HTMLIFrameElement | null);
+    const iframe =
+      (assigned.find((el) => el.tagName === 'IFRAME') as
+        | HTMLIFrameElement
+        | undefined) ||
+      (this.querySelector('iframe') as HTMLIFrameElement | null);
     if (iframe) {
       this._iframeEl = iframe;
       this._isIframeMode = true;
@@ -102,7 +128,7 @@ export class Video extends UIBitElement {
 
     // Hide default controls
     this._videoEl.controls = false;
-    
+
     // Sync initial state
     this._isPlaying = !this._videoEl.paused;
     this._currentTime = this._videoEl.currentTime;
@@ -111,8 +137,12 @@ export class Video extends UIBitElement {
     this._isMuted = this._videoEl.muted;
 
     // Bind event listeners
-    this.listen(this._videoEl, 'play', () => { this._isPlaying = true; });
-    this.listen(this._videoEl, 'pause', () => { this._isPlaying = false; });
+    this.listen(this._videoEl, 'play', () => {
+      this._isPlaying = true;
+    });
+    this.listen(this._videoEl, 'pause', () => {
+      this._isPlaying = false;
+    });
     this.listen(this._videoEl, 'timeupdate', () => {
       if (!this._isSeeking) {
         this._currentTime = this._videoEl?.currentTime || 0;
@@ -162,7 +192,7 @@ export class Video extends UIBitElement {
     this._iframePlaying = true;
     if (this._iframeEl) {
       this._iframeEl.style.display = 'block';
-      
+
       // Auto play YouTube / Vimeo if possible by rewriting source or appending autoplay
       const src = this._iframeEl.getAttribute('src') || '';
       if (src && !src.includes('autoplay=1')) {
@@ -276,10 +306,15 @@ export class Video extends UIBitElement {
       this.toggleFullscreen();
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
-      if (this._videoEl) this._videoEl.currentTime = Math.min(this._duration, this._currentTime + 5);
+      if (this._videoEl)
+        this._videoEl.currentTime = Math.min(
+          this._duration,
+          this._currentTime + 5,
+        );
     } else if (e.key === 'ArrowLeft') {
       e.preventDefault();
-      if (this._videoEl) this._videoEl.currentTime = Math.max(0, this._currentTime - 5);
+      if (this._videoEl)
+        this._videoEl.currentTime = Math.max(0, this._currentTime - 5);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       if (this._videoEl) {
@@ -296,7 +331,7 @@ export class Video extends UIBitElement {
   // ── Formatting ─────────────────────────────────────────────────
 
   private _formatTime(sec: number): string {
-    if (isNaN(sec) || !isFinite(sec)) return '0:00';
+    if (Number.isNaN(sec) || !Number.isFinite(sec)) return '0:00';
     const m = Math.floor(sec / 60);
     const s = Math.floor(sec % 60);
     return `${m}:${s < 10 ? '0' : ''}${s}`;
@@ -313,8 +348,11 @@ export class Video extends UIBitElement {
   // ── Render ─────────────────────────────────────────────────────
 
   render() {
-    const progressPct = this._duration ? (this._currentTime / this._duration) * 100 : 0;
-    const showOverlay = (!this._isPlaying && this._currentTime === 0) && !this._iframePlaying;
+    const progressPct = this._duration
+      ? (this._currentTime / this._duration) * 100
+      : 0;
+    const showOverlay =
+      !this._isPlaying && this._currentTime === 0 && !this._iframePlaying;
     const isPaused = !this._isPlaying;
 
     return html`
@@ -330,7 +368,9 @@ export class Video extends UIBitElement {
         <slot @slotchange=${this._onSlotChange}></slot>
 
         <!-- Premium Iframe / Native Poster Overlay -->
-        ${(this._isIframeMode && !this._iframePlaying) || showOverlay ? html`
+        ${
+          (this._isIframeMode && !this._iframePlaying) || showOverlay
+            ? html`
           <div 
             class="poster-overlay" 
             part="poster" 
@@ -343,10 +383,14 @@ export class Video extends UIBitElement {
               aria-label=${msg('Play Video')}
             ></button>
           </div>
-        ` : nothing}
+        `
+            : nothing
+        }
 
         <!-- Custom Controls (Only for native video mode, and only if controls enabled) -->
-        ${!this._isIframeMode && this.controls ? html`
+        ${
+          !this._isIframeMode && this.controls
+            ? html`
           <div class="controls-bar" part="controls-bar" @click=${(e: Event) => e.stopPropagation()}>
             <!-- Play/Pause -->
             <button 
@@ -355,9 +399,11 @@ export class Video extends UIBitElement {
               @click=${this.togglePlay}
               aria-label=${this._isPlaying ? msg('Pause') : msg('Play')}
             >
-              ${this._isPlaying 
-                ? getIcon('pause', 18, fromLucide(Pause)) 
-                : getIcon('play', 18, fromLucide(Play))}
+              ${
+                this._isPlaying
+                  ? getIcon('pause', 18, fromLucide(Pause))
+                  : getIcon('play', 18, fromLucide(Play))
+              }
             </button>
 
             <!-- Time display -->
@@ -396,11 +442,13 @@ export class Video extends UIBitElement {
                 @click=${this.toggleMute}
                 aria-label=${this._isMuted ? msg('Unmute') : msg('Mute')}
               >
-                ${this._isMuted || this._volume === 0
-                  ? getIcon('volume-x', 18, fromLucide(VolumeX))
-                  : this._volume < 0.5
-                  ? getIcon('volume-1', 18, fromLucide(Volume1))
-                  : getIcon('volume-2', 18, fromLucide(Volume2))}
+                ${
+                  this._isMuted || this._volume === 0
+                    ? getIcon('volume-x', 18, fromLucide(VolumeX))
+                    : this._volume < 0.5
+                      ? getIcon('volume-1', 18, fromLucide(Volume1))
+                      : getIcon('volume-2', 18, fromLucide(Volume2))
+                }
               </button>
               <div class="volume-slider-wrap">
                 <div 
@@ -431,12 +479,16 @@ export class Video extends UIBitElement {
               @click=${this.toggleFullscreen}
               aria-label=${this._isFullscreen ? msg('Exit fullscreen') : msg('Fullscreen')}
             >
-              ${this._isFullscreen
-                ? getIcon('minimize', 18, fromLucide(Minimize))
-                : getIcon('maximize', 18, fromLucide(Maximize))}
+              ${
+                this._isFullscreen
+                  ? getIcon('minimize', 18, fromLucide(Minimize))
+                  : getIcon('maximize', 18, fromLucide(Maximize))
+              }
             </button>
           </div>
-        ` : nothing}
+        `
+            : nothing
+        }
       </div>
     `;
   }

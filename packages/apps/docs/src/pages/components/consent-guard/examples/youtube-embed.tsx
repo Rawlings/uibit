@@ -1,5 +1,5 @@
 import '@uibit/consent-guard';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function YoutubeEmbedDemo() {
   return (
@@ -20,17 +20,38 @@ function YoutubeEmbedDemo() {
           textAlign: 'center',
         }}
       >
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5">
-          <rect x="2" y="3" width="20" height="14" rx="2"/>
-          <path d="M8 21h8M12 17v4"/>
+        <svg
+          aria-hidden="true"
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#9ca3af"
+          strokeWidth="1.5"
+        >
+          <rect x="2" y="3" width="20" height="14" rx="2" />
+          <path d="M8 21h8M12 17v4" />
         </svg>
         <div>
-          <p style={{ margin: '0 0 0.25rem', fontWeight: 600, color: '#111827' }}>YouTube video</p>
-          <p style={{ margin: 0, fontSize: '0.875rem', color: '#6b7280', maxWidth: '20rem' }}>
-            Loading this video will connect to YouTube and may set cookies on your device.
+          <p
+            style={{ margin: '0 0 0.25rem', fontWeight: 600, color: '#111827' }}
+          >
+            YouTube video
+          </p>
+          <p
+            style={{
+              margin: 0,
+              fontSize: '0.875rem',
+              color: '#6b7280',
+              maxWidth: '20rem',
+            }}
+          >
+            Loading this video will connect to YouTube and may set cookies on
+            your device.
           </p>
         </div>
         <button
+          type="button"
           data-consent-accept
           style={{
             padding: '0.5rem 1.25rem',
@@ -47,11 +68,18 @@ function YoutubeEmbedDemo() {
         </button>
       </div>
       <iframe
+        title="Video Player"
         src="https://www.youtube-nocookie.com/embed/jNQXAC9IVRw"
         loading="lazy"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
-        style={{ width: '100%', height: '23.75rem', border: 'none', borderRadius: '0.5rem', display: 'block' }}
+        style={{
+          width: '100%',
+          height: '23.75rem',
+          border: 'none',
+          borderRadius: '0.5rem',
+          display: 'block',
+        }}
       />
     </uibit-consent-guard>
   );
@@ -59,7 +87,8 @@ function YoutubeEmbedDemo() {
 
 const youtubeEmbed: UsageExample = {
   title: 'YouTube embed',
-  description: 'Gate a YouTube iframe behind a consent placeholder. Buttons with data-consent-accept trigger the component\'s built-in state.',
+  description:
+    "Gate a YouTube iframe behind a consent placeholder. Buttons with data-consent-accept trigger the component's built-in state.",
   Demo: YoutubeEmbedDemo,
 };
 

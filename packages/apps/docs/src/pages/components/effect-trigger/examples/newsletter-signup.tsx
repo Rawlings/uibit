@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import '@uibit/effect-trigger';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function NewsletterSignupDemo() {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>(
+    'idle',
+  );
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
     setTimeout(() => {
       setStatus('success');
-      const trigger = document.getElementById('newsletter-confetti-trigger') as any;
+      const trigger = document.getElementById(
+        'newsletter-confetti-trigger',
+      ) as any;
       if (trigger) trigger.ignite();
     }, 600);
   };
@@ -29,21 +34,40 @@ function NewsletterSignupDemo() {
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
         <span slot="asset">
-          <svg viewBox="0 0 6 6" width="5" height="5" fill="#111827" style={{ display: 'block' }}>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 6 6"
+            width="5"
+            height="5"
+            fill="#111827"
+            style={{ display: 'block' }}
+          >
             <circle cx="3" cy="3" r="3" />
           </svg>
         </span>
       </uibit-effect-trigger>
 
-      <h4 className="text-sm font-bold text-gray-900 mb-1">Weekly Design Digest</h4>
-      <p className="text-xs text-gray-500 mb-6">Clean ideas, tools, and updates from our team.</p>
+      <h4 className="text-sm font-bold text-gray-900 mb-1">
+        Weekly Design Digest
+      </h4>
+      <p className="text-xs text-gray-500 mb-6">
+        Clean ideas, tools, and updates from our team.
+      </p>
 
       {status === 'success' ? (
         <div className="text-center py-4">
-          <div className="text-xs font-semibold text-gray-900 mb-1">Thank you for subscribing!</div>
-          <p className="text-xs text-gray-500">We've added you to our mailing list.</p>
+          <div className="text-xs font-semibold text-gray-900 mb-1">
+            Thank you for subscribing!
+          </div>
+          <p className="text-xs text-gray-500">
+            We've added you to our mailing list.
+          </p>
           <button
-            onClick={() => { setStatus('idle'); setEmail(''); }}
+            type="button"
+            onClick={() => {
+              setStatus('idle');
+              setEmail('');
+            }}
             className="mt-4 text-xs font-semibold text-gray-400 hover:text-black transition-colors"
           >
             Reset Form

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@uibit/effect-trigger';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function SystemUpgradeDemo() {
   const [status, setStatus] = useState<'idle' | 'upgrading' | 'done'>('idle');
@@ -38,19 +38,46 @@ function SystemUpgradeDemo() {
         <span slot="asset"></span>
       </uibit-effect-trigger>
 
-      <h4 className="text-sm font-bold text-gray-900 mb-1">Server Core Cluster</h4>
-      <p className="text-xs text-gray-500 mb-6">Upgrade nodes to the latest release bundle.</p>
+      <h4 className="text-sm font-bold text-gray-900 mb-1">
+        Server Core Cluster
+      </h4>
+      <p className="text-xs text-gray-500 mb-6">
+        Upgrade nodes to the latest release bundle.
+      </p>
 
       <div className="flex justify-center mb-6">
-        <div className={`w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center transition-all ${
-          status === 'upgrading' ? 'border-dashed border-black animate-spin' : status === 'done' ? 'bg-black text-white border-black' : 'bg-gray-50'
-        }`}>
+        <div
+          className={`w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center transition-all ${
+            status === 'upgrading'
+              ? 'border-dashed border-black animate-spin'
+              : status === 'done'
+                ? 'bg-black text-white border-black'
+                : 'bg-gray-50'
+          }`}
+        >
           {status === 'done' ? (
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
               <path d="M20 6L9 17l-5-5" />
             </svg>
           ) : (
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-400">
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="text-gray-400"
+            >
               <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
               <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
               <line x1="6" y1="6" x2="6.01" y2="6" />
@@ -61,9 +88,12 @@ function SystemUpgradeDemo() {
       </div>
 
       {status === 'upgrading' ? (
-        <div className="text-xs text-gray-400 font-medium">Re-routing network paths...</div>
+        <div className="text-xs text-gray-400 font-medium">
+          Re-routing network paths...
+        </div>
       ) : (
         <button
+          type="button"
           onClick={handleUpgrade}
           className="w-full bg-black hover:bg-gray-900 text-white font-medium text-xs py-2 px-4 rounded transition-colors focus:outline-none"
         >

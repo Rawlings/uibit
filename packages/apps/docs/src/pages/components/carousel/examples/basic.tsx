@@ -1,5 +1,5 @@
 import '@uibit/carousel';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function Demo() {
   return (
@@ -19,7 +19,8 @@ function Demo() {
 
 const basicExample: UsageExample = {
   title: 'Basic Slides',
-  description: 'A minimal carousel with three slides. Any block-level content can be a slide.',
+  description:
+    'A minimal carousel with three slides. Any block-level content can be a slide.',
   Demo,
 };
 

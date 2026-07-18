@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,29 +9,30 @@ const rootDir = path.resolve(__dirname, '../../../..');
 // Map of known strings to their manual contexts for the existing table
 const knownContexts = {
   'Countdown timer': 'aria-label on timer container',
-  'Days': 'Unit label',
-  'Hours': 'Unit label',
-  'Minutes': 'Unit label',
-  'Seconds': 'Unit label',
+  Days: 'Unit label',
+  Hours: 'Unit label',
+  Minutes: 'Unit label',
+  Seconds: 'Unit label',
   'Content Carousel': 'aria-label on root region',
   'Previous slide': 'aria-label on prev button',
   'Next slide': 'aria-label on next button',
-  'Slides': 'aria-label on indicator tablist',
+  Slides: 'aria-label on indicator tablist',
   'Slide {n} of {total}': 'aria-label on each slide (interpolated)',
   'Go to slide {n}': 'aria-label on indicator button (interpolated)',
-  '360 degree product view. Use drag, arrow keys, or buttons to rotate.': 'aria-label on viewer',
+  '360 degree product view. Use drag, arrow keys, or buttons to rotate.':
+    'aria-label on viewer',
   'Rotate left': 'aria-label on prev button',
   'Rotate right': 'aria-label on next button',
-  'Hotspot': 'Fallback aria-label on trigger button',
+  Hotspot: 'Fallback aria-label on trigger button',
   'Hotspot details': 'Fallback aria-label on popover',
   'Close details': 'aria-label on close button',
   'Scroll progress indicator': 'aria-label on progress bar',
   'Scratch-off panel to reveal content': 'aria-label on canvas container',
   'Scratch to reveal': 'Instructions overlay text',
   'Sentiment rating': 'aria-label on radiogroup',
-  'Pagination': 'aria-label on pagination nav',
-  'Previous': 'aria-label on previous page button',
-  'Next': 'aria-label on next page button',
+  Pagination: 'aria-label on pagination nav',
+  Previous: 'aria-label on previous page button',
+  Next: 'aria-label on next page button',
   'Column filters': 'aria-label on filter row',
   'Filter {column}': 'aria-label on column filter input (interpolated)',
   'Search table': 'aria-label on search input',
@@ -47,27 +48,33 @@ const knownContexts = {
   'Clear selection': 'Selection banner button',
   'Rows:': 'Toolbar label',
   'Density:': 'Toolbar label',
-  'Columns': 'Column chooser button',
+  Columns: 'Column chooser button',
   'Compact / Normal / Comfortable': 'Density option labels',
   'Export CSV': 'Export button label (no selection)',
   'Export {n} rows': 'Export button label with selection (interpolated)',
   'Clear filters': 'Active filters button label',
   'Please fill out this field.': 'Validation error: valueMissing',
-  'Please lengthen this text to {value} characters or more.': 'Validation error: tooShort',
-  'Please shorten this text to {value} characters or less.': 'Validation error: tooLong',
+  'Please lengthen this text to {value} characters or more.':
+    'Validation error: tooShort',
+  'Please shorten this text to {value} characters or less.':
+    'Validation error: tooLong',
   'Please match the requested format.': 'Validation error: patternMismatch',
   'Please enter an email address.': 'Validation error: typeMismatch (email)',
   'Please enter a URL.': 'Validation error: typeMismatch (url)',
   'Please enter a valid value.': 'Validation error: typeMismatch/stepMismatch',
   'Please enter a number.': 'Validation error: badInput',
-  'Value must be greater than or equal to {value}.': 'Validation error: rangeUnderflow',
-  'Value must be less than or equal to {value}.': 'Validation error: rangeOverflow',
+  'Value must be greater than or equal to {value}.':
+    'Validation error: rangeUnderflow',
+  'Value must be less than or equal to {value}.':
+    'Validation error: rangeOverflow',
 };
 
 // Map of file contents to check for tag name or guess component name
 function getComponentTag(packageName, fileContent) {
-  const match = fileContent.match(/@customElement\(['"](uibit-[a-zA-Z0-9-]+)['"]\)/);
-  if (match && match[1]) {
+  const match = fileContent.match(
+    /@customElement\(['"](uibit-[a-zA-Z0-9-]+)['"]\)/,
+  );
+  if (match?.[1]) {
     return match[1];
   }
   return `uibit-${packageName}`;
@@ -75,7 +82,7 @@ function getComponentTag(packageName, fileContent) {
 
 function extractStrings() {
   const packagesPath = path.join(rootDir, 'packages/components');
-  const packages = fs.readdirSync(packagesPath).filter(p => {
+  const packages = fs.readdirSync(packagesPath).filter((p) => {
     const stat = fs.statSync(path.join(packagesPath, p));
     return stat.isDirectory() && p !== 'docs' && p !== 'core';
   });
@@ -86,18 +93,20 @@ function extractStrings() {
   for (const pkg of packages) {
     targets.push({
       pkg,
-      srcPath: path.join(packagesPath, pkg, 'src')
+      srcPath: path.join(packagesPath, pkg, 'src'),
     });
   }
   targets.push({
     pkg: 'form-internals',
-    srcPath: path.join(rootDir, 'packages/platform/form-internals/src')
+    srcPath: path.join(rootDir, 'packages/platform/form-internals/src'),
   });
 
   for (const { pkg, srcPath } of targets) {
     if (!fs.existsSync(srcPath)) continue;
 
-    const files = walkDir(srcPath).filter(f => f.endsWith('.ts') || f.endsWith('.tsx'));
+    const files = walkDir(srcPath).filter(
+      (f) => f.endsWith('.ts') || f.endsWith('.tsx'),
+    );
     for (const file of files) {
       const content = fs.readFileSync(file, 'utf8');
       const componentTag = getComponentTag(pkg, content);
@@ -105,19 +114,26 @@ function extractStrings() {
       // Regex 1: msg('...') or msg("...") or msg(`...`)
       // Match msg('literal') or msg("literal")
       const literalRegex = /msg\(\s*(['"`])((?:[^\\]|\\.)*?)\1\s*\)/g;
-      let match;
-      while ((match = literalRegex.exec(content)) !== null) {
+      let match = literalRegex.exec(content);
+      while (match !== null) {
         const strVal = match[2];
-        const context = knownContexts[strVal] || guessContext(content, match.index, strVal);
-        if (!extracted.some(e => e.component === componentTag && e.string === strVal)) {
+        const context =
+          knownContexts[strVal] || guessContext(content, match.index, strVal);
+        if (
+          !extracted.some(
+            (e) => e.component === componentTag && e.string === strVal,
+          )
+        ) {
           extracted.push({ component: componentTag, string: strVal, context });
         }
+        match = literalRegex.exec(content);
       }
 
       // Regex 2: msg(str`...`)
       const strTemplateRegex = /msg\(\s*str\s*`([\s\S]*?)`\s*\)/g;
-      while ((match = strTemplateRegex.exec(content)) !== null) {
-        let templateContent = match[1];
+      match = strTemplateRegex.exec(content);
+      while (match !== null) {
+        const templateContent = match[1];
         // Normalize placeholders to {placeholderName} or similar format for docs
         // e.g. "Slide ${index + 1} of ${this.totalSlides}" -> "Slide {n} of {total}"
         // e.g. "Filter ${col.label}" -> "Filter {column}"
@@ -140,16 +156,26 @@ function extractStrings() {
           strVal = strVal.replace(/\$\{[^}]+\}/g, '{value}');
         }
 
-        const context = knownContexts[strVal] || guessContext(content, match.index, strVal);
-        if (!extracted.some(e => e.component === componentTag && e.string === strVal)) {
+        const context =
+          knownContexts[strVal] || guessContext(content, match.index, strVal);
+        if (
+          !extracted.some(
+            (e) => e.component === componentTag && e.string === strVal,
+          )
+        ) {
           extracted.push({ component: componentTag, string: strVal, context });
         }
+        match = strTemplateRegex.exec(content);
       }
     }
   }
 
   // Ensure unique and sort by component, then string
-  extracted.sort((a, b) => a.component.localeCompare(b.component) || a.string.localeCompare(b.string));
+  extracted.sort(
+    (a, b) =>
+      a.component.localeCompare(b.component) ||
+      a.string.localeCompare(b.string),
+  );
 
   const localesDir = path.join(rootDir, 'packages/platform/core/src/locales');
   fs.mkdirSync(localesDir, { recursive: true });
@@ -168,16 +194,18 @@ export const localizedStrings: LocalizedStringEntry[] = ${JSON.stringify(extract
 `;
 
   fs.writeFileSync(outFilePath, fileContent, 'utf8');
-  console.log(`Successfully extracted ${extracted.length} localized strings to ${outFilePath}`);
+  console.log(
+    `Successfully extracted ${extracted.length} localized strings to ${outFilePath}`,
+  );
 }
 
 function walkDir(dir) {
   let results = [];
   const list = fs.readdirSync(dir);
-  list.forEach(file => {
+  list.forEach((file) => {
     file = path.join(dir, file);
     const stat = fs.statSync(file);
-    if (stat && stat.isDirectory()) {
+    if (stat?.isDirectory()) {
       results = results.concat(walkDir(file));
     } else {
       results.push(file);

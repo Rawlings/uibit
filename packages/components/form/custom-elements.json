@@ -100,7 +100,7 @@
               "kind": "field",
               "description": "Submission state: 'idle', 'pending', 'success', or 'error'.",
               "type": {
-                "text": "'idle' | 'pending' | 'success' | 'error'"
+                "text": "| 'idle'\n    | 'pending'\n    | 'success'\n    | 'error'"
               },
               "default": "'idle'",
               "static": false,
@@ -195,7 +195,7 @@
               "privacy": "private",
               "return": {
                 "type": {
-                  "text": "Array<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>"
+                  "text": "Array<\n    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement\n  >"
                 }
               }
             },
@@ -393,7 +393,7 @@
               "name": "status",
               "description": "Submission state: 'idle', 'pending', 'success', or 'error'.",
               "type": {
-                "text": "'idle' | 'pending' | 'success' | 'error'"
+                "text": "| 'idle'\n    | 'pending'\n    | 'success'\n    | 'error'"
               },
               "fieldName": "status",
               "default": "'idle'"

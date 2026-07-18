@@ -2,8 +2,8 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { uibitHmr } from '@uibit/vite-plugin-wc-hmr';
-import { resolve } from 'path';
-import { readdirSync, existsSync, readFileSync } from 'fs';
+import { resolve } from 'node:path';
+import { readdirSync, existsSync, readFileSync } from 'node:fs';
 
 const componentsDir = resolve(__dirname, '../../components');
 const platformDir = resolve(__dirname, '../../platform');
@@ -20,7 +20,7 @@ const getWorkspaceAliases = () => {
 
         if (existsSync(pkgJsonPath) && existsSync(srcIndexPath)) {
           const pkgJson = JSON.parse(readFileSync(pkgJsonPath, 'utf-8'));
-          if (pkgJson.name && pkgJson.name.startsWith('@uibit/')) {
+          if (pkgJson.name?.startsWith('@uibit/')) {
             aliases.push({
               find: new RegExp(`^${pkgJson.name.replace('/', '\\/')}$`),
               replacement: srcIndexPath,
@@ -29,7 +29,10 @@ const getWorkspaceAliases = () => {
         }
       }
     } catch (err) {
-      console.error(`Error auto-generating workspace aliases for ${dirPath}:`, err);
+      console.error(
+        `Error auto-generating workspace aliases for ${dirPath}:`,
+        err,
+      );
     }
   };
 
@@ -43,11 +46,7 @@ export default defineConfig({
   css: {
     postcss: null,
   },
-  plugins: [
-    tailwindcss(),
-    react(),
-    uibitHmr(),
-  ],
+  plugins: [tailwindcss(), react(), uibitHmr()],
   resolve: {
     alias: getWorkspaceAliases(),
   },
@@ -71,8 +70,7 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    rollupOptions: {
-    }
+    rollupOptions: {},
   },
   test: {
     browser: {
@@ -82,6 +80,5 @@ export default defineConfig({
       headless: true,
     },
     globals: true,
-  }
+  },
 });
-

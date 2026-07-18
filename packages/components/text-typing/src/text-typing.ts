@@ -87,7 +87,9 @@ export class TextTyping extends UIBitElement {
     if (!this._deleting) {
       if (this._charIndex < phrase.length) {
         if (!this._typoChar && Math.random() < this.typoRate) {
-          const wrongChar = String.fromCharCode(phrase.charCodeAt(this._charIndex) + (Math.random() > 0.5 ? 1 : -1));
+          const wrongChar = String.fromCharCode(
+            phrase.charCodeAt(this._charIndex) + (Math.random() > 0.5 ? 1 : -1),
+          );
           this._visible += wrongChar;
           this._typoChar = wrongChar;
           this._timer = setTimeout(() => {
@@ -100,7 +102,10 @@ export class TextTyping extends UIBitElement {
 
         this._visible += phrase[this._charIndex];
         this._charIndex++;
-        this._timer = setTimeout(() => this._tick(), this._jitter(this.typeSpeed));
+        this._timer = setTimeout(
+          () => this._tick(),
+          this._jitter(this.typeSpeed),
+        );
       } else {
         this.setAttribute('paused', '');
         this._timer = setTimeout(() => {
@@ -113,14 +118,20 @@ export class TextTyping extends UIBitElement {
       if (this._charIndex > 0) {
         this._charIndex--;
         this._visible = phrase.slice(0, this._charIndex);
-        this._timer = setTimeout(() => this._tick(), this._jitter(this.deleteSpeed));
+        this._timer = setTimeout(
+          () => this._tick(),
+          this._jitter(this.deleteSpeed),
+        );
       } else {
         this._deleting = false;
         const next = (this._phraseIndex + 1) % this.phrases.length;
         if (!this.loop && next === 0) return;
         this._phraseIndex = next;
         this._charIndex = 0;
-        this.dispatchCustomEvent('phrase-change', { phrase: this.phrases[this._phraseIndex], index: this._phraseIndex });
+        this.dispatchCustomEvent('phrase-change', {
+          phrase: this.phrases[this._phraseIndex],
+          index: this._phraseIndex,
+        });
         this._timer = setTimeout(() => this._tick(), this.pauseBefore);
       }
     }
@@ -130,8 +141,8 @@ export class TextTyping extends UIBitElement {
     const slot = e.target as HTMLSlotElement;
     const nodes = slot.assignedNodes({ flatten: true });
     const phrases = nodes
-      .map(node => node.textContent?.trim() ?? '')
-      .filter(text => text !== '');
+      .map((node) => node.textContent?.trim() ?? '')
+      .filter((text) => text !== '');
     if (phrases.length > 0) {
       this.phrases = phrases;
     }
@@ -141,9 +152,11 @@ export class TextTyping extends UIBitElement {
     return html`
       <slot></slot>
       <slot name="text" @slotchange=${this._handleSlotChange} style="display: none;"></slot>
-      <span class="text" part="text" aria-live="polite" aria-atomic="true">${this._visible}</span>${this.showCursor
-        ? html`<span class="cursor" part="cursor" aria-hidden="true"></span>`
-        : ''}
+      <span class="text" part="text" aria-live="polite" aria-atomic="true">${this._visible}</span>${
+        this.showCursor
+          ? html`<span class="cursor" part="cursor" aria-hidden="true"></span>`
+          : ''
+      }
     `;
   }
 }

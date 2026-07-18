@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import './form';
-import { Form } from './form';
+import type { Form } from './form';
 
 describe('Form Component', () => {
   let element: Form;
@@ -33,11 +33,11 @@ describe('Form Component', () => {
         </fieldset>
       </form>
     `;
-    await new Promise(r => setTimeout(r, 20));
+    await new Promise((r) => setTimeout(r, 20));
     await element.updateComplete;
 
     expect(element.stepsCount).toBe(2);
-    
+
     const step1 = element.querySelector('#step1') as HTMLFieldSetElement;
     const step2 = element.querySelector('#step2') as HTMLFieldSetElement;
     expect(step1.style.display).not.toBe('none');
@@ -55,7 +55,7 @@ describe('Form Component', () => {
         </fieldset>
       </form>
     `;
-    await new Promise(r => setTimeout(r, 20));
+    await new Promise((r) => setTimeout(r, 20));
     await element.updateComplete;
 
     expect(element.step).toBe(1);
@@ -86,7 +86,7 @@ describe('Form Component', () => {
         </fieldset>
       </form>
     `;
-    await new Promise(r => setTimeout(r, 20));
+    await new Promise((r) => setTimeout(r, 20));
     await element.updateComplete;
 
     element.nextStep();
@@ -105,14 +105,14 @@ describe('Form Component', () => {
         <input id="test-input" name="field" value="initial">
       </form>
     `;
-    await new Promise(r => setTimeout(r, 20));
+    await new Promise((r) => setTimeout(r, 20));
     await element.updateComplete;
 
     expect(element.dirty).toBe(false);
 
     const input = element.querySelector('#test-input') as HTMLInputElement;
     input.value = 'changed';
-    
+
     input.dispatchEvent(new Event('input', { bubbles: true }));
     expect(element.dirty).toBe(true);
 
@@ -127,7 +127,7 @@ describe('Form Component', () => {
         <input id="test-input" name="field" value="initial">
       </form>
     `;
-    await new Promise(r => setTimeout(r, 20));
+    await new Promise((r) => setTimeout(r, 20));
     await element.updateComplete;
 
     const input = element.querySelector('#test-input') as HTMLInputElement;
@@ -146,14 +146,14 @@ describe('Form Component', () => {
         <input name="field" value="something">
       </form>
     `;
-    await new Promise(r => setTimeout(r, 20));
+    await new Promise((r) => setTimeout(r, 20));
     await element.updateComplete;
 
-    const fetchMock = vi.fn().mockImplementation(() => 
+    const fetchMock = vi.fn().mockImplementation(() =>
       Promise.resolve({
         ok: true,
-        status: 200
-      })
+        status: 200,
+      }),
     );
     globalThis.fetch = fetchMock;
 

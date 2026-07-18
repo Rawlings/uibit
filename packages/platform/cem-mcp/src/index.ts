@@ -2,7 +2,7 @@
 
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { CemMcpServer } from './server.js';
-import * as path from 'path';
+import * as path from 'node:path';
 
 const args = process.argv.slice(2);
 const workspaceRoot = args[0] ? path.resolve(args[0]) : process.cwd();

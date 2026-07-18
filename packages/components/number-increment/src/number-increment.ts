@@ -1,5 +1,10 @@
 import { html } from 'lit';
-import { customElement, UIBitElement, ViewportController, LoopController } from '@uibit/core';
+import {
+  customElement,
+  UIBitElement,
+  ViewportController,
+  LoopController,
+} from '@uibit/core';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
 
@@ -41,7 +46,8 @@ export class NumberIncrement extends UIBitElement {
   /** Custom formatter function to format the number for display. Overrides locale and options. */
   @property({ attribute: false }) formatter?: (value: number) => string;
   /** Easing curve: "ease-out" | "ease-in-out" | "linear". */
-  @property({ type: String }) easing: 'ease-out' | 'ease-in-out' | 'linear' = 'ease-out';
+  @property({ type: String }) easing: 'ease-out' | 'ease-in-out' | 'linear' =
+    'ease-out';
   /** Intersection threshold (0–1) at which the animation triggers. */
   @property({ type: Number }) threshold = 0.2;
   /** Re-animate each time the element re-enters the viewport. */
@@ -83,9 +89,10 @@ export class NumberIncrement extends UIBitElement {
 
   private _ease(t: number): number {
     if (this.easing === 'linear') return t;
-    if (this.easing === 'ease-in-out') return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+    if (this.easing === 'ease-in-out')
+      return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
     // ease-out cubic
-    return 1 - Math.pow(1 - t, 3);
+    return 1 - (1 - t) ** 3;
   }
 
   private _format(n: number): string {
@@ -116,7 +123,8 @@ export class NumberIncrement extends UIBitElement {
     if (this._startTime === null) this._startTime = ts;
     const elapsed = ts - this._startTime;
     const progress = Math.min(elapsed / this.duration, 1);
-    const current = this._startVal + (this._endVal - this._startVal) * this._ease(progress);
+    const current =
+      this._startVal + (this._endVal - this._startVal) * this._ease(progress);
     this._display = this._format(current);
 
     if (progress >= 1) {

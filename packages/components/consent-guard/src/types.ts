@@ -24,7 +24,7 @@ export interface ConsentGuard {
 }
 
 declare global {
-interface HTMLElementTagNameMap {
+  interface HTMLElementTagNameMap {
     'uibit-consent-guard': ConsentGuardClass;
-}
+  }
 }

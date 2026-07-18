@@ -1,5 +1,5 @@
 import '@uibit/table';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 const ROWS: [string, string, string, string, string, string][] = [
   ['Acme Corp', '1 240 000', 'North America', 'Active', '12.4', 'Enterprise'],
@@ -9,14 +9,42 @@ const ROWS: [string, string, string, string, string, string][] = [
   ['Ember Health', '990 000', 'North America', 'Active', '15.0', 'Growth'],
   ['Frost AI', '3 400 000', 'Europe', 'Active', '34.9', 'Enterprise'],
   ['Gale Robotics', '720 000', 'Asia Pacific', 'Review', '2.5', 'Growth'],
-  ['Harbor Cloud', '1 670 000', 'North America', 'Active', '18.3', 'Enterprise'],
+  [
+    'Harbor Cloud',
+    '1 670 000',
+    'North America',
+    'Active',
+    '18.3',
+    'Enterprise',
+  ],
   ['Isle Media', '450 000', 'Europe', 'Inactive', '-6.8', 'Starter'],
-  ['Jasper Fintech', '2 800 000', 'Asia Pacific', 'Active', '27.2', 'Enterprise'],
+  [
+    'Jasper Fintech',
+    '2 800 000',
+    'Asia Pacific',
+    'Active',
+    '27.2',
+    'Enterprise',
+  ],
   ['Kite Analytics', '390 000', 'Middle East', 'Review', '1.1', 'Starter'],
   ['Lumen Bio', '1 100 000', 'North America', 'Active', '9.6', 'Growth'],
   ['Marble Studio', '670 000', 'Europe', 'Active', '7.4', 'Growth'],
-  ['Nova Payments', '4 200 000', 'North America', 'Active', '41.2', 'Enterprise'],
-  ['Orbit Logistics', '310 000', 'Asia Pacific', 'Inactive', '-11.5', 'Starter'],
+  [
+    'Nova Payments',
+    '4 200 000',
+    'North America',
+    'Active',
+    '41.2',
+    'Enterprise',
+  ],
+  [
+    'Orbit Logistics',
+    '310 000',
+    'Asia Pacific',
+    'Inactive',
+    '-11.5',
+    'Starter',
+  ],
   ['Prism Security', '1 890 000', 'Europe', 'Active', '19.8', 'Enterprise'],
   ['Quill Publishing', '540 000', 'Middle East', 'Review', '3.7', 'Growth'],
   ['Relay Networks', '780 000', 'North America', 'Active', '6.9', 'Growth'],

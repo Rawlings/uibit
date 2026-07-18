@@ -200,14 +200,14 @@
             {
               "name": "_resize",
               "kind": "field",
-              "default": "new ResizeController(this, {\n    callback: (entry) => {\n      const { width, height } = entry.contentRect;\n      this._resizeCanvas(width, height);\n    }\n  })",
+              "default": "new ResizeController(this, {\n    callback: (entry) => {\n      const { width, height } = entry.contentRect;\n      this._resizeCanvas(width, height);\n    },\n  })",
               "static": false,
               "privacy": "protected"
             },
             {
               "name": "_loop",
               "kind": "field",
-              "default": "new LoopController(this, {\n    autoStart: false,\n    callback: () => this._updateAndDraw()\n  })",
+              "default": "new LoopController(this, {\n    autoStart: false,\n    callback: () => this._updateAndDraw(),\n  })",
               "static": false,
               "privacy": "protected"
             },

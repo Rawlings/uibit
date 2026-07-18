@@ -41,9 +41,15 @@ export class ImageReveal extends UIBitElement {
   }
 
   private _lensSize(): number {
-    const prop = this.size || this.getCssPropertyValue('--uibit-image-reveal-lens-size').trim() || '12rem';
+    const prop =
+      this.size ||
+      this.getCssPropertyValue('--uibit-image-reveal-lens-size').trim() ||
+      '12rem';
     if (prop.endsWith('rem')) {
-      return parseFloat(prop) * parseFloat(getComputedStyle(document.documentElement).fontSize);
+      return (
+        parseFloat(prop) *
+        parseFloat(getComputedStyle(document.documentElement).fontSize)
+      );
     }
     if (prop.endsWith('px')) return parseFloat(prop);
     return 192;
@@ -67,7 +73,10 @@ export class ImageReveal extends UIBitElement {
       this._lensImg.style.top = `${-(y - size / 2)}px`;
     }
 
-    this.dispatchCustomEvent('reveal-move', { x: (x / rect.width) * 100, y: (y / rect.height) * 100 });
+    this.dispatchCustomEvent('reveal-move', {
+      x: (x / rect.width) * 100,
+      y: (y / rect.height) * 100,
+    });
   }
 
   private _onMouseEnter = (e: MouseEvent) => {
@@ -104,7 +113,9 @@ export class ImageReveal extends UIBitElement {
     this.listen(this._base, 'mouseenter', this._onMouseEnter);
     this.listen(this._base, 'mousemove', this._onMouseMove);
     this.listen(this._base, 'mouseleave', this._onMouseLeave);
-    this.listen(this._base, 'touchstart', this._onTouchStart, { passive: false });
+    this.listen(this._base, 'touchstart', this._onTouchStart, {
+      passive: false,
+    });
     this.listen(this._base, 'touchmove', this._onTouchMove, { passive: false });
     this.listen(this._base, 'touchend', this._onTouchEnd);
     this.listen(this._base, 'touchcancel', this._onTouchEnd);

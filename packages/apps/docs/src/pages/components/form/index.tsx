@@ -1,17 +1,22 @@
 import '@uibit/form';
 import manifest from '@uibit/form/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import wizard from './examples/wizard';
 import wizardRaw from './examples/wizard?raw';
 
 function FormDemo() {
   return (
-    <uibit-form
-      class="block bg-gray-50 p-8"
-    >
-      <form action="https://httpbin.org/post" method="POST" className="space-y-4">
+    <uibit-form class="block bg-gray-50 p-8">
+      <form
+        action="https://httpbin.org/post"
+        method="POST"
+        className="space-y-4"
+      >
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="name">
+          <label
+            className="block text-sm font-medium text-gray-700 mb-1"
+            htmlFor="name"
+          >
             Full Name *
           </label>
           <input
@@ -25,7 +30,10 @@ function FormDemo() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+          <label
+            className="block text-sm font-medium text-gray-700 mb-1"
+            htmlFor="email"
+          >
             Email Address *
           </label>
           <input
@@ -39,7 +47,10 @@ function FormDemo() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="comments">
+          <label
+            className="block text-sm font-medium text-gray-700 mb-1"
+            htmlFor="comments"
+          >
             Comments
           </label>
           <textarea
@@ -73,8 +84,12 @@ function FormDemo() {
       </div>
 
       <div slot="success" className="bg-gray-50 p-8">
-        <h4 className="text-md font-semibold text-gray-900 mb-1">Form submitted</h4>
-        <p className="text-sm text-gray-600">Thank you. Your submission was received.</p>
+        <h4 className="text-md font-semibold text-gray-900 mb-1">
+          Form submitted
+        </h4>
+        <p className="text-sm text-gray-600">
+          Thank you. Your submission was received.
+        </p>
       </div>
 
       <div slot="error" className="text-sm text-gray-900 bg-gray-50 p-8">
@@ -85,9 +100,7 @@ function FormDemo() {
   );
 }
 
-const processedExamples = [
-  { ...wizard, code: { react: wizardRaw } }
-];
+const processedExamples = [{ ...wizard, code: { react: wizardRaw } }];
 
 const data: ComponentDocData = {
   manifest,
@@ -163,13 +176,19 @@ function FormDemo() {
       'Slotted inputs retain native focus indicators.',
       'Wizard progress indicators use semantic text describing the current step.',
       'Fieldsets are automatically disabled when inactive to prevent screen reader navigation to hidden steps.',
-      'Standard error validation messages leverage the native browser API (`reportValidity`).'
+      'Standard error validation messages leverage the native browser API (`reportValidity`).',
     ],
     keyboardNav: [
-      { key: 'Tab', description: 'Navigate between form inputs and wizard controls.' },
-      { key: 'Space / Enter', description: 'Activate buttons, checkboxes, and form submit.' }
-    ]
-  }
+      {
+        key: 'Tab',
+        description: 'Navigate between form inputs and wizard controls.',
+      },
+      {
+        key: 'Space / Enter',
+        description: 'Activate buttons, checkboxes, and form submit.',
+      },
+    ],
+  },
 };
 
 export default data;

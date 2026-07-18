@@ -227,17 +227,23 @@ export class Signature extends FormAssociatedMixin(UIBitElement) {
       this.currentStroke = [];
       const dataUrl = this.toDataURL();
       this.value = dataUrl;
-      this.dispatchCustomEvent('signature-change', { isEmpty: this.isEmpty, dataUrl });
+      this.dispatchCustomEvent('signature-change', {
+        isEmpty: this.isEmpty,
+        dataUrl,
+      });
     }
   }
 
   private strokeWidth(): number {
-    const raw = this.getCssPropertyValue('--uibit-signature-stroke-width').trim();
+    const raw = this.getCssPropertyValue(
+      '--uibit-signature-stroke-width',
+    ).trim();
     if (!raw) return 2;
     const num = parseFloat(raw);
-    if (isNaN(num)) return 2;
+    if (Number.isNaN(num)) return 2;
     if (raw.endsWith('rem')) {
-      const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+      const rootFontSize =
+        parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
       return num * rootFontSize;
     }
     if (raw.endsWith('em')) {
@@ -248,7 +254,11 @@ export class Signature extends FormAssociatedMixin(UIBitElement) {
   }
 
   private strokeColor(): string {
-    return getComputedStyle(this).getPropertyValue('--uibit-signature-stroke-color').trim() || '#111111';
+    return (
+      getComputedStyle(this)
+        .getPropertyValue('--uibit-signature-stroke-color')
+        .trim() || '#111111'
+    );
   }
 
   private drawStrokeSegment(points: SignaturePoint[]) {
@@ -328,10 +338,10 @@ export class Signature extends FormAssociatedMixin(UIBitElement) {
     for (const stroke of this.strokes) {
       if (stroke.points.length < 2) continue;
       const pts = stroke.points;
-      let d = `M ${pts[0]!.x.toFixed(2)} ${pts[0]!.y.toFixed(2)}`;
+      let d = `M ${pts[0]?.x.toFixed(2)} ${pts[0]?.y.toFixed(2)}`;
       for (let i = 1; i < pts.length; i++) {
         if (i === 1) {
-          d += ` L ${pts[i]!.x.toFixed(2)} ${pts[i]!.y.toFixed(2)}`;
+          d += ` L ${pts[i]?.x.toFixed(2)} ${pts[i]?.y.toFixed(2)}`;
         } else {
           const prev = pts[i - 1]!;
           const curr = pts[i]!;
@@ -340,7 +350,9 @@ export class Signature extends FormAssociatedMixin(UIBitElement) {
           d += ` Q ${prev.x.toFixed(2)} ${prev.y.toFixed(2)} ${cx} ${cy}`;
         }
       }
-      paths.push(`<path d="${d}" stroke="${color}" stroke-width="${baseWidth}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`);
+      paths.push(
+        `<path d="${d}" stroke="${color}" stroke-width="${baseWidth}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`,
+      );
     }
 
     return `<svg xmlns="http://www.w3.org/2000/svg" width="${rect.width}" height="${rect.height}" viewBox="0 0 ${rect.width} ${rect.height}">${paths.join('')}</svg>`;
@@ -373,17 +385,21 @@ export class Signature extends FormAssociatedMixin(UIBitElement) {
     return html`
       <div part="container" class="container" role="img" aria-label="Signature pad">
         <canvas part="canvas"></canvas>
-        ${this.isEmpty
-        ? html`<div part="hint" class="hint"><slot name="hint">Sign here</slot></div>`
-        : ''}
+        ${
+          this.isEmpty
+            ? html`<div part="hint" class="hint"><slot name="hint">Sign here</slot></div>`
+            : ''
+        }
         <slot name="clear-button" @click=${() => this.clear()}>
-          ${!this.hideClear
-          ? html`<button
+          ${
+            !this.hideClear
+              ? html`<button
                 part="clear-button"
                 class="clear-button"
                 ?disabled=${this.isEmpty}
               >${getIcon('rotate-ccw', 14, fromLucide(RotateCcw))}</button>`
-          : ''}
+              : ''
+          }
         </slot>
       </div>
     `;

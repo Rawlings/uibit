@@ -1,6 +1,6 @@
 import '@uibit/text-clamp';
 import manifest from '@uibit/text-clamp/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import basic from './examples/basic';
 import basicRaw from './examples/basic?raw';
 import customLabels from './examples/custom-labels';
@@ -8,16 +8,19 @@ import customLabelsRaw from './examples/custom-labels?raw';
 
 function TextClampDemo() {
   return (
-    <uibit-text-clamp lines={3} style={{ fontSize: '1rem', lineHeight: '1.625' }}>
-      Scandinavian design is defined by simplicity, minimalism, and functionality.
-      Its roots trace back to the 1950s when Nordic designers began blending fine
-      art with everyday utility. The movement prioritises clean lines, natural
-      materials, and a restrained palette — resulting in objects that feel both
-      timeless and deeply human. In a world of visual noise, the quiet confidence
-      of this aesthetic continues to resonate. Furniture, typography, and
-      architecture from this tradition share a common thread: nothing is added
-      that does not serve a purpose, and nothing that serves a purpose is left
-      without care.
+    <uibit-text-clamp
+      lines={3}
+      style={{ fontSize: '1rem', lineHeight: '1.625' }}
+    >
+      Scandinavian design is defined by simplicity, minimalism, and
+      functionality. Its roots trace back to the 1950s when Nordic designers
+      began blending fine art with everyday utility. The movement prioritises
+      clean lines, natural materials, and a restrained palette — resulting in
+      objects that feel both timeless and deeply human. In a world of visual
+      noise, the quiet confidence of this aesthetic continues to resonate.
+      Furniture, typography, and architecture from this tradition share a common
+      thread: nothing is added that does not serve a purpose, and nothing that
+      serves a purpose is left without care.
     </uibit-text-clamp>
   );
 }
@@ -63,7 +66,10 @@ function Example() {
     ],
     keyboardNav: [
       { key: 'Tab', description: 'Move focus to the More/Less toggle button.' },
-      { key: 'Enter / Space', description: 'Toggle between the clamped and expanded state.' },
+      {
+        key: 'Enter / Space',
+        description: 'Toggle between the clamped and expanded state.',
+      },
     ],
   },
   features: [

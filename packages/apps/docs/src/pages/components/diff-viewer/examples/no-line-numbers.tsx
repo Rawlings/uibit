@@ -1,4 +1,4 @@
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 const OLD = `body {
   margin: 0;

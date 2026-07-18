@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import './video';
-import { Video } from './video';
+import type { Video } from './video';
 
 describe('Video Component', () => {
   let element: Video | null = null;
@@ -29,7 +29,7 @@ describe('Video Component', () => {
     element.appendChild(video);
 
     document.body.appendChild(element);
-    await new Promise(r => setTimeout(r, 50));
+    await new Promise((r) => setTimeout(r, 50));
     await element.updateComplete;
 
     expect((element as any)._isIframeMode).toBe(false);
@@ -43,7 +43,7 @@ describe('Video Component', () => {
     element.appendChild(iframe);
 
     document.body.appendChild(element);
-    await new Promise(r => setTimeout(r, 50));
+    await new Promise((r) => setTimeout(r, 50));
     await element.updateComplete;
 
     expect((element as any)._isIframeMode).toBe(true);
@@ -59,7 +59,7 @@ describe('Video Component', () => {
     const pauseSpy = vi.spyOn(video, 'pause').mockImplementation(() => {});
 
     document.body.appendChild(element);
-    await new Promise(r => setTimeout(r, 50));
+    await new Promise((r) => setTimeout(r, 50));
     await element.updateComplete;
 
     // Initially paused, calling togglePlay should play it
@@ -79,7 +79,7 @@ describe('Video Component', () => {
     element.appendChild(video);
 
     document.body.appendChild(element);
-    await new Promise(r => setTimeout(r, 50));
+    await new Promise((r) => setTimeout(r, 50));
     await element.updateComplete;
 
     expect(video.muted).toBe(false);

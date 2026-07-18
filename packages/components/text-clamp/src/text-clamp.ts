@@ -103,9 +103,13 @@ export class TextClamp extends UIBitElement {
       <div class="content" part="content">
         <slot @slotchange=${this._onSlotChange}></slot>
       </div>
-      ${this._overflows ? html`
+      ${
+        this._overflows
+          ? html`
         <div class="toggle-container" part="toggle-container">
-          ${this._expanded ? html`
+          ${
+            this._expanded
+              ? html`
             <slot name="less" @click=${this._toggle}>
               <button
                 class="toggle"
@@ -113,7 +117,8 @@ export class TextClamp extends UIBitElement {
                 aria-expanded="true"
               >Less</button>
             </slot>
-          ` : html`
+          `
+              : html`
             <slot name="more" @click=${this._toggle}>
               <button
                 class="toggle"
@@ -121,9 +126,12 @@ export class TextClamp extends UIBitElement {
                 aria-expanded="false"
               >… More</button>
             </slot>
-          `}
+          `
+          }
         </div>
-      ` : ''}
+      `
+          : ''
+      }
     `;
   }
 }

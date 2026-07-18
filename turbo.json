@@ -4,7 +4,7 @@
     "tsconfig.base.json",
     "pnpm-lock.yaml",
     "pnpm-workspace.yaml",
-    "oxlint.config.ts",
+    "biome.json",
     "packages/components/custom-elements-manifest.config.js"
   ],
   "tasks": {
@@ -31,11 +31,7 @@
         "build.rs",
         "package.json"
       ],
-      "outputs": [
-        "cem-oxc.*.node",
-        "bin/cem-oxc-bin",
-        "index.d.ts"
-      ]
+      "outputs": ["cem-oxc.*.node", "bin/cem-oxc-bin", "index.d.ts"]
     },
     "analyze": {
       "inputs": [
@@ -56,15 +52,17 @@
     },
     "test": {
       "dependsOn": ["build"],
-      "inputs": ["src/**", "tsconfig.json", "package.json", "vitest.config.*", "vitest.workspace.*"],
+      "inputs": [
+        "src/**",
+        "tsconfig.json",
+        "package.json",
+        "vitest.config.*",
+        "vitest.workspace.*"
+      ],
       "outputs": []
     },
-    "//#lint:oxlint": {
-      "inputs": [
-        "packages/*/src/**",
-        "packages/*/*/src/**",
-        "oxlint.config.ts"
-      ],
+    "//#lint:biome": {
+      "inputs": ["packages/*/src/**", "packages/*/*/src/**", "biome.json"],
       "outputs": []
     }
   }

@@ -15,7 +15,7 @@ export function updatePackageJson(cwd, outdir) {
     if (fs.existsSync(pkgPath)) {
       const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
       pkg.customElements = join(outdir, 'custom-elements.json');
-      fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+      fs.writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
     }
   } catch (e) {
     console.error('[cem-oxc] Failed to update package.json:', e);

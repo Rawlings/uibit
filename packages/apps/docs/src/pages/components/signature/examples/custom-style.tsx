@@ -1,5 +1,5 @@
 import '@uibit/signature';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function CustomStyleDemo() {
   return (
@@ -23,7 +23,8 @@ function CustomStyleDemo() {
 
 const customStyle: UsageExample = {
   title: 'Custom Style',
-  description: 'Use CSS custom properties to change the stroke color, border, and height of the pad.',
+  description:
+    'Use CSS custom properties to change the stroke color, border, and height of the pad.',
   Demo: CustomStyleDemo,
 };
 

@@ -153,7 +153,7 @@
               "kind": "field",
               "description": "Controls layout: 'inline' or consolidated 'menu' under a dropdown.",
               "type": {
-                "text": "'inline' | 'menu'"
+                "text": "| 'inline'\n    | 'menu'"
               },
               "default": "'inline'",
               "static": false,
@@ -958,7 +958,7 @@
               "name": "controls-layout",
               "description": "Controls layout: 'inline' or consolidated 'menu' under a dropdown.",
               "type": {
-                "text": "'inline' | 'menu'"
+                "text": "| 'inline'\n    | 'menu'"
               },
               "fieldName": "controlsLayout",
               "default": "'inline'"

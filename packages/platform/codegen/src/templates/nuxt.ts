@@ -5,9 +5,9 @@ export const nuxtPlugin = {
   name: 'nuxt',
   generate(component: ComponentMetadata) {
     return {
-      'index.ts': buildTS(component)
+      'index.ts': buildTS(component),
     };
-  }
+  },
 };
 
 function renderNuxtImports(): string {

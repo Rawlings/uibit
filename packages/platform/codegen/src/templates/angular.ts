@@ -1,10 +1,16 @@
 import type { ComponentMetadata } from '../core/types.js';
-import { mergePropertiesAndAttributes, generateTypeImports, toCamelCase, sanitizeEventType, isEventAssociatedWithProp } from '../core/utils.js';
+import {
+  mergePropertiesAndAttributes,
+  generateTypeImports,
+  toCamelCase,
+  sanitizeEventType,
+  isEventAssociatedWithProp,
+} from '../core/utils.js';
 import {
   parseModule,
   parseClassMembers,
   extractStatementsFromArrow,
-  findClassDeclaration
+  findClassDeclaration,
 } from '../core/swc.js';
 import swc from '@swc/core';
 
@@ -13,9 +19,9 @@ export const angularPlugin = {
   generate(component: ComponentMetadata) {
     const generator = new AngularComponentGenerator(component);
     return {
-      'index.ts': generator.build()
+      'index.ts': generator.build(),
     };
-  }
+  },
 };
 
 // ==========================================
@@ -83,18 +89,24 @@ class AngularComponentGenerator {
   private isFormAssociated: boolean;
 
   constructor(private component: ComponentMetadata) {
-    this.propMap = mergePropertiesAndAttributes(component.properties, component.attributes);
+    this.propMap = mergePropertiesAndAttributes(
+      component.properties,
+      component.attributes,
+    );
     this.isFormAssociated = component.formAssociated || false;
   }
 
   private isModelProp(name: string): boolean {
     if (name === 'value') return true;
-    return this.component.events.some(e => isEventAssociatedWithProp(this.component, e.name, name));
+    return this.component.events.some((e) =>
+      isEventAssociatedWithProp(this.component, e.name, name),
+    );
   }
 
   private generatePropertySignal(name: string, type: string): string {
-    const originalProp = this.component.properties.find(p => p.name === name);
-    const defaultVal = originalProp?.default !== undefined ? originalProp.default : 'undefined';
+    const originalProp = this.component.properties.find((p) => p.name === name);
+    const defaultVal =
+      originalProp?.default !== undefined ? originalProp.default : 'undefined';
 
     if (this.isModelProp(name)) {
       return `readonly ${name} = model<${type}>(${defaultVal});`;
@@ -120,21 +132,36 @@ class AngularComponentGenerator {
     const name = this.component.name;
     const className = `Ngx${name}`;
     const importPath = this.component.importPath || '../../index.js';
-    const typeImports = generateTypeImports(this.component.referencedTypes, importPath);
+    const typeImports = generateTypeImports(
+      this.component.referencedTypes,
+      importPath,
+    );
     const isFormAssociated = this.isFormAssociated;
 
     // Collect imports dynamically
-    const angularImports = ['Component', 'ChangeDetectionStrategy', 'ElementRef'];
-    const hasModels = Array.from(this.propMap.keys()).some(k => this.isModelProp(k));
-    const hasInputs = Array.from(this.propMap.keys()).some(k => !this.isModelProp(k));
+    const angularImports = [
+      'Component',
+      'ChangeDetectionStrategy',
+      'ElementRef',
+    ];
+    const hasModels = Array.from(this.propMap.keys()).some((k) =>
+      this.isModelProp(k),
+    );
+    const hasInputs = Array.from(this.propMap.keys()).some(
+      (k) => !this.isModelProp(k),
+    );
 
     if (hasModels) angularImports.push('model');
     if (hasInputs) angularImports.push('input');
     if (this.propMap.size > 0) angularImports.push('effect');
     if (this.component.events.length > 0) angularImports.push('output');
 
-    const hasBoolean = Array.from(this.propMap.values()).some(t => t.includes('boolean'));
-    const hasNumber = Array.from(this.propMap.values()).some(t => t.includes('number'));
+    const hasBoolean = Array.from(this.propMap.values()).some((t) =>
+      t.includes('boolean'),
+    );
+    const hasNumber = Array.from(this.propMap.values()).some((t) =>
+      t.includes('number'),
+    );
     if (hasBoolean) angularImports.push('booleanAttribute');
     if (hasNumber) angularImports.push('numberAttribute');
     if (isFormAssociated) angularImports.push('forwardRef');
@@ -159,12 +186,15 @@ class AngularComponentGenerator {
       const actions = [`${camel}.emit($event)`];
 
       // Find if this event is associated with any class property
-      const matchedPropName = Array.from(this.propMap.keys()).find(propName => {
-        return isEventAssociatedWithProp(this.component, e.name, propName);
-      });
+      const matchedPropName = Array.from(this.propMap.keys()).find(
+        (propName) => {
+          return isEventAssociatedWithProp(this.component, e.name, propName);
+        },
+      );
 
       if (matchedPropName) {
-        const isPrimitiveEvent = e.payloadKeys === undefined || e.payloadKeys.length === 0;
+        const isPrimitiveEvent =
+          e.payloadKeys === undefined || e.payloadKeys.length === 0;
         const targetValue = isPrimitiveEvent
           ? `$event.target.${matchedPropName}`
           : `$event.detail?.${matchedPropName} !== undefined ? $event.detail.${matchedPropName} : $event.target.${matchedPropName}`;
@@ -180,9 +210,11 @@ class AngularComponentGenerator {
 
     // No hardcoded bindings for form association; all bindings are manifest-driven.
 
-    const hostLines = Object.entries(hostBindings).map(([eventKey, actions]) => {
-      return `'${eventKey}': '${actions.join('; ')}'`;
-    });
+    const hostLines = Object.entries(hostBindings).map(
+      ([eventKey, actions]) => {
+        return `'${eventKey}': '${actions.join('; ')}'`;
+      },
+    );
 
     if (hostLines.length > 0) {
       decoratorAdditions += `,
@@ -192,15 +224,19 @@ class AngularComponentGenerator {
     }
 
     // 1. Interpolate and parse the base component wrapper AST
-    const implementsClause = isFormAssociated ? ' implements ControlValueAccessor' : '';
-    const baseSource = BASE_COMPONENT_TEMPLATE
-      .replace('// IMPORTS_PLACEHOLDER', `
+    const implementsClause = isFormAssociated
+      ? ' implements ControlValueAccessor'
+      : '';
+    const baseSource = BASE_COMPONENT_TEMPLATE.replace(
+      '// IMPORTS_PLACEHOLDER',
+      `
         import { ${angularImports.join(', ')} } from '@angular/core';
         ${isFormAssociated ? `import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';` : ''}
         import '${importPath}';
         import type { ${name} as HTMLElementClass } from '${importPath}';
         ${typeImports}
-      `)
+      `,
+    )
       .replace('// DECORATOR_METADATA_PLACEHOLDER', decoratorAdditions)
       .replace('SELECTOR_PLACEHOLDER', this.component.tagName)
       .replace('CLASS_NAME_PLACEHOLDER', `${className}${implementsClause}`);
@@ -214,7 +250,7 @@ class AngularComponentGenerator {
       .join('\n');
 
     const outputsSource = this.component.events
-      .map(e => this.generateOutputProperty(e))
+      .map((e) => this.generateOutputProperty(e))
       .join('\n');
 
     classDecl.body.push(...parseClassMembers(propertiesSource));
@@ -226,10 +262,12 @@ class AngularComponentGenerator {
     }
 
     // 4. Graft effects into Constructor
-    const constructorNode = classDecl.body.find((n: any) => n.type === 'Constructor');
+    const constructorNode = classDecl.body.find(
+      (n: any) => n.type === 'Constructor',
+    );
     if (this.propMap.size > 0 && constructorNode) {
       const effectsSource = Array.from(this.propMap.keys())
-        .map(propName => {
+        .map((propName) => {
           return `effect(() => {
             if (this.el.nativeElement) {
               this.el.nativeElement.${propName} = this.${propName}();
@@ -247,7 +285,10 @@ class AngularComponentGenerator {
       const output = swc.printSync(moduleAst, { minify: false });
       return output.code;
     } catch (e) {
-      console.error(`Error: Failed to parse and print generated AST for ${name}:`, e);
+      console.error(
+        `Error: Failed to parse and print generated AST for ${name}:`,
+        e,
+      );
       throw e;
     }
   }

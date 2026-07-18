@@ -58,7 +58,9 @@ export class TextRotator extends UIBitElement {
 
   firstUpdated() {
     // Mark as mounted so the first word renders without an enter animation
-    requestAnimationFrame(() => { this._mounted = true; });
+    requestAnimationFrame(() => {
+      this._mounted = true;
+    });
   }
 
   updated(changed: Map<string, unknown>) {
@@ -68,7 +70,9 @@ export class TextRotator extends UIBitElement {
       this._prevIndex = -1;
       this._animating = false;
       this._mounted = false;
-      requestAnimationFrame(() => { this._mounted = true; });
+      requestAnimationFrame(() => {
+        this._mounted = true;
+      });
       this._start();
     }
   }
@@ -89,9 +93,13 @@ export class TextRotator extends UIBitElement {
     this._prevIndex = this._activeIndex;
     this._activeIndex = next;
 
-    this.dispatchCustomEvent('word-change', { word: this.words[this._activeIndex], index: this._activeIndex });
+    this.dispatchCustomEvent('word-change', {
+      word: this.words[this._activeIndex],
+      index: this._activeIndex,
+    });
 
-    const durationStr = this.getCssPropertyValue('--uibit-text-rotator-duration') || '0.4s';
+    const durationStr =
+      this.getCssPropertyValue('--uibit-text-rotator-duration') || '0.4s';
     const dur = this._parseCssDuration(durationStr);
     setTimeout(() => {
       this._prevIndex = -1;
@@ -115,8 +123,8 @@ export class TextRotator extends UIBitElement {
     const slot = e.target as HTMLSlotElement;
     const nodes = slot.assignedNodes({ flatten: true });
     const words = nodes
-      .map(node => node.textContent?.trim() ?? '')
-      .filter(text => text !== '');
+      .map((node) => node.textContent?.trim() ?? '')
+      .filter((text) => text !== '');
     if (words.length > 0) {
       this.words = words;
     }

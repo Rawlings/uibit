@@ -62,7 +62,12 @@ export class ConsentGuard extends UIBitElement {
 
   private _onPlaceholderClick(e: Event) {
     const path = e.composedPath() as Element[];
-    if (path.some(el => el instanceof HTMLElement && el.hasAttribute('data-consent-accept'))) {
+    if (
+      path.some(
+        (el) =>
+          el instanceof HTMLElement && el.hasAttribute('data-consent-accept'),
+      )
+    ) {
       this.accept();
     }
   }

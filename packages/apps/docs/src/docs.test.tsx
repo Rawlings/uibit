@@ -15,24 +15,30 @@ describe('Docs Application Shell', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <App />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     // Assert the logo text exists
     expect(screen.getByText('UIBit')).toBeDefined();
 
     // Assert navigation links exist
-    expect(screen.getAllByRole('link', { name: /Installation/i })[0]).toBeDefined();
-    expect(screen.getAllByRole('link', { name: /Accessibility/i })[0]).toBeDefined();
+    expect(
+      screen.getAllByRole('link', { name: /Installation/i })[0],
+    ).toBeDefined();
+    expect(
+      screen.getAllByRole('link', { name: /Accessibility/i })[0],
+    ).toBeDefined();
     expect(screen.getAllByRole('link', { name: /Styling/i })[0]).toBeDefined();
-    expect(screen.getAllByRole('link', { name: /Framework/i })[0]).toBeDefined();
+    expect(
+      screen.getAllByRole('link', { name: /Framework/i })[0],
+    ).toBeDefined();
   });
 
   it('toggles dark mode when button is clicked', () => {
     render(
       <MemoryRouter initialEntries={['/']}>
         <App />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     const toggleBtn = screen.getByRole('button', { name: /Toggle.*theme/i });
@@ -40,7 +46,9 @@ describe('Docs Application Shell', () => {
 
     // Initial theme should default to light (assuming prefers-color-scheme is not mocked to dark)
     const initialTheme = localStorage.getItem('uibit-theme') || 'light';
-    expect(document.documentElement.getAttribute('data-theme')).toBe(initialTheme);
+    expect(document.documentElement.getAttribute('data-theme')).toBe(
+      initialTheme,
+    );
 
     // Click toggle button
     fireEvent.click(toggleBtn);

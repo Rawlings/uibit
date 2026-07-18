@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import '@uibit/effect-trigger';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function InviteMemberDemo() {
   const [email, setEmail] = useState('');
@@ -30,22 +31,45 @@ function InviteMemberDemo() {
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
         <span slot="asset">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#374151" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            width="14"
+            height="14"
+            fill="none"
+            stroke="#374151"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ display: 'block' }}
+          >
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
             <circle cx="12" cy="7" r="4" />
           </svg>
         </span>
       </uibit-effect-trigger>
 
-      <h4 className="text-sm font-bold text-gray-900 mb-1">Invite Collaborators</h4>
-      <p className="text-xs text-gray-500 mb-6">Add members to start workspace collaboration.</p>
+      <h4 className="text-sm font-bold text-gray-900 mb-1">
+        Invite Collaborators
+      </h4>
+      <p className="text-xs text-gray-500 mb-6">
+        Add members to start workspace collaboration.
+      </p>
 
       {status === 'sent' ? (
         <div className="text-center py-4">
-          <div className="text-xs font-semibold text-gray-900 mb-1">Invitations dispatched</div>
-          <p className="text-xs text-gray-500">Links have been sent to team members.</p>
+          <div className="text-xs font-semibold text-gray-900 mb-1">
+            Invitations dispatched
+          </div>
+          <p className="text-xs text-gray-500">
+            Links have been sent to team members.
+          </p>
           <button
-            onClick={() => { setStatus('idle'); setEmail(''); }}
+            type="button"
+            onClick={() => {
+              setStatus('idle');
+              setEmail('');
+            }}
             className="mt-4 text-xs font-semibold text-gray-400 hover:text-black transition-colors"
           >
             Add More

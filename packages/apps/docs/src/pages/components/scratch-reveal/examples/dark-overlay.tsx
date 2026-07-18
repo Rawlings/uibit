@@ -1,5 +1,5 @@
 import '@uibit/scratch-reveal';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function DarkOverlayDemo() {
   return (
@@ -16,10 +16,15 @@ function DarkOverlayDemo() {
     >
       <div className="flex flex-col items-center justify-center gap-2 text-center px-4">
         <span className="text-3xl">✨</span>
-        <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">Secret reward</p>
-        <p className="text-2xl font-bold text-white tracking-tight">Free Shipping</p>
+        <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
+          Secret reward
+        </p>
+        <p className="text-2xl font-bold text-white tracking-tight">
+          Free Shipping
+        </p>
         <p className="text-sm text-gray-300">
-          On your next order over <span className="font-mono font-bold text-white">$50</span>
+          On your next order over{' '}
+          <span className="font-mono font-bold text-white">$50</span>
         </p>
       </div>
     </uibit-scratch-reveal>
@@ -28,7 +33,8 @@ function DarkOverlayDemo() {
 
 const darkOverlay: UsageExample = {
   title: 'Dark Overlay',
-  description: 'A dark themed scratch card with a near-black overlay and light revealed content.',
+  description:
+    'A dark themed scratch card with a near-black overlay and light revealed content.',
   Demo: DarkOverlayDemo,
 };
 

@@ -1,5 +1,5 @@
 import '@uibit/number-increment';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function WithRepeatDemo() {
   return (

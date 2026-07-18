@@ -1,5 +1,11 @@
 import { html } from 'lit';
-import { customElement, fromLucide, getIcon, msg, UIBitElement } from '@uibit/core';
+import {
+  customElement,
+  fromLucide,
+  getIcon,
+  msg,
+  UIBitElement,
+} from '@uibit/core';
 import { Move, ChevronLeft, ChevronRight } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
@@ -33,11 +39,13 @@ export class Viewer360 extends UIBitElement {
   /** Milliseconds between frames during auto-rotation. Lower values spin faster. */
   @property({ type: Number, attribute: 'rotation-speed' }) rotationSpeed = 150;
   /** Horizontal pixel distance a drag must travel before advancing one frame. */
-  @property({ type: Number, attribute: 'drag-sensitivity' }) dragSensitivity = 15;
+  @property({ type: Number, attribute: 'drag-sensitivity' }) dragSensitivity =
+    15;
   /** Show the play/pause and directional control buttons. */
   @property({ type: Boolean, attribute: 'show-controls' }) showControls = true;
   /** Show the frame progress bar at the bottom of the viewer. */
-  @property({ type: Boolean, attribute: 'show-progress-bar' }) showProgressBar = true;
+  @property({ type: Boolean, attribute: 'show-progress-bar' }) showProgressBar =
+    true;
 
   @state() private currentIndex = 0;
   @state() private isDragging = false;
@@ -60,7 +68,10 @@ export class Viewer360 extends UIBitElement {
   }
 
   updated(changedProperties: Map<string, unknown>) {
-    if (changedProperties.has('autoRotate') || changedProperties.has('rotationSpeed')) {
+    if (
+      changedProperties.has('autoRotate') ||
+      changedProperties.has('rotationSpeed')
+    ) {
       if (this.autoRotate) {
         this.startAutoRotate();
       } else {
@@ -76,7 +87,8 @@ export class Viewer360 extends UIBitElement {
 
   private startAutoRotate() {
     this.stopAutoRotate();
-    if (!this.autoRotate || this.images.length === 0 || !this.firstFrameReady) return;
+    if (!this.autoRotate || this.images.length === 0 || !this.firstFrameReady)
+      return;
     this.autoRotateTimer = window.setInterval(() => {
       this.next();
     }, this.rotationSpeed);
@@ -123,7 +135,6 @@ export class Viewer360 extends UIBitElement {
 
    */
 
-
   next() {
     if (this.images.length === 0) return;
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
@@ -138,17 +149,17 @@ export class Viewer360 extends UIBitElement {
 
    */
 
-
   prev() {
     if (this.images.length === 0) return;
-    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+    this.currentIndex =
+      (this.currentIndex - 1 + this.images.length) % this.images.length;
     this.emitChange();
   }
 
   private emitChange() {
     this.dispatchCustomEvent('change', {
       index: this.currentIndex,
-      image: this.images[this.currentIndex]
+      image: this.images[this.currentIndex],
     });
   }
 
@@ -159,7 +170,7 @@ export class Viewer360 extends UIBitElement {
     this.startImageIndex = this.currentIndex;
     this.stopAutoRotate();
     this.clearResumeTimer();
-    
+
     const viewer = e.currentTarget as HTMLElement;
     viewer.setPointerCapture(e.pointerId);
   }
@@ -208,18 +219,23 @@ export class Viewer360 extends UIBitElement {
 
   private handleSlotChange(e: Event) {
     const slot = e.target as HTMLSlotElement;
-    const elements = slot.assignedElements({ flatten: true }).filter(el => el.tagName === 'IMG') as HTMLImageElement[];
+    const elements = slot
+      .assignedElements({ flatten: true })
+      .filter((el) => el.tagName === 'IMG') as HTMLImageElement[];
     if (elements.length > 0) {
-      this.images = elements.map(el => el.getAttribute('src') || el.src || '');
+      this.images = elements.map(
+        (el) => el.getAttribute('src') || el.src || '',
+      );
       this.currentIndex = 0;
       this.firstFrameReady = false;
     }
   }
 
   render() {
-    const progressPercent = this.images.length > 0
-      ? ((this.currentIndex + 1) / this.images.length) * 100
-      : 0;
+    const progressPercent =
+      this.images.length > 0
+        ? ((this.currentIndex + 1) / this.images.length) * 100
+        : 0;
 
     return html`
       <slot @slotchange=${this.handleSlotChange} style="display: none;"></slot>
@@ -235,12 +251,15 @@ export class Viewer360 extends UIBitElement {
         @pointercancel=${this.handlePointerUp}
         @keydown=${this.handleKeyDown}
       >
-        ${this.images.length > 0 ? html`
+        ${
+          this.images.length > 0
+            ? html`
           <div
             class="frames ${this.firstFrameReady ? 'ready' : ''}"
             style="aspect-ratio: ${this.aspectRatio};"
           >
-            ${this.images.map((src, i) => html`
+            ${this.images.map(
+              (src, i) => html`
               <img
                 part="image"
                 class="frame ${i === this.currentIndex ? 'frame-active' : ''}"
@@ -249,26 +268,39 @@ export class Viewer360 extends UIBitElement {
                 aria-hidden="${i !== this.currentIndex}"
                 @load=${(e: Event) => this.handleFrameLoad(e, i)}
               />
-            `)}
+            `,
+            )}
           </div>
-        ` : html`
+        `
+            : html`
           <p style="padding: 24px; text-align: center; color: var(--uibit-360-viewer-button-color);">No images provided</p>
-        `}
+        `
+        }
 
-        ${!this.firstFrameReady && this.images.length > 0 ? html`
+        ${
+          !this.firstFrameReady && this.images.length > 0
+            ? html`
           <div part="skeleton" class="skeleton"></div>
-        ` : ''}
+        `
+            : ''
+        }
 
-        ${this.firstFrameReady && !this.isDragging ? html`
+        ${
+          this.firstFrameReady && !this.isDragging
+            ? html`
           <slot name="hint">
             <div part="drag-hint" class="drag-hint">
               ${getIcon('move', 16, fromLucide(Move))}
               Drag to rotate
             </div>
           </slot>
-        ` : ''}
+        `
+            : ''
+        }
 
-        ${this.showControls && this.firstFrameReady ? html`
+        ${
+          this.showControls && this.firstFrameReady
+            ? html`
           <slot name="prev" @click=${(e: Event) => {
             e.stopPropagation();
             this.stopAutoRotate();
@@ -299,13 +331,19 @@ export class Viewer360 extends UIBitElement {
               ${getIcon('chevron-right', 20, fromLucide(ChevronRight))}
             </button>
           </slot>
-        ` : ''}
+        `
+            : ''
+        }
 
-        ${this.showProgressBar && this.firstFrameReady ? html`
+        ${
+          this.showProgressBar && this.firstFrameReady
+            ? html`
           <div part="progress-track" class="progress-track" role="progressbar" aria-valuemin="1" aria-valuemax="${this.images.length}" aria-valuenow="${this.currentIndex + 1}">
             <div part="progress-bar" class="progress-bar" style="width: ${progressPercent}%"></div>
           </div>
-        ` : ''}
+        `
+            : ''
+        }
       </div>
     `;
   }

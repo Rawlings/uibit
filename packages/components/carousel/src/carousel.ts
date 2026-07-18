@@ -1,5 +1,12 @@
 import { html } from 'lit';
-import { customElement, fromLucide, getIcon, msg, str, UIBitElement } from '@uibit/core';
+import {
+  customElement,
+  fromLucide,
+  getIcon,
+  msg,
+  str,
+  UIBitElement,
+} from '@uibit/core';
 import { ChevronLeft, ChevronRight } from 'lucide';
 import { property, query, state } from 'lit/decorators.js';
 import type { CarouselConfig } from './types';
@@ -48,7 +55,8 @@ export class UIBitCarousel extends UIBitElement {
   /** Automatically advance slides on a timer. */
   @property({ type: Boolean, attribute: 'auto-play' }) autoPlay = false;
   /** Milliseconds between auto-play advances. */
-  @property({ type: Number, attribute: 'auto-play-interval' }) autoPlayInterval = 5000;
+  @property({ type: Number, attribute: 'auto-play-interval' })
+  autoPlayInterval = 5000;
   /** When `true`, the carousel wraps from the last slide back to the first. */
   @property({ type: Boolean }) loop = true;
 
@@ -61,7 +69,7 @@ export class UIBitCarousel extends UIBitElement {
   get gap(): number {
     if (typeof window === 'undefined') return 16;
     const val = this.getCssPropertyValue('--uibit-carousel-gap');
-    return val ? parseFloat(val) ?? 16 : 16;
+    return val ? (parseFloat(val) ?? 16) : 16;
   }
 
   get duration(): number {
@@ -69,7 +77,7 @@ export class UIBitCarousel extends UIBitElement {
     const val = this.getCssPropertyValue('--uibit-carousel-duration');
     if (!val) return 300;
     if (val.endsWith('ms')) return parseFloat(val) || 300;
-    if (val.endsWith('s')) return (parseFloat(val) * 1000) || 300;
+    if (val.endsWith('s')) return parseFloat(val) * 1000 || 300;
     return parseFloat(val) || 300;
   }
 
@@ -121,13 +129,24 @@ export class UIBitCarousel extends UIBitElement {
       this.autoPlayInterval = config.autoPlayInterval ?? this.autoPlayInterval;
       this.loop = config.loop ?? this.loop;
       if (config.itemsPerView !== undefined) {
-        this.style.setProperty('--uibit-carousel-items-per-view', String(config.itemsPerView));
+        this.style.setProperty(
+          '--uibit-carousel-items-per-view',
+          String(config.itemsPerView),
+        );
       }
       if (config.gap !== undefined) {
-        this.style.setProperty('--uibit-carousel-gap', typeof config.gap === 'number' ? `${config.gap}px` : config.gap);
+        this.style.setProperty(
+          '--uibit-carousel-gap',
+          typeof config.gap === 'number' ? `${config.gap}px` : config.gap,
+        );
       }
       if (config.duration !== undefined) {
-        this.style.setProperty('--uibit-carousel-duration', typeof config.duration === 'number' ? `${config.duration}ms` : config.duration);
+        this.style.setProperty(
+          '--uibit-carousel-duration',
+          typeof config.duration === 'number'
+            ? `${config.duration}ms`
+            : config.duration,
+        );
       }
     }
   }
@@ -177,7 +196,10 @@ export class UIBitCarousel extends UIBitElement {
       }
       item.setAttribute('role', 'group');
       item.setAttribute('aria-roledescription', 'slide');
-      item.setAttribute('aria-label', msg(str`Slide ${index + 1} of ${this.totalSlides}`));
+      item.setAttribute(
+        'aria-label',
+        msg(str`Slide ${index + 1} of ${this.totalSlides}`),
+      );
     });
 
     this.updateNavigationState();
@@ -193,34 +215,41 @@ export class UIBitCarousel extends UIBitElement {
     const slides = this.getSlides();
     if (!slides.length) return;
 
-    this.slideObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => this.slideIntersectionRatios.set(e.target, e.intersectionRatio));
+    this.slideObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          this.slideIntersectionRatios.set(e.target, e.intersectionRatio);
+        });
 
-      if (this.isProgrammaticScroll) return;
+        if (this.isProgrammaticScroll) return;
 
-      let maxRatio = -1;
-      let closestIndex = this.currentIndex;
-      slides.forEach((slide, index) => {
-        const ratio = this.slideIntersectionRatios.get(slide) ?? 0;
-        if (ratio > maxRatio) {
-          maxRatio = ratio;
-          closestIndex = index;
+        let maxRatio = -1;
+        let closestIndex = this.currentIndex;
+        slides.forEach((slide, index) => {
+          const ratio = this.slideIntersectionRatios.get(slide) ?? 0;
+          if (ratio > maxRatio) {
+            maxRatio = ratio;
+            closestIndex = index;
+          }
+        });
+
+        if (closestIndex !== this.currentIndex) {
+          this.currentIndex = closestIndex;
+          this.updateNavigationState();
+          this.emitSlideChange();
+        } else {
+          this.updateNavigationState();
         }
-      });
+      },
+      {
+        root: this.content,
+        threshold: [0, 0.25, 0.5, 0.75, 1.0],
+      },
+    );
 
-      if (closestIndex !== this.currentIndex) {
-        this.currentIndex = closestIndex;
-        this.updateNavigationState();
-        this.emitSlideChange();
-      } else {
-        this.updateNavigationState();
-      }
-    }, {
-      root: this.content,
-      threshold: [0, 0.25, 0.5, 0.75, 1.0],
+    slides.forEach((s) => {
+      this.slideObserver?.observe(s);
     });
-
-    slides.forEach(s => this.slideObserver!.observe(s));
     this.registerDisposable(() => this.slideObserver?.disconnect());
   }
 
@@ -268,14 +297,16 @@ export class UIBitCarousel extends UIBitElement {
   private getSlides(): HTMLElement[] {
     const slots = this.shadowRoot?.querySelectorAll('slot') ?? [];
     const slides: HTMLElement[] = [];
-    slots.forEach(slot => {
+    slots.forEach((slot) => {
       const name = slot.getAttribute('name');
       if (name === 'item' || !name) {
         const assigned = slot.assignedElements() as HTMLElement[];
-        slides.push(...assigned.filter(el => {
-          const s = el.getAttribute('slot');
-          return s === 'item' || !s;
-        }));
+        slides.push(
+          ...assigned.filter((el) => {
+            const s = el.getAttribute('slot');
+            return s === 'item' || !s;
+          }),
+        );
       }
     });
     return slides;
@@ -294,7 +325,6 @@ export class UIBitCarousel extends UIBitElement {
 
    */
 
-
   prev() {
     if (this.currentIndex > 0) {
       this.scrollToSlide(this.currentIndex - 1);
@@ -311,7 +341,6 @@ export class UIBitCarousel extends UIBitElement {
 
    */
 
-
   next() {
     if (this.currentIndex < this.totalSlides - 1) {
       this.scrollToSlide(this.currentIndex + 1);
@@ -327,7 +356,6 @@ export class UIBitCarousel extends UIBitElement {
 
 
    */
-
 
   goToSlide(index: number) {
     if (index >= 0 && index < this.totalSlides) {
@@ -351,11 +379,14 @@ export class UIBitCarousel extends UIBitElement {
       const itemRect = item.getBoundingClientRect();
       const style = window.getComputedStyle(this.content);
       const paddingLeft = parseFloat(style.paddingLeft) || 0;
-      const targetScrollLeft = this.content.scrollLeft + (itemRect.left - containerRect.left) - paddingLeft;
+      const targetScrollLeft =
+        this.content.scrollLeft +
+        (itemRect.left - containerRect.left) -
+        paddingLeft;
 
       this.content.scrollTo({
         left: targetScrollLeft,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
 
       this.currentIndex = index;
@@ -383,7 +414,7 @@ export class UIBitCarousel extends UIBitElement {
   private emitSlideChange() {
     this.dispatchCustomEvent('slide-change', {
       index: this.currentIndex,
-      totalSlides: this.totalSlides
+      totalSlides: this.totalSlides,
     });
   }
 
@@ -452,7 +483,7 @@ export class UIBitCarousel extends UIBitElement {
                     aria-controls="uibit-carousel-slide-${index}"
                     @click=${() => this.goToSlide(index)}
                   ></button>
-                `
+                `,
               )}
             </div>
           </slot>

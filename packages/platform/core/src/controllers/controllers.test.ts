@@ -21,10 +21,10 @@ describe('Shared Lit.js Reactive Controllers', () => {
   let element: TestElement;
   let observerCallback: any = null;
   let resizeCallback: any = null;
-  let observeMock = vi.fn();
-  let disconnectMock = vi.fn();
-  let resizeObserveMock = vi.fn();
-  let resizeDisconnectMock = vi.fn();
+  const observeMock = vi.fn();
+  const disconnectMock = vi.fn();
+  const resizeObserveMock = vi.fn();
+  const resizeDisconnectMock = vi.fn();
 
   beforeEach(async () => {
     // Stub IntersectionObserver
@@ -37,7 +37,7 @@ describe('Shared Lit.js Reactive Controllers', () => {
           disconnect: disconnectMock,
           unobserve: vi.fn(),
         };
-      })
+      }),
     );
 
     // Stub ResizeObserver
@@ -50,7 +50,7 @@ describe('Shared Lit.js Reactive Controllers', () => {
           disconnect: resizeDisconnectMock,
           unobserve: vi.fn(),
         };
-      })
+      }),
     );
 
     // Create element
@@ -120,14 +120,16 @@ describe('Shared Lit.js Reactive Controllers', () => {
   describe('LoopController', () => {
     it('starts requestAnimationFrame loop automatically by default', () => {
       const callback = vi.fn();
-      const rafMock = vi.spyOn(window, 'requestAnimationFrame').mockReturnValue(123 as any);
+      const rafMock = vi
+        .spyOn(window, 'requestAnimationFrame')
+        .mockReturnValue(123 as any);
 
       element.loopCtrl = new LoopController(element, { callback });
       element.loopCtrl.hostConnected();
 
       expect(element.loopCtrl.isLooping()).toBe(true);
       expect(rafMock).toHaveBeenCalled();
-      
+
       rafMock.mockRestore();
     });
 
@@ -135,19 +137,24 @@ describe('Shared Lit.js Reactive Controllers', () => {
       const callback = vi.fn();
       const rafMock = vi.spyOn(window, 'requestAnimationFrame');
 
-      element.loopCtrl = new LoopController(element, { callback, autoStart: false });
+      element.loopCtrl = new LoopController(element, {
+        callback,
+        autoStart: false,
+      });
       element.loopCtrl.hostConnected();
 
       expect(element.loopCtrl.isLooping()).toBe(false);
       expect(rafMock).not.toHaveBeenCalled();
-      
+
       rafMock.mockRestore();
     });
 
     it('stops the animation frame on stop()', () => {
       const callback = vi.fn();
       const cancelMock = vi.spyOn(window, 'cancelAnimationFrame');
-      const rafMock = vi.spyOn(window, 'requestAnimationFrame').mockReturnValue(123 as any);
+      const rafMock = vi
+        .spyOn(window, 'requestAnimationFrame')
+        .mockReturnValue(123 as any);
 
       element.loopCtrl = new LoopController(element, { callback });
       element.loopCtrl.hostConnected();
@@ -162,7 +169,9 @@ describe('Shared Lit.js Reactive Controllers', () => {
 
     it('pauses loop on hostDisconnected and auto-resumes on hostConnected', () => {
       const callback = vi.fn();
-      const rafMock = vi.spyOn(window, 'requestAnimationFrame').mockReturnValue(123 as any);
+      const rafMock = vi
+        .spyOn(window, 'requestAnimationFrame')
+        .mockReturnValue(123 as any);
       const cancelMock = vi.spyOn(window, 'cancelAnimationFrame');
 
       element.loopCtrl = new LoopController(element, { callback });

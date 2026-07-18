@@ -22,7 +22,9 @@ export async function cli(argv = process.argv.slice(2), cwd = process.cwd()) {
     strict: false,
   });
 
-  const configPath = args.config ? resolve(cwd, args.config) : resolve(cwd, 'custom-elements-manifest.config.js');
+  const configPath = args.config
+    ? resolve(cwd, args.config)
+    : resolve(cwd, 'custom-elements-manifest.config.js');
   let userConfig = {};
 
   if (fs.existsSync(configPath)) {
@@ -35,11 +37,17 @@ export async function cli(argv = process.argv.slice(2), cwd = process.cwd()) {
   }
 
   const globs = args.globs || userConfig.globs || ['**/*.{js,ts}'];
-  const exclude = args.exclude || userConfig.exclude || ['**/node_modules/**', '**/dist/**', '**/build/**'];
+  const exclude = args.exclude ||
+    userConfig.exclude || ['**/node_modules/**', '**/dist/**', '**/build/**'];
   const outdir = args.outdir || userConfig.outdir || '.';
   const dev = args.dev || userConfig.dev || false;
   const quiet = args.quiet || userConfig.quiet || false;
-  const packagejson = args.packagejson !== undefined ? args.packagejson : (userConfig.packagejson !== undefined ? userConfig.packagejson : true);
+  const packagejson =
+    args.packagejson !== undefined
+      ? args.packagejson
+      : userConfig.packagejson !== undefined
+        ? userConfig.packagejson
+        : true;
 
   async function run() {
     const files = [];
@@ -48,7 +56,7 @@ export async function cli(argv = process.argv.slice(2), cwd = process.cwd()) {
       files.push(...matched);
     }
 
-    const uniqueFiles = Array.from(new Set(files)).map(f => resolve(cwd, f));
+    const uniqueFiles = Array.from(new Set(files)).map((f) => resolve(cwd, f));
 
     if (dev) {
       console.log(`[cem-oxc] Found ${uniqueFiles.length} files to scan.`);
@@ -67,11 +75,13 @@ export async function cli(argv = process.argv.slice(2), cwd = process.cwd()) {
 
     fs.writeFileSync(
       join(outputDir, 'custom-elements.json'),
-      JSON.stringify(customElementsManifest, null, 2) + '\n'
+      `${JSON.stringify(customElementsManifest, null, 2)}\n`,
     );
 
     if (!quiet) {
-      console.log(`[cem-oxc] Created Custom Elements Manifest in ${outdir}/custom-elements.json`);
+      console.log(
+        `[cem-oxc] Created Custom Elements Manifest in ${outdir}/custom-elements.json`,
+      );
     }
 
     if (packagejson) {
@@ -91,10 +101,15 @@ export async function cli(argv = process.argv.slice(2), cwd = process.cwd()) {
     try {
       const watcher = watch(cwd, { recursive: true });
       for await (const event of watcher) {
-        if (event.filename && (event.filename.endsWith('.js') || event.filename.endsWith('.ts'))) {
+        if (
+          event.filename &&
+          (event.filename.endsWith('.js') || event.filename.endsWith('.ts'))
+        ) {
           const fullPath = resolve(cwd, event.filename);
-          const isExcluded = exclude.some(ex => {
-            const regex = new RegExp(ex.replace(/\*\*/g, '.*').replace(/\*/g, '[^/]*'));
+          const isExcluded = exclude.some((ex) => {
+            const regex = new RegExp(
+              ex.replace(/\*\*/g, '.*').replace(/\*/g, '[^/]*'),
+            );
             return regex.test(fullPath);
           });
           if (!isExcluded) {

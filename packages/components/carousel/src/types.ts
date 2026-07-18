@@ -17,7 +17,7 @@ export interface SlideChangeEvent extends CustomEvent {
 }
 
 declare global {
-interface HTMLElementTagNameMap {
+  interface HTMLElementTagNameMap {
     'uibit-carousel': UIBitCarousel;
-}
+  }
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import { reactPlugin } from './templates/react.js';
 import { vuePlugin } from './templates/vue.js';
 import { sveltePlugin } from './templates/svelte.js';
@@ -25,7 +25,7 @@ const plugins = [
   qwikPlugin,
   nuxtPlugin,
   preactPlugin,
-  stencilPlugin
+  stencilPlugin,
 ];
 
 function extractKeysFromTypeText(typeText: string): string[] {
@@ -54,7 +54,9 @@ function run() {
   const cemPath = path.join(absolutePkgDir, 'custom-elements.json');
 
   if (!fs.existsSync(cemPath)) {
-    console.error(`Error: custom-elements.json not found at ${cemPath}. Run "npm run analyze" first.`);
+    console.error(
+      `Error: custom-elements.json not found at ${cemPath}. Run "npm run analyze" first.`,
+    );
     process.exit(1);
   }
 
@@ -73,7 +75,10 @@ function run() {
   }
 
   const importPathIndex = args.indexOf('--import-path');
-  const importPath = importPathIndex !== -1 ? args[importPathIndex + 1] : (detectedImportPath || '../../index.js');
+  const importPath =
+    importPathIndex !== -1
+      ? args[importPathIndex + 1]
+      : detectedImportPath || '../../index.js';
 
   // Extract exported types and property defaults using AST parsing
   const srcDir = path.join(absolutePkgDir, 'src');
@@ -85,7 +90,13 @@ function run() {
       if (declaration.customElement && declaration.tagName) {
         const componentDefaults = sourceDefaults[declaration.name] || {};
         const properties = (declaration.members || [])
-          .filter((m: any) => m.kind === 'field' && m.privacy !== 'private' && !m.static && !m.readonly)
+          .filter(
+            (m: any) =>
+              m.kind === 'field' &&
+              m.privacy !== 'private' &&
+              !m.static &&
+              !m.readonly,
+          )
           .map((m: any) => {
             const astDefault = componentDefaults[m.name];
             return {
@@ -93,44 +104,49 @@ function run() {
               type: m.type,
               description: m.description,
               default: astDefault !== undefined ? astDefault : m.default,
-              readonly: m.readonly
+              readonly: m.readonly,
             };
           });
-        
+
         const attributes = [...(declaration.attributes || [])];
         if (!properties.some((p: any) => p.name === 'locale')) {
           properties.push({
             name: 'locale',
             type: { text: 'string' },
-            description: 'BCP 47 locale string for formatting and localization. Defaults to inherited document language.',
+            description:
+              'BCP 47 locale string for formatting and localization. Defaults to inherited document language.',
             default: "''",
-            readonly: false
+            readonly: false,
           });
         }
         if (!attributes.some((a: any) => a.name === 'locale')) {
           attributes.push({
             name: 'locale',
-            description: 'BCP 47 locale string for formatting and localization. Defaults to inherited document language.',
+            description:
+              'BCP 47 locale string for formatting and localization. Defaults to inherited document language.',
             type: { text: 'string' },
             fieldName: 'locale',
-            default: "''"
+            default: "''",
           });
         }
         const events = (declaration.events || []).map((e: any) => ({
           name: e.name,
           description: e.description,
           type: e.type,
-          payloadKeys: extractKeysFromTypeText(e.type?.text || '')
+          payloadKeys: extractKeysFromTypeText(e.type?.text || ''),
         }));
         const slots = declaration.slots || [];
         const mixins = declaration.mixins || [];
-        const formAssociated = declaration.formAssociated === true || mixins.some((m: any) => m.name === 'FormAssociatedMixin');
+        const formAssociated =
+          declaration.formAssociated === true ||
+          mixins.some((m: any) => m.name === 'FormAssociatedMixin');
 
         // Identify which exported types are actually used by properties/attributes/events
-        const referencedTypes = Array.from(exportedTypes).filter(typeName => {
-          const usesType = properties.some((p: any) => p.type?.text?.includes(typeName)) ||
-                           attributes.some((a: any) => a.type?.text?.includes(typeName)) ||
-                           events.some((e: any) => e.type?.text?.includes(typeName));
+        const referencedTypes = Array.from(exportedTypes).filter((typeName) => {
+          const usesType =
+            properties.some((p: any) => p.type?.text?.includes(typeName)) ||
+            attributes.some((a: any) => a.type?.text?.includes(typeName)) ||
+            events.some((e: any) => e.type?.text?.includes(typeName));
           // Make sure we don't import the class name itself!
           return usesType && typeName !== declaration.name;
         });
@@ -145,7 +161,7 @@ function run() {
           referencedTypes,
           mixins,
           formAssociated,
-          importPath
+          importPath,
         });
       }
     }
@@ -156,11 +172,18 @@ function run() {
     return;
   }
 
-  console.log(`Found ${components.length} component(s). Generating wrappers...`);
+  console.log(
+    `Found ${components.length} component(s). Generating wrappers...`,
+  );
 
   for (const component of components) {
     for (const plugin of plugins) {
-      const outputDir = path.join(absolutePkgDir, 'dist', 'frameworks', plugin.name);
+      const outputDir = path.join(
+        absolutePkgDir,
+        'dist',
+        'frameworks',
+        plugin.name,
+      );
       fs.mkdirSync(outputDir, { recursive: true });
 
       const files = plugin.generate(component);
@@ -178,7 +201,11 @@ function run() {
 if (import.meta.url.startsWith('file:')) {
   const modulePath = path.resolve(process.argv[1] || '');
   const currentPath = path.resolve(new URL(import.meta.url).pathname);
-  if (modulePath === currentPath || modulePath.endsWith('uibit-codegen') || modulePath.endsWith('index.js')) {
+  if (
+    modulePath === currentPath ||
+    modulePath.endsWith('uibit-codegen') ||
+    modulePath.endsWith('index.js')
+  ) {
     run();
   }
 }

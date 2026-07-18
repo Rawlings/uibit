@@ -1,5 +1,5 @@
 import '@uibit/scroll-progress';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function ScrollContainerDemo() {
   return (
@@ -16,8 +16,9 @@ function ScrollContainerDemo() {
       <div className="space-y-4 py-2">
         {Array.from({ length: 8 }).map((_, i) => (
           <p key={i} className="text-sm text-gray-600 leading-relaxed">
-            Paragraph {i + 1} — Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Paragraph {i + 1} — Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua.
           </p>
         ))}
       </div>

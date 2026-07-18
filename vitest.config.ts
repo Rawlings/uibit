@@ -1,6 +1,6 @@
 import { defineConfig, defaultExclude } from 'vitest/config';
-import { resolve } from 'path';
-import { readdirSync } from 'fs';
+import { resolve } from 'node:path';
+import { readdirSync } from 'node:fs';
 import react from '@vitejs/plugin-react';
 
 const componentsDir = resolve(__dirname, 'packages/components');
@@ -8,10 +8,10 @@ const platformDir = resolve(__dirname, 'packages/platform');
 
 // Dynamically generate aliases for all packages in components/ and platform/
 const componentNames = readdirSync(componentsDir).filter(
-  (file) => !file.startsWith('.')
+  (file) => !file.startsWith('.'),
 );
 const platformNames = readdirSync(platformDir).filter(
-  (file) => !file.startsWith('.')
+  (file) => !file.startsWith('.'),
 );
 
 const aliases = [
@@ -22,7 +22,7 @@ const aliases = [
   ...platformNames.map((pkg) => ({
     find: new RegExp(`^@uibit\\/${pkg}$`),
     replacement: resolve(platformDir, pkg, 'src/index.ts'),
-  }))
+  })),
 ];
 
 export default defineConfig({

@@ -1,5 +1,5 @@
 import '@uibit/countdown';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function CustomLabelsDemo() {
   const target = new Date(Date.now() + 24 * 3600 * 1000 * 7).toISOString();

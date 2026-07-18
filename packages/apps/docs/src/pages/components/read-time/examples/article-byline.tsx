@@ -1,5 +1,5 @@
 import '@uibit/read-time';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 const articleText = `
   Design systems are more than just component libraries; they represent the shared language and architectural philosophy of a product organization. In modern software engineering, scaling user interface development across multiple teams requires a robust foundation that goes beyond standard UI kits. A complete design system encompasses visual design tokens, interactive components, comprehensive documentation, and engineering guidelines that ensure consistency, accessibility, and high performance.
@@ -19,19 +19,26 @@ function Demo() {
   return (
     <uibit-read-time show-icon>
       <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100">
-        <span className="text-xs text-gray-400 uppercase tracking-wide font-medium">By UIBit Editors</span>
+        <span className="text-xs text-gray-400 uppercase tracking-wide font-medium">
+          By UIBit Editors
+        </span>
         <span className="text-gray-300">·</span>
         <span slot="timer" className="text-xs text-gray-500 font-medium"></span>
       </div>
-      <h2 className="text-lg font-semibold text-gray-900 mb-3">The Role of Typography in Editorial Design</h2>
-      <p className="text-sm text-gray-600 leading-relaxed line-clamp-4">{articleText.trim()}</p>
+      <h2 className="text-lg font-semibold text-gray-900 mb-3">
+        The Role of Typography in Editorial Design
+      </h2>
+      <p className="text-sm text-gray-600 leading-relaxed line-clamp-4">
+        {articleText.trim()}
+      </p>
     </uibit-read-time>
   );
 }
 
 const example: UsageExample = {
   title: 'Article byline',
-  description: 'Place the component around your article content. A slot="timer" element is placed in the byline row, and the component automatically populates it with the calculated reading time.',
+  description:
+    'Place the component around your article content. A slot="timer" element is placed in the byline row, and the component automatically populates it with the calculated reading time.',
   Demo,
 };
 

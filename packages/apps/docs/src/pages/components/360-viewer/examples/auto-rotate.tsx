@@ -1,8 +1,10 @@
 import '@uibit/360-viewer';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
-const frames = Array.from({ length: 73 }, (_, i) =>
-  `https://scaleflex.cloudimg.io/v7/demo/suv-orange-car-360/orange-${i + 1}.jpg`
+const frames = Array.from(
+  { length: 73 },
+  (_, i) =>
+    `https://scaleflex.cloudimg.io/v7/demo/suv-orange-car-360/orange-${i + 1}.jpg`,
 );
 
 function AutoRotateDemo() {
@@ -17,7 +19,8 @@ function AutoRotateDemo() {
 
 const autoRotateExample: UsageExample = {
   title: 'Auto-rotate',
-  description: 'The viewer rotates automatically and pauses when the user drags, resuming after 2 seconds of idle.',
+  description:
+    'The viewer rotates automatically and pauses when the user drags, resuming after 2 seconds of idle.',
   Demo: AutoRotateDemo,
 };
 

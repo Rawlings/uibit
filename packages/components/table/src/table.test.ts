@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import './table';
-import { Table } from './table';
+import type { Table } from './table';
 
 describe('Table Component', () => {
   let element: Table;
@@ -25,7 +25,7 @@ describe('Table Component', () => {
     element.appendChild(table);
     document.body.appendChild(element);
     // Wait for slotchange and rendering to complete
-    await new Promise(r => setTimeout(r, 50));
+    await new Promise((r) => setTimeout(r, 50));
     await element.updateComplete;
   });
 
@@ -50,7 +50,9 @@ describe('Table Component', () => {
 
   it('filters rows based on search query', async () => {
     console.log('TEST INNER HTML:', element.shadowRoot?.innerHTML);
-    const searchInput = element.shadowRoot?.querySelector('.search') as HTMLInputElement;
+    const searchInput = element.shadowRoot?.querySelector(
+      '.search',
+    ) as HTMLInputElement;
     expect(searchInput).toBeDefined();
 
     searchInput.value = 'Item B';
@@ -66,13 +68,15 @@ describe('Table Component', () => {
     console.log('SELECT ROWS LENGTH:', (element as any)._rows.length);
     console.log('BEFORE SELECTABLE INNER:', element.shadowRoot?.innerHTML);
     element.selectable = true;
-    await new Promise(r => setTimeout(r, 50));
+    await new Promise((r) => setTimeout(r, 50));
     await element.updateComplete;
 
     const rowSelectSpy = vi.fn();
     element.addEventListener('row-select', rowSelectSpy as EventListener);
 
-    const check = element.shadowRoot?.querySelector('.table-wrap tbody tr td.col-check input') as HTMLInputElement;
+    const check = element.shadowRoot?.querySelector(
+      '.table-wrap tbody tr td.col-check input',
+    ) as HTMLInputElement;
     expect(check).toBeTruthy();
     check.click();
 
@@ -97,10 +101,12 @@ describe('Table Component', () => {
     el.appendChild(table);
 
     document.body.appendChild(el);
-    await new Promise(r => setTimeout(r, 50));
+    await new Promise((r) => setTimeout(r, 50));
     await el.updateComplete;
 
-    const searchInput = el.shadowRoot?.querySelector('.search') as HTMLInputElement;
+    const searchInput = el.shadowRoot?.querySelector(
+      '.search',
+    ) as HTMLInputElement;
     expect(searchInput.placeholder).toBe('Custom Search Text');
     el.remove();
   });
@@ -109,7 +115,9 @@ describe('Table Component', () => {
     element.controlsLayout = 'menu';
     await element.updateComplete;
 
-    const optionsBtn = element.shadowRoot?.querySelector('.options-menu-wrap button.ctrl-btn') as HTMLElement;
+    const optionsBtn = element.shadowRoot?.querySelector(
+      '.options-menu-wrap button.ctrl-btn',
+    ) as HTMLElement;
     expect(optionsBtn).toBeDefined();
     expect(optionsBtn.textContent).toContain('Options');
   });
@@ -121,10 +129,18 @@ describe('Table Component', () => {
     const loadMoreSpy = vi.fn();
     element.addEventListener('load-more', loadMoreSpy);
 
-    const wrap = element.shadowRoot?.querySelector('.table-wrap') as HTMLElement;
-    
-    Object.defineProperty(wrap, 'scrollHeight', { value: 200, configurable: true });
-    Object.defineProperty(wrap, 'clientHeight', { value: 100, configurable: true });
+    const wrap = element.shadowRoot?.querySelector(
+      '.table-wrap',
+    ) as HTMLElement;
+
+    Object.defineProperty(wrap, 'scrollHeight', {
+      value: 200,
+      configurable: true,
+    });
+    Object.defineProperty(wrap, 'clientHeight', {
+      value: 100,
+      configurable: true,
+    });
     Object.defineProperty(wrap, 'scrollTop', { value: 90, configurable: true });
 
     wrap.dispatchEvent(new Event('scroll'));

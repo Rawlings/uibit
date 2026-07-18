@@ -1,6 +1,6 @@
 import '@uibit/sentiment-selector';
 import manifest from '@uibit/sentiment-selector/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import defaultExample from './examples/default';
 import defaultRaw from './examples/default?raw';
 import customOptionsExample from './examples/custom-options';
@@ -44,14 +44,24 @@ function Feedback() {
     requirements: [
       'Track container functions as a radiogroup with role="radiogroup" and a descriptive aria-label.',
       'Individual sentiment buttons are marked with role="radio" and aria-checked to track selection.',
-      'Active preview labels are placed inside an aria-live="polite" region so changes are announced immediately.'
+      'Active preview labels are placed inside an aria-live="polite" region so changes are announced immediately.',
     ],
     keyboardNav: [
-      { key: 'ArrowLeft', description: 'Move selection to the previous rating option.' },
-      { key: 'ArrowRight', description: 'Move selection to the next rating option.' },
-      { key: 'Tab', description: 'Navigate focus onto and away from the sentiment rating group.' }
-    ]
-  }
+      {
+        key: 'ArrowLeft',
+        description: 'Move selection to the previous rating option.',
+      },
+      {
+        key: 'ArrowRight',
+        description: 'Move selection to the next rating option.',
+      },
+      {
+        key: 'Tab',
+        description:
+          'Navigate focus onto and away from the sentiment rating group.',
+      },
+    ],
+  },
 };
 
 export default data;

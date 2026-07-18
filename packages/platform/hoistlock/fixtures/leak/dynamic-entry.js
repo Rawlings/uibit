@@ -1,3 +1,1 @@
-
-    import './dynamic-dep.js';
-  
+import './dynamic-dep.js';

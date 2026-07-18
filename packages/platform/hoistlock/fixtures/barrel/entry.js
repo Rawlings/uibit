@@ -1,4 +1,1 @@
-
-    import { a } from './index.js';
-    import('./dynamic-entry.js');
-  
+import('./dynamic-entry.js');

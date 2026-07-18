@@ -66,7 +66,7 @@ Follow strict semantic versioning rules:
 Do NOT generate a changeset for purely internal tasks that have zero impact on consumers or downstream package execution:
 - **Build configurations/scripts**: Standardizing dev, build, compile, or test tasks.
 - **CI/CD workflows**: Adjusting GitHub Action definitions or release configurations.
-- **Internal lint/style rules**: Adding or removing rules for linters, formatters, or configurations (e.g. Oxlint, Stylelint).
+- **Internal lint/style rules**: Adding or removing rules for linters, formatters, or configurations (e.g. Biome).
 - **Internal-only refactoring**: Code cleanup or documentation structure updates that do not alter the public API or behavior of any packages.
 
 If the changes fall under this category, simply commit them directly to Git without creating a changeset.

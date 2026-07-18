@@ -1,6 +1,6 @@
 import '@uibit/scroll-progress';
 import manifest from '@uibit/scroll-progress/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import scrollContainerExample from './examples/scroll-container';
 import scrollContainerRaw from './examples/scroll-container?raw';
 import windowScrollExample from './examples/window-scroll';
@@ -9,18 +9,19 @@ import windowScrollRaw from './examples/window-scroll?raw';
 function ScrollProgressDemo() {
   return (
     <div>
-      <uibit-scroll-progress
-        className="fixed top-0 left-0 right-0 z-50 block"
-      ></uibit-scroll-progress>
+      <uibit-scroll-progress className="fixed top-0 left-0 right-0 z-50 block"></uibit-scroll-progress>
 
       <div className="space-y-4 py-2">
         <p className="text-xs text-gray-500 italic">
-          Note: By default, the progress bar tracks the browser window scroll position. Scroll the page to see it fill at the very top of the screen.
+          Note: By default, the progress bar tracks the browser window scroll
+          position. Scroll the page to see it fill at the very top of the
+          screen.
         </p>
         {Array.from({ length: 4 }).map((_, i) => (
           <p key={i} className="text-sm text-gray-600 leading-relaxed">
-            Paragraph {i + 1} — Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+            Paragraph {i + 1} — Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam.
           </p>
         ))}
       </div>

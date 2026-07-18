@@ -1,5 +1,12 @@
 import { html } from 'lit';
-import { customElement, fromLucide, getIcon, msg, UIBitElement, type IconDefinition } from '@uibit/core';
+import {
+  customElement,
+  fromLucide,
+  getIcon,
+  msg,
+  UIBitElement,
+  type IconDefinition,
+} from '@uibit/core';
 import { Angry, Frown, Laugh, Meh, Smile } from 'lucide';
 import { FormAssociatedMixin } from '@uibit/form-internals';
 
@@ -75,26 +82,32 @@ export class SentimentSelector extends FormAssociatedMixin(UIBitElement) {
 
   @state() private _hoverValue?: number;
 
-
-
   private _select(option: SentimentOption) {
     const isReselect = this.valueAsNumber === option.value;
     this.valueAsNumber = option.value;
 
-    this.dispatchCustomEvent('sentiment-change', { value: option.value, label: option.label });
+    this.dispatchCustomEvent('sentiment-change', {
+      value: option.value,
+      label: option.label,
+    });
 
     if (isReselect) {
-      this.dispatchCustomEvent('sentiment-submit', { value: option.value, label: option.label });
+      this.dispatchCustomEvent('sentiment-submit', {
+        value: option.value,
+        label: option.label,
+      });
     }
   }
 
   private _activeLabel(): string {
-    const hovered = this._hoverValue !== undefined
-      ? this.options.find(o => o.value === this._hoverValue)
-      : undefined;
-    const selected = this.valueAsNumber !== undefined
-      ? this.options.find(o => o.value === this.valueAsNumber)
-      : undefined;
+    const hovered =
+      this._hoverValue !== undefined
+        ? this.options.find((o) => o.value === this._hoverValue)
+        : undefined;
+    const selected =
+      this.valueAsNumber !== undefined
+        ? this.options.find((o) => o.value === this.valueAsNumber)
+        : undefined;
     return (hovered ?? selected)?.label ?? '';
   }
 
@@ -102,10 +115,16 @@ export class SentimentSelector extends FormAssociatedMixin(UIBitElement) {
     const slot = e.target as HTMLSlotElement;
     const elements = slot.assignedElements({ flatten: true });
     if (elements.length > 0) {
-      this.options = elements.map(el => ({
-        value: Number(el.getAttribute('value') || el.getAttribute('data-value') || 0),
+      this.options = elements.map((el) => ({
+        value: Number(
+          el.getAttribute('value') || el.getAttribute('data-value') || 0,
+        ),
         icon: el.getAttribute('icon') || el.getAttribute('data-icon') || '',
-        label: el.getAttribute('label') || el.getAttribute('data-label') || el.textContent?.trim() || '',
+        label:
+          el.getAttribute('label') ||
+          el.getAttribute('data-label') ||
+          el.textContent?.trim() ||
+          '',
       }));
     }
   }
@@ -117,17 +136,25 @@ export class SentimentSelector extends FormAssociatedMixin(UIBitElement) {
   private _onKeyDown(e: KeyboardEvent) {
     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
       e.preventDefault();
-      const currentIndex = this.options.findIndex(o => o.value === this.valueAsNumber);
+      const currentIndex = this.options.findIndex(
+        (o) => o.value === this.valueAsNumber,
+      );
       let nextIndex = currentIndex;
       if (e.key === 'ArrowLeft') {
-        nextIndex = currentIndex <= 0 ? this.options.length - 1 : currentIndex - 1;
+        nextIndex =
+          currentIndex <= 0 ? this.options.length - 1 : currentIndex - 1;
       } else {
-        nextIndex = currentIndex === -1 || currentIndex === this.options.length - 1 ? 0 : currentIndex + 1;
+        nextIndex =
+          currentIndex === -1 || currentIndex === this.options.length - 1
+            ? 0
+            : currentIndex + 1;
       }
       const nextOption = this.options[nextIndex];
       if (nextOption) {
         this._select(nextOption);
-        const buttons = this.shadowRoot?.querySelectorAll('.item') as NodeListOf<HTMLElement>;
+        const buttons = this.shadowRoot?.querySelectorAll(
+          '.item',
+        ) as NodeListOf<HTMLElement>;
         buttons[nextIndex]?.focus();
       }
     }
@@ -139,7 +166,8 @@ export class SentimentSelector extends FormAssociatedMixin(UIBitElement) {
     return html`
       <slot @slotchange=${this._onSlotChange} style="display: none;"></slot>
       <div class="track" part="track" role="radiogroup" aria-label=${msg('Sentiment rating')}>
-        ${this.options.map(option => html`
+        ${this.options.map(
+          (option) => html`
           <button
             class="item ${this.valueAsNumber !== undefined && this.valueAsNumber !== option.value ? 'dimmed' : ''}"
             part="item"
@@ -148,16 +176,23 @@ export class SentimentSelector extends FormAssociatedMixin(UIBitElement) {
             aria-label=${option.label}
             ?data-selected=${this.valueAsNumber === option.value}
             @click=${() => this._select(option)}
-            @mouseenter=${() => { this._hoverValue = option.value; }}
-            @mouseleave=${() => { this._hoverValue = undefined; }}
+            @mouseenter=${() => {
+              this._hoverValue = option.value;
+            }}
+            @mouseleave=${() => {
+              this._hoverValue = undefined;
+            }}
           >
             <span class="icon" part="icon" aria-hidden="true">${getIcon(option.icon, iconPx, ICON_FALLBACKS[option.icon])}</span>
           </button>
-        `)}
+        `,
+        )}
       </div>
-      ${this.showLabel
-        ? html`<div class="label ${activeLabel ? 'visible' : ''}" part="label" aria-live="polite">${activeLabel || '\u00a0'}</div>`
-        : ''}
+      ${
+        this.showLabel
+          ? html`<div class="label ${activeLabel ? 'visible' : ''}" part="label" aria-live="polite">${activeLabel || '\u00a0'}</div>`
+          : ''
+      }
     `;
   }
 }

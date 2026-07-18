@@ -11,7 +11,10 @@ export class ResizeController implements ReactiveController {
   private options: ResizeControllerOptions;
   contentRect?: DOMRectReadOnly;
 
-  constructor(host: ReactiveControllerHost & HTMLElement, options: ResizeControllerOptions = {}) {
+  constructor(
+    host: ReactiveControllerHost & HTMLElement,
+    options: ResizeControllerOptions = {},
+  ) {
     this.host = host;
     this.options = options;
     this.host.addController(this);
@@ -36,9 +39,10 @@ export class ResizeController implements ReactiveController {
   observe() {
     this.unobserve();
 
-    const target = typeof this.options.target === 'function'
-      ? this.options.target()
-      : (this.options.target ?? this.host);
+    const target =
+      typeof this.options.target === 'function'
+        ? this.options.target()
+        : (this.options.target ?? this.host);
 
     if (!target) return;
 

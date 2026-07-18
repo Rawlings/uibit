@@ -44,7 +44,7 @@ export default function uibitCemExtended() {
 
   const getOrCreateClassInfo = (
     modulePath: string,
-    className: string
+    className: string,
   ): CollectedClassInfo => {
     if (!moduleCache.has(modulePath)) {
       moduleCache.set(modulePath, new Map());
@@ -78,11 +78,13 @@ export default function uibitCemExtended() {
         for (const tag of tags) {
           if (tag.tagName.text === 'cssstate') {
             const commentStr = getCommentString(tag.comment);
-            const match = commentStr.match(/^([a-zA-Z0-9_-]+)(?:\s*-\s*|\s+)(.*)$/);
+            const match = commentStr.match(
+              /^([a-zA-Z0-9_-]+)(?:\s*-\s*|\s+)(.*)$/,
+            );
             if (match) {
               classInfo.cssStates.push({
                 name: match[1]!,
-                description: match[2]!.trim(),
+                description: match[2]?.trim(),
               });
             } else if (commentStr.trim()) {
               classInfo.cssStates.push({
@@ -98,7 +100,10 @@ export default function uibitCemExtended() {
             classInfo.see = getCommentString(tag.comment);
           } else if (tag.tagName.text === 'summary') {
             classInfo.summary = getCommentString(tag.comment);
-          } else if (tag.tagName.text === 'tag' || tag.tagName.text === 'tagname') {
+          } else if (
+            tag.tagName.text === 'tag' ||
+            tag.tagName.text === 'tagname'
+          ) {
             classInfo.tagName = getCommentString(tag.comment).trim();
           } else if (tag.tagName.text === 'mixes') {
             const mixinName = getCommentString(tag.comment).trim();
@@ -114,7 +119,9 @@ export default function uibitCemExtended() {
 
       // Handle Property/Field Declaration
       if (
-        (ts.isPropertyDeclaration(node) || ts.isGetAccessor(node) || ts.isSetAccessor(node)) &&
+        (ts.isPropertyDeclaration(node) ||
+          ts.isGetAccessor(node) ||
+          ts.isSetAccessor(node)) &&
         node.name
       ) {
         const classNode = node.parent;
@@ -146,7 +153,10 @@ export default function uibitCemExtended() {
       }
 
       // Handle Method Declaration
-      if ((ts.isMethodDeclaration(node) || ts.isMethodSignature(node)) && node.name) {
+      if (
+        (ts.isMethodDeclaration(node) || ts.isMethodSignature(node)) &&
+        node.name
+      ) {
         const classNode = node.parent;
         if (classNode && ts.isClassDeclaration(classNode) && classNode.name) {
           const className = classNode.name.text;
@@ -166,7 +176,10 @@ export default function uibitCemExtended() {
               if (paramComment) {
                 methodInfo.params.set(paramName, paramComment);
               }
-            } else if (tag.tagName.text === 'returns' || tag.tagName.text === 'return') {
+            } else if (
+              tag.tagName.text === 'returns' ||
+              tag.tagName.text === 'return'
+            ) {
               const returnComment = getCommentString(tag.comment);
               if (returnComment) {
                 methodInfo.returns = returnComment;
@@ -216,7 +229,10 @@ export default function uibitCemExtended() {
               if (paramComment) {
                 methodInfo.params.set(paramName, paramComment);
               }
-            } else if (tag.tagName.text === 'returns' || tag.tagName.text === 'return') {
+            } else if (
+              tag.tagName.text === 'returns' ||
+              tag.tagName.text === 'return'
+            ) {
               const returnComment = getCommentString(tag.comment);
               if (returnComment) {
                 methodInfo.returns = returnComment;
@@ -243,7 +259,7 @@ export default function uibitCemExtended() {
 
       for (const [className, info] of classMap.entries()) {
         const decl = moduleDoc.declarations?.find(
-          (d: any) => d.name === className && d.kind === 'class'
+          (d: any) => d.name === className && d.kind === 'class',
         );
         if (!decl) continue;
 
@@ -278,14 +294,17 @@ export default function uibitCemExtended() {
           decl.members = decl.members || [];
           for (const [fieldName, fieldInfo] of info.fields.entries()) {
             const fieldDecl = decl.members.find(
-              (m: any) => m.kind === 'field' && m.name === fieldName
+              (m: any) => m.kind === 'field' && m.name === fieldName,
             );
             if (fieldDecl) {
-              if (fieldInfo.deprecated !== undefined) fieldDecl.deprecated = fieldInfo.deprecated;
+              if (fieldInfo.deprecated !== undefined)
+                fieldDecl.deprecated = fieldInfo.deprecated;
               if (fieldInfo.since) fieldDecl.since = fieldInfo.since;
               if (fieldInfo.see) fieldDecl.see = fieldInfo.see;
-              if (fieldInfo.readonly !== undefined) fieldDecl.readonly = fieldInfo.readonly;
-              if (fieldInfo.writeonly !== undefined) fieldDecl.writeonly = fieldInfo.writeonly;
+              if (fieldInfo.readonly !== undefined)
+                fieldDecl.readonly = fieldInfo.readonly;
+              if (fieldInfo.writeonly !== undefined)
+                fieldDecl.writeonly = fieldInfo.writeonly;
             }
           }
         }
@@ -295,7 +314,7 @@ export default function uibitCemExtended() {
           decl.members = decl.members || [];
           for (const [methodName, methodInfo] of info.methods.entries()) {
             let methodDecl = decl.members.find(
-              (m: any) => m.kind === 'method' && m.name === methodName
+              (m: any) => m.kind === 'method' && m.name === methodName,
             );
             if (!methodDecl) {
               methodDecl = {
@@ -306,7 +325,8 @@ export default function uibitCemExtended() {
               decl.members.push(methodDecl);
             }
             if (methodDecl) {
-              if (methodInfo.deprecated !== undefined) methodDecl.deprecated = methodInfo.deprecated;
+              if (methodInfo.deprecated !== undefined)
+                methodDecl.deprecated = methodInfo.deprecated;
               if (methodInfo.since) methodDecl.since = methodInfo.since;
               if (methodInfo.see) methodDecl.see = methodInfo.see;
 

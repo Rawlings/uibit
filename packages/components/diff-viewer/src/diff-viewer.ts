@@ -57,15 +57,22 @@ export class DiffViewer extends UIBitElement {
   }
 
   /** Show line numbers in the gutter. */
-  @property({ type: Boolean, attribute: 'show-line-numbers' }) showLineNumbers = true;
+  @property({ type: Boolean, attribute: 'show-line-numbers' }) showLineNumbers =
+    true;
 
-  private _renderLine(type: 'equal' | 'insert' | 'delete', text: string, lineNum: number | null) {
+  private _renderLine(
+    type: 'equal' | 'insert' | 'delete',
+    text: string,
+    lineNum: number | null,
+  ) {
     const sign = type === 'insert' ? '+' : type === 'delete' ? '-' : ' ';
     return html`
       <div class="line ${type}">
-        ${this.showLineNumbers
-          ? html`<span class="gutter">${lineNum ?? ''}</span>`
-          : nothing}
+        ${
+          this.showLineNumbers
+            ? html`<span class="gutter">${lineNum ?? ''}</span>`
+            : nothing
+        }
         <span class="content"><span class="sign" aria-hidden="true">${sign}</span>${text}</span>
       </div>
     `;
@@ -84,9 +91,13 @@ export class DiffViewer extends UIBitElement {
         rightLines.push(this._renderLine('equal', op.text, newLine++));
       } else if (op.type === 'delete') {
         leftLines.push(this._renderLine('delete', op.text, oldLine++));
-        rightLines.push(html`<div class="line equal"><span class="gutter"></span><span class="content"></span></div>`);
+        rightLines.push(
+          html`<div class="line equal"><span class="gutter"></span><span class="content"></span></div>`,
+        );
       } else {
-        leftLines.push(html`<div class="line equal"><span class="gutter"></span><span class="content"></span></div>`);
+        leftLines.push(
+          html`<div class="line equal"><span class="gutter"></span><span class="content"></span></div>`,
+        );
         rightLines.push(this._renderLine('insert', op.text, newLine++));
       }
     }
@@ -107,7 +118,7 @@ export class DiffViewer extends UIBitElement {
     let oldLine = 1;
     let newLine = 1;
 
-    const lines = ops.map(op => {
+    const lines = ops.map((op) => {
       if (op.type === 'equal') {
         return this._renderLine('equal', op.text, oldLine++);
       } else if (op.type === 'delete') {
@@ -131,7 +142,7 @@ export class DiffViewer extends UIBitElement {
     const slot = e.target as HTMLSlotElement;
     const nodes = slot.assignedNodes({ flatten: true });
     if (nodes.length > 0) {
-      this.oldText = nodes.map(n => n.textContent ?? '').join('');
+      this.oldText = nodes.map((n) => n.textContent ?? '').join('');
     }
   }
 
@@ -139,7 +150,7 @@ export class DiffViewer extends UIBitElement {
     const slot = e.target as HTMLSlotElement;
     const nodes = slot.assignedNodes({ flatten: true });
     if (nodes.length > 0) {
-      this.newText = nodes.map(n => n.textContent ?? '').join('');
+      this.newText = nodes.map((n) => n.textContent ?? '').join('');
     }
   }
 

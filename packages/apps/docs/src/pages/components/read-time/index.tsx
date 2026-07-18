@@ -1,6 +1,6 @@
 import '@uibit/read-time';
 import manifest from '@uibit/read-time/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import articleByline from './examples/article-byline';
 import articleBylineRaw from './examples/article-byline?raw';
 import customWpm from './examples/custom-wpm';
@@ -25,12 +25,18 @@ function TextReadTimerDemo() {
   return (
     <uibit-read-time show-icon>
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-xs text-gray-400 uppercase tracking-wide font-medium">By UIBit Editors</span>
+        <span className="text-xs text-gray-400 uppercase tracking-wide font-medium">
+          By UIBit Editors
+        </span>
         <span className="text-gray-300">·</span>
         <span slot="timer" className="text-xs text-gray-500 font-medium"></span>
       </div>
-      <h2 className="text-lg font-semibold text-gray-900 mb-2">Why Reading Time Estimates Work</h2>
-      <p className="text-sm text-gray-600 leading-relaxed line-clamp-4">{sampleContent.trim()}</p>
+      <h2 className="text-lg font-semibold text-gray-900 mb-2">
+        Why Reading Time Estimates Work
+      </h2>
+      <p className="text-sm text-gray-600 leading-relaxed line-clamp-4">
+        {sampleContent.trim()}
+      </p>
     </uibit-read-time>
   );
 }

@@ -1,6 +1,6 @@
 import '@uibit/table';
 import { useEffect, useRef, useState } from 'react';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 const ROWS: [string, string, string, string][] = [
   ['Acme Corp', 'North America', 'Active', 'Enterprise'],
@@ -20,7 +20,8 @@ function RowSelectionDemo() {
     if (!el) return;
 
     const handler = (e: Event) => {
-      const detail = (e as CustomEvent<{ indices: number[]; rows: string[][] }>).detail;
+      const detail = (e as CustomEvent<{ indices: number[]; rows: string[][] }>)
+        .detail;
       setSelectedCount(detail.indices.length);
     };
 

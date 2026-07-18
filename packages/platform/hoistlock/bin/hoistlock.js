@@ -13,7 +13,11 @@ async function main() {
   // Try running compiled native binary
   const binPath = resolve(__dirname, 'hoistlock-bin');
   const localBinPath = resolve(__dirname, '../target/release/hoistlock-bin');
-  const targetBin = fs.existsSync(binPath) ? binPath : (fs.existsSync(localBinPath) ? localBinPath : null);
+  const targetBin = fs.existsSync(binPath)
+    ? binPath
+    : fs.existsSync(localBinPath)
+      ? localBinPath
+      : null;
 
   if (targetBin) {
     try {
@@ -48,8 +52,8 @@ async function main() {
         '**/node_modules/**',
         '**/dist/**',
         '**/*.spec.*',
-        '**/*.test.*'
-      ]
+        '**/*.test.*',
+      ],
     };
     fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2));
     console.log('Created hoistlock.json with default configurations.');
@@ -57,23 +61,31 @@ async function main() {
     const configPath = resolve(cwd, 'hoistlock.json');
     let config = {
       entry: './src/main.tsx',
-      tsconfig: './tsconfig.json'
+      tsconfig: './tsconfig.json',
     };
     if (fs.existsSync(configPath)) {
       try {
         config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-      } catch (e) {}
+      } catch (_e) {}
     }
-    console.log(`[hoistlock] Auditing bundle paths starting from entry: ${config.entry}...`);
+    console.log(
+      `[hoistlock] Auditing bundle paths starting from entry: ${config.entry}...`,
+    );
     try {
       const leaks = checkHoisting(config);
       if (leaks.length === 0) {
-        console.log('\x1b[32m[hoistlock] Pass: No bundle hoisting regressions detected.\x1b[0m');
+        console.log(
+          '\x1b[32m[hoistlock] Pass: No bundle hoisting regressions detected.\x1b[0m',
+        );
         process.exit(0);
       } else {
-        console.error('\x1b[31m[hoistlock] Fail: Accidental bundle hoisting detected! Git commit blocked.\x1b[0m');
+        console.error(
+          '\x1b[31m[hoistlock] Fail: Accidental bundle hoisting detected! Git commit blocked.\x1b[0m',
+        );
         for (const leak of leaks) {
-          console.error(`  - File: ${leak.filePath}\n    Imported as: ${leak.importPath}\n    Required by dynamic chunk entry: ${leak.dynamicChunkEntry}\n`);
+          console.error(
+            `  - File: ${leak.filePath}\n    Imported as: ${leak.importPath}\n    Required by dynamic chunk entry: ${leak.dynamicChunkEntry}\n`,
+          );
         }
         process.exit(1);
       }

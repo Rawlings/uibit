@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import '@uibit/consent-guard';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function ProgrammaticDemo() {
   const guardRef = useRef<any>(null);
@@ -48,6 +48,7 @@ function ProgrammaticDemo() {
 
       <div className="flex gap-3">
         <button
+          type="button"
           className="px-5 py-2 bg-gray-900 text-white text-sm font-medium rounded-md cursor-pointer border-none"
           onClick={() => guardRef.current?.accept()}
         >
@@ -60,7 +61,8 @@ function ProgrammaticDemo() {
 
 const programmatic: UsageExample = {
   title: 'Programmatic control',
-  description: 'Use the accept() method to control consent state from JavaScript — useful for restoring a previously stored choice.',
+  description:
+    'Use the accept() method to control consent state from JavaScript — useful for restoring a previously stored choice.',
   Demo: ProgrammaticDemo,
 };
 

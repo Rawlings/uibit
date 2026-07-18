@@ -1,19 +1,32 @@
 import type { ComponentMetadata } from '../core/types.js';
-import { SourceBuilder, mergePropertiesAndAttributes, generateTypeImports } from '../core/utils.js';
+import {
+  SourceBuilder,
+  mergePropertiesAndAttributes,
+  generateTypeImports,
+} from '../core/utils.js';
 
 export const sveltePlugin = {
   name: 'svelte',
   generate(component: ComponentMetadata) {
     return {
-      'index.svelte': buildSvelte(component)
+      'index.svelte': buildSvelte(component),
     };
-  }
+  },
 };
 
 function buildSvelte(component: ComponentMetadata): string {
-  const { name, tagName, properties, attributes, events = [], slots, referencedTypes, importPath = '../../index.js' } = component;
+  const {
+    name,
+    tagName,
+    properties,
+    attributes,
+    events = [],
+    slots,
+    referencedTypes,
+    importPath = '../../index.js',
+  } = component;
   const propMap = mergePropertiesAndAttributes(properties, attributes);
-  const namedSlots = slots.filter(s => s.name && s.name !== '');
+  const namedSlots = slots.filter((s) => s.name && s.name !== '');
 
   const builder = new SourceBuilder();
 
@@ -24,15 +37,25 @@ function buildSvelte(component: ComponentMetadata): string {
   ${generateTypeImports(referencedTypes, importPath)}`);
 
   // Props declaration using Svelte 5 $bindable() and restProps
-  const svelteProps = Array.from(propMap.keys()).map(name => `    ${name} = $bindable()`).join(',\n');
-  const slotProps = namedSlots.map(s => `    ${s.name} = undefined`).join(',\n');
-  const allProps = [svelteProps, slotProps, '    children', '    ...restProps'].filter(Boolean).join(',\n');
+  const svelteProps = Array.from(propMap.keys())
+    .map((name) => `    ${name} = $bindable()`)
+    .join(',\n');
+  const slotProps = namedSlots
+    .map((s) => `    ${s.name} = undefined`)
+    .join(',\n');
+  const allProps = [svelteProps, slotProps, '    children', '    ...restProps']
+    .filter(Boolean)
+    .join(',\n');
 
-  const svelteTypes = Array.from(propMap.entries()).map(([propName, propType]) => {
-    return `    ${propName}?: ${propType};`;
-  }).join('\n');
+  const svelteTypes = Array.from(propMap.entries())
+    .map(([propName, propType]) => {
+      return `    ${propName}?: ${propType};`;
+    })
+    .join('\n');
 
-  const slotTypes = namedSlots.map(s => `    ${s.name}?: import('svelte').Snippet;`).join('\n');
+  const slotTypes = namedSlots
+    .map((s) => `    ${s.name}?: import('svelte').Snippet;`)
+    .join('\n');
 
   builder.append(`  let {
 ${allProps}
@@ -47,24 +70,30 @@ ${slotTypes}
   builder.append(`  let elementRef: HTMLElementClass | null = $state(null);`);
 
   // Effect to sync properties from Svelte to Web Component
-  const syncToElement = Array.from(propMap.keys()).map(propName => {
-    return `    if (elementRef && ${propName} !== undefined && elementRef.${propName} !== ${propName}) {
+  const syncToElement = Array.from(propMap.keys())
+    .map((propName) => {
+      return `    if (elementRef && ${propName} !== undefined && elementRef.${propName} !== ${propName}) {
       elementRef.${propName} = ${propName};
     }`;
-  }).join('\n');
+    })
+    .join('\n');
 
   builder.append(`  $effect(() => {
 ${syncToElement}
   });`);
 
   // Effect to sync properties from Web Component back to Svelte when events fire
-  const syncToSvelte = Array.from(propMap.keys()).map(propName => {
-    return `      if (${propName} !== element.${propName}) {
+  const syncToSvelte = Array.from(propMap.keys())
+    .map((propName) => {
+      return `      if (${propName} !== element.${propName}) {
         ${propName} = element.${propName} as any;
       }`;
-  }).join('\n');
+    })
+    .join('\n');
 
-  const eventsList = Array.from(new Set(['change', 'input', ...events.map(e => e.name)]));
+  const eventsList = Array.from(
+    new Set(['change', 'input', ...events.map((e) => e.name)]),
+  );
 
   builder.append(`  $effect(() => {
     const element = elementRef;
@@ -74,7 +103,7 @@ ${syncToElement}
 ${syncToSvelte}
     };
 
-    const events = [${eventsList.map(e => `'${e}'`).join(', ')}];
+    const events = [${eventsList.map((e) => `'${e}'`).join(', ')}];
     for (const event of events) {
       element.addEventListener(event, handleEvent);
     }
@@ -88,13 +117,15 @@ ${syncToSvelte}
   builder.append(`</script>`);
 
   // Template section
-  const projectedSlots = namedSlots.map(s => {
-    return `  {#if ${s.name}}
+  const projectedSlots = namedSlots
+    .map((s) => {
+      return `  {#if ${s.name}}
     <div slot="${s.name}">
       {@render ${s.name}()}
     </div>
   {/if}`;
-  }).join('\n');
+    })
+    .join('\n');
 
   builder.append(`<${tagName} bind:this={elementRef} {...restProps}>
 ${projectedSlots}
@@ -107,4 +138,3 @@ ${projectedSlots}
 
   return builder.toString();
 }
-

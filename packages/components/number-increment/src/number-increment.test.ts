@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import './number-increment';
-import { NumberIncrement } from './number-increment';
+import type { NumberIncrement } from './number-increment';
 
 describe('NumberIncrement Component', () => {
   let element: NumberIncrement;
@@ -18,12 +18,14 @@ describe('NumberIncrement Component', () => {
           disconnect: vi.fn(),
           unobserve: vi.fn(),
         };
-      })
+      }),
     );
   });
 
   beforeEach(async () => {
-    element = document.createElement('uibit-number-increment') as NumberIncrement;
+    element = document.createElement(
+      'uibit-number-increment',
+    ) as NumberIncrement;
     document.body.appendChild(element);
     await element.updateComplete;
   });
@@ -45,7 +47,7 @@ describe('NumberIncrement Component', () => {
     // Forcing format update
     element.connectedCallback();
     await element.updateComplete;
-    
+
     const valueEl = element.shadowRoot?.querySelector('.value');
     expect(valueEl?.textContent).toBe('5.00');
   });
@@ -63,7 +65,11 @@ describe('NumberIncrement Component', () => {
 
   it('applies locale and options properties', async () => {
     element.locale = 'en-US';
-    element.options = { style: 'currency', currency: 'USD', maximumFractionDigits: 0 };
+    element.options = {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0,
+    };
     element.from = 1000;
     element.value = 1000;
     element.connectedCallback();
@@ -76,11 +82,11 @@ describe('NumberIncrement Component', () => {
 
   it('does not throw when options is null or undefined', async () => {
     element.locale = 'en-US';
-    // @ts-ignore - explicitly testing null value passed by runtime wrappers
+    // @ts-expect-error - explicitly testing null value passed by runtime wrappers
     element.options = null;
     element.from = 1000;
     element.value = 1000;
-    
+
     expect(() => {
       element.connectedCallback();
     }).not.toThrow();
@@ -89,8 +95,10 @@ describe('NumberIncrement Component', () => {
   it('inherits locale from ancestor lang attribute', async () => {
     const parent = document.createElement('div');
     parent.setAttribute('lang', 'de-DE');
-    
-    const localElement = document.createElement('uibit-number-increment') as NumberIncrement;
+
+    const localElement = document.createElement(
+      'uibit-number-increment',
+    ) as NumberIncrement;
     parent.appendChild(localElement);
     document.body.appendChild(parent);
 

@@ -9,7 +9,7 @@ export function parseModule(source: string): any {
     tsx: false,
     decorators: true,
     comments: true,
-    target: 'es2022'
+    target: 'es2022',
   });
 }
 
@@ -19,7 +19,7 @@ export function parseModule(source: string): any {
 export function parseClassMembers(source: string): any[] {
   const ast = swc.parseSync(`class T { ${source} }`, {
     syntax: 'typescript',
-    decorators: true
+    decorators: true,
   });
   const classDecl = ast.body[0] as any;
   return classDecl?.declaration?.body || classDecl?.body || [];
@@ -43,7 +43,9 @@ export function extractStatementsFromArrow(source: string): any[] {
  */
 export function findClassDeclaration(moduleAst: any): any {
   const exportDecl = moduleAst.body.find(
-    (n: any) => n.type === 'ExportDeclaration' && n.declaration?.type === 'ClassDeclaration'
+    (n: any) =>
+      n.type === 'ExportDeclaration' &&
+      n.declaration?.type === 'ClassDeclaration',
   );
   return exportDecl?.declaration;
 }
@@ -51,9 +53,12 @@ export function findClassDeclaration(moduleAst: any): any {
 /**
  * Find decorator by name (e.g. Component, Directive) on a class declaration.
  */
-export function findComponentDecorator(classDecl: any, decoratorName = 'Component'): any {
+export function findComponentDecorator(
+  classDecl: any,
+  decoratorName = 'Component',
+): any {
   return classDecl?.decorators?.find(
-    (d: any) => d.expression?.callee?.value === decoratorName
+    (d: any) => d.expression?.callee?.value === decoratorName,
   );
 }
 
@@ -66,4 +71,3 @@ export function extractObjectProperties(source: string): any[] {
   const objExpr = varDecl?.declarations?.[0]?.init;
   return objExpr?.properties || [];
 }
-

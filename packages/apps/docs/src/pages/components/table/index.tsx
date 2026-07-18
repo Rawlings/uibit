@@ -1,6 +1,6 @@
 import '@uibit/table';
 import manifest from '@uibit/table/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import fullFeatured from './examples/full-featured';
 import fullFeaturedRaw from './examples/full-featured?raw';
 import rowSelection from './examples/row-selection';
@@ -20,14 +20,42 @@ const ROWS: [string, string, string, string, string, string][] = [
   ['Ember Health', '990 000', 'North America', 'Active', '15.0', 'Growth'],
   ['Frost AI', '3 400 000', 'Europe', 'Active', '34.9', 'Enterprise'],
   ['Gale Robotics', '720 000', 'Asia Pacific', 'Review', '2.5', 'Growth'],
-  ['Harbor Cloud', '1 670 000', 'North America', 'Active', '18.3', 'Enterprise'],
+  [
+    'Harbor Cloud',
+    '1 670 000',
+    'North America',
+    'Active',
+    '18.3',
+    'Enterprise',
+  ],
   ['Isle Media', '450 000', 'Europe', 'Inactive', '-6.8', 'Starter'],
-  ['Jasper Fintech', '2 800 000', 'Asia Pacific', 'Active', '27.2', 'Enterprise'],
+  [
+    'Jasper Fintech',
+    '2 800 000',
+    'Asia Pacific',
+    'Active',
+    '27.2',
+    'Enterprise',
+  ],
   ['Kite Analytics', '390 000', 'Middle East', 'Review', '1.1', 'Starter'],
   ['Lumen Bio', '1 100 000', 'North America', 'Active', '9.6', 'Growth'],
   ['Marble Studio', '670 000', 'Europe', 'Active', '7.4', 'Growth'],
-  ['Nova Payments', '4 200 000', 'North America', 'Active', '41.2', 'Enterprise'],
-  ['Orbit Logistics', '310 000', 'Asia Pacific', 'Inactive', '-11.5', 'Starter'],
+  [
+    'Nova Payments',
+    '4 200 000',
+    'North America',
+    'Active',
+    '41.2',
+    'Enterprise',
+  ],
+  [
+    'Orbit Logistics',
+    '310 000',
+    'Asia Pacific',
+    'Inactive',
+    '-11.5',
+    'Starter',
+  ],
   ['Prism Security', '1 890 000', 'Europe', 'Active', '19.8', 'Enterprise'],
   ['Quill Publishing', '540 000', 'Middle East', 'Review', '3.7', 'Growth'],
   ['Relay Networks', '780 000', 'North America', 'Active', '6.9', 'Growth'],
@@ -195,14 +223,25 @@ function TableDemo() {
       'Aria-sort attribute notifies assistive tech of active sort direction on sorted columns.',
       'Aria-expanded tracks the state of the column visibility chooser menu.',
       'Standard labels provide description for input text fields.',
-      'Selection checkbox attributes are updated dynamically to show select-all status.'
+      'Selection checkbox attributes are updated dynamically to show select-all status.',
     ],
     keyboardNav: [
-      { key: 'Tab', description: 'Navigate between search inputs, filters, and page buttons.' },
-      { key: 'Space / Enter', description: 'Trigger sorting on headers or activate selection checkboxes.' },
-      { key: 'Escape', description: 'Close the column visibility selection menu.' }
-    ]
-  }
+      {
+        key: 'Tab',
+        description:
+          'Navigate between search inputs, filters, and page buttons.',
+      },
+      {
+        key: 'Space / Enter',
+        description:
+          'Trigger sorting on headers or activate selection checkboxes.',
+      },
+      {
+        key: 'Escape',
+        description: 'Close the column visibility selection menu.',
+      },
+    ],
+  },
 };
 
 export default data;

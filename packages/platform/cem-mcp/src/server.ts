@@ -26,7 +26,7 @@ export class CemMcpServer {
   constructor(options: ServerOptions = {}) {
     this.scanner = new ManifestScanner(options.scannerOptions);
     this.formatter = options.formatter || new MarkdownFormatter();
-    
+
     this.server = new Server(
       {
         name: 'cem-mcp',
@@ -37,12 +37,12 @@ export class CemMcpServer {
           resources: {},
           tools: {},
         },
-      }
+      },
     );
 
     this.setupResourceHandlers();
     this.setupToolHandlers();
-    
+
     this.server.onerror = (error) => console.error('[MCP Error]', error);
   }
 
@@ -62,49 +62,60 @@ export class CemMcpServer {
             name: `${comp.name} Public API Markdown`,
             mimeType: 'text/markdown',
             description: `Public API description and documentation of the <${comp.tagName}> component in Markdown format`,
-          }
+          },
         ]),
       };
     });
 
-    this.server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
-      const url = new URL(request.params.uri);
-      const match = url.pathname.match(/^\/components\/([a-zA-Z0-9_-]+)\/api\.(json|md)$/);
+    this.server.setRequestHandler(
+      ReadResourceRequestSchema,
+      async (request) => {
+        const url = new URL(request.params.uri);
+        const match = url.pathname.match(
+          /^\/components\/([a-zA-Z0-9_-]+)\/api\.(json|md)$/,
+        );
 
-      if (!match) {
-        throw new McpError(ErrorCode.InvalidRequest, `Unknown resource URI: ${request.params.uri}`);
-      }
+        if (!match) {
+          throw new McpError(
+            ErrorCode.InvalidRequest,
+            `Unknown resource URI: ${request.params.uri}`,
+          );
+        }
 
-      const tagName = match[1]!;
-      const format = match[2]!;
-      const comp = this.scanner.getComponent(tagName);
+        const tagName = match[1]!;
+        const format = match[2]!;
+        const comp = this.scanner.getComponent(tagName);
 
-      if (!comp) {
-        throw new McpError(ErrorCode.InvalidParams, `Component not found: ${tagName}`);
-      }
+        if (!comp) {
+          throw new McpError(
+            ErrorCode.InvalidParams,
+            `Component not found: ${tagName}`,
+          );
+        }
 
-      if (format === 'json') {
-        return {
-          contents: [
-            {
-              uri: request.params.uri,
-              mimeType: 'application/json',
-              text: JSON.stringify(comp, null, 2),
-            },
-          ],
-        };
-      } else {
-        return {
-          contents: [
-            {
-              uri: request.params.uri,
-              mimeType: 'text/markdown',
-              text: this.formatter.format(comp),
-            },
-          ],
-        };
-      }
-    });
+        if (format === 'json') {
+          return {
+            contents: [
+              {
+                uri: request.params.uri,
+                mimeType: 'application/json',
+                text: JSON.stringify(comp, null, 2),
+              },
+            ],
+          };
+        } else {
+          return {
+            contents: [
+              {
+                uri: request.params.uri,
+                mimeType: 'text/markdown',
+                text: this.formatter.format(comp),
+              },
+            ],
+          };
+        }
+      },
+    );
   }
 
   private setupToolHandlers(): void {
@@ -113,7 +124,8 @@ export class CemMcpServer {
         tools: [
           {
             name: 'list_components',
-            description: 'List all web components available in the scanned directory with their descriptions and packages.',
+            description:
+              'List all web components available in the scanned directory with their descriptions and packages.',
             inputSchema: {
               type: 'object',
               properties: {},
@@ -121,19 +133,22 @@ export class CemMcpServer {
           },
           {
             name: 'get_component_api',
-            description: 'Fetch the clean, public-only API specifications and JSDoc metadata for a specific component.',
+            description:
+              'Fetch the clean, public-only API specifications and JSDoc metadata for a specific component.',
             inputSchema: {
               type: 'object',
               properties: {
                 tagName: {
                   type: 'string',
-                  description: 'The tag name of the component, e.g. "my-button".',
+                  description:
+                    'The tag name of the component, e.g. "my-button".',
                 },
                 format: {
                   type: 'string',
                   enum: ['json', 'markdown'],
                   default: 'json',
-                  description: 'Desired output format. Markdown is highly recommended to save context tokens.',
+                  description:
+                    'Desired output format. Markdown is highly recommended to save context tokens.',
                 },
               },
               required: ['tagName'],
@@ -174,10 +189,16 @@ export class CemMcpServer {
 
         const comp = this.scanner.getComponent(tagName);
         if (!comp) {
-          throw new McpError(ErrorCode.InvalidParams, `Component <${tagName}> not found`);
+          throw new McpError(
+            ErrorCode.InvalidParams,
+            `Component <${tagName}> not found`,
+          );
         }
 
-        const textResult = format === 'markdown' ? this.formatter.format(comp) : JSON.stringify(comp, null, 2);
+        const textResult =
+          format === 'markdown'
+            ? this.formatter.format(comp)
+            : JSON.stringify(comp, null, 2);
 
         return {
           content: [

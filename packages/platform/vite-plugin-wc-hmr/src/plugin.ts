@@ -28,12 +28,17 @@ export interface UibitHmrOptions {
 }
 
 const VIRTUAL_CLIENT = 'virtual:uibit-hmr/client';
-const RESOLVED_CLIENT = '\0' + VIRTUAL_CLIENT;
+const RESOLVED_CLIENT = `\0${VIRTUAL_CLIENT}`;
 
-interface TagClass { tag: string; cls: string }
+interface TagClass {
+  tag: string;
+  cls: string;
+}
 
 function buildDecoratorPattern(names: string[]): RegExp {
-  const alts = names.map(n => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  const alts = names
+    .map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('|');
   return new RegExp(
     `@(?:${alts})\\(\\s*['"\`]([^'"\`]+)['"\`]\\s*\\)\\s+(?:export\\s+)?(?:abstract\\s+)?class\\s+(\\w+)`,
     'g',
@@ -41,7 +46,9 @@ function buildDecoratorPattern(names: string[]): RegExp {
 }
 
 function buildDefineFunctionPattern(fns: string[]): RegExp {
-  const alts = fns.map(f => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  const alts = fns
+    .map((f) => f.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+    .join('|');
   return new RegExp(
     `(?:${alts})\\(\\s*['"\`]([^'"\`]+)['"\`]\\s*,\\s*(\\w+)`,
     'g',
@@ -57,22 +64,35 @@ function extractTagClassPairs(
   const seen = new Set<string>();
 
   const add = (tag: string | undefined, cls: string | undefined) => {
-    if (tag && cls && !seen.has(tag)) { seen.add(tag); pairs.push({ tag, cls }); }
+    if (tag && cls && !seen.has(tag)) {
+      seen.add(tag);
+      pairs.push({ tag, cls });
+    }
   };
 
   decoratorPattern.lastIndex = 0;
-  let m: RegExpExecArray | null;
-  while ((m = decoratorPattern.exec(code)) !== null) add(m[1], m[2]);
+  let m: RegExpExecArray | null = decoratorPattern.exec(code);
+  while (m !== null) {
+    add(m[1], m[2]);
+    m = decoratorPattern.exec(code);
+  }
 
   definePattern.lastIndex = 0;
-  while ((m = definePattern.exec(code)) !== null) add(m[1], m[2]);
+  m = definePattern.exec(code);
+  while (m !== null) {
+    add(m[1], m[2]);
+    m = definePattern.exec(code);
+  }
 
   return pairs;
 }
 
 export function uibitHmr(options: UibitHmrOptions = {}): Plugin {
   const decoratorNames = ['customElement', ...(options.decorators ?? [])];
-  const defineFunctions = ['customElements.define', ...(options.defineFunctions ?? [])];
+  const defineFunctions = [
+    'customElements.define',
+    ...(options.defineFunctions ?? []),
+  ];
 
   const decoratorPattern = buildDecoratorPattern(decoratorNames);
   const definePattern = buildDefineFunctionPattern(defineFunctions);
@@ -106,7 +126,10 @@ export function uibitHmr(options: UibitHmrOptions = {}): Plugin {
       if (pairs.length === 0) return;
 
       const registerCalls = pairs
-        .map(({ tag, cls }) => `  __wcHmr.register(import.meta, ${JSON.stringify(tag)}, ${cls});`)
+        .map(
+          ({ tag, cls }) =>
+            `  __wcHmr.register(import.meta, ${JSON.stringify(tag)}, ${cls});`,
+        )
         .join('\n');
 
       return {

@@ -48,33 +48,33 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   const items: CommandItem[] = [];
 
   // Add foundations
-  FOUNDATIONS.forEach(g => {
+  FOUNDATIONS.forEach((g) => {
     items.push({
       id: g.id,
       title: g.title,
       to: g.to,
-      category: 'Foundations'
+      category: 'Foundations',
     });
   });
 
   // Add tooling
-  TOOLING.forEach(g => {
+  TOOLING.forEach((g) => {
     items.push({
       id: g.id,
       title: g.title,
       to: g.to,
-      category: 'Tooling'
+      category: 'Tooling',
     });
   });
 
   // Add components and their sub-headings (Demo, API Reference, etc.)
-  Object.values(componentRegistry).forEach(comp => {
+  Object.values(componentRegistry).forEach((comp) => {
     items.push({
       id: comp.id,
       title: comp.title,
       description: comp.description,
       to: `/components/${comp.id}`,
-      category: comp.category || 'Other'
+      category: comp.category || 'Other',
     });
 
     const subheadings = [
@@ -82,16 +82,16 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
       { subId: 'api-reference', label: 'API Reference' },
       { subId: 'accessibility', label: 'Accessibility' },
       { subId: 'features', label: 'Features' },
-      { subId: 'changelog', label: 'Changelog' }
+      { subId: 'changelog', label: 'Changelog' },
     ];
 
-    subheadings.forEach(sub => {
+    subheadings.forEach((sub) => {
       items.push({
         id: `${comp.id}#${sub.subId}`,
         title: `${comp.title} — ${sub.label}`,
         description: `Section in ${comp.title} documentation`,
         to: `/components/${comp.id}#${sub.subId}`,
-        category: 'Section'
+        category: 'Section',
       });
     });
   });
@@ -99,7 +99,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   // Add sub-headings from guides
   Object.entries(markdownGuides).forEach(([route, content]) => {
     const lines = content.split('\n');
-    lines.forEach(line => {
+    lines.forEach((line) => {
       if (line.startsWith('## ')) {
         const title = line.substring(3).trim();
         const headingId = slugify(title);
@@ -108,7 +108,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
           title: title,
           description: `Section in ${route.split('/').pop()?.replace('-', ' ')}`,
           to: `${route}#${headingId}`,
-          category: 'Section'
+          category: 'Section',
         });
       }
     });
@@ -119,7 +119,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   let filteredItems = items;
   if (q) {
     const scored = items
-      .map(item => {
+      .map((item) => {
         let score = 0;
         const titleLower = item.title.toLowerCase();
         const descLower = item.description?.toLowerCase() || '';
@@ -143,7 +143,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
 
         return { item, score };
       })
-      .filter(x => x.score > 0);
+      .filter((x) => x.score > 0);
 
     // Sort by score descending, then by title alphabetically
     scored.sort((a, b) => {
@@ -153,10 +153,11 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
       return a.item.title.localeCompare(b.item.title);
     });
 
-    filteredItems = scored.map(x => x.item);
+    filteredItems = scored.map((x) => x.item);
   }
 
   // Reset selected index when search changes
+  // biome-ignore lint/correctness/useExhaustiveDependencies: search is intentionally unused in the body — it re-triggers this effect when the query changes
   useEffect(() => {
     setSelectedIndex(0);
   }, [search]);
@@ -198,10 +199,16 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         onClose();
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
-        setSelectedIndex(prev => (prev + 1) % Math.max(1, filteredItems.length));
+        setSelectedIndex(
+          (prev) => (prev + 1) % Math.max(1, filteredItems.length),
+        );
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        setSelectedIndex(prev => (prev - 1 + filteredItems.length) % Math.max(1, filteredItems.length));
+        setSelectedIndex(
+          (prev) =>
+            (prev - 1 + filteredItems.length) %
+            Math.max(1, filteredItems.length),
+        );
       } else if (e.key === 'Enter') {
         e.preventDefault();
         if (filteredItems[selectedIndex]) {
@@ -212,7 +219,9 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         e.preventDefault();
         // Cycle focus between input and the active list item to trap focus within modal
         if (document.activeElement === inputRef.current) {
-          const activeEl = listRef.current?.children[selectedIndex] as HTMLElement;
+          const activeEl = listRef.current?.children[
+            selectedIndex
+          ] as HTMLElement;
           activeEl?.focus();
         } else {
           inputRef.current?.focus();
@@ -229,20 +238,33 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-4">
       {/* Backdrop */}
-      <div 
-        className="fixed inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm transition-opacity" 
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: backdrop */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: backdrop */}
+      <div
+        className="fixed inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm transition-opacity"
         onClick={onClose}
       />
 
       {/* Main Palette Modal */}
-      <div 
+      <div
         ref={containerRef}
         className="relative w-full max-w-lg bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl shadow-2xl overflow-hidden flex flex-col max-h-[60vh] transition-all transform scale-100"
       >
         {/* Search Input Box */}
         <div className="flex items-center gap-3 px-4 border-b border-gray-200 dark:border-gray-800">
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-gray-400 dark:text-gray-500 shrink-0">
-            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            className="text-gray-400 dark:text-gray-500 shrink-0"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
           </svg>
           <input
             ref={inputRef}
@@ -252,7 +274,11 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
             aria-controls="command-palette-listbox"
             aria-autocomplete="list"
             aria-haspopup="listbox"
-            aria-activedescendant={filteredItems[selectedIndex] ? `item-${filteredItems[selectedIndex].id.replace(/[#:]/g, '-')}` : undefined}
+            aria-activedescendant={
+              filteredItems[selectedIndex]
+                ? `item-${filteredItems[selectedIndex].id.replace(/[#:]/g, '-')}`
+                : undefined
+            }
             placeholder="Search guides and components..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -264,7 +290,7 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         </div>
 
         {/* Results List */}
-        <div 
+        <div
           ref={listRef}
           role="listbox"
           id="command-palette-listbox"
@@ -273,13 +299,15 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         >
           {filteredItems.length === 0 ? (
             <div className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-500">
-              No results found for "<span className="font-semibold">{search}</span>"
+              No results found for "
+              <span className="font-semibold">{search}</span>"
             </div>
           ) : (
             filteredItems.map((item, idx) => {
               const isSelected = idx === selectedIndex;
               return (
                 <button
+                  type="button"
                   key={`${item.category}-${item.id}`}
                   role="option"
                   id={`item-${item.id.replace(/[#:]/g, '-')}`}
@@ -289,18 +317,20 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                     onClose();
                   }}
                   className={`w-full text-left px-3 py-2.5 rounded-lg flex items-center justify-between transition-all duration-150 cursor-pointer ${
-                    isSelected 
-                      ? 'bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white' 
+                    isSelected
+                      ? 'bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white'
                       : 'hover:bg-gray-50 dark:hover:bg-gray-900/50 text-gray-600 dark:text-gray-400'
                   }`}
                 >
                   <div className="min-w-0 pr-4">
                     <div className="flex items-center gap-2">
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full font-mono tracking-wide scale-90 ${
-                        item.category === 'Section'
-                          ? 'bg-blue-50 text-blue-600 dark:bg-blue-950/30 dark:text-blue-400 border border-blue-100 dark:border-blue-900/20'
-                          : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
-                      }`}>
+                      <span
+                        className={`text-[10px] font-semibold px-2 py-0.5 rounded-full font-mono tracking-wide scale-90 ${
+                          item.category === 'Section'
+                            ? 'bg-blue-50 text-blue-600 dark:bg-blue-950/30 dark:text-blue-400 border border-blue-100 dark:border-blue-900/20'
+                            : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'
+                        }`}
+                      >
                         {item.category}
                       </span>
                       <span className="font-medium text-sm truncate">
@@ -308,18 +338,40 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
                       </span>
                     </div>
                     {item.description && (
-                      <p className={`text-xs mt-1 truncate ${isSelected ? 'text-gray-600 dark:text-gray-400' : 'text-gray-400 dark:text-gray-500'}`}>
+                      <p
+                        className={`text-xs mt-1 truncate ${isSelected ? 'text-gray-600 dark:text-gray-400' : 'text-gray-400 dark:text-gray-500'}`}
+                      >
                         {item.description}
                       </p>
                     )}
                   </div>
                   <div className="shrink-0 flex items-center">
                     {isSelected ? (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-gray-900 dark:text-white">
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        className="text-gray-900 dark:text-white"
+                      >
                         <polyline points="9 18 15 12 9 6" />
                       </svg>
                     ) : (
-                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-gray-300 dark:text-gray-700">
+                      <svg
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="text-gray-300 dark:text-gray-700"
+                      >
                         <polyline points="9 18 15 12 9 6" />
                       </svg>
                     )}
@@ -334,17 +386,29 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
         <div className="px-4 py-2.5 bg-gray-50/50 dark:bg-gray-900/30 border-t border-gray-200 dark:border-gray-800 flex items-center justify-between text-[10px] text-gray-405 dark:text-gray-500 select-none font-sans">
           <div className="flex items-center gap-3.5">
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-850 bg-white dark:bg-gray-900 rounded font-mono shadow-2xs text-[9px] font-bold">↑↓</kbd> Navigate
+              <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-850 bg-white dark:bg-gray-900 rounded font-mono shadow-2xs text-[9px] font-bold">
+                ↑↓
+              </kbd>{' '}
+              Navigate
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-850 bg-white dark:bg-gray-900 rounded font-mono shadow-2xs text-[9px] font-bold">↵</kbd> Select
+              <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-850 bg-white dark:bg-gray-900 rounded font-mono shadow-2xs text-[9px] font-bold">
+                ↵
+              </kbd>{' '}
+              Select
             </span>
             <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-850 bg-white dark:bg-gray-900 rounded font-mono shadow-2xs text-[9px] font-bold">Tab</kbd> Cycle Focus
+              <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-850 bg-white dark:bg-gray-900 rounded font-mono shadow-2xs text-[9px] font-bold">
+                Tab
+              </kbd>{' '}
+              Cycle Focus
             </span>
           </div>
           <span>
-            <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-850 bg-white dark:bg-gray-900 rounded font-mono shadow-2xs text-[9px] font-bold">ESC</kbd> Close
+            <kbd className="px-1.5 py-0.5 border border-gray-200 dark:border-gray-850 bg-white dark:bg-gray-900 rounded font-mono shadow-2xs text-[9px] font-bold">
+              ESC
+            </kbd>{' '}
+            Close
           </span>
         </div>
       </div>

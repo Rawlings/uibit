@@ -15,7 +15,10 @@
     "types": ["vite/client", "react", "react-dom"],
     "paths": {
       "react": ["./node_modules/@types/react", "./node_modules/react"],
-      "react-dom": ["./node_modules/@types/react-dom", "./node_modules/react-dom"]
+      "react-dom": [
+        "./node_modules/@types/react-dom",
+        "./node_modules/react-dom"
+      ]
     },
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,

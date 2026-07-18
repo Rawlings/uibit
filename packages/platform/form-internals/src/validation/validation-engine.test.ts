@@ -11,10 +11,22 @@ describe('ValidationEngine', () => {
       expect(validateValue('hello', constraints).valueMissing).toBe(false);
 
       // Checkbox / Radio toggle checks
-      const toggleConstraintsUnchecked = { required: true, type: 'checkbox', checked: false };
-      const toggleConstraintsChecked = { required: true, type: 'checkbox', checked: true };
-      expect(validateValue('on', toggleConstraintsUnchecked).valueMissing).toBe(true);
-      expect(validateValue('on', toggleConstraintsChecked).valueMissing).toBe(false);
+      const toggleConstraintsUnchecked = {
+        required: true,
+        type: 'checkbox',
+        checked: false,
+      };
+      const toggleConstraintsChecked = {
+        required: true,
+        type: 'checkbox',
+        checked: true,
+      };
+      expect(validateValue('on', toggleConstraintsUnchecked).valueMissing).toBe(
+        true,
+      );
+      expect(validateValue('on', toggleConstraintsChecked).valueMissing).toBe(
+        false,
+      );
 
       // Empty collections (FileList / Array)
       expect(validateValue([], constraints).valueMissing).toBe(true);
@@ -37,11 +49,19 @@ describe('ValidationEngine', () => {
     });
 
     it('should validate email and url type constraints', () => {
-      expect(validateValue('invalid-email', { type: 'email' }).typeMismatch).toBe(true);
-      expect(validateValue('test@domain.com', { type: 'email' }).typeMismatch).toBe(false);
+      expect(
+        validateValue('invalid-email', { type: 'email' }).typeMismatch,
+      ).toBe(true);
+      expect(
+        validateValue('test@domain.com', { type: 'email' }).typeMismatch,
+      ).toBe(false);
 
-      expect(validateValue('invalid-url', { type: 'url' }).typeMismatch).toBe(true);
-      expect(validateValue('https://google.com', { type: 'url' }).typeMismatch).toBe(false);
+      expect(validateValue('invalid-url', { type: 'url' }).typeMismatch).toBe(
+        true,
+      );
+      expect(
+        validateValue('https://google.com', { type: 'url' }).typeMismatch,
+      ).toBe(false);
     });
 
     it('should validate badInput constraint for numbers', () => {
@@ -65,23 +85,47 @@ describe('ValidationEngine', () => {
       expect(validateValue('11', constraints).stepMismatch).toBe(false);
 
       // default min is 0
-      expect(validateValue('1.5', { step: 0.5, type: 'number' }).stepMismatch).toBe(false);
-      expect(validateValue('1.3', { step: 0.5, type: 'number' }).stepMismatch).toBe(true);
+      expect(
+        validateValue('1.5', { step: 0.5, type: 'number' }).stepMismatch,
+      ).toBe(false);
+      expect(
+        validateValue('1.3', { step: 0.5, type: 'number' }).stepMismatch,
+      ).toBe(true);
     });
   });
 
   describe('getValidationMessage', () => {
     it('should return correct messages', () => {
-      expect(getValidationMessage({ valueMissing: true } as any, {})).toBe('Please fill out this field.');
-      expect(getValidationMessage({ tooShort: true } as any, { minlength: 5 })).toContain('lengthen this text to 5');
-      expect(getValidationMessage({ tooLong: true } as any, { maxlength: 10 })).toContain('shorten this text to 10');
-      expect(getValidationMessage({ patternMismatch: true } as any, {})).toBe('Please match the requested format.');
-      expect(getValidationMessage({ typeMismatch: true } as any, { type: 'email' })).toBe('Please enter an email address.');
-      expect(getValidationMessage({ typeMismatch: true } as any, { type: 'url' })).toBe('Please enter a URL.');
-      expect(getValidationMessage({ badInput: true } as any, {})).toBe('Please enter a number.');
-      expect(getValidationMessage({ rangeUnderflow: true } as any, { min: 10 })).toBe('Value must be greater than or equal to 10.');
-      expect(getValidationMessage({ rangeOverflow: true } as any, { max: 20 })).toBe('Value must be less than or equal to 20.');
-      expect(getValidationMessage({ stepMismatch: true } as any, {})).toBe('Please enter a valid value.');
+      expect(getValidationMessage({ valueMissing: true } as any, {})).toBe(
+        'Please fill out this field.',
+      );
+      expect(
+        getValidationMessage({ tooShort: true } as any, { minlength: 5 }),
+      ).toContain('lengthen this text to 5');
+      expect(
+        getValidationMessage({ tooLong: true } as any, { maxlength: 10 }),
+      ).toContain('shorten this text to 10');
+      expect(getValidationMessage({ patternMismatch: true } as any, {})).toBe(
+        'Please match the requested format.',
+      );
+      expect(
+        getValidationMessage({ typeMismatch: true } as any, { type: 'email' }),
+      ).toBe('Please enter an email address.');
+      expect(
+        getValidationMessage({ typeMismatch: true } as any, { type: 'url' }),
+      ).toBe('Please enter a URL.');
+      expect(getValidationMessage({ badInput: true } as any, {})).toBe(
+        'Please enter a number.',
+      );
+      expect(
+        getValidationMessage({ rangeUnderflow: true } as any, { min: 10 }),
+      ).toBe('Value must be greater than or equal to 10.');
+      expect(
+        getValidationMessage({ rangeOverflow: true } as any, { max: 20 }),
+      ).toBe('Value must be less than or equal to 20.');
+      expect(getValidationMessage({ stepMismatch: true } as any, {})).toBe(
+        'Please enter a valid value.',
+      );
     });
   });
 });

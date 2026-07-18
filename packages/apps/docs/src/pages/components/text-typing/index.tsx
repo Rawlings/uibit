@@ -1,6 +1,6 @@
 import '@uibit/text-typing';
 import manifest from '@uibit/text-typing/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import heroHeadline from './examples/hero-headline';
 import heroHeadlineRaw from './examples/hero-headline?raw';
 import oneShot from './examples/one-shot';
@@ -10,8 +10,7 @@ function TextTypingDemo() {
   return (
     <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
       <uibit-text-typing type-speed="75" typo-rate="0.05">
-        We help teams{' '}
-        <span slot="text">ship faster.</span>
+        We help teams <span slot="text">ship faster.</span>
         <span slot="text">build better.</span>
         <span slot="text">scale confidently.</span>
         <span slot="text">move with clarity.</span>

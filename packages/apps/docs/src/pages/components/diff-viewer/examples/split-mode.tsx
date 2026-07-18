@@ -1,4 +1,4 @@
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 const OLD = `function greet(name) {
   var msg = "Hello, " + name;

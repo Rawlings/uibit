@@ -1,6 +1,6 @@
 import '@uibit/image-reveal';
 import manifest from '@uibit/image-reveal/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import basic from './examples/basic';
 import basicRaw from './examples/basic?raw';
 import customLens from './examples/custom-lens';

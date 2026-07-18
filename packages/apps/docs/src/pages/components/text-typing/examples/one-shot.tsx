@@ -1,5 +1,5 @@
 import '@uibit/text-typing';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function OneShotDemo() {
   return (
@@ -14,7 +14,8 @@ function OneShotDemo() {
 
 const oneShot: UsageExample = {
   title: 'One-shot (no loop)',
-  description: 'Types through all phrases once and stops on the last. Good for loading states or one-time reveals.',
+  description:
+    'Types through all phrases once and stops on the last. Good for loading states or one-time reveals.',
   Demo: OneShotDemo,
 };
 

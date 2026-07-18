@@ -17,7 +17,7 @@ export interface HotspotConfig {
 }
 
 declare global {
-interface HTMLElementTagNameMap {
+  interface HTMLElementTagNameMap {
     'uibit-hotspot': Hotspot;
-}
+  }
 }

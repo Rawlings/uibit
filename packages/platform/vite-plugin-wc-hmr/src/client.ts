@@ -1,30 +1,42 @@
 // Patch customElements.define to be a no-op for already-registered names.
 // This prevents throws when a module re-executes during HMR.
 const origDefine = customElements.define.bind(customElements);
-customElements.define = function (
+customElements.define = ((
   name: string,
   ctor: CustomElementConstructor,
   opts?: ElementDefinitionOptions,
-) {
+) => {
   if (!customElements.get(name)) origDefine(name, ctor, opts);
-} as typeof customElements.define;
+}) as typeof customElements.define;
 
 const registry = new Map<string, CustomElementConstructor>();
 
-function applyAdoptedStyleSheets(instance: HTMLElement, clazz: CustomElementConstructor): void {
-  const rec = clazz as unknown as { finalize?: () => void; elementStyles?: unknown };
+function applyAdoptedStyleSheets(
+  instance: HTMLElement,
+  clazz: CustomElementConstructor,
+): void {
+  const rec = clazz as unknown as {
+    finalize?: () => void;
+    elementStyles?: unknown;
+  };
   rec.finalize?.();
 
   const elementStyles = rec.elementStyles;
   if (!Array.isArray(elementStyles)) return;
 
   const sheets = elementStyles
-    .map((s) => (s instanceof CSSStyleSheet ? s : (s as { styleSheet?: CSSStyleSheet }).styleSheet))
+    .map((s) =>
+      s instanceof CSSStyleSheet
+        ? s
+        : (s as { styleSheet?: CSSStyleSheet }).styleSheet,
+    )
     .filter((s): s is CSSStyleSheet => s instanceof CSSStyleSheet);
 
   if (sheets.length === 0) return;
 
-  const root = (instance as unknown as { renderRoot?: ShadowRoot }).renderRoot ?? instance.shadowRoot;
+  const root =
+    (instance as unknown as { renderRoot?: ShadowRoot }).renderRoot ??
+    instance.shadowRoot;
   if (root) root.adoptedStyleSheets = sheets;
 }
 
@@ -78,6 +90,10 @@ export function register(
       triggerRerender(instance);
     }
 
-    console.log('[uibit-hmr]', tagName, `updated ${instances.length} instance(s)`);
+    console.log(
+      '[uibit-hmr]',
+      tagName,
+      `updated ${instances.length} instance(s)`,
+    );
   });
 }

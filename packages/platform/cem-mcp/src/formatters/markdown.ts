@@ -9,7 +9,10 @@ export class MarkdownFormatter implements ApiFormatter {
    * Helper to extract inline lifecycle metadata from descriptions (e.g. [deprecated: use X])
    * and clean up the description.
    */
-  private parseInlineMetadata(description?: string): { cleanDesc: string; meta: string } {
+  private parseInlineMetadata(description?: string): {
+    cleanDesc: string;
+    meta: string;
+  } {
     if (!description) return { cleanDesc: '', meta: '' };
 
     let cleanDesc = description.trim();
@@ -18,14 +21,14 @@ export class MarkdownFormatter implements ApiFormatter {
     // Parse [deprecated: ...] or [deprecated]
     const deprMatch = cleanDesc.match(/\[deprecated(?::\s*([^\]]+))?\]/i);
     if (deprMatch) {
-      meta += ` [deprecated${deprMatch[1] ? `: ${deprMatch[1]!.trim()}` : ''}]`;
+      meta += ` [deprecated${deprMatch[1] ? `: ${deprMatch[1]?.trim()}` : ''}]`;
       cleanDesc = cleanDesc.replace(deprMatch[0]!, '').trim();
     }
 
     // Parse [see: ...]
     const seeMatch = cleanDesc.match(/\[see:\s*([^\]]+)\]/i);
     if (seeMatch) {
-      meta += ` [see: ${seeMatch[1]!.trim()}]`;
+      meta += ` [see: ${seeMatch[1]?.trim()}]`;
       cleanDesc = cleanDesc.replace(seeMatch[0]!, '').trim();
     }
 
@@ -80,9 +83,13 @@ export class MarkdownFormatter implements ApiFormatter {
         if (prop.readonly) meta += ` [readonly]`;
         if (prop.writeonly) meta += ` [writeonly]`;
 
-        const { cleanDesc, meta: inlineMeta } = this.parseInlineMetadata(prop.description);
+        const { cleanDesc, meta: inlineMeta } = this.parseInlineMetadata(
+          prop.description,
+        );
         const descStr = cleanDesc ? ` | ${cleanDesc}` : '';
-        lines.push(`  - ${prop.name}${typeStr}${defStr}${meta}${inlineMeta}${descStr}`);
+        lines.push(
+          `  - ${prop.name}${typeStr}${defStr}${meta}${inlineMeta}${descStr}`,
+        );
       }
     }
 
@@ -141,9 +148,13 @@ export class MarkdownFormatter implements ApiFormatter {
         if (method.deprecated) meta += ` [deprecated: ${method.deprecated}]`;
         if (method.see) meta += ` [see: ${method.see}]`;
 
-        const { cleanDesc, meta: inlineMeta } = this.parseInlineMetadata(method.description);
+        const { cleanDesc, meta: inlineMeta } = this.parseInlineMetadata(
+          method.description,
+        );
         const descStr = cleanDesc ? ` | ${cleanDesc}` : '';
-        lines.push(`  - ${method.name}(${params})${retType}${meta}${inlineMeta}${descStr}`);
+        lines.push(
+          `  - ${method.name}(${params})${retType}${meta}${inlineMeta}${descStr}`,
+        );
       }
     }
 

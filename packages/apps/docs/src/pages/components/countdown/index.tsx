@@ -1,6 +1,6 @@
 import '@uibit/countdown';
 import manifest from '@uibit/countdown/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import targetDateExample from './examples/target-date';
 import targetDateRaw from './examples/target-date?raw';
 import customLabelsExample from './examples/custom-labels';
@@ -10,7 +10,11 @@ function CountdownDemo() {
   const targetTime = new Date(Date.now() + 3600 * 1000 * 2.5).toISOString(); // 2.5 hours from now
 
   return (
-    <uibit-countdown target={targetTime} auto-start format="HH:MM:SS"></uibit-countdown>
+    <uibit-countdown
+      target={targetTime}
+      auto-start
+      format="HH:MM:SS"
+    ></uibit-countdown>
   );
 }
 

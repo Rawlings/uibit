@@ -16,7 +16,7 @@ export interface Viewer360Config {
 }
 
 declare global {
-interface HTMLElementTagNameMap {
+  interface HTMLElementTagNameMap {
     'uibit-360-viewer': Viewer360;
-}
+  }
 }

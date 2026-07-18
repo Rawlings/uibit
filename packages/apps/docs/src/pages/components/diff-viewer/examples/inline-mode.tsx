@@ -1,4 +1,4 @@
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 const OLD = `import React from 'react';
 import { useState } from 'react';

@@ -44,7 +44,7 @@ export function configureUIBitLocalization(options: {
 export async function setLocale(locale: string): Promise<void> {
   if (!_setLocale) {
     throw new Error(
-      '[uibit] Call configureUIBitLocalization() before setLocale().'
+      '[uibit] Call configureUIBitLocalization() before setLocale().',
     );
   }
   return _setLocale(locale);

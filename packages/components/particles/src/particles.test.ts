@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import './particles';
-import { Particles } from './particles';
+import type { Particles } from './particles';
 
 describe('Particles Component', () => {
   let element: Particles;
@@ -17,7 +17,7 @@ describe('Particles Component', () => {
           disconnect: vi.fn(),
           unobserve: vi.fn(),
         };
-      })
+      }),
     );
   });
 
@@ -43,9 +43,9 @@ describe('Particles Component', () => {
     element.count = 80;
     element.speed = 2;
     element.connect = true;
-    
+
     await element.updateComplete;
-    
+
     expect(element.count).toBe(80);
     expect(element.speed).toBe(2);
     expect(element.connect).toBe(true);
@@ -55,7 +55,7 @@ describe('Particles Component', () => {
     const contentDiv = document.createElement('div');
     contentDiv.textContent = 'Slotted Visual Element';
     element.appendChild(contentDiv);
-    
+
     const slot = element.shadowRoot?.querySelector('slot');
     expect(slot).toBeTruthy();
   });

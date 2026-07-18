@@ -4,7 +4,9 @@ interface InteractivePatternBackgroundProps {
   className?: string;
 }
 
-export default function InteractivePatternBackground({ className = "h-[580px]" }: InteractivePatternBackgroundProps) {
+export default function InteractivePatternBackground({
+  className = 'h-[580px]',
+}: InteractivePatternBackgroundProps) {
   const [canvasRef, setCanvasRef] = useState<HTMLCanvasElement | null>(null);
   const mouseRef = useRef({ x: -1000, y: -1000, active: false });
 
@@ -16,7 +18,7 @@ export default function InteractivePatternBackground({ className = "h-[580px]" }
       mouseRef.current = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
-        active: true
+        active: true,
       };
     };
     const handleMouseLeave = () => {
@@ -33,7 +35,10 @@ export default function InteractivePatternBackground({ className = "h-[580px]" }
   useEffect(() => {
     if (!canvasRef) return;
 
-    const ctx = typeof canvasRef.getContext === 'function' ? canvasRef.getContext('2d') : null;
+    const ctx =
+      typeof canvasRef.getContext === 'function'
+        ? canvasRef.getContext('2d')
+        : null;
     if (!ctx) return;
 
     let animationFrameId: number;
@@ -117,13 +122,13 @@ export default function InteractivePatternBackground({ className = "h-[580px]" }
       // Generate a premium subtle gray gradient
       const gradient = ctx.createLinearGradient(0, 0, width, 0);
       if (isDark) {
-        gradient.addColorStop(0, '#4b5563');   // Slate Gray
-        gradient.addColorStop(0.5, '#9ca3af');  // Cool Gray
-        gradient.addColorStop(1, '#4b5563');   // Slate Gray
+        gradient.addColorStop(0, '#4b5563'); // Slate Gray
+        gradient.addColorStop(0.5, '#9ca3af'); // Cool Gray
+        gradient.addColorStop(1, '#4b5563'); // Slate Gray
       } else {
-        gradient.addColorStop(0, '#9ca3af');   // Cool Gray
-        gradient.addColorStop(0.5, '#4b5563');  // Slate Gray
-        gradient.addColorStop(1, '#9ca3af');   // Cool Gray
+        gradient.addColorStop(0, '#9ca3af'); // Cool Gray
+        gradient.addColorStop(0.5, '#4b5563'); // Slate Gray
+        gradient.addColorStop(1, '#9ca3af'); // Cool Gray
       }
 
       ctx.strokeStyle = gradient;
@@ -131,10 +136,13 @@ export default function InteractivePatternBackground({ className = "h-[580px]" }
       // Draw horizontal waves using smooth quadratic curves (Ultra-thin lines)
       for (let r = 0; r < rows; r++) {
         const samplePoint = points[r][0];
-        const depthFactor = Math.max(0, Math.min(1, (520 - samplePoint.z) / 380));
-        
+        const depthFactor = Math.max(
+          0,
+          Math.min(1, (520 - samplePoint.z) / 380),
+        );
+
         ctx.lineWidth = 0.25 + depthFactor * 0.65;
-        
+
         ctx.beginPath();
         ctx.moveTo(points[r][0].x, points[r][0].y);
 
@@ -146,7 +154,7 @@ export default function InteractivePatternBackground({ className = "h-[580px]" }
 
           ctx.quadraticCurveTo(pCurrent.x, pCurrent.y, xc, yc);
         }
-        
+
         ctx.lineTo(points[r][cols - 1].x, points[r][cols - 1].y);
 
         // Modulate opacity for realistic depth fog (even more subtle gray)

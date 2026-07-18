@@ -1,15 +1,22 @@
 import '@uibit/form';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function Demo() {
   return (
     <uibit-form class="block bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
-      <form action="https://httpbin.org/post" method="POST" className="space-y-6">
+      <form
+        action="https://httpbin.org/post"
+        method="POST"
+        className="space-y-6"
+      >
         {/* Step 1 */}
         <fieldset className="space-y-4">
           <legend className="sr-only">Step 1: Contact Details</legend>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="first-name">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="first-name"
+            >
               First Name *
             </label>
             <input
@@ -22,7 +29,10 @@ function Demo() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="last-name">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="last-name"
+            >
               Last Name *
             </label>
             <input
@@ -35,7 +45,10 @@ function Demo() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="email">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="email"
+            >
               Email Address *
             </label>
             <input
@@ -61,7 +74,10 @@ function Demo() {
         <fieldset className="space-y-4">
           <legend className="sr-only">Step 2: Profile Settings</legend>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="username">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="username"
+            >
               Username *
             </label>
             <input
@@ -74,7 +90,10 @@ function Demo() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="bio">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="bio"
+            >
               Short Bio
             </label>
             <textarea
@@ -105,7 +124,10 @@ function Demo() {
         <fieldset className="space-y-4">
           <legend className="sr-only">Step 3: Location Details</legend>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="city">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="city"
+            >
               City *
             </label>
             <input
@@ -118,7 +140,10 @@ function Demo() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1" htmlFor="country">
+            <label
+              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor="country"
+            >
               Country *
             </label>
             <input
@@ -161,8 +186,12 @@ function Demo() {
               />
             </div>
             <div className="ml-3 text-sm">
-              <label htmlFor="newsletter" className="font-medium text-gray-700">Subscribe to updates</label>
-              <p className="text-gray-500">Get monthly announcements about features.</p>
+              <label htmlFor="newsletter" className="font-medium text-gray-700">
+                Subscribe to updates
+              </label>
+              <p className="text-gray-500">
+                Get monthly announcements about features.
+              </p>
             </div>
           </div>
           <div className="flex items-start">
@@ -177,7 +206,9 @@ function Demo() {
               />
             </div>
             <div className="ml-3 text-sm">
-              <label htmlFor="terms" className="font-medium text-gray-700">Accept Terms & Conditions *</label>
+              <label htmlFor="terms" className="font-medium text-gray-700">
+                Accept Terms & Conditions *
+              </label>
             </div>
           </div>
           <div className="flex gap-4 pt-2">
@@ -204,8 +235,12 @@ function Demo() {
       </div>
 
       <div slot="success" className="bg-gray-50 p-8">
-        <h4 className="text-md font-semibold text-gray-900 mb-1">Registration complete</h4>
-        <p className="text-sm text-gray-600">Your account has been successfully created.</p>
+        <h4 className="text-md font-semibold text-gray-900 mb-1">
+          Registration complete
+        </h4>
+        <p className="text-sm text-gray-600">
+          Your account has been successfully created.
+        </p>
       </div>
 
       <div slot="error" className="text-sm text-gray-900 bg-gray-50 p-8">

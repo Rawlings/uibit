@@ -82,12 +82,11 @@ export class Countdown extends UIBitElement {
 
    */
 
-
   start() {
     this.stop();
     const now = Date.now();
-    this.resolvedTargetTime = this.target 
-      ? new Date(this.target).getTime() 
+    this.resolvedTargetTime = this.target
+      ? new Date(this.target).getTime()
       : now + (this.duration || 0);
 
     this.tick();
@@ -106,8 +105,12 @@ export class Countdown extends UIBitElement {
     this.remaining = Math.max(0, this.resolvedTargetTime - now);
 
     this.days = Math.floor(this.remaining / (1000 * 60 * 60 * 24));
-    this.hours = Math.floor((this.remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    this.minutes = Math.floor((this.remaining % (1000 * 60 * 60)) / (1000 * 60));
+    this.hours = Math.floor(
+      (this.remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+    );
+    this.minutes = Math.floor(
+      (this.remaining % (1000 * 60 * 60)) / (1000 * 60),
+    );
     this.seconds = Math.floor((this.remaining % (1000 * 60)) / 1000);
 
     this.dispatchCustomEvent('countdown-tick', {
@@ -126,7 +129,7 @@ export class Countdown extends UIBitElement {
 
   private getFormattedUnits() {
     const fmt = (this.format || 'HH:MM:SS').toUpperCase();
-    
+
     let displayDays = 0;
     let displayHours = 0;
     let displayMinutes = 0;
@@ -154,23 +157,44 @@ export class Countdown extends UIBitElement {
 
     const units = [];
     if (fmt.includes('DD') || fmt.includes('DAY')) {
-      units.push({ value: String(displayDays).padStart(2, '0'), label: msg('Days') });
+      units.push({
+        value: String(displayDays).padStart(2, '0'),
+        label: msg('Days'),
+      });
     }
     if (fmt.includes('HH') || fmt.includes('HOUR')) {
-      units.push({ value: String(displayHours).padStart(2, '0'), label: msg('Hours') });
+      units.push({
+        value: String(displayHours).padStart(2, '0'),
+        label: msg('Hours'),
+      });
     }
     if (fmt.includes('MM') || fmt.includes('MIN')) {
-      units.push({ value: String(displayMinutes).padStart(2, '0'), label: msg('Minutes') });
+      units.push({
+        value: String(displayMinutes).padStart(2, '0'),
+        label: msg('Minutes'),
+      });
     }
     if (fmt.includes('SS') || fmt.includes('SEC')) {
-      units.push({ value: String(displaySeconds).padStart(2, '0'), label: msg('Seconds') });
+      units.push({
+        value: String(displaySeconds).padStart(2, '0'),
+        label: msg('Seconds'),
+      });
     }
 
     // If format matches nothing standard, default to HH:MM:SS
     if (units.length === 0) {
-      units.push({ value: String(totalHours).padStart(2, '0'), label: msg('Hours') });
-      units.push({ value: String(this.minutes).padStart(2, '0'), label: msg('Minutes') });
-      units.push({ value: String(this.seconds).padStart(2, '0'), label: msg('Seconds') });
+      units.push({
+        value: String(totalHours).padStart(2, '0'),
+        label: msg('Hours'),
+      });
+      units.push({
+        value: String(this.minutes).padStart(2, '0'),
+        label: msg('Minutes'),
+      });
+      units.push({
+        value: String(this.seconds).padStart(2, '0'),
+        label: msg('Seconds'),
+      });
     }
 
     return units;
@@ -187,7 +211,7 @@ export class Countdown extends UIBitElement {
               <div part="value" class="value">${unit.value}</div>
               <div part="label" class="label"><slot name="${unit.label.toLowerCase()}-label">${unit.label}</slot></div>
             </div>
-          `
+          `,
         )}
       </div>
     `;

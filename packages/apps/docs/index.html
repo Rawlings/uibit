@@ -1,39 +1,55 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-      // Restore path encoded by 404.html for GitHub Pages SPA routing.
-      (function () {
-        var q = window.location.search;
-        if (q && q.indexOf('?p=') === 0) {
-          var decoded = decodeURIComponent(q.slice(3)).replace(/&/, '?');
-          var base = window.location.pathname.replace(/\/$/, '');
-          window.history.replaceState(null, null, base + '/' + decoded + window.location.hash);
-        }
-      })();
+    // Restore path encoded by 404.html for GitHub Pages SPA routing.
+    (() => {
+      var q = window.location.search;
+      if (q && q.indexOf('?p=') === 0) {
+        const decoded = decodeURIComponent(q.slice(3)).replace(/&/, '?');
+        const base = window.location.pathname.replace(/\/$/, '');
+        window.history.replaceState(
+          null,
+          null,
+          `${base}/${decoded}${window.location.hash}`,
+        );
+      }
+    })();
     </script>
     <title>UIBit – Web Components Library</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="description" content="A collection of accessible, production-ready web components built with Lit.js. Lightweight, performant, and framework-agnostic." />
-    <meta name="keywords" content="web components, Lit, framework-agnostic, UI library, carousel, hotspot, countdown, scroll progress, consent guard, signature pad, accessible components" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://rawlings.github.io/uibit/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta
+      name="description"
+      content="A collection of accessible, production-ready web components built with Lit.js. Lightweight, performant, and framework-agnostic."
+    >
+    <meta
+      name="keywords"
+      content="web components, Lit, framework-agnostic, UI library, carousel, hotspot, countdown, scroll progress, consent guard, signature pad, accessible components"
+    >
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://rawlings.github.io/uibit/">
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://rawlings.github.io/uibit/" />
-    <meta property="og:title" content="UIBit – Web Components Library" />
-    <meta property="og:description" content="A collection of accessible, production-ready web components built with Lit.js. Lightweight, performant, and framework-agnostic." />
-    <meta property="og:site_name" content="UIBit" />
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rawlings.github.io/uibit/">
+    <meta property="og:title" content="UIBit – Web Components Library">
+    <meta
+      property="og:description"
+      content="A collection of accessible, production-ready web components built with Lit.js. Lightweight, performant, and framework-agnostic."
+    >
+    <meta property="og:site_name" content="UIBit">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="UIBit – Web Components Library" />
-    <meta name="twitter:description" content="A collection of accessible, production-ready web components built with Lit.js. Lightweight, performant, and framework-agnostic." />
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="UIBit – Web Components Library">
+    <meta
+      name="twitter:description"
+      content="A collection of accessible, production-ready web components built with Lit.js. Lightweight, performant, and framework-agnostic."
+    >
 
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
   </head>
   <body>
     <div id="root"></div>

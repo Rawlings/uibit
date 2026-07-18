@@ -1,6 +1,6 @@
 import '@uibit/hotspot';
 import manifest from '@uibit/hotspot/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import clickTrigger from './examples/click-trigger';
 import clickTriggerRaw from './examples/click-trigger?raw';
 import hoverTrigger from './examples/hover-trigger';
@@ -29,7 +29,8 @@ function HotspotDemo() {
       x: 48,
       y: 75,
       label: 'Adaptive ANC Microphone',
-      content: 'Continuously monitors ambient noise to cancel sound or enable transparency mode.',
+      content:
+        'Continuously monitors ambient noise to cancel sound or enable transparency mode.',
     },
   ];
 
@@ -92,8 +93,15 @@ function HotspotDemo() {
     ],
     keyboardNav: [
       { key: 'Tab', description: 'Move focus between hotspot buttons.' },
-      { key: 'Enter / Space', description: 'Open or close the tooltip for the focused hotspot.' },
-      { key: 'Escape', description: 'Close the active tooltip and return focus to the trigger.' },
+      {
+        key: 'Enter / Space',
+        description: 'Open or close the tooltip for the focused hotspot.',
+      },
+      {
+        key: 'Escape',
+        description:
+          'Close the active tooltip and return focus to the trigger.',
+      },
     ],
   },
   features: [

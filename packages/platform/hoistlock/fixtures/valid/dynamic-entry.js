@@ -1,4 +1,2 @@
-
-    import './dynamic-dep.js';
-    console.log('dynamic');
-  
+import './dynamic-dep.js';
+console.log('dynamic');

@@ -1,6 +1,17 @@
 export type ParticleMode =
-  | 'float' | 'snow' | 'rain' | 'neural' | 'matrix'
-  | 'wave' | 'vortex' | 'smoke' | 'bubbles' | 'grid' | 'aurora' | 'noise' | 'rings';
+  | 'float'
+  | 'snow'
+  | 'rain'
+  | 'neural'
+  | 'matrix'
+  | 'wave'
+  | 'vortex'
+  | 'smoke'
+  | 'bubbles'
+  | 'grid'
+  | 'aurora'
+  | 'noise'
+  | 'rings';
 
 export type ParticleHoverEffect = 'repel' | 'attract' | 'grab' | 'none';
 

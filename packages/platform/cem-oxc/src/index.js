@@ -1,7 +1,6 @@
-import { createRequire } from 'module';
-import { platform, arch } from 'os';
-import { join } from 'path';
-import { fileURLToPath } from 'url';
+import { createRequire } from 'node:module';
+import { platform, arch } from 'node:os';
+import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
 const __dirname = fileURLToPath(new URL('.', import.meta.url));

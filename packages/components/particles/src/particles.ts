@@ -1,8 +1,18 @@
 import { html } from 'lit';
-import { customElement, UIBitElement, ResizeController, LoopController } from '@uibit/core';
+import {
+  customElement,
+  UIBitElement,
+  ResizeController,
+  LoopController,
+} from '@uibit/core';
 import { property, query } from 'lit/decorators.js';
 import { styles } from './styles';
-import type { Particle, ParticleHoverEffect, ParticleMode, NetworkPulse } from './types';
+import type {
+  Particle,
+  ParticleHoverEffect,
+  ParticleMode,
+  NetworkPulse,
+} from './types';
 
 /**
  * An interactive canvas effect element. Creates dynamic background visuals
@@ -38,13 +48,16 @@ export class Particles extends UIBitElement {
   @property({ type: Boolean }) connect = false;
 
   /** Max distance for connecting lines */
-  @property({ type: Number, attribute: 'connect-distance' }) connectDistance = 100;
+  @property({ type: Number, attribute: 'connect-distance' }) connectDistance =
+    100;
 
   /** Hover interaction: 'repel' | 'attract' | 'grab' | 'none' */
-  @property({ type: String, attribute: 'hover-effect' }) hoverEffect: ParticleHoverEffect = 'repel';
+  @property({ type: String, attribute: 'hover-effect' })
+  hoverEffect: ParticleHoverEffect = 'repel';
 
   /** Radius of the mouse hover interaction zone */
-  @property({ type: Number, attribute: 'interactive-radius' }) interactiveRadius = 100;
+  @property({ type: Number, attribute: 'interactive-radius' })
+  interactiveRadius = 100;
 
   @query('canvas') private _canvas!: HTMLCanvasElement;
 
@@ -61,12 +74,12 @@ export class Particles extends UIBitElement {
     callback: (entry) => {
       const { width, height } = entry.contentRect;
       this._resizeCanvas(width, height);
-    }
+    },
   });
 
   protected _loop = new LoopController(this, {
     autoStart: false,
-    callback: () => this._updateAndDraw()
+    callback: () => this._updateAndDraw(),
   });
 
   firstUpdated() {
@@ -111,8 +124,12 @@ export class Particles extends UIBitElement {
   }
 
   private _parseColors(): string[] {
-    const raw = this.getCssPropertyValue('--uibit-particles-color') || '#6b7280';
-    const colors = raw.split(/[\s,]+/).map(c => c.trim()).filter(c => c.length > 0);
+    const raw =
+      this.getCssPropertyValue('--uibit-particles-color') || '#6b7280';
+    const colors = raw
+      .split(/[\s,]+/)
+      .map((c) => c.trim())
+      .filter((c) => c.length > 0);
     return colors.length > 0 ? colors : ['#6b7280'];
   }
 
@@ -120,7 +137,7 @@ export class Particles extends UIBitElement {
     const val = this.getCssPropertyValue(prop);
     if (!val) return defaultValue;
     const num = parseFloat(val);
-    if (isNaN(num)) return defaultValue;
+    if (Number.isNaN(num)) return defaultValue;
     if (val.includes('rem')) return num * 16;
     return num;
   }
@@ -149,7 +166,8 @@ export class Particles extends UIBitElement {
 
       let x = Math.random() * width;
       let y = Math.random() * height;
-      let vx = 0, vy = 0;
+      let vx = 0,
+        vy = 0;
       let radius = baseRadius;
       let originX: number | undefined;
       let originY: number | undefined;
@@ -167,15 +185,12 @@ export class Particles extends UIBitElement {
       if (this.mode === 'float') {
         vx = (Math.random() - 0.5) * 1.5;
         vy = (Math.random() - 0.5) * 1.5;
-
       } else if (this.mode === 'snow') {
         vx = (Math.random() - 0.5) * 0.4;
         vy = Math.random() * 0.8 + 0.4;
-
       } else if (this.mode === 'rain') {
         vx = -0.5 - Math.random() * 0.5;
         vy = Math.random() * 4 + 4;
-
       } else if (this.mode === 'neural') {
         originX = Math.random() * width;
         originY = Math.random() * height;
@@ -183,13 +198,14 @@ export class Particles extends UIBitElement {
         y = originY;
         vx = (Math.random() - 0.5) * 0.3;
         vy = (Math.random() - 0.5) * 0.3;
-
       } else if (this.mode === 'matrix') {
         vy = Math.random() * 1.5 + 1.5;
         this._matrixChars.push(Math.random() < 0.5 ? '0' : '1');
-
       } else if (this.mode === 'wave') {
-        const numRows = Math.max(2, Math.min(8, Math.floor(this.count / 8) + 2));
+        const numRows = Math.max(
+          2,
+          Math.min(8, Math.floor(this.count / 8) + 2),
+        );
         const rowIdx = i % numRows;
         const rowHeight = height / numRows;
         originY = (rowIdx + 0.5) * rowHeight;
@@ -198,17 +214,16 @@ export class Particles extends UIBitElement {
         vx = Math.random() * 0.8 + 0.3;
         vy = Math.random() * 0.008 + 0.004;
         y = originY;
-
       } else if (this.mode === 'vortex') {
         const maxOrbit = Math.min(width, height) * 0.44;
         orbitRadius = Math.sqrt(Math.random()) * maxOrbit + 5;
         angle = Math.random() * Math.PI * 2;
         const dir = Math.random() < 0.75 ? 1 : -1;
         angularVelocity = dir * (30 / Math.max(orbitRadius, 5));
-        const cx = width / 2, cy = height / 2;
+        const cx = width / 2,
+          cy = height / 2;
         x = cx + orbitRadius * Math.cos(angle);
         y = cy + orbitRadius * Math.sin(angle);
-
       } else if (this.mode === 'smoke') {
         const smokeRadius = 4 + Math.random() * 10;
         radius = smokeRadius;
@@ -219,17 +234,18 @@ export class Particles extends UIBitElement {
         vx = (Math.random() - 0.5) * 0.35;
         vy = -(Math.random() * 0.4 + 0.15);
         x = width * 0.2 + Math.random() * width * 0.6;
-        y = height - (life * Math.abs(vy));
-
+        y = height - life * Math.abs(vy);
       } else if (this.mode === 'bubbles') {
         radius = 6 + Math.random() * 22;
         vx = (Math.random() - 0.5) * 0.4;
         vy = -(Math.random() * 0.5 + 0.2);
         opacity = 0.3 + Math.random() * 0.4;
         y = height + Math.random() * height;
-
       } else if (this.mode === 'grid') {
-        const cols = Math.max(2, Math.round(Math.sqrt(this.count * (width / height))));
+        const cols = Math.max(
+          2,
+          Math.round(Math.sqrt(this.count * (width / height))),
+        );
         const rows = Math.max(2, Math.ceil(this.count / cols));
         const cellW = width / cols;
         const cellH = height / rows;
@@ -240,7 +256,6 @@ export class Particles extends UIBitElement {
         x = originX;
         y = originY;
         phase = Math.random() * Math.PI * 2;
-
       } else if (this.mode === 'aurora') {
         const bandCount = Math.min(this.count, 8);
         originY = height * 0.08 + (i / bandCount) * height * 0.78;
@@ -250,11 +265,9 @@ export class Particles extends UIBitElement {
         vx = Math.random() * 0.002 + 0.001;
         y = originY;
         x = 0;
-
       } else if (this.mode === 'noise') {
         prevX = x;
         prevY = y;
-
       } else if (this.mode === 'rings') {
         maxLife = 45 + Math.random() * 85;
         radius = Math.random() * maxLife;
@@ -262,14 +275,28 @@ export class Particles extends UIBitElement {
       }
 
       this._particles.push({
-        x, y, vx, vy, radius, color, baseSpeed,
-        originX, originY, angle, angularVelocity, orbitRadius,
-        amplitude, opacity, life, maxLife, phase, prevX, prevY,
+        x,
+        y,
+        vx,
+        vy,
+        radius,
+        color,
+        baseSpeed,
+        originX,
+        originY,
+        angle,
+        angularVelocity,
+        orbitRadius,
+        amplitude,
+        opacity,
+        life,
+        maxLife,
+        phase,
+        prevX,
+        prevY,
       });
     }
   }
-
-
 
   private _updateAndDraw() {
     const ctx = this._ctx;
@@ -283,10 +310,11 @@ export class Particles extends UIBitElement {
     ctx.clearRect(0, 0, width, height);
 
     if (this._colorCheckTick % 30 === 0) {
-      this._lineColor = this.getCssPropertyValue('--uibit-particles-line-color') || '#e5e7eb';
+      this._lineColor =
+        this.getCssPropertyValue('--uibit-particles-line-color') || '#e5e7eb';
       const colors = this._parseColors();
       for (const p of this._particles) {
-        if (p && p.color && !colors.includes(p.color)) {
+        if (p?.color && !colors.includes(p.color)) {
           p.color = colors[Math.floor(Math.random() * colors.length)];
         }
       }
@@ -310,14 +338,23 @@ export class Particles extends UIBitElement {
           const neighbors: Particle[] = [];
           for (const p2 of particles) {
             if (p2 && p2 !== p1) {
-              const dx = p1.x - p2.x, dy = p1.y - p2.y;
-              if (Math.sqrt(dx * dx + dy * dy) < connectDist) neighbors.push(p2);
+              const dx = p1.x - p2.x,
+                dy = p1.y - p2.y;
+              if (Math.sqrt(dx * dx + dy * dy) < connectDist)
+                neighbors.push(p2);
             }
           }
           if (neighbors.length > 0) {
             const p2 = neighbors[Math.floor(Math.random() * neighbors.length)];
             if (p2) {
-              this._pulses.push({ startX: p1.x, startY: p1.y, endX: p2.x, endY: p2.y, progress: 0, speed: 0.02 + Math.random() * 0.03 });
+              this._pulses.push({
+                startX: p1.x,
+                startY: p1.y,
+                endX: p2.x,
+                endY: p2.y,
+                progress: 0,
+                speed: 0.02 + Math.random() * 0.03,
+              });
             }
           }
         }
@@ -329,7 +366,8 @@ export class Particles extends UIBitElement {
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           if (!p2) continue;
-          const dx = p1.x - p2.x, dy = p1.y - p2.y;
+          const dx = p1.x - p2.x,
+            dy = p1.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < connectDist) {
             const alpha = (1 - dist / connectDist) * 0.4;
@@ -349,7 +387,10 @@ export class Particles extends UIBitElement {
         const pulse = this._pulses[j];
         if (!pulse) continue;
         pulse.progress += pulse.speed * speed;
-        if (pulse.progress >= 1) { this._pulses.splice(j, 1); continue; }
+        if (pulse.progress >= 1) {
+          this._pulses.splice(j, 1);
+          continue;
+        }
         const px = pulse.startX + (pulse.endX - pulse.startX) * pulse.progress;
         const py = pulse.startY + (pulse.endY - pulse.startY) * pulse.progress;
         ctx.beginPath();
@@ -402,30 +443,36 @@ export class Particles extends UIBitElement {
         p.x += p.vx * speed;
         p.y += p.vy * speed;
         if (p.originX !== undefined && p.originY !== undefined) {
-          const dx = p.x - p.originX, dy = p.y - p.originY;
+          const dx = p.x - p.originX,
+            dy = p.y - p.originY;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist > 30) { p.vx -= dx * 0.002; p.vy -= dy * 0.002; }
+          if (dist > 30) {
+            p.vx -= dx * 0.002;
+            p.vy -= dy * 0.002;
+          }
         }
-        if (p.x < 0) p.x = width; if (p.x > width) p.x = 0;
-        if (p.y < 0) p.y = height; if (p.y > height) p.y = 0;
-
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
       } else if (this.mode === 'wave') {
         p.x += (p.vx || 1) * speed;
         p.angle = (p.angle || 0) + (p.vy || 0.005) * speed;
         if (p.x > width) p.x = 0;
         if (p.x < 0) p.x = width;
         if (p.originY !== undefined) {
-          p.y = p.originY + (p.amplitude || 20) * Math.sin(p.x * 0.018 + (p.angle || 0));
+          p.y =
+            p.originY +
+            (p.amplitude || 20) * Math.sin(p.x * 0.018 + (p.angle || 0));
         }
-
       } else if (this.mode === 'vortex') {
         if (p.orbitRadius !== undefined && p.angularVelocity !== undefined) {
           p.angle = (p.angle || 0) + p.angularVelocity * speed * 0.02;
-          const cx = width / 2, cy = height / 2;
+          const cx = width / 2,
+            cy = height / 2;
           p.x = cx + p.orbitRadius * Math.cos(p.angle || 0);
           p.y = cy + p.orbitRadius * Math.sin(p.angle || 0);
         }
-
       } else if (this.mode === 'smoke') {
         p.life = (p.life || 0) - speed;
         if ((p.life || 0) <= 0) {
@@ -442,7 +489,6 @@ export class Particles extends UIBitElement {
         p.x += p.vx * speed;
         p.y += (p.vy || -0.3) * speed;
         p.radius += 0.07 * speed;
-
       } else if (this.mode === 'bubbles') {
         p.y += (p.vy || -0.4) * speed;
         p.x += (p.vx || 0) * speed;
@@ -450,13 +496,11 @@ export class Particles extends UIBitElement {
           p.y = height + p.radius + Math.random() * 80;
           p.x = Math.random() * width;
         }
-
       } else if (this.mode === 'grid') {
         if (p.originX !== undefined && p.originY !== undefined) {
           p.x += (p.originX - p.x) * 0.12;
           p.y += (p.originY - p.y) * 0.12;
         }
-
       } else if (this.mode === 'noise') {
         p.prevX = p.x;
         p.prevY = p.y;
@@ -473,7 +517,6 @@ export class Particles extends UIBitElement {
           p.prevX = p.x;
           p.prevY = p.y;
         }
-
       } else if (this.mode === 'rings') {
         p.radius += (p.vx || 1) * speed;
         if (p.radius > (p.maxLife || 80)) {
@@ -481,23 +524,34 @@ export class Particles extends UIBitElement {
           p.x = Math.random() * width;
           p.y = Math.random() * height;
         }
-
       } else {
         // float, snow, rain, matrix
         p.x += p.vx * speed;
         p.y += p.vy * speed;
         if (this.mode === 'snow') {
-          if (p.y > height) { p.y = 0; p.x = Math.random() * width; }
+          if (p.y > height) {
+            p.y = 0;
+            p.x = Math.random() * width;
+          }
           if (p.x < 0) p.x = width;
           if (p.x > width) p.x = 0;
         } else if (this.mode === 'rain') {
-          if (p.y > height || p.x < 0) { p.y = 0; p.x = Math.random() * width; }
+          if (p.y > height || p.x < 0) {
+            p.y = 0;
+            p.x = Math.random() * width;
+          }
         } else if (this.mode === 'matrix') {
-          if (p.y > height) { p.y = 0; p.x = Math.random() * width; }
-          if (Math.random() < 0.05) this._matrixChars[i] = Math.random() < 0.5 ? '0' : '1';
+          if (p.y > height) {
+            p.y = 0;
+            p.x = Math.random() * width;
+          }
+          if (Math.random() < 0.05)
+            this._matrixChars[i] = Math.random() < 0.5 ? '0' : '1';
         } else {
-          if (p.x < 0) p.x = width; if (p.x > width) p.x = 0;
-          if (p.y < 0) p.y = height; if (p.y > height) p.y = 0;
+          if (p.x < 0) p.x = width;
+          if (p.x > width) p.x = 0;
+          if (p.y < 0) p.y = height;
+          if (p.y > height) p.y = 0;
         }
       }
 
@@ -509,11 +563,23 @@ export class Particles extends UIBitElement {
         if (dist < interactiveRadius && dist > 0.01) {
           const force = (interactiveRadius - dist) / interactiveRadius;
           if (hoverEffect === 'repel') {
-            p.x += (dx / dist) * force * (this.mode === 'grid' ? interactiveRadius * 0.35 : 1.8);
-            p.y += (dy / dist) * force * (this.mode === 'grid' ? interactiveRadius * 0.35 : 1.8);
+            p.x +=
+              (dx / dist) *
+              force *
+              (this.mode === 'grid' ? interactiveRadius * 0.35 : 1.8);
+            p.y +=
+              (dy / dist) *
+              force *
+              (this.mode === 'grid' ? interactiveRadius * 0.35 : 1.8);
           } else if (hoverEffect === 'attract') {
-            p.x -= (dx / dist) * force * (this.mode === 'grid' ? interactiveRadius * 0.35 : 1.8);
-            p.y -= (dy / dist) * force * (this.mode === 'grid' ? interactiveRadius * 0.35 : 1.8);
+            p.x -=
+              (dx / dist) *
+              force *
+              (this.mode === 'grid' ? interactiveRadius * 0.35 : 1.8);
+            p.y -=
+              (dy / dist) *
+              force *
+              (this.mode === 'grid' ? interactiveRadius * 0.35 : 1.8);
           } else if (hoverEffect === 'grab') {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
@@ -533,13 +599,11 @@ export class Particles extends UIBitElement {
         ctx.strokeStyle = p.color || '#6b7280';
         ctx.lineWidth = p.radius * 0.6;
         ctx.stroke();
-
       } else if (this.mode === 'matrix') {
         const char = this._matrixChars[i] || '0';
         ctx.font = `bold ${p.radius * 6 + 7}px monospace`;
         ctx.fillStyle = p.color || '#6b7280';
         ctx.fillText(char, p.x, p.y);
-
       } else if (this.mode === 'smoke') {
         ctx.save();
         ctx.globalAlpha = (p.opacity || 0) * 0.3;
@@ -548,7 +612,6 @@ export class Particles extends UIBitElement {
         ctx.fillStyle = p.color || '#6b7280';
         ctx.fill();
         ctx.restore();
-
       } else if (this.mode === 'bubbles') {
         const yFade = Math.max(0, Math.min(1, p.y / height));
         ctx.save();
@@ -562,13 +625,14 @@ export class Particles extends UIBitElement {
         ctx.fillStyle = p.color || '#6b7280';
         ctx.fill();
         ctx.restore();
-
       } else if (this.mode === 'grid') {
-        const cx = width / 2, cy = height / 2;
+        const cx = width / 2,
+          cy = height / 2;
         const dx = (p.originX || p.x) - cx;
         const dy = (p.originY || p.y) - cy;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        const pulse = Math.sin(dist * 0.04 - t * 0.03 * speed + (p.phase || 0)) * 0.5 + 0.5;
+        const pulse =
+          Math.sin(dist * 0.04 - t * 0.03 * speed + (p.phase || 0)) * 0.5 + 0.5;
         const drawR = p.radius * (0.4 + pulse * 1.3);
         ctx.save();
         ctx.globalAlpha = 0.2 + pulse * 0.6;
@@ -577,17 +641,18 @@ export class Particles extends UIBitElement {
         ctx.fillStyle = p.color || '#6b7280';
         ctx.fill();
         ctx.restore();
-
       } else if (this.mode === 'noise') {
         ctx.beginPath();
-        ctx.moveTo(p.prevX !== undefined ? p.prevX : p.x, p.prevY !== undefined ? p.prevY : p.y);
+        ctx.moveTo(
+          p.prevX !== undefined ? p.prevX : p.x,
+          p.prevY !== undefined ? p.prevY : p.y,
+        );
         ctx.lineTo(p.x, p.y);
         ctx.strokeStyle = p.color || '#6b7280';
         ctx.lineWidth = 0.9;
         ctx.globalAlpha = 0.38;
         ctx.stroke();
         ctx.globalAlpha = 1;
-
       } else if (this.mode === 'rings') {
         const maxR = p.maxLife || 80;
         const alpha = Math.max(0, 1 - p.radius / maxR);
@@ -599,7 +664,6 @@ export class Particles extends UIBitElement {
         ctx.lineWidth = 1.5;
         ctx.stroke();
         ctx.restore();
-
       } else {
         // float, snow, neural, wave, vortex → standard dot
         ctx.beginPath();
@@ -618,7 +682,8 @@ export class Particles extends UIBitElement {
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           if (!p2) continue;
-          const dx = p1.x - p2.x, dy = p1.y - p2.y;
+          const dx = p1.x - p2.x,
+            dy = p1.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < connectDist) {
             const alpha = 1 - dist / connectDist;

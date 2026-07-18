@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '@uibit/effect-trigger';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function KanbanMoveDemo() {
   const [column, setColumn] = useState<'progress' | 'done'>('progress');
@@ -23,7 +23,18 @@ function KanbanMoveDemo() {
       >
         <div slot="trigger" style={{ display: 'none' }}></div>
         <span slot="asset">
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#111827" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block' }}>
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            width="12"
+            height="12"
+            fill="none"
+            stroke="#111827"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ display: 'block' }}
+          >
             <polyline points="9 18 15 12 9 6" />
           </svg>
         </span>
@@ -31,12 +42,17 @@ function KanbanMoveDemo() {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="border border-gray-100 rounded p-3 bg-gray-50 min-h-[160px]">
-          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3">In Progress</span>
+          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3">
+            In Progress
+          </span>
 
           {column === 'progress' && (
             <div className="border border-gray-200 rounded bg-white p-2.5 shadow-sm space-y-2">
-              <div className="text-xs font-bold text-gray-900 truncate">Implement Auth</div>
+              <div className="text-xs font-bold text-gray-900 truncate">
+                Implement Auth
+              </div>
               <button
+                type="button"
                 onClick={handleMove}
                 className="w-full bg-black hover:bg-gray-900 text-white text-[10px] py-1 px-2 rounded font-medium flex items-center justify-center space-x-1"
               >
@@ -48,12 +64,17 @@ function KanbanMoveDemo() {
         </div>
 
         <div className="border border-gray-100 rounded p-3 bg-gray-50 min-h-[160px]">
-          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3">Done</span>
+          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-3">
+            Done
+          </span>
 
           {column === 'done' && (
             <div className="border border-gray-200 rounded bg-white p-2.5 shadow-sm space-y-2">
-              <div className="text-xs font-bold text-gray-400 line-through truncate">Implement Auth</div>
+              <div className="text-xs font-bold text-gray-400 line-through truncate">
+                Implement Auth
+              </div>
               <button
+                type="button"
                 onClick={() => setColumn('progress')}
                 className="w-full text-center text-[10px] text-gray-400 hover:text-black font-medium"
               >

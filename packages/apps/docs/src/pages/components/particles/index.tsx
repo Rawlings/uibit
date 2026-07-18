@@ -1,6 +1,6 @@
 import '@uibit/particles';
 import manifest from '@uibit/particles/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import basicExample from './examples/basic';
 import basicRaw from './examples/basic?raw';
 import snowExample from './examples/snow';
@@ -30,20 +30,45 @@ import ringsRaw from './examples/rings?raw';
 
 function EffectParticlesDemo() {
   return (
-    <div style={{ height: '350px', border: '1px solid #e5e7eb', borderRadius: '8px', overflow: 'hidden' }}>
-      <uibit-particles count={80} speed={1.0} connect connect-distance={90} hover-effect="repel">
-        <div style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          padding: '2rem',
-          textAlign: 'center'
-        }}>
-          <h3 style={{ fontSize: '2rem', fontWeight: '700', marginBottom: '1rem', color: '#111827' }}>Particle Field</h3>
+    <div
+      style={{
+        height: '350px',
+        border: '1px solid #e5e7eb',
+        borderRadius: '8px',
+        overflow: 'hidden',
+      }}
+    >
+      <uibit-particles
+        count={80}
+        speed={1.0}
+        connect
+        connect-distance={90}
+        hover-effect="repel"
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '100%',
+            padding: '2rem',
+            textAlign: 'center',
+          }}
+        >
+          <h3
+            style={{
+              fontSize: '2rem',
+              fontWeight: '700',
+              marginBottom: '1rem',
+              color: '#111827',
+            }}
+          >
+            Particle Field
+          </h3>
           <p style={{ maxWidth: '400px', color: '#4b5563', lineHeight: '1.6' }}>
-            Interactive canvas backdrops with thirteen animation modes. Hover to repel.
+            Interactive canvas backdrops with thirteen animation modes. Hover to
+            repel.
           </p>
         </div>
       </uibit-particles>

@@ -1,5 +1,11 @@
 import { html } from 'lit';
-import { customElement, fromLucide, getIcon, msg, UIBitElement } from '@uibit/core';
+import {
+  customElement,
+  fromLucide,
+  getIcon,
+  msg,
+  UIBitElement,
+} from '@uibit/core';
 import { Plus, X } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import type { HotspotItem } from './types';
@@ -158,12 +164,25 @@ export class Hotspot extends UIBitElement {
         ${(this.hotspots || []).map((spot, index) => {
           const spotId = spot.id || String(index);
           const isOpened = this.activeHotspotId === spotId;
-          
-          const yVal = typeof spot.y === 'number' ? spot.y : parseFloat(String(spot.y || '0'));
+
+          const yVal =
+            typeof spot.y === 'number'
+              ? spot.y
+              : parseFloat(String(spot.y || '0'));
           const positionClass = yVal < 30 ? 'position-below' : 'position-above';
 
-          const leftStyle = typeof spot.x === 'number' ? `${spot.x}%` : (String(spot.x).endsWith('%') ? spot.x : `${spot.x}%`);
-          const topStyle = typeof spot.y === 'number' ? `${spot.y}%` : (String(spot.y).endsWith('%') ? spot.y : `${spot.y}%`);
+          const leftStyle =
+            typeof spot.x === 'number'
+              ? `${spot.x}%`
+              : String(spot.x).endsWith('%')
+                ? spot.x
+                : `${spot.x}%`;
+          const topStyle =
+            typeof spot.y === 'number'
+              ? `${spot.y}%`
+              : String(spot.y).endsWith('%')
+                ? spot.y
+                : `${spot.y}%`;
 
           return html`
             <div part="wrapper" class="hotspot-wrapper" style="left: ${leftStyle}; top: ${topStyle}">
@@ -179,8 +198,9 @@ export class Hotspot extends UIBitElement {
                 @mouseleave=${() => this.handleTriggerMouseLeave()}
               >${isOpened ? getIcon('x', 14, fromLucide(X)) : getIcon('plus', 14, fromLucide(Plus))}</button>
 
-              ${isOpened
-                ? html`
+              ${
+                isOpened
+                  ? html`
                     <div
                       id="popover-${spotId}"
                       part="popover"
@@ -208,7 +228,8 @@ export class Hotspot extends UIBitElement {
                       >${getIcon('x', 14, fromLucide(X))}</button>
                     </div>
                   `
-                : ''}
+                  : ''
+              }
             </div>
           `;
         })}

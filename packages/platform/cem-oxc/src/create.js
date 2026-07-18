@@ -12,7 +12,7 @@ export function create({ files = [], plugins = [], context = {} }) {
   const dev = context.dev || false;
 
   // 1. Initialize Plugins
-  plugins.forEach(plugin => {
+  plugins.forEach((plugin) => {
     if (plugin.initialize) {
       try {
         plugin.initialize({ ts: null, customElementsManifest, context });
@@ -23,7 +23,7 @@ export function create({ files = [], plugins = [], context = {} }) {
   });
 
   // 2. Parse all files using Rust core
-  files.forEach(filePath => {
+  files.forEach((filePath) => {
     const relativePath = relative(process.cwd(), filePath);
     if (dev) {
       console.log(`[cem-oxc] Parsing ${relativePath}`);
@@ -41,15 +41,18 @@ export function create({ files = [], plugins = [], context = {} }) {
       };
 
       // Auto-populate exports for exported custom elements/classes
-      declarations.forEach(decl => {
+      declarations.forEach((decl) => {
         if (decl.name) {
           moduleDoc.exports.push({
             kind: 'js',
             name: decl.name,
             declaration: {
               name: decl.name,
-              module: relativePath.startsWith('.') || relativePath.startsWith('/') ? relativePath : `./${relativePath}`
-            }
+              module:
+                relativePath.startsWith('.') || relativePath.startsWith('/')
+                  ? relativePath
+                  : `./${relativePath}`,
+            },
           });
         }
       });
@@ -61,25 +64,27 @@ export function create({ files = [], plugins = [], context = {} }) {
   });
 
   // 3. Module Link Phase
-  customElementsManifest.modules.forEach(moduleDoc => {
-    plugins.forEach(plugin => {
+  customElementsManifest.modules.forEach((moduleDoc) => {
+    plugins.forEach((plugin) => {
       if (plugin.moduleLinkPhase) {
         try {
           plugin.moduleLinkPhase({ ts: null, moduleDoc, context });
         } catch (e) {
-          if (dev) console.error(`Error in plugin ${plugin.name} moduleLinkPhase:`, e);
+          if (dev)
+            console.error(`Error in plugin ${plugin.name} moduleLinkPhase:`, e);
         }
       }
     });
   });
 
   // 4. Package Link Phase
-  plugins.forEach(plugin => {
+  plugins.forEach((plugin) => {
     if (plugin.packageLinkPhase) {
       try {
         plugin.packageLinkPhase({ customElementsManifest, context });
       } catch (e) {
-        if (dev) console.error(`Error in plugin ${plugin.name} packageLinkPhase:`, e);
+        if (dev)
+          console.error(`Error in plugin ${plugin.name} packageLinkPhase:`, e);
       }
     }
   });

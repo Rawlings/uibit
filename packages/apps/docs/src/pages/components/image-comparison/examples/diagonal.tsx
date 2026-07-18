@@ -1,9 +1,16 @@
 import '@uibit/image-comparison';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function DiagonalDemo() {
   return (
-    <div style={{ width: '100%', height: '350px', maxWidth: '600px', margin: '0 auto' }}>
+    <div
+      style={{
+        width: '100%',
+        height: '350px',
+        maxWidth: '600px',
+        margin: '0 auto',
+      }}
+    >
       <uibit-image-comparison mode="diagonal" progress={45}>
         <img
           slot="before"
@@ -24,7 +31,8 @@ function DiagonalDemo() {
 
 const example: UsageExample = {
   title: 'Diagonal Peel',
-  description: 'Slopes the reveal cut line diagonally, sliding it from top-left to bottom-right.',
+  description:
+    'Slopes the reveal cut line diagonally, sliding it from top-left to bottom-right.',
   Demo: DiagonalDemo,
 };
 

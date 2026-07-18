@@ -11,11 +11,14 @@ export class InteractionController implements ReactiveController {
    */
   host: ReactiveControllerHost & HTMLElement;
   private _internals: ElementInternals;
-  
+
   private _touched = false;
   private _dirty = false;
-  
-  constructor(host: ReactiveControllerHost & HTMLElement, internals: ElementInternals) {
+
+  constructor(
+    host: ReactiveControllerHost & HTMLElement,
+    internals: ElementInternals,
+  ) {
     this.host = host;
     this._internals = internals;
     this.host.addController(this);
@@ -30,7 +33,9 @@ export class InteractionController implements ReactiveController {
   hostDisconnected() {
     this.host.removeEventListener('blur', this.handleBlur, { capture: true });
     this.host.removeEventListener('input', this.handleInput, { capture: true });
-    this.host.removeEventListener('change', this.handleChange, { capture: true });
+    this.host.removeEventListener('change', this.handleChange, {
+      capture: true,
+    });
   }
 
   /**
@@ -101,7 +106,7 @@ export class InteractionController implements ReactiveController {
    */
   updateUserValidity() {
     if (!this._internals.states) return;
-    
+
     if (this._touched || this._dirty) {
       const isValid = this._internals.checkValidity();
       if (isValid) {

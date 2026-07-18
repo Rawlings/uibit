@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import '@uibit/scratch-reveal';
 import manifest from '@uibit/scratch-reveal/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import discountCard from './examples/discount-card';
 import discountCardRaw from './examples/discount-card?raw';
 import darkOverlay from './examples/dark-overlay';
@@ -18,20 +18,25 @@ function ScratchRevealDemo() {
 
   return (
     <div className="flex flex-col items-start gap-4">
-      <uibit-scratch-reveal
-        ref={elementRef}
-      >
+      <uibit-scratch-reveal ref={elementRef}>
         <div className="flex flex-col items-center justify-center gap-2 text-center px-4">
           <span className="text-3xl">🎉</span>
-          <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">You've won</p>
-          <p className="text-2xl font-bold text-gray-900 tracking-tight">30% OFF</p>
+          <p className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
+            You've won
+          </p>
+          <p className="text-2xl font-bold text-gray-900 tracking-tight">
+            30% OFF
+          </p>
           <p className="text-sm text-gray-500">
-            Use code <span className="font-mono font-bold text-gray-800">LUCKY30</span> at checkout
+            Use code{' '}
+            <span className="font-mono font-bold text-gray-800">LUCKY30</span>{' '}
+            at checkout
           </p>
         </div>
       </uibit-scratch-reveal>
 
       <button
+        type="button"
         onClick={handleReset}
         className="px-4 py-2 bg-gray-950 text-white rounded text-sm font-medium hover:bg-gray-800 transition-colors"
       >
@@ -92,7 +97,7 @@ function ScratchRevealDemo() {
     'Customizable brush size and cover configuration',
     'Completion percentage threshold events',
     'Responsive canvas resizing',
-    'Custom scratch cursor styling support'
+    'Custom scratch cursor styling support',
   ],
   a11y: {
     wcagLevel: 'AA',

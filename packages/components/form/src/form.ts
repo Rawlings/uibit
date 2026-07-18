@@ -20,7 +20,6 @@ import { styles } from './styles';
 export class Form extends UIBitElement {
   static styles = styles;
 
-
   /** Opt-in warning prompt if the user tries to leave the page with unsaved changes. */
   @property({ type: Boolean, attribute: 'warn-unsaved' }) warnUnsaved = false;
 
@@ -28,7 +27,8 @@ export class Form extends UIBitElement {
   @property({ type: Number, reflect: true }) step = 1;
 
   /** The total number of steps/fieldsets detected in the form. */
-  @property({ type: Number, reflect: true, attribute: 'steps-count' }) stepsCount = 0;
+  @property({ type: Number, reflect: true, attribute: 'steps-count' })
+  stepsCount = 0;
 
   @state() private _stepTitles: string[] = [];
   @state() private _maxVisitedStep = 1;
@@ -37,7 +37,11 @@ export class Form extends UIBitElement {
   @property({ type: Boolean, reflect: true }) dirty = false;
 
   /** Submission state: 'idle', 'pending', 'success', or 'error'. */
-  @property({ type: String, reflect: true }) status: 'idle' | 'pending' | 'success' | 'error' = 'idle';
+  @property({ type: String, reflect: true }) status:
+    | 'idle'
+    | 'pending'
+    | 'success'
+    | 'error' = 'idle';
 
   private _slottedFormEl: HTMLFormElement | null = null;
   private _initialValues = new Map<Element, any>();
@@ -46,7 +50,11 @@ export class Form extends UIBitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.listen(window, 'beforeunload' as any, this._onBeforeUnload.bind(this) as any);
+    this.listen(
+      window,
+      'beforeunload' as any,
+      this._onBeforeUnload.bind(this) as any,
+    );
     this.listen(this, 'input', this._onFormInput.bind(this));
     this.listen(this, 'change', this._onFormInput.bind(this));
     this.listen(this, 'click', this._onFormClick.bind(this));
@@ -91,8 +99,16 @@ export class Form extends UIBitElement {
       this._slottedFormEl = form;
       if (this._slottedFormEl) {
         // Intercept submit and reset on the slotted form element
-        const submitCleanup = this.listen(this._slottedFormEl, 'submit', this._onSubmit.bind(this));
-        const resetCleanup = this.listen(this._slottedFormEl, 'reset', this.reset.bind(this));
+        const submitCleanup = this.listen(
+          this._slottedFormEl,
+          'submit',
+          this._onSubmit.bind(this),
+        );
+        const resetCleanup = this.listen(
+          this._slottedFormEl,
+          'reset',
+          this.reset.bind(this),
+        );
         this._formListenersCleanups.push(submitCleanup, resetCleanup);
       }
     }
@@ -132,16 +148,18 @@ export class Form extends UIBitElement {
     });
   }
 
-  private _getFormElements(): Array<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement> {
+  private _getFormElements(): Array<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  > {
     if (!this._slottedFormEl) return [];
     return Array.from(
-      this._slottedFormEl.querySelectorAll('input, select, textarea')
+      this._slottedFormEl.querySelectorAll('input, select, textarea'),
     ) as Array<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
   }
 
   private _captureInitialValues() {
     const elements = this._getFormElements();
-    
+
     for (const key of this._initialValues.keys()) {
       if (!elements.includes(key as any)) {
         this._initialValues.delete(key);
@@ -155,7 +173,9 @@ export class Form extends UIBitElement {
     }
   }
 
-  private _getElementValue(el: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement): any {
+  private _getElementValue(
+    el: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement,
+  ): any {
     if (el instanceof HTMLInputElement) {
       if (el.type === 'checkbox') {
         return el.checked;
@@ -167,7 +187,7 @@ export class Form extends UIBitElement {
     }
     if (el instanceof HTMLSelectElement) {
       if (el.multiple) {
-        return Array.from(el.selectedOptions).map(opt => opt.value);
+        return Array.from(el.selectedOptions).map((opt) => opt.value);
       }
       return el.value;
     }
@@ -211,7 +231,9 @@ export class Form extends UIBitElement {
   private _onBeforeUnload(e: BeforeUnloadEvent) {
     if (this.warnUnsaved && this.dirty) {
       e.preventDefault();
-      e.returnValue = msg('You have unsaved changes. Are you sure you want to leave?');
+      e.returnValue = msg(
+        'You have unsaved changes. Are you sure you want to leave?',
+      );
       return e.returnValue;
     }
   }
@@ -225,11 +247,16 @@ export class Form extends UIBitElement {
 
   nextStep() {
     if (this.step < this.stepsCount && this._slottedFormEl) {
-      const currentFieldset = this._slottedFormEl.querySelectorAll('fieldset')[this.step - 1];
+      const currentFieldset =
+        this._slottedFormEl.querySelectorAll('fieldset')[this.step - 1];
       if (currentFieldset) {
-        const inputs = currentFieldset.querySelectorAll('input, select, textarea');
+        const inputs = currentFieldset.querySelectorAll(
+          'input, select, textarea',
+        );
         let allValid = true;
-        for (const input of Array.from(inputs) as Array<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+        for (const input of Array.from(inputs) as Array<
+          HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+        >) {
           if (!input.checkValidity()) {
             input.reportValidity();
             allValid = false;
@@ -257,15 +284,22 @@ export class Form extends UIBitElement {
   }
 
   goToStep(stepNum: number) {
-    if (stepNum >= 1 && stepNum <= this.stepsCount && stepNum <= this._maxVisitedStep) {
+    if (
+      stepNum >= 1 &&
+      stepNum <= this.stepsCount &&
+      stepNum <= this._maxVisitedStep
+    ) {
       // Validate current step if trying to skip forward
       if (stepNum > this.step && this._slottedFormEl) {
         for (let i = this.step; i < stepNum; i++) {
-          const fieldset = this._slottedFormEl.querySelectorAll('fieldset')[i - 1];
+          const fieldset =
+            this._slottedFormEl.querySelectorAll('fieldset')[i - 1];
           if (fieldset) {
             const inputs = fieldset.querySelectorAll('input, select, textarea');
             let allValid = true;
-            for (const input of Array.from(inputs) as Array<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
+            for (const input of Array.from(inputs) as Array<
+              HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+            >) {
               if (!input.checkValidity()) {
                 input.reportValidity();
                 allValid = false;
@@ -296,7 +330,6 @@ export class Form extends UIBitElement {
 
 
    */
-
 
   reset() {
     if (this._isResetting) return;
@@ -386,7 +419,8 @@ export class Form extends UIBitElement {
     const path = e.composedPath();
 
     const nextBtn = path.find(
-      (el) => el instanceof HTMLElement && el.hasAttribute('data-uibit-form-next')
+      (el) =>
+        el instanceof HTMLElement && el.hasAttribute('data-uibit-form-next'),
     );
     if (nextBtn) {
       e.preventDefault();
@@ -395,7 +429,8 @@ export class Form extends UIBitElement {
     }
 
     const prevBtn = path.find(
-      (el) => el instanceof HTMLElement && el.hasAttribute('data-uibit-form-prev')
+      (el) =>
+        el instanceof HTMLElement && el.hasAttribute('data-uibit-form-prev'),
     );
     if (prevBtn) {
       e.preventDefault();
@@ -412,8 +447,9 @@ export class Form extends UIBitElement {
 
   render() {
     return html`
-      ${this.stepsCount > 1
-        ? html`
+      ${
+        this.stepsCount > 1
+          ? html`
             <div class="wizard-header" part="wizard-header">
               <div class="wizard-meta" part="wizard-meta">
                 <slot name="wizard-info">
@@ -455,7 +491,8 @@ export class Form extends UIBitElement {
               </slot>
             </div>
           `
-        : nothing}
+          : nothing
+      }
 
       <div class="state-content" data-state="pending">
         <slot name="loading"></slot>
@@ -465,13 +502,15 @@ export class Form extends UIBitElement {
         <slot name="success"></slot>
       </div>
 
-      ${this.status === 'error'
-        ? html`
+      ${
+        this.status === 'error'
+          ? html`
             <div class="error-banner" role="alert">
               <slot name="error"></slot>
             </div>
           `
-        : nothing}
+          : nothing
+      }
 
       <slot @slotchange="${this._onSlotChange}"></slot>
     `;

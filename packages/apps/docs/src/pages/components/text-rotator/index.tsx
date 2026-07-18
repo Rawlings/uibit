@@ -1,6 +1,6 @@
 import '@uibit/text-rotator';
 import manifest from '@uibit/text-rotator/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import slideTransition from './examples/slide-transition';
 import slideTransitionRaw from './examples/slide-transition?raw';
 import flipTransition from './examples/flip-transition';
@@ -10,8 +10,7 @@ function TextRotatorDemo() {
   return (
     <h2 className="text-3xl font-semibold text-gray-900 tracking-tight">
       <uibit-text-rotator interval={2000} transition="slide">
-        Build websites{' '}
-        <span slot="text">faster</span>
+        Build websites <span slot="text">faster</span>
         <span slot="text">better</span>
         <span slot="text">smarter</span>
         <span slot="text">together</span>

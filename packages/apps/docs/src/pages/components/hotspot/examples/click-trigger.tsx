@@ -1,5 +1,5 @@
 import '@uibit/hotspot';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function ClickTriggerDemo() {
   const hotspots = [

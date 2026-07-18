@@ -11,7 +11,9 @@ class TestInput extends FormAssociatedMixin(LitElement) {
         .step=${this.step}
         ?required=${this.required}
         .readOnly=${this.readOnly}
-        @input=${(e: Event) => { this.value = (e.target as HTMLInputElement).value; }}
+        @input=${(e: Event) => {
+          this.value = (e.target as HTMLInputElement).value;
+        }}
       />
     `;
   }
@@ -28,7 +30,9 @@ class TestCheckbox extends FormAssociatedMixin(LitElement) {
         type="checkbox"
         .checked=${this.checked}
         .indeterminate=${this.indeterminate}
-        @change=${(e: Event) => { this.checked = (e.target as HTMLInputElement).checked; }}
+        @change=${(e: Event) => {
+          this.checked = (e.target as HTMLInputElement).checked;
+        }}
       />
     `;
   }
@@ -37,7 +41,9 @@ class TestCheckbox extends FormAssociatedMixin(LitElement) {
 class TestSelect extends FormAssociatedMixin(LitElement) {
   render() {
     return html`
-      <select @change=${(e: Event) => { this.value = (e.target as HTMLSelectElement).value; }}>
+      <select @change=${(e: Event) => {
+        this.value = (e.target as HTMLSelectElement).value;
+      }}>
         <option value="">Select...</option>
         <option value="1">One</option>
         <option value="2">Two</option>
@@ -53,7 +59,9 @@ class TestTextarea extends FormAssociatedMixin(LitElement) {
         .value=${this.value as string}
         ?required=${this.required}
         .readOnly=${this.readOnly}
-        @input=${(e: Event) => { this.value = (e.target as HTMLTextAreaElement).value; }}
+        @input=${(e: Event) => {
+          this.value = (e.target as HTMLTextAreaElement).value;
+        }}
       ></textarea>
     `;
   }
@@ -69,7 +77,9 @@ class TestFile extends FormAssociatedMixin(LitElement) {
       <input 
         type="file"
         ?required=${this.required}
-        @change=${(e: Event) => { this.files = (e.target as HTMLInputElement).files; }}
+        @change=${(e: Event) => {
+          this.files = (e.target as HTMLInputElement).files;
+        }}
       />
     `;
   }
@@ -89,7 +99,10 @@ const waitUpdate = async (el: any) => {
 
 describe.each([
   { name: 'Native Input', create: () => document.createElement('input') },
-  { name: 'Custom Input', create: () => document.createElement('parity-test-input') as TestInput }
+  {
+    name: 'Custom Input',
+    create: () => document.createElement('parity-test-input') as TestInput,
+  },
 ])('Form Control Parity: $name', ({ create }) => {
   let container: HTMLDivElement;
   let element: any;
@@ -123,7 +136,7 @@ describe.each([
     element.setAttribute('disabled', '');
     element.setAttribute('required', '');
     element.setAttribute('readonly', '');
-    
+
     await waitUpdate(element);
 
     expect(element.value).toBe('attr-value');
@@ -156,7 +169,7 @@ describe.each([
 
     // Programmatic assignment bypasses length constraints natively
     expect(element.validity.tooShort).toBe(false);
-    
+
     element.value = 'abcdef';
     await waitUpdate(element);
     expect(element.validity.tooLong).toBe(false);
@@ -304,12 +317,19 @@ describe.each([
 });
 
 describe.each([
-  { name: 'Native Checkbox', create: () => {
-    const el = document.createElement('input');
-    el.type = 'checkbox';
-    return el;
-  }},
-  { name: 'Custom Checkbox', create: () => document.createElement('parity-test-checkbox') as TestCheckbox }
+  {
+    name: 'Native Checkbox',
+    create: () => {
+      const el = document.createElement('input');
+      el.type = 'checkbox';
+      return el;
+    },
+  },
+  {
+    name: 'Custom Checkbox',
+    create: () =>
+      document.createElement('parity-test-checkbox') as TestCheckbox,
+  },
 ])('Checkbox Parity: $name', ({ create }) => {
   let container: HTMLDivElement;
   let element: any;
@@ -338,16 +358,22 @@ describe.each([
 });
 
 describe.each([
-  { name: 'Native Radio', create: () => {
-    const el = document.createElement('input');
-    el.type = 'radio';
-    return el;
-  }},
-  { name: 'Custom Radio', create: () => {
-    const el = document.createElement('parity-test-input') as TestInput;
-    el.type = 'radio';
-    return el;
-  }}
+  {
+    name: 'Native Radio',
+    create: () => {
+      const el = document.createElement('input');
+      el.type = 'radio';
+      return el;
+    },
+  },
+  {
+    name: 'Custom Radio',
+    create: () => {
+      const el = document.createElement('parity-test-input') as TestInput;
+      el.type = 'radio';
+      return el;
+    },
+  },
 ])('Radio Parity: $name', ({ create }) => {
   let container: HTMLDivElement;
   let element: any;
@@ -375,19 +401,25 @@ describe.each([
 });
 
 describe.each([
-  { name: 'Native Select', create: () => {
-    const el = document.createElement('select');
-    const opt1 = document.createElement('option');
-    opt1.value = '';
-    opt1.textContent = 'Select...';
-    const opt2 = document.createElement('option');
-    opt2.value = '1';
-    opt2.textContent = 'One';
-    el.appendChild(opt1);
-    el.appendChild(opt2);
-    return el;
-  }},
-  { name: 'Custom Select', create: () => document.createElement('parity-test-select') as TestSelect }
+  {
+    name: 'Native Select',
+    create: () => {
+      const el = document.createElement('select');
+      const opt1 = document.createElement('option');
+      opt1.value = '';
+      opt1.textContent = 'Select...';
+      const opt2 = document.createElement('option');
+      opt2.value = '1';
+      opt2.textContent = 'One';
+      el.appendChild(opt1);
+      el.appendChild(opt2);
+      return el;
+    },
+  },
+  {
+    name: 'Custom Select',
+    create: () => document.createElement('parity-test-select') as TestSelect,
+  },
 ])('Select Parity: $name', ({ create }) => {
   let container: HTMLDivElement;
   let element: any;
@@ -420,7 +452,11 @@ describe.each([
 
 describe.each([
   { name: 'Native Textarea', create: () => document.createElement('textarea') },
-  { name: 'Custom Textarea', create: () => document.createElement('parity-test-textarea') as TestTextarea }
+  {
+    name: 'Custom Textarea',
+    create: () =>
+      document.createElement('parity-test-textarea') as TestTextarea,
+  },
 ])('Textarea Parity: $name', ({ create }) => {
   let container: HTMLDivElement;
   let element: any;
@@ -452,12 +488,18 @@ describe.each([
 });
 
 describe.each([
-  { name: 'Native File Input', create: () => {
-    const el = document.createElement('input');
-    el.type = 'file';
-    return el;
-  }},
-  { name: 'Custom File Input', create: () => document.createElement('parity-test-file') as TestFile }
+  {
+    name: 'Native File Input',
+    create: () => {
+      const el = document.createElement('input');
+      el.type = 'file';
+      return el;
+    },
+  },
+  {
+    name: 'Custom File Input',
+    create: () => document.createElement('parity-test-file') as TestFile,
+  },
 ])('File Input Parity: $name', ({ create }) => {
   let container: HTMLDivElement;
   let element: any;

@@ -1,5 +1,5 @@
 import '@uibit/number-increment';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function StatsGridDemo() {
   return (
@@ -39,7 +39,8 @@ function StatsGridDemo() {
             value={4200}
             duration={1500}
             locale="en-US"
-          ></uibit-number-increment>+
+          ></uibit-number-increment>
+          +
         </div>
         <div className="text-sm text-gray-500">Active users</div>
       </div>
@@ -49,7 +50,8 @@ function StatsGridDemo() {
 
 const statsGrid: UsageExample = {
   title: 'Stats grid',
-  description: 'A three-column stat card layout. Each ticker starts when the section scrolls into view.',
+  description:
+    'A three-column stat card layout. Each ticker starts when the section scrolls into view.',
   Demo: StatsGridDemo,
 };
 

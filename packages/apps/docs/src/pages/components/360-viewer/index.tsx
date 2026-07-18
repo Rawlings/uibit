@@ -1,13 +1,15 @@
 import '@uibit/360-viewer';
 import manifest from '@uibit/360-viewer/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import autoRotateExample from './examples/auto-rotate';
 import autoRotateRaw from './examples/auto-rotate?raw';
 import manualExample from './examples/manual';
 import manualRaw from './examples/manual?raw';
 
-const CAR_FRAMES = Array.from({ length: 73 }, (_, i) =>
-  `https://scaleflex.cloudimg.io/v7/demo/suv-orange-car-360/orange-${i + 1}.jpg`
+const CAR_FRAMES = Array.from(
+  { length: 73 },
+  (_, i) =>
+    `https://scaleflex.cloudimg.io/v7/demo/suv-orange-car-360/orange-${i + 1}.jpg`,
 );
 
 function Viewer360Demo() {
@@ -66,8 +68,14 @@ function ProductView() {
       'Auto-rotation pauses when focus enters the component and resumes on blur, preventing disorienting movement during keyboard navigation.',
     ],
     keyboardNav: [
-      { key: 'ArrowLeft', description: 'Rotate the model counter-clockwise by one frame.' },
-      { key: 'ArrowRight', description: 'Rotate the model clockwise by one frame.' },
+      {
+        key: 'ArrowLeft',
+        description: 'Rotate the model counter-clockwise by one frame.',
+      },
+      {
+        key: 'ArrowRight',
+        description: 'Rotate the model clockwise by one frame.',
+      },
     ],
   },
   features: [

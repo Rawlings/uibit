@@ -1,6 +1,6 @@
 import '@uibit/video';
 import manifest from '@uibit/video/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import youtube from './examples/youtube';
 import youtubeRaw from './examples/youtube?raw';
 import vimeo from './examples/vimeo';
@@ -8,13 +8,12 @@ import vimeoRaw from './examples/vimeo?raw';
 
 function VideoDemo() {
   return (
-    <uibit-video 
-      className="block w-full max-w-2xl border border-gray-200 dark:border-gray-800"
-    >
-      <video 
-        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" 
-        poster="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg" 
-        loop 
+    <uibit-video className="block w-full max-w-2xl border border-gray-200 dark:border-gray-800">
+      <video
+        muted
+        src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"
+        poster="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+        loop
         playsInline
       ></video>
     </uibit-video>
@@ -54,7 +53,7 @@ function VideoDemo() {
       ></video>
     </uibit-video>
   );
-}`
+}`,
   },
   examples: processedExamples,
   features: [
@@ -77,8 +76,14 @@ function VideoDemo() {
       { key: 'Space / K', description: 'Toggle play and pause' },
       { key: 'M', description: 'Toggle audio mute' },
       { key: 'F', description: 'Toggle fullscreen mode' },
-      { key: 'ArrowLeft / ArrowRight', description: 'Seek backward / forward by 5 seconds' },
-      { key: 'ArrowUp / ArrowDown', description: 'Increase / decrease playback volume' },
+      {
+        key: 'ArrowLeft / ArrowRight',
+        description: 'Seek backward / forward by 5 seconds',
+      },
+      {
+        key: 'ArrowUp / ArrowDown',
+        description: 'Increase / decrease playback volume',
+      },
     ],
   },
 };

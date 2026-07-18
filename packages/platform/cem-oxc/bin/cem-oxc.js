@@ -24,10 +24,14 @@ async function main() {
     try {
       const module = await import(configPath);
       const userConfig = module.default || {};
-      if (userConfig.plugins && Array.isArray(userConfig.plugins) && userConfig.plugins.length > 0) {
+      if (
+        userConfig.plugins &&
+        Array.isArray(userConfig.plugins) &&
+        userConfig.plugins.length > 0
+      ) {
         hasJsPlugins = true;
       }
-    } catch (e) {}
+    } catch (_e) {}
   }
 
   if (!hasJsPlugins) {
@@ -36,7 +40,7 @@ async function main() {
       try {
         execFileSync(binPath, argv, { stdio: 'inherit', cwd });
         return;
-      } catch (e) {
+      } catch (_e) {
         // Fallback to JS wrapper if executing native binary fails
       }
     }

@@ -11,7 +11,9 @@ class TestInput extends FormAssociatedMixin(LitElement) {
         .type=${this.type}
         .step=${this.step}
         ?required=${this.required}
-        @input=${(e: Event) => { this.value = (e.target as HTMLInputElement).value; }}
+        @input=${(e: Event) => {
+          this.value = (e.target as HTMLInputElement).value;
+        }}
       />
     `;
   }
@@ -28,7 +30,9 @@ class TestCheckbox extends FormAssociatedMixin(LitElement) {
         type="checkbox"
         .checked=${this.checked}
         .indeterminate=${this.indeterminate}
-        @change=${(e: Event) => { this.checked = (e.target as HTMLInputElement).checked; }}
+        @change=${(e: Event) => {
+          this.checked = (e.target as HTMLInputElement).checked;
+        }}
       />
     `;
   }
@@ -37,7 +41,9 @@ class TestCheckbox extends FormAssociatedMixin(LitElement) {
 class TestSelect extends FormAssociatedMixin(LitElement) {
   render() {
     return html`
-      <select @change=${(e: Event) => { this.value = (e.target as HTMLSelectElement).value; }}>
+      <select @change=${(e: Event) => {
+        this.value = (e.target as HTMLSelectElement).value;
+      }}>
         <option value="1">One</option>
         <option value="2">Two</option>
       </select>
@@ -52,9 +58,11 @@ class TestCustomAnchor extends FormAssociatedMixin(LitElement) {
       <input id="second" />
     `;
   }
-  
+
   get validationAnchor() {
-    return this.shadowRoot?.querySelector('#second') as HTMLElement || undefined;
+    return (
+      (this.shadowRoot?.querySelector('#second') as HTMLElement) || undefined
+    );
   }
 }
 
@@ -111,7 +119,7 @@ describe('FormAssociatedMixin', () => {
     button.click();
 
     expect(submittedData).not.toBeNull();
-    expect(submittedData!.get('my-input')).toBe('hello-button');
+    expect(submittedData?.get('my-input')).toBe('hello-button');
   });
 
   it('should enable delegatesFocus natively on shadowRootOptions', () => {
@@ -156,7 +164,9 @@ describe('FormAssociatedMixin', () => {
     expect(internals.states.has('user-invalid')).toBe(false);
 
     // Simulate input/change (dirty)
-    element.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    element.dispatchEvent(
+      new Event('input', { bubbles: true, composed: true }),
+    );
     expect(internals.states.has('dirty')).toBe(true);
     // Since value is empty and required, it should be user-invalid once dirty
     expect(internals.states.has('user-invalid')).toBe(true);
@@ -209,11 +219,11 @@ describe('FormAssociatedMixin', () => {
     const file = new File(['hello'], 'hello.txt', { type: 'text/plain' });
     element.value = file;
     await element.updateComplete;
-    
+
     const form = container.querySelector('form') as HTMLFormElement;
     const formData = new FormData(form);
     expect(formData.get('my-file')).toBe(file);
-    
+
     // Check files getter (should contain the file)
     expect(element.files).not.toBeNull();
     expect(element.files?.length).toBe(1);
@@ -235,7 +245,7 @@ describe('FormAssociatedMixin', () => {
 
     element.value = formData;
     await element.updateComplete;
-    
+
     const form = container.querySelector('form') as HTMLFormElement;
     const parentFormData = new FormData(form);
     expect(parentFormData.get('key1')).toBe('val1');
@@ -335,7 +345,9 @@ describe('FormAssociatedMixin', () => {
 
     // Try blur and input on disabled element
     element.dispatchEvent(new Event('blur', { bubbles: true, composed: true }));
-    element.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    element.dispatchEvent(
+      new Event('input', { bubbles: true, composed: true }),
+    );
 
     expect(internals.states.has('touched')).toBe(false);
     expect(internals.states.has('dirty')).toBe(false);
@@ -345,7 +357,9 @@ describe('FormAssociatedMixin', () => {
     element.setAttribute('readonly', '');
     await element.updateComplete;
 
-    element.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+    element.dispatchEvent(
+      new Event('input', { bubbles: true, composed: true }),
+    );
     expect(internals.states.has('dirty')).toBe(false);
   });
 
@@ -389,17 +403,29 @@ describe('FormAssociatedMixin', () => {
       </form>
     `;
     const form = container.querySelector('#reset-form') as HTMLFormElement;
-    const input = container.querySelector('test-input[name="user-name"]') as TestInput;
+    const input = container.querySelector(
+      'test-input[name="user-name"]',
+    ) as TestInput;
     const checkbox = container.querySelector('test-checkbox') as TestCheckbox;
-    const fileInput = container.querySelector('test-input[name="user-file"]') as TestInput;
-    await Promise.all([input.updateComplete, checkbox.updateComplete, fileInput.updateComplete]);
+    const fileInput = container.querySelector(
+      'test-input[name="user-file"]',
+    ) as TestInput;
+    await Promise.all([
+      input.updateComplete,
+      checkbox.updateComplete,
+      fileInput.updateComplete,
+    ]);
 
     // Modify values
     input.value = 'New Name';
     checkbox.checked = false;
     const file = new File(['text'], 'text.txt');
     fileInput.value = file;
-    await Promise.all([input.updateComplete, checkbox.updateComplete, fileInput.updateComplete]);
+    await Promise.all([
+      input.updateComplete,
+      checkbox.updateComplete,
+      fileInput.updateComplete,
+    ]);
 
     expect(input.value).toBe('New Name');
     expect(checkbox.checked).toBe(false);
@@ -415,104 +441,114 @@ describe('FormAssociatedMixin', () => {
   });
 
   describe('Shadow DOM Event Composed Propagation', () => {
-      let custom: TestInput;
-      let customSelect: TestSelect;
-  
-      beforeEach(async () => {
-        custom = document.createElement('test-input') as TestInput;
-        customSelect = document.createElement('test-select') as TestSelect;
-        container.appendChild(custom);
-        container.appendChild(customSelect);
-        await Promise.all([custom.updateComplete, customSelect.updateComplete]);
-      });
-  
-      it('should bubble change event outside the shadow root for select inputs', async () => {
-        let changeFired = false;
-        customSelect.addEventListener('change', () => {
-          changeFired = true;
-        });
-  
-        const innerSelect = customSelect.shadowRoot?.querySelector('select') as HTMLSelectElement;
-        innerSelect.value = '2';
-        innerSelect.dispatchEvent(new Event('change', { bubbles: true }));
-        expect(changeFired).toBe(true);
-      });
-  
-      it('should bubble select event outside the shadow root for text inputs', async () => {
-        let selectFired = false;
-        custom.addEventListener('select', () => {
-          selectFired = true;
-        });
-  
-        const innerInput = custom.shadowRoot?.querySelector('input') as HTMLInputElement;
-        innerInput.dispatchEvent(new Event('select', { bubbles: true }));
-        expect(selectFired).toBe(true);
-      });
-  
-      it('should bubble search event outside the shadow root for search inputs', async () => {
-        custom.type = 'search';
-        await custom.updateComplete;
-  
-        let searchFired = false;
-        custom.addEventListener('search', () => {
-          searchFired = true;
-        });
-  
-        const innerInput = custom.shadowRoot?.querySelector('input') as HTMLInputElement;
-        innerInput.dispatchEvent(new Event('search', { bubbles: true }));
-        expect(searchFired).toBe(true);
-      });
+    let custom: TestInput;
+    let customSelect: TestSelect;
+
+    beforeEach(async () => {
+      custom = document.createElement('test-input') as TestInput;
+      customSelect = document.createElement('test-select') as TestSelect;
+      container.appendChild(custom);
+      container.appendChild(customSelect);
+      await Promise.all([custom.updateComplete, customSelect.updateComplete]);
     });
-  
-    describe('Validation Anchor & Custom Error Internals', () => {
-      it('should support custom validationAnchor overrides', async () => {
-        const customAnchorEl = document.createElement('test-custom-anchor') as any;
-        container.appendChild(customAnchorEl);
-        await customAnchorEl.updateComplete;
-  
-        const secondInput = customAnchorEl.shadowRoot?.querySelector('#second') as HTMLElement;
-        expect(customAnchorEl.validationAnchor).toBe(secondInput);
-        expect(customAnchorEl['_defaultValidationAnchor']).toBe(secondInput);
+
+    it('should bubble change event outside the shadow root for select inputs', async () => {
+      let changeFired = false;
+      customSelect.addEventListener('change', () => {
+        changeFired = true;
       });
-  
-      it('should support custom validation messages via setCustomValidity', async () => {
-        const custom = document.createElement('test-input') as TestInput;
-        container.appendChild(custom);
-        await custom.updateComplete;
-  
-        expect(custom.validity.valid).toBe(true);
-        expect(custom.validity.customError).toBe(false);
-  
-        custom.setCustomValidity('This is a custom error message.');
-        expect(custom.validity.valid).toBe(false);
-        expect(custom.validity.customError).toBe(true);
-        expect(custom.validationMessage).toBe('This is a custom error message.');
-  
-        custom.setCustomValidity('');
-        expect(custom.validity.valid).toBe(true);
-        expect(custom.validity.customError).toBe(false);
-        expect(custom.validationMessage).toBe('');
-      });
-  
-      it('should dispatch invalid event natively when checkValidity or reportValidity fails', async () => {
-        const custom = document.createElement('test-input') as TestInput;
-        custom.required = true;
-        custom.value = '';
-        container.appendChild(custom);
-        await custom.updateComplete;
-  
-        let invalidFiredCount = 0;
-        custom.addEventListener('invalid', () => {
-          invalidFiredCount++;
-        });
-  
-        const checkResult = custom.checkValidity();
-        expect(checkResult).toBe(false);
-        expect(invalidFiredCount).toBe(1);
-  
-        const reportResult = custom.reportValidity();
-        expect(reportResult).toBe(false);
-        expect(invalidFiredCount).toBe(2);
-      });
+
+      const innerSelect = customSelect.shadowRoot?.querySelector(
+        'select',
+      ) as HTMLSelectElement;
+      innerSelect.value = '2';
+      innerSelect.dispatchEvent(new Event('change', { bubbles: true }));
+      expect(changeFired).toBe(true);
     });
+
+    it('should bubble select event outside the shadow root for text inputs', async () => {
+      let selectFired = false;
+      custom.addEventListener('select', () => {
+        selectFired = true;
+      });
+
+      const innerInput = custom.shadowRoot?.querySelector(
+        'input',
+      ) as HTMLInputElement;
+      innerInput.dispatchEvent(new Event('select', { bubbles: true }));
+      expect(selectFired).toBe(true);
+    });
+
+    it('should bubble search event outside the shadow root for search inputs', async () => {
+      custom.type = 'search';
+      await custom.updateComplete;
+
+      let searchFired = false;
+      custom.addEventListener('search', () => {
+        searchFired = true;
+      });
+
+      const innerInput = custom.shadowRoot?.querySelector(
+        'input',
+      ) as HTMLInputElement;
+      innerInput.dispatchEvent(new Event('search', { bubbles: true }));
+      expect(searchFired).toBe(true);
+    });
+  });
+
+  describe('Validation Anchor & Custom Error Internals', () => {
+    it('should support custom validationAnchor overrides', async () => {
+      const customAnchorEl = document.createElement(
+        'test-custom-anchor',
+      ) as any;
+      container.appendChild(customAnchorEl);
+      await customAnchorEl.updateComplete;
+
+      const secondInput = customAnchorEl.shadowRoot?.querySelector(
+        '#second',
+      ) as HTMLElement;
+      expect(customAnchorEl.validationAnchor).toBe(secondInput);
+      expect(customAnchorEl._defaultValidationAnchor).toBe(secondInput);
+    });
+
+    it('should support custom validation messages via setCustomValidity', async () => {
+      const custom = document.createElement('test-input') as TestInput;
+      container.appendChild(custom);
+      await custom.updateComplete;
+
+      expect(custom.validity.valid).toBe(true);
+      expect(custom.validity.customError).toBe(false);
+
+      custom.setCustomValidity('This is a custom error message.');
+      expect(custom.validity.valid).toBe(false);
+      expect(custom.validity.customError).toBe(true);
+      expect(custom.validationMessage).toBe('This is a custom error message.');
+
+      custom.setCustomValidity('');
+      expect(custom.validity.valid).toBe(true);
+      expect(custom.validity.customError).toBe(false);
+      expect(custom.validationMessage).toBe('');
+    });
+
+    it('should dispatch invalid event natively when checkValidity or reportValidity fails', async () => {
+      const custom = document.createElement('test-input') as TestInput;
+      custom.required = true;
+      custom.value = '';
+      container.appendChild(custom);
+      await custom.updateComplete;
+
+      let invalidFiredCount = 0;
+      custom.addEventListener('invalid', () => {
+        invalidFiredCount++;
+      });
+
+      const checkResult = custom.checkValidity();
+      expect(checkResult).toBe(false);
+      expect(invalidFiredCount).toBe(1);
+
+      const reportResult = custom.reportValidity();
+      expect(reportResult).toBe(false);
+      expect(invalidFiredCount).toBe(2);
+    });
+  });
 });

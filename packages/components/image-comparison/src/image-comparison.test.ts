@@ -1,12 +1,14 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import './image-comparison';
-import { ImageComparison } from './image-comparison';
+import type { ImageComparison } from './image-comparison';
 
 describe('ImageComparison Component', () => {
   let element: ImageComparison;
 
   beforeEach(async () => {
-    element = document.createElement('uibit-image-comparison') as ImageComparison;
+    element = document.createElement(
+      'uibit-image-comparison',
+    ) as ImageComparison;
     document.body.appendChild(element);
     await element.updateComplete;
   });

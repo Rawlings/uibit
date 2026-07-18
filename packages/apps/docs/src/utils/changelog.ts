@@ -12,10 +12,24 @@ export interface ParsedRelease {
 
 function getCategory(title: string): ParsedReleaseSection['category'] {
   const t = title.toLowerCase().trim();
-  if (t.includes('major') || t.includes('minor') || t.includes('add') || t.includes('feat') || t.includes('new')) return 'Added';
-  if (t.includes('patch') || t.includes('fix') || t.includes('bug')) return 'Fixed';
+  if (
+    t.includes('major') ||
+    t.includes('minor') ||
+    t.includes('add') ||
+    t.includes('feat') ||
+    t.includes('new')
+  )
+    return 'Added';
+  if (t.includes('patch') || t.includes('fix') || t.includes('bug'))
+    return 'Fixed';
   if (t.includes('sec')) return 'Security';
-  if (t.includes('change') || t.includes('refactor') || t.includes('improv') || t.includes('updat')) return 'Changed';
+  if (
+    t.includes('change') ||
+    t.includes('refactor') ||
+    t.includes('improv') ||
+    t.includes('updat')
+  )
+    return 'Changed';
   if (t.includes('deprecat')) return 'Deprecated';
   return 'Other';
 }
@@ -30,12 +44,14 @@ export function parseChangelog(md: string): ParsedRelease[] {
     const trimmed = rawLine.trim();
     if (!trimmed) continue;
 
-    const versionMatch = trimmed.match(/^##\s+\[?([0-9a-zA-Z.-]+)\]?(?:\s*-\s*([0-9-]+))?/);
+    const versionMatch = trimmed.match(
+      /^##\s+\[?([0-9a-zA-Z.-]+)\]?(?:\s*-\s*([0-9-]+))?/,
+    );
     if (versionMatch) {
       currentRelease = {
         version: versionMatch[1],
         date: versionMatch[2] || '',
-        sections: []
+        sections: [],
       };
       releases.push(currentRelease);
       currentSection = null;
@@ -49,7 +65,7 @@ export function parseChangelog(md: string): ParsedRelease[] {
         currentSection = {
           title,
           category: getCategory(title),
-          items: []
+          items: [],
         };
         currentRelease.sections.push(currentSection);
         continue;
@@ -62,11 +78,16 @@ export function parseChangelog(md: string): ParsedRelease[] {
             const lastIdx = currentSection.items.length - 1;
             const subText = trimmed.substring(1).trim();
             if (currentSection.items[lastIdx] === 'Updated dependencies') {
-              currentSection.items[lastIdx] = `Updated dependencies: ${subText}`;
-            } else if (currentSection.items[lastIdx].startsWith('Updated dependencies:')) {
-              currentSection.items[lastIdx] = `${currentSection.items[lastIdx]}, ${subText}`;
+              currentSection.items[lastIdx] =
+                `Updated dependencies: ${subText}`;
+            } else if (
+              currentSection.items[lastIdx].startsWith('Updated dependencies:')
+            ) {
+              currentSection.items[lastIdx] =
+                `${currentSection.items[lastIdx]}, ${subText}`;
             } else {
-              currentSection.items[lastIdx] = `${currentSection.items[lastIdx]} (${subText})`;
+              currentSection.items[lastIdx] =
+                `${currentSection.items[lastIdx]} (${subText})`;
             }
           } else {
             const itemText = trimmed.substring(1).trim();

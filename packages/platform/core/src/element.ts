@@ -25,7 +25,9 @@ export class UIBitElement extends LitElement {
    * to undefined (which defaults to browser locale).
    */
   get resolvedLocale(): string | undefined {
-    return this.locale || this.closest('[lang]')?.getAttribute('lang') || undefined;
+    return (
+      this.locale || this.closest('[lang]')?.getAttribute('lang') || undefined
+    );
   }
 
   private _disposables: Set<() => void> = new Set();
@@ -40,12 +42,15 @@ export class UIBitElement extends LitElement {
     if (typeof name === 'string') {
       const kebabName = camelToKebab(keyStr);
       const mutableOptions = options ? { ...options } : {};
-      if (mutableOptions.attribute === undefined || mutableOptions.attribute === true) {
+      if (
+        mutableOptions.attribute === undefined ||
+        mutableOptions.attribute === true
+      ) {
         mutableOptions.attribute = kebabName;
       }
-      super.createProperty(name, mutableOptions);
+      LitElement.createProperty(name, mutableOptions);
     } else {
-      super.createProperty(name, options);
+      LitElement.createProperty(name, options);
     }
   }
 
@@ -66,7 +71,7 @@ export class UIBitElement extends LitElement {
         box-sizing: inherit;
       }
     `;
-    const superStyles = super.finalizeStyles(styles);
+    const superStyles = LitElement.finalizeStyles(styles);
     return [baseStyles, ...superStyles];
   }
 
@@ -76,14 +81,14 @@ export class UIBitElement extends LitElement {
   dispatchCustomEvent<T = any>(
     name: string,
     detail?: T,
-    options?: Omit<CustomEventInit<T>, 'detail'>
+    options?: Omit<CustomEventInit<T>, 'detail'>,
   ): boolean {
     const event = new CustomEvent(name, {
       bubbles: true,
       composed: true,
       cancelable: true,
       detail,
-      ...options
+      ...options,
     });
     return this.dispatchEvent(event);
   }
@@ -109,13 +114,13 @@ export class UIBitElement extends LitElement {
     target: EventTarget,
     type: K,
     listener: (this: EventTarget, ev: HTMLElementEventMap[K]) => any,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): () => void;
   listen(
     target: EventTarget,
     type: string,
     listener: EventListenerOrEventListenerObject,
-    options?: boolean | AddEventListenerOptions
+    options?: boolean | AddEventListenerOptions,
   ): () => void {
     target.addEventListener(type, listener, options);
     const cleanup = () => target.removeEventListener(type, listener, options);

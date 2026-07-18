@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
 import { renderMarkdownBlocks, slugify } from '../utils/markdown';
@@ -24,59 +24,75 @@ interface ToolingPackageData {
 const toolingRegistry: Record<string, ToolingPackageData> = {
   'base-class': {
     title: 'Base Class',
-    description: 'Shared foundation, optimizations, event dispatch, and performance decorators for UIBit components.',
+    description:
+      'Shared foundation, optimizations, event dispatch, and performance decorators for UIBit components.',
     packageName: '@uibit/core',
     readme: coreReadme,
-    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/core',
+    githubUrl:
+      'https://github.com/rawlings/uibit/tree/main/packages/platform/core',
   },
   codegen: {
     title: 'Codegen',
-    description: 'Use the wrapper generator to build React, Vue 3, Svelte 5, Angular, SolidJS, Astro, Preact, and Vanilla TS wrappers for Lit components.',
+    description:
+      'Use the wrapper generator to build React, Vue 3, Svelte 5, Angular, SolidJS, Astro, Preact, and Vanilla TS wrappers for Lit components.',
     packageName: '@uibit/codegen',
     readme: codegenReadme,
-    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/codegen',
+    githubUrl:
+      'https://github.com/rawlings/uibit/tree/main/packages/platform/codegen',
   },
   'form-internals': {
     title: 'Form Internals',
-    description: 'Standardized wrapper around ElementInternals for robust form participation, CSS validation states, and constraint validation.',
+    description:
+      'Standardized wrapper around ElementInternals for robust form participation, CSS validation states, and constraint validation.',
     packageName: '@uibit/form-internals',
     readme: formInternalsReadme,
-    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/form-internals',
+    githubUrl:
+      'https://github.com/rawlings/uibit/tree/main/packages/platform/form-internals',
   },
   hmr: {
     title: 'Vite Plugin WC HMR',
-    description: 'True Hot Module Replacement for custom elements. Swaps updated classes and styles in-place without a page reload, preserving component state. Works with Lit, vanilla CE, FAST, Stencil, and more.',
+    description:
+      'True Hot Module Replacement for custom elements. Swaps updated classes and styles in-place without a page reload, preserving component state. Works with Lit, vanilla CE, FAST, Stencil, and more.',
     packageName: '@uibit/vite-plugin-wc-hmr',
     readme: hmrReadme,
-    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/vite-plugin-wc-hmr',
+    githubUrl:
+      'https://github.com/rawlings/uibit/tree/main/packages/platform/vite-plugin-wc-hmr',
   },
   'cem-extended': {
     title: 'CEM Extended',
-    description: 'Extended Custom Elements Manifest generator plugin. Adds JSDoc method parameter/return descriptions, custom CSS states, mixin field heritage, and deprecation/since metadata.',
+    description:
+      'Extended Custom Elements Manifest generator plugin. Adds JSDoc method parameter/return descriptions, custom CSS states, mixin field heritage, and deprecation/since metadata.',
     packageName: '@uibit/cem-extended',
     readme: cemExtendedReadme,
-    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-extended',
+    githubUrl:
+      'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-extended',
   },
   'cem-mcp': {
     title: 'CEM MCP Server',
-    description: 'Local Model Context Protocol (MCP) server exposing UIBit Custom Elements Manifest (CEM) schemas to AI agents.',
+    description:
+      'Local Model Context Protocol (MCP) server exposing UIBit Custom Elements Manifest (CEM) schemas to AI agents.',
     packageName: '@uibit/cem-mcp',
     readme: cemMcpReadme,
-    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-mcp',
+    githubUrl:
+      'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-mcp',
   },
   'cem-oxc': {
     title: 'CEM OXC',
-    description: 'Ultra-fast, zero-dependency Custom Elements Manifest (CEM) generator powered by OXC and Rust. Drop-in replacement for the native analyzer that runs up to 123x faster.',
+    description:
+      'Ultra-fast, zero-dependency Custom Elements Manifest (CEM) generator powered by OXC and Rust. Drop-in replacement for the native analyzer that runs up to 123x faster.',
     packageName: '@uibit/cem-oxc',
     readme: cemOxcReadme,
-    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-oxc',
+    githubUrl:
+      'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-oxc',
   },
   hoistlock: {
     title: 'Hoistlock',
-    description: 'Zero-configuration, ultra-fast bundle hoisting prevention engine in Rust. Automatically traces barrel files and detects core global dependencies without manual whitelists.',
+    description:
+      'Zero-configuration, ultra-fast bundle hoisting prevention engine in Rust. Automatically traces barrel files and detects core global dependencies without manual whitelists.',
     packageName: '@uibit/hoistlock',
     readme: hoistlockReadme,
-    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/hoistlock',
+    githubUrl:
+      'https://github.com/rawlings/uibit/tree/main/packages/platform/hoistlock',
   },
 };
 
@@ -86,36 +102,47 @@ export default function ToolingDocs() {
 
   useHead({
     title: pkg ? `${pkg.title} – UIBit` : 'Tooling – UIBit',
-    description: pkg ? pkg.description : 'Tooling for building and maintaining UIBit components.',
+    description: pkg
+      ? pkg.description
+      : 'Tooling for building and maintaining UIBit components.',
   });
 
   const [activeSection, setActiveSection] = useState<string>('');
 
   // Extract headings for Table of Contents
-  const tocItems = pkg
-    ? pkg.readme
-        .split('\n')
-        .filter((line) => line.startsWith('## '))
-        .map((line) => {
-          const text = line.substring(3).trim();
-          return {
-            id: slugify(text),
-            label: text,
-          };
-        })
-    : [];
+  const tocItems = useMemo(
+    () =>
+      pkg
+        ? pkg.readme
+            .split('\n')
+            .filter((line) => line.startsWith('## '))
+            .map((line) => {
+              const text = line.substring(3).trim();
+              return {
+                id: slugify(text),
+                label: text,
+              };
+            })
+        : [],
+    [pkg],
+  );
 
   useEffect(() => {
     if (tocItems.length === 0) return;
     const sections = tocItems.map((item) => item.id);
-    const elements = sections.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
+    const elements = sections
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
 
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleEntries = entries.filter((entry) => entry.isIntersecting);
         if (visibleEntries.length > 0) {
           const closest = visibleEntries.reduce((prev, curr) => {
-            return Math.abs(curr.boundingClientRect.top) < Math.abs(prev.boundingClientRect.top) ? curr : prev;
+            return Math.abs(curr.boundingClientRect.top) <
+              Math.abs(prev.boundingClientRect.top)
+              ? curr
+              : prev;
           });
           setActiveSection(closest.target.id);
         }
@@ -123,19 +150,28 @@ export default function ToolingDocs() {
       {
         rootMargin: '-80px 0px -60% 0px',
         threshold: 0,
-      }
+      },
     );
 
-    elements.forEach((el) => observer.observe(el));
+    elements.forEach((el) => {
+      observer.observe(el);
+    });
     return () => observer.disconnect();
-  }, [packageId, tocItems.length]);
+  }, [tocItems]);
 
   if (!packageId || !pkg) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-16 text-center bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200">
-        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Page Not Found</h1>
-        <p className="text-gray-600 dark:text-gray-400 mb-6">The requested documentation page does not exist.</p>
-        <Link to="/" className="text-gray-900 dark:text-white underline font-medium hover:text-gray-600 dark:hover:text-gray-300">
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+          Page Not Found
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400 mb-6">
+          The requested documentation page does not exist.
+        </p>
+        <Link
+          to="/"
+          className="text-gray-900 dark:text-white underline font-medium hover:text-gray-600 dark:hover:text-gray-300"
+        >
           Return Home
         </Link>
       </div>
@@ -173,7 +209,19 @@ export default function ToolingDocs() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-2 border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all cursor-pointer font-medium"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="opacity-80"
+                >
                   <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
                   <path d="M9 18c-4.51 2-5-2-7-2" />
                 </svg>
@@ -185,7 +233,19 @@ export default function ToolingDocs() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-2 border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 bg-gray-50/50 dark:bg-gray-900/30 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all cursor-pointer font-medium"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-80">
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="opacity-80"
+                >
                   <path d="M12 2L2 7l10 5 10-5-10-5z" />
                   <path d="M2 17l10 5 10-5" />
                   <path d="M2 12l10 5 10-5" />
@@ -214,7 +274,9 @@ export default function ToolingDocs() {
                     href={`#${item.id}`}
                     onClick={(e) => {
                       e.preventDefault();
-                      document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                      document
+                        .getElementById(item.id)
+                        ?.scrollIntoView({ behavior: 'smooth' });
                     }}
                     className={`block text-sm transition-all duration-150 ${
                       isActive

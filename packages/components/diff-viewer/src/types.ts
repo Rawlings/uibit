@@ -1,7 +1,7 @@
 import type DiffViewer from './diff-viewer';
 
 declare global {
-interface HTMLElementTagNameMap {
+  interface HTMLElementTagNameMap {
     'uibit-diff-viewer': DiffViewer;
-}
+  }
 }

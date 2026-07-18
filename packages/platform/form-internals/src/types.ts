@@ -21,7 +21,7 @@ export interface FormAssociatedInterface {
   max: string;
   step: string;
   type: string;
-  
+
   readonly internals: ElementInternals;
   readonly validity: ValidityState;
   readonly validationMessage: string;
@@ -43,21 +43,33 @@ export interface FormAssociatedInterface {
   formNoValidate: boolean;
   formTarget: string;
   readonly validationAnchor?: HTMLElement;
-  
+
   checkValidity(): boolean;
   reportValidity(): boolean;
   setCustomValidity(message: string): void;
 
   select(): void;
-  setSelectionRange(start: number | null, end: number | null, direction?: 'forward' | 'backward' | 'none'): void;
-  setRangeText(replacement: string, start?: number, end?: number, selectionMode?: 'select' | 'start' | 'end' | 'preserve'): void;
+  setSelectionRange(
+    start: number | null,
+    end: number | null,
+    direction?: 'forward' | 'backward' | 'none',
+  ): void;
+  setRangeText(
+    replacement: string,
+    start?: number,
+    end?: number,
+    selectionMode?: 'select' | 'start' | 'end' | 'preserve',
+  ): void;
   stepUp(n?: number): void;
   stepDown(n?: number): void;
   showPicker(): void;
-  
+
   // Lifecycle methods
   formAssociatedCallback?(form: HTMLFormElement | null): void;
   formResetCallback(): void;
   formDisabledCallback(disabled: boolean): void;
-  formStateRestoreCallback(state: string | File | FormData | null, mode: 'restore' | 'autocomplete'): void;
+  formStateRestoreCallback(
+    state: string | File | FormData | null,
+    mode: 'restore' | 'autocomplete',
+  ): void;
 }

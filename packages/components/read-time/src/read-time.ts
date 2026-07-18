@@ -1,5 +1,12 @@
 import { html } from 'lit';
-import { customElement, fromLucide, getIcon, UIBitElement, msg, str } from '@uibit/core';
+import {
+  customElement,
+  fromLucide,
+  getIcon,
+  UIBitElement,
+  msg,
+  str,
+} from '@uibit/core';
 import { Clock } from 'lucide';
 import { property, state } from 'lit/decorators.js';
 import { styles } from './styles';
@@ -40,10 +47,14 @@ export class ReadTime extends UIBitElement {
   private _timerSlot?: HTMLSlotElement;
 
   firstUpdated() {
-    this._slot = this.shadowRoot?.querySelector('slot:not([name])') as HTMLSlotElement;
+    this._slot = this.shadowRoot?.querySelector(
+      'slot:not([name])',
+    ) as HTMLSlotElement;
     this._slot?.addEventListener('slotchange', () => this._calculate());
 
-    this._timerSlot = this.shadowRoot?.querySelector('slot[name="timer"]') as HTMLSlotElement;
+    this._timerSlot = this.shadowRoot?.querySelector(
+      'slot[name="timer"]',
+    ) as HTMLSlotElement;
 
     this._calculate();
   }
@@ -57,9 +68,11 @@ export class ReadTime extends UIBitElement {
     }
     const words = text.trim().split(/\s+/).filter(Boolean).length;
     const minutes = Math.ceil(words / this.wpm);
-    
-    const timeStr = minutes < 1 ? msg('less than 1 min') : msg(str`${minutes} min`);
-    const defaultLabel = minutes < 1 ? msg('Less than 1 min read') : msg(str`${minutes} min read`);
+
+    const timeStr =
+      minutes < 1 ? msg('less than 1 min') : msg(str`${minutes} min`);
+    const defaultLabel =
+      minutes < 1 ? msg('Less than 1 min read') : msg(str`${minutes} min read`);
     this._label = defaultLabel;
 
     // Update any slotted elements inside slot="timer"
@@ -83,7 +96,11 @@ export class ReadTime extends UIBitElement {
           if (el.textContent !== newText) {
             el.textContent = newText;
           }
-        } else if (!el.textContent || el.textContent.trim() === '' || el.hasAttribute('data-auto-update')) {
+        } else if (
+          !el.textContent ||
+          el.textContent.trim() === '' ||
+          el.hasAttribute('data-auto-update')
+        ) {
           if (el.textContent !== this._label) {
             el.textContent = this._label;
           }
@@ -101,7 +118,7 @@ export class ReadTime extends UIBitElement {
       const el = node as Element;
       // Skip the timer slot itself if it happens to be nested or queried
       if (el.getAttribute('slot') === 'timer') return '';
-      
+
       const style = window.getComputedStyle(el as HTMLElement);
       if (style.display === 'none' || style.visibility === 'hidden') return '';
       let t = '';
@@ -127,4 +144,3 @@ export class ReadTime extends UIBitElement {
 }
 
 export default ReadTime;
-

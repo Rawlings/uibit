@@ -5,15 +5,15 @@ export const qwikPlugin = {
   name: 'qwik',
   generate(component: ComponentMetadata) {
     return {
-      'index.tsx': buildTSX(component)
+      'index.tsx': buildTSX(component),
     };
-  }
+  },
 };
 
 function renderQwikImports(importPath: string): string {
   return [
     `import { component$, Slot } from '@builder.io/qwik';`,
-    `import '${importPath}';`
+    `import '${importPath}';`,
   ].join('\n');
 }
 

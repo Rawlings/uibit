@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import swc from '@swc/core';
 
 /**
@@ -31,15 +31,21 @@ export function resolveExportedTypes(srcDirPath: string): Set<string> {
             tsx: false,
             decorators: true,
             comments: false,
-            target: 'es2022'
+            target: 'es2022',
           });
 
-          for (const node of (ast.body || [])) {
+          for (const node of ast.body || []) {
             if (node.type === 'ExportDeclaration') {
               const decl = node.declaration;
               if (decl) {
-                if (decl.type === 'ClassDeclaration' || decl.type === 'FunctionDeclaration') {
-                  if (decl.identifier && typeof decl.identifier.value === 'string') {
+                if (
+                  decl.type === 'ClassDeclaration' ||
+                  decl.type === 'FunctionDeclaration'
+                ) {
+                  if (
+                    decl.identifier &&
+                    typeof decl.identifier.value === 'string'
+                  ) {
                     exportedTypes.add(decl.identifier.value);
                   }
                 } else if (
@@ -56,7 +62,8 @@ export function resolveExportedTypes(srcDirPath: string): Set<string> {
               if (node.specifiers) {
                 for (const specifier of node.specifiers) {
                   if (specifier.type === 'ExportSpecifier') {
-                    const name = specifier.exported?.value || specifier.orig.value;
+                    const name =
+                      specifier.exported?.value || specifier.orig.value;
                     if (typeof name === 'string') {
                       exportedTypes.add(name);
                     }
@@ -66,8 +73,14 @@ export function resolveExportedTypes(srcDirPath: string): Set<string> {
             } else if (node.type === 'ExportDefaultDeclaration') {
               const decl = (node as any).decl;
               if (decl) {
-                if (decl.type === 'ClassDeclaration' || decl.type === 'FunctionDeclaration') {
-                  if (decl.identifier && typeof decl.identifier.value === 'string') {
+                if (
+                  decl.type === 'ClassDeclaration' ||
+                  decl.type === 'FunctionDeclaration'
+                ) {
+                  if (
+                    decl.identifier &&
+                    typeof decl.identifier.value === 'string'
+                  ) {
                     exportedTypes.add(decl.identifier.value);
                   }
                 } else if (decl.id && typeof decl.id.value === 'string') {
@@ -91,7 +104,9 @@ export function resolveExportedTypes(srcDirPath: string): Set<string> {
  * Scans the src directory, parses TypeScript source files, and extracts the actual
  * default initializer strings for class properties directly from the AST.
  */
-export function resolveSourceDefaults(srcDirPath: string): Record<string, Record<string, string>> {
+export function resolveSourceDefaults(
+  srcDirPath: string,
+): Record<string, Record<string, string>> {
   const allDefaults: Record<string, Record<string, string>> = {};
 
   function scanDir(dir: string) {
@@ -116,16 +131,23 @@ export function resolveSourceDefaults(srcDirPath: string): Record<string, Record
             tsx: false,
             decorators: true,
             comments: false,
-            target: 'es2022'
+            target: 'es2022',
           });
 
-          for (const node of (ast.body || [])) {
+          for (const node of ast.body || []) {
             let classDecl = null;
             if (node.type === 'ClassDeclaration') {
               classDecl = node;
-            } else if (node.type === 'ExportDeclaration' && node.declaration?.type === 'ClassDeclaration') {
+            } else if (
+              node.type === 'ExportDeclaration' &&
+              node.declaration?.type === 'ClassDeclaration'
+            ) {
               classDecl = node.declaration;
-            } else if (node.type === 'ExportDefaultDeclaration' && ((node as any).decl?.type === 'ClassExpression' || (node as any).decl?.type === 'ClassDeclaration')) {
+            } else if (
+              node.type === 'ExportDefaultDeclaration' &&
+              ((node as any).decl?.type === 'ClassExpression' ||
+                (node as any).decl?.type === 'ClassDeclaration')
+            ) {
               classDecl = (node as any).decl;
             }
 
@@ -133,7 +155,7 @@ export function resolveSourceDefaults(srcDirPath: string): Record<string, Record
               const className = (classDecl as any).identifier.value;
               const defaults: Record<string, string> = {};
 
-              for (const member of (classDecl.body || [])) {
+              for (const member of classDecl.body || []) {
                 if (member.type === 'ClassProperty' && member.value) {
                   const propName = (member.key as any)?.value;
                   if (propName) {
@@ -144,13 +166,17 @@ export function resolveSourceDefaults(srcDirPath: string): Record<string, Record
                         {
                           type: 'ExpressionStatement',
                           span: { start: 0, end: 0 },
-                          expression: member.value
-                        }
+                          expression: member.value,
+                        },
                       ],
-                      interpreter: null
+                      interpreter: null,
                     };
-                    const printed = swc.printSync(tempModule as any, { minify: false }).code.trim();
-                    const defaultValue = printed.endsWith(';') ? printed.slice(0, -1).trim() : printed;
+                    const printed = swc
+                      .printSync(tempModule as any, { minify: false })
+                      .code.trim();
+                    const defaultValue = printed.endsWith(';')
+                      ? printed.slice(0, -1).trim()
+                      : printed;
                     defaults[propName] = defaultValue;
                   }
                 }
@@ -158,7 +184,7 @@ export function resolveSourceDefaults(srcDirPath: string): Record<string, Record
               allDefaults[className] = defaults;
             }
           }
-        } catch (e) {
+        } catch (_e) {
           // Ignore parse errors on individual files
         }
       }
@@ -168,5 +194,3 @@ export function resolveSourceDefaults(srcDirPath: string): Record<string, Record
   scanDir(srcDirPath);
   return allDefaults;
 }
-
-

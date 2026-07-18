@@ -9,7 +9,11 @@ export function renderMarkdownInline(text: string): React.ReactElement {
       unwrapDisallowed={true}
       components={{
         p: ({ children }) => <>{children}</>,
-        strong: ({ children }) => <strong className="font-semibold text-gray-900 dark:text-white">{children}</strong>,
+        strong: ({ children }) => (
+          <strong className="font-semibold text-gray-900 dark:text-white">
+            {children}
+          </strong>
+        ),
         em: ({ children }) => <em className="italic">{children}</em>,
         code: ({ children }) => (
           <code className="font-mono bg-gray-100 dark:bg-gray-900 px-1.5 py-0.5 rounded text-xs text-gray-800 dark:text-gray-200">
@@ -17,18 +21,22 @@ export function renderMarkdownInline(text: string): React.ReactElement {
           </code>
         ),
         a: ({ href, children }) => {
-          const isInternal = href && (href.startsWith('/') || href.startsWith('#') || !/^(https?:)?\/\//.test(href));
+          const isInternal =
+            href &&
+            (href.startsWith('/') ||
+              href.startsWith('#') ||
+              !/^(https?:)?\/\//.test(href));
           return (
             <a
               href={href}
-              target={isInternal ? undefined : "_blank"}
-              rel={isInternal ? undefined : "noopener noreferrer"}
+              target={isInternal ? undefined : '_blank'}
+              rel={isInternal ? undefined : 'noopener noreferrer'}
               className="text-gray-900 dark:text-white underline hover:text-gray-600"
             >
               {children}
             </a>
           );
-        }
+        },
       }}
     >
       {text}
@@ -51,9 +59,14 @@ const getComponents = (headingIdPrefix?: string) => ({
   ),
   h2: ({ children }: { children: React.ReactNode }) => {
     const text = React.Children.toArray(children).join('');
-    const id = headingIdPrefix ? `${headingIdPrefix}-${slugify(text)}` : slugify(text);
+    const id = headingIdPrefix
+      ? `${headingIdPrefix}-${slugify(text)}`
+      : slugify(text);
     return (
-      <h2 id={id} className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-4 pb-2 border-b border-gray-100 dark:border-gray-900 scroll-mt-20">
+      <h2
+        id={id}
+        className="text-xl font-semibold text-gray-900 dark:text-white mt-10 mb-4 pb-2 border-b border-gray-100 dark:border-gray-900 scroll-mt-20"
+      >
         {children}
       </h2>
     );
@@ -78,16 +91,10 @@ const getComponents = (headingIdPrefix?: string) => ({
       {children}
     </ol>
   ),
-  li: ({ children }: { children: React.ReactNode }) => (
-    <li>
-      {children}
-    </li>
-  ),
+  li: ({ children }: { children: React.ReactNode }) => <li>{children}</li>,
   table: ({ children }: { children: React.ReactNode }) => (
     <div className="overflow-x-auto my-6">
-      <table className="w-full text-sm">
-        {children}
-      </table>
+      <table className="w-full text-sm">{children}</table>
     </div>
   ),
   thead: ({ children }: { children: React.ReactNode }) => (
@@ -101,9 +108,7 @@ const getComponents = (headingIdPrefix?: string) => ({
     </tbody>
   ),
   tr: ({ children }: { children: React.ReactNode }) => (
-    <tr className="bg-transparent">
-      {children}
-    </tr>
+    <tr className="bg-transparent">{children}</tr>
   ),
   th: ({ children }: { children: React.ReactNode }) => (
     <th className="px-0 py-2.5 text-left font-semibold text-gray-400 dark:text-gray-500 text-xs pr-4 last:pr-0">
@@ -136,24 +141,28 @@ const getComponents = (headingIdPrefix?: string) => ({
     );
   },
   a: ({ href, children }: any) => {
-    const isInternal = href && (href.startsWith('/') || href.startsWith('#') || !/^(https?:)?\/\//.test(href));
+    const isInternal =
+      href &&
+      (href.startsWith('/') ||
+        href.startsWith('#') ||
+        !/^(https?:)?\/\//.test(href));
     return (
       <a
         href={href}
-        target={isInternal ? undefined : "_blank"}
-        rel={isInternal ? undefined : "noopener noreferrer"}
+        target={isInternal ? undefined : '_blank'}
+        rel={isInternal ? undefined : 'noopener noreferrer'}
         className="text-gray-900 dark:text-white underline hover:text-gray-600"
       >
         {children}
       </a>
     );
-  }
+  },
 });
 
 export function renderMarkdownBlocks(
   markdown: string,
   customRenderers?: Record<string, () => React.ReactNode>,
-  headingIdPrefix?: string
+  headingIdPrefix?: string,
 ): React.ReactNode[] {
   if (!markdown) return [];
 
@@ -165,8 +174,12 @@ export function renderMarkdownBlocks(
     const match = part.match(/^<!--\s+([\w-]+-placeholder)\s+-->$/);
     if (match) {
       const placeholderKey = match[1];
-      if (customRenderers && customRenderers[placeholderKey]) {
-        nodes.push(<React.Fragment key={`placeholder-${index}`}>{customRenderers[placeholderKey]()}</React.Fragment>);
+      if (customRenderers?.[placeholderKey]) {
+        nodes.push(
+          <React.Fragment key={`placeholder-${index}`}>
+            {customRenderers[placeholderKey]()}
+          </React.Fragment>,
+        );
       }
     } else if (part.trim()) {
       nodes.push(
@@ -176,7 +189,7 @@ export function renderMarkdownBlocks(
           components={components as any}
         >
           {part}
-        </ReactMarkdown>
+        </ReactMarkdown>,
       );
     }
   });

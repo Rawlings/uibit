@@ -9,363 +9,356 @@ export interface LocalizedStringEntry {
 
 export const localizedStrings: LocalizedStringEntry[] = [
   {
-    "component": "uibit-360-viewer",
-    "string": "360 degree product view. Use drag, arrow keys, or buttons to rotate.",
-    "context": "aria-label on viewer"
+    component: 'uibit-360-viewer',
+    string:
+      '360 degree product view. Use drag, arrow keys, or buttons to rotate.',
+    context: 'aria-label on viewer',
   },
   {
-    "component": "uibit-360-viewer",
-    "string": "Rotate left",
-    "context": "aria-label on prev button"
+    component: 'uibit-360-viewer',
+    string: 'Rotate left',
+    context: 'aria-label on prev button',
   },
   {
-    "component": "uibit-360-viewer",
-    "string": "Rotate right",
-    "context": "aria-label on next button"
+    component: 'uibit-360-viewer',
+    string: 'Rotate right',
+    context: 'aria-label on next button',
   },
   {
-    "component": "uibit-carousel",
-    "string": "Content Carousel",
-    "context": "aria-label on root region"
+    component: 'uibit-carousel',
+    string: 'Content Carousel',
+    context: 'aria-label on root region',
   },
   {
-    "component": "uibit-carousel",
-    "string": "Go to slide {n}",
-    "context": "aria-label on indicator button (interpolated)"
+    component: 'uibit-carousel',
+    string: 'Go to slide {n}',
+    context: 'aria-label on indicator button (interpolated)',
   },
   {
-    "component": "uibit-carousel",
-    "string": "Next slide",
-    "context": "aria-label on next button"
+    component: 'uibit-carousel',
+    string: 'Next slide',
+    context: 'aria-label on next button',
   },
   {
-    "component": "uibit-carousel",
-    "string": "Previous slide",
-    "context": "aria-label on prev button"
+    component: 'uibit-carousel',
+    string: 'Previous slide',
+    context: 'aria-label on prev button',
   },
   {
-    "component": "uibit-carousel",
-    "string": "Slide {n} of {total}",
-    "context": "aria-label on each slide (interpolated)"
+    component: 'uibit-carousel',
+    string: 'Slide {n} of {total}',
+    context: 'aria-label on each slide (interpolated)',
   },
   {
-    "component": "uibit-carousel",
-    "string": "Slides",
-    "context": "aria-label on indicator tablist"
+    component: 'uibit-carousel',
+    string: 'Slides',
+    context: 'aria-label on indicator tablist',
   },
   {
-    "component": "uibit-countdown",
-    "string": "Countdown timer",
-    "context": "aria-label on timer container"
+    component: 'uibit-countdown',
+    string: 'Countdown timer',
+    context: 'aria-label on timer container',
   },
   {
-    "component": "uibit-countdown",
-    "string": "Days",
-    "context": "Unit label"
+    component: 'uibit-countdown',
+    string: 'Days',
+    context: 'Unit label',
   },
   {
-    "component": "uibit-countdown",
-    "string": "Hours",
-    "context": "Unit label"
+    component: 'uibit-countdown',
+    string: 'Hours',
+    context: 'Unit label',
   },
   {
-    "component": "uibit-countdown",
-    "string": "Minutes",
-    "context": "Unit label"
+    component: 'uibit-countdown',
+    string: 'Minutes',
+    context: 'Unit label',
   },
   {
-    "component": "uibit-countdown",
-    "string": "Seconds",
-    "context": "Unit label"
+    component: 'uibit-countdown',
+    string: 'Seconds',
+    context: 'Unit label',
   },
   {
-    "component": "uibit-form",
-    "string": "You have unsaved changes. Are you sure you want to leave?",
-    "context": "UI text content"
+    component: 'uibit-form',
+    string:
+      "You have unsaved changes. Are you sure you want to leave?',\n      );\n      return e.returnValue;\n    }\n  }\n\n  private _onSlotChange() {\n    this._initializeForm();\n    this.requestUpdate();\n  }\n\n  // ── Step Navigation ────────────────────────────────────────────\n\n  nextStep() {\n    if (this.step < this.stepsCount && this._slottedFormEl) {\n      const currentFieldset =\n        this._slottedFormEl.querySelectorAll('fieldset",
+    context: 'UI text content',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Please enter a number.",
-    "context": "Validation error: badInput"
+    component: 'uibit-form-internals',
+    string: 'Please enter a number.',
+    context: 'Validation error: badInput',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Please enter a URL.",
-    "context": "Validation error: typeMismatch (url)"
+    component: 'uibit-form-internals',
+    string: 'Please enter a URL.',
+    context: 'Validation error: typeMismatch (url)',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Please enter a valid value.",
-    "context": "Validation error: typeMismatch/stepMismatch"
+    component: 'uibit-form-internals',
+    string: 'Please enter a valid value.',
+    context: 'Validation error: typeMismatch/stepMismatch',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Please enter an email address.",
-    "context": "Validation error: typeMismatch (email)"
+    component: 'uibit-form-internals',
+    string: 'Please enter an email address.',
+    context: 'Validation error: typeMismatch (email)',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Please fill out this field.",
-    "context": "Validation error: valueMissing"
+    component: 'uibit-form-internals',
+    string: 'Please fill out this field.',
+    context: 'Validation error: valueMissing',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Please lengthen this text to {value} characters or more.",
-    "context": "Validation error: tooShort"
+    component: 'uibit-form-internals',
+    string:
+      "Please lengthen this text to {value} characters or more.`,\n    );\n  if (flags.tooLong)\n    return msg(\n      str`Please shorten this text to {value} characters or less.`,\n    );\n  if (flags.patternMismatch) return msg('Please match the requested format.');\n  if (flags.typeMismatch) {\n    if (constraints.type === 'email')\n      return msg('Please enter an email address.');\n    if (constraints.type === 'url') return msg('Please enter a URL.');\n    return msg('Please enter a valid value.');\n  }\n  if (flags.badInput) return msg('Please enter a number.');\n  if (flags.rangeUnderflow)\n    return msg(str`Value must be greater than or equal to {value}.",
+    context: 'UI text content',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Please match the requested format.",
-    "context": "Validation error: patternMismatch"
+    component: 'uibit-form-internals',
+    string: 'Please match the requested format.',
+    context: 'Validation error: patternMismatch',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Please shorten this text to {value} characters or less.",
-    "context": "Validation error: tooLong"
+    component: 'uibit-form-internals',
+    string: 'Value must be less than or equal to {value}.',
+    context: 'Validation error: rangeOverflow',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Value must be greater than or equal to {value}.",
-    "context": "Validation error: rangeUnderflow"
+    component: 'uibit-hotspot',
+    string: 'Close details',
+    context: 'aria-label on close button',
   },
   {
-    "component": "uibit-form-internals",
-    "string": "Value must be less than or equal to {value}.",
-    "context": "Validation error: rangeOverflow"
+    component: 'uibit-hotspot',
+    string: 'Hotspot',
+    context: 'Fallback aria-label on trigger button',
   },
   {
-    "component": "uibit-hotspot",
-    "string": "Close details",
-    "context": "aria-label on close button"
+    component: 'uibit-hotspot',
+    string: 'Hotspot details',
+    context: 'Fallback aria-label on popover',
   },
   {
-    "component": "uibit-hotspot",
-    "string": "Hotspot",
-    "context": "Fallback aria-label on trigger button"
+    component: 'uibit-read-time',
+    string: '{value} min',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-hotspot",
-    "string": "Hotspot details",
-    "context": "Fallback aria-label on popover"
+    component: 'uibit-read-time',
+    string: '{value} min read',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-read-time",
-    "string": "{value} min",
-    "context": "UI text content"
+    component: 'uibit-read-time',
+    string: 'less than 1 min',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-read-time",
-    "string": "{value} min read",
-    "context": "UI text content"
+    component: 'uibit-read-time',
+    string: 'Less than 1 min read',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-read-time",
-    "string": "less than 1 min",
-    "context": "UI text content"
+    component: 'uibit-scratch-reveal',
+    string: 'Scratch to reveal',
+    context: 'Instructions overlay text',
   },
   {
-    "component": "uibit-read-time",
-    "string": "Less than 1 min read",
-    "context": "UI text content"
+    component: 'uibit-scratch-reveal',
+    string: 'Scratch-off panel to reveal content',
+    context: 'aria-label on canvas container',
   },
   {
-    "component": "uibit-scratch-reveal",
-    "string": "Scratch to reveal",
-    "context": "Instructions overlay text"
+    component: 'uibit-scroll-progress',
+    string: 'Scroll progress indicator',
+    context: 'aria-label on progress bar',
   },
   {
-    "component": "uibit-scratch-reveal",
-    "string": "Scratch-off panel to reveal content",
-    "context": "aria-label on canvas container"
+    component: 'uibit-sentiment-selector',
+    string: 'Sentiment rating',
+    context: 'aria-label on radiogroup',
   },
   {
-    "component": "uibit-scroll-progress",
-    "string": "Scroll progress indicator",
-    "context": "aria-label on progress bar"
+    component: 'uibit-table',
+    string: '{n} row(s) selected',
+    context: 'Selection banner count (interpolated)',
   },
   {
-    "component": "uibit-sentiment-selector",
-    "string": "Sentiment rating",
-    "context": "aria-label on radiogroup"
+    component: 'uibit-table',
+    string: '{value} rows',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-table",
-    "string": "{n} row(s) selected",
-    "context": "Selection banner count (interpolated)"
+    component: 'uibit-table',
+    string: '{value}–{value} of {value} rows',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-table",
-    "string": "{value} rows",
-    "context": "UI text content"
+    component: 'uibit-table',
+    string: 'Clear all filters',
+    context: 'aria-label on clear button',
   },
   {
-    "component": "uibit-table",
-    "string": "{value}–{value} of {value} rows",
-    "context": "UI text content"
+    component: 'uibit-table',
+    string: 'Clear filters',
+    context: 'Active filters button label',
   },
   {
-    "component": "uibit-table",
-    "string": "Clear all filters",
-    "context": "aria-label on clear button"
+    component: 'uibit-table',
+    string: 'Clear selection',
+    context: 'Selection banner button',
   },
   {
-    "component": "uibit-table",
-    "string": "Clear filters",
-    "context": "Active filters button label"
+    component: 'uibit-table',
+    string: 'Column filters',
+    context: 'aria-label on filter row',
   },
   {
-    "component": "uibit-table",
-    "string": "Clear selection",
-    "context": "Selection banner button"
+    component: 'uibit-table',
+    string: 'Columns',
+    context: 'Column chooser button',
   },
   {
-    "component": "uibit-table",
-    "string": "Column filters",
-    "context": "aria-label on filter row"
+    component: 'uibit-table',
+    string: 'Export as CSV',
+    context: 'aria-label on export button',
   },
   {
-    "component": "uibit-table",
-    "string": "Columns",
-    "context": "Column chooser button"
+    component: 'uibit-table',
+    string: 'Export CSV',
+    context: 'Export button label (no selection)',
   },
   {
-    "component": "uibit-table",
-    "string": "Export as CSV",
-    "context": "aria-label on export button"
+    component: 'uibit-table',
+    string: 'Filter {column}',
+    context: 'aria-label on column filter input (interpolated)',
   },
   {
-    "component": "uibit-table",
-    "string": "Export CSV",
-    "context": "Export button label (no selection)"
+    component: 'uibit-table',
+    string: 'Filter…',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-table",
-    "string": "Filter {column}",
-    "context": "aria-label on column filter input (interpolated)"
+    component: 'uibit-table',
+    string: 'Loading more…',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-table",
-    "string": "Filter…",
-    "context": "UI text content"
+    component: 'uibit-table',
+    string: 'Next',
+    context: 'aria-label on next page button',
   },
   {
-    "component": "uibit-table",
-    "string": "Loading more…",
-    "context": "UI text content"
+    component: 'uibit-table',
+    string: 'No results',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-table",
-    "string": "Next",
-    "context": "aria-label on next page button"
+    component: 'uibit-table',
+    string: 'No results found',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-table",
-    "string": "No results",
-    "context": "UI text content"
+    component: 'uibit-table',
+    string: 'Options',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-table",
-    "string": "No results found",
-    "context": "UI text content"
+    component: 'uibit-table',
+    string: 'Pagination',
+    context: 'aria-label on pagination nav',
   },
   {
-    "component": "uibit-table",
-    "string": "Options",
-    "context": "UI text content"
+    component: 'uibit-table',
+    string: 'Previous',
+    context: 'aria-label on previous page button',
   },
   {
-    "component": "uibit-table",
-    "string": "Pagination",
-    "context": "aria-label on pagination nav"
+    component: 'uibit-table',
+    string: 'Rows per page',
+    context: 'aria-label on rows-per-page select',
   },
   {
-    "component": "uibit-table",
-    "string": "Previous",
-    "context": "aria-label on previous page button"
+    component: 'uibit-table',
+    string: 'Rows per page:',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-table",
-    "string": "Rows per page",
-    "context": "aria-label on rows-per-page select"
+    component: 'uibit-table',
+    string: 'Search table',
+    context: 'aria-label on search input',
   },
   {
-    "component": "uibit-table",
-    "string": "Rows per page:",
-    "context": "UI text content"
+    component: 'uibit-table',
+    string: 'Search…',
+    context: 'UI text content',
   },
   {
-    "component": "uibit-table",
-    "string": "Search table",
-    "context": "aria-label on search input"
+    component: 'uibit-table',
+    string: 'Select all {n} rows',
+    context: 'Selection banner button (interpolated)',
   },
   {
-    "component": "uibit-table",
-    "string": "Search…",
-    "context": "UI text content"
+    component: 'uibit-table',
+    string: 'Select all rows on this page',
+    context: 'aria-label on select-all checkbox',
   },
   {
-    "component": "uibit-table",
-    "string": "Select all {n} rows",
-    "context": "Selection banner button (interpolated)"
+    component: 'uibit-table',
+    string: 'Select row',
+    context: 'aria-label on row checkbox',
   },
   {
-    "component": "uibit-table",
-    "string": "Select all rows on this page",
-    "context": "aria-label on select-all checkbox"
+    component: 'uibit-video',
+    string: 'Exit fullscreen',
+    context: 'aria-label attribute',
   },
   {
-    "component": "uibit-table",
-    "string": "Select row",
-    "context": "aria-label on row checkbox"
+    component: 'uibit-video',
+    string: 'Fullscreen',
+    context: 'aria-label attribute',
   },
   {
-    "component": "uibit-video",
-    "string": "Exit fullscreen",
-    "context": "aria-label attribute"
+    component: 'uibit-video',
+    string: 'Mute',
+    context: 'aria-label attribute',
   },
   {
-    "component": "uibit-video",
-    "string": "Fullscreen",
-    "context": "aria-label attribute"
+    component: 'uibit-video',
+    string: 'Pause',
+    context: 'aria-label attribute',
   },
   {
-    "component": "uibit-video",
-    "string": "Mute",
-    "context": "aria-label attribute"
+    component: 'uibit-video',
+    string: 'Play',
+    context: 'aria-label attribute',
   },
   {
-    "component": "uibit-video",
-    "string": "Pause",
-    "context": "aria-label attribute"
+    component: 'uibit-video',
+    string: 'Play Video',
+    context: 'aria-label attribute',
   },
   {
-    "component": "uibit-video",
-    "string": "Play",
-    "context": "aria-label attribute"
+    component: 'uibit-video',
+    string: 'Seek timeline',
+    context: 'aria-label attribute',
   },
   {
-    "component": "uibit-video",
-    "string": "Play Video",
-    "context": "aria-label attribute"
+    component: 'uibit-video',
+    string: 'Unmute',
+    context: 'aria-label attribute',
   },
   {
-    "component": "uibit-video",
-    "string": "Seek timeline",
-    "context": "aria-label attribute"
+    component: 'uibit-video',
+    string: 'Video Player',
+    context: 'aria-label attribute',
   },
   {
-    "component": "uibit-video",
-    "string": "Unmute",
-    "context": "aria-label attribute"
+    component: 'uibit-video',
+    string: 'Volume level',
+    context: 'aria-label attribute',
   },
-  {
-    "component": "uibit-video",
-    "string": "Video Player",
-    "context": "aria-label attribute"
-  },
-  {
-    "component": "uibit-video",
-    "string": "Volume level",
-    "context": "aria-label attribute"
-  }
 ];

@@ -21,7 +21,7 @@ export interface SignatureClearDetail {
 }
 
 declare global {
-interface HTMLElementTagNameMap {
+  interface HTMLElementTagNameMap {
     'uibit-signature': Signature;
-}
+  }
 }

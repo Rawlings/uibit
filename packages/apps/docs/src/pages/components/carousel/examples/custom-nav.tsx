@@ -1,5 +1,5 @@
 import '@uibit/carousel';
-import { UsageExample } from '../../../../types/docs';
+import type { UsageExample } from '../../../../types/docs';
 
 function Demo() {
   return (
@@ -14,12 +14,14 @@ function Demo() {
         Slide 3
       </div>
       <button
+        type="button"
         slot="prev"
         className="px-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/80 rounded-lg text-xs font-semibold tracking-wide uppercase transition-all cursor-pointer text-gray-900 dark:text-white"
       >
         Custom Back
       </button>
       <button
+        type="button"
         slot="next"
         className="px-4 py-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/80 rounded-lg text-xs font-semibold tracking-wide uppercase transition-all cursor-pointer text-gray-900 dark:text-white"
       >
@@ -31,7 +33,8 @@ function Demo() {
 
 const customNavExample: UsageExample = {
   title: 'Custom Navigation Buttons',
-  description: 'Replace the default prev/next controls by slotting your own buttons into the "prev" and "next" slots.',
+  description:
+    'Replace the default prev/next controls by slotting your own buttons into the "prev" and "next" slots.',
   Demo,
 };
 

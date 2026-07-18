@@ -1,4 +1,7 @@
-import { ComponentDocData, RegisteredComponentDocData } from '../../types/docs';
+import type {
+  ComponentDocData,
+  RegisteredComponentDocData,
+} from '../../types/docs';
 
 const flatModules = import.meta.glob('./*.tsx', { eager: true }) as Record<
   string,
@@ -10,7 +13,10 @@ const dirModules = import.meta.glob('./*/index.tsx', { eager: true }) as Record<
   { default: Partial<ComponentDocData> }
 >;
 
-const packageModules = import.meta.glob('../../../../../components/*/package.json', { eager: true }) as Record<
+const packageModules = import.meta.glob(
+  '../../../../../components/*/package.json',
+  { eager: true },
+) as Record<
   string,
   {
     default: {
@@ -26,29 +32,40 @@ const packageModules = import.meta.glob('../../../../../components/*/package.jso
   }
 >;
 
-const changelogModules = import.meta.glob('../../../../../components/*/CHANGELOG.md', {
-  query: '?raw',
-  import: 'default',
-  eager: true,
-}) as Record<string, string>;
+const changelogModules = import.meta.glob(
+  '../../../../../components/*/CHANGELOG.md',
+  {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  },
+) as Record<string, string>;
 
-const readmeModules = import.meta.glob('../../../../../components/*/README.md', {
-  query: '?raw',
-  import: 'default',
-  eager: true,
-}) as Record<string, string>;
+const readmeModules = import.meta.glob(
+  '../../../../../components/*/README.md',
+  {
+    query: '?raw',
+    import: 'default',
+    eager: true,
+  },
+) as Record<string, string>;
 
-const manifestModules = import.meta.glob('../../../../../components/*/custom-elements.json', {
-  eager: true,
-}) as Record<string, { default: any }>;
+const manifestModules = import.meta.glob(
+  '../../../../../components/*/custom-elements.json',
+  {
+    eager: true,
+  },
+) as Record<string, { default: any }>;
 
 export const componentRegistry: Record<string, RegisteredComponentDocData> = {};
 
 for (const path in packageModules) {
   const pkg = packageModules[path].default;
-  if (pkg.uibit && pkg.uibit.id) {
+  if (pkg.uibit?.id) {
     const id = pkg.uibit.id;
-    const reactModule = flatModules[`./${id}.tsx`]?.default || dirModules[`./${id}/index.tsx`]?.default;
+    const reactModule =
+      flatModules[`./${id}.tsx`]?.default ||
+      dirModules[`./${id}/index.tsx`]?.default;
 
     const changelogPath = path.replace('/package.json', '/CHANGELOG.md');
     const changelog = changelogModules[changelogPath] || '';

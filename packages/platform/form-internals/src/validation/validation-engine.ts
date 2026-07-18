@@ -28,24 +28,32 @@ export interface ValidationConstraints {
  * Validates a string value against standard HTML5 constraints.
  * Returns a ValidityStateFlags object representing the results.
  */
-export function validateValue(value: any, constraints: ValidationConstraints): ValidityStateFlags {
+export function validateValue(
+  value: any,
+  constraints: ValidationConstraints,
+): ValidityStateFlags {
   const input = document.createElement('input');
-  
+
   // Set type
   const type = constraints.type || 'text';
   input.type = type;
-  
+
   // Set validation attributes
   if (constraints.required) input.required = true;
-  if (constraints.minlength !== undefined) input.minLength = constraints.minlength;
-  if (constraints.maxlength !== undefined) input.maxLength = constraints.maxlength;
+  if (constraints.minlength !== undefined)
+    input.minLength = constraints.minlength;
+  if (constraints.maxlength !== undefined)
+    input.maxLength = constraints.maxlength;
   if (constraints.pattern) input.pattern = constraints.pattern;
-  if (constraints.min !== undefined && constraints.min !== '') input.min = String(constraints.min);
-  if (constraints.max !== undefined && constraints.max !== '') input.max = String(constraints.max);
-  if (constraints.step !== undefined && constraints.step !== '') input.step = String(constraints.step);
+  if (constraints.min !== undefined && constraints.min !== '')
+    input.min = String(constraints.min);
+  if (constraints.max !== undefined && constraints.max !== '')
+    input.max = String(constraints.max);
+  if (constraints.step !== undefined && constraints.step !== '')
+    input.step = String(constraints.step);
 
   const isToggle = type === 'checkbox' || type === 'radio';
-  
+
   // Populate values
   if (isToggle) {
     input.checked = !!constraints.checked;
@@ -84,19 +92,31 @@ export function validateValue(value: any, constraints: ValidationConstraints): V
 /**
  * Gets a default native-like message for the failed validation constraints.
  */
-export function getValidationMessage(flags: ValidityStateFlags, constraints: ValidationConstraints): string {
+export function getValidationMessage(
+  flags: ValidityStateFlags,
+  constraints: ValidationConstraints,
+): string {
   if (flags.valueMissing) return msg('Please fill out this field.');
-  if (flags.tooShort) return msg(str`Please lengthen this text to ${constraints.minlength} characters or more.`);
-  if (flags.tooLong) return msg(str`Please shorten this text to ${constraints.maxlength} characters or less.`);
+  if (flags.tooShort)
+    return msg(
+      str`Please lengthen this text to ${constraints.minlength} characters or more.`,
+    );
+  if (flags.tooLong)
+    return msg(
+      str`Please shorten this text to ${constraints.maxlength} characters or less.`,
+    );
   if (flags.patternMismatch) return msg('Please match the requested format.');
   if (flags.typeMismatch) {
-    if (constraints.type === 'email') return msg('Please enter an email address.');
+    if (constraints.type === 'email')
+      return msg('Please enter an email address.');
     if (constraints.type === 'url') return msg('Please enter a URL.');
     return msg('Please enter a valid value.');
   }
   if (flags.badInput) return msg('Please enter a number.');
-  if (flags.rangeUnderflow) return msg(str`Value must be greater than or equal to ${constraints.min}.`);
-  if (flags.rangeOverflow) return msg(str`Value must be less than or equal to ${constraints.max}.`);
+  if (flags.rangeUnderflow)
+    return msg(str`Value must be greater than or equal to ${constraints.min}.`);
+  if (flags.rangeOverflow)
+    return msg(str`Value must be less than or equal to ${constraints.max}.`);
   if (flags.stepMismatch) return msg('Please enter a valid value.');
   return '';
 }

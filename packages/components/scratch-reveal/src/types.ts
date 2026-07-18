@@ -9,7 +9,7 @@ export interface ScratchProgressDetail {
 }
 
 declare global {
-interface HTMLElementTagNameMap {
+  interface HTMLElementTagNameMap {
     'uibit-scratch-reveal': ScratchReveal;
-}
+  }
 }

@@ -57,7 +57,10 @@ export class ImageComparison extends UIBitElement {
 
   private _updateAria() {
     this.setAttribute('aria-valuenow', String(this.progress));
-    this.setAttribute('aria-label', `Visual comparison slider, current progress ${this.progress}%`);
+    this.setAttribute(
+      'aria-label',
+      `Visual comparison slider, current progress ${this.progress}%`,
+    );
   }
 
   private _onKeyDown(e: KeyboardEvent) {
@@ -86,7 +89,9 @@ export class ImageComparison extends UIBitElement {
     e.preventDefault();
     if (newProgress !== this.progress) {
       this.progress = newProgress;
-      this.dispatchCustomEvent('comparison-progress', { progress: this.progress });
+      this.dispatchCustomEvent('comparison-progress', {
+        progress: this.progress,
+      });
     }
   }
 
@@ -107,7 +112,8 @@ export class ImageComparison extends UIBitElement {
       const x = e.clientX - (rect.left + rect.width / 2);
       const y = e.clientY - (rect.top + rect.height / 2);
       const dist = Math.sqrt(x * x + y * y);
-      const maxDist = Math.sqrt(rect.width * rect.width + rect.height * rect.height) / 2;
+      const maxDist =
+        Math.sqrt(rect.width * rect.width + rect.height * rect.height) / 2;
       pct = (dist / maxDist) * 100;
     }
 
@@ -115,13 +121,17 @@ export class ImageComparison extends UIBitElement {
     const rounded = Math.round(pct);
     if (rounded !== this.progress) {
       this.progress = rounded;
-      this.dispatchCustomEvent('comparison-progress', { progress: this.progress });
+      this.dispatchCustomEvent('comparison-progress', {
+        progress: this.progress,
+      });
     }
   }
 
   private _onPointerDown(e: PointerEvent) {
     if (!this.interactive || this.hoverReveal) return;
-    const container = this.shadowRoot?.querySelector('.container') as HTMLElement;
+    const container = this.shadowRoot?.querySelector(
+      '.container',
+    ) as HTMLElement;
     if (container) {
       container.setPointerCapture(e.pointerId);
     }
@@ -138,7 +148,9 @@ export class ImageComparison extends UIBitElement {
 
   private _onPointerUp(e: PointerEvent) {
     if (this._isDragging) {
-      const container = this.shadowRoot?.querySelector('.container') as HTMLElement;
+      const container = this.shadowRoot?.querySelector(
+        '.container',
+      ) as HTMLElement;
       if (container) {
         container.releasePointerCapture(e.pointerId);
       }
@@ -254,15 +266,17 @@ export class ImageComparison extends UIBitElement {
           <slot name="before"></slot>
         </div>
 
-        ${this.mode === 'horizontal' || this.mode === 'vertical'
-          ? html`
+        ${
+          this.mode === 'horizontal' || this.mode === 'vertical'
+            ? html`
               <div 
                 class="divider divider-${this.mode}" 
                 style=${dividerStyle}
                 part="divider"
               ></div>
             `
-          : ''}
+            : ''
+        }
 
         <div 
           class="handle" 

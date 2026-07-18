@@ -1,12 +1,16 @@
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
-import { type IconNode } from 'lucide';
+import type { IconNode } from 'lucide';
 
 export type IconDefinition = string | ((size: number) => string);
 
 const registry = new Map<string, IconDefinition>();
 
 function escapeAttrValue(value: unknown): string {
-  return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
 export function iconNodeToSvg(node: IconNode, size: number): string {
@@ -31,7 +35,11 @@ export function registerIcons(icons: Record<string, IconDefinition>): void {
   }
 }
 
-export function getIcon(name: string, size = 16, fallback?: IconDefinition): ReturnType<typeof unsafeHTML> | string {
+export function getIcon(
+  name: string,
+  size = 16,
+  fallback?: IconDefinition,
+): ReturnType<typeof unsafeHTML> | string {
   const def = registry.get(name) ?? fallback;
   if (!def) return '';
   const svgStr = typeof def === 'function' ? def(size) : def;

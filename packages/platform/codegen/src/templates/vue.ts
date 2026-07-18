@@ -1,18 +1,33 @@
 import type { ComponentMetadata } from '../core/types.js';
-import { SourceBuilder, mergePropertiesAndAttributes, generateTypeImports, capitalize, isEventAssociatedWithProp } from '../core/utils.js';
+import {
+  SourceBuilder,
+  mergePropertiesAndAttributes,
+  generateTypeImports,
+  capitalize,
+  isEventAssociatedWithProp,
+} from '../core/utils.js';
 import swc from '@swc/core';
 
 export const vuePlugin = {
   name: 'vue',
   generate(component: ComponentMetadata) {
     return {
-      'index.ts': buildTS(component)
+      'index.ts': buildTS(component),
     };
-  }
+  },
 };
 
 function buildTS(component: ComponentMetadata): string {
-  const { name, tagName, events = [], properties, attributes, formAssociated, referencedTypes, importPath = '../../index.js' } = component;
+  const {
+    name,
+    tagName,
+    events = [],
+    properties,
+    attributes,
+    formAssociated,
+    referencedTypes,
+    importPath = '../../index.js',
+  } = component;
   const propMap = mergePropertiesAndAttributes(properties, attributes);
 
   const builder = new SourceBuilder();
@@ -26,14 +41,18 @@ ${generateTypeImports(referencedTypes, importPath)}`);
   // Build props list
   const propsObj: string[] = [];
   for (const propName of propMap.keys()) {
-    propsObj.push(`    ${propName}: { type: [String, Number, Boolean, Array, Object] as any }`);
+    propsObj.push(
+      `    ${propName}: { type: [String, Number, Boolean, Array, Object] as any }`,
+    );
   }
   if (formAssociated) {
-    propsObj.push(`    modelValue: { type: [String, Number, Boolean, Array, Object] as any }`);
+    propsObj.push(
+      `    modelValue: { type: [String, Number, Boolean, Array, Object] as any }`,
+    );
   }
 
   // Build emits list
-  const emitsList = events.map(e => `'${e.name}'`);
+  const emitsList = events.map((e) => `'${e.name}'`);
   if (formAssociated) {
     emitsList.push(`'update:modelValue'`);
   }
@@ -43,10 +62,13 @@ ${generateTypeImports(referencedTypes, importPath)}`);
   const handledValueChangeEvents = new Set<string>();
 
   for (const e of events) {
-    const vueEventName = 'on' + capitalize(e.name);
+    const vueEventName = `on${capitalize(e.name)}`;
     let handlerBody = `emit('${e.name}', event);`;
 
-    if (formAssociated && isEventAssociatedWithProp(component, e.name, 'value')) {
+    if (
+      formAssociated &&
+      isEventAssociatedWithProp(component, e.name, 'value')
+    ) {
       handlerBody += `\n        emit('update:modelValue', (event.target as any).value);`;
       handledValueChangeEvents.add(e.name);
     }
@@ -90,12 +112,17 @@ ${propsObj.join(',\n')}
     }
 
     // Watch other props to sync to element properties
-    ${Array.from(propMap.keys()).filter(k => k !== 'value').map(propName => `
+    ${Array.from(propMap.keys())
+      .filter((k) => k !== 'value')
+      .map(
+        (propName) => `
     watch(() => props.${propName}, (newVal) => {
       if (elementRef.value && newVal !== undefined) {
         (elementRef.value as any).${propName} = newVal;
       }
-    });`).join('')}
+    });`,
+      )
+      .join('')}
 
     return () => {
       const eventListeners: Record<string, any> = {};
@@ -123,15 +150,17 @@ ${eventBindings.join('\n')}
       tsx: false,
       decorators: true,
       comments: true,
-      target: 'es2022'
+      target: 'es2022',
     });
     const output = swc.printSync(ast, {
-      minify: false
+      minify: false,
     });
     return output.code;
   } catch (e) {
-    console.error(`Error: Failed to parse generated Vue component for ${component.name}:`, e);
+    console.error(
+      `Error: Failed to parse generated Vue component for ${component.name}:`,
+      e,
+    );
     throw e;
   }
 }
-

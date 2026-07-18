@@ -1,7 +1,7 @@
 import type TextRotator from './text-rotator';
 
 declare global {
-interface HTMLElementTagNameMap {
+  interface HTMLElementTagNameMap {
     'uibit-text-rotator': TextRotator;
-}
+  }
 }

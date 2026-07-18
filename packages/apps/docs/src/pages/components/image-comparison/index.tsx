@@ -1,6 +1,6 @@
 import '@uibit/image-comparison';
 import manifest from '@uibit/image-comparison/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import horizontalExample from './examples/horizontal';
 import horizontalRaw from './examples/horizontal?raw';
 import diagonalExample from './examples/diagonal';
@@ -10,7 +10,14 @@ import radialRaw from './examples/radial?raw';
 
 function ComparisonCurtainDemo() {
   return (
-    <div style={{ width: '100%', height: '350px', maxWidth: '600px', margin: '0 auto' }}>
+    <div
+      style={{
+        width: '100%',
+        height: '350px',
+        maxWidth: '600px',
+        margin: '0 auto',
+      }}
+    >
       <uibit-image-comparison mode="horizontal" progress={50}>
         <img
           slot="before"

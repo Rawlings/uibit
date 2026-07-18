@@ -13,7 +13,10 @@ export class ViewportController implements ReactiveController {
   isIntersecting = false;
   hasIntersected = false;
 
-  constructor(host: ReactiveControllerHost & HTMLElement, options: ViewportControllerOptions = {}) {
+  constructor(
+    host: ReactiveControllerHost & HTMLElement,
+    options: ViewportControllerOptions = {},
+  ) {
     this.host = host;
     this.options = options;
     this.host.addController(this);
@@ -38,9 +41,10 @@ export class ViewportController implements ReactiveController {
   observe() {
     this.unobserve();
 
-    const target = typeof this.options.target === 'function'
-      ? this.options.target()
-      : (this.options.target ?? this.host);
+    const target =
+      typeof this.options.target === 'function'
+        ? this.options.target()
+        : (this.options.target ?? this.host);
 
     if (!target) return;
 

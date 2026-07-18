@@ -1,6 +1,6 @@
 import '@uibit/diff-viewer';
 import manifest from '@uibit/diff-viewer/custom-elements.json';
-import { ComponentDocData } from '../../../types/docs';
+import type { ComponentDocData } from '../../../types/docs';
 import splitModeExample from './examples/split-mode';
 import splitModeRaw from './examples/split-mode?raw';
 import inlineModeExample from './examples/inline-mode';
@@ -92,13 +92,21 @@ function App() {
     requirements: [
       'Host element functions as an accessible comparison region with role="region" and descriptive label.',
       'Delete (-) and Insert (+) operators are clearly demarcated in the DOM for screen readers.',
-      'High-contrast, accessible red/green highlight background colors are tailored to exceed 4.5:1 text contrast ratios.'
+      'High-contrast, accessible red/green highlight background colors are tailored to exceed 4.5:1 text contrast ratios.',
     ],
     keyboardNav: [
-      { key: 'Tab', description: 'Navigate focus to the diff viewer scrollable pane regions.' },
-      { key: 'Arrow Keys', description: 'Scroll through the code content when the pane is focused.' }
-    ]
-  }
+      {
+        key: 'Tab',
+        description:
+          'Navigate focus to the diff viewer scrollable pane regions.',
+      },
+      {
+        key: 'Arrow Keys',
+        description:
+          'Scroll through the code content when the pane is focused.',
+      },
+    ],
+  },
 };
 
 export default data;
