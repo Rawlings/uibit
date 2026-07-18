@@ -2,8 +2,11 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/360-viewer.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/360-viewer)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/360-viewer)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/360-viewer)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/360-viewer)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/360-viewer)**
 
 ## Installation
 
@@ -26,7 +29,3 @@ The 360 Viewer allows customers to explore products with tactile, interactive co
 - **E-Commerce Showcases** – Premium product displays for retail, luxury goods, and consumer electronics.
 - **Interactive Catalogs** – Highlighting product features, textures, and craftsmanship.
 - **Product Portfolios** – Clean, minimal galleries for designers and manufacturers.
-
-## Further Information
-
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

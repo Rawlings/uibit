@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/scroll-progress.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/scroll-progress)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/scroll-progress)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/scroll-progress)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/scroll-progress)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/scroll-progress)**
 
 ## Installation
 
 ```bash
 npm install @uibit/scroll-progress
 ```
-
 
 Scroll Progress is a reading indicator component that displays content navigation progress. As users scroll through long-form articles, documentation, or reports, a subtle progress indicator shows their position, providing context and encouraging reading completion.
 
@@ -27,9 +29,6 @@ Scroll Progress is a reading indicator component that displays content navigatio
 - **Technical Documentation** – Helping users track their progress through guides and references.
 - **Annual Reports & Case Studies** – Providing orientation for data-heavy corporate communications.
 
-## Further Information
-
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 
 ## Changelog

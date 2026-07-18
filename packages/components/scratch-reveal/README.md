@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/scratch-reveal.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/scratch-reveal)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/scratch-reveal)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/scratch-reveal)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/scratch-reveal)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/scratch-reveal)**
 
 ## Installation
 
 ```bash
 npm install @uibit/scratch-reveal
 ```
-
 
 Scratch Reveal is an interactive promotional display component that mimics a physical scratch-card interaction. By obscuring content (such as a discount code, coupon, or image) with an erasable overlay, it introduces gamification and anticipation to user actions.
 
@@ -27,9 +29,6 @@ Scratch Reveal is an interactive promotional display component that mimics a phy
 - **Loyalty Programs** – Gamifying reward distributions and membership perks.
 - **Brand Campaigns** – Unveiling secret announcements or hidden content.
 
-## Further Information
-
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 
 ## Changelog

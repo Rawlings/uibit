@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/image-comparison.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/image-comparison)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/image-comparison)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/image-comparison)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/image-comparison)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/image-comparison)**
 
 ## Installation
 
 ```bash
 npm install @uibit/image-comparison
 ```
-
 
 Image Comparison provides a visual comparison curtain layout. It overlays two images (representing before and after states) and allows users to peel them back horizontally, vertically, diagonally, or radially via an interactive handle slider.
 
@@ -26,9 +28,7 @@ Image Comparison provides a visual comparison curtain layout. It overlays two im
 - **Product showcases** – Comparing design upgrades, blueprints, rendering fidelity, or cosmetic changes.
 - **Historical comparisons** – Presenting satellite imagery, architectural renovations, or site transformations over time.
 
-## Further Information
 
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 ## Changelog
 

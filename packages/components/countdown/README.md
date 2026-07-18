@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/countdown.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/countdown)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/countdown)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/countdown)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/countdown)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/countdown)**
 
 ## Installation
 
 ```bash
 npm install @uibit/countdown
 ```
-
 
 Countdown provides a highly customizable visual timer designed to communicate time sensitivity and build anticipation. Whether highlighting a product launch, event deadline, or limited-time campaign, it offers clear, real-time feedback that drives user action.
 
@@ -27,9 +29,6 @@ Countdown provides a highly customizable visual timer designed to communicate ti
 - **Campaign Deadlines** – Communicating registration limits or limited-time offers.
 - **Transactional Interfaces** – Showing remaining time for reservation holdings or checkout windows.
 
-## Further Information
-
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 
 ## Changelog

@@ -61,6 +61,7 @@ const packagesRegistry: Record<string, PackageData> = {
     description: 'Local Model Context Protocol (MCP) server exposing UIBit Custom Elements Manifest (CEM) schemas to AI agents.',
     packageName: '@uibit/cem-mcp',
     readme: cemMcpReadme,
+    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-mcp',
   },
   'cem-oxc': {
     title: 'CEM OXC',

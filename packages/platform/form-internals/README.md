@@ -2,6 +2,11 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/form-internals.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/form-internals)
 
+## Resources
+
+- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/form-internals)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/form-internals)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/form-internals)**
 
 A robust, enterprise-grade package that abstracts the `ElementInternals` API for Lit components, making form association and custom validation seamless.
 

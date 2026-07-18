@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/text-clamp.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/text-clamp)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/text-clamp)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/text-clamp)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/text-clamp)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/text-clamp)**
 
 ## Installation
 
 ```bash
 npm install @uibit/text-clamp
 ```
-
 
 Text Clamp constrains long, multi-line text blocks to a designated maximum line count. When the text exceeds the boundary, the component inserts an inline ellipsis and an interactive toggle (e.g. "More" / "Less") to expand or collapse the content dynamically without page navigation.
 
@@ -26,9 +28,7 @@ Text Clamp constrains long, multi-line text blocks to a designated maximum line 
 - **Blog & Article Previews** – Displaying uniform description snippets in card lists or search results.
 - **Biographies & Descriptions** – Managing profiles or catalog details on structured page grids.
 
-## Further Information
 
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 ## Changelog
 

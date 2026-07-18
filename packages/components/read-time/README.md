@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/read-time.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/read-time)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/read-time)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/read-time)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/read-time)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/read-time)**
 
 ## Installation
 
 ```bash
 npm install @uibit/read-time
 ```
-
 
 Text Read Timer automatically analyzes document length and displays a reading time estimate to users. By calculating read times directly on the client, it helps readers set expectations before committing to long-form articles, improving retention rates and page loyalty.
 
@@ -26,7 +28,3 @@ Text Read Timer automatically analyzes document length and displays a reading ti
 - **Editorial Platforms & Blogs** – Displaying read times in article summaries, headers, and indexes.
 - **Documentation Sites** – Providing guides and tutorials with clear completion timeframes.
 - **Knowledge Bases** – Helping users locate quick-read answers or detailed guides.
-
-## Further Information
-
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

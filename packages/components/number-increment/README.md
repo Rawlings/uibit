@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/number-increment.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/number-increment)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/number-increment)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/number-increment)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/number-increment)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/number-increment)**
 
 ## Installation
 
 ```bash
 npm install @uibit/number-increment
 ```
-
 
 Number Ticker is a visual performance indicator component that animates numerical statistics, percentages, and currencies when they enter the user's viewport. By displaying numbers with a smooth counting motion rather than as static values, it highlights milestones and growth metrics.
 
@@ -26,7 +28,3 @@ Number Ticker is a visual performance indicator component that animates numerica
 - **Key Performance Indicators** – Showcasing revenue figures, conversion rates, and corporate achievements.
 - **User Milestones** – Animating active user counts, community sizes, or transaction histories.
 - **Impact Dashboards** – Highlighting carbon offsets, project progress, or resource savings.
-
-## Further Information
-
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.

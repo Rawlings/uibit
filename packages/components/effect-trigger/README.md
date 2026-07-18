@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/effect-trigger.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/effect-trigger)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/effect-trigger)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/effect-trigger)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/effect-trigger)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/effect-trigger)**
 
 ## Installation
 
 ```bash
 npm install @uibit/effect-trigger
 ```
-
 
 Effect Trigger is an interactive animation wrapper that orchestrates visual reactions based on user inputs. By separating interactive triggers from animation assets, it allows product teams to add spatial transitions, particle bursts, and motion paths to standard controls, enhancing visual feedback and celebration states.
 
@@ -27,9 +29,6 @@ Effect Trigger is an interactive animation wrapper that orchestrates visual reac
 - **Interactive Button States** – Enhancing key calls-to-action with hover effects or custom visual bursts.
 - **Gamified Elements** – Providing visual rewards for quizzes, loyalty points, or feature discoveries.
 
-## Further Information
-
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 
 ## Changelog

@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/form.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/form)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/form)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/form)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/form)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/form)**
 
 ## Installation
 
 ```bash
 npm install @uibit/form
 ```
-
 
 Form provides a composable, declarative wrapper around standard HTML `<form>` elements. It adds multi-step wizard navigation, asynchronous submission lifecycle states, and unsaved changes tracking to simplify form construction.
 
@@ -27,9 +29,7 @@ Form provides a composable, declarative wrapper around standard HTML `<form>` el
 - **Data editing screens** – Safe updates of profile records, settings panels, or metadata grids.
 - **Transactional submittals** – Fast user checkouts or feedback collection points.
 
-## Further Information
 
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 ## Changelog
 

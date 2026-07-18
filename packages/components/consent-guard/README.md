@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/consent-guard.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/consent-guard)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/consent-guard)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/consent-guard)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/consent-guard)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/consent-guard)**
 
 ## Installation
 
 ```bash
 npm install @uibit/consent-guard
 ```
-
 
 Consent Guard provides a polished, content-specific consent interface that respects user privacy without interrupting the user experience. By replacing third-party embeddings with clear, informative placeholders, it gives users control over which services load, building trust and meeting compliance requirements.
 
@@ -27,9 +29,6 @@ Consent Guard provides a polished, content-specific consent interface that respe
 - **Compliance-Driven Landing Pages** – Pages requiring selective loading of analytics, tracking, or marketing scripts.
 - **Enterprise Portals** – Ensuring strict data privacy boundaries for embedded customer service tools.
 
-## Further Information
-
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 
 ## Changelog

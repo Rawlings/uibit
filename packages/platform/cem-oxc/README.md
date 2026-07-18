@@ -2,6 +2,12 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/cem-oxc.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/cem-oxc)
 
+## Resources
+
+- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/cem-oxc)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/cem-oxc)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/cem-oxc)**
+
 `@uibit/cem-oxc` is an ultra-fast, zero-dependency Custom Elements Manifest (CEM) generator powered by **OXC** (JavaScript/TypeScript AST parser written in Rust) under the hood. It acts as a drop-in replacement for the native `@custom-elements-manifest/analyzer`.
 
 ---
@@ -64,9 +70,7 @@ console.log(JSON.stringify(manifest, null, 2));
 
 ---
 
-## Further Information
 
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 ## Changelog
 

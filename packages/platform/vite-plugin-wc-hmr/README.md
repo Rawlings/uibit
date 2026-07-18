@@ -2,6 +2,11 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/vite-plugin-wc-hmr.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/vite-plugin-wc-hmr)
 
+## Resources
+
+- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/hmr)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/vite-plugin-wc-hmr)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/vite-plugin-wc-hmr)**
 
 Vite plugin for true Hot Module Replacement of custom elements. Updates templates, styles, and methods in-place without a full page reload, preserving component state.
 

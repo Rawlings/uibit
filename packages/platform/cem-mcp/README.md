@@ -2,6 +2,11 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/cem-mcp.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/cem-mcp)
 
+## Resources
+
+- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/cem-mcp)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/cem-mcp)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/cem-mcp)**
 
 A local Model Context Protocol (MCP) server that exposes Custom Elements Manifest (CEM) data of web components to AI assistants and IDE code agents.
 
@@ -88,5 +93,3 @@ If you want to run it directly from a local build:
   }
 }
 ```
-
-

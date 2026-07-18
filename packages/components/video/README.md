@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/video.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/video)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/video)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/video)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/video)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/video)**
 
 ## Installation
 
 ```bash
 npm install @uibit/video
 ```
-
 
 Video provides a customizable web component wrapper for native `<video>` elements and `<iframe>` video embeds. It replaces standard browser control interfaces with a sleek grayscale control bar featuring timeline scrubbing, volume controls, and fullscreen actions.
 
@@ -26,9 +28,7 @@ Video provides a customizable web component wrapper for native `<video>` element
 - **Case Studies & Testimonials** – Client interviews or background reviews hosted on third-party video networks.
 - **Tutorials & Guides** – Embedded step-by-step videos inside help files or documentation articles.
 
-## Further Information
 
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 ## Changelog
 

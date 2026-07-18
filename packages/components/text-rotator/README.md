@@ -2,15 +2,17 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@uibit/text-rotator.svg?style=flat-square&color=black)](https://www.npmjs.com/package/@uibit/text-rotator)
 
+## Resources
 
-[Interactive Demonstration](https://rawlings.github.io/uibit/components/text-rotator)
+- **[Documentation & Live Demo](https://rawlings.github.io/uibit/components/text-rotator)**
+- **[NPM Package](https://www.npmjs.com/package/@uibit/text-rotator)**
+- **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/components/text-rotator)**
 
 ## Installation
 
 ```bash
 npm install @uibit/text-rotator
 ```
-
 
 Text Rotator cycles through an array of phrases inside a static sentence. It transitions between list items using vertical slide or 3D perspective flip animations, designed to highlight shifting value propositions within a compact, responsive boundary.
 
@@ -26,9 +28,7 @@ Text Rotator cycles through an array of phrases inside a static sentence. It tra
 - **Product Feature Lists** – Highlighting changing use cases or target audiences in marketing sections.
 - **Key Metrics Rotators** – Displaying rotating callouts or statistics in a space-saving headline.
 
-## Further Information
 
-Detailed design guidelines, customizable attributes, and integration examples are available on our documentation site.
 
 ## Changelog
 
