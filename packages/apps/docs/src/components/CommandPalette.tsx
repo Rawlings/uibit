@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { componentRegistry } from '../pages/components';
-import { FOUNDATIONS, RESOURCES, ECOSYSTEM } from '../config/navigation';
+import { FOUNDATIONS, RESOURCES, TOOLING } from '../config/navigation';
 import { slugify } from '../utils/markdown';
 
 // Raw imports of markdown content files for indexing
@@ -64,13 +64,13 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     });
   });
 
-  // Add ecosystem
-  ECOSYSTEM.forEach(g => {
+  // Add tooling
+  TOOLING.forEach(g => {
     items.push({
       id: g.id,
       title: g.title,
       to: g.to,
-      category: 'Ecosystem'
+      category: 'Tooling'
     });
   });
 

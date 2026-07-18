@@ -1,11 +1,12 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { componentRegistry } from '../pages/components';
-import { FOUNDATIONS, RESOURCES, ECOSYSTEM, CATEGORY_ORDER } from '../config/navigation';
+import { FOUNDATIONS, RESOURCES, TOOLING, TOOLING_CATEGORY_ORDER, CATEGORY_ORDER } from '../config/navigation';
 
 export function Sidebar({ activeId, className = '' }: { activeId?: string; className?: string }) {
   const location = useLocation();
   const currentPath = location.pathname;
+  const isTooling = currentPath.startsWith('/tooling');
 
   let resolvedActiveId = activeId;
   if (!resolvedActiveId) {
@@ -22,8 +23,8 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
     else if (currentPath === '/resources/coc') resolvedActiveId = 'coc';
     else if (currentPath.startsWith('/components/')) {
       resolvedActiveId = currentPath.substring('/components/'.length);
-    } else if (currentPath.startsWith('/packages/')) {
-      resolvedActiveId = currentPath.substring('/packages/'.length);
+    } else if (currentPath.startsWith('/tooling/')) {
+      resolvedActiveId = currentPath.substring('/tooling/'.length);
     } else {
       resolvedActiveId = currentPath.substring(1);
     }
@@ -40,15 +41,27 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
     ? RESOURCES.filter((g) => g.title.toLowerCase().includes(q))
     : RESOURCES;
 
-  const filteredEcosystem = searchQuery
-    ? ECOSYSTEM.filter((e) => e.title.toLowerCase().includes(q))
-    : ECOSYSTEM;
-
   const isSearching = searchQuery.length > 0;
 
   const activeStyle = 'text-gray-950 dark:text-white font-medium transition-all duration-150';
   const inactiveStyle = 'text-gray-500 dark:text-gray-400 hover:text-gray-950 dark:hover:text-white transition-all duration-150';
 
+  // Tooling, grouped by category
+  const toolingGrouped = TOOLING.reduce((acc, item) => {
+    const cat = item.category || 'Other';
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(item);
+    return acc;
+  }, {} as Record<string, typeof TOOLING>);
+
+  const toolingCategoriesWithMatches = TOOLING_CATEGORY_ORDER.map((label) => {
+    const items = (toolingGrouped[label] || []).filter(
+      (item) => !isSearching || item.title.toLowerCase().includes(q)
+    );
+    return { label, items };
+  }).filter((cat) => cat.items.length > 0);
+
+  // Components, grouped by category
   const grouped = Object.values(componentRegistry).reduce((acc, comp) => {
     const cat = comp.category || 'Other';
     if (!acc[cat]) acc[cat] = [];
@@ -70,7 +83,9 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
     };
   }).filter((cat) => cat.components.length > 0);
 
-  const hasResults = filteredFoundations.length > 0 || categoriesWithMatches.length > 0 || filteredEcosystem.length > 0 || filteredResources.length > 0;
+  const hasResults = isTooling
+    ? toolingCategoriesWithMatches.length > 0 || filteredResources.length > 0
+    : filteredFoundations.length > 0 || categoriesWithMatches.length > 0 || filteredResources.length > 0;
 
   return (
     <aside className={`w-full md:w-56 shrink-0 md:pr-6 ${className}`}>
@@ -97,68 +112,79 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
           <p className="text-xs text-gray-400 dark:text-gray-550 italic py-2">No results</p>
         )}
 
-        {filteredFoundations.length > 0 && (
-          <div className="space-y-1.5">
-            <p className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
-              Foundations
-            </p>
-            {filteredFoundations.map((guide) => (
-              <Link
-                key={guide.id}
-                to={guide.to}
-                className={`block text-sm ${
-                  resolvedActiveId === guide.id ? activeStyle : inactiveStyle
-                }`}
-              >
-                {guide.title}
-              </Link>
-            ))}
-          </div>
-        )}
-
-        {categoriesWithMatches.length > 0 && (
-          <div className="space-y-4 mt-6">
-            <p className="text-[11px] font-semibold text-gray-900 dark:text-white mb-1 tracking-wide uppercase">
-              Components
-            </p>
-            {categoriesWithMatches.map((cat) => (
-              <div key={cat.label} className="space-y-1.5 border-l-2 border-gray-100 dark:border-gray-800 pl-3 ml-[3px]">
-                <p className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5 mt-2 uppercase tracking-wider">
-                  {cat.label}
+        {isTooling ? (
+          toolingCategoriesWithMatches.length > 0 && (
+            <div className="space-y-4">
+              <p className="text-[11px] font-semibold text-gray-900 dark:text-white mb-1 tracking-wide uppercase">
+                Tooling
+              </p>
+              {toolingCategoriesWithMatches.map((cat) => (
+                <div key={cat.label} className="space-y-1.5 border-l-2 border-gray-100 dark:border-gray-800 pl-3 ml-[3px]">
+                  <p className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5 mt-2 uppercase tracking-wider">
+                    {cat.label}
+                  </p>
+                  {cat.items.map((item) => (
+                    <Link
+                      key={item.id}
+                      to={item.to}
+                      className={`block text-sm ${
+                        resolvedActiveId === item.id ? activeStyle : inactiveStyle
+                      }`}
+                    >
+                      {item.title}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )
+        ) : (
+          <>
+            {filteredFoundations.length > 0 && (
+              <div className="space-y-1.5">
+                <p className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
+                  Foundations
                 </p>
-                {cat.components.map((item) => (
+                {filteredFoundations.map((guide) => (
                   <Link
-                    key={item.id}
-                    to={`/components/${item.id}`}
+                    key={guide.id}
+                    to={guide.to}
                     className={`block text-sm ${
-                      resolvedActiveId === item.id ? activeStyle : inactiveStyle
+                      resolvedActiveId === guide.id ? activeStyle : inactiveStyle
                     }`}
                   >
-                    {item.title}
+                    {guide.title}
                   </Link>
                 ))}
               </div>
-            ))}
-          </div>
-        )}
+            )}
 
-        {filteredEcosystem.length > 0 && (
-          <div className="space-y-1.5 mt-6">
-            <p className="text-[11px] font-semibold text-gray-950 dark:text-white mb-2.5 tracking-wide uppercase">
-              Ecosystem
-            </p>
-            {filteredEcosystem.map((item) => (
-              <Link
-                key={item.id}
-                to={item.to}
-                className={`block text-sm ${
-                  resolvedActiveId === item.id ? activeStyle : inactiveStyle
-                }`}
-              >
-                {item.title}
-              </Link>
-            ))}
-          </div>
+            {categoriesWithMatches.length > 0 && (
+              <div className="space-y-4 mt-6">
+                <p className="text-[11px] font-semibold text-gray-900 dark:text-white mb-1 tracking-wide uppercase">
+                  Components
+                </p>
+                {categoriesWithMatches.map((cat) => (
+                  <div key={cat.label} className="space-y-1.5 border-l-2 border-gray-100 dark:border-gray-800 pl-3 ml-[3px]">
+                    <p className="text-[10px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5 mt-2 uppercase tracking-wider">
+                      {cat.label}
+                    </p>
+                    {cat.components.map((item) => (
+                      <Link
+                        key={item.id}
+                        to={`/components/${item.id}`}
+                        className={`block text-sm ${
+                          resolvedActiveId === item.id ? activeStyle : inactiveStyle
+                        }`}
+                      >
+                        {item.title}
+                      </Link>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
 
         {filteredResources.length > 0 && (

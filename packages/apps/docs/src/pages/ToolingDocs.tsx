@@ -13,7 +13,7 @@ import cemExtendedReadme from '../../../../platform/cem-extended/README.md?raw';
 import cemMcpReadme from '../../../../platform/cem-mcp/README.md?raw';
 import cemOxcReadme from '../../../../platform/cem-oxc/README.md?raw';
 import hoistlockReadme from '../../../../platform/hoistlock/README.md?raw';
-interface PackageData {
+interface ToolingPackageData {
   title: string;
   description: string;
   packageName: string;
@@ -21,7 +21,7 @@ interface PackageData {
   githubUrl?: string;
 }
 
-const packagesRegistry: Record<string, PackageData> = {
+const toolingRegistry: Record<string, ToolingPackageData> = {
   'base-class': {
     title: 'Base Class',
     description: 'Shared foundation, optimizations, event dispatch, and performance decorators for UIBit components.',
@@ -80,13 +80,13 @@ const packagesRegistry: Record<string, PackageData> = {
   },
 };
 
-export default function PackageDocs() {
+export default function ToolingDocs() {
   const { packageId } = useParams<{ packageId: string }>();
-  const pkg = packageId ? packagesRegistry[packageId] : undefined;
+  const pkg = packageId ? toolingRegistry[packageId] : undefined;
 
   useHead({
-    title: pkg ? `${pkg.title} – UIBit` : 'Ecosystem – UIBit',
-    description: pkg ? pkg.description : 'Ecosystem integrations and helpers for UIBit.',
+    title: pkg ? `${pkg.title} – UIBit` : 'Tooling – UIBit',
+    description: pkg ? pkg.description : 'Tooling for building and maintaining UIBit components.',
   });
 
   const [activeSection, setActiveSection] = useState<string>('');
@@ -154,6 +154,9 @@ export default function PackageDocs() {
         {/* Main Content Area */}
         <div className="flex-1 min-w-0">
           <header className="mb-10">
+            <span className="inline-block text-[11px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
+              Tooling
+            </span>
             <h1 className="text-3xl sm:text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight">
               {pkg.title}
             </h1>

@@ -4,7 +4,7 @@
 
 ## Resources
 
-- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/form-internals)**
+- **[Documentation & Guides](https://rawlings.github.io/uibit/tooling/form-internals)**
 - **[NPM Package](https://www.npmjs.com/package/@uibit/form-internals)**
 - **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/form-internals)**
 

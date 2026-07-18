@@ -4,7 +4,7 @@
 
 ## Resources
 
-- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/cem-extended)**
+- **[Documentation & Guides](https://rawlings.github.io/uibit/tooling/cem-extended)**
 - **[NPM Package](https://www.npmjs.com/package/@uibit/cem-extended)**
 - **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/cem-extended)**
 

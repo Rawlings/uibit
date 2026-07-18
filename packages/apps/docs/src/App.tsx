@@ -1,13 +1,16 @@
-import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom';
+import { Routes, Route, Link, useLocation, useParams, Navigate } from 'react-router-dom';
 import { useState, useEffect, lazy, Suspense } from 'react';
 import ScrollToTop from './components/ScrollToTop';
 import { CommandPalette } from './components/CommandPalette';
 import { NavigationDock } from './components/NavigationDock';
+import { TOOLING } from './config/navigation';
 
 const Home = lazy(() => import('./pages/Home'));
+const Components = lazy(() => import('./pages/ComponentGallery'));
+const Tooling = lazy(() => import('./pages/Tooling'));
 const ComponentDocs = lazy(() => import('./pages/component'));
 const MarkdownPage = lazy(() => import('./pages/MarkdownPage'));
-const PackageDocs = lazy(() => import('./pages/PackageDocs'));
+const ToolingDocs = lazy(() => import('./pages/ToolingDocs'));
 
 function renderLogo() {
   return (
@@ -26,6 +29,11 @@ function renderLogo() {
       </span>
     </Link>
   );
+}
+
+function LegacyPackageRedirect() {
+  const { packageId } = useParams<{ packageId: string }>();
+  return <Navigate to={`/tooling/${packageId}`} replace />;
 }
 
 function App() {
@@ -94,7 +102,32 @@ function App() {
       {/* Header */}
       <header className="relative z-50 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-          {renderLogo()}
+          <div className="flex items-center gap-8">
+            {renderLogo()}
+
+            {/* Primary nav */}
+            <nav className="hidden sm:flex items-center gap-1">
+              {[
+                { to: '/components', label: 'Components' },
+                { to: '/tooling', label: 'Tooling' },
+              ].map(({ to, label }) => {
+                const isActive = location.pathname === to || location.pathname.startsWith(to + '/');
+                return (
+                  <Link
+                    key={to}
+                    to={to}
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                      isActive
+                        ? 'text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-900'
+                        : 'text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-900/50'
+                    }`}
+                  >
+                    {label}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
 
           {/* Quick search button */}
           <button
@@ -123,8 +156,11 @@ function App() {
             <Route path="/packages/frameworks" element={<Navigate to="/foundations/frameworks" replace />} />
             <Route path="/foundations/:pageId" element={<MarkdownPage />} />
             <Route path="/resources/:pageId" element={<MarkdownPage />} />
+            <Route path="/components" element={<Components />} />
             <Route path="/components/:componentId" element={<ComponentDocs />} />
-            <Route path="/packages/:packageId" element={<PackageDocs />} />
+            <Route path="/tooling" element={<Tooling />} />
+            <Route path="/tooling/:packageId" element={<ToolingDocs />} />
+            <Route path="/packages/:packageId" element={<LegacyPackageRedirect />} />
             <Route
               path="*"
               element={
@@ -159,21 +195,27 @@ function App() {
       {/* Footer */}
       <footer className="border-t border-gray-200 dark:border-gray-800 mt-24 bg-gray-50/10 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-10">
             {/* Branding */}
             <div className="md:col-span-2 space-y-4">
               <Link to="/" className="text-base font-bold text-gray-900 dark:text-white">
                 UIBit
               </Link>
               <p className="text-sm text-gray-500 dark:text-gray-400 max-w-sm leading-relaxed">
-                Accessible, lightweight, and framework-agnostic web components built with Lit. Elevate your interface experience with native performance.
+                Accessible, lightweight, and framework-agnostic web components built with Lit — and the tooling used
+                to build them. Elevate your interface experience with native performance.
               </p>
             </div>
 
-            {/* Foundations */}
+            {/* Components */}
             <div className="space-y-3">
-              <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Foundations</h4>
+              <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Components</h4>
               <ul className="space-y-2">
+                <li>
+                  <Link to="/components" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    All Components
+                  </Link>
+                </li>
                 <li>
                   <Link to="/foundations/getting-started" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                     Installation & Setup
@@ -209,6 +251,25 @@ function App() {
                     Troubleshooting & FAQ
                   </Link>
                 </li>
+              </ul>
+            </div>
+
+            {/* Tooling */}
+            <div className="space-y-3">
+              <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Tooling</h4>
+              <ul className="space-y-2">
+                <li>
+                  <Link to="/tooling" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    All Tooling
+                  </Link>
+                </li>
+                {TOOLING.map((item) => (
+                  <li key={item.id}>
+                    <Link to={item.to} className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 

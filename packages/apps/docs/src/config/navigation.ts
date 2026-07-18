@@ -22,15 +22,22 @@ export const RESOURCES: NavigationItem[] = [
   { id: 'coc', title: 'Code of Conduct', to: '/resources/coc', category: 'Resources' },
 ];
 
-export const ECOSYSTEM: NavigationItem[] = [
-  { id: 'codegen', title: 'Codegen', to: '/packages/codegen', category: 'Ecosystem' },
-  { id: 'base-class', title: 'Base Class', to: '/packages/base-class', category: 'Ecosystem' },
-  { id: 'form-internals', title: 'Form Internals', to: '/packages/form-internals', category: 'Ecosystem' },
-  { id: 'hmr', title: 'Vite Plugin WC HMR', to: '/packages/hmr', category: 'Ecosystem' },
-  { id: 'cem-extended', title: 'CEM Extended', to: '/packages/cem-extended', category: 'Ecosystem' },
-  { id: 'cem-mcp', title: 'CEM MCP Server', to: '/packages/cem-mcp', category: 'Ecosystem' },
-  { id: 'cem-oxc', title: 'CEM OXC', to: '/packages/cem-oxc', category: 'Ecosystem' },
-  { id: 'hoistlock', title: 'Hoistlock', to: '/packages/hoistlock', category: 'Ecosystem' },
+export const TOOLING: NavigationItem[] = [
+  { id: 'codegen', title: 'Codegen', to: '/tooling/codegen', category: 'Codegen & Wrappers' },
+  { id: 'base-class', title: 'Base Class', to: '/tooling/base-class', category: 'Runtime' },
+  { id: 'form-internals', title: 'Form Internals', to: '/tooling/form-internals', category: 'Runtime' },
+  { id: 'cem-extended', title: 'CEM Extended', to: '/tooling/cem-extended', category: 'Manifest Tooling' },
+  { id: 'cem-mcp', title: 'CEM MCP Server', to: '/tooling/cem-mcp', category: 'Manifest Tooling' },
+  { id: 'cem-oxc', title: 'CEM OXC', to: '/tooling/cem-oxc', category: 'Manifest Tooling' },
+  { id: 'hmr', title: 'Vite Plugin WC HMR', to: '/tooling/hmr', category: 'Build & Bundling' },
+  { id: 'hoistlock', title: 'Hoistlock', to: '/tooling/hoistlock', category: 'Build & Bundling' },
+];
+
+export const TOOLING_CATEGORY_ORDER = [
+  'Codegen & Wrappers',
+  'Runtime',
+  'Manifest Tooling',
+  'Build & Bundling',
 ];
 
 export const CATEGORY_ORDER = [

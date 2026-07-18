@@ -105,7 +105,13 @@ impl<'a> Visit<'a> for ImportExportCollector {
       let specifier = source.value.to_string();
       let mut symbols = Vec::new();
       for spec in &decl.specifiers {
-        let name = match &spec.local {
+        // `spec.local` is the name as it exists in the *source* module;
+        // `spec.exported` is the public name callers actually import (they
+        // can differ: `export { a as b } from './x'`). trace_symbol_source
+        // matches against the publicly-requested name, so that's what needs
+        // to be recorded here — using `local` made renamed re-exports
+        // untraceable, silently breaking hoisting-leak detection for them.
+        let name = match &spec.exported {
           ModuleExportName::Identifier(id) => id.name.to_string(),
           ModuleExportName::StringLiteral(sl) => sl.value.to_string(),
         };
@@ -118,9 +124,10 @@ impl<'a> Visit<'a> for ImportExportCollector {
         is_reexport: true,
       });
     } else {
-      // Local exports
+      // Local exports (e.g. `export { a as b }`) — same distinction as above:
+      // `defined_exports` must hold the public name, not the local binding.
       for spec in &decl.specifiers {
-        let name = match &spec.local {
+        let name = match &spec.exported {
           ModuleExportName::Identifier(id) => id.name.to_string(),
           ModuleExportName::StringLiteral(sl) => sl.value.to_string(),
         };
@@ -226,6 +233,26 @@ impl GraphBuilder {
 
   // Parse a file and recursively analyze its imports
   pub fn analyze_file(&mut self, file_path: &Path) {
+    self.analyze_file_at_depth(file_path, 0);
+  }
+
+  // A long linear import chain (tens of thousands of auto-generated files
+  // each importing the next, or a similarly deep dependency chain in
+  // node_modules) recurses through ordinary Rust function calls with no
+  // depth limit, growing the native stack unbounded and crashing the
+  // process with a stack overflow — an abrupt abort, not a catchable error.
+  // Import cycles are already handled safely (a file is registered in
+  // `self.files` before recursing into its imports, so a cycle just stops),
+  // but a long *non-cyclic* chain isn't. This cap only matters for
+  // pathologically deep chains; any real project's import graph is nowhere
+  // near it.
+  const MAX_ANALYZE_DEPTH: usize = 512;
+
+  fn analyze_file_at_depth(&mut self, file_path: &Path, depth: usize) {
+    if depth > Self::MAX_ANALYZE_DEPTH {
+      return;
+    }
+
     let canonical_path = match fs::canonicalize(file_path) {
       Ok(p) => p,
       Err(_) => file_path.to_path_buf(),
@@ -233,6 +260,15 @@ impl GraphBuilder {
 
     if self.files.contains_key(&canonical_path) || self.is_excluded(&canonical_path) {
       return;
+    }
+
+    // Resolution can land on something other than a regular file (a named
+    // pipe, a device file, reached via a symlink) — `read_to_string` on a
+    // FIFO blocks indefinitely waiting for a writer, and on a device like
+    // `/dev/zero` can read unboundedly. Skip anything that isn't a plain file.
+    match fs::metadata(&canonical_path) {
+      Ok(meta) if meta.is_file() => {}
+      _ => return,
     }
 
     let source_code = match fs::read_to_string(&canonical_path) {
@@ -292,13 +328,13 @@ impl GraphBuilder {
     // Recursively parse resolved imports
     for imp in &parsed_file.static_imports {
       if let Some(ref path) = imp.resolved_path {
-        self.analyze_file(path);
+        self.analyze_file_at_depth(path, depth + 1);
       }
     }
 
     for imp in &parsed_file.dynamic_imports {
       if let Some(ref path) = imp.resolved_path {
-        self.analyze_file(path);
+        self.analyze_file_at_depth(path, depth + 1);
       }
     }
   }

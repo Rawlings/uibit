@@ -4,7 +4,7 @@
 
 ## Resources
 
-- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/codegen)**
+- **[Documentation & Guides](https://rawlings.github.io/uibit/tooling/codegen)**
 - **[NPM Package](https://www.npmjs.com/package/@uibit/codegen)**
 - **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/codegen)**
 

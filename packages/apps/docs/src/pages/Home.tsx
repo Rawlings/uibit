@@ -1,20 +1,13 @@
 import { Link } from 'react-router-dom';
-import { componentRegistry } from './components';
 import { useHead } from '../hooks/useHead';
 import InteractivePatternBackground from '../components/InteractivePatternBackground';
 
 function Home() {
   useHead({
-    title: 'UIBit – Premium Web Components',
+    title: 'UIBit – Web Components & the Tooling Behind Them',
     description:
-      'A curated library of high-quality web components built on native browser standards. Encapsulated, accessible, and designed to last.',
+      'A curated library of high-quality web components, plus the codegen, manifest, and runtime tooling that builds and maintains them.',
   });
-
-
-
-  const allComponents = Object.keys(componentRegistry)
-    .map((key) => componentRegistry[key]!)
-    .sort((a, b) => a.title.localeCompare(b.title));
 
   return (
     <div className="relative bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-200 overflow-hidden">
@@ -25,20 +18,16 @@ function Home() {
       <section className="relative max-w-4xl mx-auto px-6 pt-20 pb-16 text-center">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-5">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-950 via-gray-700 to-gray-800 dark:from-white dark:via-gray-200 dark:to-gray-400 font-sans">
-            Premium micro-experiences for your web applications.
+            Web components, and the tooling that builds them.
           </span>
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-400 max-w-xl mx-auto leading-relaxed mb-8">
-          A curated library of beautiful, interactive, and high-performance components designed to engage users and elevate your product's user interface.
+          UIBit is two things: a curated library of high-performance, accessible components — and the codegen,
+          manifest, and runtime tooling used to build, wrap, and maintain them. Use them together, or take either on
+          its own.
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <Link
-            to="/foundations/getting-started"
-            className="px-5 py-2.5 bg-gray-900 text-white dark:bg-gray-50 dark:text-gray-900 rounded-lg font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-all text-sm shadow-sm"
-          >
-            Getting started
-          </Link>
           <a
             href="https://github.com/rawlings/uibit"
             target="_blank"
@@ -64,6 +53,49 @@ function Home() {
             </svg>
             npm Registry
           </a>
+        </div>
+      </section>
+
+      {/* Two Pillars */}
+      <section className="relative max-w-5xl mx-auto px-6 py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <Link
+            to="/components"
+            className="group block p-8 border border-gray-200 dark:border-gray-800 rounded-2xl hover:border-gray-300 dark:hover:border-gray-700 hover:bg-gray-50/50 dark:hover:bg-gray-900/30 transition-all"
+          >
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
+              Components
+            </h2>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-1.5">
+              Explore the component library
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+              Accessible, framework-agnostic web components built with Lit — layout, media, text, data, and form
+              elements ready to drop into any stack.
+            </p>
+          </Link>
+
+          <Link
+            to="/tooling"
+            className="group block p-8 border border-gray-200 dark:border-gray-800 rounded-2xl hover:border-gray-300 dark:hover:border-gray-700 hover:bg-gray-50/50 dark:hover:bg-gray-900/30 transition-all"
+          >
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-3">
+              Tooling
+            </h2>
+            <p className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-1.5">
+              Explore the tooling
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+              Codegen, Custom Elements Manifest tooling, HMR, and runtime primitives — the same tooling that builds
+              this library, usable in your own custom element projects.
+            </p>
+          </Link>
         </div>
       </section>
 
@@ -127,97 +159,6 @@ function Home() {
                   to: '/foundations/frameworks',
                   label: 'Framework Integrations',
                   description: 'Auto-generated type wrappers for React, Vue, Svelte, Angular, Astro, and more.',
-                },
-              ].map(({ to, label, description }) => (
-                <Link
-                  key={to}
-                  to={to}
-                  className="group block"
-                >
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors flex items-center gap-1">
-                    {label}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed font-normal">
-                    {description}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Components Section */}
-      <section id="components" className="max-w-5xl mx-auto px-6 py-16 scroll-mt-20">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Components</h2>
-          </div>
-          <div className="md:col-span-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
-              {allComponents.map((comp) => (
-                <Link
-                  key={comp.id}
-                  to={`/components/${comp.id}`}
-                  className="group block"
-                >
-                  <h3 className="text-sm font-semibold text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors flex items-center gap-1 mb-2">
-                    {comp.title}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 font-normal">
-                    {comp.description}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Ecosystem Section */}
-      <section className="max-w-5xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-1">
-            <h2 className="text-xs font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500">Ecosystem</h2>
-          </div>
-          <div className="md:col-span-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-10">
-              {[
-                {
-                  to: '/packages/base-class',
-                  label: 'Base Class',
-                  description: 'Shared foundation, optimizations, event dispatch, and performance decorators for UIBit components.',
-                },
-                {
-                  to: '/packages/codegen',
-                  label: 'Codegen',
-                  description: 'Wrapper generator to build React, Vue 3, Svelte 5, Angular, SolidJS, Astro, Preact, and Vanilla TS wrappers.',
-                },
-                {
-                  to: '/packages/form-internals',
-                  label: 'Form Internals',
-                  description: 'Standardized wrapper around ElementInternals for form participation, CSS validation states, and constraint validation.',
-                },
-                {
-                  to: '/packages/hmr',
-                  label: 'Vite Plugin WC HMR',
-                  description: 'Swaps updated Custom Element classes and styles in-place without page reload, preserving state.',
-                },
-                {
-                  to: '/packages/cem-extended',
-                  label: 'CEM Extended',
-                  description: 'Custom Elements Manifest generator plugin adding JSDoc method parameter/return details, custom states, and heritage.',
-                },
-                {
-                  to: '/packages/cem-mcp',
-                  label: 'CEM MCP Server',
-                  description: 'Local Model Context Protocol (MCP) server exposing UIBit Custom Elements Manifest schemas to AI coding agents.',
                 },
               ].map(({ to, label, description }) => (
                 <Link

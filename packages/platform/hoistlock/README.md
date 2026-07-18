@@ -4,7 +4,7 @@
 
 ## Resources
 
-- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/hoistlock)**
+- **[Documentation & Guides](https://rawlings.github.io/uibit/tooling/hoistlock)**
 - **[NPM Package](https://www.npmjs.com/package/@uibit/hoistlock)**
 - **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/hoistlock)**
 

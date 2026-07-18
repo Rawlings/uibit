@@ -4,7 +4,7 @@
 
 ## Resources
 
-- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/hmr)**
+- **[Documentation & Guides](https://rawlings.github.io/uibit/tooling/hmr)**
 - **[NPM Package](https://www.npmjs.com/package/@uibit/vite-plugin-wc-hmr)**
 - **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/vite-plugin-wc-hmr)**
 

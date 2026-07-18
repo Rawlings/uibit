@@ -20,7 +20,14 @@ async function main() {
       execFileSync(targetBin, argv, { stdio: 'inherit', cwd });
       return;
     } catch (e) {
-      process.exit(e.status || 1);
+      if (typeof e.status === 'number') {
+        // The binary actually ran and exited non-zero (e.g. hoisting leaks
+        // found) — that's a real result, not a launch failure, so propagate it.
+        process.exit(e.status);
+      }
+      // Otherwise execFileSync couldn't even launch the binary (wrong
+      // platform/architecture, not executable, etc.) — fall through to the
+      // NAPI-based JS path below instead of crashing.
     }
   }
 

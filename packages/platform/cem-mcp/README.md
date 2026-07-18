@@ -4,7 +4,7 @@
 
 ## Resources
 
-- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/cem-mcp)**
+- **[Documentation & Guides](https://rawlings.github.io/uibit/tooling/cem-mcp)**
 - **[NPM Package](https://www.npmjs.com/package/@uibit/cem-mcp)**
 - **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/cem-mcp)**
 

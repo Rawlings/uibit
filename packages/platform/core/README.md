@@ -4,7 +4,7 @@
 
 ## Resources
 
-- **[Documentation & Guides](https://rawlings.github.io/uibit/packages/core)**
+- **[Documentation & Guides](https://rawlings.github.io/uibit/tooling/base-class)**
 - **[NPM Package](https://www.npmjs.com/package/@uibit/core)**
 - **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/core)**
 

@@ -30,3 +30,8 @@ npm-debug.log*
 # Rust / Native
 target/
 *.node
+# Compiled standalone CLI binaries (single-platform build artifacts, copied
+# from target/ by each package's build script) — not cross-platform safe to
+# commit, unlike the *.node bindings which are distributed per-platform via
+# napi's optionalDependencies mechanism.
+**/bin/*-bin

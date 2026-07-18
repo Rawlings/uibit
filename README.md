@@ -37,14 +37,14 @@ Our visual catalog of web components spans several core categories:
 
 ### 2. Platform & Developer Tooling
 Underneath the components, UIBit includes native systems to streamline integration and optimization:
-* [Core Foundation](https://rawlings.github.io/uibit/packages/core) ([Source](file:///Users/rawlings/uibit/packages/platform/core)) – Base class, performance decorators, and shared utilities for UIBit components.
-* [Framework Codegen](https://rawlings.github.io/uibit/packages/frameworks) ([Source](file:///Users/rawlings/uibit/packages/platform/codegen)) – Generates native wrapper packages for React, Vue, Angular, and Svelte.
-* [Form Internals](https://rawlings.github.io/uibit/packages/form-internals) ([Source](file:///Users/rawlings/uibit/packages/platform/form-internals)) – Integration layers for native element form participation.
-* [Vite WC HMR Plugin](https://rawlings.github.io/uibit/packages/hmr) ([Source](file:///Users/rawlings/uibit/packages/platform/vite-plugin-wc-hmr)) – Custom Vite plugin for hot reloading custom elements.
-* [CEM Extended Analyzer](https://rawlings.github.io/uibit/packages/cem-extended) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-extended)) – Tooling for extracting detailed Custom Elements Manifests.
-* [CEM OXC Analyzer](https://rawlings.github.io/uibit/packages/cem-oxc) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-oxc)) – Ultra-fast, zero-dependency Custom Elements Manifest (CEM) generator powered by OXC and Rust.
-* [CEM MCP Server](https://rawlings.github.io/uibit/packages/cem-mcp) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-mcp)) – Exposes component specifications directly to AI coding agents.
-* [Hoistlock](https://rawlings.github.io/uibit/packages/hoistlock) ([Source](file:///Users/rawlings/uibit/packages/platform/hoistlock)) – Zero-configuration, ultra-fast bundle hoisting prevention engine in Rust.
+* [Core Foundation](https://rawlings.github.io/uibit/tooling/base-class) ([Source](file:///Users/rawlings/uibit/packages/platform/core)) – Base class, performance decorators, and shared utilities for UIBit components.
+* [Framework Codegen](https://rawlings.github.io/uibit/tooling/codegen) ([Source](file:///Users/rawlings/uibit/packages/platform/codegen)) – Generates native wrapper packages for React, Vue, Angular, and Svelte.
+* [Form Internals](https://rawlings.github.io/uibit/tooling/form-internals) ([Source](file:///Users/rawlings/uibit/packages/platform/form-internals)) – Integration layers for native element form participation.
+* [Vite WC HMR Plugin](https://rawlings.github.io/uibit/tooling/hmr) ([Source](file:///Users/rawlings/uibit/packages/platform/vite-plugin-wc-hmr)) – Custom Vite plugin for hot reloading custom elements.
+* [CEM Extended Analyzer](https://rawlings.github.io/uibit/tooling/cem-extended) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-extended)) – Tooling for extracting detailed Custom Elements Manifests.
+* [CEM OXC Analyzer](https://rawlings.github.io/uibit/tooling/cem-oxc) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-oxc)) – Ultra-fast, zero-dependency Custom Elements Manifest (CEM) generator powered by OXC and Rust.
+* [CEM MCP Server](https://rawlings.github.io/uibit/tooling/cem-mcp) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-mcp)) – Exposes component specifications directly to AI coding agents.
+* [Hoistlock](https://rawlings.github.io/uibit/tooling/hoistlock) ([Source](file:///Users/rawlings/uibit/packages/platform/hoistlock)) – Zero-configuration, ultra-fast bundle hoisting prevention engine in Rust.
 
 
 ---

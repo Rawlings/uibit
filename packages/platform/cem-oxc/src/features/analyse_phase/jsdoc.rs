@@ -46,7 +46,14 @@ pub fn parse_jsdoc(comment: &str) -> ParsedJSDoc {
         if remaining.starts_with('{') {
           let mut brace_count = 0;
           let mut end_idx = None;
-          for (i, c) in remaining.chars().enumerate() {
+          // `char_indices` yields the byte offset of each char, not its
+          // ordinal position — required since `remaining` is sliced by byte
+          // offset below. Using `chars().enumerate()` here previously used
+          // the char *count* as a byte index, which panics ("byte index N
+          // is not a char boundary") as soon as any multi-byte UTF-8
+          // character (accented letters, emoji, CJK, etc.) appears before
+          // the closing brace in a `@tag {type}` JSDoc annotation.
+          for (i, c) in remaining.char_indices() {
             if c == '{' {
               brace_count += 1;
             } else if c == '}' {

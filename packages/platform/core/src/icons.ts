@@ -5,11 +5,15 @@ export type IconDefinition = string | ((size: number) => string);
 
 const registry = new Map<string, IconDefinition>();
 
+function escapeAttrValue(value: unknown): string {
+  return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 export function iconNodeToSvg(node: IconNode, size: number): string {
   const children = node
     .map(([tag, attrs]) => {
       const attrStr = Object.entries(attrs)
-        .map(([k, v]) => `${k}="${v}"`)
+        .map(([k, v]) => `${k}="${escapeAttrValue(v)}"`)
         .join(' ');
       return `<${tag} ${attrStr}/>`;
     })
