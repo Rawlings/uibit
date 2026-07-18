@@ -33,4 +33,4 @@ Hotspot enables interactive image exploration by overlaying contextual annotatio
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/hotspot/CHANGELOG.md) for version history.

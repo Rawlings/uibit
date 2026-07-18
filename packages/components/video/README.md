@@ -32,4 +32,4 @@ Video provides a customizable web component wrapper for native `<video>` element
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/video/CHANGELOG.md) for version history.

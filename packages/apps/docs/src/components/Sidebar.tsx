@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import { componentRegistry } from '../pages/components';
-import { FOUNDATIONS, RESOURCES, TOOLING, TOOLING_CATEGORY_ORDER, CATEGORY_ORDER } from '../config/navigation';
+import { FOUNDATIONS, TOOLING, TOOLING_CATEGORY_ORDER, CATEGORY_ORDER } from '../config/navigation';
 
 export function Sidebar({ activeId, className = '' }: { activeId?: string; className?: string }) {
   const location = useLocation();
@@ -18,9 +18,6 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
     else if (currentPath === '/foundations/frameworks') resolvedActiveId = 'frameworks';
     else if (currentPath === '/foundations/browser-support') resolvedActiveId = 'browser-support';
     else if (currentPath === '/foundations/troubleshooting') resolvedActiveId = 'troubleshooting';
-    else if (currentPath === '/resources/contributing') resolvedActiveId = 'contributing';
-    else if (currentPath === '/resources/security') resolvedActiveId = 'security';
-    else if (currentPath === '/resources/coc') resolvedActiveId = 'coc';
     else if (currentPath.startsWith('/components/')) {
       resolvedActiveId = currentPath.substring('/components/'.length);
     } else if (currentPath.startsWith('/tooling/')) {
@@ -36,10 +33,6 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
   const filteredFoundations = searchQuery
     ? FOUNDATIONS.filter((g) => g.title.toLowerCase().includes(q))
     : FOUNDATIONS;
-
-  const filteredResources = searchQuery
-    ? RESOURCES.filter((g) => g.title.toLowerCase().includes(q))
-    : RESOURCES;
 
   const isSearching = searchQuery.length > 0;
 
@@ -84,8 +77,8 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
   }).filter((cat) => cat.components.length > 0);
 
   const hasResults = isTooling
-    ? toolingCategoriesWithMatches.length > 0 || filteredResources.length > 0
-    : filteredFoundations.length > 0 || categoriesWithMatches.length > 0 || filteredResources.length > 0;
+    ? toolingCategoriesWithMatches.length > 0
+    : filteredFoundations.length > 0 || categoriesWithMatches.length > 0;
 
   return (
     <aside className={`w-full md:w-56 shrink-0 md:pr-6 ${className}`}>
@@ -185,25 +178,6 @@ export function Sidebar({ activeId, className = '' }: { activeId?: string; class
               </div>
             )}
           </>
-        )}
-
-        {filteredResources.length > 0 && (
-          <div className="space-y-1.5 mt-6 border-t border-gray-100 dark:border-gray-800 pt-4">
-            <p className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 mb-2.5">
-              Resources
-            </p>
-            {filteredResources.map((guide) => (
-              <Link
-                key={guide.id}
-                to={guide.to}
-                className={`block text-sm ${
-                  resolvedActiveId === guide.id ? activeStyle : inactiveStyle
-                }`}
-              >
-                {guide.title}
-              </Link>
-            ))}
-          </div>
         )}
       </nav>
     </aside>

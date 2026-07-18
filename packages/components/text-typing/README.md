@@ -33,4 +33,4 @@ Text Typing is an animated display component that cycles through multiple phrase
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/text-typing/CHANGELOG.md) for version history.

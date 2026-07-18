@@ -32,4 +32,4 @@ Image Comparison provides a visual comparison curtain layout. It overlays two im
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/image-comparison/CHANGELOG.md) for version history.

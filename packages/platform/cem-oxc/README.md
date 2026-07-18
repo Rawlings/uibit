@@ -74,4 +74,4 @@ console.log(JSON.stringify(manifest, null, 2));
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/platform/cem-oxc/CHANGELOG.md) for version history.

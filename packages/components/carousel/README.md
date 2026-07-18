@@ -33,4 +33,4 @@ Carousel provides a fluid and responsive content presentation display that invit
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/carousel/CHANGELOG.md) for version history.

@@ -16,12 +16,6 @@ export const FOUNDATIONS: NavigationItem[] = [
   { id: 'troubleshooting', title: 'Troubleshooting & FAQ', to: '/foundations/troubleshooting', category: 'Foundations' },
 ];
 
-export const RESOURCES: NavigationItem[] = [
-  { id: 'contributing', title: 'Contributing', to: '/resources/contributing', category: 'Resources' },
-  { id: 'security', title: 'Security', to: '/resources/security', category: 'Resources' },
-  { id: 'coc', title: 'Code of Conduct', to: '/resources/coc', category: 'Resources' },
-];
-
 export const TOOLING: NavigationItem[] = [
   { id: 'codegen', title: 'Codegen', to: '/tooling/codegen', category: 'Codegen & Wrappers' },
   { id: 'base-class', title: 'Base Class', to: '/tooling/base-class', category: 'Runtime' },

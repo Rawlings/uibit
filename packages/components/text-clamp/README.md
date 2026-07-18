@@ -32,4 +32,4 @@ Text Clamp constrains long, multi-line text blocks to a designated maximum line 
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/text-clamp/CHANGELOG.md) for version history.

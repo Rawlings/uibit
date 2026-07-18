@@ -33,4 +33,4 @@ Scroll Progress is a reading indicator component that displays content navigatio
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/scroll-progress/CHANGELOG.md) for version history.

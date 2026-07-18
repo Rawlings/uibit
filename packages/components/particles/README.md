@@ -32,4 +32,4 @@ Particles provides an interactive canvas-based animation element. It renders dyn
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/particles/CHANGELOG.md) for version history.

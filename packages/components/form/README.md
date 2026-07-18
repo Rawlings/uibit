@@ -33,4 +33,4 @@ Form provides a composable, declarative wrapper around standard HTML `<form>` el
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/form/CHANGELOG.md) for version history.

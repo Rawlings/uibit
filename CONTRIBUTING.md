@@ -29,7 +29,7 @@ All contributions are expected to meet our standards for:
 
 ## Community Standards
 
-By participating in this project, you agree to abide by our **[Code of Conduct](CODE_OF_CONDUCT.md)**. To report security vulnerabilities, please refer to our **[Security Policy](SECURITY.md)**. For general questions, see our **[Support Guide](SUPPORT.md)**.
+By participating in this project, you agree to abide by our **[Code of Conduct](https://github.com/rawlings/uibit/blob/main/CODE_OF_CONDUCT.md)**. To report security vulnerabilities, please refer to our **[Security Policy](https://github.com/rawlings/uibit/blob/main/SECURITY.md)**. For general questions, see our **[Support Guide](https://github.com/rawlings/uibit/blob/main/SUPPORT.md)**.
 
 We look forward to collaborating with you to build a better component library.
 

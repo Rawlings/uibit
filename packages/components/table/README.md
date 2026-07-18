@@ -32,4 +32,4 @@ Table wraps standard HTML `<table>` elements and layers on a full data grid feat
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/table/CHANGELOG.md) for version history.

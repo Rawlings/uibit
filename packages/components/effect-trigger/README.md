@@ -33,4 +33,4 @@ Effect Trigger is an interactive animation wrapper that orchestrates visual reac
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/effect-trigger/CHANGELOG.md) for version history.

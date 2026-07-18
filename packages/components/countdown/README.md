@@ -33,4 +33,4 @@ Countdown provides a highly customizable visual timer designed to communicate ti
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/countdown/CHANGELOG.md) for version history.

@@ -33,4 +33,4 @@ Consent Guard provides a polished, content-specific consent interface that respe
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/consent-guard/CHANGELOG.md) for version history.

@@ -32,4 +32,4 @@ Text Rotator cycles through an array of phrases inside a static sentence. It tra
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/text-rotator/CHANGELOG.md) for version history.

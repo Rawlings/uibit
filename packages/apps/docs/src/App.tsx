@@ -155,7 +155,6 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/packages/frameworks" element={<Navigate to="/foundations/frameworks" replace />} />
             <Route path="/foundations/:pageId" element={<MarkdownPage />} />
-            <Route path="/resources/:pageId" element={<MarkdownPage />} />
             <Route path="/components" element={<Components />} />
             <Route path="/components/:componentId" element={<ComponentDocs />} />
             <Route path="/tooling" element={<Tooling />} />
@@ -278,19 +277,34 @@ function App() {
               <h4 className="text-xs font-semibold text-gray-400 dark:text-gray-500">Resources</h4>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/resources/contributing" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  <a
+                    href="https://github.com/rawlings/uibit/blob/main/CONTRIBUTING.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  >
                     Contributing
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/resources/security" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  <a
+                    href="https://github.com/rawlings/uibit/blob/main/SECURITY.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  >
                     Security
-                  </Link>
+                  </a>
                 </li>
                 <li>
-                  <Link to="/resources/coc" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                  <a
+                    href="https://github.com/rawlings/uibit/blob/main/CODE_OF_CONDUCT.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                  >
                     Code of Conduct
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>

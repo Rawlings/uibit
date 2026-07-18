@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { componentRegistry } from '../pages/components';
-import { FOUNDATIONS, RESOURCES, TOOLING } from '../config/navigation';
+import { FOUNDATIONS, TOOLING } from '../config/navigation';
 import { slugify } from '../utils/markdown';
 
 // Raw imports of markdown content files for indexing
@@ -13,10 +13,6 @@ import iconsMd from '../../content/icons.md?raw';
 import browserSupportMd from '../../content/browser-support.md?raw';
 import troubleshootingMd from '../../content/troubleshooting.md?raw';
 
-import contributingMd from '../../../../../CONTRIBUTING.md?raw';
-import securityMd from '../../../../../SECURITY.md?raw';
-import cocMd from '../../../../../CODE_OF_CONDUCT.md?raw';
-
 const markdownGuides: Record<string, string> = {
   '/foundations/getting-started': gettingStartedMd,
   '/foundations/accessibility': accessibilityMd,
@@ -25,9 +21,6 @@ const markdownGuides: Record<string, string> = {
   '/foundations/icons': iconsMd,
   '/foundations/browser-support': browserSupportMd,
   '/foundations/troubleshooting': troubleshootingMd,
-  '/resources/contributing': contributingMd,
-  '/resources/security': securityMd,
-  '/resources/coc': cocMd,
 };
 
 interface CommandPaletteProps {
@@ -71,16 +64,6 @@ export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
       title: g.title,
       to: g.to,
       category: 'Tooling'
-    });
-  });
-
-  // Add resources
-  RESOURCES.forEach(g => {
-    items.push({
-      id: g.id,
-      title: g.title,
-      to: g.to,
-      category: 'Resources'
     });
   });
 

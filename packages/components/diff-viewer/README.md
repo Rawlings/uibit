@@ -32,4 +32,4 @@ Diff Viewer provides a comparison block for reviewing differences between two se
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/diff-viewer/CHANGELOG.md) for version history.

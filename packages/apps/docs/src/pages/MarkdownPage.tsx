@@ -15,10 +15,6 @@ import iconsMd from '../../content/icons.md?raw';
 import browserSupportMd from '../../content/browser-support.md?raw';
 import troubleshootingMd from '../../content/troubleshooting.md?raw';
 
-import contributingMd from '../../../../../CONTRIBUTING.md?raw';
-import securityMd from '../../../../../SECURITY.md?raw';
-import cocMd from '../../../../../CODE_OF_CONDUCT.md?raw';
-
 interface PageMetadata {
   title: string;
   description: string;
@@ -65,21 +61,6 @@ const contentRegistry: Record<string, PageMetadata> = {
     title: 'Troubleshooting & FAQ – UIBit',
     description: 'Solutions for common build errors, SSR challenges, and custom element registration issues.',
     markdown: troubleshootingMd
-  },
-  'contributing': {
-    title: 'Contributing – UIBit',
-    description: 'Guidelines for contributing to the UIBit web component library.',
-    markdown: contributingMd
-  },
-  'security': {
-    title: 'Security Policy – UIBit',
-    description: 'Security guidelines and reporting instructions for UIBit.',
-    markdown: securityMd
-  },
-  'coc': {
-    title: 'Code of Conduct – UIBit',
-    description: 'Community standards and expectations for participating in the UIBit project.',
-    markdown: cocMd
   }
 };
 

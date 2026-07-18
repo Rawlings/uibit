@@ -33,4 +33,4 @@ Signature Pad is a signature capture component that allows users to write signat
 
 ## Changelog
 
-Please see the [Changelog](CHANGELOG.md) for version history.
+Please see the [Changelog](https://github.com/rawlings/uibit/blob/main/packages/components/signature/CHANGELOG.md) for version history.
