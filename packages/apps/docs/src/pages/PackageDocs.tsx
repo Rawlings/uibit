@@ -1,5 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { debounce } from 'lodash';
 import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
 import { renderMarkdownBlocks, slugify } from '../utils/markdown';
@@ -12,6 +13,7 @@ import hmrReadme from '../../../../platform/vite-plugin-wc-hmr/README.md?raw';
 import cemExtendedReadme from '../../../../platform/cem-extended/README.md?raw';
 import cemMcpReadme from '../../../../platform/cem-mcp/README.md?raw';
 import cemOxcReadme from '../../../../platform/cem-oxc/README.md?raw';
+import hoistlockReadme from '../../../../platform/hoistlock/README.md?raw';
 interface PackageData {
   title: string;
   description: string;
@@ -69,6 +71,13 @@ const packagesRegistry: Record<string, PackageData> = {
     packageName: '@uibit/cem-oxc',
     readme: cemOxcReadme,
     githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/cem-oxc',
+  },
+  hoistlock: {
+    title: 'Hoistlock',
+    description: 'Zero-configuration, ultra-fast bundle hoisting prevention engine in Rust. Automatically traces barrel files and detects core global dependencies without manual whitelists.',
+    packageName: '@uibit/hoistlock',
+    readme: hoistlockReadme,
+    githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/hoistlock',
   },
 };
 

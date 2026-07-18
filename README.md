@@ -44,6 +44,7 @@ Underneath the components, UIBit includes native systems to streamline integrati
 * [CEM Extended Analyzer](https://rawlings.github.io/uibit/packages/cem-extended) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-extended)) – Tooling for extracting detailed Custom Elements Manifests.
 * [CEM OXC Analyzer](https://rawlings.github.io/uibit/packages/cem-oxc) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-oxc)) – Ultra-fast, zero-dependency Custom Elements Manifest (CEM) generator powered by OXC and Rust.
 * [CEM MCP Server](https://rawlings.github.io/uibit/packages/cem-mcp) ([Source](file:///Users/rawlings/uibit/packages/platform/cem-mcp)) – Exposes component specifications directly to AI coding agents.
+* [Hoistlock](https://rawlings.github.io/uibit/packages/hoistlock) ([Source](file:///Users/rawlings/uibit/packages/platform/hoistlock)) – Zero-configuration, ultra-fast bundle hoisting prevention engine in Rust.
 
 
 ---

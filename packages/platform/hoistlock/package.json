@@ -1,0 +1,31 @@
+{
+  "name": "@uibit/hoistlock",
+  "version": "0.1.0",
+  "description": "Zero-build, ultra-fast bundle regression prevention utility in Rust",
+  "type": "module",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "napi": {
+    "binaryName": "hoistlock",
+    "targets": [
+      "aarch64-apple-darwin",
+      "x86_64-apple-darwin",
+      "x86_64-unknown-linux-gnu"
+    ]
+  },
+  "scripts": {
+    "artifacts": "napi artifacts",
+    "build": "napi build --platform --release && cargo build --release --bin hoistlock-bin && cp target/release/hoistlock-bin bin/hoistlock-bin",
+    "build:debug": "napi build --platform && cargo build --bin hoistlock-bin && cp target/debug/hoistlock-bin bin/hoistlock-bin",
+    "prepublishOnly": "napi prepublish -t npm",
+    "version": "napi version",
+    "test": "node src/test.js"
+  },
+  "bin": {
+    "hoistlock": "bin/hoistlock.js"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.7.3"
+  },
+  "packageManager": "pnpm@11.11.0"
+}

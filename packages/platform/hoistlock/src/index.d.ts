@@ -1,0 +1,14 @@
+export declare function checkHoisting(config: HoistlockConfig): Array<LeakDiagnostic>
+
+export interface HoistlockConfig {
+  entry: string
+  tsconfig?: string
+  exclude?: Array<string>
+}
+
+export interface LeakDiagnostic {
+  filePath: string
+  importPath: string
+  dynamicChunkEntry: string
+  symbol: string
+}

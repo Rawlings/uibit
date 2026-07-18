@@ -1,0 +1,17 @@
+{
+  "entry": "./packages/apps/docs/src/main.tsx",
+  "tsconfig": "./packages/apps/docs/tsconfig.json",
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/*.spec.*",
+    "**/*.test.*",
+    "**/*.md",
+    "**/*.md?raw",
+    "**/content/**",
+    "**/config/**",
+    "**/types/docs.ts",
+    "**/utils/markdown.tsx",
+    "**/pages/components/index.tsx"
+  ]
+}
