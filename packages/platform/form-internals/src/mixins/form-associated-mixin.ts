@@ -3,8 +3,22 @@ import type { Constructor, FormAssociatedInterface } from '../types.js';
 import { validateValue, getValidationMessage } from '../validation/validation-engine.js';
 import { InteractionController } from '../controllers/interaction-controller.js';
 
+/**
+ * A mixin that integrates a LitElement with the browser's ElementInternals API.
+ * Provides standard HTML5 form association, CSS validation state reflection,
+ * and constraint validation mapping.
+ *
+ * @param Base - The LitElement base class.
+ * @returns A class extending Base with form association capabilities.
+ */
 export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) {
+  /**
+   * Internal class implementing the FormAssociatedInterface.
+   */
   class FormAssociatedClass extends Base implements FormAssociatedInterface {
+    /**
+     * Indicates to the browser that this element is form-associated.
+     */
     static formAssociated = true;
 
     static get properties() {
@@ -36,6 +50,9 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
 
     private _value: string | File | FormData | null = '';
 
+    /**
+     * The current value of the form control.
+     */
     get value(): string | File | FormData | null {
       const isToggle = this.type === 'checkbox' || this.type === 'radio';
       if (isToggle && (this._value === '' || this._value === undefined || this._value === null)) {
@@ -52,10 +69,17 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.requestUpdate('value', oldValue);
     }
 
+    /**
+     * The name of the form control, submitted with the form data.
+     */
     name!: string;
     private _disabled = false;
     private _fieldsetDisabled = false;
 
+    /**
+     * Whether the form control is disabled.
+     * Takes into account parent fieldset disabled state.
+     */
     get disabled() {
       return this._disabled || this._fieldsetDisabled;
     }
@@ -73,25 +97,84 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.validate();
       this.requestUpdate('disabled', oldValue || this._fieldsetDisabled);
     }
+
+    /**
+     * Whether a value is required for form submission.
+     */
     required = false;
+
+    /**
+     * A regular expression pattern that the value must match.
+     */
     pattern = '';
+
+    /**
+     * The minimum character length allowed for the value.
+     */
     minlength?: number;
+
+    /**
+     * The maximum character length allowed for the value.
+     */
     maxlength?: number;
+
+    /**
+     * The minimum value allowed.
+     */
     min = '';
+
+    /**
+     * The maximum value allowed.
+     */
     max = '';
+
+    /**
+     * The stepping interval for values.
+     */
     step = '';
+
+    /**
+     * The type of form control, determining validation behavior and defaults.
+     */
     type = 'text';
+
+    /**
+     * Whether the element is read-only.
+     */
     readOnly = false;
+
+    /**
+     * Whether the element is in a checked state (for checkboxes and radio buttons).
+     */
     checked = false;
+
+    /**
+     * Whether the input accepts multiple files (applicable only to type="file").
+     */
     multiple = false;
+
+    /**
+     * The placeholder text displayed when the control is empty.
+     */
     placeholder = '';
+
+    /**
+     * Whether the element automatically focuses on page load.
+     */
     autofocus = false;
+
+    /**
+     * The autocomplete behavior hint for the browser.
+     */
     autocomplete = '';
 
     private _initialDefaultValue: string | null = null;
     private _initialDefaultChecked: boolean | null = null;
     private _initialValueInitialized = false;
 
+    /**
+     * The default value of the element, restored on form reset.
+     */
     get defaultValue() {
       if (this._initialDefaultValue === null) {
         const isToggle = this.type === 'checkbox' || this.type === 'radio';
@@ -106,6 +189,9 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.setAttribute('value', newValue);
     }
 
+    /**
+     * The default checked state of the element, restored on form reset.
+     */
     get defaultChecked() {
       if (this._initialDefaultChecked === null) {
         this._initialDefaultChecked = this.hasAttribute('checked');
@@ -124,6 +210,9 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
 
     private _files: FileList | null = null;
 
+    /**
+     * The files associated with the form control (applicable only to type="file").
+     */
     get files(): FileList | null {
       const input = this._defaultValidationAnchor as HTMLInputElement;
       if (input && 'files' in input && this.type === 'file') {
@@ -155,6 +244,9 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
     
+    /**
+     * The ElementInternals interface associated with the control.
+     */
     readonly internals: ElementInternals;
     private _interactionController: InteractionController;
     private _customValidityMessage = '';
@@ -172,35 +264,67 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.checked = false;
     }
 
-    // Validity forwarding
+    /**
+     * Returns the current ValidityState of the element.
+     */
     get validity() {
       return this.internals.validity;
     }
 
+    /**
+     * Returns the validation message describing constraint failures.
+     */
     get validationMessage() {
       return this.internals.validationMessage;
     }
 
+    /**
+     * Returns true if the element is a candidate for constraint validation.
+     */
     get willValidate() {
       return this.internals.willValidate;
     }
 
+    /**
+     * Returns the associated HTMLFormElement parent, or null if not associated.
+     */
     get form() {
       return this.internals.form;
     }
 
+    /**
+     * Returns the list of HTMLLabelElements associated with this control.
+     */
     get labels() {
       return this.internals.labels;
     }
 
+    /**
+     * Checks if the element satisfies its validation constraints.
+     * Fires the 'invalid' event at the element if constraints are not met.
+     *
+     * @returns True if valid, false otherwise.
+     */
     checkValidity() {
       return this.internals.checkValidity();
     }
 
+    /**
+     * Checks validation constraints and reports any failures to the browser UI.
+     * Fires the 'invalid' event at the element if constraints are not met.
+     *
+     * @returns True if valid, false otherwise.
+     */
     reportValidity() {
       return this.internals.reportValidity();
     }
 
+    /**
+     * Sets a custom validation message for the element.
+     * Passing an empty string clears the custom error state.
+     *
+     * @param message - The custom error message to assign.
+     */
     setCustomValidity(message: string) {
       this._customValidityMessage = message;
       this.validate();
@@ -213,6 +337,10 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       } as ShadowRootInit;
     }
 
+    /**
+     * Override to specify a custom validation anchor element within the Shadow DOM.
+     * Native validation popups point to this element.
+     */
     get validationAnchor(): HTMLElement | undefined {
       return undefined;
     }
@@ -447,6 +575,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.validate();
     }
 
+    /**
+     * The value of the element, represented as a double-precision floating-point number.
+     * Maps to the native input element's `valueAsNumber` property.
+     *
+     * @returns The value parsed as a number.
+     */
     get valueAsNumber(): number {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && 'valueAsNumber' in anchor) {
@@ -465,6 +599,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
 
+    /**
+     * The value of the element, represented as a Date object, or null if the value cannot be converted.
+     * Maps to the native input element's `valueAsDate` property.
+     *
+     * @returns The value parsed as a Date, or null.
+     */
     get valueAsDate(): Date | null {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && 'valueAsDate' in anchor) {
@@ -485,6 +625,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
 
+    /**
+     * The index of the first selected character.
+     * Maps to the native input element's `selectionStart` property.
+     *
+     * @returns The start index of the current selection, or null if not applicable.
+     */
     get selectionStart(): number | null {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       return anchor ? anchor.selectionStart : null;
@@ -495,6 +641,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       if (anchor) anchor.selectionStart = val;
     }
 
+    /**
+     * The index of the last selected character.
+     * Maps to the native input element's `selectionEnd` property.
+     *
+     * @returns The end index of the current selection, or null if not applicable.
+     */
     get selectionEnd(): number | null {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       return anchor ? anchor.selectionEnd : null;
@@ -505,6 +657,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       if (anchor) anchor.selectionEnd = val;
     }
 
+    /**
+     * The direction in which selection occurred.
+     * Maps to the native input element's `selectionDirection` property.
+     *
+     * @returns The selection direction ('forward', 'backward', 'none'), or null.
+     */
     get selectionDirection(): 'forward' | 'backward' | 'none' | null {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       return anchor ? anchor.selectionDirection : null;
@@ -515,6 +673,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       if (anchor) anchor.selectionDirection = val;
     }
 
+    /**
+     * Whether the control's state is indeterminate (e.g. checkboxes in a semi-checked state).
+     * Maps to the native input element's `indeterminate` property.
+     *
+     * @returns True if indeterminate, false otherwise.
+     */
     get indeterminate(): boolean {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       return anchor ? anchor.indeterminate : false;
@@ -525,6 +689,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       if (anchor) anchor.indeterminate = val;
     }
 
+    /**
+     * The URL that processes the information submitted by the element.
+     * Maps to the native `formaction` attribute.
+     *
+     * @returns The form submission target URL.
+     */
     get formAction(): string {
       return this.getAttribute('formaction') || '';
     }
@@ -533,6 +703,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.setAttribute('formaction', val);
     }
 
+    /**
+     * The mechanism used to encode form data before submitting it to the server.
+     * Maps to the native `formenctype` attribute.
+     *
+     * @returns The form encoding type.
+     */
     get formEnctype(): string {
       return this.getAttribute('formenctype') || '';
     }
@@ -541,6 +717,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.setAttribute('formenctype', val);
     }
 
+    /**
+     * The HTTP method used to submit the form data.
+     * Maps to the native `formmethod` attribute.
+     *
+     * @returns The HTTP method ('get', 'post', etc.).
+     */
     get formMethod(): string {
       return this.getAttribute('formmethod') || '';
     }
@@ -549,6 +731,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.setAttribute('formmethod', val);
     }
 
+    /**
+     * Whether the form is to be validated when submitted.
+     * Maps to the native `formnovalidate` attribute.
+     *
+     * @returns True if validation is skipped, false otherwise.
+     */
     get formNoValidate(): boolean {
       return this.hasAttribute('formnovalidate');
     }
@@ -561,6 +749,12 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
 
+    /**
+     * A name or keyword indicating where to display the response after submitting the form.
+     * Maps to the native `formtarget` attribute.
+     *
+     * @returns The form target name or keyword.
+     */
     get formTarget(): string {
       return this.getAttribute('formtarget') || '';
     }
@@ -569,6 +763,9 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       this.setAttribute('formtarget', val);
     }
 
+    /**
+     * Selects all text in the primary interactive element.
+     */
     select() {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && typeof anchor.select === 'function') {
@@ -576,6 +773,13 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
 
+    /**
+     * Sets the start and end positions of a selection in the primary interactive element.
+     *
+     * @param start - The 0-based index of the first selected character.
+     * @param end - The 0-based index of the character after the last selected character.
+     * @param direction - The direction of selection ('forward', 'backward', or 'none').
+     */
     setSelectionRange(start: number | null, end: number | null, direction?: 'forward' | 'backward' | 'none') {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && typeof anchor.setSelectionRange === 'function') {
@@ -583,6 +787,14 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
 
+    /**
+     * Replaces a range of text in the element with new text.
+     *
+     * @param replacement - The string to insert.
+     * @param start - The 0-based index of the start of the range to replace.
+     * @param end - The 0-based index of the end of the range to replace.
+     * @param selectionMode - How the selection should be set after replacement.
+     */
     setRangeText(replacement: string, start?: number, end?: number, selectionMode?: 'select' | 'start' | 'end' | 'preserve') {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && typeof anchor.setRangeText === 'function') {
@@ -595,6 +807,11 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
 
+    /**
+     * Increments the value by the step value multiplied by the parameter.
+     *
+     * @param n - The step multiplier (defaults to 1).
+     */
     stepUp(n?: number) {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && typeof anchor.stepUp === 'function') {
@@ -603,6 +820,11 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
 
+    /**
+     * Decrements the value by the step value multiplied by the parameter.
+     *
+     * @param n - The step multiplier (defaults to 1).
+     */
     stepDown(n?: number) {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && typeof anchor.stepDown === 'function') {
@@ -611,6 +833,9 @@ export function FormAssociatedMixin<T extends Constructor<LitElement>>(Base: T) 
       }
     }
 
+    /**
+     * Displays the browser's native picker UI for the input control (e.g. date picker, file picker).
+     */
     showPicker() {
       const anchor = this._defaultValidationAnchor as HTMLInputElement;
       if (anchor && typeof anchor.showPicker === 'function') {

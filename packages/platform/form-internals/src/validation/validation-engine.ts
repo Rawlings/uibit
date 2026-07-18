@@ -1,12 +1,26 @@
+import { msg, str } from '@lit/localize';
+
+/**
+ * Defines standard HTML5 form validation constraint attributes.
+ */
 export interface ValidationConstraints {
+  /** Whether the field requires a value. */
   required?: boolean;
+  /** The minimum character length. */
   minlength?: number;
+  /** The maximum character length. */
   maxlength?: number;
+  /** A regular expression pattern for the value to match. */
   pattern?: string;
+  /** The minimum value allowed. */
   min?: string | number;
+  /** The maximum value allowed. */
   max?: string | number;
+  /** The step interval for numeric/date inputs. */
   step?: string | number;
+  /** The type of input control, dictating default validation rules. */
   type?: string;
+  /** The checked state, checked for validity against required. */
   checked?: boolean;
 }
 
@@ -71,18 +85,18 @@ export function validateValue(value: any, constraints: ValidationConstraints): V
  * Gets a default native-like message for the failed validation constraints.
  */
 export function getValidationMessage(flags: ValidityStateFlags, constraints: ValidationConstraints): string {
-  if (flags.valueMissing) return 'Please fill out this field.';
-  if (flags.tooShort) return `Please lengthen this text to ${constraints.minlength} characters or more.`;
-  if (flags.tooLong) return `Please shorten this text to ${constraints.maxlength} characters or less.`;
-  if (flags.patternMismatch) return 'Please match the requested format.';
+  if (flags.valueMissing) return msg('Please fill out this field.');
+  if (flags.tooShort) return msg(str`Please lengthen this text to ${constraints.minlength} characters or more.`);
+  if (flags.tooLong) return msg(str`Please shorten this text to ${constraints.maxlength} characters or less.`);
+  if (flags.patternMismatch) return msg('Please match the requested format.');
   if (flags.typeMismatch) {
-    if (constraints.type === 'email') return 'Please enter an email address.';
-    if (constraints.type === 'url') return 'Please enter a URL.';
-    return 'Please enter a valid value.';
+    if (constraints.type === 'email') return msg('Please enter an email address.');
+    if (constraints.type === 'url') return msg('Please enter a URL.');
+    return msg('Please enter a valid value.');
   }
-  if (flags.badInput) return 'Please enter a number.';
-  if (flags.rangeUnderflow) return `Value must be greater than or equal to ${constraints.min}.`;
-  if (flags.rangeOverflow) return `Value must be less than or equal to ${constraints.max}.`;
-  if (flags.stepMismatch) return 'Please enter a valid value.';
+  if (flags.badInput) return msg('Please enter a number.');
+  if (flags.rangeUnderflow) return msg(str`Value must be greater than or equal to ${constraints.min}.`);
+  if (flags.rangeOverflow) return msg(str`Value must be less than or equal to ${constraints.max}.`);
+  if (flags.stepMismatch) return msg('Please enter a valid value.');
   return '';
 }

@@ -34,10 +34,12 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.19.43",
-    "lit": "^3.3.3"
+    "lit": "^3.3.3",
+    "@lit/localize": "^0.12.2"
   },
   "peerDependencies": {
-    "lit": "^3.0.0"
+    "lit": "^3.0.0",
+    "@lit/localize": "^0.12.2"
   },
   "repository": {
     "type": "git",

@@ -946,6 +946,9 @@ importers:
 
   packages/platform/form-internals:
     devDependencies:
+      '@lit/localize':
+        specifier: ^0.12.2
+        version: 0.12.2
       '@types/node':
         specifier: ^20.19.43
         version: 20.19.43

@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '../../..');
+const rootDir = path.resolve(__dirname, '../../../..');
 
 // Map of known strings to their manual contexts for the existing table
 const knownContexts = {
@@ -52,6 +52,16 @@ const knownContexts = {
   'Export CSV': 'Export button label (no selection)',
   'Export {n} rows': 'Export button label with selection (interpolated)',
   'Clear filters': 'Active filters button label',
+  'Please fill out this field.': 'Validation error: valueMissing',
+  'Please lengthen this text to {value} characters or more.': 'Validation error: tooShort',
+  'Please shorten this text to {value} characters or less.': 'Validation error: tooLong',
+  'Please match the requested format.': 'Validation error: patternMismatch',
+  'Please enter an email address.': 'Validation error: typeMismatch (email)',
+  'Please enter a URL.': 'Validation error: typeMismatch (url)',
+  'Please enter a valid value.': 'Validation error: typeMismatch/stepMismatch',
+  'Please enter a number.': 'Validation error: badInput',
+  'Value must be greater than or equal to {value}.': 'Validation error: rangeUnderflow',
+  'Value must be less than or equal to {value}.': 'Validation error: rangeOverflow',
 };
 
 // Map of file contents to check for tag name or guess component name
@@ -64,7 +74,7 @@ function getComponentTag(packageName, fileContent) {
 }
 
 function extractStrings() {
-  const packagesPath = path.join(rootDir, 'components');
+  const packagesPath = path.join(rootDir, 'packages/components');
   const packages = fs.readdirSync(packagesPath).filter(p => {
     const stat = fs.statSync(path.join(packagesPath, p));
     return stat.isDirectory() && p !== 'docs' && p !== 'core';
@@ -72,8 +82,19 @@ function extractStrings() {
 
   const extracted = [];
 
+  const targets = [];
   for (const pkg of packages) {
-    const srcPath = path.join(packagesPath, pkg, 'src');
+    targets.push({
+      pkg,
+      srcPath: path.join(packagesPath, pkg, 'src')
+    });
+  }
+  targets.push({
+    pkg: 'form-internals',
+    srcPath: path.join(rootDir, 'packages/platform/form-internals/src')
+  });
+
+  for (const { pkg, srcPath } of targets) {
     if (!fs.existsSync(srcPath)) continue;
 
     const files = walkDir(srcPath).filter(f => f.endsWith('.ts') || f.endsWith('.tsx'));

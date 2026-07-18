@@ -1,6 +1,14 @@
 import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
+/**
+ * A reactive controller that monitors user interaction on form-associated elements.
+ * Automatically adds and removes custom interaction states (touched, dirty, user-valid, user-invalid)
+ * as CSS states via ElementInternals.states.
+ */
 export class InteractionController implements ReactiveController {
+  /**
+   * The host element this controller is attached to.
+   */
   host: ReactiveControllerHost & HTMLElement;
   private _internals: ElementInternals;
   
@@ -25,14 +33,23 @@ export class InteractionController implements ReactiveController {
     this.host.removeEventListener('change', this.handleChange, { capture: true });
   }
 
+  /**
+   * Whether the element has been blurred by the user.
+   */
   get touched() {
     return this._touched;
   }
 
+  /**
+   * Whether the element has received input or value changes.
+   */
   get dirty() {
     return this._dirty;
   }
 
+  /**
+   * Resets the interaction state and removes any custom validity states.
+   */
   reset() {
     this._touched = false;
     this._dirty = false;
@@ -78,6 +95,10 @@ export class InteractionController implements ReactiveController {
     this.host.requestUpdate();
   };
 
+  /**
+   * Evaluates the validation state and applies user-valid or user-invalid states.
+   * Only applies states if the control has been interacted with (touched or dirty).
+   */
   updateUserValidity() {
     if (!this._internals.states) return;
     

@@ -79,6 +79,61 @@ export const localizedStrings: LocalizedStringEntry[] = [
     "context": "Unit label"
   },
   {
+    "component": "uibit-form",
+    "string": "You have unsaved changes. Are you sure you want to leave?",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Please enter a number.",
+    "context": "Validation error: badInput"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Please enter a URL.",
+    "context": "Validation error: typeMismatch (url)"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Please enter a valid value.",
+    "context": "Validation error: typeMismatch/stepMismatch"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Please enter an email address.",
+    "context": "Validation error: typeMismatch (email)"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Please fill out this field.",
+    "context": "Validation error: valueMissing"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Please lengthen this text to {value} characters or more.",
+    "context": "Validation error: tooShort"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Please match the requested format.",
+    "context": "Validation error: patternMismatch"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Please shorten this text to {value} characters or less.",
+    "context": "Validation error: tooLong"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Value must be greater than or equal to {value}.",
+    "context": "Validation error: rangeUnderflow"
+  },
+  {
+    "component": "uibit-form-internals",
+    "string": "Value must be less than or equal to {value}.",
+    "context": "Validation error: rangeOverflow"
+  },
+  {
     "component": "uibit-hotspot",
     "string": "Close details",
     "context": "aria-label on close button"
@@ -92,6 +147,26 @@ export const localizedStrings: LocalizedStringEntry[] = [
     "component": "uibit-hotspot",
     "string": "Hotspot details",
     "context": "Fallback aria-label on popover"
+  },
+  {
+    "component": "uibit-read-time",
+    "string": "{value} min",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-read-time",
+    "string": "{value} min read",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-read-time",
+    "string": "less than 1 min",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-read-time",
+    "string": "Less than 1 min read",
+    "context": "UI text content"
   },
   {
     "component": "uibit-scratch-reveal",
@@ -120,6 +195,16 @@ export const localizedStrings: LocalizedStringEntry[] = [
   },
   {
     "component": "uibit-table",
+    "string": "{value} rows",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-table",
+    "string": "{value}–{value} of {value} rows",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-table",
     "string": "Clear all filters",
     "context": "aria-label on clear button"
   },
@@ -145,26 +230,6 @@ export const localizedStrings: LocalizedStringEntry[] = [
   },
   {
     "component": "uibit-table",
-    "string": "Comfortable",
-    "context": "UI text content"
-  },
-  {
-    "component": "uibit-table",
-    "string": "Compact",
-    "context": "UI text content"
-  },
-  {
-    "component": "uibit-table",
-    "string": "Data table",
-    "context": "aria-label on table region"
-  },
-  {
-    "component": "uibit-table",
-    "string": "Density:",
-    "context": "Toolbar label"
-  },
-  {
-    "component": "uibit-table",
     "string": "Export as CSV",
     "context": "aria-label on export button"
   },
@@ -180,12 +245,32 @@ export const localizedStrings: LocalizedStringEntry[] = [
   },
   {
     "component": "uibit-table",
+    "string": "Filter…",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-table",
+    "string": "Loading more…",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-table",
     "string": "Next",
     "context": "aria-label on next page button"
   },
   {
     "component": "uibit-table",
-    "string": "Normal",
+    "string": "No results",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-table",
+    "string": "No results found",
+    "context": "UI text content"
+  },
+  {
+    "component": "uibit-table",
+    "string": "Options",
     "context": "UI text content"
   },
   {
@@ -200,23 +285,23 @@ export const localizedStrings: LocalizedStringEntry[] = [
   },
   {
     "component": "uibit-table",
-    "string": "Row density",
-    "context": "aria-label on density select"
-  },
-  {
-    "component": "uibit-table",
     "string": "Rows per page",
     "context": "aria-label on rows-per-page select"
   },
   {
     "component": "uibit-table",
-    "string": "Rows:",
-    "context": "Toolbar label"
+    "string": "Rows per page:",
+    "context": "UI text content"
   },
   {
     "component": "uibit-table",
     "string": "Search table",
     "context": "aria-label on search input"
+  },
+  {
+    "component": "uibit-table",
+    "string": "Search…",
+    "context": "UI text content"
   },
   {
     "component": "uibit-table",
@@ -232,5 +317,55 @@ export const localizedStrings: LocalizedStringEntry[] = [
     "component": "uibit-table",
     "string": "Select row",
     "context": "aria-label on row checkbox"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Exit fullscreen",
+    "context": "aria-label attribute"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Fullscreen",
+    "context": "aria-label attribute"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Mute",
+    "context": "aria-label attribute"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Pause",
+    "context": "aria-label attribute"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Play",
+    "context": "aria-label attribute"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Play Video",
+    "context": "aria-label attribute"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Seek timeline",
+    "context": "aria-label attribute"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Unmute",
+    "context": "aria-label attribute"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Video Player",
+    "context": "aria-label attribute"
+  },
+  {
+    "component": "uibit-video",
+    "string": "Volume level",
+    "context": "aria-label attribute"
   }
 ];

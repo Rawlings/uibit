@@ -8,7 +8,7 @@
 - **[NPM Package](https://www.npmjs.com/package/@uibit/form-internals)**
 - **[GitHub Source Code](https://github.com/rawlings/uibit/tree/main/packages/platform/form-internals)**
 
-A robust, enterprise-grade package that abstracts the `ElementInternals` API for Lit components, making form association and custom validation seamless.
+An ElementInternals abstraction mixin for Lit components. Enables HTML5 form association, constraint validation mapping, and CSS validation state reflection.
 
 ## Installation
 
@@ -22,17 +22,24 @@ yarn add @uibit/form-internals
 
 ## Features
 
-- **Automatic Form Association**: Registers your element to submit value data with parent `<form>` elements without wrapping native inputs in light DOM.
-- **Custom Interaction States (CSS `:state()`)**: Adds `:state(touched)`, `:state(dirty)`, `:state(user-valid)`, and `:state(user-invalid)` states to prevent displaying error messages before user interactions.
-- **Constraint Validation Mapping**: Syncs properties like `required`, `pattern`, `minlength`, `maxlength`, `min`, `max`, `step`, and `type` directly with native browser constraint validation.
-- **Form Lifecycle Mapping**: Automatic support for form resets (`formResetCallback`), parent `fieldset` disabling (`formDisabledCallback`), and state restoration (`formStateRestoreCallback`).
-- **Anchor Element Mapping**: Enables native validation popups to point exactly to your custom element's inner input element.
+- **Automatic form association**: Registers custom elements to submit value data with parent `<form>` elements natively without light DOM input wrappers.
+- **Custom interaction states**: Sets CSS states (`:state(touched)`, `:state(dirty)`, `:state(user-valid)`, and `:state(user-invalid)`) through `ElementInternals` to avoid displaying error styles before users interact with the field.
+- **Constraint validation mapping**: Maps properties like `required`, `pattern`, `minlength`, `maxlength`, `min`, `max`, `step`, and `type` directly to browser constraint validation algorithms.
+- **AOM (Accessibility Object Model) support**: Automatically manages standard accessibility properties (`ariaDisabled`, `ariaReadOnly`, `ariaChecked`, `ariaRequired`, and `ariaInvalid`) on the element internals.
+- **Standard form control API mirror**: Replicates the standard `HTMLInputElement` properties, including `valueAsNumber`, `valueAsDate`, `selectionStart`, `selectionEnd`, `selectionDirection`, `indeterminate`, and file selection (`files` getter/setter).
+- **Control interaction methods**: Proxies native utility methods (`select()`, `setSelectionRange()`, `setRangeText()`, `stepUp()`, `stepDown()`, and `showPicker()`) directly to the inner input/interactive element.
+- **CSS custom state reflection**: Reflected properties map automatically to CSS custom states, including `:state(disabled)`, `:state(readonly)`, and `:state(checked)`.
+- **Form lifecycle hooks**: Automatically implements form resets (`formResetCallback`), parent `fieldset` disabling (`formDisabledCallback`), and state restoration (`formStateRestoreCallback`).
+- **Automatic anchor element resolution**: Automatically queries the shadow root for the primary interactive element (`input, textarea, select, button`) to anchor native validation popups.
+- **Composed event propagation**: Automatically forwards shadow DOM input events (`change`, `select`, and `search`) outside the shadow boundary for native event parity.
 
 ## Usage
 
+Extend your custom element using `FormAssociatedMixin` to inherit all standard HTML5 form control properties and validation behaviors.
+
 ```typescript
 import { LitElement, html, css } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import { FormAssociatedMixin } from '@uibit/form-internals';
 
 @customElement('my-text-input')
@@ -42,25 +49,21 @@ export class MyTextInput extends FormAssociatedMixin(LitElement) {
       display: inline-block;
     }
     input {
-      border: 1px solid #ccc;
+      border: 0.0625rem solid #ccc;
       padding: 0.5rem;
-      border-radius: 4px;
+      border-radius: 0.25rem;
     }
-    /* Show red border only after user interaction and it's invalid */
+    /* Style invalid state only after the user has interacted with the field */
     :host(:state(user-invalid)) input {
-      border-color: red;
+      border-color: #ef4444;
       outline: none;
     }
   `;
 
-  // Provide the validation anchor to align native tooltips correctly
-  @query('input')
-  validationAnchor!: HTMLInputElement;
-
   render() {
     return html`
       <input 
-        .value=${this.value} 
+        .value=${String(this.value || '')} 
         ?disabled=${this.disabled}
         ?required=${this.required}
         @input=${this._handleInput}
@@ -74,28 +77,35 @@ export class MyTextInput extends FormAssociatedMixin(LitElement) {
 }
 ```
 
-## Advanced Features
+## Focus and anchor configuration
 
-### Custom Value Serialization (Multi-value / FormData)
-If you have a complex element representing multiple inputs internally (e.g., date ranges, comboboxes), you can override `getFormValue()` to return a `FormData` object.
+### Validation anchor override
+
+By default, the mixin queries the shadow root for interactive elements (`input, textarea, select, button, [tabindex="0"]`) to use as the validation anchor. If a specific child element must act as the anchor, override the `validationAnchor` getter:
 
 ```typescript
-protected getFormValue() {
-  const data = new FormData();
-  data.append(this.name, this.startVal);
-  data.append(this.name, this.endVal);
-  return data;
+protected get validationAnchor() {
+  return this.shadowRoot?.querySelector('#custom-input-id') as HTMLElement;
 }
 ```
 
-### Asynchronous Validation Hooks
-Implement `performCustomValidation` to run async logic (e.g. backend verification) during the validation pipeline.
+### Focus delegation
+
+`FormAssociatedMixin` automatically configures shadow root options with `delegatesFocus: true`. When a parent or script focuses the custom element, focus is delegated automatically to the first interactive element inside the shadow root.
+
+## Form validation lifecycle
+
+Use standard HTML5 validation APIs. Do not expose custom validation properties or non-standard hooks.
+
+### Custom validation
+
+Use the standard `setCustomValidity(message)` method to set custom error states. Passing an empty string clears the custom error.
 
 ```typescript
-protected async performCustomValidation(value: string) {
-  const isAvailable = await checkUsernameAvailability(value);
-  if (!isAvailable) {
-    throw new Error('This username is already taken.');
-  }
-}
+const emailInput = this.shadowRoot?.querySelector('my-text-input');
+emailInput.setCustomValidity('Enter an email address associated with an organization.');
 ```
+
+### Validation check
+
+Call `checkValidity()` or `reportValidity()` to trigger validation constraints checks. These methods dispatch the standard `invalid` event if constraint requirements are not satisfied.

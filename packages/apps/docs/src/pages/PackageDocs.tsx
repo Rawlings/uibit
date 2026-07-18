@@ -38,7 +38,7 @@ const packagesRegistry: Record<string, PackageData> = {
   },
   'form-internals': {
     title: 'Form Internals',
-    description: 'Polyfilled and standardized wrapper around ElementInternals for robust form participation, CSS validation states, and constraint validation.',
+    description: 'Standardized wrapper around ElementInternals for robust form participation, CSS validation states, and constraint validation.',
     packageName: '@uibit/form-internals',
     readme: formInternalsReadme,
     githubUrl: 'https://github.com/rawlings/uibit/tree/main/packages/platform/form-internals',

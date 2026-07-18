@@ -20,7 +20,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "node scripts/extract-strings.js && tsc",
     "typecheck": "tsc --noEmit",
     "test": "vitest run -c ../../../vitest.config.ts src/ --passWithNoTests"
   },
