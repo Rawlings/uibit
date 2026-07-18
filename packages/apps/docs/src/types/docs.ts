@@ -101,7 +101,7 @@ export interface CemDeclaration {
 
 export interface CemManifest {
   modules: Array<{
-    declarations?: Array<any>;
+    declarations?: Array<CemDeclaration>;
     exports?: Array<{ name: string; declaration: { name: string } }>;
   }>;
   [key: string]: any;

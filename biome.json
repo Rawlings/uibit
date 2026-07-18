@@ -6,7 +6,16 @@
     "useIgnoreFile": true
   },
   "files": {
-    "includes": ["**", "!**/dist", "!packages/apps/docs/src/styles/globals.css"]
+    "includes": [
+      "**",
+      "!**/dist",
+      "!packages/apps/docs/src/styles/globals.css",
+      "!packages/platform/hoistlock/index.js",
+      "!packages/platform/hoistlock/index.d.ts",
+      "!packages/platform/cem-oxc/index.js",
+      "!packages/platform/cem-oxc/index.d.ts",
+      "!packages/platform/core/src/locales/en-US.ts"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -25,21 +34,25 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
       "a11y": {
-        "recommended": true
+        "preset": "recommended"
+      },
+      "complexity": {
+        "preset": "recommended",
+        "noThisInStatic": "off"
       },
       "correctness": {
-        "recommended": true
+        "preset": "recommended"
       },
       "performance": {
-        "recommended": true
+        "preset": "recommended"
       },
       "style": {
-        "recommended": true
+        "preset": "recommended"
       },
       "suspicious": {
-        "recommended": true
+        "preset": "recommended"
       }
     }
   },

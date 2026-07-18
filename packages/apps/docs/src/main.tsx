@@ -4,7 +4,11 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './styles/globals.css';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const container = document.getElementById('root');
+if (!container) {
+  throw new Error('Root element not found');
+}
+ReactDOM.createRoot(container).render(
   <React.StrictMode>
     <BrowserRouter basename={import.meta.env.BASE_URL || '/'}>
       <App />

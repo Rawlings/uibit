@@ -54,7 +54,11 @@ function App() {
 
   const [density, setDensity] = useState<'compact' | 'default' | 'spacious'>(
     () => {
-      return (localStorage.getItem('uibit-density') as any) || 'default';
+      const val = localStorage.getItem('uibit-density');
+      if (val === 'compact' || val === 'default' || val === 'spacious') {
+        return val;
+      }
+      return 'default';
     },
   );
 

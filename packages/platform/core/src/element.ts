@@ -71,7 +71,7 @@ export class UIBitElement extends LitElement {
         box-sizing: inherit;
       }
     `;
-    const superStyles = LitElement.finalizeStyles(styles);
+    const superStyles = super.finalizeStyles(styles);
     return [baseStyles, ...superStyles];
   }
 

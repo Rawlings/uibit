@@ -1,6 +1,6 @@
 import type React from 'react';
 import { useState, useEffect, useMemo, useRef } from 'react';
-import type { CemManifest, CemMember } from '../types/docs';
+import type { CemManifest, CemMember, CemDeclaration } from '../types/docs';
 
 interface ComponentPlaygroundProps {
   tagName: string;
@@ -14,7 +14,9 @@ export function ComponentPlayground({
   Demo,
 }: ComponentPlaygroundProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [controls, setControls] = useState<Record<string, any>>({});
+  const [controls, setControls] = useState<
+    Record<string, string | boolean | number>
+  >({});
   const [generatedHtml, setGeneratedHtml] = useState('');
   const [showCode, setShowCode] = useState(false);
   const [showControls, setShowControls] = useState(false);
@@ -23,7 +25,7 @@ export function ComponentPlayground({
   // Get all configurable fields with associated attributes
   const configurableAttrs: CemMember[] = useMemo(() => {
     // Find declaration for this tag in CEM
-    let declaration: any = null;
+    let declaration: CemDeclaration | null = null;
     for (const mod of manifest.modules) {
       for (const decl of mod.declarations ?? []) {
         if (decl.tagName === tagName) {
@@ -35,7 +37,7 @@ export function ComponentPlayground({
     }
 
     return (declaration?.members ?? []).filter(
-      (m: any) =>
+      (m: CemMember) =>
         m.kind === 'field' &&
         m.attribute &&
         m.privacy !== 'private' &&
@@ -45,11 +47,13 @@ export function ComponentPlayground({
 
   // Initialize controls state from the rendered DOM element's attributes/properties if available, falling back to CEM defaults
   useEffect(() => {
-    const initial: Record<string, any> = {};
-    const customElement = wrapperRef.current?.querySelector(tagName) as any;
+    const initial: Record<string, string | boolean | number> = {};
+    const customElement = wrapperRef.current?.querySelector(tagName) as
+      | (HTMLElement & Record<string, unknown>)
+      | null;
 
     configurableAttrs.forEach((attr) => {
-      const name = attr.attribute!;
+      const name = attr.attribute ?? '';
       const isBool =
         attr.type?.text?.includes('boolean') ||
         attr.default === 'true' ||
@@ -58,7 +62,7 @@ export function ComponentPlayground({
         attr.type?.text?.includes('number') ||
         !Number.isNaN(Number(attr.default));
 
-      let initialVal: any;
+      let initialVal: unknown;
       if (customElement) {
         const propVal = customElement[name];
         const attrVal = customElement.getAttribute(name);
@@ -110,7 +114,9 @@ export function ComponentPlayground({
 
   // Synchronize controls state with the custom element in the DOM
   useEffect(() => {
-    const customElement = wrapperRef.current?.querySelector(tagName);
+    const customElement = wrapperRef.current?.querySelector(tagName) as
+      | (HTMLElement & Record<string, unknown>)
+      | null;
     if (!customElement) return;
 
     Object.entries(controls).forEach(([name, value]) => {
@@ -120,13 +126,14 @@ export function ComponentPlayground({
         customElement.removeAttribute(name);
       } else if (value !== undefined && value !== '') {
         const isObject =
-          typeof (customElement as any)[name] === 'object' ||
+          typeof customElement[name] === 'object' ||
           String(value).trim().startsWith('[') ||
           String(value).trim().startsWith('{');
 
         if (isObject) {
           try {
-            (customElement as any)[name] = JSON.parse(String(value));
+            (customElement as unknown as Record<string, unknown>)[name] =
+              JSON.parse(String(value));
             customElement.setAttribute(name, String(value));
           } catch {
             customElement.setAttribute(name, String(value));
@@ -272,7 +279,7 @@ export function ComponentPlayground({
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-900">
                 {configurableAttrs.map((attr) => {
-                  const name = attr.attribute!;
+                  const name = attr.attribute ?? '';
                   const isBool =
                     attr.type?.text?.includes('boolean') ||
                     attr.default === 'true' ||
@@ -316,7 +323,9 @@ export function ComponentPlayground({
                         ) : isNum ? (
                           <input
                             type="number"
-                            value={value ?? ''}
+                            value={
+                              typeof value === 'boolean' ? '' : (value ?? '')
+                            }
                             onChange={(e) =>
                               handleNumberChange(name, e.target.value)
                             }
@@ -325,7 +334,9 @@ export function ComponentPlayground({
                         ) : (
                           <input
                             type="text"
-                            value={value ?? ''}
+                            value={
+                              typeof value === 'boolean' ? '' : (value ?? '')
+                            }
                             onChange={(e) =>
                               handleTextChange(name, e.target.value)
                             }
