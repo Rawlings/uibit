@@ -1,6 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { debounce } from 'lodash';
 import { Sidebar } from '../components/Sidebar';
 import { useHead } from '../hooks/useHead';
 import { renderMarkdownBlocks, slugify } from '../utils/markdown';
